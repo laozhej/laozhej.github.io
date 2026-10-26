@@ -1,0 +1,15 @@
+---
+import { Icon } from "astro-icon/components";
+import { socialLinks } from "@/core/data/social";
+import { getI18n } from "@/core/i18n";
+interface Props { class?: string; }
+const { class: className = "blank-contact-links" } = Astro.props;
+const { t } = getI18n(Astro.url.pathname);
+---
+<nav class={className} aria-label={t("social.heading")}>
+  {socialLinks.map((link) => (
+    <a class="blank-text-link" href={link.href} target="_blank" rel="me noopener noreferrer" aria-label={t(`social.${link.key}`)}>
+      {link.label} <Icon name="tabler:external-link" size={16} />
+    </a>
+  ))}
+</nav>

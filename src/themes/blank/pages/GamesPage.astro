@@ -1,0 +1,29 @@
+---
+import { getSiteContent } from "@/core/i18n/content";
+import { site } from "@/lib/site";
+import { getI18n } from "@/core/i18n";
+import { Icon } from "astro-icon/components";
+import BlankLayout from "../layouts/BlankLayout.astro";
+import PageHead from "../components/PageHead.astro";
+const { locale, t, unit } = getI18n(Astro.url.pathname);
+const { gamePicks } = getSiteContent(locale);
+---
+<BlankLayout title={`Play | ${site.name}`} description={t("games.description")}>
+  <PageHead index="03" title="Play" label={t("games.label")} description={t("games.intro")} count={String(gamePicks.length).padStart(2, "0")} unit={unit("common.works", gamePicks.length)} />
+  <section class="blank-games" aria-label={t("games.collection")}>
+    {gamePicks.map((game, index) => (
+      <article class="blank-game">
+        <div class="blank-game-title"><span class="blank-row-number">GAME / {String(index + 1).padStart(2, "0")}</span><h2>{game.name}</h2><span class="blank-kicker">{game.vibe}</span></div>
+        <div class="blank-game-content">
+          <p class="blank-game-description">{game.summary}</p>
+          <dl class="blank-game-credits"><div><dt>{t("games.type")}</dt><dd>{game.type}</dd></div><div><dt>{t("games.character")}</dt><dd>{game.character}</dd></div></dl>
+          <div class="blank-game-actions">
+            <a class="blank-button" href={game.officialUrl} target="_blank" rel="noopener noreferrer">{t("games.official")} <Icon name="tabler:external-link" size={15} /></a>
+          </div>
+          <details class="blank-game-thanks"><summary>{t("games.note")}</summary><p>{game.note}</p></details>
+        </div>
+      </article>
+    ))}
+  </section>
+  <div class="blank-endnote"><span class="blank-kicker">END OF COLLECTION</span><p>{t("games.more")}</p></div>
+</BlankLayout>

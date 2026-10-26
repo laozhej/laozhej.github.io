@@ -1,0 +1,9 @@
+---
+import { render } from "astro:content";
+import { getPublishedPostPaths } from "@/core/content/blog";
+import ArticlePage from "@/themes/blank/pages/ArticlePage.astro";
+export const getStaticPaths = getPublishedPostPaths;
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+---
+<ArticlePage frontmatter={post.data} headings={headings}><Content /></ArticlePage>

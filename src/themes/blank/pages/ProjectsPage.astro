@@ -1,0 +1,41 @@
+---
+import { getSiteContent } from "@/core/i18n/content";
+import { site } from "@/lib/site";
+import { getI18n } from "@/core/i18n";
+import { Icon } from "astro-icon/components";
+import BlankLayout from "../layouts/BlankLayout.astro";
+import PageHead from "../components/PageHead.astro";
+const { locale, t, unit } = getI18n(Astro.url.pathname);
+const { projectEntries, projectTechLines } = getSiteContent(locale);
+---
+<BlankLayout title={`Works | ${site.name}`} description={t("projects.description")}>
+  <PageHead index="02" title="Works" label={t("projects.label")} description={t("projects.intro")} count={String(projectEntries.length).padStart(2, "0")} unit={unit("common.projects", projectEntries.length)} />
+  <section class="blank-projects" data-blank-collection data-unit={t("common.projects")} data-unit-one={t("common.projectsOne")} aria-label={t("projects.index")}>
+    <form class="blank-filter-form" data-blank-filter-form hidden>
+      <fieldset class="blank-filters">
+        <legend class="blank-sr-only">{t("projects.categories")}</legend>
+        <button type="button" data-blank-category="all" aria-pressed="true">{t("projects.all")}</button>
+        {projectTechLines.map((line) => <button type="button" data-blank-category={line.key} aria-pressed="false">{line.label}</button>)}
+      </fieldset>
+    </form>
+    <div class="blank-list-heading"><span class="blank-kicker">PROJECT INDEX</span><output data-blank-count aria-live="polite" aria-atomic="true">{projectEntries.length} {unit("common.projects", projectEntries.length)}</output></div>
+    <div class="blank-project-list" data-blank-entries>
+      {projectEntries.map((project, index) => (
+        <details id={project.id} class="blank-project" open={index === 0} data-blank-entry data-category={project.line}>
+          <summary>
+            <span class="blank-row-number">{String(index + 1).padStart(2, "0")}</span>
+            <div class="blank-project-name"><span class="blank-kicker">{project.type}</span><h2>{project.title}</h2></div>
+            <span class="blank-project-status">{project.status}</span>
+            <Icon class="blank-disclosure-icon" name="tabler:arrow-down" size={21} />
+          </summary>
+          <div class="blank-project-body"><p>{project.summary}</p><ul>{project.details.map((detail) => <li>{detail}</li>)}</ul></div>
+        </details>
+      ))}
+    </div>
+    <div class="blank-empty-results" data-blank-empty hidden><p>{t("projects.empty")}</p><button class="blank-text-link" type="button" data-blank-reset>{t("projects.reset")} <Icon name="tabler:arrow-right" size={17} /></button></div>
+  </section>
+  <section class="blank-section">
+    <div class="blank-section-heading"><div><p class="blank-kicker">{t("projects.categoryKicker")}</p><h2>{t("projects.directions")}</h2></div></div>
+    <dl class="blank-toolkit">{projectTechLines.map((line) => <div><dt>{line.label}</dt><dd>{line.note}</dd></div>)}</dl>
+  </section>
+</BlankLayout>

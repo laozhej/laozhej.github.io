@@ -1,0 +1,65 @@
+---
+import { getSiteContent } from "@/core/i18n/content";
+import { site } from "@/lib/site";
+import { getI18n } from "@/core/i18n";
+import { Icon } from "astro-icon/components";
+import BlankLayout from "../layouts/BlankLayout.astro";
+import PostRow from "../components/PostRow.astro";
+import { getPublishedPosts } from "@/core/content/blog";
+const { locale, t, unit, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
+const { profileTech, currentSignals, projectEntries } = getSiteContent(locale);
+
+const posts = await getPublishedPosts(locale);
+const [featured, ...remaining] = posts;
+const date = featured && (featured.data.updatedDate ?? featured.data.pubDate);
+---
+
+<BlankLayout title={`${site.name} | ${t("home.title")}`} description={t("home.description")}>
+  <section class="blank-home-hero" aria-labelledby="blank-home-title">
+    <div class="blank-home-topline"><p class="blank-kicker">{t("home.kicker")}</p><span class="blank-kicker">A PERSONAL SPACE</span></div>
+    <h1 id="blank-home-title">{site.name}<span aria-hidden="true">.</span></h1>
+    <div class="blank-home-bottom">
+      <p class="blank-home-statement">{t("home.statement1")}<br />{t("home.statement2")}</p>
+      <div class="blank-home-intro">
+        <p>{t("home.intro1")}<br class="blank-desktop-break" />{t("home.intro2")}</p>
+        <a class="blank-text-link" href={href("/about/")}>{t("common.about")} <Icon name="tabler:arrow-right" size={17} /></a>
+      </div>
+      <a class="blank-home-down blank-icon-button" href="#blank-latest" aria-label={t("home.latestLink")} title={t("home.latestLink")}><Icon name="tabler:arrow-down" size={24} /></a>
+    </div>
+    <div class="blank-home-index">
+      <a href={href("/blog/")}><span>{t("home.writingIndex")}</span><strong>{String(posts.length).padStart(2, "0")} {unit("common.entries", posts.length)}</strong></a>
+      <a href={href("/projects/")}><span>{t("home.practiceIndex")}</span><strong>{String(projectEntries.length).padStart(2, "0")} {unit("common.projects", projectEntries.length)}</strong></a>
+      <a href={href("/games/")}><span>{t("home.playIndex")}</span><strong>{t("home.playHint")}</strong></a>
+    </div>
+  </section>
+
+  <section id="blank-latest" class="blank-section">
+    <div class="blank-section-heading"><div><p class="blank-kicker">01 / WRITING</p><h2>{t("home.latest")}</h2></div><a class="blank-text-link" href={href("/blog/")}>{t("common.allArticles")} <Icon name="tabler:arrow-right" size={18} /></a></div>
+    {featured && (
+      <a class="blank-featured" href={href(`/blog/${featured.slug}/`)}>
+        <div class="blank-featured-margin"><span class="blank-kicker">LATEST ENTRY</span><span class="blank-featured-number" aria-hidden="true">01</span></div>
+        <div class="blank-featured-content">
+          <div class="blank-post-meta"><span>{categoryLabel[featured.data.category]}</span><time datetime={date.toISOString()}>{formatDate(date)}</time></div>
+          <h2>{featured.data.title}</h2>
+          <p>{featured.data.description}</p>
+          <span class="blank-text-link">{t("common.readMore")} <Icon name="tabler:arrow-right" size={19} /></span>
+        </div>
+      </a>
+    )}
+    <ol class="blank-post-list">{remaining.slice(0, 3).map((post, index) => <PostRow post={post} index={index + 2} />)}</ol>
+    {posts.length === 0 && <p class="blank-empty-message">{t("home.empty")}</p>}
+  </section>
+
+  <section class="blank-section blank-workbench">
+    <div class="blank-section-heading"><div><p class="blank-kicker">02 / IN PRACTICE</p><h2>{t("home.inProgress")}</h2></div><a class="blank-text-link" href={href("/projects/")}>{t("common.projectNotes")} <Icon name="tabler:arrow-right" size={18} /></a></div>
+    <div class="blank-workbench-body">
+      <p class="blank-section-intro">{t("home.practice1")}<br />{t("home.practice2")}</p>
+      <dl class="blank-tech-list">{profileTech.map((item, index) => <div><dt><span class="blank-row-number">{String(index + 1).padStart(2, "0")}</span>{item.name}</dt><dd>{item.note}</dd></div>)}</dl>
+    </div>
+  </section>
+  <section class="blank-now">
+    <p class="blank-kicker">{t("home.currently")}</p>
+    <p>{currentSignals[0].text}</p>
+    <a class="blank-text-link" href={href("/about/")}>{t("common.moreNow")} <Icon name="tabler:arrow-right" size={17} /></a>
+  </section>
+</BlankLayout>

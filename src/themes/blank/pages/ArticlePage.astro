@@ -1,0 +1,42 @@
+---
+import { site } from "@/lib/site";
+import { getI18n } from "@/core/i18n";
+import { Icon } from "astro-icon/components";
+import BlankLayout from "../layouts/BlankLayout.astro";
+const { locale, t, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
+const { frontmatter } = Astro.props;
+const headings = (Astro.props.headings ?? []).filter((heading) => heading.depth >= 2 && heading.depth <= 3);
+const title = `${frontmatter.seoTitle ?? frontmatter.title} | ${site.name}`;
+const description = frontmatter.seoDescription ?? frontmatter.description;
+const date = frontmatter.updatedDate ?? frontmatter.pubDate;
+const dateLabel = formatDate(date);
+---
+<BlankLayout title={title} description={description} isArticlePage article={frontmatter}>
+  <div class="blank-article-topline"><a class="blank-text-link" href={href("/blog/")}><Icon name="tabler:arrow-left" size={17} />{t("common.allArticles")}</a><span class="blank-kicker">{t("article.kicker")}</span></div>
+  <header class="blank-article-header">
+    <div class="blank-post-meta"><a href={`${href("/blog/")}?category=${frontmatter.category}`}>{categoryLabel[frontmatter.category]}</a><time datetime={date.toISOString()}>{frontmatter.updatedDate ? t("article.updated") : ""}{dateLabel}</time></div>
+    <h1>{frontmatter.title}</h1>
+    <p>{frontmatter.description}</p>
+    <div class="blank-tag-line">{frontmatter.tags.map((tag: string) => <a href={`${href("/blog/")}?q=${encodeURIComponent(tag)}`}>#{tag}</a>)}</div>
+  </header>
+  <div class="blank-article-shell">
+    {headings.length > 0 && (
+      <aside class="blank-toc">
+        <details open>
+          <summary><span>{t("article.contents")}</span><Icon class="blank-disclosure-icon" name="tabler:chevron-down" size={16} /></summary>
+          <nav aria-label={t("article.toc")} data-blank-toc>{headings.map((heading) => <a class={`depth-${heading.depth}`} href={`#${heading.slug}`}>{heading.text}</a>)}</nav>
+        </details>
+      </aside>
+    )}
+    <article class="blank-article-body">
+      {frontmatter.locale !== locale && <p class="blank-translation-notice" role="note">{t("article.originalLanguage")}</p>}
+      <div class="blank-prose" data-blank-prose lang={frontmatter.locale}><slot /></div>
+      <footer class="blank-article-end">
+        <span class="blank-end-mark" aria-hidden="true"></span><p class="blank-kicker">{t("article.end")}</p>
+        <p>{t("article.thanks")}</p>
+        <a class="blank-text-link" href={href("/blog/")}>{t("article.back")} <Icon name="tabler:arrow-right" size={17} /></a>
+      </footer>
+    </article>
+  </div>
+</BlankLayout>
+

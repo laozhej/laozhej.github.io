@@ -1,0 +1,17 @@
+---
+import { localePreferenceKey, locales } from "./routing.mjs";
+---
+<script is:inline define:vars={{ localePreferenceKey, locales }}>
+  // Explicit /ja/ and /en/ URLs win over a saved preference. Unprefixed
+  // entry links use the visitor's preference, before any page is painted.
+  (() => {
+    if (/^\/(ja|en)(\/|$)/.test(location.pathname)) return;
+    try {
+      const saved = localStorage.getItem(localePreferenceKey);
+      if (locales.includes(saved) && saved !== "zh-CN") {
+        const path = location.pathname === "/404.html" ? "/404/" : location.pathname;
+        location.replace(`/${saved}${path}${location.search}${location.hash}`);
+      }
+    } catch {}
+  })();
+</script>

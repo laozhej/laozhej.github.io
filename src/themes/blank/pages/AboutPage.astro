@@ -1,0 +1,39 @@
+---
+import { getSiteContent } from "@/core/i18n/content";
+import { site } from "@/lib/site";
+import { getI18n } from "@/core/i18n";
+import { Icon } from "astro-icon/components";
+import BlankLayout from "../layouts/BlankLayout.astro";
+import PageHead from "../components/PageHead.astro";
+import SocialLinks from "@/core/components/SocialLinks.astro";
+const { locale, t } = getI18n(Astro.url.pathname);
+const { currentSignals, favoriteGames, profileIdentity, profileStatus, profileTech, xpFavorites } = getSiteContent(locale);
+---
+<BlankLayout title={`About | ${site.name}`} description={t("about.description")}>
+  <PageHead index="04" title="About" label={t("common.about")} description={t("about.intro")} />
+  <section class="blank-profile">
+    <div class="blank-profile-name"><p class="blank-kicker">{profileIdentity.handle}</p><h2>{profileIdentity.displayName}<span aria-hidden="true">{t("common.period")}</span></h2><p>PERSONAL PROFILE</p></div>
+    <div class="blank-profile-bio">
+      <p class="blank-profile-lead">{profileIdentity.bio}</p>
+      <ul class="blank-status-list">{profileStatus.map((item) => <li>{item}</li>)}</ul>
+      <SocialLinks />
+    </div>
+  </section>
+  <section class="blank-section blank-about-section">
+    <div><p class="blank-kicker">01 / PRACTICE</p><h2>{t("about.practice")}</h2></div>
+    <dl class="blank-tech-list">{profileTech.map((item, index) => <div><dt><span class="blank-row-number">{String(index + 1).padStart(2, "0")}</span>{item.name}</dt><dd>{item.note}</dd></div>)}</dl>
+  </section>
+  <section class="blank-section blank-about-section">
+    <div><p class="blank-kicker">02 / FAVORITES</p><h2>{t("about.favorites")}</h2></div>
+    <div class="blank-favorites">
+      <h3 class="blank-kicker">{t("about.gamesKicker")}</h3>
+      <ol class="blank-favorites-list">{favoriteGames.map((item, index) => <li><span class="blank-row-number">{String(index + 1).padStart(2, "0")}</span><div><strong><a class="blank-text-link" href={item.url} target="_blank" rel="noopener noreferrer">{item.title} <Icon name="tabler:external-link" size={15} /></a></strong><span>{item.subtitle}</span></div></li>)}</ol>
+      <h3 class="blank-kicker">{t("about.characterKicker")}</h3>
+      <ul class="blank-preferences">{xpFavorites.map((item) => <li>{item.title}</li>)}</ul>
+    </div>
+  </section>
+  <section class="blank-section blank-about-section">
+    <div><p class="blank-kicker">03 / NOW</p><h2>{t("about.now")}</h2></div>
+    <dl class="blank-signals">{currentSignals.map((item) => <div><dt>{item.label}</dt><dd>{item.text}</dd></div>)}</dl>
+  </section>
+</BlankLayout>

@@ -1,0 +1,105 @@
+---
+import "../styles/theme.css";
+import { Icon } from "astro-icon/components";
+import { site } from "@/lib/site";
+import { getI18n, localizePath, stripLocale, locales, type Locale } from "@/core/i18n";
+import LanguagePreference from "@/core/i18n/LanguagePreference.astro";
+import LanguageSwitcher from "@/core/i18n/LanguageSwitcher.astro";
+import SocialLinks from "@/core/components/SocialLinks.astro";
+const { locale, t, href } = getI18n(Astro.url.pathname);
+const path = stripLocale(Astro.url.pathname);
+const ogLocale = { "zh-CN": "zh_CN", ja: "ja_JP", en: "en_US" }[locale];
+interface Props {
+  title?: string;
+  description?: string;
+  isArticlePage?: boolean;
+  article?: { pubDate: Date; updatedDate?: Date };
+}
+const { title = site.name, description = t("site.description"), isArticlePage = false, article } = Astro.props;
+const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale), Astro.site) : undefined;
+const navItems = site.nav.map((item, index) => ({
+  ...item,
+  label: t(`nav.${item.key}`),
+  href: href(item.href),
+  number: String(index + 1).padStart(2, "0"),
+  active: item.href === "/" ? path === "/" : path.startsWith(item.href),
+}));
+---
+<!doctype html>
+<html lang={locale} data-theme="blank">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <LanguagePreference />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#ffffff" />
+    <script is:inline>
+      // Apply the preference before the page paints, including on article navigation.
+      (() => {
+        let saved;
+        try { saved = localStorage.getItem("blank-color-mode"); } catch {}
+        const mode = saved === "light" || saved === "dark"
+          ? saved
+          : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.colorMode = mode;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", mode === "dark" ? "#141414" : "#ffffff");
+      })();
+    </script>
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={isArticlePage ? "article" : "website"} />
+    <meta property="og:locale" content={ogLocale} />
+    {canonical && <><link rel="canonical" href={canonical} /><meta property="og:url" content={canonical} /></>}
+    {Astro.site && locales.map((language: Locale) => <link rel="alternate" hreflang={language} href={new URL(localizePath(Astro.url.pathname, language), Astro.site)} />)}
+    {article && <meta property="article:published_time" content={article.pubDate.toISOString()} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body data-blank>
+    <a class="blank-skip-link" href="#blank-main">{t("a11y.skip")}</a>
+    <header class="blank-header">
+      <div class="blank-header-inner">
+        <a class="blank-wordmark" href={href("/")} aria-label={`${site.name} ${t("a11y.home")}`}>
+          <strong>{site.wordmark}<span aria-hidden="true">.</span></strong>
+          <span class="blank-edition">BLANK / 01</span>
+        </a>
+        <nav class="blank-nav" aria-label={t("a11y.navigation")}>
+          {navItems.map((item) => <a href={item.href} aria-current={item.active ? "page" : undefined}><span class="blank-nav-number" aria-hidden="true">{item.number}</span>{item.label}</a>)}
+        </nav>
+        <div class="blank-header-actions">
+          <LanguageSwitcher />
+          <button class="blank-icon-button blank-theme-trigger blank-mode-toggle" type="button" data-color-mode-toggle hidden aria-label={t("mode.label")} aria-pressed="false" title={t("mode.toDark")} data-label-dark={t("mode.toDark")} data-label-light={t("mode.toLight")}>
+            <span class="blank-mode-moon" aria-hidden="true"><Icon name="tabler:moon" size={19} /></span>
+            <span class="blank-mode-sun" aria-hidden="true"><Icon name="tabler:sun" size={19} /></span>
+          </button>
+          <a class="blank-icon-button blank-theme-trigger" href={href("/blog/#blank-search")} aria-label={t("a11y.search")} title={t("a11y.search")}>
+            <Icon name="tabler:search" size={19} />
+          </a>
+        </div>
+      </div>
+      {isArticlePage && <div class="blank-reading-track" aria-hidden="true"><span data-blank-progress></span></div>}
+    </header>
+    <main id="blank-main" class:list={["blank-main", { "blank-main--article": isArticlePage }]} tabindex="-1"><slot /></main>
+    <footer class="blank-footer">
+      <div class="blank-footer-top">
+        <a class="blank-footer-brand" href={href("/")}>{site.name}<span aria-hidden="true">.</span></a>
+        <div class="blank-footer-links">
+          <a href={href("/blog/")}>{t("footer.journal")} <Icon name="tabler:arrow-right" size={15} /></a>
+          <a href={href("/projects/")}>{t("footer.projects")} <Icon name="tabler:arrow-right" size={15} /></a>
+          <a href={href("/about/")}>{t("footer.about")} <Icon name="tabler:arrow-right" size={15} /></a>
+        </div>
+        <SocialLinks class="blank-footer-links" />
+      </div>
+      <div class="blank-footer-bottom">
+        <span>© {new Date().getFullYear()} {site.name}</span>
+        <a href="https://github.com/Yuimi-chaya/Yuimi-chaya.github.io/tree/main/src/themes/blank" target="_blank" rel="noopener noreferrer">{t("footer.themeCredit")} ↗</a>
+        <a href={href("/credits/")}>{t("footer.credits")}</a>
+        <a href="#blank-main" class="blank-back-top">{t("footer.top")} <Icon name="tabler:arrow-up" size={14} /></a>
+      </div>
+    </footer>
+    <script>
+      import { mountBlank } from "../lib/runtime.mjs";
+      mountBlank(document, window);
+    </script>
+  </body>
+</html>

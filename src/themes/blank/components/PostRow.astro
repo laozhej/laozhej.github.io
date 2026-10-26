@@ -1,0 +1,24 @@
+---
+import { Icon } from "astro-icon/components";
+import type { BlogPost } from "@/core/content/blog";
+import { getI18n } from "@/core/i18n";
+interface Props { post: BlogPost; index: number; }
+const { post, index } = Astro.props;
+const { href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
+const date = post.data.updatedDate ?? post.data.pubDate;
+const displayDate = formatDate(date);
+---
+<li data-blank-entry data-category={post.data.category} data-date={date.valueOf()}
+  data-search={[post.data.title, post.data.description, categoryLabel[post.data.category], ...post.data.tags].join(" ")}>
+  <a class="blank-post-row" href={href(`/blog/${post.slug}/`)}>
+    <span class="blank-row-number" aria-hidden="true">{String(index).padStart(2, "0")}</span>
+    <div class="blank-post-content">
+      <div class="blank-post-meta"><span>{categoryLabel[post.data.category]}</span><time datetime={date.toISOString()}>{displayDate}</time></div>
+      <h2>{post.data.title}</h2>
+      <p>{post.data.description}</p>
+      <div class="blank-tag-line">{post.data.tags.slice(0, 4).map((tag) => <span>#{tag}</span>)}</div>
+    </div>
+    <Icon class="blank-row-arrow" name="tabler:arrow-right" size={23} />
+  </a>
+</li>
+

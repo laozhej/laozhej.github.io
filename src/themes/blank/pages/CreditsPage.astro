@@ -1,0 +1,55 @@
+---
+import { Icon } from "astro-icon/components";
+import { site } from "@/lib/site";
+import { getI18n } from "@/core/i18n";
+import BlankLayout from "../layouts/BlankLayout.astro";
+import PageHead from "../components/PageHead.astro";
+import themeLicense from "../../../../public/licenses/yuimi-chaya-MIT.txt?raw";
+import iconLicense from "../../../../public/licenses/tabler-icons-MIT.txt?raw";
+const { t, href } = getI18n(Astro.url.pathname);
+---
+<BlankLayout title={`${t("credits.title")} | ${site.name}`} description={t("credits.description")}>
+  <PageHead index="05" title="Credits" label={t("credits.title")} description={t("credits.intro")} />
+  <section class="blank-section blank-about-section blank-credits-section">
+    <div><p class="blank-kicker">01 / THEME</p><h2>{t("credits.themeHeading")}</h2></div>
+    <div class="blank-credits-body">
+      <h3>Blank / Yuimi-chaya</h3>
+      <p>{t("credits.themeText")}</p>
+      <div class="blank-credits-links">
+        <a class="blank-text-link" href="https://github.com/Yuimi-chaya/Yuimi-chaya.github.io" target="_blank" rel="noopener noreferrer">{t("credits.repository")} <Icon name="tabler:external-link" size={15} /></a>
+        <a class="blank-text-link" href="https://yuimi-chaya.github.io/themes/blank/" target="_blank" rel="noopener noreferrer">{t("credits.originalTheme")} <Icon name="tabler:external-link" size={15} /></a>
+      </div>
+      <details class="blank-license">
+        <summary>{t("credits.licenseText")} · MIT</summary>
+        <pre lang="en">{themeLicense}</pre>
+      </details>
+      <a class="blank-text-link" href="/licenses/yuimi-chaya-MIT.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+    </div>
+  </section>
+  <section class="blank-section blank-about-section blank-credits-section">
+    <div><p class="blank-kicker">02 / ADAPTATION</p><h2>{t("credits.changesHeading")}</h2></div>
+    <ul class="blank-credits-changes">{["credits.changeRoutes", "credits.changeContent", "credits.changeAppearance", "credits.changeLanguage"].map((key, index) => <li><span class="blank-row-number">{String(index + 1).padStart(2, "0")}</span><p>{t(key)}</p></li>)}</ul>
+  </section>
+  <section class="blank-section blank-about-section blank-credits-section">
+    <div><p class="blank-kicker">03 / ICONS</p><h2>{t("credits.iconsHeading")}</h2></div>
+    <div class="blank-credits-body">
+      <h3>Tabler Icons</h3>
+      <p>{t("credits.iconsText")}</p>
+      <a class="blank-text-link" href="https://github.com/tabler/tabler-icons" target="_blank" rel="noopener noreferrer">{t("credits.iconProject")} <Icon name="tabler:external-link" size={15} /></a>
+      <details class="blank-license">
+        <summary>{t("credits.licenseText")} · MIT</summary>
+        <pre lang="en">{iconLicense}</pre>
+      </details>
+      <a class="blank-text-link" href="/licenses/tabler-icons-MIT.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+    </div>
+  </section>
+  <section class="blank-section blank-about-section blank-credits-section">
+    <div><p class="blank-kicker">04 / CONTENT</p><h2>{t("credits.contentHeading")}</h2></div>
+    <div class="blank-credits-body">
+      <p>{t("credits.contentText")}</p>
+      <p>{t("credits.mediaText")}</p>
+      <p>{t("credits.scopeText")}</p>
+      <a class="blank-text-link" href={href("/")}>{t("credits.back")} <Icon name="tabler:arrow-right" size={17} /></a>
+    </div>
+  </section>
+</BlankLayout>

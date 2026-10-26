@@ -1,0 +1,20 @@
+---
+interface Props {
+  index: string;
+  title: string;
+  label: string;
+  description: string;
+  count?: string;
+  unit?: string;
+}
+const { index, title, label, description, count, unit } = Astro.props;
+---
+<header class="blank-page-head">
+  <p class="blank-kicker"><span>{index}</span> / {label}</p>
+  <div class="blank-page-heading">
+    <h1>{title}<span aria-hidden="true">.</span></h1>
+    {count && <p class="blank-page-count"><strong>{count}</strong><span>{unit}</span></p>}
+  </div>
+  <p class="blank-page-description">{description}</p>
+</header>
+

@@ -1,0 +1,20 @@
+{
+  "name": "blank-personal-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build",
+    "test": "node --test tests/i18n.test.mjs",
+    "preview": "astro preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "astro": "7.3.5",
+    "astro-icon": "1.2.0",
+    "@iconify-json/tabler": "1.2.35"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

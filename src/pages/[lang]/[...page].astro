@@ -1,0 +1,32 @@
+---
+import { render } from "astro:content";
+import { getPublishedPosts } from "@/core/content/blog";
+import HomePage from "@/themes/blank/pages/HomePage.astro";
+import BlogIndexPage from "@/themes/blank/pages/BlogIndexPage.astro";
+import ArticlePage from "@/themes/blank/pages/ArticlePage.astro";
+import ProjectsPage from "@/themes/blank/pages/ProjectsPage.astro";
+import GamesPage from "@/themes/blank/pages/GamesPage.astro";
+import AboutPage from "@/themes/blank/pages/AboutPage.astro";
+import CreditsPage from "@/themes/blank/pages/CreditsPage.astro";
+import NotFoundPage from "@/themes/blank/pages/NotFoundPage.astro";
+
+export async function getStaticPaths() {
+  const routes = [];
+  for (const locale of ["ja", "en"] as const) {
+    for (const page of ["", "blog", "projects", "games", "about", "credits", "404"]) {
+      routes.push({ params: { lang: locale, page: page || undefined }, props: { kind: page || "home" } });
+    }
+    for (const post of await getPublishedPosts(locale)) {
+      routes.push({ params: { lang: locale, page: `blog/${post.slug}` }, props: { kind: "article", post } });
+    }
+  }
+  return routes;
+}
+
+const { kind, post } = Astro.props;
+const pages = { home: HomePage, blog: BlogIndexPage, projects: ProjectsPage, games: GamesPage, about: AboutPage, credits: CreditsPage, "404": NotFoundPage };
+const Page = pages[kind as keyof typeof pages];
+const rendered = post ? await render(post) : undefined;
+const Content = rendered?.Content;
+---
+{Content ? <ArticlePage frontmatter={post.data} headings={rendered.headings}><Content /></ArticlePage> : <Page />}

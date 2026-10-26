@@ -1,0 +1,25 @@
+---
+import { Icon } from "astro-icon/components";
+import { getI18n, localizePath, localeNames, localeCodes, locales, type Locale } from "./index";
+const { locale, t } = getI18n(Astro.url.pathname);
+const isNotFound = /\/404(?:\.html|\/?)$/.test(Astro.url.pathname);
+const path = isNotFound ? "/404/" : Astro.url.pathname;
+---
+<details class="site-language-menu" data-site-language-menu>
+  <summary aria-label={t("a11y.language")} title={t("a11y.language")}>
+    <Icon name="tabler:language" size={18} />
+    <span>{localeCodes[locale]}</span>
+    <Icon name="tabler:chevron-down" size={12} />
+  </summary>
+  <nav class="site-language-options" aria-label={t("a11y.language")}>
+    {locales.map((language: Locale) => (
+      <a href={isNotFound && language === "zh-CN" ? "/404.html" : localizePath(path, language)} lang={language} hreflang={language} data-site-locale={language} aria-current={locale === language ? "true" : undefined}>
+        <span>{localeNames[language]}</span><span aria-hidden="true">{locale === language ? "✓" : ""}</span>
+      </a>
+    ))}
+  </nav>
+</details>
+<script>
+  import { mountLanguagePreference } from "./preference.mjs";
+  mountLanguagePreference(document, window);
+</script>

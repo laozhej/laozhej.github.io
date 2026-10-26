@@ -1,0 +1,16 @@
+---
+import { site } from "@/lib/site";
+import { getI18n } from "@/core/i18n";
+import { Icon } from "astro-icon/components";
+import BlankLayout from "../layouts/BlankLayout.astro";
+const { t, href } = getI18n(Astro.url.pathname);
+---
+<BlankLayout title={`404 | ${site.name}`} description={t("notFound.description")}>
+  <section class="blank-not-found">
+    <p class="blank-kicker">ERROR / PAGE NOT FOUND</p>
+    <strong class="blank-404" aria-hidden="true">404<span>.</span></strong>
+    <div class="blank-not-found-bottom"><div><h1>{t("notFound.title")}</h1><p>{t("notFound.message")}</p><p class="blank-missing-path" data-blank-missing-path hidden></p></div>
+      <div class="blank-not-found-links"><a class="blank-button" href={href("/")}><Icon name="tabler:arrow-left" size={17} />{t("notFound.home")}</a><a class="blank-text-link" href={href("/blog/")}>{t("notFound.read")} <Icon name="tabler:arrow-right" size={17} /></a></div>
+    </div>
+  </section>
+</BlankLayout>

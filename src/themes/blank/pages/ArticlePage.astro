@@ -24,13 +24,13 @@ const dateLabel = formatDate(date);
       <aside class="blank-toc">
         <details open>
           <summary><span>{t("article.contents")}</span><Icon class="blank-disclosure-icon" name="tabler:chevron-down" size={16} /></summary>
-          <nav aria-label={t("article.toc")} data-blank-toc>{headings.map((heading) => <a class={`depth-${heading.depth}`} href={`#${heading.slug}`}>{heading.text}</a>)}</nav>
+          <nav aria-label={t("article.toc")} data-site-toc>{headings.map((heading) => <a class={`depth-${heading.depth}`} href={`#${heading.slug}`}>{heading.text}</a>)}</nav>
         </details>
       </aside>
     )}
     <article class="blank-article-body">
       {frontmatter.locale !== locale && <p class="blank-translation-notice" role="note">{t("article.originalLanguage")}</p>}
-      <div class="blank-prose" data-blank-prose lang={frontmatter.locale}><slot /></div>
+      <div class="blank-prose" data-site-prose lang={frontmatter.locale}><slot /></div>
       <footer class="blank-article-end">
         <span class="blank-end-mark" aria-hidden="true"></span><p class="blank-kicker">{t("article.end")}</p>
         <p>{t("article.thanks")}</p>

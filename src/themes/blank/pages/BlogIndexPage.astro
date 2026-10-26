@@ -12,29 +12,29 @@ const categories = Object.entries(categoryLabel).filter(([key]) => posts.some((p
 ---
 <BlankLayout title={`Journal | ${site.name}`} description={t("blog.description")}>
   <PageHead index="01" title="Journal" label={t("blog.label")} description={t("blog.intro")} count={String(posts.length).padStart(2, "0")} unit={unit("common.entries", posts.length)} />
-  <section class="blank-archive" data-blank-collection data-unit={t("common.articles")} data-unit-one={t("common.articlesOne")} aria-label={t("blog.archive")}>
-    <form class="blank-filter-form" data-blank-filter-form role="search" hidden>
+  <section class="blank-archive" data-site-collection data-unit={t("common.articles")} data-unit-one={t("common.articlesOne")} aria-label={t("blog.archive")}>
+    <form class="blank-filter-form" data-site-filter-form role="search" hidden>
       <div class="blank-archive-tools">
         <div class="blank-search">
           <Icon name="tabler:search" size={19} />
           <label class="blank-sr-only" for="blank-search">{t("blog.searchLabel")}</label>
-          <input id="blank-search" type="search" name="q" maxlength="300" autocomplete="off" placeholder={t("blog.searchPlaceholder")} data-blank-query />
-          <button class="blank-icon-button" type="button" data-blank-clear aria-label={t("blog.clearSearch")} title={t("blog.clearSearch")} hidden><Icon name="tabler:x" size={16} /></button>
+          <input id="blank-search" type="search" name="q" maxlength="300" autocomplete="off" placeholder={t("blog.searchPlaceholder")} data-site-query />
+          <button class="blank-icon-button" type="button" data-site-clear aria-label={t("blog.clearSearch")} title={t("blog.clearSearch")} hidden><Icon name="tabler:x" size={16} /></button>
         </div>
         <div class="blank-sort">
           <label for="blank-sort">{t("blog.sort")}</label>
-          <select id="blank-sort" name="sort" data-blank-sort><option value="newest">{t("blog.newest")}</option><option value="oldest">{t("blog.oldest")}</option></select>
+          <select id="blank-sort" name="sort" data-site-sort><option value="newest">{t("blog.newest")}</option><option value="oldest">{t("blog.oldest")}</option></select>
         </div>
       </div>
       <fieldset class="blank-filters">
         <legend class="blank-sr-only">{t("blog.categories")}</legend>
-        <button type="button" data-blank-category="all" aria-pressed="true">{t("blog.all")} <span>{posts.length}</span></button>
-        {categories.map(([key, label]) => <button type="button" data-blank-category={key} aria-pressed="false">{label} <span>{posts.filter((post) => post.data.category === key).length}</span></button>)}
+        <button type="button" data-site-category="all" aria-pressed="true">{t("blog.all")} <span>{posts.length}</span></button>
+        {categories.map(([key, label]) => <button type="button" data-site-category={key} aria-pressed="false">{label} <span>{posts.filter((post) => post.data.category === key).length}</span></button>)}
       </fieldset>
     </form>
-    <div class="blank-list-heading"><span class="blank-kicker">{t("blog.index")}</span><output data-blank-count aria-live="polite" aria-atomic="true">{posts.length} {unit("common.articles", posts.length)}</output></div>
-    <ol class="blank-post-list" data-blank-entries>{posts.map((post, index) => <PostRow post={post} index={index + 1} />)}</ol>
-    <div class="blank-empty-results" data-blank-empty hidden><p>{t("blog.noResults")}</p><button class="blank-text-link" type="button" data-blank-reset>{t("blog.reset")} <Icon name="tabler:arrow-back-up" size={17} /></button></div>
+    <div class="blank-list-heading"><span class="blank-kicker">{t("blog.index")}</span><output data-site-count aria-live="polite" aria-atomic="true">{posts.length} {unit("common.articles", posts.length)}</output></div>
+    <ol class="blank-post-list" data-site-entries>{posts.map((post, index) => <PostRow post={post} index={index + 1} />)}</ol>
+    <div class="blank-empty-results" data-site-empty hidden><p>{t("blog.noResults")}</p><button class="blank-text-link" type="button" data-site-reset>{t("blog.reset")} <Icon name="tabler:arrow-back-up" size={17} /></button></div>
     {posts.length === 0 && <p class="blank-empty-message">{t("blog.empty")}</p>}
   </section>
 </BlankLayout>

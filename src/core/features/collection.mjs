@@ -32,18 +32,18 @@ export function collectionUrl(url, state) {
 }
 
 export function mountCollection(root, win) {
-  const form = root.querySelector("[data-blank-filter-form]");
-  const list = root.querySelector("[data-blank-entries]");
+  const form = root.querySelector("[data-site-filter-form]");
+  const list = root.querySelector("[data-site-entries]");
   if (!form || !list) return () => {};
-  const input = root.querySelector("[data-blank-query]");
-  const sort = root.querySelector("[data-blank-sort]");
-  const buttons = [...root.querySelectorAll("[data-blank-category]")];
-  const clear = root.querySelector("[data-blank-clear]");
-  const reset = root.querySelector("[data-blank-reset]");
-  const empty = root.querySelector("[data-blank-empty]");
-  const count = root.querySelector("[data-blank-count]");
-  const entries = [...list.querySelectorAll("[data-blank-entry]")];
-  const categories = buttons.map((button) => button.dataset.blankCategory);
+  const input = root.querySelector("[data-site-query]");
+  const sort = root.querySelector("[data-site-sort]");
+  const buttons = [...root.querySelectorAll("[data-site-category]")];
+  const clear = root.querySelector("[data-site-clear]");
+  const reset = root.querySelector("[data-site-reset]");
+  const empty = root.querySelector("[data-site-empty]");
+  const count = root.querySelector("[data-site-count]");
+  const entries = [...list.querySelectorAll("[data-site-entry]")];
+  const categories = buttons.map((button) => button.dataset.siteCategory);
   const listeners = [];
   const on = (node, event, handler) => {
     if (!node) return;
@@ -52,8 +52,10 @@ export function mountCollection(root, win) {
   };
   let state;
   let urlTimer = 0;
+  let disposed = false;
 
   const syncUrl = () => {
+    if (disposed) return;
     win.clearTimeout(urlTimer);
     urlTimer = 0;
     try {
@@ -74,7 +76,7 @@ export function mountCollection(root, win) {
       for (const entry of ordered) list.append(entry);
       sort.value = state.sort;
     }
-    for (const button of buttons) button.setAttribute("aria-pressed", String(button.dataset.blankCategory === state.category));
+    for (const button of buttons) button.setAttribute("aria-pressed", String(button.dataset.siteCategory === state.category));
     if (input && input.value !== state.query) input.value = state.query;
     if (clear) clear.hidden = !state.query;
     if (count) count.textContent = `${visible} ${visible === 1 ? (root.dataset.unitOne ?? root.dataset.unit) : root.dataset.unit}`;
@@ -89,6 +91,7 @@ export function mountCollection(root, win) {
   };
   const restore = () => {
     win.clearTimeout(urlTimer);
+    urlTimer = 0;
     state = readCollectionState(win.location.href, categories);
     if (!input) state.query = "";
     if (!sort) state.sort = "newest";
@@ -104,7 +107,7 @@ export function mountCollection(root, win) {
   on(input, "compositionend", search);
   on(sort, "change", () => { state.sort = sort.value === "oldest" ? "oldest" : "newest"; apply(); });
   for (const button of buttons) {
-    on(button, "click", () => { state.category = button.dataset.blankCategory; apply(); });
+    on(button, "click", () => { state.category = button.dataset.siteCategory; apply(); });
   }
   on(clear, "click", () => { state.query = ""; apply(); input?.focus(); });
   on(reset, "click", () => {
@@ -117,6 +120,7 @@ export function mountCollection(root, win) {
   restore();
   form.hidden = false;
   return () => {
+    disposed = true;
     win.clearTimeout(urlTimer);
     listeners.forEach((remove) => remove());
   };

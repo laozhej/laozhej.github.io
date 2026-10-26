@@ -1,0 +1,26 @@
+---
+import { COLOR_MODE_STORAGE_KEY, DEFAULT_COLOR_MODE_COLORS } from "./color-mode.mjs";
+interface Props {
+  lightColor?: string;
+  darkColor?: string;
+}
+const {
+  lightColor = DEFAULT_COLOR_MODE_COLORS.light,
+  darkColor = DEFAULT_COLOR_MODE_COLORS.dark,
+} = Astro.props;
+---
+<meta name="theme-color" content={lightColor} data-color-mode-light={lightColor} data-color-mode-dark={darkColor} />
+<script is:inline define:vars={{ storageKey: COLOR_MODE_STORAGE_KEY }}>
+  // Apply before paint. Every theme shares this preference, with its own browser colors.
+  (() => {
+    let saved;
+    try { saved = localStorage.getItem(storageKey); } catch {}
+    const mode = saved === "light" || saved === "dark"
+      ? saved
+      : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.dataset.colorMode = mode;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    const color = mode === "dark" ? meta?.dataset.colorModeDark : meta?.dataset.colorModeLight;
+    if (color) meta.setAttribute("content", color);
+  })();
+</script>

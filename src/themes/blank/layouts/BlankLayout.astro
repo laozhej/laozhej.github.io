@@ -5,6 +5,7 @@ import { site } from "@/lib/site";
 import { getI18n, localizePath, stripLocale, locales, type Locale } from "@/core/i18n";
 import LanguagePreference from "@/core/i18n/LanguagePreference.astro";
 import LanguageSwitcher from "@/core/i18n/LanguageSwitcher.astro";
+import ColorModePreference from "@/core/preferences/ColorModePreference.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 const { locale, t, href } = getI18n(Astro.url.pathname);
 const path = stripLocale(Astro.url.pathname);
@@ -33,19 +34,7 @@ const navItems = site.nav.map((item, index) => ({
     <LanguagePreference />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#ffffff" />
-    <script is:inline>
-      // Apply the preference before the page paints, including on article navigation.
-      (() => {
-        let saved;
-        try { saved = localStorage.getItem("blank-color-mode"); } catch {}
-        const mode = saved === "light" || saved === "dark"
-          ? saved
-          : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        document.documentElement.dataset.colorMode = mode;
-        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", mode === "dark" ? "#141414" : "#ffffff");
-      })();
-    </script>
+    <ColorModePreference />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content={isArticlePage ? "article" : "website"} />
@@ -57,7 +46,7 @@ const navItems = site.nav.map((item, index) => ({
   </head>
   <body data-blank>
     <a class="blank-skip-link" href="#blank-main">{t("a11y.skip")}</a>
-    <header class="blank-header">
+    <header class="blank-header" data-site-header>
       <div class="blank-header-inner">
         <a class="blank-wordmark" href={href("/")} aria-label={`${site.name} ${t("a11y.home")}`}>
           <strong>{site.wordmark}<span aria-hidden="true">.</span></strong>
@@ -77,7 +66,7 @@ const navItems = site.nav.map((item, index) => ({
           </a>
         </div>
       </div>
-      {isArticlePage && <div class="blank-reading-track" aria-hidden="true"><span data-blank-progress></span></div>}
+      {isArticlePage && <div class="blank-reading-track" aria-hidden="true"><span data-site-progress></span></div>}
     </header>
     <main id="blank-main" class:list={["blank-main", { "blank-main--article": isArticlePage }]} tabindex="-1"><slot /></main>
     <footer class="blank-footer">

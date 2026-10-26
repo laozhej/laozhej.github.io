@@ -27,12 +27,14 @@ npm run preview
 | 要修改的内容 | 文件 |
 | --- | --- |
 | 站名、导航路径 | `src/lib/site.ts` |
-| 三语界面文案、简介、导航和分类名称 | `src/core/i18n/messages.ts` |
+| 三语界面文案、导航和分类名称 | `src/core/i18n/messages.ts` |
 | 日语、英语的个人资料与收藏数据 | `src/core/i18n/content.ts` |
 | 个人简介、近况、兴趣 | `src/core/data/profile.ts` |
 | 项目列表 | `src/core/data/projects.ts` |
 | 闲暇收藏 | `src/core/data/games.ts` |
 | GitHub / Steam 个人主页链接（所有语言和主题共用） | `src/core/data/social.ts` |
+| 全主题共用的搜索、筛选、排序、阅读进度 | `src/core/features/` |
+| 全主题共用的深浅色偏好与首屏初始化 | `src/core/preferences/` |
 | 文章 | `src/content/blog/*.md` |
 | 首页结构与开场文案 | `src/themes/blank/pages/HomePage.astro` |
 | 黑白主题、字体、间距、响应式 | `src/themes/blank/styles/theme.css` |
@@ -48,7 +50,7 @@ npm run preview
 - 首页、文字归档、文章详情、作品、闲暇、关于、404。
 - 标题 / 摘要 / 标签搜索，分类筛选，日期排序，URL 筛选状态恢复。
 - 文章目录、当前章节高亮、阅读进度、返回顶部。
-- 右上角月亮 / 太阳按钮切换浅色与深色；首次访问跟随系统，手动选择会在当前浏览器中保存，并用于所有页面。
+- 右上角月亮 / 太阳按钮切换浅色与深色；未手动选择时跟随系统变化，手动选择会在当前浏览器中保存，并在页面、语言、接入公共模块的主题之间共用。
 - 简体中文 / 日本語 / English 切换；三篇示例文章也有完整译文，语言和深浅色选择相互独立。
 - 关于页与页脚的 GitHub / Steam 链接，以及三语致谢与许可页（`/credits/`）。
 - 桌面及移动端布局、键盘焦点、跳到正文、减少动画偏好支持。
@@ -61,11 +63,15 @@ npm run preview
 
 语言层位于 `src/core/i18n/`，独立于 Blank。后续主题必须复用 `getI18n()`、`getSiteContent()`、`LanguagePreference.astro` 和 `LanguageSwitcher.astro`，并为三种语言生成页面。主题路径放在语言前缀之后，如 `/ja/themes/new/blog/`，切换主题时保留当前语言。项目的 `AGENTS.md` 已记录这项约束。
 
-检查公共语言接口：`npm test`（此测试命令使用 Node.js 24 的 TypeScript 支持）。
+个人资料、项目、收藏与社交链接来自同一份公共数据；文章也只维护一组 Markdown 源文件。修改后重新部署，所有接入这些数据的主题都会呈现更新。同一语言的内容共用；中文内容的修改不会自动翻译成日语或英语，译文仍需维护。
+
+搜索、分类筛选、日期排序、阅读进度和深浅色逻辑也已移到公共核心。新主题负责自己的布局、颜色和交互呈现，通过统一标记接入同一套功能。当前仅提供 Blank，尚未加入第二套主题或主题切换器。新增主题时请按 [主题接入说明](docs/THEMES.md) 接入数据、功能、语言与路由，不要复制 Blank 内的业务逻辑。
+
+检查公共语言、偏好与功能接口：`npm test`（使用 Node.js 24 的 TypeScript 支持）。
 
 ## GitHub Pages 部署
 
-公开仓库为 `laozhej/laozhej.github.io`，使用 GitHub Actions 构建和部署。每次推送到 `main`，工作流会使用 Node.js 24 安装锁定依赖、运行语言测试、构建静态页面并发布 `dist/`。也可以在 Actions 中手动运行 **Deploy to GitHub Pages**。
+公开仓库为 `laozhej/laozhej.github.io`，使用 GitHub Actions 构建和部署。每次推送到 `main`，工作流会使用 Node.js 24 安装锁定依赖、运行公共模块测试、构建静态页面并发布 `dist/`。也可以在 Actions 中手动运行 **Deploy to GitHub Pages**。
 
 仓库的 **Settings → Pages → Build and deployment → Source** 使用 **GitHub Actions**。部署状态与日志见仓库 Actions 页面。
 

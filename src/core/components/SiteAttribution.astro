@@ -1,0 +1,7 @@
+---
+import { site } from "@/lib/site";
+import { getI18n } from "@/core/i18n";
+const { t } = getI18n(Astro.url.pathname);
+---
+<span>© {new Date().getFullYear()} {site.name}</span>
+<a href="https://github.com/Yuimi-chaya/Yuimi-chaya.github.io" target="_blank" rel="noopener noreferrer">{t("footer.themeCredit")} ↗</a>

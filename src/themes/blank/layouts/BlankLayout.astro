@@ -10,6 +10,7 @@ import SocialLinks from "@/core/components/SocialLinks.astro";
 import ThemePreference from "@/core/themes/ThemePreference.astro";
 import ThemeSwitcher from "@/core/themes/ThemeSwitcher.astro";
 import SiteIcons from "@/core/components/SiteIcons.astro";
+import SiteAttribution from "@/core/components/SiteAttribution.astro";
 const { locale, t, href } = getI18n(Astro.url.pathname);
 const path = stripLocale(Astro.url.pathname);
 const ogLocale = { "zh-CN": "zh_CN", ja: "ja_JP", en: "en_US" }[locale];
@@ -83,8 +84,7 @@ const navItems = site.nav.map((item, index) => ({
         <SocialLinks class="blank-footer-links" />
       </div>
       <div class="blank-footer-bottom">
-        <span>© {new Date().getFullYear()} {site.name}</span>
-        <a href="https://github.com/Yuimi-chaya/Yuimi-chaya.github.io" target="_blank" rel="noopener noreferrer">{t("footer.themeCredit")} ↗</a>
+        <SiteAttribution />
         <a href={href("/credits/")}>{t("footer.credits")}</a>
         <a href="#blank-main" class="blank-back-top">{t("footer.top")} <Icon name="tabler:arrow-up" size={14} /></a>
       </div>

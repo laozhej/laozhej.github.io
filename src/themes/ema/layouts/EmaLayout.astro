@@ -11,6 +11,7 @@ import LanguagePreference from "@/core/i18n/LanguagePreference.astro";
 import LanguageSwitcher from "@/core/i18n/LanguageSwitcher.astro";
 import ColorModePreference from "@/core/preferences/ColorModePreference.astro";
 import SiteIcons from "@/core/components/SiteIcons.astro";
+import SiteAttribution from "@/core/components/SiteAttribution.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 const { locale, t } = getI18n(Astro.url.pathname);
 const href = (path: string) => getThemePath("ema", path, locale);
@@ -50,7 +51,7 @@ const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale),
       <a class="ema-footer-brand" href={href("/")}>{site.name}<span>.</span></a>
       <p>{t("home.statement2")}</p>
       <SocialLinks class="ema-social-links" />
-      <div class="ema-footer-bottom"><span>© {new Date().getFullYear()} {site.name}</span><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
+      <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
     </footer>
     <script>
       import { mountSiteFeatures } from "@/core/features/runtime.mjs";

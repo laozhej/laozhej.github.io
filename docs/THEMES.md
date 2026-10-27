@@ -19,6 +19,8 @@
 
 各主题的 `<head>` 统一使用 `src/core/components/SiteIcons.astro`，共用非 AI 的 `B.` 排版网站图标和触屏图标；不要在主题内另外维护图标链接。
 
+各主题的页脚统一挂载 `src/core/components/SiteAttribution.astro`，同时保留站点版权行和指向 Yuimi-chaya 主仓库的三语来源署名；不要在新主题中只复制版权行而遗漏作者署名。主题可自行安排其布局，详细素材来源仍在「致谢与许可」页展示。
+
 ## 语言与深浅色
 
 在新主题布局的 `<head>` 中放入两个公共组件：

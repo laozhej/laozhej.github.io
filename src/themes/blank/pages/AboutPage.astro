@@ -1,9 +1,9 @@
 ---
 import { getSiteContent } from "@/core/i18n/content";
 import { site } from "@/lib/site";
-import { getI18n } from "@/core/i18n";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import { Icon } from "astro-icon/components";
-import BlankLayout from "../layouts/BlankLayout.astro";
+import BlankLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "../components/PageHead.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 const { locale, t } = getI18n(Astro.url.pathname);

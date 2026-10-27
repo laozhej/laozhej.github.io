@@ -1,7 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import type { BlogPost } from "@/core/content/blog";
-import { getI18n } from "@/core/i18n";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 interface Props { post: BlogPost; index: number; }
 const { post, index } = Astro.props;
 const { href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);

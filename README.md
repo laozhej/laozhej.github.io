@@ -1,6 +1,6 @@
-# Blank 个人网站
+# Blank / 艾玛个人网站
 
-基于 [Yuimi-chaya 的 Blank 主题](https://yuimi-chaya.github.io/themes/blank/)独立化的 Astro 静态站。保留黑白排版、大标题、编号目录和阅读体验；文章、个人资料与作品已替换为本站内容及明确标注的示例。
+基于 [Yuimi-chaya 的 Blank 主题](https://yuimi-chaya.github.io/themes/blank/)独立化的 Astro 静态站。保留 Blank 的黑白阅读界面，并提供独立的艾玛主题。两套主题共用文章、个人资料、作品、收藏和功能；示例内容均明确标注。
 
 网站：**[laozhej.github.io](https://laozhej.github.io/)** · 支持简体中文、日本語、English，以及浅色 / 深色模式。
 
@@ -39,6 +39,10 @@ npm run preview
 | 首页结构与开场文案 | `src/themes/blank/pages/HomePage.astro` |
 | 黑白主题、字体、间距、响应式 | `src/themes/blank/styles/theme.css` |
 | 页面框架、导航、页脚 | `src/themes/blank/layouts/BlankLayout.astro` |
+| 艾玛主题的页面、样式与交互 | `src/themes/ema/` |
+| 主题注册、切换和偏好 | `src/core/themes/` |
+| 艾玛主题图片与来源记录 | `public/themes/ema/assets/`、`public/themes/ema/ASSETS.json` |
+| 全主题共用的网站图标 | `src/core/components/SiteIcons.astro`、`assets/branding/` |
 | 正式网址 | `astro.config.mjs` 中的 `site` |
 
 `Blank Space` 是暂用站名。三篇文章均为示例，可以编辑或删除。GitHub 和 Steam 个人主页链接已配置；其他个人简介可继续完善，页面没有虚构经历。
@@ -52,10 +56,11 @@ npm run preview
 - 文章目录、当前章节高亮、阅读进度、返回顶部。
 - 右上角月亮 / 太阳按钮切换浅色与深色；未手动选择时跟随系统变化，手动选择会在当前浏览器中保存，并在页面、语言、接入公共模块的主题之间共用。
 - 简体中文 / 日本語 / English 切换；三篇示例文章也有完整译文，语言和深浅色选择相互独立。
+- Blank / 艾玛主题切换，保留当前语言、栏目、文章、查询参数和锚点。主题选择与深浅色选择相互独立。
 - 关于页与页脚的 GitHub / Steam 链接，以及三语致谢与许可页（`/credits/`）。
 - 桌面及移动端布局、键盘焦点、跳到正文、减少动画偏好支持。
 
-## 全站语言与后续主题
+## 全站语言与主题
 
 中文使用 `/`，日语使用 `/ja/`，英语使用 `/en/`。右上角切换器会保留当前栏目或文章，并保存全站统一的 `site-locale` 偏好。从不带语言前缀的入口访问时，会使用这个偏好；明确的 `/ja/`、`/en/` 链接优先。没有 JavaScript 时，语言链接仍可使用。
 
@@ -65,7 +70,9 @@ npm run preview
 
 个人资料、项目、收藏与社交链接来自同一份公共数据；文章也只维护一组 Markdown 源文件。修改后重新部署，所有接入这些数据的主题都会呈现更新。同一语言的内容共用；中文内容的修改不会自动翻译成日语或英语，译文仍需维护。
 
-搜索、分类筛选、日期排序、阅读进度和深浅色逻辑也已移到公共核心。新主题负责自己的布局、颜色和交互呈现，通过统一标记接入同一套功能。当前仅提供 Blank，尚未加入第二套主题或主题切换器。新增主题时请按 [主题接入说明](docs/THEMES.md) 接入数据、功能、语言与路由，不要复制 Blank 内的业务逻辑。
+搜索、分类筛选、日期排序、阅读进度和深浅色逻辑均位于公共核心。Blank 使用根路径，艾玛主题使用 `/themes/ema/`；日语和英语主题入口分别为 `/ja/themes/ema/`、`/en/themes/ema/`。导航中的主题菜单会保留当前栏目、文章、语言及适用的查询参数和锚点。选择保存在统一的 `site-theme` 偏好中；实际页面主题由 URL 决定，直接链接和浏览器历史不会被已保存的偏好强制改写。
+
+各主题负责布局、颜色和交互呈现，通过统一标记接入同一套功能。新增主题时请按 [主题接入说明](docs/THEMES.md) 接入数据、功能、语言与路由，不要复制主题内的业务逻辑。
 
 检查公共语言、偏好与功能接口：`npm test`（使用 Node.js 24 的 TypeScript 支持）。
 
@@ -81,5 +88,9 @@ npm run preview
 
 Blank 主题的 CSS、组件与交互基于 [Yuimi-chaya/Yuimi-chaya.github.io](https://github.com/Yuimi-chaya/Yuimi-chaya.github.io)，以 MIT 许可复用，原始版权声明保留在 `LICENSE`。来源版本为 `4007a9498600c137b3912483ccee2b78b489b1bd`。适配包括独立路由、站点元数据、内容替换与移除跨主题菜单。
 
-没有复制原作者的文章、漫画、立绘、音乐或个人资料。图标由 `@iconify-json/tabler` / Tabler Icons 提供，许可为 MIT。本站不加载外部字体或角色图片。
+没有复制上游站长的文章、漫画、立绘、音乐或个人资料。界面图标由 `@iconify-json/tabler` / Tabler Icons 提供，许可为 MIT。所有主题共享确定性排版生成的 `B.` 网站图标；当前页面不加载此前的 AI 樱花图标，也不加载 AI 首页效果图或 AI 生成的角色图片。
+
+艾玛主题的四张角色／漫画图片来自各自记录的外部来源，下载后在本站本地提供，未使用生成式 AI 重绘；仅做等比例缩放和格式转换。原始来源、署名、校验值及处理方式见 [素材清单](public/themes/ema/ASSETS.json)。来源可追溯和署名不构成公开使用授权，图片不随软件 MIT 许可授权；面向装饰性网站公开使用的许可尚未确认。详见 [第三方素材说明](THIRD_PARTY_ASSETS.md)。
+
+示例文章及其译文的许可范围见 [内容许可说明](CONTENT_LICENSE.md)。网站不加载外部字体。
 

@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-10-27",
+  "scope": "Provenance of the four source images used for Ema theme development and review. This file is not a permission or license grant. These third-party media files are excluded from the repository software license.",
+  "non_ai_processing": "No image generation, redrawing, generative fill, background synthesis, or AI concept mockup is included. Only deterministic proportional resizing and lossless format conversion were applied to these files. No pixels were cropped, recolored, or composited in the asset files. Page styling may frame images separately.",
+  "assets": [
+    {
+      "id": "ema",
+      "title": "Ema Sakuraba / 樱羽艾玛 / 桜羽エマ",
+      "file": "assets/ema.webp",
+      "source_page": "https://wiki.biligame.com/manosaba/文件:樱羽艾玛.png",
+      "source_image": "https://patchwiki.biligame.com/images/manosaba/c/ca/nw1b1tih5nvw5w0qu6l9e2f56vrrbsf.png",
+      "attribution": "魔法少女ノ魔女裁判 / Acacia; source copy hosted by Bilibili BWIKI",
+      "rights_notice": "©Acacia",
+      "original_dimensions": [
+        1476,
+        3914
+      ],
+      "dimensions": [
+        905,
+        2400
+      ],
+      "original_sha256": "f13ca9a587ee352c4767ff44de5edf98904655a6d1c5d565171cef64b3d4f38d",
+      "has_alpha": true,
+      "rights_reference": "https://manosaba.com/guidelines",
+      "sha256": "65eb570bcc3b40a06e5d90b661592990434311a09435a044d1363c68aa15b576",
+      "bytes": 770160,
+      "format": "image/webp",
+      "processing": "Proportional LANCZOS downscale followed by lossless WebP encoding (Pillow/libwebp, lossless=true, method=6, exact=true).",
+      "generative_ai_used": false,
+      "permission_status": "No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+      "verified_against_source_image": "The original download was re-fetched on 2026-10-27 and matched byte-for-byte. Each image was visually inspected."
+    },
+    {
+      "id": "shiroha",
+      "title": "Shiroha Naruse / 鸣濑白羽 / 鳴瀬しろは",
+      "file": "assets/shiroha.webp",
+      "source_page": "https://summerpockets-anime.jp/visualgallery/",
+      "source_image": "https://summerpockets-anime.jp/wp_summer/wp-content/uploads/2025/08/20250801064822.jpg",
+      "attribution": "TV anime Summer Pockets official visual gallery; メインビジュアル（鳴瀬しろは編）",
+      "rights_notice": "©VISUAL ARTS/Key/鳥白島観光協会",
+      "original_dimensions": [
+        1422,
+        2000
+      ],
+      "dimensions": [
+        1138,
+        1600
+      ],
+      "original_sha256": "7dd92d791fa299526e298e6e766b333a59b7c328359fe79abfd0700d6fafaee2",
+      "has_alpha": false,
+      "rights_reference": "https://summerpockets-anime.jp/visualgallery/",
+      "sha256": "08f34f9ca5d15736d375bf41e1b9bbffb3f6216f750fb09d98865d44d188c858",
+      "bytes": 1876106,
+      "format": "image/webp",
+      "processing": "Proportional LANCZOS downscale followed by lossless WebP encoding (Pillow/libwebp, lossless=true, method=6, exact=true).",
+      "generative_ai_used": false,
+      "permission_status": "No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+      "verified_against_source_image": "The original download was re-fetched on 2026-10-27 and matched byte-for-byte. Each image was visually inspected."
+    },
+    {
+      "id": "alice",
+      "title": "Alice Kuonji / 久远寺有珠 / 久遠寺有珠",
+      "file": "assets/alice.webp",
+      "source_page": "https://typemoon.com/products/mahoyo/character/",
+      "source_image": "https://cache.typemoon.com/images/i1a15e54749c924b159ed1b84b5b56495mg",
+      "attribution": "TYPE-MOON, 魔法使いの夜 official character page; Alice illustration",
+      "rights_notice": "©TYPE-MOON",
+      "original_dimensions": [
+        750,
+        1000
+      ],
+      "dimensions": [
+        750,
+        1000
+      ],
+      "original_sha256": "471c7125c3c5ee6a7c09eab2970332e4cf84c50a5912a9f7c0da6751bdf63e92",
+      "has_alpha": true,
+      "rights_reference": "https://typemoon.com/copyright",
+      "sha256": "13d1e420a62d956f61af6c56add60bf0170b6b26fca3c39e51d05f3f2fcfcb5b",
+      "bytes": 80958,
+      "format": "image/webp",
+      "processing": "Original dimensions retained; palette/RGB(A) normalized and encoded as lossless WebP (Pillow/libwebp, lossless=true, method=6, exact=true).",
+      "generative_ai_used": false,
+      "permission_status": "No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+      "verified_against_source_image": "The original download was re-fetched on 2026-10-27 and matched byte-for-byte. Each image was visually inspected."
+    },
+    {
+      "id": "shiki",
+      "title": "Shiki Ryougi / 两仪式 / 両儀式",
+      "file": "assets/shiki.webp",
+      "source_page": "https://sai-zen-sen.jp/works/comics/karanokyoukai/01/01.html",
+      "source_image": "https://sai-zen-sen.jp/works/comics/karanokyoukai/01/01.res/008.png",
+      "attribution": "天空すふぃあ「空の境界 the Garden of sinners」1 / 俯瞰風景 第一回, page 008; original story 奈須きのこ; original character designs 武内崇; published by 星海社 / 最前線",
+      "rights_notice": "Rights remain with the original authors and publisher; no new license is granted here.",
+      "original_dimensions": [
+        600,
+        850
+      ],
+      "dimensions": [
+        600,
+        850
+      ],
+      "original_sha256": "6586ee019913627dca08b5d3a200a02a9eaa7c6ed254eab65b8dc56a8a77e4cb",
+      "has_alpha": false,
+      "rights_reference": "https://sai-zen-sen.jp/rule.html",
+      "sha256": "ac2a03f5c02e643a5962c5e65048598cbaa8bbcf23e901be711258b099cf6cd6",
+      "bytes": 194998,
+      "format": "image/webp",
+      "processing": "Original dimensions retained; palette/RGB(A) normalized and encoded as lossless WebP (Pillow/libwebp, lossless=true, method=6, exact=true).",
+      "generative_ai_used": false,
+      "permission_status": "No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+      "verified_against_source_image": "The original download was re-fetched on 2026-10-27 and matched byte-for-byte. Each image was visually inspected."
+    }
+  ]
+}

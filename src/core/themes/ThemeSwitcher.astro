@@ -1,0 +1,37 @@
+---
+import { Icon } from "astro-icon/components";
+import { getI18n } from "@/core/i18n";
+import { getTheme, getThemePath, themes } from "./registry";
+const { locale, t } = getI18n(Astro.url.pathname);
+const current = getTheme(Astro.url.pathname);
+const path = `${Astro.url.pathname}${Astro.url.search}`;
+---
+<details class="site-theme-menu" data-site-theme-menu data-site-theme-path={Astro.url.pathname}>
+  <summary aria-label={t("theme.switch")} title={t("theme.switch")}>
+    <Icon name="tabler:palette" size={18} />
+    <span>{t(themes.find(({ id }) => id === current)!.labelKey)}</span>
+    <Icon name="tabler:chevron-down" size={12} />
+  </summary>
+  <nav class="site-theme-options" aria-label={t("theme.switch")}>
+    {themes.map((theme) => (
+      <a href={getThemePath(theme.id, path, locale)} data-site-theme-target={theme.id} aria-current={current === theme.id ? "true" : undefined}>
+        <span>{t(theme.labelKey)}</span><span aria-hidden="true">{current === theme.id ? "✓" : ""}</span>
+      </a>
+    ))}
+  </nav>
+</details>
+<script>
+  import { mountThemePreference } from "./preference.mjs";
+  mountThemePreference(document, window);
+</script>
+<style>
+  .site-theme-menu { position: relative; font: inherit; }
+  summary { display: flex; align-items: center; gap: .35rem; cursor: pointer; list-style: none; padding: .45rem .55rem; border-radius: .45rem; }
+  summary::-webkit-details-marker { display: none; }
+  summary:hover { background: color-mix(in srgb, currentColor 7%, transparent); }
+  summary:focus-visible, a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  .site-theme-options { position: absolute; z-index: 100; inset-inline-end: 0; top: calc(100% + .5rem); min-width: 10rem; padding: .35rem; border: 1px solid color-mix(in srgb, currentColor 20%, transparent); border-radius: .6rem; background: var(--site-menu-background, #fff); color: var(--site-menu-color, #20232d); box-shadow: 0 8px 24px #0002; }
+  a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .6rem .7rem; border-radius: .3rem; color: inherit; text-decoration: none; white-space: nowrap; }
+  a:hover, a[aria-current="true"] { background: color-mix(in srgb, currentColor 7%, transparent); }
+  :global(html[data-color-mode="dark"]) .site-theme-options { background: var(--site-menu-background, #202027); color: var(--site-menu-color, #f4f2f3); }
+</style>

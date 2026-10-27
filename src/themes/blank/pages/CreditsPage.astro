@@ -1,8 +1,8 @@
 ---
 import { Icon } from "astro-icon/components";
 import { site } from "@/lib/site";
-import { getI18n } from "@/core/i18n";
-import BlankLayout from "../layouts/BlankLayout.astro";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import BlankLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "../components/PageHead.astro";
 import themeLicense from "../../../../public/licenses/yuimi-chaya-MIT.txt?raw";
 import iconLicense from "../../../../public/licenses/tabler-icons-MIT.txt?raw";
@@ -50,6 +50,15 @@ const { t, href } = getI18n(Astro.url.pathname);
       <p>{t("credits.mediaText")}</p>
       <p>{t("credits.scopeText")}</p>
       <a class="blank-text-link" href={href("/")}>{t("credits.back")} <Icon name="tabler:arrow-right" size={17} /></a>
+    </div>
+  </section>
+  <section class="blank-section blank-about-section blank-credits-section">
+    <div><p class="blank-kicker">05 / EMA</p><h2>{t("media.heading")}</h2></div>
+    <div class="blank-credits-body">
+      <p>{t("media.motion")}</p>
+      <a class="blank-text-link" href="https://yuimi-chaya.github.io/themes/fuyukawa-kagari/" target="_blank" rel="noopener noreferrer">{t("media.reference")} ↗</a>
+      <p>{t("media.sources")}</p><p>{t("media.alice")}</p><p>{t("media.rights")}</p>
+      <a class="blank-text-link" href="/themes/ema/ASSETS.json">{t("media.manifest")} ↗</a>
     </div>
   </section>
 </BlankLayout>

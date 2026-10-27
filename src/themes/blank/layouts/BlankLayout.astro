@@ -7,6 +7,8 @@ import LanguagePreference from "@/core/i18n/LanguagePreference.astro";
 import LanguageSwitcher from "@/core/i18n/LanguageSwitcher.astro";
 import ColorModePreference from "@/core/preferences/ColorModePreference.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
+import ThemePreference from "@/core/themes/ThemePreference.astro";
+import ThemeSwitcher from "@/core/themes/ThemeSwitcher.astro";
 import SiteIcons from "@/core/components/SiteIcons.astro";
 const { locale, t, href } = getI18n(Astro.url.pathname);
 const path = stripLocale(Astro.url.pathname);
@@ -32,7 +34,7 @@ const navItems = site.nav.map((item, index) => ({
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <LanguagePreference />
+    <LanguagePreference /><ThemePreference />
     <title>{title}</title>
     <meta name="description" content={description} />
     <ColorModePreference />
@@ -57,7 +59,7 @@ const navItems = site.nav.map((item, index) => ({
           {navItems.map((item) => <a href={item.href} aria-current={item.active ? "page" : undefined}><span class="blank-nav-number" aria-hidden="true">{item.number}</span>{item.label}</a>)}
         </nav>
         <div class="blank-header-actions">
-          <LanguageSwitcher />
+          <ThemeSwitcher /><LanguageSwitcher />
           <button class="blank-icon-button blank-theme-trigger blank-mode-toggle" type="button" data-color-mode-toggle hidden aria-label={t("mode.label")} aria-pressed="false" title={t("mode.toDark")} data-label-dark={t("mode.toDark")} data-label-light={t("mode.toLight")}>
             <span class="blank-mode-moon" aria-hidden="true"><Icon name="tabler:moon" size={19} /></span>
             <span class="blank-mode-sun" aria-hidden="true"><Icon name="tabler:sun" size={19} /></span>

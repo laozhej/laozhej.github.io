@@ -104,6 +104,20 @@ button.blank-text-link { border: 0; padding: 0; background: transparent; }
 .blank-nav a[aria-current="page"]::after { transform: scaleX(1); }
 .blank-theme-trigger { justify-self: end; border: 1px solid var(--blank-line); }
 .blank-header-actions { display: flex; justify-self: end; align-items: center; gap: 8px; }
+.blank-header .site-theme-menu > summary { min-height:40px; border:1px solid var(--blank-line); border-radius:0; font-size:.6875rem; white-space:nowrap; }
+@media (max-width:1100px) and (min-width:901px) {
+  .blank-header-inner { grid-template-columns:1fr auto; gap:0 16px; min-height:0; padding-top:12px; }
+  .blank-wordmark { min-height:40px; align-items:center; }
+  .blank-nav { grid-row:2; grid-column:1 / -1; justify-content:space-between; margin-top:8px; }
+  .blank-header-actions { grid-column:2; grid-row:1; }
+}
+@media (max-width:480px) {
+  .blank-header .site-theme-menu > summary { min-height:44px; padding-inline:10px; }
+  .blank-header .site-theme-menu > summary > :is(span,svg:last-child) { display:none; }
+  .blank-header .site-theme-options { left:0; right:auto; }
+  .blank-header .site-language-menu > summary > svg:first-child { display:none; }
+  .blank-header-inner { column-gap:8px; }
+}
 .blank-mode-moon { display: inline-flex; }
 .blank-mode-sun { display: none; }
 html[data-color-mode="dark"] .blank-mode-moon { display: none; }

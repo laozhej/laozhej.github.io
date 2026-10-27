@@ -1,0 +1,62 @@
+---
+import "@/themes/blank/styles/theme.css";
+import "../styles/theme.css";
+import { Icon } from "astro-icon/components";
+import { site } from "@/lib/site";
+import { getI18n, localizePath, locales, type Locale } from "@/core/i18n";
+import { getThemePath, stripTheme } from "@/core/themes/registry";
+import ThemePreference from "@/core/themes/ThemePreference.astro";
+import ThemeSwitcher from "@/core/themes/ThemeSwitcher.astro";
+import LanguagePreference from "@/core/i18n/LanguagePreference.astro";
+import LanguageSwitcher from "@/core/i18n/LanguageSwitcher.astro";
+import ColorModePreference from "@/core/preferences/ColorModePreference.astro";
+import SiteIcons from "@/core/components/SiteIcons.astro";
+import SocialLinks from "@/core/components/SocialLinks.astro";
+const { locale, t } = getI18n(Astro.url.pathname);
+const href = (path: string) => getThemePath("ema", path, locale);
+const path = stripTheme(Astro.url.pathname);
+const { title = site.name, description = t("site.description"), isArticlePage = false, article, home = false } = Astro.props;
+const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale), Astro.site) : undefined;
+---
+<!doctype html>
+<html lang={locale} data-theme="ema">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <LanguagePreference /><ThemePreference /><SiteIcons />
+    <ColorModePreference lightColor="#fafbf9" darkColor="#20232c" />
+    <title>{title}</title><meta name="description" content={description} />
+    <meta property="og:title" content={title} /><meta property="og:description" content={description} />
+    <meta property="og:type" content={isArticlePage ? "article" : "website"} />
+    <meta property="og:locale" content={{ "zh-CN": "zh_CN", ja: "ja_JP", en: "en_US" }[locale]} />
+    {canonical && <><link rel="canonical" href={canonical} /><meta property="og:url" content={canonical} /></>}
+    {Astro.site && locales.map((language: Locale) => <link rel="alternate" hreflang={language} href={new URL(localizePath(Astro.url.pathname, language), Astro.site)} />)}
+    {article && <meta property="article:published_time" content={article.pubDate.toISOString()} />}
+  </head>
+  <body data-blank data-ema>
+    <a class="blank-skip-link" href="#ema-main">{t("a11y.skip")}</a>
+    <header class="ema-header" data-header data-site-header>
+      <a class="ema-wordmark" href={href("/")} aria-label={`${site.name} ${t("a11y.home")}`}><strong>Blank Space<span>.</span></strong><small>EMA / 02</small></a>
+      <nav class="ema-nav" aria-label={t("a11y.navigation")}>{site.nav.map(item => <a href={href(item.href)} aria-current={(item.href === "/" ? path === "/" : path.startsWith(item.href)) ? "page" : undefined}>{t(`nav.${item.key}`)}</a>)}</nav>
+      <div class="ema-header-actions">
+        <ThemeSwitcher /><LanguageSwitcher />
+        <button class="ema-icon-button" type="button" data-color-mode-toggle hidden aria-label={t("mode.label")} aria-pressed="false" title={t("mode.toDark")} data-label-dark={t("mode.toDark")} data-label-light={t("mode.toLight")}><span class="blank-mode-moon"><Icon name="tabler:moon" size={18} /></span><span class="blank-mode-sun"><Icon name="tabler:sun" size={18} /></span></button>
+        {home && <button class="ema-motion-toggle" type="button" data-motion-toggle hidden aria-pressed="false" aria-label={t("ema.motion.pause")} title={t("ema.motion.pause")}><span aria-hidden="true">Ⅱ</span><span class="ema-motion-label">{t("ema.motion.pause")}</span></button>}
+      </div>
+      {isArticlePage && <div class="blank-reading-track" aria-hidden="true"><span data-site-progress></span></div>}
+    </header>
+    <main id="ema-main" class:list={[{ "ema-content blank-main": !home, "ema-home-main": home, "blank-main--article": isArticlePage }]} tabindex="-1"><slot /></main>
+    <footer class="ema-footer">
+      <a class="ema-footer-brand" href={href("/")}>{site.name}<span>.</span></a>
+      <p>{t("home.statement2")}</p>
+      <SocialLinks class="ema-social-links" />
+      <div class="ema-footer-bottom"><span>© {new Date().getFullYear()} {site.name}</span><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
+    </footer>
+    <script>
+      import { mountSiteFeatures } from "@/core/features/runtime.mjs";
+      import { mountEmaHome } from "../lib/home.mjs";
+      mountSiteFeatures(document, window);
+      mountEmaHome(document, window);
+    </script>
+  </body>
+</html>

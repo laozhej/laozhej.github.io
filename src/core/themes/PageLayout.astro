@@ -1,0 +1,7 @@
+---
+import BlankLayout from "@/themes/blank/layouts/BlankLayout.astro";
+import EmaLayout from "@/themes/ema/layouts/EmaLayout.astro";
+import { getTheme } from "./registry";
+const Layout = getTheme(Astro.url.pathname) === "ema" ? EmaLayout : BlankLayout;
+---
+<Layout {...Astro.props}><slot /></Layout>

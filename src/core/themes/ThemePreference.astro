@@ -1,0 +1,16 @@
+---
+import { getTheme, themePreferenceKey, themes } from "./registry";
+const currentTheme = getTheme(Astro.url.pathname);
+const themeIds = themes.map(({ id }) => id);
+---
+<script is:inline define:vars={{ currentTheme, themePreferenceKey, themeIds }}>
+  (() => {
+    document.documentElement.dataset.theme = currentTheme;
+    let preferred = currentTheme;
+    try {
+      const saved = localStorage.getItem(themePreferenceKey);
+      if (themeIds.includes(saved)) preferred = saved;
+    } catch {}
+    document.documentElement.dataset.preferredTheme = preferred;
+  })();
+</script>

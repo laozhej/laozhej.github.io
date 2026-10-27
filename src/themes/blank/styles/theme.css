@@ -428,9 +428,14 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-wordmark strong { font-size: 1.375rem; }
   .blank-edition { display: block; }
   .blank-nav { grid-row: 2; grid-column: 1 / -1; justify-content: space-between; gap: 12px; margin-top: 8px; }
-  .blank-nav a { font-size: .625rem; padding: 8px 0; }
+  .blank-nav a { font-size: .75rem; padding: 8px 0; }
   .blank-header-actions { grid-column: 2; grid-row: 1; }
-  .blank-theme-trigger { grid-column: 2; grid-row: 1; width: 36px; height: 36px; }
+  .blank-theme-trigger { grid-column: 2; grid-row: 1; width: 44px; height: 44px; }
+  .blank-text-link, .blank-footer a { min-height: 44px; }
+  .blank-footer-bottom > a { display: inline-flex; align-items: center; }
+  .blank-search .blank-icon-button { width: 44px; height: 44px; }
+  /* Keep form text readable and avoid focus zoom in mobile Safari. */
+  .blank-search input, .blank-sort select { font-size: 1rem; }
   .blank-main { width: calc(100% - 40px); padding: 40px 0 64px; }
   .blank-home-hero h1 { font-size: 5.25rem; margin: 28px 0 32px; }
   .blank-home-topline > span { display: none; }
@@ -498,7 +503,7 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-toc details { border-bottom: 1px solid var(--blank-line); }
   .blank-toc summary { min-height: 48px; padding: 8px 0; }
   .blank-toc nav { max-height: min(38svh, 300px); overflow-y: auto; overscroll-behavior-y: contain; margin-bottom: 16px; }
-  .blank-toc a { padding-block: 9px; font-size: .75rem; }
+  .blank-toc a { min-height: 44px; padding-block: 12px; font-size: .75rem; }
   .blank-toc a.depth-3 { font-size: .6875rem; }
   .blank-prose { font-size: .9375rem; }
   .blank-prose :where(h1, h2) { font-size: 1.5rem; }
@@ -519,6 +524,9 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
 }
 
 @media (max-width: 480px) {
+  .blank-nav { gap: 8px; }
+  .blank-nav a { flex: 1 0 auto; min-width: 44px; justify-content: center; white-space: nowrap; }
+  .blank-nav-number { display: none; }
   .blank-home-hero h1 { font-size: 3.75rem; }
   .blank-page-heading h1 { font-size: 3rem; }
   .blank-home-statement { font-size: 1.25rem; }
@@ -582,7 +590,7 @@ html[data-yuimi-visibility="hidden"] body[data-blank] *::after { animation-play-
   html[data-theme="blank"] { scroll-padding-top: 130px; }
 }
 @media (max-width: 760px) {
-  .site-language-menu > summary { height: 36px; padding-inline: 7px; }
+  .site-language-menu > summary { min-height: 44px; height: auto; padding-inline: 7px; }
 }
 @media (max-width: 480px) {
   .blank-edition { display: none; }

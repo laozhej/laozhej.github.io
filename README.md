@@ -88,6 +88,11 @@ npm run preview
 
 这是用户名站点，正式地址位于域名根目录，因此 `astro.config.mjs` 只设置 `site: "https://laozhej.github.io"`，不设置仓库名 `base`。后续更新可直接修改此仓库的文章、数据和主题源码，无需 ChatGPT Sites。
 
+## 贡献者
+
+- [Asahi Arataki (@laozhej)](https://github.com/laozhej)：网站维护与内容。
+- [Codex (@codex)](https://github.com/codex)：协助网站开发与维护。
+
 ## 来源与许可
 
 Blank 主题的 CSS、组件与交互基于 [Yuimi-chaya/Yuimi-chaya.github.io](https://github.com/Yuimi-chaya/Yuimi-chaya.github.io)，以 MIT 许可复用，原始版权声明保留在 `LICENSE`。来源版本为 `4007a9498600c137b3912483ccee2b78b489b1bd`。适配包括独立路由、站点元数据、内容替换与移除跨主题菜单。

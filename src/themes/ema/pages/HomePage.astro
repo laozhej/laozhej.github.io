@@ -66,7 +66,7 @@ const panels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"]
           </div>
         </section>
       </div>
-      <a class="scroll-cue" href="#ema-chapters"><span class="terminal-prompt" aria-hidden="true">scroll@archive:~$</span><span>{t("ema.hero.down")}</span><b aria-hidden="true"><i>&gt;</i><i>&gt;</i><i>&gt;</i></b></a>
+      <a class="scroll-cue" href="#ema-chapters" data-scroll-cue><span class="terminal-prompt" aria-hidden="true">scroll@archive:~$</span><span>{t("ema.hero.down")}</span><b aria-hidden="true"><i>&gt;</i><i>&gt;</i><i>&gt;</i></b></a>
     </section>
     </div>
 
@@ -87,9 +87,9 @@ const panels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"]
     </dialog>
 
     <section class="chapters" id="ema-chapters" aria-labelledby="ema-chapters-title">
-      <div class="section-heading" data-ema-reveal><div><p class="eyebrow">{t("ema.chapters.kicker")}</p><h2 id="ema-chapters-title">{t("ema.chapters.title")}<span aria-hidden="true">.</span></h2></div><p>{t("ema.chapters.intro")}</p></div>
       <div class="chapter-rail" data-rail>
         <div class="rail-stage" data-rail-stage>
+          <div class="section-heading" data-ema-reveal><div><p class="eyebrow">{t("ema.chapters.kicker")}</p><h2 id="ema-chapters-title">{t("ema.chapters.title")}<span aria-hidden="true">.</span></h2></div><p>{t("ema.chapters.intro")}</p></div>
           <div class="rail-topline"><span>{t("ema.chapters.browse")}</span><div class="rail-controls"><span data-rail-position aria-live="polite">01 / 03</span><button type="button" data-rail-prev aria-label={t("ema.chapters.previous")} disabled>←</button><button type="button" data-rail-next aria-label={t("ema.chapters.next")}>→</button></div></div>
           <div class="rail-progress" aria-hidden="true"><span data-rail-progress></span></div>
           <div class="rail-viewport"><div class="rail-track" data-rail-track tabindex="0" role="region" aria-label={t("ema.chapters.label")}>

@@ -2,6 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { mountEmaHome } from "../src/themes/ema/lib/home.mjs";
 import { mountTagRain } from "../src/themes/ema/lib/tag-rain.mjs";
+import { mountEmaMascot, MASCOT_HIDDEN_KEY } from "../src/themes/ema/lib/mascot.mjs";
+import { getRadio, TRACKS, trackLength } from "../src/themes/ema/lib/radio.mjs";
 
 function element(extra = {}) {
   return Object.assign(new EventTarget(), {
@@ -205,4 +207,120 @@ test("pausing mid-rain restores the ordinary tag list, and scrolling back up rep
   p.rain.visibility(0, 900);
   assert.equal(p.list.classes.has("is-raining"), false, "leaving below the viewport resets for the next pass");
   p.rain.cleanup();
+});
+
+function mascotPage({ hidden = null } = {}) {
+  const store = new Map(hidden ? [[MASCOT_HIDDEN_KEY, hidden]] : []);
+  const session = new Map();
+  const el = (extra = {}) => Object.assign(new EventTarget(), { hidden: false, dataset: {}, focus() { focused = this; }, classList: { add() {}, remove() {} } }, extra);
+  let focused = null;
+  const bubble = el({ hidden: true });
+  const figure = el(), hide = el();
+  const root = el({
+    hidden: true,
+    dataset: { pokes: JSON.stringify(["a", "b", "c"]), greetings: JSON.stringify(["m", "n", "e", "z"]), pageLine: "page", back: "back", copy: "copy", tooFast: "slow" },
+    querySelector: (selector) => ({ "[data-mascot-bubble]": bubble, "[data-mascot-poke]": figure, "[data-mascot-hide]": hide })[selector],
+  });
+  const recall = el({ hidden: true });
+  const doc = Object.assign(new EventTarget(), {
+    hidden: false, documentElement: { dataset: { motionPaused: "true" } },
+    querySelector: (selector) => ({ "[data-ema-mascot]": root, "[data-mascot-show]": recall })[selector],
+  });
+  const timers = new Map();
+  let next = 1;
+  const win = {
+    localStorage: { getItem: (key) => store.get(key) ?? null, setItem: (key, value) => store.set(key, value), removeItem: (key) => store.delete(key) },
+    sessionStorage: { getItem: (key) => session.get(key) ?? null, setItem: (key, value) => session.set(key, value), removeItem: (key) => session.delete(key) },
+    setTimeout: (fn) => { timers.set(next, fn); return next++; },
+    clearTimeout: (id) => timers.delete(id),
+  };
+  const cleanup = mountEmaMascot(doc, win);
+  return { root, recall, bubble, figure, hide, doc, store, timers, cleanup, focused: () => focused };
+}
+
+test("the corner guide answers pokes and copies, and asks for a break after rapid pokes", () => {
+  const p = mascotPage();
+  assert.equal(p.root.hidden, false);
+  assert.equal(p.recall.hidden, true);
+  p.figure.dispatchEvent(new Event("click"));
+  assert.equal(p.bubble.hidden, false);
+  assert.ok(["a", "b", "c"].includes(p.bubble.textContent));
+  for (let poke = 0; poke < 3; poke += 1) p.figure.dispatchEvent(new Event("click"));
+  assert.equal(p.bubble.textContent, "slow");
+  p.doc.dispatchEvent(new Event("copy"));
+  assert.equal(p.bubble.textContent, "copy");
+  p.cleanup();
+  assert.equal(p.timers.size, 0, "cleanup cancels every pending line");
+  assert.equal(p.bubble.hidden, true);
+});
+
+test("sending the guide to rest is remembered, and calling her back restores her", () => {
+  const p = mascotPage();
+  p.hide.dispatchEvent(new Event("click"));
+  assert.equal(p.root.hidden, true);
+  assert.equal(p.recall.hidden, false);
+  assert.equal(p.store.get(MASCOT_HIDDEN_KEY), "true");
+  assert.equal(p.focused(), p.recall);
+  p.cleanup();
+  const again = mascotPage({ hidden: "true" });
+  assert.equal(again.root.hidden, true, "stays away on the next page");
+  again.recall.dispatchEvent(new Event("click"));
+  assert.equal(again.root.hidden, false);
+  assert.equal(again.store.has(MASCOT_HIDDEN_KEY), false);
+  assert.equal(again.bubble.textContent, "back");
+  again.cleanup();
+});
+
+function fakeAudio() {
+  const started = [];
+  const param = () => ({ value: 0, setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {}, setTargetAtTime() {}, cancelScheduledValues() {} });
+  const node = (extra = {}) => ({ connect() {}, ...extra });
+  class Context {
+    constructor() { this.currentTime = 0; this.state = "running"; this.destination = node(); }
+    createGain() { return node({ gain: param() }); }
+    createDelay() { return node({ delayTime: param() }); }
+    createOscillator() { return node({ type: "sine", frequency: param(), start: (time) => started.push(time), stop() {} }); }
+    resume() { this.state = "running"; return Promise.resolve(); }
+    suspend() { this.state = "suspended"; }
+  }
+  const timers = new Map();
+  let id = 1;
+  const win = {
+    AudioContext: Context,
+    setInterval: (fn) => { timers.set(id, fn); return id++; }, clearInterval: (key) => timers.delete(key),
+    setTimeout: (fn) => { timers.set(id, fn); return id++; }, clearTimeout: (key) => timers.delete(key),
+  };
+  return { win, started, timers };
+}
+
+test("every Sakura Radio tune is eight full bars with a chord per bar", () => {
+  for (const track of TRACKS) {
+    assert.equal(track.steps.length, 64);
+    assert.equal(track.chordNotes.length, 8);
+    assert.ok(track.steps.every((note) => note === null || (note >= 55 && note <= 90)), "melody stays in a music-box range");
+    assert.ok(trackLength(track) >= 20 && trackLength(track) <= 30, "each loop lasts 20–30 seconds");
+  }
+});
+
+test("the radio plays, pauses, switches tunes and stops after the last Ema page lets go", async () => {
+  const { win, started, timers } = fakeAudio();
+  const radio = getRadio(win);
+  assert.equal(getRadio(win), radio, "one engine per window survives page swaps");
+  radio.hold();
+  await radio.play();
+  assert.equal(radio.playing, true);
+  assert.ok(started.length > 0, "notes are scheduled ahead of time");
+  radio.select(radio.index + 1);
+  assert.equal(radio.index, 1);
+  radio.select(-1);
+  assert.equal(radio.index, TRACKS.length - 1, "wraps around");
+  radio.release();
+  radio.hold();
+  [...timers.values()].forEach((fn) => fn());
+  assert.equal(radio.playing, true, "a new Ema page mounting in time keeps the tune going");
+  radio.release();
+  const pending = [...timers.entries()];
+  pending.forEach(([key, fn]) => { timers.delete(key); fn(); });
+  assert.equal(radio.playing, false, "leaving Ema stops the radio");
+  delete win.__emaRadio;
 });

@@ -80,7 +80,7 @@ import { pageTransition } from "@/core/navigation/animations.mjs";
 
 Ema 首页的主视觉和章节由原生滚动驱动，不取消 wheel 事件。桌面足够高度时使用 sticky 场景；触屏、窄屏、短屏和暂停状态回退为正常文档流与原生横向滚动。内容默认可见，IntersectionObserver 和 WAAPI 只负责一次入场增强；关闭脚本或取消动效都不会留下隐藏内容。
 
-Ema 首页的「今日公告」使用原生 `<dialog>`（`lib/notice.mjs`）：同一浏览器会话每天自动弹出一次，记录在 sessionStorage 的 `ema-notice-seen-日期`，勾选「今日不再弹出」写入 localStorage 的 `ema-notice-hidden-日期`。第二幕的标签雨（`lib/tag-rain.mjs`）只读取公共资料、收藏与社交链接；暂停动效、减少动态或无脚本时恢复为普通列表。时钟只使用访客本机时间和时区，不请求任何外部定位或天气服务。
+Ema 首页的「今日公告」使用原生 `<dialog>`（`lib/notice.mjs`）：同一浏览器会话每天自动弹出一次，记录在 sessionStorage 的 `ema-notice-seen-日期`，勾选「今日不再弹出」写入 localStorage 的 `ema-notice-hidden-日期`。第二幕的标签雨（`lib/tag-rain.mjs`）只读取公共资料、收藏与社交链接；暂停动效、减少动态或无脚本时恢复为普通列表。时钟只使用访客本机时间和时区，不请求任何外部定位或天气服务。左下角的看板娘（`lib/mascot.mjs`）只在 1000px 以上显示，用现有艾玛立绘裁切，不使用 Live2D 模型；关闭状态保存在 localStorage 的 `ema-mascot-hidden`，当次会话是否已问候记录在 sessionStorage 的 `ema-mascot-greeted`。左侧控制台（`lib/console.mjs`）复用看板娘按钮，并控制「樱色电台」（`lib/radio.mjs`）：曲目以音符数据写在代码中，用 Web Audio 合成；播放引擎挂在 `window.__emaRadio`，每个艾玛页面挂载时 `hold()`、清理时 `release()`，最后一个页面释放 1.5 秒后仍无新页面接手就停止，因此切换到其他主题会自动静音。
 
 ### 搜索、筛选和排序
 

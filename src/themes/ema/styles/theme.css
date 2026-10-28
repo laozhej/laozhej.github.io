@@ -241,3 +241,74 @@ body:not([data-ema-home]) .ema-sakura span:nth-child(n+9) {display:none;}
 @media(max-width:760px) { .ema-sakura span:nth-child(n+10) {display:none;} }
 html[data-motion-paused="true"] .ema-sakura {display:none;}
 @media(prefers-reduced-motion:reduce) { .ema-sakura {display:none;} }
+
+/* The corner guide: an Ema bust that breathes, answers pokes and can be sent to rest. */
+.ema-mascot,.mascot-recall {display:none;}
+@media(min-width:1000px) {
+  .ema-mascot {position:fixed;left:14px;bottom:0;z-index:44;display:block;width:120px;pointer-events:none;}
+  .ema-mascot[hidden],.mascot-recall[hidden] {display:none;}
+  .mascot-figure {display:block;width:120px;height:156px;padding:0;border:0;background:transparent;cursor:pointer;pointer-events:auto;transform-origin:50% 100%;animation:ema-mascot-breathe 4.2s ease-in-out infinite;}
+  .mascot-art {display:block;width:100%;height:100%;background:url('/themes/ema/assets/ema.webp') 51% 1.9%/143.7% auto no-repeat;-webkit-mask-image:linear-gradient(#000 72%,transparent);mask-image:linear-gradient(#000 72%,transparent);filter:drop-shadow(0 6px 12px #5561782e);transition:transform 220ms var(--blank-ease);}
+  .mascot-figure.is-poked {animation:ema-mascot-hop 380ms var(--blank-ease);}
+  .mascot-figure:focus-visible {outline:2px solid var(--ema-pink);outline-offset:-2px;border-radius:14px;}
+  .mascot-hide {position:absolute;top:4px;right:0;display:grid;place-items:center;width:28px;height:28px;padding:0;border:1px solid var(--blank-line);border-radius:50%;background:color-mix(in srgb,var(--blank-paper) 90%,transparent);color:var(--blank-muted);cursor:pointer;pointer-events:auto;opacity:0;transition:opacity 160ms ease;}
+  .ema-mascot:hover .mascot-hide,.ema-mascot:focus-within .mascot-hide {opacity:1;}
+  .mascot-bubble {position:absolute;left:4px;bottom:calc(100% + 2px);width:max-content;max-width:250px;margin:0;padding:10px 14px;border:1px solid #efd3df;border-radius:12px;background:color-mix(in srgb,var(--blank-paper) 94%,transparent);color:var(--blank-ink);font-size:13px;line-height:1.7;box-shadow:0 10px 26px #8599b42e;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);pointer-events:auto;}
+  .mascot-bubble::after {content:"";position:absolute;left:44px;bottom:-7px;width:12px;height:12px;background:inherit;border:inherit;border-top:0;border-left:0;transform:rotate(45deg);}
+  .mascot-recall {position:fixed;left:16px;bottom:16px;z-index:44;display:grid;place-items:center;width:42px;height:42px;padding:0;border:1px solid var(--blank-line);border-radius:50%;background:var(--blank-paper);color:var(--ema-pink);font-size:18px;cursor:pointer;box-shadow:0 6px 18px #8599b42a;}
+  html[data-color-mode="dark"] .mascot-bubble {border-color:#6d4c61;box-shadow:0 10px 26px #0a0f1a80;}
+}
+@media(min-width:1000px) and (hover:hover) and (pointer:fine) {
+  .mascot-figure:hover .mascot-art {transform:translateY(-6px) rotate(-2deg);}
+}
+@keyframes ema-mascot-breathe {0%,100% {transform:translateY(0) scaleY(1);} 50% {transform:translateY(-3px) scaleY(1.012);}}
+@keyframes ema-mascot-hop {0% {transform:none;} 40% {transform:translateY(-14px) rotate(-3deg);} 100% {transform:none;}}
+html[data-motion-paused="true"] :is(.mascot-figure,.mascot-figure.is-poked) {animation:none;}
+html[data-motion-paused="true"] .mascot-art {transition:none;}
+@media(prefers-reduced-motion:reduce) { .mascot-figure,.mascot-figure.is-poked {animation:none;} .mascot-art {transition:none;} }
+
+/* Left-edge console: mascot shortcuts and Sakura Radio, like Kagari's side drawer. */
+.ema-console {display:none;}
+@media(min-width:1000px) {
+  .ema-console {display:block;}
+  .console-tab {position:fixed;left:0;top:42vh;z-index:46;display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 7px;border:1px solid var(--blank-line);border-left:0;border-radius:0 12px 12px 0;background:color-mix(in srgb,var(--blank-paper) 86%,transparent);color:var(--ema-pink);font-size:11px;letter-spacing:.12em;writing-mode:vertical-rl;cursor:pointer;box-shadow:0 8px 22px #8599b42a;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:padding 180ms var(--blank-ease),background-color 180ms ease;}
+  .console-tab svg {writing-mode:horizontal-tb;}
+  .console-tab[hidden] {display:none;}
+  .ema-console.is-open .console-tab {background:var(--ema-blush);}
+  .console-panel {position:fixed;left:44px;top:max(120px,calc(42vh - 150px));z-index:46;display:grid;gap:12px;width:292px;padding:14px;border:1px solid color-mix(in srgb,var(--blank-line) 70%,#fff);border-radius:16px;background:color-mix(in srgb,var(--blank-paper) 84%,transparent);color:var(--blank-ink);box-shadow:0 22px 50px #46577729;-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);animation:ema-console-in 240ms var(--blank-ease);}
+  .console-panel[hidden] {display:none;}
+  .console-head {display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .console-head p {margin:0;font:400 15px/1.4 var(--ema-title-font);}
+  .console-head button {display:grid;place-items:center;width:30px;height:30px;padding:0;border:1px solid var(--blank-line);border-radius:50%;background:transparent;color:var(--blank-muted);cursor:pointer;}
+  .console-card {display:grid;gap:10px;padding:12px;border:1px solid var(--blank-line);border-radius:12px;background:color-mix(in srgb,var(--blank-paper) 70%,transparent);}
+  .console-kicker {margin:0;font:600 10px/1.6 var(--blank-mono);letter-spacing:.16em;color:var(--blank-muted);}
+  .console-actions {display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .console-actions button {min-height:36px;padding:6px 10px;border:1px solid var(--blank-line);border-radius:8px;background:var(--blank-paper);color:var(--blank-ink);font-size:12px;cursor:pointer;}
+  .console-actions button:last-child {background:var(--ema-blush);color:var(--ema-pink);border-color:color-mix(in srgb,var(--ema-pink) 30%,var(--blank-line));}
+  .radio-head {display:flex;align-items:center;gap:12px;}
+  .radio-head strong {display:block;font-size:14px;font-weight:600;}
+  .radio-head small {font:11px var(--blank-mono);color:var(--blank-muted);}
+  .radio-disc {position:relative;flex-shrink:0;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle,var(--ema-pink) 0 5px,var(--blank-paper) 5.5px 8px,transparent 8.5px),repeating-radial-gradient(circle,#2b2f3a 0 2px,#3b4050 2.5px 3.5px);box-shadow:0 4px 12px #1b223640;animation:ema-disc-spin 4s linear infinite;animation-play-state:paused;}
+  .radio-disc::after {content:"";position:absolute;inset:0;border-radius:50%;background:var(--ema-blossom) center/42% no-repeat;opacity:.9;}
+  .radio.is-playing .radio-disc {animation-play-state:running;}
+  .radio-progress {height:4px;border-radius:4px;background:var(--blank-line);overflow:hidden;}
+  .radio-progress span {display:block;height:100%;background:var(--ema-pink);transform:scaleX(0);transform-origin:left;}
+  .radio-time {display:flex;justify-content:space-between;font:10px var(--blank-mono);color:var(--blank-muted);}
+  .radio-controls {display:flex;align-items:center;justify-content:center;gap:14px;}
+  .radio-controls button {display:grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid var(--blank-line);border-radius:50%;background:var(--blank-paper);color:var(--blank-ink);cursor:pointer;}
+  .radio-controls .radio-play {width:46px;height:46px;background:var(--ema-pink);border-color:var(--ema-pink);color:var(--blank-paper);}
+  .radio-controls button:disabled,.radio-volume input:disabled {opacity:.4;cursor:default;}
+  .radio-volume {display:flex;align-items:center;gap:8px;color:var(--blank-muted);}
+  .radio-volume input {flex:1;accent-color:var(--ema-pink);}
+  .radio-note {margin:0;font-size:11px;line-height:1.6;color:var(--blank-muted);}
+  .ema-console :is(button,input):focus-visible {outline:2px solid var(--ema-pink);outline-offset:2px;}
+}
+@media(min-width:1000px) and (hover:hover) and (pointer:fine) {
+  .console-tab:hover {padding-left:11px;}
+  .console-actions button:hover,.radio-controls button:not(.radio-play):not(:disabled):hover {border-color:var(--ema-pink);}
+}
+@keyframes ema-console-in {from {opacity:0;transform:translateX(-12px);} to {opacity:1;transform:none;}}
+@keyframes ema-disc-spin {to {transform:rotate(360deg);}}
+html[data-motion-paused="true"] :is(.console-panel,.radio-disc) {animation:none;}
+html[data-motion-paused="true"] .console-tab {transition:none;}
+@media(prefers-reduced-motion:reduce) { .console-panel,.radio-disc {animation:none;} .console-tab {transition:none;} }

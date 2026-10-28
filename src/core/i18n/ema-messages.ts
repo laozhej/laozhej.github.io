@@ -2,6 +2,7 @@
 export const emaMessages = {
   "zh-CN": {
     "ema.description": "把喜欢的日常，慢慢收进这里。以樱羽艾玛为主视觉的个人手账，记录文章、项目与喜欢的作品。",
+    "ema.brand": "Arataki.br’s Base",
     "ema.hero.label": "艾玛主视觉与漫画手账",
     "ema.hero.subtitle": "日常 · 记录 · 收藏",
     "ema.hero.diary": "把喜欢的日常，慢慢收进这里。",
@@ -70,6 +71,7 @@ export const emaMessages = {
   },
   ja: {
     "ema.description": "好きな日々を、少しずつここへ。桜羽エマをメインビジュアルに、文章や制作、好きな作品を綴る個人の手帳。",
+    "ema.brand": "Arataki.br’s Base",
     "ema.hero.label": "桜羽エマと漫画の手帳",
     "ema.hero.subtitle": "日常 · 記録 · 好きなもの",
     "ema.hero.diary": "好きな日々を、少しずつここへ。",
@@ -138,6 +140,7 @@ export const emaMessages = {
   },
   en: {
     "ema.description": "A little space for everyday favorites. A personal journal featuring Ema Sakuraba, with writing, projects, and favorite works.",
+    "ema.brand": "Arataki.br’s Base",
     "ema.hero.label": "Ema Sakuraba and a manga-style journal",
     "ema.hero.subtitle": "Days · Notes · Favorites",
     "ema.hero.diary": "A little space for the days we love.",

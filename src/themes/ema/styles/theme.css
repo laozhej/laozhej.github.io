@@ -9,6 +9,7 @@ html[data-theme="ema"] {
   --blank-width:1120px; --blank-sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
   --blank-serif:"Iowan Old Style","Songti SC",SimSun,Georgia,serif; --blank-mono:ui-monospace,Consolas,monospace;
   --blank-ease:cubic-bezier(.23,1,.32,1); --ema-pink:#a95478; --ema-blush:#fae8ee;
+  --ema-title-font:"Mochiy Pop One","Hiragino Maru Gothic ProN","Arial Rounded MT Bold",-apple-system,"PingFang SC",sans-serif;
   min-width:320px; background:var(--blank-paper); scroll-padding-top:110px; accent-color:var(--ema-pink);
 }
 html[data-theme="ema"][data-color-mode="dark"] {
@@ -27,8 +28,9 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
 .ema-header { position:fixed;top:0;left:0;z-index:50;width:100%;min-height:86px;padding:14px 3%;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:20px;background:var(--blank-header-bg);border-bottom:1px solid transparent; }
 .ema-header.is-scrolled {border-bottom-color:var(--blank-line);}
 .ema-wordmark {display:flex;align-items:baseline;gap:12px;white-space:nowrap;justify-self:start;}
-.ema-wordmark strong {font:italic 23px Georgia,serif;letter-spacing:-1px;}
-.ema-wordmark strong span,.ema-footer-brand span {color:var(--ema-pink);}
+.ema-wordmark strong {font:400 18px/1.15 var(--ema-title-font);letter-spacing:0;color:var(--blank-ink);}
+.ema-wordmark strong i {font-style:normal;color:var(--ema-pink);}
+.ema-footer-brand span {color:var(--ema-pink);}
 .ema-wordmark small {font:9px var(--blank-mono);color:var(--blank-muted);}
 .ema-nav {display:flex;justify-content:center;align-items:center;gap:4px;border:1px solid var(--blank-line);padding:5px;background:var(--blank-paper);border-radius:32px;box-shadow:0 4px 16px #46577708;}
 .ema-nav a {padding:8px 17px;border-radius:24px;font-size:12px;white-space:nowrap;letter-spacing:.06em;}
@@ -52,7 +54,7 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
 .ema-content .blank-toc a[aria-current="location"] {color:var(--ema-pink);}
 .ema-content .blank-filter-button[aria-pressed="true"] {background:var(--ema-blush);color:var(--ema-pink);}
 .ema-footer {text-align:center;padding:20px 24px 34px;margin:auto;max-width:1120px;color:var(--blank-muted);}
-.ema-footer-brand {font:italic 37px Georgia,serif;color:var(--blank-ink)!important;letter-spacing:-1px;}
+.ema-footer-brand {font:400 32px/1.3 var(--ema-title-font);color:var(--blank-ink)!important;letter-spacing:0;}
 .ema-footer>p {font-size:12px;margin:12px 0 18px;letter-spacing:.1em;}
 .ema-social-links {display:flex;justify-content:center;gap:22px;font-size:12px;margin-bottom:22px;}
 .ema-footer-bottom {display:flex;justify-content:center;flex-wrap:wrap;gap:12px 24px;font-size:11px;}
@@ -72,7 +74,9 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
 }
 @media(max-width:480px) {
   .ema-header {padding:12px 16px;}
-  .ema-wordmark strong {font-size:19px;}
+  .ema-wordmark strong {font-size:14px;line-height:1.08;}
+  .ema-wordmark strong>span {display:block;}
+  .ema-wordmark strong>span:last-child {padding-left:.9em;}
   .ema-header .site-language-menu>summary {gap:5px;padding:0 8px;}
   .ema-header .site-theme-menu>summary {padding:0 10px;}
   .ema-header .site-theme-menu>summary>:is(span,svg:last-child) {display:none;}
@@ -80,7 +84,7 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
   .ema-header :is(.ema-icon-button,.ema-motion-toggle) {min-width:36px;min-height:40px;padding:6px;}
   .ema-content {width:calc(100% - 40px);}
 }
-@media(max-width:359px) { .ema-wordmark strong {font-size:16px;} .ema-header .site-language-menu>summary>svg:last-child {display:none;} .ema-header-actions{gap:3px;} }
+@media(max-width:359px) { .ema-wordmark strong {font-size:13px;} .ema-header .site-language-menu>summary>svg:last-child {display:none;} .ema-header-actions{gap:3px;} }
 @media(prefers-reduced-motion:reduce) {html[data-theme="ema"] {scroll-behavior:auto;}}
 
 /* The same paper, ink and rose accents continue beyond the illustrated cover. */

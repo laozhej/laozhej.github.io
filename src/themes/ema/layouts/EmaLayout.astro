@@ -1,5 +1,6 @@
 ---
 import "@/themes/blank/styles/theme.css";
+import "@fontsource/mochiy-pop-one/latin-400.css";
 import "../styles/theme.css";
 import { Icon } from "astro-icon/components";
 import { site } from "@/lib/site";
@@ -18,7 +19,11 @@ import { pageTransition } from "@/core/navigation/animations.mjs";
 const { locale, t } = getI18n(Astro.url.pathname);
 const href = (path: string) => getThemePath("ema", path, locale);
 const path = stripTheme(Astro.url.pathname);
-const { title = site.name, description = t("site.description"), isArticlePage = false, article, home = false } = Astro.props;
+const { title: pageTitle = site.name, description = t("site.description"), isArticlePage = false, article, home = false } = Astro.props;
+// Sakura Archive carries its own name; shared pages still pass the shared site name.
+const brand = t("ema.brand");
+const title = pageTitle.replaceAll(site.name, brand);
+const [brandHead, ...brandTail] = brand.split(" ");
 const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale), Astro.site) : undefined;
 // Deterministic petal paths so every page and locale renders the same markup.
 const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + index * 6.2).toFixed(1)}%;--petal-size:${9 + (index * 5) % 7}px;--petal-duration:${17 + (index * 7) % 13}s;--petal-delay:${-2 - (index * 11) % 29}s;--petal-drift:${[-72, 96, 40][index % 3]}px`);
@@ -43,7 +48,7 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
     <div class="ema-backdrop" aria-hidden="true"></div>
     <a class="blank-skip-link" href="#ema-main">{t("a11y.skip")}</a>
     <header class="ema-header" data-header data-site-header transition:name="site-header" transition:animate="none">
-      <a class="ema-wordmark" href={href("/")} aria-label={`${site.name} ${t("a11y.home")}`}><strong>Blank Space<span>.</span></strong><small>EMA / 02</small></a>
+      <a class="ema-wordmark" href={href("/")} aria-label={`${brand} ${t("a11y.home")}`}><strong><span>{brandHead.split(/(\.)/).map((part) => part === "." ? <i>.</i> : part)}</span> <span>{brandTail.join(" ")}</span></strong><small>EMA / 02</small></a>
       <nav class="ema-nav" aria-label={t("a11y.navigation")}>{site.nav.map(item => <a href={href(item.href)} aria-current={(item.href === "/" ? path === "/" : path.startsWith(item.href)) ? "page" : undefined}>{t(`nav.${item.key}`)}</a>)}</nav>
       <div class="ema-header-actions">
         <ThemeSwitcher /><LanguageSwitcher />
@@ -54,10 +59,10 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
     </header>
     <main id="ema-main" class:list={[{ "ema-content blank-main": !home, "ema-home-main": home, "blank-main--article": isArticlePage }]} tabindex="-1" transition:name="site-content" transition:animate={pageTransition}><slot /></main>
     <footer class="ema-footer">
-      <a class="ema-footer-brand" href={href("/")}>{site.name}<span>.</span></a>
+      <a class="ema-footer-brand" href={href("/")}>{brand.split(/(\.)/).map((part) => part === "." ? <span>.</span> : part)}</a>
       <p>{t("home.statement2")}</p>
       <SocialLinks class="ema-social-links" />
-      <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
+      <div class="ema-footer-bottom"><SiteAttribution name={brand} /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
     </footer>
     <div class="ema-sakura" aria-hidden="true">{petals.map((style) => <span style={style}><i></i></span>)}</div>
     <script>

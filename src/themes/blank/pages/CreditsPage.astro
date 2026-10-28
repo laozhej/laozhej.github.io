@@ -6,6 +6,7 @@ import BlankLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "../components/PageHead.astro";
 import themeLicense from "../../../../public/licenses/yuimi-chaya-MIT.txt?raw";
 import iconLicense from "../../../../public/licenses/tabler-icons-MIT.txt?raw";
+import fontLicense from "../../../../public/licenses/mochiy-pop-one-OFL.txt?raw";
 const { t, href } = getI18n(Astro.url.pathname);
 ---
 <BlankLayout title={`${t("credits.title")} | ${site.name}`} description={t("credits.description")}>
@@ -44,7 +45,20 @@ const { t, href } = getI18n(Astro.url.pathname);
     </div>
   </section>
   <section class="blank-section blank-about-section blank-credits-section">
-    <div><p class="blank-kicker">04 / CONTENT</p><h2>{t("credits.contentHeading")}</h2></div>
+    <div><p class="blank-kicker">04 / FONTS</p><h2>{t("credits.fontsHeading")}</h2></div>
+    <div class="blank-credits-body">
+      <h3>Mochiy Pop One</h3>
+      <p>{t("credits.fontsText")}</p>
+      <a class="blank-text-link" href="https://github.com/fontdasu/Mochiypop" target="_blank" rel="noopener noreferrer">{t("credits.fontProject")} <Icon name="tabler:external-link" size={15} /></a>
+      <details class="blank-license">
+        <summary>{t("credits.licenseText")} · OFL-1.1</summary>
+        <pre lang="en">{fontLicense}</pre>
+      </details>
+      <a class="blank-text-link" href="/licenses/mochiy-pop-one-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+    </div>
+  </section>
+  <section class="blank-section blank-about-section blank-credits-section">
+    <div><p class="blank-kicker">05 / CONTENT</p><h2>{t("credits.contentHeading")}</h2></div>
     <div class="blank-credits-body">
       <p>{t("credits.contentText")}</p>
       <p>{t("credits.mediaText")}</p>
@@ -53,7 +67,7 @@ const { t, href } = getI18n(Astro.url.pathname);
     </div>
   </section>
   <section class="blank-section blank-about-section blank-credits-section">
-    <div><p class="blank-kicker">05 / EMA</p><h2>{t("media.heading")}</h2></div>
+    <div><p class="blank-kicker">06 / EMA</p><h2>{t("media.heading")}</h2></div>
     <div class="blank-credits-body">
       <p>{t("media.motion")}</p>
       <a class="blank-text-link" href="https://yuimi-chaya.github.io/themes/fuyukawa-kagari/" target="_blank" rel="noopener noreferrer">{t("media.reference")} ↗</a>

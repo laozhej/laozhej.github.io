@@ -4,7 +4,6 @@ import { getI18n } from "@/core/i18n";
 import { getPublishedPosts } from "@/core/content/blog";
 import { socialLinks } from "@/core/data/social";
 import { getThemePath } from "@/core/themes/registry";
-import { site } from "@/lib/site";
 import EmaLayout from "../layouts/EmaLayout.astro";
 import "../styles/home.css";
 
@@ -24,10 +23,14 @@ const tags = [...new Set([
   ...socialLinks.map((item) => item.label),
 ])];
 const asset = (name: string) => `/themes/ema/assets/${name}.webp`;
+const brand = t("ema.brand");
+const [brandHead, ...brandTail] = brand.split(" ");
+// The dot in the name takes the rose accent; the apostrophe is optically tightened.
+const lettering = (text: string) => text.split(/([.’'])/).filter(Boolean).map((part) => ({ part, kind: part === "." ? "dot" : /[’']/.test(part) ? "apos" : "text" }));
 const panels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"];
 ---
 
-<EmaLayout title={`${site.name} | ${t("home.title")}`} description={t("ema.description")} home={true}>
+<EmaLayout title={`${brand} | ${t("home.title")}`} description={t("ema.description")} home={true}>
   <div id="ema-home">
     <div class="hero-scroll-scene" data-hero-scene>
     <section class="hero" id="ema-top" data-hero aria-label={t("ema.hero.label")}>
@@ -41,7 +44,7 @@ const panels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"]
       <div class="hero-column">
         <div class="hero-copy" data-hero-copy>
           <p class="eyebrow"><span>{t("theme.ema")}</span>{t("ema.hero.subtitle")}</p>
-          <h1 class="hero-title" data-text={site.name}><span>{site.name}</span><em aria-hidden="true">.</em></h1>
+          <h1 class="hero-title"><span class="title-line">{lettering(brandHead).map(({ part, kind }) => kind === "dot" ? <i>{part}</i> : kind === "apos" ? <span class="apos">{part}</span> : part)}</span> <span class="title-line title-line-2">{brandTail.join(" ")}</span></h1>
           <p class="hero-diary">{t("ema.hero.diary")}</p>
           <p class="terminal-line" aria-hidden="true"><span class="terminal-prompt">ema@archive:~$</span><code data-typed data-commands={JSON.stringify(commands)}>{commands[0]}</code><span class="caret"></span></p>
           <p class="sr-only">{t("ema.command.accessible")}</p>
@@ -55,9 +58,9 @@ const panels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"]
             <span class="avatar-bubble" role="status" data-avatar-message hidden></span>
           </div>
           <div class="identity-terminal">
-            <div class="identity-bar" aria-hidden="true"><span class="window-dots"><i></i><i></i><i></i></span><span>blank-space.profile</span></div>
-            <p class="identity-path" aria-hidden="true">~/blank-space/profile</p>
-            <p class="identity-command"><span class="terminal-prompt" aria-hidden="true">profile@blank:~$</span><strong data-name-typed data-names={JSON.stringify([profileIdentity.displayName, site.name])}>{profileIdentity.displayName}</strong><span class="caret" aria-hidden="true"></span></p>
+            <div class="identity-bar" aria-hidden="true"><span class="window-dots"><i></i><i></i><i></i></span><span>arataki-base.profile</span></div>
+            <p class="identity-path" aria-hidden="true">~/arataki-base/profile</p>
+            <p class="identity-command"><span class="terminal-prompt" aria-hidden="true">profile@arataki:~$</span><strong data-name-typed data-names={JSON.stringify([profileIdentity.displayName, brand])}>{profileIdentity.displayName}</strong><span class="caret" aria-hidden="true"></span></p>
             <p class="identity-bio">{profileIdentity.bio}</p>
             <div class="identity-links">{socialLinks.map((social) => <a href={social.href} target="_blank" rel="me noopener noreferrer" aria-label={t(`social.${social.key}`)}>{social.label} <span aria-hidden="true">↗</span></a>)}<a href={href("/about/")}>{t("common.about")} <span aria-hidden="true">→</span></a></div>
           </div>
@@ -99,7 +102,7 @@ const panels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"]
               <div class="chapter-copy"><span class="chapter-number" aria-hidden="true">02</span><p class="eyebrow">{t("ema.collection.kicker")}</p><h3>{t("ema.collection.title")}</h3><p>{t("ema.collection.intro")}</p><a href={href("/games/")}>{t("ema.collection.open")} <span aria-hidden="true">↗</span></a></div>
             </article>
             <article class="chapter-card chapter-about" data-chapter data-ema-reveal>
-              <div class="chapter-visual letter-art" aria-hidden="true"><div class="envelope"></div><div class="letter">{t("ema.about.art1")}<br /><span>{t("ema.about.art2")}</span></div><span class="stamp">{site.name.charAt(0)}.</span></div>
+              <div class="chapter-visual letter-art" aria-hidden="true"><div class="envelope"></div><div class="letter">{t("ema.about.art1")}<br /><span>{t("ema.about.art2")}</span></div><span class="stamp">{brand.charAt(0)}.</span></div>
               <div class="chapter-copy"><span class="chapter-number" aria-hidden="true">03</span><p class="eyebrow">{t("ema.about.kicker")}</p><h3>{t("ema.about.title")}</h3><p>{t("ema.about.intro")}</p><a href={href("/about/")}>{t("ema.about.open")} <span aria-hidden="true">↗</span></a></div>
             </article>
           </div></div>
@@ -109,7 +112,7 @@ const panels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"]
 
     <section class="signal-scene" data-signal aria-label={t("ema.signal.label")}>
       <div class="signal-backdrop" aria-hidden="true"></div>
-      <div class="signal-word" aria-hidden="true"><span>{site.name}</span><small>{t("ema.signal.motto")}</small></div>
+      <div class="signal-word" aria-hidden="true"><span>{lettering(brand).map(({ part, kind }) => kind === "apos" ? <span class="apos">{part}</span> : part)}</span><small>{t("ema.signal.motto")}</small></div>
       <div class="signal-card" role="group" aria-label={t("ema.signal.clock")}>
         <p data-clock-date>&nbsp;</p>
         <strong data-clock-time>--:--:--</strong>

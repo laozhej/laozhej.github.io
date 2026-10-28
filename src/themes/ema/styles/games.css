@@ -1,4 +1,4 @@
-/* Sakura Archive Games page: genre filters and a wall of stand-in covers (shared pieces in shelf.css). */
+/* Sakura Archive Games page: genre filters and a wall of game cards (shared pieces in shelf.css). */
 .ema-games {margin-top:48px;}
 .ema-games [hidden] {display:none !important;}
 .games-tools {display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;margin-bottom:28px;}
@@ -15,6 +15,11 @@
 .game-card {display:flex;flex-direction:column;padding:10px;transition:transform 200ms var(--blank-ease),box-shadow 200ms ease;}
 .game-cover {aspect-ratio:16/10;flex-direction:column;align-items:flex-start;justify-content:space-between;padding:10px 12px 12px;}
 .game-cover b {font-size:1.5rem;}
+/* With art, the picture fills the frame; the number sits on a small paper tab above it. */
+.game-cover.has-art {padding:0;}
+.ema-games .game-cover img {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:scale 420ms var(--blank-ease);}
+.game-cover.has-art b {position:relative;z-index:1;margin:8px;padding:1px 9px 2px;border-radius:999px;background:color-mix(in srgb,var(--card) 90%,transparent);font-size:1rem;line-height:1.3;box-shadow:0 2px 8px #1b22361f;}
+.game-cover.has-art::after {z-index:1;filter:drop-shadow(0 1px 2px #1b223666);}
 .game-cover span {display:-webkit-box;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:3;font:400 1.2rem/1.15 var(--ema-title-font);letter-spacing:-.01em;overflow-wrap:anywhere;}
 .game-body {display:flex;flex:1;flex-direction:column;gap:6px;padding:12px 4px 4px;}
 .game-meta {display:flex;flex-wrap:wrap;gap:6px;}
@@ -37,6 +42,7 @@
   .game-card:hover {transform:translateY(-3px);box-shadow:0 18px 36px #8599b42e;}
   .games-filters button:hover {transform:translateY(-1px);border-color:var(--line,var(--ema-pink));}
   .game-link:hover svg:last-child {translate:2px -2px;}
+  .game-card:hover .game-cover img {scale:1.05;}
 }
 @media(max-width:1199px) {
   .games-grid {grid-template-columns:repeat(3,minmax(0,1fr));}
@@ -55,7 +61,7 @@
 @media(max-width:359px) {
   .games-grid {grid-template-columns:minmax(0,1fr);}
 }
-html[data-motion-paused="true"] .ema-games :is(.game-card,button,svg) {transition:none;}
+html[data-motion-paused="true"] .ema-games :is(.game-card,button,svg,img) {transition:none;}
 @media(prefers-reduced-motion:reduce) {
-  .ema-games :is(.game-card,button,svg) {transition:none;}
+  .ema-games :is(.game-card,button,svg,img) {transition:none;}
 }

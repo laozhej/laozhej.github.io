@@ -15,6 +15,8 @@ export const mediaMessages = {
     "media.live2dSoftware": "渲染使用 PixiJS 6.5.10 与 pixi-live2d-display 0.4.0（MIT），以及从官方 SDK 5-r.4 提取并自托管的 Cubism Core。Core 与 Framework 分别适用 Live2D 的专有软件许可与开放软件许可。",
     "media.coreLicense": "Cubism Core 许可",
     "media.frameworkLicense": "Cubism Framework 许可",
+    "media.games": "游戏页卡片上的图片是各游戏在 Steam 商店页或官网公开的宣传图（Steam 资料库背景、商店页背景或官网分享图），只作等比例缩放与 WebP 转换，页面按卡片裁切显示。图片版权属于各游戏的开发商与发行商；本站未取得转载许可，署名不等于授权。",
+    "media.gamesManifest": "游戏图片的来源与文件校验",
   },
   ja: {
     "media.heading": "Ema テーマと素材の出典",
@@ -31,6 +33,8 @@ export const mediaMessages = {
     "media.live2dSoftware": "描画には PixiJS 6.5.10 と pixi-live2d-display 0.4.0（MIT）、公式 SDK 5-r.4 から取得して自サイトで配信する Cubism Core を使用しています。Core と Framework には、それぞれ Live2D Proprietary Software License と Live2D Open Software License が適用されます。",
     "media.coreLicense": "Cubism Core のライセンス",
     "media.frameworkLicense": "Cubism Framework のライセンス",
+    "media.games": "ゲームページのカードの画像は、各ゲームの Steam ストアページまたは公式サイトで公開されている宣伝用画像（Steam ライブラリの背景、ストアページの背景、公式サイトの共有画像）です。縦横比を保った縮小と WebP 変換のみを行い、ページ上でカードに合わせて切り抜いて表示しています。著作権は各ゲームの開発・販売元に帰属します。本サイトは転載の許諾を得ておらず、クレジット表記は許諾を意味しません。",
+    "media.gamesManifest": "ゲーム画像の出典とファイル検証情報",
   },
   en: {
     "media.heading": "Ema theme and artwork sources",
@@ -47,5 +51,7 @@ export const mediaMessages = {
     "media.live2dSoftware": "Rendering uses PixiJS 6.5.10 and pixi-live2d-display 0.4.0 (MIT), with Cubism Core taken from the official SDK 5-r.4 and hosted on this site. Core and Framework are covered by the Live2D Proprietary Software License and Live2D Open Software License, respectively.",
     "media.coreLicense": "Cubism Core license",
     "media.frameworkLicense": "Cubism Framework license",
+    "media.games": "The pictures on the Games page cards are promotional art published on each game's Steam store page or official site (Steam library backgrounds, store page backgrounds or share images). They were only resized and converted to WebP; the page crops them to fit each card. The art belongs to each game's developers and publishers. This site has no permission to republish it, and crediting it is not a license.",
+    "media.gamesManifest": "Sources and checksums for the game pictures",
   },
 } as const;

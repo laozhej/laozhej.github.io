@@ -1,6 +1,7 @@
 ---
-// Sakura Archive's Games page: the shared game shelf as a wall of stand-in covers in the
-// homepage tag colours, one colour per genre, filtered through the shared data-site-* hooks.
+// Sakura Archive's Games page: the shared game shelf as cards framed in the homepage tag
+// colours, one colour per genre, filtered through the shared data-site-* hooks. Each card shows
+// the game's art (public/games/) or, without any, a screentone stand-in cover with its title.
 import { Icon } from "astro-icon/components";
 import { getSiteContent } from "@/core/i18n/content";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
@@ -38,7 +39,11 @@ const linkLabel = (game: (typeof gameShelf)[number]) => (game.link?.steam ? "Ste
     <ol class="games-grid" data-site-entries>
       {gameShelf.map((game) => (
         <li class={`shelf-card game-card tone-${genreTone[game.genre]}`} data-site-entry data-category={game.genre} data-search={`${game.name} ${game.title}`}>
-          <div class="shelf-cover game-cover" aria-hidden="true"><b>{pad(game.number)}</b><span>{game.title}</span></div>
+          <div class:list={["shelf-cover game-cover", { "has-art": game.art }]} aria-hidden="true">
+            {game.art && <img src={game.art.src} alt="" loading="lazy" decoding="async" style={`object-position:${game.art.focus}`} />}
+            <b>{pad(game.number)}</b>
+            {!game.art && <span>{game.title}</span>}
+          </div>
           <div class="game-body">
             <p class="game-meta">
               <span class="game-genre"><Icon name={genreIcon[game.genre]} size={12} aria-hidden="true" />{t(`games.genre.${game.genre}`)}</span>

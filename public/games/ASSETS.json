@@ -1,0 +1,630 @@
+{
+ "schema_version": 1,
+ "verified_on": "2026-10-29",
+ "scope": "Provenance of the game art shown on the Games page cards. This file is not a permission or license grant. These third-party media files are excluded from the repository software license.",
+ "non_ai_processing": "No image generation, redrawing, generative fill, background synthesis or AI upscaling. Only deterministic proportional resizing and WebP encoding were applied. No pixels were cropped, recolored or composited in the asset files.",
+ "assets": [
+  {
+   "id": "tsushima",
+   "title": "Ghost of Tsushima DIRECTOR'S CUT",
+   "file": "tsushima.webp",
+   "focus": "40% 50%",
+   "source_page": "https://store.steampowered.com/app/2215430/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2215430/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "Sucker Punch Productions, Nixxes Software",
+   "publisher": "PlayStation Publishing LLC",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "210425e5e9c99ac34ce1d7e049f3f382ac2995a82a79d9df6a7867b3aa111d63",
+   "sha256": "a246769f72069246c15f27e7414b024d2c1148207233fa82c70a2fa6dd644219",
+   "bytes": 49738,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Sucker Punch Productions, Nixxes Software. Publisher: PlayStation Publishing LLC. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "steins-gate-reboot",
+   "title": "STEINS;GATE RE:BOOT",
+   "file": "steins-gate-reboot.webp",
+   "focus": "78% 40%",
+   "source_page": "https://store.steampowered.com/app/4012810/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4012810/860f7c192a7eff45ff5084ac2b2a4c49a409eeed/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "MAGES. Inc.",
+   "publisher": "Spike Chunsoft Co., Ltd.",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "93ab2fab580282f27fc6212f926cbafa365f48779208a2ddc54a036c9d828401",
+   "sha256": "10db9901716ae6d831cdc99948e25770570089d60a1fc01e63e34b4e31ab6ac2",
+   "bytes": 74322,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: MAGES. Inc.. Publisher: Spike Chunsoft Co., Ltd.. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "steins-gate",
+   "title": "STEINS;GATE",
+   "file": "steins-gate.webp",
+   "focus": "55% 40%",
+   "source_page": "https://store.steampowered.com/app/412830/",
+   "source_image": "https://cdn.cloudflare.steamstatic.com/steam/apps/412830/page_bg_raw.jpg",
+   "source_kind": "Steam store page background",
+   "developer": "MAGES. Inc.",
+   "publisher": "Spike Chunsoft Co., Ltd.",
+   "original_dimensions": [
+    1438,
+    810
+   ],
+   "dimensions": [
+    710,
+    400
+   ],
+   "original_sha256": "2a9301f387824815465807d7336820790bab2e69a1c5c623b5ddee776e9fa7c2",
+   "sha256": "ed6b8cc64fda0c623ee71fbd31992525584afd49aeb0173f984bbc1a87a1601d",
+   "bytes": 43018,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: MAGES. Inc.. Publisher: Spike Chunsoft Co., Ltd.. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "fate-extella",
+   "title": "Fate/EXTELLA",
+   "file": "fate-extella.webp",
+   "focus": "78% 40%",
+   "source_page": "https://store.steampowered.com/app/511680/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/511680/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "Marvelous Inc.",
+   "publisher": "XSEED Games, Marvelous USA, Inc., Marvelous Europe",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "d88589c52fc392f029e351cc75688e51b56ca43e618a7ff6fdb159337cc2ca3e",
+   "sha256": "90a16e7c9432636c2cb6922576e8574a9f6dfd1b2bd65377b466483278380883",
+   "bytes": 41002,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Marvelous Inc.. Publisher: XSEED Games, Marvelous USA, Inc., Marvelous Europe. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "fate-extella-link",
+   "title": "Fate/EXTELLA LINK",
+   "file": "fate-extella-link.webp",
+   "focus": "62% 40%",
+   "source_page": "https://store.steampowered.com/app/622220/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/622220/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "Marvelous Inc.",
+   "publisher": "XSEED Games, Marvelous USA, Inc., Marvelous Europe",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "0ae7e51fc78c890bf9bd5e810b88a06f9d98c61d8c6c0affe61927697c72ea9e",
+   "sha256": "a6c1523caa3c135b7f2511f6b67cda11b1afd74065fc59bf84daa31753a3c27b",
+   "bytes": 70236,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Marvelous Inc.. Publisher: XSEED Games, Marvelous USA, Inc., Marvelous Europe. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "fate-hollow-ataraxia",
+   "title": "Fate/hollow ataraxia REMASTERED",
+   "file": "fate-hollow-ataraxia.webp",
+   "focus": "12% 40%",
+   "source_page": "https://store.steampowered.com/app/2396990/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2396990/5980ca62eb1f55ecb3aebfd09df1429e9032bfdc/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "TYPE-MOON, fuzz Inc.",
+   "publisher": "Aniplex Inc.",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "3e6645a7f72c3054ae83849acaf5e4744c56390bc7917f839acb5e42d0544332",
+   "sha256": "954afa8a9a606ce7f7861a87cf4701237deeec6b3121c87b9fb8407721298d31",
+   "bytes": 54756,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: TYPE-MOON, fuzz Inc.. Publisher: Aniplex Inc.. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "fate-stay-night",
+   "title": "Fate/stay night REMASTERED",
+   "file": "fate-stay-night.webp",
+   "focus": "55% 40%",
+   "source_page": "https://store.steampowered.com/app/2396980/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2396980/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "TYPE-MOON, fuzz Inc.",
+   "publisher": "Aniplex Inc.",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "ac167beafdc15edeaa525fe1f814f98fd578e7e81288dac31b8714a438b7e02a",
+   "sha256": "652642de0471076abfa255c676bd4750cfd347ccc7d9c6a1f791c5884dae3ce4",
+   "bytes": 54028,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: TYPE-MOON, fuzz Inc.. Publisher: Aniplex Inc.. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "witch-holy-night",
+   "title": "WITCH ON THE HOLY NIGHT",
+   "file": "witch-holy-night.webp",
+   "focus": "75% 40%",
+   "source_page": "https://store.steampowered.com/app/2052410/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2052410/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "TYPE-MOON, Lasengle Inc., Hunex",
+   "publisher": "Aniplex Inc.",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "6c3f35eeaa4ab5ee4cea215c19a0b403b7a43fe7d025cf2945a78519735db75f",
+   "sha256": "634ae36cad5cc79eba363195b070c16242eea8d93be4b51be819d3061ad5ac6e",
+   "bytes": 96786,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: TYPE-MOON, Lasengle Inc., Hunex. Publisher: Aniplex Inc.. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "arknights",
+   "title": "Arknights",
+   "file": "arknights.webp",
+   "focus": "50% 35%",
+   "source_page": "https://www.arknights.kr/",
+   "source_image": "https://webusstatic.yo-star.com/ark_kr_web/pc/share.png",
+   "source_kind": "Official site share image (og:image)",
+   "developer": "Hypergryph",
+   "publisher": "Yostar",
+   "original_dimensions": [
+    512,
+    512
+   ],
+   "dimensions": [
+    512,
+    512
+   ],
+   "original_sha256": "b0bdbd34fa24401a241c8e8df289df87c5bd451a851d2ef6136cd1ebf383ebf2",
+   "sha256": "0697f8ac8e022525e31624d7fdd68e6054a466803fb711ddcd19ed3b8d36552e",
+   "bytes": 47584,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Hypergryph. Publisher: Yostar. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "endfield",
+   "title": "Arknights: Endfield",
+   "file": "endfield.webp",
+   "focus": "45% 40%",
+   "source_page": "https://store.steampowered.com/app/4732690/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/4732690/1f8059e92e7f33e41b68b973ca1c80e926586028/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "Hypergryph",
+   "publisher": "GRYPHLINE",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "3432aba74f1aebc6ea5cec31fbd0ca2c63a218d4ec5a1c451d64877c99d5bd44",
+   "sha256": "563d3663d8734d7b021196410c780a3593b6c982d3b5c1f631dacdff45009895",
+   "bytes": 107038,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Hypergryph. Publisher: GRYPHLINE. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "cyberpunk",
+   "title": "Cyberpunk 2077",
+   "file": "cyberpunk.webp",
+   "focus": "62% 50%",
+   "source_page": "https://store.steampowered.com/app/1091500/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1091500/cf8cec802dc47d0f24b75f9eee135e96812e2652/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "CD PROJEKT RED",
+   "publisher": "CD PROJEKT RED",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "44c73149490ecf4e211e1d7698e457a9694999d5f9b6ffec136a87c2b720b98b",
+   "sha256": "6d87074eaa3db50f59398e804e261a3e1f5d7e7b8e6b73e3d84b0b157958da6c",
+   "bytes": 30130,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: CD PROJEKT RED. Publisher: CD PROJEKT RED. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "cs2",
+   "title": "Counter-Strike 2",
+   "file": "cs2.webp",
+   "focus": "82% 50%",
+   "source_page": "https://store.steampowered.com/app/730/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/730/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "Valve",
+   "publisher": "Valve",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "b2dce00d292c217af9e207ad3622279a0affe47ac26ad053dfeaff5d4ad65425",
+   "sha256": "32f171c4b03ef2b5fefe174385dd38e9ab25ef4a8f3e5c9509205de281511f22",
+   "bytes": 42250,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Valve. Publisher: Valve. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "stellar-blade",
+   "title": "Stellar Blade™",
+   "file": "stellar-blade.webp",
+   "focus": "65% 50%",
+   "source_page": "https://store.steampowered.com/app/3489700/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3489700/7f886b630308135ac990fefd005787729fec685f/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "SHIFT UP Corporation",
+   "publisher": "PlayStation Publishing LLC (excluding China)",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "396581916ae0b20b8b59dc97c0541c230f3c7442faaaf3550aace426d19d9eee",
+   "sha256": "ab80f18b198bc79d3be5aa6227f091f5cc6f9c6fcec80c2a1c627b0d0e5e7690",
+   "bytes": 45054,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: SHIFT UP Corporation. Publisher: PlayStation Publishing LLC (excluding China). As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "elden-ring",
+   "title": "ELDEN RING",
+   "file": "elden-ring.webp",
+   "focus": "50% 50%",
+   "source_page": "https://store.steampowered.com/app/1245620/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1245620/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "FromSoftware, Inc.",
+   "publisher": "FromSoftware, Inc., Bandai Namco Entertainment",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "45cb3b1f7a0542b494466dac2b40f05250ec4ce633c26752d3f4ef0b9ec2ce03",
+   "sha256": "6685a4b3aa3eba11e6096713fc9c48889f984dabe6ef43d56e54f2e1dfe4ea70",
+   "bytes": 25162,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: FromSoftware, Inc.. Publisher: FromSoftware, Inc., Bandai Namco Entertainment. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "blue-archive",
+   "title": "Blue Archive",
+   "file": "blue-archive.webp",
+   "focus": "75% 50%",
+   "source_page": "https://store.steampowered.com/app/3557620/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3557620/28c53e4a34d547533dd4d5a4ad6db2fd06675446/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "NEXON Games",
+   "publisher": "NEXON Korea",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "79916d520d3333adb8a8c99e5b2ce6207134888661e404ef2c30b41d49689770",
+   "sha256": "f3c75464ddde11a6d1b6fbd4e6236e3bd1724340ebc912461c8e08a133465555",
+   "bytes": 20282,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: NEXON Games. Publisher: NEXON Korea. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "vrchat",
+   "title": "VRChat",
+   "file": "vrchat.webp",
+   "focus": "22% 60%",
+   "source_page": "https://store.steampowered.com/app/438100/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/438100/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "VRChat Inc.",
+   "publisher": "VRChat Inc.",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "6c4ba302cca034785fd4d3df31288801c878d6693be3e4ded23811debe74877c",
+   "sha256": "ca17a57a7878367c1a0b9732a069175c50653195099a74892f1f55d8e88dc635",
+   "bytes": 24008,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: VRChat Inc.. Publisher: VRChat Inc.. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "death-stranding",
+   "title": "DEATH STRANDING DIRECTOR'S CUT",
+   "file": "death-stranding.webp",
+   "focus": "45% 40%",
+   "source_page": "https://store.steampowered.com/app/1850570/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1850570/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "KOJIMA PRODUCTIONS",
+   "publisher": "505 Games",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "977e9ee859e358707868336c8a477c97b5e7d04e76e6c58e8e7938d79fae4948",
+   "sha256": "92f335a3c3ea10c431e6c8ac2e1d9961b8c298e8c717cb0567d19a9775d25055",
+   "bytes": 41584,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: KOJIMA PRODUCTIONS. Publisher: 505 Games. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "ff7-remake",
+   "title": "FINAL FANTASY VII REMAKE INTERGRADE",
+   "file": "ff7-remake.webp",
+   "focus": "62% 50%",
+   "source_page": "https://store.steampowered.com/app/1462040/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1462040/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "Square Enix",
+   "publisher": "Square Enix",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "90ec0e2ad0a1a3e76014746fcadf39528f0bf2ac4031a4d2d554f894a9869363",
+   "sha256": "e7b5257e06c414b2b6564566196e54afdaadc1b5020d43d10ba30d87a75940fb",
+   "bytes": 53776,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Square Enix. Publisher: Square Enix. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "muse-dash",
+   "title": "Muse Dash",
+   "file": "muse-dash.webp",
+   "focus": "30% 40%",
+   "source_page": "https://store.steampowered.com/app/774171/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/774171/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "peropero",
+   "publisher": "peropero, XD",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "73d9d2e05fee3dd38830cc62964bfdef35ce06151212b54e358d92f8166036d7",
+   "sha256": "ad249c4dfcea2b74c9803d37d21efcbc334b5479bfcc7208cfdc37ea185d60ed",
+   "bytes": 76104,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: peropero. Publisher: peropero, XD. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "arcaea",
+   "title": "Arcaea",
+   "file": "arcaea.webp",
+   "focus": "35% 40%",
+   "source_page": "https://arcaea.lowiro.com/",
+   "source_image": "https://arcaea.lowiro.com/img/poster.jpg",
+   "source_kind": "Official site poster image",
+   "developer": "lowiro",
+   "publisher": "lowiro",
+   "original_dimensions": [
+    3840,
+    1862
+   ],
+   "dimensions": [
+    825,
+    400
+   ],
+   "original_sha256": "dc8bc918c33c42a004064123dceef039043ed49ba63da0300d9b131873e85f2f",
+   "sha256": "3093ecb90f4175615f5c9fff5eafc9311e5fd9d053ac9cfa7391fb3e091e5d63",
+   "bytes": 71142,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: lowiro. Publisher: lowiro. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "rdr2",
+   "title": "Red Dead Redemption 2",
+   "file": "rdr2.webp",
+   "focus": "72% 40%",
+   "source_page": "https://store.steampowered.com/app/1174180/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1174180/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "Rockstar Games",
+   "publisher": "Rockstar Games",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "793aafda602e23169b1c8a20fed00c803af1ab0be8f6f7a9e0743a14a469f02b",
+   "sha256": "1ba221078656cb7a4d8418c94055b1efd64a286e519fbb48857c34e47891c95b",
+   "bytes": 47260,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Rockstar Games. Publisher: Rockstar Games. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "yotei",
+   "title": "Ghost of Yōtei",
+   "file": "yotei.webp",
+   "focus": "50% 0%",
+   "source_page": "https://www.playstation.com/en-us/games/ghost-of-yotei/",
+   "source_image": "https://image.api.playstation.com/vulcan/ap/rnd/202607/2723/890df32c227f619c5bd80e9f34ba2be53d0fea4b1615adee.png",
+   "source_kind": "Official site share image (og:image)",
+   "developer": "Sucker Punch Productions",
+   "publisher": "Sony Interactive Entertainment",
+   "original_dimensions": [
+    1024,
+    1024
+   ],
+   "dimensions": [
+    520,
+    520
+   ],
+   "original_sha256": "86a4a9ec89b3027a19c2ca8789e8736c6c37d06224a7cfee5d87bd738675f6e0",
+   "sha256": "6473f7d4032c8f0d9c6f30c2a7b0dabebb7229c8b46ecc86f83eb5c28075a5d6",
+   "bytes": 46388,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Sucker Punch Productions. Publisher: Sony Interactive Entertainment. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "manosaba",
+   "title": "Magical Girl Witch Trials",
+   "file": "manosaba.webp",
+   "focus": "25% 50%",
+   "source_page": "https://store.steampowered.com/app/3101040/",
+   "source_image": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/3101040/793575e909f3caf6d2ab826713627592f9ae9fb3/library_hero.jpg",
+   "source_kind": "Steam library hero",
+   "developer": "Acacia, Re,AER",
+   "publisher": "Re,AER, CIRCLE LINE GAMES",
+   "original_dimensions": [
+    1920,
+    620
+   ],
+   "dimensions": [
+    1239,
+    400
+   ],
+   "original_sha256": "dd52364c9a9f22d9aef67e5ddb9a05cb8a520048a6cfaf699964b9932a9be820",
+   "sha256": "aa47f3e5b0e930046af7a4e3f0806bd99de4d33be2e35b5a5cf758c2968e1077",
+   "bytes": 75374,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale (when larger than the target height), RGB conversion and lossy WebP encoding (Pillow/libwebp, quality=80, method=6). The page crops the image for each card with CSS object-fit and the focus position; the file itself is not cropped.",
+   "generative_ai_used": false,
+   "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Acacia, Re,AER. Publisher: Re,AER, CIRCLE LINE GAMES. As listed on the source page; all rights remain with their respective holders."
+  }
+ ],
+ "credit_note": "Developer and publisher names are copied from the source pages (Steam store data or the official site), not formal copyright notices."
+}

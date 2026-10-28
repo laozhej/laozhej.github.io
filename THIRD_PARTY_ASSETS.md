@@ -24,6 +24,17 @@
 
 这些链接用于核实来源和规则，不表示权利人赞助、认可或授权本站。公开仓库分发图片与网站部署一样，需要考虑对应素材的使用范围。
 
+## 游戏页卡片图
+
+`public/games/` 下的图片用于樱色档案主题游戏页的卡片，每个游戏一张。`public/games/ASSETS.json` 逐项记录来源页面、原图 URL、来源类型、开发商与发行商（照抄自 Steam 商店数据或官网）、原始及输出 SHA-256、尺寸、页面显示时的裁切焦点、处理方式和核对日期。
+
+- 20 款 Steam 游戏使用各自 Steam 商店的资料库背景图（library hero）；《STEINS;GATE》的资料库背景只有齿轮纹样，改用其商店页背景图。
+- 《明日方舟》使用 Yostar 韩国官网的分享图，《Arcaea》使用 lowiro 官网的海报图，《羊蹄山之魂》使用 PlayStation 官网的分享图。
+
+处理仅包含等比例 LANCZOS 缩小、RGB 转换和有损 WebP 编码（quality 80）；资产文件没有裁切、调色、合成或使用生成式 AI。卡片上的裁切由页面 CSS（`object-fit` 与焦点位置）完成。
+
+这些图片是权利人公开发布的宣传素材，但本站没有确认获得装饰性网站公开使用或再分发的许可。开发商与发行商名称只是来源页面上的署名，不是正式版权声明，也不表示权利人赞助、认可或授权本站。
+
 ## 芙莉莲 Live2D 看板娘
 
 Ema 主题左下角使用 kyokiStudio 发布的《葬送的芙莉莲》同人 Live2D 模型，文件位于 `public/themes/ema/live2d/frieren/`。发布来源为 [BOOTH「[同人モデル] フリーレン / [FanArt Live2d] Frieren」](https://booth.pm/ja/items/5323958)，配布文件名为 `Frieren.zip`。

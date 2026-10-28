@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { existsSync } from "node:fs";
 import { games } from "../src/core/data/games.ts";
 import { checkGames, localizeGames, gameGenres } from "../src/core/content/select-games.mjs";
 
@@ -13,6 +14,15 @@ test("the game shelf is valid and keeps the order it was written in", () => {
   assert.ok(games.every((item) => item.steam || item.url), "every game links somewhere");
 });
 
+test("every game's art is in public/games and listed in its source manifest", async () => {
+  const { assets } = JSON.parse(await import("node:fs/promises").then((fs) => fs.readFile(new URL("../public/games/ASSETS.json", import.meta.url), "utf8")));
+  const listed = new Set(assets.map((asset) => asset.file));
+  for (const item of games.filter((entry) => entry.art)) {
+    assert.ok(existsSync(new URL(`../public/games/${item.art.file}`, import.meta.url)), `${item.key}: missing ${item.art.file}`);
+    assert.ok(listed.has(item.art.file), `${item.key}: ${item.art.file} has no source record`);
+  }
+});
+
 test("a broken game entry stops the build and names it", () => {
   assert.throws(() => checkGames([game(), game()]), /Game 2 \(sample\).*already used/);
   assert.throws(() => checkGames([game({ key: "Bad Key" })]), /lowercase/);
@@ -22,6 +32,8 @@ test("a broken game entry stops the build and names it", () => {
   assert.throws(() => checkGames([game({ status: "done" })]), /status/);
   assert.throws(() => checkGames([game({ pick: 5 })]), /pick must be 1, 2 or 3/);
   assert.throws(() => checkGames([game({ note: { en: "Great" } })]), /"zh-CN" text/);
+  assert.throws(() => checkGames([game({ art: { file: "../secret.png" } })]), /art.file/);
+  assert.throws(() => checkGames([game({ art: { file: "a.webp", focus: "left" } })]), /art.focus/);
 });
 
 test("each language shows its usual name, with the game's own title as the fallback", () => {
@@ -33,6 +45,8 @@ test("each language shows its usual name, with the game's own title as the fallb
   assert.deepEqual(zh.link, { href: "https://store.steampowered.com/app/1245620/", steam: true });
   assert.deepEqual(other.link, { href: "https://arcaea.lowiro.com/", steam: false });
   assert.equal(other.number, 2);
+  assert.equal(other.art, undefined);
+  assert.deepEqual(localizeGames([game({ art: { file: "a.webp" } })], "en")[0].art, { src: "/games/a.webp", focus: "50% 50%" });
 });
 
 test("a note without a translation shows the Chinese original and says so", () => {

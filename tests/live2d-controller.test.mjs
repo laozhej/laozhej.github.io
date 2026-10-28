@@ -24,7 +24,7 @@ function fixture({ desktop = true, hidden = false, tabHidden = false, paused = f
   };
   const doc = Object.assign(new EventTarget(), {
     hidden: tabHidden,
-    documentElement: { dataset: { motionPaused: String(paused) } },
+    documentElement: { clientWidth: 1440, clientHeight: 900, dataset: { motionPaused: String(paused) } },
   });
   const win = Object.assign(new EventTarget(), {
     AbortController,
@@ -178,17 +178,28 @@ test('context loss during loading also destroys a late renderer', async () => {
   p.controller.cleanup();
 });
 
-test('gaze follows only a nearby fine pointer and settles when interaction ends', async () => {
+test('gaze follows the whole viewport with bounded turns and settles when interaction ends', async () => {
   const p = fixture();
   await settle();
-  p.move(800, 200);
-  assert.deepEqual(p.gaze, [], 'distant pointer movement leaves the guide alone');
-  p.move(268, 570);
-  assert.equal(p.gaze.length, 1);
-  assert.ok(p.gaze[0][0] > 0 && p.gaze[0][0] <= 0.22);
-  assert.ok(p.gaze[0][1] > 0 && p.gaze[0][1] <= 0.22);
-  p.move(800, 200);
+  p.move(1440, 0);
+  assert.deepEqual(p.gaze.at(-1), [0.6, 0.45], 'the far corner still attracts her gaze');
+  p.move(768, 360);
+  assert.deepEqual(p.gaze.at(-1), [0.3, 0.225], 'distant movement stays proportional rather than saturating');
+  p.move(0, 900);
+  assert.ok(p.gaze.at(-1)[0] < 0 && p.gaze.at(-1)[1] < 0, 'the lower-left corner is left and below her head');
+  p.move(-5000, 5000);
+  assert.deepEqual(p.gaze.at(-1), [-0.6, -0.45], 'out-of-viewport coordinates stay bounded');
+  p.move(96, 720);
   assert.deepEqual(p.gaze.at(-1), [0, 0]);
+  p.move(300, 300);
+  assert.ok(p.gaze.at(-1)[0] > 0 && p.gaze.at(-1)[1] > 0, 'a cursor right of her head looks right even in the left half of the page');
+  p.doc.documentElement.clientWidth = 1200;
+  p.doc.documentElement.clientHeight = 800;
+  p.root.getBoundingClientRect = () => ({ left: 14, top: 560, width: 164, height: 240 });
+  p.move(1200, 0);
+  assert.deepEqual(p.gaze.at(-1), [0.6, 0.45], 'normalization follows viewport resizing');
+  p.move(96, 620);
+  assert.deepEqual(p.gaze.at(-1), [0, 0], 'neutral gaze follows the figure position after resizing');
   p.move(168, 680);
   p.motion(true);
   assert.deepEqual(p.gaze.at(-1), [0, 0], 'pausing settles the gaze');
@@ -206,5 +217,11 @@ test('gaze follows only a nearby fine pointer and settles when interaction ends'
   p.move(168, 680);
   p.doc.dispatchEvent(new Event('pointerleave'));
   assert.deepEqual(p.gaze.at(-1), [0, 0]);
+  p.move(1000, 100);
+  p.win.dispatchEvent(new Event('blur'));
+  assert.deepEqual(p.gaze.at(-1), [0, 0], 'leaving the browser restores a neutral gaze');
+  p.move(1000, 100);
+  p.doc.dispatchEvent(Object.assign(new Event('pointermove'), { clientX: 800, clientY: 200, pointerType: 'touch' }));
+  assert.deepEqual(p.gaze.at(-1), [0, 0], 'touch does not inherit mouse tracking');
   p.controller.cleanup();
 });

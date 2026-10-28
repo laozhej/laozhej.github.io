@@ -221,17 +221,11 @@ details[open] > summary > .blank-disclosure-icon { transform: rotate(180deg); }
 .blank-toolkit dt { font-size: .9375rem; font-weight: 600; margin-bottom: 12px; }
 .blank-toolkit dd { color: var(--blank-muted); font-size: .75rem; }
 
-.blank-game { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; padding: 52px 0; border-bottom: 1px solid var(--blank-line); }
-.blank-game-title h2 { margin: 28px 0 20px; font: 400 3.75rem/1.15 var(--blank-serif); }
-.blank-game-content { padding-top: 4px; min-width: 0; }
-.blank-game-description { font-size: .9375rem; line-height: 1.9; max-width: 58ch; }
-.blank-game-credits { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--blank-line); }
-.blank-game-credits > div { display: grid; grid-template-columns: 44px 1fr; gap: 20px; margin-bottom: 8px; font-size: .75rem; }
-.blank-game-credits dt { color: var(--blank-muted); }
-.blank-game-actions { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; margin-top: 28px; }
-.blank-game-thanks { margin-top: 24px; color: var(--blank-muted); font-size: .75rem; }
-.blank-game-thanks summary { min-height: 32px; width: fit-content; }
-.blank-game-thanks p { padding: 8px 0; }
+.blank-game-list { margin: 0; padding: 0; list-style: none; }
+.blank-game-row { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 6px 28px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--blank-line); }
+.blank-game-row h2 { margin: 0; font: 400 1.5rem/1.35 var(--blank-serif); }
+.blank-game-row p { margin: 6px 0 0; color: var(--blank-muted); font-size: .8125rem; line-height: 1.7; }
+.blank-game-row .blank-game-note { color: var(--blank-ink); }
 .blank-endnote { padding-top: 48px; display: flex; justify-content: space-between; align-items: baseline; gap: 24px; }
 .blank-endnote > p { color: var(--blank-muted); font-size: .8125rem; }
 
@@ -426,8 +420,6 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-featured-content h2 { font-size: 1.75rem; }
   .blank-page-heading h1 { font-size: 5.5rem; }
   .blank-workbench-body, .blank-profile, .blank-about-section { gap: 40px; }
-  .blank-game { gap: 48px; }
-  .blank-game-title h2 { font-size: 3rem; }
   .blank-now { grid-template-columns: 160px 1fr; }
   .blank-now > .blank-text-link { grid-column: 2; }
   .blank-article-shell { grid-template-columns: 180px minmax(0, 1fr); gap: 36px; }
@@ -502,9 +494,9 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-project-body > p { font-size: .8125rem; }
   .blank-toolkit { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-top: 24px; }
   .blank-toolkit > div, .blank-toolkit > div + div { padding: 0 0 20px; border-left: 0; border-bottom: 1px solid var(--blank-line); }
-  .blank-game { grid-template-columns: 1fr; gap: 28px; padding: 36px 0; }
-  .blank-game-title h2 { margin-top: 16px; font-size: 3rem; }
-  .blank-game-description { font-size: .875rem; }
+  .blank-game-row { grid-template-columns: 40px minmax(0, 1fr); padding: 20px 0; }
+  .blank-game-row h2 { font-size: 1.25rem; }
+  .blank-game-row > .blank-text-link { grid-column: 2; }
   .blank-endnote { flex-direction: column; gap: 12px; padding-top: 28px; }
   .blank-profile { padding: 36px 0; }
   .blank-profile-name h2 { margin-block: 16px; font-size: 2.5rem; }

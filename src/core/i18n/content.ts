@@ -1,11 +1,14 @@
 import * as profile from "@/core/data/profile";
 import * as projects from "@/core/data/projects";
-import * as games from "@/core/data/games";
+import { games } from "@/core/data/games";
+import { checkGames, localizeGames } from "@/core/content/select-games.mjs";
 
 // Theme-independent content. Stable keys and URLs are shared by every locale.
-const zh = { ...profile, ...projects, ...games };
+checkGames(games);
+const zh = { ...profile, ...projects, gameShelf: localizeGames(games, "zh-CN") };
 
 const ja = {
+  gameShelf: localizeGames(games, "ja"),
   profileIdentity: {
     displayName: "荒滝 旭",
     handle: "PROFILE / プロフィール",
@@ -41,16 +44,10 @@ const ja = {
       details: ["ホームと各ページへのナビゲーション", "記事一覧と記事ページ", "制作、好きなもの、プロフィールのページ"],
     },
   ],
-  gamePicks: [
-    {
-      id: "manosaba", name: "魔法少女ノ魔女裁判", vibe: "VISUAL NOVEL / ビジュアルノベル", type: "ビジュアルノベル", character: "桜羽エマ", officialUrl: "https://manosaba.com/",
-      summary: "桜羽エマのキャラクターデザインが好き。その気持ちをここに残して、今後の個人サイトのテーマを考えるきっかけにもしたいです。",
-      note: "まずは作品とキャラクターの記録から。プレイの感想は、また後で。",
-    },
-  ],
 } as const;
 
 const en = {
+  gameShelf: localizeGames(games, "en"),
   profileIdentity: {
     displayName: "Arataki Asahi",
     handle: "PERSONAL PROFILE",
@@ -84,13 +81,6 @@ const en = {
       id: "blank-personal-site", title: "Personal website · First version", type: "Personal Website", line: "web", status: "In progress",
       summary: "Starting with the Blank theme to build a place for writing, projects, and favorite works.",
       details: ["Home page and section navigation", "Article index and reading pages", "Projects, interests, and about pages"],
-    },
-  ],
-  gamePicks: [
-    {
-      id: "manosaba", name: "魔法少女ノ魔女裁判", vibe: "VISUAL NOVEL", type: "Visual novel", character: "Ema Sakuraba", officialUrl: "https://manosaba.com/",
-      summary: "I like Ema Sakuraba's character design. This is a place to keep that interest and a source of inspiration for a future website theme.",
-      note: "For now, this is a note about the work and the character. Thoughts on playing it can come later.",
     },
   ],
 } as const;

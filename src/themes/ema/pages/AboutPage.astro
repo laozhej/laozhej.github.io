@@ -9,10 +9,11 @@ import { socialLinks } from "@/core/data/social";
 import { site } from "@/lib/site";
 import PageLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "@/themes/blank/components/PageHead.astro";
+import "../styles/shelf.css";
 import "../styles/about.css";
 
-const { locale, t } = getI18n(Astro.url.pathname);
-const { currentSignals, favoriteGames, profileIdentity, profileStatus, profileTech, projectTechLines, xpFavorites } = getSiteContent(locale);
+const { locale, t, href } = getI18n(Astro.url.pathname);
+const { currentSignals, favoriteGames, gameShelf, profileIdentity, profileStatus, profileTech, projectTechLines, xpFavorites } = getSiteContent(locale);
 const tones = ["pink", "blue", "green", "lavender", "yellow"];
 const tone = (index: number, offset = 0) => `tone-${tones[(index + offset) % tones.length]}`;
 const number = (index: number) => String(index + 1).padStart(2, "0");
@@ -30,7 +31,7 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
 ---
 <PageLayout title={`About | ${site.name}`} description={t("about.description")}>
   <PageHead index="04" title="About" label={t("common.about")} description={t("about.intro")} />
-  <div class="ema-about">
+  <div class="ema-about ema-shelf">
     <aside class="about-side" aria-label={t("ema.about.profile")}>
       <div class="about-avatar">
         <span class="about-tape" aria-hidden="true"></span>
@@ -38,7 +39,7 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
         <span class="about-blossom" aria-hidden="true"></span>
       </div>
       <div class="about-id">
-        <p class="about-kicker">{t("ema.about.kicker")}</p>
+        <p class="shelf-kicker">{t("ema.about.kicker")}</p>
         <h2>{profileIdentity.displayName}<span aria-hidden="true">.</span></h2>
         <p class="about-handle">{t("ema.brand")}</p>
         <p class="about-bio">{profileIdentity.bio}</p>
@@ -47,7 +48,7 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
         </ul>
       </div>
       <div class="about-status">
-        <p class="about-kicker">{t("ema.about.status")}</p>
+        <p class="shelf-kicker">{t("ema.about.status")}</p>
         <ul>{profileStatus.map((item) => <li><Icon name="tabler:pin" size={16} aria-hidden="true" /><span>{item}</span></li>)}</ul>
       </div>
     </aside>
@@ -55,7 +56,7 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
     <div class="about-main">
       <section class="about-letter" aria-labelledby="ema-about-letter">
         <div class="about-letter-copy">
-          <p class="about-kicker">{t("ema.about.letterKicker")}</p>
+          <p class="shelf-kicker">{t("ema.about.letterKicker")}</p>
           <h2 id="ema-about-letter">{t("ema.about.letterTitle")}</h2>
           <p>{t("ema.about.letterBody")}</p>
           <p class="about-signature">— {profileIdentity.displayName}</p>
@@ -71,18 +72,18 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
       </nav>
 
       <section class="about-section" aria-labelledby="ema-about-tech">
-        <div class="about-heading"><span class={tone(0)}><Icon name="tabler:code" size={20} aria-hidden="true" /></span><div><p class="about-kicker">{t("ema.about.techKicker")}</p><h2 id="ema-about-tech">{t("ema.about.techTitle")}</h2></div></div>
+        <div class="shelf-heading"><span class={`shelf-chip ${tone(0)}`}><Icon name="tabler:code" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">{t("ema.about.techKicker")}</p><h2 id="ema-about-tech">{t("ema.about.techTitle")}</h2></div></div>
         <ul class="about-tech">
-          {tech.map((item, index) => <li class={tone(index)}><span class="about-chip"><Icon name={techIcons[item.key] ?? "tabler:sparkles"} size={22} aria-hidden="true" /></span><div><h3>{item.name}</h3><p>{item.note}</p></div></li>)}
+          {tech.map((item, index) => <li class={`shelf-card ${tone(index)}`}><span class="shelf-chip about-chip"><Icon name={techIcons[item.key] ?? "tabler:sparkles"} size={22} aria-hidden="true" /></span><div><h3>{item.name}</h3><p>{item.note}</p></div></li>)}
         </ul>
       </section>
 
       <section class="about-section" aria-labelledby="ema-about-games">
-        <div class="about-heading"><span class={tone(4)}><Icon name="tabler:device-gamepad" size={20} aria-hidden="true" /></span><div><p class="about-kicker">{t("ema.about.gamesKicker")}</p><h2 id="ema-about-games">{t("ema.about.gamesTitle")}</h2></div></div>
+        <div class="shelf-heading"><span class={`shelf-chip ${tone(4)}`}><Icon name="tabler:device-gamepad" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">{t("ema.about.gamesKicker")}</p><h2 id="ema-about-games">{t("ema.about.gamesTitle")}</h2></div></div>
         <ol class="about-games">
           {favoriteGames.map((item, index) => (
-            <li class={tone(index, 4)}>
-              <span class="about-cover" aria-hidden="true"><b>{number(index)}</b></span>
+            <li class={`shelf-card ${tone(index, 4)}`}>
+              <span class="shelf-cover about-cover" aria-hidden="true"><b>{number(index)}</b></span>
               <div>
                 <h3>{"url" in item ? <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}<Icon name="tabler:external-link" size={14} aria-hidden="true" /></a> : item.title}</h3>
                 <p>{item.subtitle}</p>
@@ -90,13 +91,14 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
             </li>
           ))}
         </ol>
+        <a class="about-more" href={href("/games/")}>{t("ema.about.gamesAll").replace("{n}", String(gameShelf.length))}<Icon name="tabler:arrow-right" size={16} aria-hidden="true" /></a>
       </section>
 
       <section class="about-section" aria-labelledby="ema-about-characters">
-        <div class="about-heading"><span class={tone(0)}><Icon name="tabler:heart" size={20} aria-hidden="true" /></span><div><p class="about-kicker">{t("ema.about.charactersKicker")}</p><h2 id="ema-about-characters">{t("ema.about.charactersTitle")}</h2></div></div>
+        <div class="shelf-heading"><span class={`shelf-chip ${tone(0)}`}><Icon name="tabler:heart" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">{t("ema.about.charactersKicker")}</p><h2 id="ema-about-characters">{t("ema.about.charactersTitle")}</h2></div></div>
         <ul class="about-characters">
           {xpFavorites.map((item, index) => (
-            <li class={tone(index * 3)}>
+            <li class={`shelf-card ${tone(index * 3)}`}>
               {portraits[item.key] && <span class={`about-portrait about-portrait-${portraits[item.key]}`} aria-hidden="true"></span>}
               <div><h3>{item.title}</h3><p>{item.subtitle}</p></div>
             </li>
@@ -105,9 +107,9 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
       </section>
 
       <section class="about-section" aria-labelledby="ema-about-now">
-        <div class="about-heading"><span class={tone(2)}><Icon name="tabler:flower" size={20} aria-hidden="true" /></span><div><p class="about-kicker">{t("ema.about.nowKicker")}</p><h2 id="ema-about-now">{t("about.now")}</h2></div></div>
+        <div class="shelf-heading"><span class={`shelf-chip ${tone(2)}`}><Icon name="tabler:flower" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">{t("ema.about.nowKicker")}</p><h2 id="ema-about-now">{t("about.now")}</h2></div></div>
         <ul class="about-now">
-          {currentSignals.map((item, index) => <li class={tone(index)}><span>{item.label}</span><p>{item.text}</p></li>)}
+          {currentSignals.map((item, index) => <li class={`shelf-card ${tone(index)}`}><span>{item.label}</span><p>{item.text}</p></li>)}
         </ul>
       </section>
     </div>

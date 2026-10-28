@@ -145,8 +145,6 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
 .ema-content .blank-project-body ul {border-left-color:var(--ema-pink);}
 .ema-content .blank-profile {border-bottom-color:var(--blank-line);}
 .ema-content .blank-profile-name h2>span {color:var(--ema-pink);}
-.ema-content .blank-game {border-color:var(--blank-line);}
-.ema-content .blank-game-title h2 {font-family:var(--blank-serif);font-weight:400;}
 .ema-content .blank-article-header {border-bottom-color:var(--blank-line);}
 .ema-content .blank-prose blockquote {border-color:var(--ema-pink);background:var(--ema-blush);padding:20px 28px;}
 .ema-content .blank-prose :is(h2,h3) {scroll-margin-top:125px;}

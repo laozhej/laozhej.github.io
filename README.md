@@ -31,7 +31,8 @@ npm run preview
 | 日语、英语的个人资料与收藏数据 | `src/core/i18n/content.ts` |
 | 个人简介、近况、兴趣 | `src/core/data/profile.ts` |
 | 项目列表 | `src/core/data/projects.ts` |
-| 闲暇收藏 | `src/core/data/games.ts` |
+| 游戏架（三语名称写在同一条目里） | `src/core/data/games.ts` |
+| 樱色档案首页的每日便笺 | `src/core/data/notes.ts` |
 | GitHub / Steam 个人主页链接（所有语言和主题共用） | `src/core/data/social.ts` |
 | 全主题共用的搜索、筛选、排序、阅读进度 | `src/core/features/` |
 | 全主题共用的页面切换过渡与页面脚本生命周期 | `src/core/navigation/` |
@@ -52,7 +53,7 @@ npm run preview
 
 ## 已包含
 
-- 首页、文字归档、文章详情、作品、闲暇、关于、404。
+- 首页、文字归档、文章详情、作品、游戏、关于、404。
 - 标题 / 摘要 / 标签搜索，分类筛选，日期排序，URL 筛选状态恢复。
 - 文章目录、当前章节高亮、阅读进度、返回顶部。
 - 右上角月亮 / 太阳按钮切换浅色与深色；未手动选择时跟随系统变化，手动选择会在当前浏览器中保存，并在页面、语言、接入公共模块的主题之间共用。

@@ -2,28 +2,43 @@
 import { getSiteContent } from "@/core/i18n/content";
 import { site } from "@/lib/site";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { gameGenres } from "@/core/content/select-games.mjs";
 import { Icon } from "astro-icon/components";
 import BlankLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "../components/PageHead.astro";
 const { locale, t, unit } = getI18n(Astro.url.pathname);
-const { gamePicks } = getSiteContent(locale);
+const { favoriteGames, gameShelf } = getSiteContent(locale);
+const favorites = new Set<string>(favoriteGames.map((game) => game.key));
+const genres = gameGenres.filter((genre) => gameShelf.some((game) => game.genre === genre));
+const total = gameShelf.length;
+const pad = (value: number) => String(value).padStart(2, "0");
+const linkLabel = (game: (typeof gameShelf)[number]) => (game.link?.steam ? "Steam" : t("games.official"));
 ---
-<BlankLayout title={`Play | ${site.name}`} description={t("games.description")}>
-  <PageHead index="03" title="Play" label={t("games.label")} description={t("games.intro")} count={String(gamePicks.length).padStart(2, "0")} unit={unit("common.works", gamePicks.length)} />
-  <section class="blank-games" aria-label={t("games.collection")}>
-    {gamePicks.map((game, index) => (
-      <article class="blank-game">
-        <div class="blank-game-title"><span class="blank-row-number">GAME / {String(index + 1).padStart(2, "0")}</span><h2>{game.name}</h2><span class="blank-kicker">{game.vibe}</span></div>
-        <div class="blank-game-content">
-          <p class="blank-game-description">{game.summary}</p>
-          <dl class="blank-game-credits"><div><dt>{t("games.type")}</dt><dd>{game.type}</dd></div><div><dt>{t("games.character")}</dt><dd>{game.character}</dd></div></dl>
-          <div class="blank-game-actions">
-            <a class="blank-button" href={game.officialUrl} target="_blank" rel="noopener noreferrer">{t("games.official")} <Icon name="tabler:external-link" size={15} /></a>
+<BlankLayout title={`Games | ${site.name}`} description={t("games.description")}>
+  <PageHead index="03" title="Games" label={t("games.label")} description={t("games.intro")} count={pad(total)} unit={unit("common.games", total)} />
+  <section class="blank-archive" data-site-collection data-unit={t("common.games")} data-unit-one={t("common.gamesOne")} aria-label={t("games.collection")}>
+    <form class="blank-filter-form" data-site-filter-form hidden>
+      <fieldset class="blank-filters">
+        <legend class="blank-sr-only">{t("games.genres")}</legend>
+        <button type="button" data-site-category="all" aria-pressed="true">{t("games.all")} <span>{total}</span></button>
+        {genres.map((genre) => <button type="button" data-site-category={genre} aria-pressed="false">{t(`games.genre.${genre}`)} <span>{gameShelf.filter((game) => game.genre === genre).length}</span></button>)}
+      </fieldset>
+    </form>
+    <div class="blank-list-heading"><span class="blank-kicker">{t("games.collection")}</span><output data-site-count aria-live="polite" aria-atomic="true">{total} {unit("common.games", total)}</output></div>
+    <ol class="blank-game-list" data-site-entries>
+      {gameShelf.map((game) => (
+        <li class="blank-game-row" data-site-entry data-category={game.genre} data-search={`${game.name} ${game.title}`}>
+          <span class="blank-row-number">{pad(game.number)}</span>
+          <div>
+            <h2>{game.name}</h2>
+            <p>{[game.name !== game.title && game.title, t(`games.genre.${game.genre}`), favorites.has(game.key) && t("games.favorite"), game.status && t(`games.status.${game.status}`), game.pick && t("games.pick").replace("{n}", String(game.pick))].filter(Boolean).join(" · ")}</p>
+            {game.note && !game.note.translated && <p>{t("games.untranslated")}</p>}
+            {game.note && <p class="blank-game-note" lang={game.note.lang}>{game.note.text}</p>}
           </div>
-          <details class="blank-game-thanks"><summary>{t("games.note")}</summary><p>{game.note}</p></details>
-        </div>
-      </article>
-    ))}
+          {game.link && <a class="blank-text-link" href={game.link.href} target="_blank" rel="noopener noreferrer" aria-label={t("games.opens").replace("{name}", game.name).replace("{site}", linkLabel(game))}>{linkLabel(game)} <Icon name="tabler:external-link" size={15} /></a>}
+        </li>
+      ))}
+    </ol>
   </section>
   <div class="blank-endnote"><span class="blank-kicker">END OF COLLECTION</span><p>{t("games.more")}</p></div>
 </BlankLayout>

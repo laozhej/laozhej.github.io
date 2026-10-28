@@ -78,6 +78,40 @@ test("both saved pause and system reduced motion skip the route animation", () =
   }
 });
 
+test("intentional skips handle the native ready rejection without interrupting navigation", async () => {
+  const p = environment({ paused: true });
+  let rejectReady;
+  const ready = new Promise((resolve, reject) => { rejectReady = reject; });
+  let mounts = 0;
+  const uninstall = installNavigationLifecycle(p.doc, p.win, () => { mounts++; });
+  p.doc.dispatchEvent(Object.assign(new Event("astro:before-swap"), {
+    newDocument: { documentElement: { dataset: {} }, querySelector: () => null },
+    viewTransition: {
+      ready,
+      skipTransition() { rejectReady(new DOMException("Transition was skipped", "AbortError")); },
+    },
+  }));
+  p.doc.body = {};
+  p.doc.dispatchEvent(new Event("astro:after-swap"));
+  // An unhandled promise rejection fails node:test after this event-loop turn.
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(mounts, 2);
+  uninstall();
+});
+
+test("handling an intentional skip does not swallow unexpected transition failures", () => {
+  const p = environment({ paused: true });
+  let reject;
+  const uninstall = installNavigationLifecycle(p.doc, p.win, () => {});
+  p.doc.dispatchEvent(Object.assign(new Event("astro:before-swap"), {
+    newDocument: { documentElement: { dataset: {} }, querySelector: () => null },
+    viewTransition: { ready: { catch(handler) { reject = handler; } }, skipTransition() {} },
+  }));
+  const failure = new Error("Unexpected rendering failure");
+  assert.throws(() => reject(failure), (error) => error === failure);
+  uninstall();
+});
+
 test("history position is restored after a destination's measured layout is mounted", () => {
   const p = environment();
   const calls = [];

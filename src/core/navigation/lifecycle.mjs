@@ -35,7 +35,15 @@ export function installNavigationLifecycle(doc, win, mountPage) {
     }
     const paused = motionIsPaused(win);
     event.newDocument.documentElement.dataset.motionPaused = String(paused);
-    if (paused) event.viewTransition.skipTransition();
+    if (paused) {
+      // Native skipTransition rejects `ready` with AbortError even though the
+      // DOM update succeeds. Handle this transition's expected cancellation
+      // before skipping it; unexpected rendering failures remain observable.
+      event.viewTransition.ready?.catch((error) => {
+        if (error?.name !== "AbortError") throw error;
+      });
+      event.viewTransition.skipTransition();
+    }
     cleanup();
     cleanup = () => {};
     mountedBody = undefined;

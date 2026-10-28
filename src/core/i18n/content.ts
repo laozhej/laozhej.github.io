@@ -31,7 +31,7 @@ const ja = {
   currentSignals: [
     { label: "いま", text: "AI エージェントの時代に向けて準備しながら、個人サイトも少しずつ整えています。" },
     { label: "次に", text: "記事や制作の記録を少しずつ書いていく予定です。" },
-    { label: "デザイン", text: "桜羽エマの雰囲気が好きで、今後のサイトテーマの着想にしたいと思っています。" },
+    { label: "デザイン", text: "桜羽エマから着想を得たテーマ「桜色の記録」が完成しました。これからも少しずつ磨いていきます。" },
   ],
   projectTechLines: [{ key: "web", label: "Web", note: "個人サイト / ページとインタラクション" }],
   projectEntries: [
@@ -76,7 +76,7 @@ const en = {
   currentSignals: [
     { label: "Now", text: "Getting ready for the age of AI agents while gradually building my personal website." },
     { label: "Next", text: "Gradually adding articles and project notes." },
-    { label: "Visual direction", text: "I like Ema Sakuraba's style and would like to draw on it for a future website theme." },
+    { label: "Visual direction", text: "The Sakura Archive theme, inspired by Ema Sakuraba, is now live. I'll keep polishing it little by little." },
   ],
   projectTechLines: [{ key: "web", label: "Web", note: "Personal website / Pages and interactions" }],
   projectEntries: [

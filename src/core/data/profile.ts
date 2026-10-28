@@ -38,5 +38,5 @@ export const xpFavorites = [
 export const currentSignals = [
   { label: "正在做", text: "准备进入 AI Agent 时代，也在慢慢完善自己的个人网站。" },
   { label: "接下来", text: "一点点写下文章和项目记录。" },
-  { label: "视觉方向", text: "喜欢樱羽艾玛的风格，未来想从中寻找网站主题的灵感。" }
+  { label: "视觉方向", text: "以樱羽艾玛为灵感的「樱色档案」主题已经上线，接下来会继续慢慢打磨。" }
 ] as const;

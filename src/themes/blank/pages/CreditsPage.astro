@@ -75,4 +75,20 @@ const { t, href } = getI18n(Astro.url.pathname);
       <a class="blank-text-link" href="/themes/ema/ASSETS.json">{t("media.manifest")} ↗</a>
     </div>
   </section>
+  <section class="blank-section blank-about-section blank-credits-section">
+    <div><p class="blank-kicker">07 / LIVE2D</p><h2>{t("media.mascotHeading")}</h2></div>
+    <div class="blank-credits-body">
+      <h3>Frieren / kyokiStudio</h3>
+      <p>{t("media.mascot")}</p>
+      <p>{t("media.mascotTerms")}</p>
+      <a class="blank-text-link" href="https://booth.pm/ja/items/5323958" target="_blank" rel="noopener noreferrer">{t("media.mascotSource")} <Icon name="tabler:external-link" size={15} /></a>
+      <p>{t("media.live2dSoftware")}</p>
+      <div class="blank-credits-links">
+        <a class="blank-text-link" href="/licenses/pixi-MIT.txt">PixiJS · MIT <Icon name="tabler:arrow-right" size={16} /></a>
+        <a class="blank-text-link" href="/licenses/pixi-live2d-display-MIT.txt">pixi-live2d-display · MIT <Icon name="tabler:arrow-right" size={16} /></a>
+        <a class="blank-text-link" href="/vendor/live2d/5-r.4/LICENSE.md">{t("media.coreLicense")} <Icon name="tabler:arrow-right" size={16} /></a>
+        <a class="blank-text-link" href="https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html" target="_blank" rel="noopener noreferrer">{t("media.frameworkLicense")} <Icon name="tabler:external-link" size={15} /></a>
+      </div>
+    </div>
+  </section>
 </BlankLayout>

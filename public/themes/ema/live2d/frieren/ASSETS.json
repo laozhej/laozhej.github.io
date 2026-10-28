@@ -1,0 +1,46 @@
+{
+  "character": "Frieren / フリーレン / 芙莉莲",
+  "publisher": "kyokiStudio",
+  "source": "https://booth.pm/ja/items/5323958",
+  "downloaded": "2026-10-29",
+  "source_archive_sha256": "37d816360457c7cd035df46c51ba2a974e5c2bbf5db915776ec68267289ffdae",
+  "source_condition": "Do not use for commerce and monetize please.",
+  "usage": "Noncommercial personal website corner guide. Character and model rights remain with their respective owners; the website MIT license does not apply to these files.",
+  "changes": [
+    "Texture atlas downsampled from 8192 to 2048 pixels with macOS sips; transparent PNG retained.",
+    "Model manifest omits unused expression, motion and display-info entries. The moc3 and physics are unchanged.",
+    "poster.webp rendered from the model at its neutral pose; no AI generation or redrawing."
+  ],
+  "files": [
+    {
+      "path": "Frieren.8192/texture_00.png",
+      "bytes": 1173980,
+      "sha256": "3976ad6470ff854892132ca946835846c3b84ab2b6dab2d48a1cb0f7325c675f",
+      "source_sha256": "9eef513b32952f2624c491affa8c1e7719cdf267e15851027c9577940c4d72e2"
+    },
+    {
+      "path": "Frieren.moc3",
+      "bytes": 2118208,
+      "sha256": "18e2b00e1b26441b9b6392f10fb30b28438ffa2895401216ebce1b3b0252c8ea",
+      "source_sha256": "18e2b00e1b26441b9b6392f10fb30b28438ffa2895401216ebce1b3b0252c8ea"
+    },
+    {
+      "path": "Frieren.model3.json",
+      "bytes": 465,
+      "sha256": "df55052670b3fd92905093aa1464332957f66062e1f88b432013f58352899e12",
+      "source_sha256": "4bfc181ce110d2fba76505624a8a510afff1703fa7ce333dca08697005f77af5"
+    },
+    {
+      "path": "Frieren.physics3.json",
+      "bytes": 35925,
+      "sha256": "1a3f7af5a6928293a4a400bc066aa6253d5321c2c7a4991d1e6a01a8b14d10ac",
+      "source_sha256": "1a3f7af5a6928293a4a400bc066aa6253d5321c2c7a4991d1e6a01a8b14d10ac"
+    },
+    {
+      "path": "poster.webp",
+      "bytes": 26164,
+      "sha256": "e60db65955e8d904e7837b893d013dfa0d3b93eb5c0f56b777ba3fe4124a5a48",
+      "source_sha256": null
+    }
+  ]
+}

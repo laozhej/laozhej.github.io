@@ -24,9 +24,6 @@ const { title: pageTitle = site.name, description = t("site.description"), isArt
 const brand = t("ema.brand");
 const title = pageTitle.replaceAll(site.name, brand);
 const [brandHead, ...brandTail] = brand.split(" ");
-// The corner guide says something about the page she is standing on.
-const mascotPage = path === "/" ? "home" : path === "/blog/" ? "blog" : path.startsWith("/blog/") ? "article" : ["projects", "games", "about", "credits"].find((key) => path.startsWith(`/${key}/`)) ?? "lost";
-const mascotGreetings = ["morning", "afternoon", "evening", "night"].map((key) => t(`ema.mascot.${key}`));
 const mascotPokes = Array.from({ length: 5 }, (_, index) => t(`ema.mascot.poke${index + 1}`));
 const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale), Astro.site) : undefined;
 // Deterministic petal paths so every page and locale renders the same markup.
@@ -68,9 +65,12 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
       <SocialLinks class="ema-social-links" />
       <div class="ema-footer-bottom"><SiteAttribution name={brand} /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
     </footer>
-    <aside class="ema-mascot" data-ema-mascot hidden aria-label={t("ema.mascot.label")} data-greetings={JSON.stringify(mascotGreetings)} data-pokes={JSON.stringify(mascotPokes)} data-page-line={t(`ema.mascot.${mascotPage}`)} data-back={t("ema.mascot.back")} data-copy={t("ema.mascot.copy")} data-too-fast={t("ema.profile.tooFast")}>
+    <aside class="ema-mascot" data-ema-mascot hidden aria-label={t("ema.mascot.label")} data-pokes={JSON.stringify(mascotPokes)} data-back={t("ema.mascot.back")} data-too-fast={t("ema.mascot.tooFast")}>
       <p class="mascot-bubble" role="status" data-mascot-bubble hidden></p>
-      <button class="mascot-figure" type="button" data-mascot-poke aria-label={t("ema.mascot.poke")}><span class="mascot-art" aria-hidden="true"></span></button>
+      <button class="mascot-figure" type="button" data-mascot-poke aria-label={t("ema.mascot.poke")}>
+        <img class="mascot-poster" data-live2d-poster src="/themes/ema/live2d/frieren/poster.webp" alt="" width="164" height="240" loading="lazy" decoding="async" aria-hidden="true" />
+        <canvas class="mascot-canvas" data-live2d-canvas width="328" height="480" aria-hidden="true"></canvas>
+      </button>
       <button class="mascot-hide" type="button" data-mascot-hide aria-label={t("ema.mascot.hide")} title={t("ema.mascot.hide")}><Icon name="tabler:x" size={14} /></button>
     </aside>
     <button class="mascot-recall" type="button" data-mascot-show hidden aria-label={t("ema.mascot.show")} title={t("ema.mascot.show")}><span aria-hidden="true">✿</span></button>

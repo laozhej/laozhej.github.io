@@ -2,6 +2,8 @@
 import { getSiteContent } from "@/core/i18n/content";
 import { getI18n } from "@/core/i18n";
 import { getPublishedPosts } from "@/core/content/blog";
+import { getNotes } from "@/core/content/notes";
+import { formatNoteDay, noteNumber, pickNote, utcDay } from "@/core/content/select-notes.mjs";
 import { socialLinks } from "@/core/data/social";
 import { getThemePath } from "@/core/themes/registry";
 import EmaLayout from "../layouts/EmaLayout.astro";
@@ -12,7 +14,9 @@ const href = (path: string) => getThemePath("ema", path, locale);
 const { profileIdentity, profileTech, favoriteGames, xpFavorites, projectTechLines } = getSiteContent(locale);
 const posts = (await getPublishedPosts(locale)).slice(0, 3);
 const commands = ["journal", "collection", "about", "echo"].map((id) => t(`ema.command.${id}`));
-const noticeTips = Array.from({ length: 7 }, (_, index) => t(`ema.notice.tip${index + 1}`));
+// Sakura notes live in src/core/data/notes.ts; the page script swaps in the one for the visitor's own day.
+const notes = getNotes(locale);
+const note = pickNote(notes, utcDay(new Date()));
 // Everything that rains down comes from the shared profile, collection and social data.
 const tags = [...new Set([
   ...favoriteGames.map((item) => item.title),
@@ -70,21 +74,24 @@ const panels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"]
     </section>
     </div>
 
-    <dialog class="ema-notice" id="ema-notice" data-notice aria-labelledby="ema-notice-title" data-title={t("ema.notice.title")} data-tips={JSON.stringify(noticeTips)}>
-      <form method="dialog" class="notice-card">
-        <button class="notice-close" type="submit" aria-label={t("ema.notice.close")}><span aria-hidden="true">×</span></button>
-        <div class="notice-head">
-          <span class="notice-icon" aria-hidden="true">✿</span>
-          <div><p data-notice-date>{t("ema.notice.open")}</p><h2 id="ema-notice-title" data-notice-title>{t("ema.notice.open")}</h2></div>
-        </div>
-        <div class="notice-body">
-          <p class="notice-tip" data-notice-tip>{noticeTips[0]}</p>
-          <p class="notice-line">{t("ema.note.line1")}{t("ema.note.line2")}</p>
-          <small>— {t("ema.note.signature")}</small>
-        </div>
-        <label class="notice-skip"><input type="checkbox" data-notice-skip /><span>{t("ema.notice.skip")}</span></label>
-      </form>
-    </dialog>
+    {note && (
+      <dialog class="ema-notice" id="ema-notice" data-notice aria-labelledby="ema-notice-title" data-title={t("ema.notice.title")} data-notes={JSON.stringify(notes)}>
+        <form method="dialog" class="notice-card">
+          <button class="notice-close" type="submit" aria-label={t("ema.notice.close")}><span aria-hidden="true">×</span></button>
+          <div class="notice-head">
+            <span class="notice-icon" aria-hidden="true">✿</span>
+            <div><p data-notice-date>{formatNoteDay(note.date, locale)}</p><h2 id="ema-notice-title" data-notice-title>{t("ema.notice.title").replace("{n}", noteNumber(note.number))}</h2></div>
+          </div>
+          <div class="notice-body">
+            <p class="notice-fallback" data-notice-fallback hidden={note.translated}>{t("ema.notice.fallback")}</p>
+            <p class="notice-text" data-notice-text lang={note.lang}>{note.text}</p>
+            <p class="notice-line">{[t("ema.note.line1"), t("ema.note.line2")].join(locale === "en" ? " " : "")}</p>
+            <small>— {t("ema.note.signature")}</small>
+          </div>
+          <label class="notice-skip"><input type="checkbox" data-notice-skip /><span>{t("ema.notice.skip")}</span></label>
+        </form>
+      </dialog>
+    )}
 
     <section class="chapters" id="ema-chapters" aria-labelledby="ema-chapters-title">
       <div class="chapter-rail" data-rail>

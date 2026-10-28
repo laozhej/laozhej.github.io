@@ -1,5 +1,8 @@
+import { formatNoteDay, localDay, noteNumber, pickNote } from '../../../core/content/select-notes.mjs';
+
 // Today's note: a native modal dialog that opens by itself once per browser
 // session (unless dismissed for the day) and stays available from the hero.
+// The notes come from src/core/data/notes.ts; each visitor sees the one for their own day.
 export function mountNotice(root, doc, win) {
   const dialog = root.querySelector('[data-notice]');
   const openers = [...root.querySelectorAll('[data-notice-open]')];
@@ -9,22 +12,21 @@ export function mountNotice(root, doc, win) {
     target.addEventListener(event, handler);
     removers.push(() => target.removeEventListener(event, handler));
   };
-  const now = new Date();
-  const pad = (value) => String(value).padStart(2, '0');
-  const day = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+  const day = localDay(new Date());
   const hiddenKey = `ema-notice-hidden-${day}`, seenKey = `ema-notice-seen-${day}`;
-  const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
-  let tips = [];
-  try { tips = JSON.parse(dialog.dataset.tips || '[]'); } catch (_) {}
+  let notes = [];
+  try { notes = JSON.parse(dialog.dataset.notes || '[]'); } catch (_) {}
+  const note = pickNote(notes, day);
+  if (!note) return () => {};
   const title = dialog.querySelector('[data-notice-title]');
   const date = dialog.querySelector('[data-notice-date]');
-  const tip = dialog.querySelector('[data-notice-tip]');
+  const text = dialog.querySelector('[data-notice-text]');
+  const fallback = dialog.querySelector('[data-notice-fallback]');
   const skip = dialog.querySelector('[data-notice-skip]');
-  if (title && dialog.dataset.title) title.textContent = dialog.dataset.title.replace('{n}', String(dayOfYear));
-  if (tip && tips.length) tip.textContent = tips[(dayOfYear - 1) % tips.length];
-  try {
-    if (date) date.textContent = new Intl.DateTimeFormat(doc.documentElement.lang || undefined, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long' }).format(now);
-  } catch (_) {}
+  if (title && dialog.dataset.title) title.textContent = dialog.dataset.title.replace('{n}', noteNumber(note.number));
+  if (date) date.textContent = formatNoteDay(note.date, doc.documentElement.lang);
+  if (text) { text.textContent = note.text; text.lang = note.lang; }
+  if (fallback) fallback.hidden = note.translated;
 
   const open = () => { if (!dialog.open) dialog.showModal(); };
   openers.forEach((button) => { button.hidden = false; listen(button, 'click', open); });

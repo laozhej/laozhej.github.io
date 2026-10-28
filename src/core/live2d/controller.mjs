@@ -78,20 +78,23 @@ export function mountLive2D(root, doc, win, { createRenderer }) {
   function track(event) {
     if (!renderer || active !== true || !allowed() || !pointer.matches) return;
     if (event.pointerType === 'touch') { resetFocus(); return; }
+    const width = doc.documentElement.clientWidth;
+    const height = doc.documentElement.clientHeight;
     const bounds = root.getBoundingClientRect();
-    const margin = 100;
     const { clientX: x, clientY: y } = event;
-    if (bounds.width <= 0 || bounds.height <= 0
-      || x < bounds.left - margin || x > bounds.right + margin
-      || y < bounds.top - margin || y > bounds.bottom + margin) {
+    if (width <= 0 || height <= 0 || bounds.width <= 0 || bounds.height <= 0) {
       resetFocus();
       return;
     }
-    const clamp = (value) => Math.max(-0.22, Math.min(0.22, value));
-    // Right and up are positive, with a deliberately small range of movement.
+    const clamp = (value) => Math.max(-1, Math.min(1, value));
+    const headX = bounds.left + bounds.width / 2;
+    const headY = bounds.top + bounds.height / 4;
+    // Measure from her head, using the whole viewport so distant movement
+    // still changes her gaze without pointing away from the actual cursor.
+    // Cubism eases toward each target; keep head turns within a gentle range.
     focus(
-      clamp((x - bounds.left - bounds.width / 2) / (bounds.width / 2 + margin) * 0.22),
-      clamp((bounds.top + bounds.height / 2 - y) / (bounds.height / 2 + margin) * 0.22),
+      clamp((x - headX) / Math.max(headX, width - headX, 1)) * 0.6,
+      clamp((headY - y) / Math.max(headY, height - headY, 1)) * 0.45,
     );
   }
 

@@ -24,6 +24,10 @@ const { title: pageTitle = site.name, description = t("site.description"), isArt
 const brand = t("ema.brand");
 const title = pageTitle.replaceAll(site.name, brand);
 const [brandHead, ...brandTail] = brand.split(" ");
+// The corner guide says something about the page she is standing on.
+const mascotPage = path === "/" ? "home" : path === "/blog/" ? "blog" : path.startsWith("/blog/") ? "article" : ["projects", "games", "about", "credits"].find((key) => path.startsWith(`/${key}/`)) ?? "lost";
+const mascotGreetings = ["morning", "afternoon", "evening", "night"].map((key) => t(`ema.mascot.${key}`));
+const mascotPokes = Array.from({ length: 5 }, (_, index) => t(`ema.mascot.poke${index + 1}`));
 const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale), Astro.site) : undefined;
 // Deterministic petal paths so every page and locale renders the same markup.
 const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + index * 6.2).toFixed(1)}%;--petal-size:${9 + (index * 5) % 7}px;--petal-duration:${17 + (index * 7) % 13}s;--petal-delay:${-2 - (index * 11) % 29}s;--petal-drift:${[-72, 96, 40][index % 3]}px`);
@@ -64,6 +68,35 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
       <SocialLinks class="ema-social-links" />
       <div class="ema-footer-bottom"><SiteAttribution name={brand} /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
     </footer>
+    <aside class="ema-mascot" data-ema-mascot hidden aria-label={t("ema.mascot.label")} data-greetings={JSON.stringify(mascotGreetings)} data-pokes={JSON.stringify(mascotPokes)} data-page-line={t(`ema.mascot.${mascotPage}`)} data-back={t("ema.mascot.back")} data-copy={t("ema.mascot.copy")} data-too-fast={t("ema.profile.tooFast")}>
+      <p class="mascot-bubble" role="status" data-mascot-bubble hidden></p>
+      <button class="mascot-figure" type="button" data-mascot-poke aria-label={t("ema.mascot.poke")}><span class="mascot-art" aria-hidden="true"></span></button>
+      <button class="mascot-hide" type="button" data-mascot-hide aria-label={t("ema.mascot.hide")} title={t("ema.mascot.hide")}><Icon name="tabler:x" size={14} /></button>
+    </aside>
+    <button class="mascot-recall" type="button" data-mascot-show hidden aria-label={t("ema.mascot.show")} title={t("ema.mascot.show")}><span aria-hidden="true">✿</span></button>
+    <div class="ema-console" data-ema-console>
+      <button class="console-tab" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={16} aria-hidden="true" /><span>{t("ema.console.tab")}</span></button>
+      <section class="console-panel" id="ema-console-panel" data-console-panel aria-label={t("ema.console.label")} hidden>
+        <div class="console-head"><p>{t("ema.console.label")}</p><button type="button" data-console-close aria-label={t("ema.console.close")} title={t("ema.console.close")}><Icon name="tabler:x" size={15} /></button></div>
+        <div class="console-card">
+          <p class="console-kicker">{t("ema.console.mascot")}</p>
+          <div class="console-actions"><button type="button" data-console-mascot="toggle" data-show={t("ema.mascot.show")} data-hide={t("ema.mascot.hide")}>{t("ema.mascot.hide")}</button><button type="button" data-console-mascot="talk">{t("ema.console.talk")}</button></div>
+        </div>
+        <div class="console-card radio" data-radio data-tracks={JSON.stringify([1, 2, 3].map((index) => t(`ema.radio.track${index}`)))}>
+          <div class="radio-head"><span class="radio-disc" aria-hidden="true"></span><div><p class="console-kicker">{t("ema.radio.label")}</p><strong data-radio-title>{t("ema.radio.track1")}</strong><small data-radio-count>1 / 3</small></div></div>
+          <div class="radio-progress" aria-hidden="true"><span data-radio-progress></span></div>
+          <div class="radio-time" aria-hidden="true"><span data-radio-elapsed>00:00</span><span data-radio-length>00:00</span></div>
+          <div class="radio-controls">
+            <button type="button" data-radio-prev aria-label={t("ema.radio.previous")} title={t("ema.radio.previous")}><Icon name="tabler:player-skip-back" size={17} /></button>
+            <button class="radio-play" type="button" data-radio-play aria-pressed="false" aria-label={t("ema.radio.play")} title={t("ema.radio.play")} data-play={t("ema.radio.play")} data-pause={t("ema.radio.pause")}><Icon name="tabler:player-play" size={20} data-radio-play-icon /><Icon name="tabler:player-pause" size={20} data-radio-pause-icon hidden /></button>
+            <button type="button" data-radio-next aria-label={t("ema.radio.next")} title={t("ema.radio.next")}><Icon name="tabler:player-skip-forward" size={17} /></button>
+          </div>
+          <label class="radio-volume"><Icon name="tabler:volume" size={16} aria-hidden="true" /><span class="blank-sr-only">{t("ema.radio.volume")}</span><input type="range" min="0" max="100" value="60" data-radio-volume /></label>
+          <p class="radio-note">{t("ema.radio.note")}</p>
+          <p class="radio-note" data-radio-unsupported hidden>{t("ema.radio.unsupported")}</p>
+        </div>
+      </section>
+    </div>
     <div class="ema-sakura" aria-hidden="true">{petals.map((style) => <span style={style}><i></i></span>)}</div>
     <script>
       import { registerThemeRuntime } from "@/core/themes/runtime.mjs";

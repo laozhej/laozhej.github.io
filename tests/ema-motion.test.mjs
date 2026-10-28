@@ -74,8 +74,8 @@ test("native scroll drives the pinned opening and resets when the shared motion 
   // 200px into a 560px runway: the title steps back while the profile card rises.
   assert.match(p.front.style.transform, /12\.86px/);
   assert.match(p.back.style.transform, /-8\.57px/);
-  assert.equal(p.hero.style.props["--copy-out"], "0.881");
-  assert.equal(p.hero.style.props["--profile-in"], "0.472");
+  assert.equal(p.hero.style.props["--copy-out"], "0.818");
+  assert.equal(p.hero.style.props["--profile-in"], "0.343");
   assert.equal(p.docked.has("is-docked"), false);
   p.changeMotion(true);
   assert.equal(p.root.dataset.paused, "true");
@@ -97,7 +97,7 @@ test("touch and reduced motion keep the hero in normal document flow", () => {
   }
 });
 
-test("wheel gestures are never captured or cancelled by the homepage", () => {
+test("without its scenes the homepage never captures or cancels a wheel", () => {
   const p = page();
   const wheel = new Event("wheel", { cancelable: true });
   p.win.dispatchEvent(wheel);

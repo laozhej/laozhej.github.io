@@ -1,5 +1,6 @@
 import { mountNotice } from './notice.mjs';
 import { mountTagRain } from './tag-rain.mjs';
+import { mountEmaScenes } from './scenes.mjs';
 
 export function mountEmaHome(document, window) {
   window.__emaHomeCleanup?.();
@@ -124,8 +125,9 @@ export function mountEmaHome(document, window) {
       hero.classList?.remove('is-docked');
       return;
     }
-    const profileIn = clamp((progress - .14) / .46, 0, 1);
-    hero.style.setProperty('--copy-out', clamp((progress - .04) / .36, 0, 1).toFixed(3));
+    // The card settles just before the runway ends, so the pinned stretch never idles.
+    const profileIn = clamp((progress - .1) / .75, 0, 1);
+    hero.style.setProperty('--copy-out', clamp((progress - .03) / .4, 0, 1).toFixed(3));
     hero.style.setProperty('--profile-in', profileIn.toFixed(3));
     hero.style.setProperty('--cue-out', clamp(progress / .26, 0, 1).toFixed(3));
     hero.classList?.toggle('is-docked', profileIn > .6);
@@ -203,7 +205,7 @@ export function mountEmaHome(document, window) {
   const next = $('[data-rail-next]');
   const position = $('[data-rail-position]');
   const railProgress = $('[data-rail-progress]');
-  let railMode = 'native', travel = 0, railStart = 0, chapterIndex = 0, chapterTargets = [], railReady = false;
+  let railMode = 'native', travel = 0, railStart = 0, railTop = 100, chapterIndex = 0, chapterTargets = [], railReady = false;
   function updateActive(offset) {
     if (!chapters.length) return;
     let nearest = 0;
@@ -239,11 +241,17 @@ export function mountEmaHome(document, window) {
     if (railMode === 'scroll') track.scrollLeft = 0;
     const viewportWidth = Math.min(track.clientWidth || stage.clientWidth, stage.clientWidth);
     travel = Math.max(0, track.scrollWidth - viewportWidth);
-    if (railMode === 'scroll' && travel < 1) { railMode = 'native'; rail.dataset.railMode = railMode; rail.style.height = ''; }
+    // The pinned stage sits centred below the header, and only pins when all of it fits.
+    const headerHeight = header?.offsetHeight ?? 0;
+    const room = window.innerHeight - headerHeight;
+    const stageHeight = stage.getBoundingClientRect().height;
+    if (railMode === 'scroll' && (travel < 1 || stageHeight > room - 16)) { railMode = 'native'; rail.dataset.railMode = railMode; rail.style.height = ''; }
+    railTop = railMode === 'scroll' ? Math.round(headerHeight + Math.max(8, (room - stageHeight) / 2)) : 100;
+    rail.style.setProperty?.('--rail-top', `${railTop}px`);
     const firstLeft = chapters[0]?.offsetLeft ?? 0;
     chapterTargets = chapters.map((chapter) => clamp(chapter.offsetLeft - firstLeft + chapter.offsetWidth / 2 - viewportWidth / 2, 0, travel));
     if (railMode === 'scroll') rail.style.height = `${Math.ceil(stage.getBoundingClientRect().height + travel)}px`;
-    railStart = rail.getBoundingClientRect().top + window.scrollY - 100;
+    railStart = rail.getBoundingClientRect().top + window.scrollY - railTop;
     if (railMode === 'native' && formerMode !== railMode) track.scrollLeft = chapterTargets[savedIndex] ?? 0;
     if (railReady && formerMode !== railMode) {
       if (railMode === 'native' && wasInScrollRail) {
@@ -343,6 +351,7 @@ export function mountEmaHome(document, window) {
   tickClock();
 
   const closeNotice = mountNotice(root, document, window);
+  const scenes = mountEmaScenes(root, document, window, { canAnimate });
 
   function updateScroll() {
     if (disposed) return;
@@ -366,7 +375,7 @@ export function mountEmaHome(document, window) {
     root.dataset.paused = String(motionPaused());
     root.dataset.suspended = String(suspended());
     if (motionPaused()) typers.forEach((item) => item.settle());
-    if (!canAnimate() || !fine.matches) { resetParallax(); stopAnimations(); }
+    if (!canAnimate() || !fine.matches) { resetParallax(); stopAnimations(); scenes.cancel(); }
     rain.refresh();
     updateScroll(); typers.forEach((item) => item.resume()); tickClock(); scheduleMeasure();
   }
@@ -394,13 +403,13 @@ export function mountEmaHome(document, window) {
     window.clearTimeout(bubbleTimer); window.clearTimeout(clockTimer);
     window.cancelAnimationFrame(scrollFrame); window.cancelAnimationFrame(measureFrame);
     revealObserver?.disconnect(); resizeObserver?.disconnect(); signalObserver?.disconnect();
-    rain.cleanup(); closeNotice();
+    rain.cleanup(); scenes.cleanup(); closeNotice();
     removers.splice(0).forEach((remove) => remove());
     if (window.__emaHomeCleanup === cleanup) delete window.__emaHomeCleanup;
   }
   listen(window, 'pagehide', (event) => {
     pageSuspended = true; root.dataset.suspended = 'true';
-    typers.forEach((item) => item.stop()); resetParallax(); stopAnimations(); rain.refresh();
+    typers.forEach((item) => item.stop()); resetParallax(); stopAnimations(); scenes.cancel(); rain.refresh();
     window.clearTimeout(bubbleTimer); window.clearTimeout(clockTimer);
     if (bubble) bubble.hidden = true;
     window.cancelAnimationFrame(scrollFrame); window.cancelAnimationFrame(measureFrame);

@@ -11,6 +11,8 @@ import ThemePreference from "@/core/themes/ThemePreference.astro";
 import ThemeSwitcher from "@/core/themes/ThemeSwitcher.astro";
 import SiteIcons from "@/core/components/SiteIcons.astro";
 import SiteAttribution from "@/core/components/SiteAttribution.astro";
+import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
+import { pageTransition } from "@/core/navigation/animations.mjs";
 const { locale, t, href } = getI18n(Astro.url.pathname);
 const path = stripLocale(Astro.url.pathname);
 const ogLocale = { "zh-CN": "zh_CN", ja: "ja_JP", en: "en_US" }[locale];
@@ -31,7 +33,7 @@ const navItems = site.nav.map((item, index) => ({
 }));
 ---
 <!doctype html>
-<html lang={locale} data-theme="blank">
+<html lang={locale} data-theme="blank" transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -47,10 +49,11 @@ const navItems = site.nav.map((item, index) => ({
     {Astro.site && locales.map((language: Locale) => <link rel="alternate" hreflang={language} href={new URL(localizePath(Astro.url.pathname, language), Astro.site)} />)}
     {article && <meta property="article:published_time" content={article.pubDate.toISOString()} />}
     <SiteIcons />
+    <SiteNavigation />
   </head>
   <body data-blank>
     <a class="blank-skip-link" href="#blank-main">{t("a11y.skip")}</a>
-    <header class="blank-header" data-site-header>
+    <header class="blank-header" data-site-header transition:name="site-header" transition:animate="none">
       <div class="blank-header-inner">
         <a class="blank-wordmark" href={href("/")} aria-label={`${site.name} ${t("a11y.home")}`}>
           <strong>{site.wordmark}<span aria-hidden="true">.</span></strong>
@@ -72,7 +75,7 @@ const navItems = site.nav.map((item, index) => ({
       </div>
       {isArticlePage && <div class="blank-reading-track" aria-hidden="true"><span data-site-progress></span></div>}
     </header>
-    <main id="blank-main" class:list={["blank-main", { "blank-main--article": isArticlePage }]} tabindex="-1"><slot /></main>
+    <main id="blank-main" class:list={["blank-main", { "blank-main--article": isArticlePage }]} tabindex="-1" transition:name="site-content" transition:animate={pageTransition}><slot /></main>
     <footer class="blank-footer">
       <div class="blank-footer-top">
         <a class="blank-footer-brand" href={href("/")}>{site.name}<span aria-hidden="true">.</span></a>
@@ -89,9 +92,5 @@ const navItems = site.nav.map((item, index) => ({
         <a href="#blank-main" class="blank-back-top">{t("footer.top")} <Icon name="tabler:arrow-up" size={14} /></a>
       </div>
     </footer>
-    <script>
-      import { mountBlank } from "../lib/runtime.mjs";
-      mountBlank(document, window);
-    </script>
   </body>
 </html>

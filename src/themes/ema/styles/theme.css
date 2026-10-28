@@ -82,3 +82,103 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
 }
 @media(max-width:359px) { .ema-wordmark strong {font-size:16px;} .ema-header .site-language-menu>summary>svg:last-child {display:none;} .ema-header-actions{gap:3px;} }
 @media(prefers-reduced-motion:reduce) {html[data-theme="ema"] {scroll-behavior:auto;}}
+
+/* The same paper, ink and rose accents continue beyond the illustrated cover. */
+.ema-header {
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+.ema-page-progress {
+  position:absolute;bottom:-1px;left:0;width:100%;height:2px;
+  background:var(--ema-pink);transform:scaleX(0);transform-origin:left;
+  pointer-events:none;
+}
+.ema-nav a {
+  position:relative;font-family:var(--blank-serif);
+  transition:color 180ms ease,background-color 180ms ease;
+}
+.ema-nav a::after {
+  content:"";position:absolute;bottom:5px;left:calc(50% - 2px);width:4px;height:4px;
+  border-radius:50%;background:currentColor;opacity:0;transform:translateY(3px);
+  transition:opacity 160ms ease,transform 160ms var(--blank-ease);
+}
+.ema-nav a[aria-current="page"]::after {opacity:.65;transform:translateY(0);}
+.ema-icon-button,.ema-motion-toggle,.ema-header summary {
+  transition:background-color 180ms ease,border-color 180ms ease,transform 160ms var(--blank-ease);
+}
+.ema-icon-button:active,.ema-motion-toggle:active {transform:scale(.96);}
+.ema-header :is(.site-language-options,.site-theme-options) {
+  transform-origin:top right;
+  animation:ema-menu-open 180ms var(--blank-ease);
+}
+.ema-content {padding-bottom:92px;}
+.ema-content .blank-page-head {position:relative;padding-bottom:48px;border-bottom:1px solid var(--blank-line);}
+.ema-content .blank-page-head::after {
+  content:"";position:absolute;left:0;bottom:-1px;width:88px;height:2px;background:var(--ema-pink);
+}
+.ema-content .blank-page-head>.blank-kicker {color:var(--ema-pink);letter-spacing:.13em;}
+.ema-content .blank-page-heading {margin:24px 0 26px;}
+.ema-content .blank-page-heading h1 {font-size:clamp(3.75rem,8.5vw,7rem);font-style:italic;letter-spacing:-.045em;}
+.ema-content .blank-page-heading h1>span {color:var(--ema-pink);}
+.ema-content .blank-page-count {color:var(--ema-pink);}
+.ema-content .blank-page-description {font-family:var(--blank-serif);font-size:1rem;letter-spacing:.025em;}
+.ema-content .blank-search {border-bottom-color:var(--blank-line);transition:border-color 180ms ease;}
+.ema-content .blank-search:focus-within {border-bottom-color:var(--ema-pink);}
+.ema-content .blank-filters {gap:4px 24px;}
+.ema-content .blank-filters button {font-family:var(--blank-serif);transition:color 160ms ease;}
+.ema-content .blank-filters button[aria-pressed="true"] {color:var(--ema-pink);}
+.ema-content .blank-filters button[aria-pressed="true"]::after {background:var(--ema-pink);}
+.ema-content .blank-list-heading {margin-top:26px;}
+.ema-content .blank-post-row {position:relative;isolation:isolate;}
+.ema-content .blank-post-row::before {
+  content:"";position:absolute;inset:6px -20px;z-index:-1;border-radius:4px;
+  background:var(--ema-blush);opacity:0;transition:opacity 180ms ease;
+}
+.ema-content .blank-row-number {color:var(--ema-pink);}
+.ema-content .blank-post-row h2 {font-family:var(--blank-serif);font-weight:500;}
+.ema-content .blank-row-arrow {transition:transform 180ms var(--blank-ease),color 180ms ease;}
+.ema-content .blank-project-name h2 {font-family:var(--blank-serif);}
+.ema-content .blank-project[open] .blank-project-name h2 {color:var(--ema-pink);}
+.ema-content .blank-project-body ul {border-left-color:var(--ema-pink);}
+.ema-content .blank-profile {border-bottom-color:var(--blank-line);}
+.ema-content .blank-profile-name h2>span {color:var(--ema-pink);}
+.ema-content .blank-game {border-color:var(--blank-line);}
+.ema-content .blank-game-title h2 {font-family:var(--blank-serif);font-weight:400;}
+.ema-content .blank-article-header {border-bottom-color:var(--blank-line);}
+.ema-content .blank-prose blockquote {border-color:var(--ema-pink);background:var(--ema-blush);padding:20px 28px;}
+.ema-content .blank-prose :is(h2,h3) {scroll-margin-top:125px;}
+.ema-content .blank-toc a {transition:color 160ms ease;}
+.ema-content .blank-toc a[aria-current="location"] {border-color:var(--ema-pink);}
+.ema-footer {position:relative;padding-top:54px;padding-bottom:40px;}
+.ema-footer::before {
+  content:"";position:absolute;top:0;left:calc(50% - 36px);width:72px;height:1px;background:var(--ema-pink);
+}
+.ema-social-links a {text-underline-offset:5px;}
+@keyframes ema-menu-open {
+  from {opacity:0;transform:translateY(-5px) scale(.98);}
+  to {opacity:1;transform:translateY(0) scale(1);}
+}
+@media(hover:hover) and (pointer:fine) {
+  .ema-nav a:hover::after {opacity:.5;transform:translateY(0);}
+  .ema-header :is(.ema-icon-button,.ema-motion-toggle,summary):hover {border-color:var(--ema-pink);}
+  .ema-content .blank-post-row:hover::before {opacity:.5;}
+  .ema-content .blank-post-row:hover .blank-row-arrow {color:var(--ema-pink);transform:translateX(5px);}
+  .ema-social-links a:hover {text-decoration:underline;}
+}
+@media(min-width:1000px) {
+  .ema-content .blank-about-section>div:first-child {position:sticky;top:126px;align-self:start;}
+}
+@media(max-width:760px) {
+  .ema-content {padding-bottom:64px;}
+  .ema-content .blank-page-head {padding-bottom:32px;}
+  .ema-content .blank-page-description {font-size:.875rem;}
+  .ema-content .blank-post-row::before {inset:6px -10px;}
+  .ema-content .blank-prose :is(h2,h3) {scroll-margin-top:160px;}
+  .ema-content .blank-prose blockquote {padding:16px 20px;}
+  .ema-footer {padding-top:38px;}
+}
+html[data-motion-paused="true"] :is(.ema-nav a,.ema-nav a::after,.ema-icon-button,.ema-motion-toggle,.ema-content .blank-row-arrow) {transition:none;}
+html[data-motion-paused="true"] .ema-header :is(.site-language-options,.site-theme-options) {animation:none;}
+@media(prefers-reduced-motion:reduce) {
+  .ema-header :is(.site-language-options,.site-theme-options) {animation:none;}
+  .ema-nav a::after,.ema-icon-button:active,.ema-motion-toggle:active,.ema-content .blank-post-row:hover .blank-row-arrow {transform:none;transition:none;}
+}

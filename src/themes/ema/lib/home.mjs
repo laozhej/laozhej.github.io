@@ -13,7 +13,7 @@ export function mountEmaHome(document, window) {
   let disposed = false, pageSuspended = false, userPaused = false;
   let scrollFrame = 0, measureFrame = 0, heroVisible = true;
   try { userPaused = window.localStorage.getItem('ema-home-motion-paused') === 'true'; } catch (_) {}
-  const motionPaused = () => userPaused || reduced.matches;
+  const motionPaused = () => document.documentElement?.dataset.motionPaused === 'true' || userPaused || reduced.matches;
   const suspended = () => document.hidden || pageSuspended;
   const canAnimate = () => !disposed && !motionPaused() && !suspended();
   function listen(target, event, handler, options) {
@@ -40,31 +40,6 @@ export function mountEmaHome(document, window) {
   const hero = $('[data-hero]');
   const profile = $('[data-profile-panel]');
   const profileToggles = $$('[data-profile-toggle]');
-  const profileHold = $('[data-profile-hold]');
-  let holdTimer = 0, holdUntil = 0, holdY = 0, lastWheelAt = 0;
-  let profileAutoDone = false, leftTop = false;
-  function endProfileHold() {
-    window.clearTimeout(holdTimer); holdTimer = 0; holdUntil = 0;
-    root.dataset.profileHolding = 'false';
-    if (profileHold) profileHold.hidden = true;
-  }
-  function startProfileHold() {
-    if (!desktop.matches || !canAnimate() || !profileHold || holdUntil) return;
-    profileHold.hidden = false;
-    const card = profile?.closest('.command-card')?.getBoundingClientRect();
-    const headerBottom = Math.max(0, header?.getBoundingClientRect().bottom ?? 86);
-    if (card) {
-      const minY = Math.max(0, card.bottom + window.scrollY - window.innerHeight + 24);
-      const maxY = Math.max(0, card.top + window.scrollY - headerBottom - 24);
-      if (minY > maxY) { profileHold.hidden = true; return; }
-      scrollWindow(clamp(window.scrollY, minY, maxY), false);
-    }
-    // The deadline never extends when more wheel events arrive.
-    holdUntil = window.performance.now() + 2000;
-    holdY = window.scrollY;
-    root.dataset.profileHolding = 'true';
-    holdTimer = window.setTimeout(endProfileHold, 2000);
-  }
   function setProfile(open, animated = true) {
     if (!profile) return;
     const changed = profile.hidden === open;
@@ -76,34 +51,8 @@ export function mountEmaHome(document, window) {
     if (open && changed && animated) enter(profile);
   }
   profileToggles.forEach((button) => listen(button, 'click', (event) => {
-    endProfileHold();
-    if (window.scrollY > 140) profileAutoDone = true;
     setProfile(profile?.hidden ?? false, event.detail !== 0);
   }));
-  listen($('[data-profile-continue]'), 'click', endProfileHold);
-  listen(window, 'wheel', (event) => {
-    const now = window.performance.now();
-    if (event.ctrlKey || event.metaKey || event.deltaY <= 0) {
-      lastWheelAt = 0; endProfileHold(); return;
-    }
-    lastWheelAt = now;
-    // Open before the first scroll moves the hero: the portrait stays in frame
-    // during the brief profile introduction, instead of losing its face above it.
-    if (!profileAutoDone && desktop.matches && canAnimate() && heroVisible && window.scrollY <= 140) {
-      profileAutoDone = true;
-      setProfile(true);
-      startProfileHold();
-    }
-    if (!holdUntil) return;
-    if (now >= holdUntil || !desktop.matches || !canAnimate() || !heroVisible) {
-      endProfileHold(); return;
-    }
-    if (event.cancelable) event.preventDefault();
-  }, { passive: false });
-  // Keyboard, touch, scrollbar drags and navigation always bypass the hold.
-  ['keydown', 'pointerdown', 'touchstart'].forEach((event) => listen(document, event, () => {
-    lastWheelAt = 0; endProfileHold();
-  }, { passive: true, capture: true }));
   if (profile) setProfile(!profile.hidden, false);
 
   const typed = $('[data-typed]');
@@ -178,12 +127,48 @@ export function mountEmaHome(document, window) {
   if (noteButton && notePanel) noteButton.setAttribute('aria-expanded', String(!notePanel.hidden));
 
   const parallaxLayers = $$('[data-parallax-layer]');
+  const heroScene = $('[data-hero-scene]');
+  const heroCopy = $('.hero-copy');
+  const heroTitle = $('.hero h1');
+  const polaroid = $('.shiroha-polaroid');
+  let heroTravel = 0, sceneReady = false;
+  function drawHeroLayers() {
+    const enabled = canAnimate() && desktop.matches && heroVisible;
+    const distance = enabled ? heroTravel : 0;
+    parallaxLayers.forEach((layer) => {
+      const front = layer.dataset.parallaxLayer === 'front';
+      const px = enabled ? x * (front ? 9 : -4) : 0;
+      const py = enabled ? y * (front ? 6 : -3) + distance * (front ? .23 : -.14) : 0;
+      layer.style.transform = enabled ? `translate3d(${px.toFixed(2)}px,${py.toFixed(2)}px,0)` : '';
+    });
+    if (heroCopy) heroCopy.style.transform = enabled ? `translate3d(0,${(-distance * .12).toFixed(2)}px,0)` : '';
+    if (heroTitle) heroTitle.style.opacity = enabled ? String(1 - clamp(distance / 280, 0, 1) * .58) : '';
+    if (polaroid) polaroid.style.transform = enabled ? `translate3d(0,${(-distance * .2).toFixed(2)}px,0) rotate(${(8 - distance * .008).toFixed(2)}deg)` : '';
+  }
+  function updateHeroScene() {
+    if (heroScene) {
+      const active = String(desktop.matches && window.innerHeight >= 650 && !motionPaused());
+      if (heroScene.dataset.sceneActive !== active) {
+        const oldHeroTop = hero?.getBoundingClientRect().top;
+        heroScene.dataset.sceneActive = active;
+        // Removing a sticky segment must not pull the reader to another section.
+        if (sceneReady && oldHeroTop !== undefined) {
+          const shift = hero.getBoundingClientRect().top - oldHeroTop;
+          if (Math.abs(shift) > 1) scrollWindow(Math.max(0, window.scrollY + shift), false);
+        }
+      }
+      sceneReady = true;
+    }
+    const sceneTop = heroScene?.getBoundingClientRect().top ?? 0;
+    heroTravel = clamp(-sceneTop, 0, 500);
+    drawHeroLayers();
+  }
   let parallaxFrameId = 0, lastFrameTime = 0;
   let x = 0, y = 0, vx = 0, vy = 0, targetX = 0, targetY = 0;
   function resetParallax() {
     window.cancelAnimationFrame(parallaxFrameId); parallaxFrameId = 0; lastFrameTime = 0;
     x = y = vx = vy = targetX = targetY = 0;
-    parallaxLayers.forEach((layer) => { layer.style.transform = ''; });
+    drawHeroLayers();
   }
   function parallaxFrame(now) {
     parallaxFrameId = 0;
@@ -197,10 +182,7 @@ export function mountEmaHome(document, window) {
       vy += ((targetY - y) * 100 - vy * 10) * h;
       x += vx * h; y += vy * h;
     }
-    parallaxLayers.forEach((layer) => {
-      const front = layer.dataset.parallaxLayer === 'front';
-      layer.style.transform = `translate3d(${(x * (front ? 9 : -4)).toFixed(2)}px,${(y * (front ? 6 : -3)).toFixed(2)}px,0)`;
-    });
+    drawHeroLayers();
     if (Math.abs(x - targetX) + Math.abs(y - targetY) + Math.abs(vx) + Math.abs(vy) > .002) {
       parallaxFrameId = window.requestAnimationFrame(parallaxFrame);
     } else lastFrameTime = 0;
@@ -225,6 +207,7 @@ export function mountEmaHome(document, window) {
   const prev = $('[data-rail-prev]');
   const next = $('[data-rail-next]');
   const position = $('[data-rail-position]');
+  const railProgress = $('[data-rail-progress]');
   let railMode = 'native', travel = 0, railStart = 0, chapterIndex = 0, chapterTargets = [], railReady = false;
   function updateActive(offset) {
     if (!chapters.length) return;
@@ -244,6 +227,7 @@ export function mountEmaHome(document, window) {
     const offset = railMode === 'scroll' ? clamp(window.scrollY - railStart, 0, travel) : track.scrollLeft;
     if (railMode === 'scroll') track.style.transform = `translate3d(${-offset}px,0,0)`;
     updateActive(offset);
+    if (railProgress) railProgress.style.transform = `scaleX(${travel > 0 ? clamp(offset / travel, 0, 1) : 1})`;
   }
   function measureRail() {
     if (!rail || !stage || !track) return;
@@ -251,14 +235,16 @@ export function mountEmaHome(document, window) {
     const oldStageTop = stage.getBoundingClientRect().top;
     const oldStageHeight = stage.getBoundingClientRect().height;
     const wasInScrollRail = formerMode === 'scroll' && window.scrollY >= railStart - 1 && window.scrollY <= railStart + travel + 1;
-    railMode = desktop.matches && !motionPaused() ? 'scroll' : 'native';
+    railMode = desktop.matches && window.innerHeight >= 650 && !motionPaused() ? 'scroll' : 'native';
     rail.dataset.railMode = railMode;
-    rail.style.height = '';
+    // Keep the existing scroll runway while measuring: collapsing it first
+    // can clamp scrollY on a deep page before the new geometry is known.
+    if (railMode === 'native') rail.style.height = '';
     track.style.transform = '';
     if (railMode === 'scroll') track.scrollLeft = 0;
     const viewportWidth = Math.min(track.clientWidth || stage.clientWidth, stage.clientWidth);
     travel = Math.max(0, track.scrollWidth - viewportWidth);
-    if (railMode === 'scroll' && travel < 1) { railMode = 'native'; rail.dataset.railMode = railMode; }
+    if (railMode === 'scroll' && travel < 1) { railMode = 'native'; rail.dataset.railMode = railMode; rail.style.height = ''; }
     const firstLeft = chapters[0]?.offsetLeft ?? 0;
     chapterTargets = chapters.map((chapter) => clamp(chapter.offsetLeft - firstLeft + chapter.offsetWidth / 2 - viewportWidth / 2, 0, travel));
     if (railMode === 'scroll') rail.style.height = `${Math.ceil(stage.getBoundingClientRect().height + travel)}px`;
@@ -275,8 +261,8 @@ export function mountEmaHome(document, window) {
     updateRail();
   }
   function scheduleMeasure() {
-    if (measureFrame || disposed) return;
-    measureFrame = window.requestAnimationFrame(() => { measureFrame = 0; measureRail(); updateScroll(); });
+    if (measureFrame || disposed || suspended()) return;
+    measureFrame = window.requestAnimationFrame(() => { measureFrame = 0; updateHeroScene(); measureRail(); updateScroll(); });
   }
   function scrollWindow(top, smooth) {
     if (smooth) { window.scrollTo({ top, behavior: 'smooth' }); return; }
@@ -320,6 +306,29 @@ export function mountEmaHome(document, window) {
   });
   listen(track, 'scroll', () => { if (railMode === 'native') scheduleScroll(); }, { passive: true });
 
+  // Nothing is hidden in the HTML/CSS. A reveal only starts as it enters the
+  // viewport, and plays once. Cancelling it always reveals the final content.
+  const revealGroups = $$('[data-ema-reveal]');
+  const revealed = new Set();
+  let revealObserver = null;
+  function reveal(group) {
+    if (revealed.has(group)) return;
+    revealed.add(group);
+    revealObserver?.unobserve(group);
+    const items = [...group.querySelectorAll('[data-ema-reveal-item]')];
+    (items.length ? items : [group]).forEach((item, index) => {
+      animate(item,
+        [{ opacity: 0, transform: 'translate3d(0,28px,0)' }, { opacity: 1, transform: 'translate3d(0,0,0)' }],
+        { duration: 600, delay: Math.min(index, 5) * 65, easing: 'cubic-bezier(.23,1,.32,1)', fill: 'backwards' });
+    });
+  }
+  if ('IntersectionObserver' in window) {
+    revealObserver = new window.IntersectionObserver((entries) => {
+      entries.filter(entry => entry.isIntersecting).forEach(entry => reveal(entry.target));
+    }, { threshold: .08, rootMargin: '0px 0px -30px 0px' });
+    revealGroups.forEach(group => revealObserver.observe(group));
+  }
+
   const tagCloud = $('[data-tag-cloud]');
   const tags = tagCloud ? [...tagCloud.querySelectorAll('[data-tag]')] : [];
   let tagsPlayed = false, tagObserver = null;
@@ -348,17 +357,8 @@ export function mountEmaHome(document, window) {
       if (!heroVisible) { clearTyping(); resetParallax(); }
       else queueTyping();
     }
-    if (holdUntil && (!heroVisible || Math.abs(window.scrollY - holdY) > 3)) endProfileHold();
     if (hero) hero.dataset.suspended = String(suspended() || !heroVisible);
-    if (window.scrollY > 8) leftTop = true;
-    if (window.scrollY <= 8 && leftTop && !holdUntil) {
-      endProfileHold();
-      if (profileAutoDone) setProfile(false, false);
-      profileAutoDone = false; leftTop = false;
-    } else if (desktop.matches && canAnimate() && heroVisible && window.scrollY > 140 && !profileAutoDone) {
-      profileAutoDone = true; setProfile(true);
-      if (window.performance.now() - lastWheelAt < 250 && lastWheelAt > 0) startProfileHold();
-    }
+    updateHeroScene();
     updateRail();
 
   }
@@ -369,28 +369,15 @@ export function mountEmaHome(document, window) {
     if (disposed) return;
     root.dataset.paused = String(motionPaused());
     root.dataset.suspended = String(suspended());
-    [...document.querySelectorAll('[data-motion-toggle]')].forEach((button) => {
-      const paused = motionPaused();
-      const label = reduced.matches ? root.dataset.motionReduced : userPaused ? root.dataset.motionResume : root.dataset.motionPause;
-      button.hidden = false;
-      button.setAttribute('aria-pressed', String(paused));
-      button.setAttribute('aria-disabled', String(reduced.matches));
-      button.setAttribute('aria-label', label);
-      button.title = label;
-      button.querySelector('[data-motion-pause-icon]')?.toggleAttribute('hidden', paused);
-      button.querySelector('[data-motion-play-icon]')?.toggleAttribute('hidden', !paused);
-    });
     clearTyping();
     if (motionPaused()) { chars = commands[commandIndex].text.length; phase = 'hold'; renderCommand(); }
-    if (!canAnimate() || !fine.matches) { endProfileHold(); resetParallax(); stopAnimations(); }
+    if (!canAnimate() || !fine.matches) { resetParallax(); stopAnimations(); }
     updateScroll(); queueTyping(); scheduleMeasure();
   }
-  [...document.querySelectorAll('[data-motion-toggle]')].forEach((button) => listen(button, 'click', () => {
-    if (reduced.matches) return;
-    userPaused = !userPaused;
-    try { window.localStorage.setItem('ema-home-motion-paused', String(userPaused)); } catch (_) {}
+  listen(document, 'site:motion-change', (event) => {
+    userPaused = Boolean(event.detail?.userPaused);
     refreshMotion();
-  }));
+  });
   listen(window, 'scroll', scheduleScroll, { passive: true });
   listen(window, 'resize', scheduleMeasure, { passive: true });
   listen(document, 'visibilitychange', refreshMotion);
@@ -407,16 +394,16 @@ export function mountEmaHome(document, window) {
   function cleanup() {
     if (disposed) return;
     disposed = true;
-    endProfileHold(); clearTyping(); resetParallax(); stopAnimations();
+    clearTyping(); resetParallax(); stopAnimations();
     window.clearTimeout(bubbleTimer);
     window.cancelAnimationFrame(scrollFrame); window.cancelAnimationFrame(measureFrame);
-    tagObserver?.disconnect(); resizeObserver?.disconnect();
+    tagObserver?.disconnect(); revealObserver?.disconnect(); resizeObserver?.disconnect();
     removers.splice(0).forEach((remove) => remove());
     if (window.__emaHomeCleanup === cleanup) delete window.__emaHomeCleanup;
   }
   listen(window, 'pagehide', (event) => {
     pageSuspended = true; root.dataset.suspended = 'true';
-    endProfileHold(); clearTyping(); resetParallax(); stopAnimations();
+    clearTyping(); resetParallax(); stopAnimations();
     window.clearTimeout(bubbleTimer);
     if (avatarMessage) avatarMessage.hidden = true;
     window.cancelAnimationFrame(scrollFrame); window.cancelAnimationFrame(measureFrame);
@@ -425,6 +412,6 @@ export function mountEmaHome(document, window) {
   });
   listen(window, 'pageshow', () => { pageSuspended = false; refreshMotion(); });
   window.__emaHomeCleanup = cleanup;
-  renderCommand(); measureRail(); refreshMotion();
+  renderCommand(); updateHeroScene(); measureRail(); refreshMotion();
   return cleanup;
 }

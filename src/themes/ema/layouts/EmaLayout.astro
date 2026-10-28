@@ -13,6 +13,8 @@ import ColorModePreference from "@/core/preferences/ColorModePreference.astro";
 import SiteIcons from "@/core/components/SiteIcons.astro";
 import SiteAttribution from "@/core/components/SiteAttribution.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
+import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
+import { pageTransition } from "@/core/navigation/animations.mjs";
 const { locale, t } = getI18n(Astro.url.pathname);
 const href = (path: string) => getThemePath("ema", path, locale);
 const path = stripTheme(Astro.url.pathname);
@@ -20,7 +22,7 @@ const { title = site.name, description = t("site.description"), isArticlePage = 
 const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale), Astro.site) : undefined;
 ---
 <!doctype html>
-<html lang={locale} data-theme="ema">
+<html lang={locale} data-theme="ema" transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,20 +35,21 @@ const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale),
     {canonical && <><link rel="canonical" href={canonical} /><meta property="og:url" content={canonical} /></>}
     {Astro.site && locales.map((language: Locale) => <link rel="alternate" hreflang={language} href={new URL(localizePath(Astro.url.pathname, language), Astro.site)} />)}
     {article && <meta property="article:published_time" content={article.pubDate.toISOString()} />}
+    <SiteNavigation />
   </head>
   <body data-blank data-ema>
     <a class="blank-skip-link" href="#ema-main">{t("a11y.skip")}</a>
-    <header class="ema-header" data-header data-site-header>
+    <header class="ema-header" data-header data-site-header transition:name="site-header" transition:animate="none">
       <a class="ema-wordmark" href={href("/")} aria-label={`${site.name} ${t("a11y.home")}`}><strong>Blank Space<span>.</span></strong><small>EMA / 02</small></a>
       <nav class="ema-nav" aria-label={t("a11y.navigation")}>{site.nav.map(item => <a href={href(item.href)} aria-current={(item.href === "/" ? path === "/" : path.startsWith(item.href)) ? "page" : undefined}>{t(`nav.${item.key}`)}</a>)}</nav>
       <div class="ema-header-actions">
         <ThemeSwitcher /><LanguageSwitcher />
         <button class="ema-icon-button" type="button" data-color-mode-toggle hidden aria-label={t("mode.label")} aria-pressed="false" title={t("mode.toDark")} data-label-dark={t("mode.toDark")} data-label-light={t("mode.toLight")}><span class="blank-mode-moon"><Icon name="tabler:moon" size={18} /></span><span class="blank-mode-sun"><Icon name="tabler:sun" size={18} /></span></button>
-        {home && <button class="ema-motion-toggle" type="button" data-motion-toggle hidden aria-pressed="false" aria-label={t("ema.motion.pause")} title={t("ema.motion.pause")}><Icon name="tabler:player-pause" size={18} data-motion-pause-icon aria-hidden="true" /><Icon name="tabler:player-play" size={18} data-motion-play-icon aria-hidden="true" hidden /></button>}
+        <button class="ema-motion-toggle" type="button" data-motion-toggle data-motion-pause={t("ema.motion.pause")} data-motion-resume={t("ema.motion.resume")} data-motion-reduced={t("ema.motion.reduced")} hidden aria-pressed="false" aria-label={t("ema.motion.pause")} title={t("ema.motion.pause")}><Icon name="tabler:player-pause" size={18} data-motion-pause-icon aria-hidden="true" /><Icon name="tabler:player-play" size={18} data-motion-play-icon aria-hidden="true" hidden /></button>
       </div>
       {isArticlePage && <div class="blank-reading-track" aria-hidden="true"><span data-site-progress></span></div>}
     </header>
-    <main id="ema-main" class:list={[{ "ema-content blank-main": !home, "ema-home-main": home, "blank-main--article": isArticlePage }]} tabindex="-1"><slot /></main>
+    <main id="ema-main" class:list={[{ "ema-content blank-main": !home, "ema-home-main": home, "blank-main--article": isArticlePage }]} tabindex="-1" transition:name="site-content" transition:animate={pageTransition}><slot /></main>
     <footer class="ema-footer">
       <a class="ema-footer-brand" href={href("/")}>{site.name}<span>.</span></a>
       <p>{t("home.statement2")}</p>
@@ -54,10 +57,9 @@ const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale),
       <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
     </footer>
     <script>
-      import { mountSiteFeatures } from "@/core/features/runtime.mjs";
-      import { mountEmaHome } from "../lib/home.mjs";
-      mountSiteFeatures(document, window);
-      mountEmaHome(document, window);
+      import { registerThemeRuntime } from "@/core/themes/runtime.mjs";
+      import { mountEma } from "../lib/runtime.mjs";
+      registerThemeRuntime("ema", mountEma);
     </script>
   </body>
 </html>

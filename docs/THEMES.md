@@ -38,7 +38,7 @@ import ColorModePreference from "@/core/preferences/ColorModePreference.astro";
 
 `ColorModePreference` 同时输出 `theme-color` meta，不要重复添加。新主题可以传入自己的浏览器顶栏颜色；页面 CSS 则使用 `html[data-color-mode="light"]` / `html[data-color-mode="dark"]` 设置自身配色。
 
-导航使用共享 `LanguageSwitcher`（它会自行初始化语言偏好）。深浅色按钮保留 `data-color-mode-toggle`、`data-label-dark`、`data-label-light`、`aria-label` 和初始 `aria-pressed="false"`，并在 JS 初始化前设为 `hidden`；按钮外观由主题提供。标签均通过 `t()` 取得三语译文。
+导航使用共享 `LanguageSwitcher`（由统一导航生命周期初始化语言偏好）。深浅色按钮保留 `data-color-mode-toggle`、`data-label-dark`、`data-label-light`、`aria-label` 和初始 `aria-pressed="false"`，并在 JS 初始化前设为 `hidden`；按钮外观由主题提供。标签均通过 `t()` 取得三语译文。
 
 全站使用 `site-locale`、`blank-color-mode` 和 `site-theme` 三个偏好键。深浅色沿用旧名字以保留访客设置，实际已经全主题共用。未手动选择时实时跟随系统；手动选择后优先使用该选择，不添加“自动”按钮。同源页面和标签页共用深浅色选择，不会同步到另一个设备。
 
@@ -50,18 +50,35 @@ import ColorModePreference from "@/core/preferences/ColorModePreference.astro";
 
 ## 功能入口
 
-每个主题布局只挂载一次公共入口：
+每个主题布局在 `<head>` 挂载一次 `src/core/navigation/SiteNavigation.astro`，由它提供 Astro `ClientRouter` 和统一的页面生命周期。不要再在布局或切换器中单独调用运行时入口。
+
+```astro
+---
+import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
+import { pageTransition } from "@/core/navigation/animations.mjs";
+---
+<head><SiteNavigation /></head>
+<header transition:name="site-header" transition:animate="none">…</header>
+<main transition:name="site-content" transition:animate={pageTransition}>…</main>
+```
+
+`SiteNavigation` 统一挂载动效偏好、语言与主题偏好和公共功能入口 `mountSiteFeatures`。每次 `astro:before-swap` 清理旧实例，`astro:after-swap` 同步测量并挂载新页面，`astro:page-load` 做幂等兜底；先建立首页完整高度，再恢复历史滚动位置或跨页锚点。重复初始化、普通离页和浏览器缓存恢复都必须保留清理机制。
+
+公共层不导入任何主题代码。主题专属的页面增强由主题布局在 `<body>` 末尾自行登记，主题 id 与 `themes` 登记一致：
 
 ```astro
 <script>
-  import { mountSiteFeatures } from "@/core/features/runtime.mjs";
-  mountSiteFeatures(document, window);
+  import { registerThemeRuntime } from "@/core/themes/runtime.mjs";
+  import { mountNewTheme } from "../lib/runtime.mjs";
+  registerThemeRuntime("new", mountNewTheme);
 </script>
 ```
 
-入口根据页面现有标记启用对应功能；缺少集合或文章区域时跳过。返回值是清理函数，供将来主动替换布局时调用。重复挂载会先清理旧实例；普通页面退出会释放事件，浏览器前进/后退缓存则保留可恢复的实例。
+挂载函数接收 `(document, window)`，可返回清理函数；不要在其中再次调用 `mountSiteFeatures`。生命周期只挂载 `html[data-theme]` 对应的运行时，因此其他主题的页面不会加载或执行它。首次从别的主题进入时，布局脚本在页面替换之后才执行，登记时会立即挂载到当前页面；同一主题重复登记会被忽略。Blank 的 `lib/runtime.mjs` 只处理 404 路径提示；Ema 的 `lib/runtime.mjs` 组合 `mountEmaHome` 与 `mountEmaPresentation`。可复用功能继续放在 `src/core/features`。
 
-Blank 的 `lib/runtime.mjs` 是薄适配器，调用公共入口后只处理自己的 404 路径提示。新主题不需要导入它。
+页面正文使用 200ms 淡出和 280ms 淡入／轻微位移，页头保持稳定；不支持原生 View Transition 时由 Astro 的动画回退接管。暂停动效或系统 reduced motion 时跳过过渡。手动偏好沿用 `ema-home-motion-paused`，由共享 `motion.mjs` 管理，`html[data-motion-paused]` 反映最终状态，`site:motion-change` 在 document 上广播 `{ paused, userPaused, reduced }`。Ema 各页面都有同一个暂停／播放按钮，图标、鼠标提示与键盘提示保持一致。
+
+Ema 首页的主视觉和章节由原生滚动驱动，不取消 wheel 事件。桌面足够高度时使用 sticky 场景；触屏、窄屏、短屏和暂停状态回退为正常文档流与原生横向滚动。内容默认可见，IntersectionObserver 和 WAAPI 只负责一次入场增强；关闭脚本或取消动效都不会留下隐藏内容。
 
 ### 搜索、筛选和排序
 

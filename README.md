@@ -34,6 +34,7 @@ npm run preview
 | 闲暇收藏 | `src/core/data/games.ts` |
 | GitHub / Steam 个人主页链接（所有语言和主题共用） | `src/core/data/social.ts` |
 | 全主题共用的搜索、筛选、排序、阅读进度 | `src/core/features/` |
+| 全主题共用的页面切换过渡与页面脚本生命周期 | `src/core/navigation/` |
 | 全主题共用的深浅色偏好与首屏初始化 | `src/core/preferences/` |
 | 文章 | `src/content/blog/*.md` |
 | 首页结构与开场文案 | `src/themes/blank/pages/HomePage.astro` |
@@ -58,6 +59,8 @@ npm run preview
 - 简体中文 / 日本語 / English 切换；三篇示例文章也有完整译文，语言和深浅色选择相互独立。
 - Blank / 艾玛主题切换，保留当前语言、栏目、文章、查询参数和锚点。主题选择与深浅色选择相互独立。
 - 关于页与页脚的 GitHub / Steam 链接，以及三语致谢与许可页（`/credits/`）。
+- 站内页面切换不整页刷新：页头保持不动，正文淡出淡入；语言、主题和深浅色选择随之保留，浏览器前进 / 后退恢复原滚动位置。
+- 艾玛主题各页面都有暂停 / 播放动效按钮；暂停后两套主题都跳过页面过渡。系统开启减少动态时同样跳过，并停用该按钮。
 - 桌面及移动端布局、键盘焦点、跳到正文、减少动画偏好支持。
 
 ## 全站语言与主题

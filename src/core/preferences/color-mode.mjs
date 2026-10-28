@@ -1,6 +1,7 @@
 // This legacy key is now site-wide. Keep it so existing visitors retain their choice.
 export const COLOR_MODE_STORAGE_KEY = "blank-color-mode";
 export const DEFAULT_COLOR_MODE_COLORS = { light: "#ffffff", dark: "#141414" };
+const sessionPreferences = new WeakMap();
 
 export function mountColorMode(doc, win) {
   const buttons = [...doc.querySelectorAll("[data-color-mode-toggle]")];
@@ -13,7 +14,7 @@ export function mountColorMode(doc, win) {
       return fallback;
     }
   };
-  let preference = readPreference();
+  let preference = readPreference(sessionPreferences.get(win));
   const apply = () => {
     const mode = preference ?? (system.matches ? "dark" : "light");
     doc.documentElement.dataset.colorMode = mode;
@@ -30,6 +31,7 @@ export function mountColorMode(doc, win) {
   };
   const toggle = () => {
     preference = doc.documentElement.dataset.colorMode === "dark" ? "light" : "dark";
+    sessionPreferences.set(win, preference);
     try { win.localStorage.setItem(COLOR_MODE_STORAGE_KEY, preference); } catch {}
     apply();
   };

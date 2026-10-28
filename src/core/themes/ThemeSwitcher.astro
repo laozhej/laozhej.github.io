@@ -20,10 +20,6 @@ const path = `${Astro.url.pathname}${Astro.url.search}`;
     ))}
   </nav>
 </details>
-<script>
-  import { mountThemePreference } from "./preference.mjs";
-  mountThemePreference(document, window);
-</script>
 <style>
   .site-theme-menu { position: relative; font: inherit; }
   summary { display: flex; align-items: center; gap: .35rem; cursor: pointer; list-style: none; padding: .45rem .55rem; border-radius: .45rem; }

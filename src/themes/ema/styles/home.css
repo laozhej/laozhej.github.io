@@ -1,7 +1,7 @@
 /* Homepage presentation only; shared navigation and preferences belong to EmaLayout. */
 #ema-home{--paper:#fafbf9;--ink:#47536b;--muted:#768194;--pink:#b46082;--pale-pink:#fae8ee;--rule:#dce3e9;--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1);color:var(--ink);background:var(--paper);font-size:14px;line-height:1.7;min-width:0;}
 #ema-home *{box-sizing:border-box;}#ema-home a{color:inherit;text-decoration:none;}#ema-home button{font:inherit;color:inherit;cursor:pointer;border:0;background:transparent;}#ema-home button:focus-visible,#ema-home a:focus-visible,#ema-home [tabindex]:focus-visible{outline:2px solid var(--pink);outline-offset:5px;}#ema-home img{display:block;max-width:100%;height:auto;}#ema-home figure,#ema-home p,#ema-home h1,#ema-home h2,#ema-home h3{margin:0;}#ema-home [hidden]{display:none!important;}#ema-home .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
-#ema-home .hero{height:825px;position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 61% 48%,#edf3f5 0,transparent 48%),radial-gradient(ellipse at 14% 80%,#edf4f4,transparent 38%),#fafcfc;}
+#ema-home .hero{height:825px;position:relative;isolation:isolate;overflow:clip;background:radial-gradient(ellipse at 61% 48%,#edf3f5 0,transparent 48%),radial-gradient(ellipse at 14% 80%,#edf4f4,transparent 38%),#fafcfc;}
 #ema-home .hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(#71809920 .55px,transparent .55px);background-size:5px 5px;opacity:.22;pointer-events:none;}
 #ema-home .back-layer{position:absolute;inset:0;z-index:0;pointer-events:none;}
 #ema-home .paper-strip{position:absolute;background:#fffdf9;border:1px solid #e6e6e1;box-shadow:0 1px 9px #78838b09;}
@@ -250,13 +250,9 @@
 #ema-home .chapter-card.is-active .chapter-copy{background:#fffcfd;}
 #ema-home .margin-note{max-width:150px;}
 #ema-home .profile-row>div{min-width:0;}
-#ema-home .profile-row p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;}
+#ema-home .profile-row p{line-height:1.8;overflow-wrap:anywhere;}
 #ema-home .profile-links{flex-wrap:wrap;row-gap:6px;}
 #ema-home .avatar-message{white-space:normal;width:max-content;max-width:100%;}
-#ema-home .profile-hold{position:relative;margin-top:12px;padding:10px 0 6px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;}
-#ema-home .profile-hold p{font-size:10px;color:var(--muted);flex:1;min-width:140px;}
-#ema-home .profile-hold button{font-size:11px;color:var(--pink);border:1px solid var(--rule);border-radius:4px;padding:6px 8px;}
-#ema-home .profile-hold-progress{position:absolute;bottom:0;left:0;width:100%;height:2px;background:var(--pink);transform-origin:left;animation:ema-hold 2s linear forwards;}
 @keyframes ema-hold{to{transform:scaleX(0);}}
 #ema-home .translation-fallback{font-size:11px;color:var(--muted);margin-top:8px;}
 #ema-home .favorites-note{display:inline-block;color:var(--pink);border-bottom:1px solid var(--rule);padding-bottom:4px;}
@@ -299,4 +295,67 @@ html[data-color-mode=dark] #ema-home .chapter-number{color:#bc92a9;}
 html[data-color-mode=dark] #ema-home .favorites-section{border-color:var(--rule);background:radial-gradient(ellipse at 50% 50%,#302d3c,transparent 65%);}
 html[data-color-mode=dark] #ema-home .article-list>a{border-color:var(--rule);}
 html[data-color-mode=dark] #ema-home .ink-frame{opacity:.22;}
-@media(prefers-reduced-motion:reduce){#ema-home .hero.is-docked .hero-copy>h1{transform:rotate(-5deg);opacity:1;}#ema-home .profile-hold-progress{animation:none;}}
+
+/* A short, native-scroll opening scene: the paper, portrait and copy move
+   at different depths. Small screens and paused motion stay in normal flow. */
+#ema-home .hero-scroll-scene { position:relative; }
+#ema-home .hero-scroll-scene[data-scene-active=true] { height:calc(max(720px, 100svh) + 280px); }
+#ema-home .hero-scroll-scene[data-scene-active=true] .hero { position:sticky;top:0;height:max(720px,100svh); }
+#ema-home.is-profile-open .hero-scroll-scene[data-scene-active=true] { height:calc(max(870px,100svh) + 280px); }
+#ema-home .hero-scroll-scene[data-scene-active=true] .hero-copy { top:clamp(176px,25svh,240px); }
+#ema-home .rail-progress { height:2px;margin:0 12px 18px;background:var(--rule);overflow:hidden; }
+#ema-home .rail-progress>span { display:block;height:100%;background:var(--pink);transform:scaleX(0);transform-origin:left; }
+#ema-home .chapter-copy { transition:background-color 200ms ease; }
+#ema-home .chapter-copy>a span,#ema-home .article-list>a>span:last-child,#ema-home .reading-intro>a span,#ema-home .favorites-note span { display:inline-block;transition:transform 180ms var(--ease-out); }
+#ema-home .rail-controls button { transition:background-color 160ms ease,transform 160ms var(--ease-out); }
+#ema-home .rail-controls button:active { transform:scale(.95); }
+#ema-home .reading-section { position:relative;margin-top:105px;margin-bottom:112px; }
+#ema-home .reading-intro { align-self:start; }
+#ema-home .reading-intro h2 { margin-top:10px; }
+#ema-home .article-list>a { position:relative;display:grid;grid-template-columns:28px 1fr 22px;column-gap:22px;padding:24px 0; }
+#ema-home .article-list>a:first-child { padding-top:4px; }
+#ema-home .article-list .article-index { font:italic 15px Georgia,serif;color:var(--pink);align-self:start;padding-top:2px; }
+#ema-home .article-list>a::after { content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:var(--pink);transform:scaleX(0);transform-origin:left;transition:transform 250ms var(--ease-out); }
+#ema-home .favorites-section { position:relative;padding-top:55px;padding-bottom:65px;margin-bottom:80px;border-bottom:0; }
+#ema-home .favorites-section::after { content:'';position:absolute;width:44px;height:1px;background:var(--pink);bottom:0;left:calc(50% - 22px); }
+#ema-home .favorites-section h2 { margin:12px 0; }
+#ema-home .tag-cloud { gap:15px;margin-top:36px;margin-bottom:32px; }
+#ema-home .tag-cloud span { padding:11px 19px; }
+@media(min-width:1000px) {
+  #ema-home .chapters { padding-top:70px; }
+  #ema-home .section-heading { margin-bottom:36px; }
+  #ema-home .section-heading h2 { font-size:34px;margin-top:7px; }
+  #ema-home .chapter-card { width:72%;display:grid;grid-template-columns:45% 55%;min-height:390px; }
+  #ema-home .chapter-visual { height:100%;min-height:390px; }
+  #ema-home .chapter-copy { display:flex;flex-direction:column;justify-content:center;padding:46px 38px; }
+  #ema-home .chapter-copy h3 { font-size:27px; }
+  #ema-home .chapter-copy>a { align-self:flex-start;margin-top:30px; }
+  #ema-home .chapter-number { font-size:44px;right:27px;top:18px; }
+  #ema-home .notebook { top:85px;height:270px;width:72%;left:17%; }
+  #ema-home .pencil { top:120px;left:70%;height:240px; }
+  #ema-home .pressed-flower { left:4%;top:40px; }
+  #ema-home .sea-art img { width:140%;max-width:none;left:-12%;top:-7%; }
+  #ema-home .letter { top:84px;left:16%; }
+  #ema-home .envelope { top:156px; }
+  #ema-home .stamp { top:78px;right:6%; }
+  #ema-home .reading-intro { position:sticky;top:155px; }
+}
+@media(hover:hover) and (pointer:fine) {
+  #ema-home .chapter-copy>a:hover span,#ema-home .reading-intro>a:hover span,#ema-home .favorites-note:hover span { transform:translate(3px,-3px); }
+  #ema-home .article-list>a:hover>span:last-child { transform:translate(3px,-3px); }
+  #ema-home .article-list>a:hover::after { transform:scaleX(1); }
+}
+@media(max-width:760px) {
+  #ema-home .rail-progress { margin:0 24px 14px; }
+  #ema-home .reading-section { margin:58px 24px 62px; }
+  #ema-home .article-list>a { grid-template-columns:20px 1fr 18px;column-gap:12px;padding:22px 0; }
+  #ema-home .article-list h3 { line-height:1.8; }
+  #ema-home .favorites-section { padding:36px 0 44px;margin-bottom:48px; }
+  #ema-home .tag-cloud { gap:12px;margin:28px auto; }
+  #ema-home .tag-cloud span { padding:9px 12px; }
+}
+#ema-home[data-paused=true] .chapter-copy>a span,#ema-home[data-paused=true] .article-list>a::after,#ema-home[data-paused=true] .article-list>a>span:last-child { transition:none; }
+@media(prefers-reduced-motion:reduce) {
+  #ema-home .hero-scroll-scene[data-scene-active=true] { height:auto; }
+  #ema-home .hero-scroll-scene[data-scene-active=true] .hero { position:relative; }
+}

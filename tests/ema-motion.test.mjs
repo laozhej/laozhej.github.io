@@ -4,80 +4,132 @@ import { mountEmaHome } from "../src/themes/ema/lib/home.mjs";
 
 function element(extra = {}) {
   return Object.assign(new EventTarget(), {
-    dataset: {}, attributes: {}, hidden: false,
+    dataset: {}, style: {}, attributes: {}, hidden: false,
     setAttribute(key, value) { this.attributes[key] = value; },
-    toggleAttribute(key, present) { if (present) this.attributes[key] = ""; else delete this.attributes[key]; },
     contains() { return false; },
   }, extra);
 }
 
-function page({ paused = false, reduced = false, labels = ["暂停动效", "启用动效", "系统减少动态"] } = {}) {
-  const pause = element(), play = element();
-  const button = element({ querySelector: (selector) => selector === "[data-motion-pause-icon]" ? pause : play });
-  Object.defineProperty(button, "textContent", { set() { throw new Error("The icon children must survive state updates"); } });
+function page({ paused = false, reduced = false, desktop = true, withRail = false } = {}) {
+  const animations = [], observers = [], frames = new Map();
+  const scene = element({ getBoundingClientRect: () => ({ top: -200 }) });
+  const front = element({ dataset: { parallaxLayer: "front" } });
+  const back = element({ dataset: { parallaxLayer: "back" } });
+  const copy = element(), title = element(), photo = element();
+  const revealItem = element({ animate(keyframes, options) {
+    const animation = { keyframes, options, cancelled: false, finished: new Promise(() => {}), cancel() { this.cancelled = true; } };
+    animations.push(animation); return animation;
+  } });
+  const group = element({ querySelectorAll: () => [revealItem] });
+  const heightWrites = [];
+  const rail = element({ getBoundingClientRect: () => ({ top: 1000, height: 1000 }) });
+  Object.defineProperty(rail.style, 'height', { set: value => heightWrites.push(value), get: () => heightWrites.at(-1) ?? '' });
+  const stage = element({ clientWidth: 1000, getBoundingClientRect: () => ({ top: 1000, height: 400 }) });
+  const track = element({ clientWidth: 1000, scrollWidth: 1600, scrollLeft: 0, tabIndex: 0 });
   const command = element({ dataset: { command: "hello", commandText: "Hello", commandResult: "Welcome" } });
+  const selectors = new Map([
+    ["[data-hero-scene]", scene], [".hero-copy", copy], [".hero h1", title], [".shiroha-polaroid", photo],
+  ]);
+  if (withRail) { selectors.set("[data-rail]", rail); selectors.set("[data-rail-stage]", stage); selectors.set("[data-rail-track]", track); }
   const root = element({
-    dataset: { motionPause: labels[0], motionResume: labels[1], motionReduced: labels[2] },
-    querySelector: () => null,
-    querySelectorAll: (selector) => selector === "[data-command]" ? [command] : [],
+    querySelector: selector => selectors.get(selector) ?? null,
+    querySelectorAll: selector => ({ "[data-command]": [command], "[data-parallax-layer]": [front, back], "[data-ema-reveal]": [group] }[selector] ?? []),
   });
   const doc = element({
+    documentElement: element({ dataset: { motionPaused: String(paused || reduced) } }),
     getElementById: () => root, querySelector: () => null,
-    querySelectorAll: (selector) => selector === "[data-motion-toggle]" ? [button] : [],
   });
-  const values = new Map([["ema-home-motion-paused", String(paused)]]);
   const system = element({ matches: reduced });
-  const otherMedia = element({ matches: false });
+  const otherMedia = element({ matches: desktop });
   const win = element({
-    scrollY: 0, innerHeight: 900,
-    matchMedia: (query) => query.includes("prefers-reduced-motion") ? system : otherMedia,
-    localStorage: { getItem: (key) => values.get(key), setItem: (key, value) => values.set(key, value) },
-    setTimeout: () => 1, clearTimeout() {}, requestAnimationFrame: () => 1, cancelAnimationFrame() {},
+    scrollY: 200, innerHeight: 900,
+    matchMedia: query => query.includes("prefers-reduced-motion") ? system : otherMedia,
+    localStorage: { getItem: () => String(paused) },
+    setTimeout: () => 1, clearTimeout() {},
+    requestAnimationFrame: fn => { const id = frames.size + 1; frames.set(id, fn); return id; },
+    cancelAnimationFrame: id => frames.delete(id),
+    IntersectionObserver: class {
+      constructor(callback) { this.callback = callback; this.disconnected = false; observers.push(this); }
+      observe() {} unobserve() {}
+      disconnect() { this.disconnected = true; }
+    },
   });
   const cleanup = mountEmaHome(doc, win);
-  return { root, button, pause, play, system, values, cleanup };
+  const changeMotion = userPaused => {
+    doc.documentElement.dataset.motionPaused = String(userPaused || system.matches);
+    doc.dispatchEvent(new CustomEvent("site:motion-change", { detail: { paused: userPaused || system.matches, userPaused, reduced: system.matches } }));
+  };
+  return { root, doc, win, scene, front, back, copy, title, photo, group, animations, observers, frames, cleanup, changeMotion, system, heightWrites };
 }
 
-test("motion toggle retains its icons, exposes the next action and remembers pause in every locale", () => {
-  for (const labels of [["暂停动效", "启用动效"], ["動きを止める", "動きを再開"], ["Pause motion", "Resume motion"]]) {
-    const p = page({ labels });
-    assert.equal(p.button.hidden, false);
-    assert.equal(p.button.title, labels[0]);
-    assert.equal(p.button.attributes["aria-label"], labels[0]);
-    assert.equal("hidden" in p.pause.attributes, false);
-    assert.equal("hidden" in p.play.attributes, true);
-    p.button.dispatchEvent(new Event("click"));
-    assert.equal(p.root.dataset.paused, "true");
-    assert.equal(p.button.title, labels[1]);
-    assert.equal(p.button.attributes["aria-label"], labels[1]);
-    assert.equal("hidden" in p.pause.attributes, true);
-    assert.equal("hidden" in p.play.attributes, false);
-    assert.equal(p.values.get("ema-home-motion-paused"), "true");
-    p.button.dispatchEvent(new Event("click"));
-    assert.equal(p.root.dataset.paused, "false");
-    assert.equal(p.button.title, labels[0]);
-    assert.equal(p.values.get("ema-home-motion-paused"), "false");
+test("native scroll layers stop and reset when the shared motion preference changes", () => {
+  const p = page();
+  assert.equal(p.scene.dataset.sceneActive, "true");
+  assert.match(p.front.style.transform, /46\.00px/);
+  assert.match(p.back.style.transform, /-28\.00px/);
+  assert.notEqual(p.copy.style.transform, "");
+  p.changeMotion(true);
+  assert.equal(p.root.dataset.paused, "true");
+  assert.equal(p.scene.dataset.sceneActive, "false");
+  assert.equal(p.front.style.transform, "");
+  assert.equal(p.title.style.opacity, "");
+  p.changeMotion(false);
+  assert.equal(p.scene.dataset.sceneActive, "true");
+  assert.equal(p.root.dataset.paused, "false");
+  p.cleanup();
+});
+
+test("touch and reduced motion keep the hero in normal document flow", () => {
+  for (const config of [{ desktop: false }, { reduced: true }, { paused: true }]) {
+    const p = page(config);
+    assert.equal(p.scene.dataset.sceneActive, "false");
+    assert.equal(p.front.style.transform, "");
     p.cleanup();
   }
 });
 
-test("system reduced motion explains the unavailable action without replacing the saved preference", () => {
-  for (const paused of [false, true]) {
-    const p = page({ paused, reduced: true });
-    assert.equal(p.root.dataset.paused, "true");
-    assert.equal(p.button.attributes["aria-disabled"], "true");
-    assert.equal(p.button.attributes["aria-pressed"], "true");
-    assert.equal(p.button.attributes["aria-label"], "系统减少动态");
-    assert.equal(p.button.title, "系统减少动态");
-    assert.equal("hidden" in p.pause.attributes, true);
-    assert.equal("hidden" in p.play.attributes, false);
-    p.button.dispatchEvent(new Event("click"));
-    assert.equal(p.values.get("ema-home-motion-paused"), String(paused));
-    p.system.matches = false;
-    p.system.dispatchEvent(new Event("change"));
-    assert.equal(p.root.dataset.paused, String(paused));
-    assert.equal(p.button.attributes["aria-disabled"], "false");
-    assert.equal(p.button.title, paused ? "启用动效" : "暂停动效");
-    p.cleanup();
-  }
+test("wheel gestures are never captured or cancelled by the homepage", () => {
+  const p = page();
+  const wheel = new Event("wheel", { cancelable: true });
+  p.win.dispatchEvent(wheel);
+  assert.equal(wheel.defaultPrevented, false);
+  p.cleanup();
+});
+
+test("section entrances play once and shared pause cancels active animations", () => {
+  const p = page();
+  const observer = p.observers[0];
+  observer.callback([{ target: p.group, isIntersecting: true }]);
+  observer.callback([{ target: p.group, isIntersecting: true }]);
+  assert.equal(p.animations.length, 1);
+  p.changeMotion(true);
+  assert.equal(p.animations[0].cancelled, true);
+  p.cleanup();
+  assert.equal(observer.disconnected, true);
+  assert.equal(p.frames.size, 0);
+  assert.equal(p.win.__emaHomeCleanup, undefined);
+});
+
+test("a paused entry remains visible and does not replay when resumed", () => {
+  const p = page({ paused: true });
+  p.observers[0].callback([{ target: p.group, isIntersecting: true }]);
+  assert.equal(p.animations.length, 0);
+  p.changeMotion(false);
+  p.observers[0].callback([{ target: p.group, isIntersecting: true }]);
+  assert.equal(p.animations.length, 0);
+  p.cleanup();
+});
+
+
+test("remeasuring a scrolling chapter rail never collapses its existing runway", () => {
+  const p = page({ withRail: true });
+  assert.equal(p.heightWrites.at(-1), "1000px");
+  p.heightWrites.length = 0;
+  for (const [id, frame] of [...p.frames]) { p.frames.delete(id); frame(); }
+  p.win.dispatchEvent(new Event("resize"));
+  for (const [id, frame] of [...p.frames]) { p.frames.delete(id); frame(); }
+  assert.ok(p.heightWrites.length > 0);
+  assert.equal(p.heightWrites.includes(""), false);
+  assert.equal(p.heightWrites.at(-1), "1000px");
+  p.cleanup();
 });

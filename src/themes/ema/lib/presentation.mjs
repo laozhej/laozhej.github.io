@@ -30,7 +30,13 @@ export function mountEmaPresentation(doc, win) {
   const progress = doc.createElement('span');
   progress.className = 'ema-page-progress';
   progress.setAttribute('aria-hidden', 'true');
-  if (!header.querySelector('[data-site-progress]')) header.append(progress);
+  // On wide screens the same position is shown as a blossom on a side track.
+  const track = doc.createElement('div');
+  track.className = 'ema-scroll-track';
+  track.setAttribute('aria-hidden', 'true');
+  track.append(doc.createElement('span'));
+  track.firstChild.className = 'ema-scroll-thumb';
+  if (!header.querySelector('[data-site-progress]')) { header.append(progress); doc.body.append(track); }
   function update() {
     frame = 0;
     if (disposed) return;
@@ -38,6 +44,7 @@ export function mountEmaPresentation(doc, win) {
     const distance = doc.documentElement.scrollHeight - win.innerHeight;
     const ratio = distance > 0 ? Math.max(0, Math.min(1, win.scrollY / distance)) : 0;
     progress.style.transform = `scaleX(${ratio})`;
+    track.style.setProperty('--scroll-ratio', ratio.toFixed(4));
   }
   const schedule = () => { if (!frame) frame = win.requestAnimationFrame(update); };
   listen(win, 'scroll', schedule, { passive: true });
@@ -108,6 +115,7 @@ export function mountEmaPresentation(doc, win) {
     observer?.disconnect();
     cancel();
     progress.remove();
+    track.remove();
     removers.forEach(remove => remove());
   };
 }

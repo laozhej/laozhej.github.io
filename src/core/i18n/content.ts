@@ -24,7 +24,10 @@ const ja = {
     { key: "yotei", title: "Ghost of Yōtei", subtitle: "ゴースト・オブ・ヨウテイ" },
     { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "ビジュアルノベル / キャラクターとデザインの着想", url: "https://manosaba.com/" },
   ],
-  xpFavorites: [{ key: "emma", title: "桜羽エマ", subtitle: "キャラクターデザインの参考" }],
+  xpFavorites: [
+    { key: "emma", title: "桜羽エマ", subtitle: "キャラクターデザインの参考" },
+    { key: "yuki", title: "月代ユキ", subtitle: "いまのアイコンのキャラクター" },
+  ],
   currentSignals: [
     { label: "いま", text: "AI エージェントの時代に向けて準備しながら、個人サイトも少しずつ整えています。" },
     { label: "次に", text: "記事や制作の記録を少しずつ書いていく予定です。" },
@@ -66,7 +69,10 @@ const en = {
     { key: "yotei", title: "Ghost of Yōtei", subtitle: "A favorite game" },
     { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "Visual novel / Character and visual inspiration", url: "https://manosaba.com/" },
   ],
-  xpFavorites: [{ key: "emma", title: "Ema Sakuraba", subtitle: "Character design reference" }],
+  xpFavorites: [
+    { key: "emma", title: "Ema Sakuraba", subtitle: "Character design reference" },
+    { key: "yuki", title: "Yuki Tsukishiro", subtitle: "The character on my avatar" },
+  ],
   currentSignals: [
     { label: "Now", text: "Getting ready for the age of AI agents while gradually building my personal website." },
     { label: "Next", text: "Gradually adding articles and project notes." },

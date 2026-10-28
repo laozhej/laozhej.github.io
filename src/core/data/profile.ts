@@ -31,7 +31,8 @@ export const favoriteGames = [
 ] as const;
 
 export const xpFavorites = [
-  { key: "emma", title: "樱羽艾玛", subtitle: "角色风格参考" }
+  { key: "emma", title: "樱羽艾玛", subtitle: "角色风格参考" },
+  { key: "yuki", title: "月代雪", subtitle: "现在的头像角色" }
 ] as const;
 
 export const currentSignals = [

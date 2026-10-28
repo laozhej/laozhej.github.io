@@ -1,5 +1,115 @@
 ---
-// Shared page content and feature hooks, presented by the active theme layout.
-import Page from "@/themes/blank/pages/AboutPage.astro";
+// Sakura Archive's About page: a profile card beside a letter and a shelf of cards,
+// laid out after Yuimi-chaya's Fuyukawa Kagari About page (MIT License).
+// Everything shown comes from the shared profile data; only icons, tones and art live here.
+import { Icon } from "astro-icon/components";
+import { getSiteContent } from "@/core/i18n/content";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { socialLinks } from "@/core/data/social";
+import { site } from "@/lib/site";
+import PageLayout from "@/core/themes/PageLayout.astro";
+import PageHead from "@/themes/blank/components/PageHead.astro";
+import "../styles/about.css";
+
+const { locale, t } = getI18n(Astro.url.pathname);
+const { currentSignals, favoriteGames, profileIdentity, profileStatus, profileTech, projectTechLines, xpFavorites } = getSiteContent(locale);
+const tones = ["pink", "blue", "green", "lavender", "yellow"];
+const tone = (index: number, offset = 0) => `tone-${tones[(index + offset) % tones.length]}`;
+const number = (index: number) => String(index + 1).padStart(2, "0");
+const techIcons: Record<string, string> = { ai: "tabler:cpu", animation: "tabler:keyframes", engines: "tabler:device-gamepad-2", web: "tabler:world-www" };
+const tech = [...profileTech, ...projectTechLines.map(({ key, label, note }) => ({ key, name: label, note }))];
+// Characters with a local portrait get a sticker; anyone else still gets a name tag.
+const portraits: Record<string, string> = { emma: "ema", yuki: "yuki" };
+const marks = [
+  { id: "tech", icon: "tabler:code" },
+  { id: "games", icon: "tabler:device-gamepad" },
+  { id: "characters", icon: "tabler:heart" },
+  { id: "now", icon: "tabler:flower" },
+];
+const socialIcons: Record<string, string> = { github: "tabler:brand-github", steam: "tabler:brand-steam" };
 ---
-<Page {...Astro.props}><slot /></Page>
+<PageLayout title={`About | ${site.name}`} description={t("about.description")}>
+  <PageHead index="04" title="About" label={t("common.about")} description={t("about.intro")} />
+  <div class="ema-about">
+    <aside class="about-side" aria-label={t("ema.about.profile")}>
+      <div class="about-avatar">
+        <span class="about-tape" aria-hidden="true"></span>
+        <img src="/themes/ema/assets/yuki.webp" alt={t("ema.about.avatar").replace("{name}", profileIdentity.displayName)} width="320" height="320" />
+        <span class="about-blossom" aria-hidden="true"></span>
+      </div>
+      <div class="about-id">
+        <p class="about-kicker">{t("ema.about.kicker")}</p>
+        <h2>{profileIdentity.displayName}<span aria-hidden="true">.</span></h2>
+        <p class="about-handle">{t("ema.brand")}</p>
+        <p class="about-bio">{profileIdentity.bio}</p>
+        <ul class="about-links">
+          {socialLinks.map((social) => <li><a href={social.href} target="_blank" rel="me noopener noreferrer" aria-label={t(`social.${social.key}`)}><Icon name={socialIcons[social.key] ?? "tabler:link"} size={17} aria-hidden="true" />{social.label}</a></li>)}
+        </ul>
+      </div>
+      <div class="about-status">
+        <p class="about-kicker">{t("ema.about.status")}</p>
+        <ul>{profileStatus.map((item) => <li><Icon name="tabler:pin" size={16} aria-hidden="true" /><span>{item}</span></li>)}</ul>
+      </div>
+    </aside>
+
+    <div class="about-main">
+      <section class="about-letter" aria-labelledby="ema-about-letter">
+        <div class="about-letter-copy">
+          <p class="about-kicker">{t("ema.about.letterKicker")}</p>
+          <h2 id="ema-about-letter">{t("ema.about.letterTitle")}</h2>
+          <p>{t("ema.about.letterBody")}</p>
+          <p class="about-signature">— {profileIdentity.displayName}</p>
+        </div>
+        <figure class="about-photo">
+          <span class="about-tape" aria-hidden="true"></span>
+          <img src="/themes/ema/assets/shiroha.webp" alt={t("ema.about.letterArt")} width="1138" height="1600" loading="lazy" />
+        </figure>
+      </section>
+
+      <nav class="about-marks" aria-label={t("ema.about.bookmarks")}>
+        {marks.map((mark) => <a href={`#ema-about-${mark.id}`}><Icon name={mark.icon} size={16} aria-hidden="true" />{t(`ema.about.${mark.id}Mark`)}</a>)}
+      </nav>
+
+      <section class="about-section" aria-labelledby="ema-about-tech">
+        <div class="about-heading"><span class={tone(0)}><Icon name="tabler:code" size={20} aria-hidden="true" /></span><div><p class="about-kicker">{t("ema.about.techKicker")}</p><h2 id="ema-about-tech">{t("ema.about.techTitle")}</h2></div></div>
+        <ul class="about-tech">
+          {tech.map((item, index) => <li class={tone(index)}><span class="about-chip"><Icon name={techIcons[item.key] ?? "tabler:sparkles"} size={22} aria-hidden="true" /></span><div><h3>{item.name}</h3><p>{item.note}</p></div></li>)}
+        </ul>
+      </section>
+
+      <section class="about-section" aria-labelledby="ema-about-games">
+        <div class="about-heading"><span class={tone(4)}><Icon name="tabler:device-gamepad" size={20} aria-hidden="true" /></span><div><p class="about-kicker">{t("ema.about.gamesKicker")}</p><h2 id="ema-about-games">{t("ema.about.gamesTitle")}</h2></div></div>
+        <ol class="about-games">
+          {favoriteGames.map((item, index) => (
+            <li class={tone(index, 4)}>
+              <span class="about-cover" aria-hidden="true"><b>{number(index)}</b></span>
+              <div>
+                <h3>{"url" in item ? <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}<Icon name="tabler:external-link" size={14} aria-hidden="true" /></a> : item.title}</h3>
+                <p>{item.subtitle}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="about-section" aria-labelledby="ema-about-characters">
+        <div class="about-heading"><span class={tone(0)}><Icon name="tabler:heart" size={20} aria-hidden="true" /></span><div><p class="about-kicker">{t("ema.about.charactersKicker")}</p><h2 id="ema-about-characters">{t("ema.about.charactersTitle")}</h2></div></div>
+        <ul class="about-characters">
+          {xpFavorites.map((item, index) => (
+            <li class={tone(index * 3)}>
+              {portraits[item.key] && <span class={`about-portrait about-portrait-${portraits[item.key]}`} aria-hidden="true"></span>}
+              <div><h3>{item.title}</h3><p>{item.subtitle}</p></div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="about-section" aria-labelledby="ema-about-now">
+        <div class="about-heading"><span class={tone(2)}><Icon name="tabler:flower" size={20} aria-hidden="true" /></span><div><p class="about-kicker">{t("ema.about.nowKicker")}</p><h2 id="ema-about-now">{t("about.now")}</h2></div></div>
+        <ul class="about-now">
+          {currentSignals.map((item, index) => <li class={tone(index)}><span>{item.label}</span><p>{item.text}</p></li>)}
+        </ul>
+      </section>
+    </div>
+  </div>
+</PageLayout>

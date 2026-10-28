@@ -1,0 +1,110 @@
+/* Sakura Archive About page. The profile-card-and-shelves layout follows
+   Yuimi-chaya's Fuyukawa Kagari About page (MIT License); the art and tones are this site's own. */
+.ema-about {
+  --card:#ffffff; --card-shadow:0 12px 30px #8599b41a; --frame:#ead6df;
+  --round:"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Varela Round","Yu Gothic UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  display:grid;grid-template-columns:272px minmax(0,1fr);gap:56px;align-items:start;margin-top:56px;color:var(--blank-ink);
+}
+html[data-color-mode="dark"] .ema-about {--card:#272c37;--card-shadow:0 12px 30px #05080e59;--frame:#6d4c61;}
+.ema-about :is(h2,h3,p,ul,ol,figure) {margin:0;}
+.ema-about :is(ul,ol) {padding:0;list-style:none;}
+.ema-about .tone-pink {--fill:#ffddea;--line:#f2a8bd;--tone-ink:#824759;}
+.ema-about .tone-blue {--fill:#dff2ff;--line:#9fc8eb;--tone-ink:#315a78;}
+.ema-about .tone-green {--fill:#dff5ea;--line:#9bd6b7;--tone-ink:#315e49;}
+.ema-about .tone-lavender {--fill:#eee4ff;--line:#c9b8ef;--tone-ink:#57467b;}
+.ema-about .tone-yellow {--fill:#fff5bf;--line:#f0c95a;--tone-ink:#725d22;}
+html[data-color-mode="dark"] .ema-about .tone-pink {--fill:#47303d;--line:#8a5670;--tone-ink:#f6c2d6;}
+html[data-color-mode="dark"] .ema-about .tone-blue {--fill:#263a4b;--line:#4f7898;--tone-ink:#bfe0f7;}
+html[data-color-mode="dark"] .ema-about .tone-green {--fill:#253f35;--line:#4f8a70;--tone-ink:#bfe9d3;}
+html[data-color-mode="dark"] .ema-about .tone-lavender {--fill:#352e4b;--line:#6f5f9e;--tone-ink:#d9ccfa;}
+html[data-color-mode="dark"] .ema-about .tone-yellow {--fill:#3f3820;--line:#8c7a37;--tone-ink:#f5e3a0;}
+.about-kicker {font:600 10px/1.8 var(--mono);letter-spacing:.16em;color:var(--ema-pink);}
+
+/* The profile card stays beside the shelves while there is room for all of it. */
+.about-side {display:grid;gap:20px;}
+.about-avatar {position:relative;justify-self:start;width:152px;height:152px;margin:6px 0 0 6px;}
+.ema-about .about-avatar img {display:block;width:100%;height:100%;border:5px solid var(--card);border-radius:50%;object-fit:cover;box-shadow:0 14px 30px #8599b433,0 0 0 1px var(--frame);}
+.about-blossom {position:absolute;top:-12px;right:-6px;width:40px;height:40px;background:var(--ema-blossom) center/contain no-repeat;rotate:14deg;}
+.about-tape {position:absolute;z-index:1;width:74px;height:22px;background:repeating-linear-gradient(90deg,#f8dbe6d9 0 6px,#fbe7eed9 6px 12px);box-shadow:0 1px 2px #8599b42e;}
+.about-avatar .about-tape {top:8px;left:-24px;rotate:-34deg;}
+.about-id h2 {margin-top:6px;font:400 2.25rem/1.2 var(--ema-title-font);letter-spacing:-.01em;color:var(--blank-ink);}
+.about-id h2 span {color:var(--ema-pink);}
+.ema-about .about-handle {margin-top:4px;font:12px/1.6 var(--mono);color:var(--blank-muted);}
+.ema-about .about-bio {margin-top:14px;font-size:13.5px;line-height:1.9;color:var(--blank-muted);}
+.ema-about .about-links {display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+.about-links a,.about-marks a {display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:7px 15px;border:1px solid var(--blank-line);border-radius:999px;background:var(--card);color:var(--blank-ink);font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 4px 12px #8599b414;transition:transform 180ms var(--blank-ease),border-color 180ms ease,color 180ms ease;}
+.about-marks svg {color:var(--ema-pink);}
+.about-status {padding:16px 18px;border:1px solid var(--blank-line);border-radius:14px;background:var(--card);box-shadow:var(--card-shadow);}
+.about-status ul {display:grid;gap:10px;margin-top:10px;}
+.about-status li {display:grid;grid-template-columns:16px minmax(0,1fr);gap:8px;font-size:13px;line-height:1.6;}
+.about-status svg {margin-top:3px;color:var(--ema-pink);}
+
+/* A letter with a taped photo, then bookmarks into the shelves. */
+.about-main {display:grid;gap:44px;min-width:0;}
+.about-letter {display:grid;grid-template-columns:minmax(0,1fr) 196px;gap:40px;align-items:center;padding:34px 36px 34px 46px;border:1px solid var(--blank-line);border-radius:16px;box-shadow:var(--card-shadow);background:linear-gradient(90deg,transparent 24px,#f2c4d4 24px 25px,transparent 25px),radial-gradient(#dce3e9 .7px,transparent 1px) 0 0/14px 14px,var(--card);}
+html[data-color-mode="dark"] .about-letter {background:linear-gradient(90deg,transparent 24px,#6d4c61 24px 25px,transparent 25px),radial-gradient(#3a404d .7px,transparent 1px) 0 0/14px 14px,var(--card);}
+.about-letter h2 {margin-top:10px;font:500 clamp(1.45rem,2.4vw,1.95rem)/1.45 var(--blank-serif);color:var(--blank-ink);}
+.about-letter-copy>p:not(.about-kicker) {margin-top:14px;font-size:14.5px;line-height:2;color:var(--blank-muted);}
+.about-letter-copy>p.about-signature {text-align:right;font:italic 13px/1.6 var(--blank-serif);color:var(--ema-pink);}
+.about-photo {position:relative;padding:10px 10px 28px;border-radius:4px;background:#fff;box-shadow:0 14px 28px #8599b433;rotate:3deg;}
+html[data-color-mode="dark"] .about-photo {background:#e4e7ee;box-shadow:0 14px 28px #05080e80;}
+.about-photo img {display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:30% 50%;border-radius:2px;}
+.about-photo .about-tape {top:-11px;left:calc(50% - 37px);rotate:-5deg;}
+.about-marks {display:flex;flex-wrap:wrap;gap:10px;margin-top:-18px;}
+
+/* Shelves: a tinted heading chip, then cards in the homepage tag colours. */
+.about-section {display:grid;gap:18px;}
+.about-heading {display:flex;align-items:center;gap:14px;}
+.about-heading>span,.about-chip {display:grid;place-items:center;flex-shrink:0;width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:var(--fill);color:var(--tone-ink);}
+.about-heading h2 {margin-top:2px;font:500 1.45rem/1.35 var(--blank-serif);color:var(--blank-ink);}
+.ema-about :is(.about-tech,.about-games,.about-characters,.about-now)>li {min-width:0;border:1px solid var(--blank-line);border-radius:14px;background:var(--card);box-shadow:var(--card-shadow);}
+.ema-about li h3 {font-size:15px;font-weight:700;line-height:1.45;color:var(--blank-ink);}
+.ema-about li p {margin-top:4px;font-size:13px;line-height:1.75;color:var(--blank-muted);}
+.about-tech,.about-games {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+.about-tech>li {display:grid;grid-template-columns:48px minmax(0,1fr);gap:14px;align-items:start;padding:18px;}
+.about-chip {width:48px;height:48px;}
+.about-games>li {display:grid;grid-template-columns:86px minmax(0,1fr);gap:16px;align-items:center;padding:12px;}
+.about-cover {position:relative;display:flex;align-items:flex-end;height:86px;padding:8px 10px;overflow:hidden;border:1px solid var(--line);border-radius:10px;background:radial-gradient(color-mix(in srgb,var(--line) 70%,transparent) 1.1px,transparent 1.5px) 0 0/7px 7px,var(--fill);}
+.about-cover::after {content:"";position:absolute;top:8px;right:8px;width:22px;height:22px;background:var(--ema-blossom) center/contain no-repeat;}
+.about-cover b {font:400 2.3rem/1 var(--ema-title-font);color:var(--tone-ink);}
+.about-games a {color:inherit;text-decoration:none;background:linear-gradient(var(--ema-pink),var(--ema-pink)) 0 100%/0 1px no-repeat;transition:background-size 200ms var(--blank-ease);}
+.about-games a svg {margin-left:5px;vertical-align:-1px;color:var(--ema-pink);}
+.about-characters {display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
+.about-characters>li {display:flex;align-items:center;gap:16px;padding:14px 16px;}
+.about-portrait {flex-shrink:0;width:66px;height:66px;border:3px solid var(--line);border-radius:50%;background-color:var(--fill);background-repeat:no-repeat;}
+.about-portrait-ema {background-image:url('/themes/ema/assets/ema.webp');background-size:300% auto;background-position:40.6% 9.1%;}
+.about-portrait-yuki {background-image:url('/themes/ema/assets/yuki.webp');background-size:cover;background-position:center;}
+.about-characters h3 {display:inline-block;padding:2px 12px;border:2px solid var(--line);border-radius:999px;background:var(--fill);color:var(--tone-ink);font-family:var(--round);font-size:14px;rotate:-2deg;}
+.about-characters li:nth-child(even) h3 {rotate:2deg;}
+.ema-about .about-characters p {margin-top:8px;}
+.about-now {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
+.about-now>li {padding:18px;}
+.about-now span {display:inline-block;padding:3px 12px;border:1px solid var(--line);border-radius:999px;background:var(--fill);color:var(--tone-ink);font-size:12px;font-weight:700;}
+.ema-about .about-now p {margin-top:12px;}
+
+@media(hover:hover) and (pointer:fine) {
+  .about-links a:hover,.about-marks a:hover {transform:translateY(-2px);border-color:var(--ema-pink);color:var(--ema-pink);}
+  .about-games a:hover {background-size:100% 1px;}
+}
+@media(min-width:1000px) and (min-height:760px) {
+  .about-side {position:sticky;top:112px;}
+}
+@media(max-width:999px) {
+  .ema-about {grid-template-columns:minmax(0,1fr);gap:40px;margin-top:40px;}
+  .about-side {grid-template-columns:auto minmax(0,1fr);gap:20px 32px;}
+  .about-status {grid-column:1/-1;}
+}
+@media(max-width:760px) {
+  .about-now {grid-template-columns:minmax(0,1fr);}
+}
+@media(max-width:640px) {
+  .about-side {grid-template-columns:minmax(0,1fr);}
+  .about-letter {grid-template-columns:minmax(0,1fr);gap:28px;padding:26px 22px 28px 38px;}
+  .about-photo {justify-self:center;width:min(210px,72%);}
+  .about-tech,.about-games {grid-template-columns:minmax(0,1fr);}
+}
+html[data-motion-paused="true"] .ema-about :is(a,a svg) {transition:none;}
+@media(prefers-reduced-motion:reduce) {
+  .ema-about :is(a,a svg) {transition:none;}
+}

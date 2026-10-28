@@ -2,7 +2,7 @@
 export const mediaMessages = {
   "zh-CN": {
     "media.heading": "Ema 主题与素材来源",
-    "media.motion": "Ema 主题以艾玛为主视觉、白羽为点缀；资料卡、轻视差与章节横滑参考 Yuimi-chaya 的 Fuyukawa Kagari，按本站结构重新实现；首页场景之间的切换改编自 Fuyukawa Kagari 的首页转场代码（MIT License）。",
+    "media.motion": "Ema 主题以艾玛为主视觉、白羽为点缀；资料卡、轻视差与章节横滑参考 Yuimi-chaya 的 Fuyukawa Kagari，按本站结构重新实现；首页场景之间的切换改编自 Fuyukawa Kagari 的首页转场代码，关于页的资料卡与卡片书架布局参照 Fuyukawa Kagari 的关于页（均为 MIT License）。",
     "media.reference": "查看 Fuyukawa Kagari",
     "media.sources": "角色图片来自原作或可追溯的原图，只作尺寸与格式转换，以及 CSS 裁切和灰度显示。没有使用 AI 生成、扩图或重绘。",
     "media.manifest": "逐项素材来源与文件校验",
@@ -11,7 +11,7 @@ export const mediaMessages = {
   },
   ja: {
     "media.heading": "Ema テーマと素材の出典",
-    "media.motion": "Ema テーマは桜羽エマをメインに、鳴瀬しろはをアクセントにしています。プロフィールカード、軽い視差と横スクロールは、Yuimi-chaya の Fuyukawa Kagari を参考に、本サイト用に実装しました。ホームのシーン切り替えは Fuyukawa Kagari のホーム遷移コード（MIT License）を改変したものです。",
+    "media.motion": "Ema テーマは桜羽エマをメインに、鳴瀬しろはをアクセントにしています。プロフィールカード、軽い視差と横スクロールは、Yuimi-chaya の Fuyukawa Kagari を参考に、本サイト用に実装しました。ホームのシーン切り替えは Fuyukawa Kagari のホーム遷移コードを改変したもので、プロフィールページのカードと棚のレイアウトは Fuyukawa Kagari のプロフィールページを参考にしています（いずれも MIT License）。",
     "media.reference": "Fuyukawa Kagari を見る",
     "media.sources": "キャラクター画像は原作または出典を確認できる原画から取得し、サイズ・形式の変換と CSS による切り抜き・グレースケール表示のみを行いました。AI による生成、拡張、描き直しは行っていません。",
     "media.manifest": "素材ごとの出典とファイル検証情報",
@@ -20,7 +20,7 @@ export const mediaMessages = {
   },
   en: {
     "media.heading": "Ema theme and artwork sources",
-    "media.motion": "Ema is the main visual, with Shiroha as an accent. The profile card, gentle parallax and horizontal chapters draw on Yuimi-chaya’s Fuyukawa Kagari and were implemented for this website. The homepage scene cuts are adapted from Fuyukawa Kagari’s home transition code (MIT License).",
+    "media.motion": "Ema is the main visual, with Shiroha as an accent. The profile card, gentle parallax and horizontal chapters draw on Yuimi-chaya’s Fuyukawa Kagari and were implemented for this website. The homepage scene cuts are adapted from Fuyukawa Kagari’s home transition code, and the About page’s profile card and card shelves follow the layout of Fuyukawa Kagari’s About page (both MIT License).",
     "media.reference": "View Fuyukawa Kagari",
     "media.sources": "Character images come from original works or traceable source artwork. Changes are limited to resizing, format conversion, CSS cropping and grayscale presentation. No AI generation, image expansion or repainting was used.",
     "media.manifest": "Individual sources and file checksums",

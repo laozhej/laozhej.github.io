@@ -92,5 +92,10 @@ const navItems = site.nav.map((item, index) => ({
         <a href="#blank-main" class="blank-back-top">{t("footer.top")} <Icon name="tabler:arrow-up" size={14} /></a>
       </div>
     </footer>
+    <script>
+      import { registerThemeRuntime } from "@/core/themes/runtime.mjs";
+      import { mountBlank } from "../lib/runtime.mjs";
+      registerThemeRuntime("blank", mountBlank);
+    </script>
   </body>
 </html>

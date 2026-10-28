@@ -62,9 +62,19 @@ import { pageTransition } from "@/core/navigation/animations.mjs";
 <main transition:name="site-content" transition:animate={pageTransition}>…</main>
 ```
 
-`SiteNavigation` 统一挂载动效偏好、语言与主题偏好和公共功能。每次 `astro:before-swap` 清理旧实例，`astro:after-swap` 同步测量并挂载新页面，`astro:page-load` 做幂等兜底；先建立首页完整高度，再恢复历史滚动位置或跨页锚点。重复初始化、普通离页和浏览器缓存恢复都必须保留清理机制。
+`SiteNavigation` 统一挂载动效偏好、语言与主题偏好和公共功能入口 `mountSiteFeatures`。每次 `astro:before-swap` 清理旧实例，`astro:after-swap` 同步测量并挂载新页面，`astro:page-load` 做幂等兜底；先建立首页完整高度，再恢复历史滚动位置或跨页锚点。重复初始化、普通离页和浏览器缓存恢复都必须保留清理机制。
 
-Blank 的 `lib/runtime.mjs` 是公共功能入口的薄适配器，并处理 404 路径提示。Ema 额外挂载 `mountEmaHome` 与 `mountEmaPresentation`。新增主题的专属运行时应加入 `SiteNavigation` 的主题分发，返回清理函数；可复用功能继续放在 `src/core/features`。
+公共层不导入任何主题代码。主题专属的页面增强由主题布局在 `<body>` 末尾自行登记，主题 id 与 `themes` 登记一致：
+
+```astro
+<script>
+  import { registerThemeRuntime } from "@/core/themes/runtime.mjs";
+  import { mountNewTheme } from "../lib/runtime.mjs";
+  registerThemeRuntime("new", mountNewTheme);
+</script>
+```
+
+挂载函数接收 `(document, window)`，可返回清理函数；不要在其中再次调用 `mountSiteFeatures`。生命周期只挂载 `html[data-theme]` 对应的运行时，因此其他主题的页面不会加载或执行它。首次从别的主题进入时，布局脚本在页面替换之后才执行，登记时会立即挂载到当前页面；同一主题重复登记会被忽略。Blank 的 `lib/runtime.mjs` 只处理 404 路径提示；Ema 的 `lib/runtime.mjs` 组合 `mountEmaHome` 与 `mountEmaPresentation`。可复用功能继续放在 `src/core/features`。
 
 页面正文使用 200ms 淡出和 280ms 淡入／轻微位移，页头保持稳定；不支持原生 View Transition 时由 Astro 的动画回退接管。暂停动效或系统 reduced motion 时跳过过渡。手动偏好沿用 `ema-home-motion-paused`，由共享 `motion.mjs` 管理，`html[data-motion-paused]` 反映最终状态，`site:motion-change` 在 document 上广播 `{ paused, userPaused, reduced }`。Ema 各页面都有同一个暂停／播放按钮，图标、鼠标提示与键盘提示保持一致。
 

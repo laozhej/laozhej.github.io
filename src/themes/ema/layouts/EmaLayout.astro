@@ -56,5 +56,10 @@ const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale),
       <SocialLinks class="ema-social-links" />
       <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
     </footer>
+    <script>
+      import { registerThemeRuntime } from "@/core/themes/runtime.mjs";
+      import { mountEma } from "../lib/runtime.mjs";
+      registerThemeRuntime("ema", mountEma);
+    </script>
   </body>
 </html>

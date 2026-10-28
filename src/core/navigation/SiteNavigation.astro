@@ -7,20 +7,18 @@ import { ClientRouter } from "astro:transitions";
   import { mountLanguagePreference } from "../i18n/preference.mjs";
   import { mountThemePreference } from "../themes/preference.mjs";
   import { mountMotionPreference } from "../preferences/motion.mjs";
-  import { mountBlank } from "@/themes/blank/lib/runtime.mjs";
-  import { mountEmaHome } from "@/themes/ema/lib/home.mjs";
-  import { mountEmaPresentation } from "@/themes/ema/lib/presentation.mjs";
+  import { mountSiteFeatures } from "../features/runtime.mjs";
+  import { mountThemeRuntime } from "../themes/runtime.mjs";
 
   installNavigationLifecycle(document, window, () => {
     const cleanups = [
       mountMotionPreference(document, window),
       mountLanguagePreference(document, window),
       mountThemePreference(document, window),
-      mountBlank(document, window),
+      mountSiteFeatures(document, window),
+      // Theme-specific enhancements come from registerThemeRuntime() in each layout.
+      mountThemeRuntime(document, window),
     ];
-    if (document.documentElement.dataset.theme === "ema") {
-      cleanups.push(mountEmaHome(document, window), mountEmaPresentation(document, window));
-    }
     return () => cleanups.reverse().forEach((cleanup) => cleanup?.());
   });
 </script>

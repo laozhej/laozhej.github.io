@@ -29,7 +29,7 @@
 - Blank 的软件版权声明和 MIT 文本保存在 `LICENSE` 与 `public/licenses/yuimi-chaya-MIT.txt`。
 - Tabler Icons 的 MIT 许可保存在 `public/licenses/tabler-icons-MIT.txt`；此许可不扩展到角色或漫画图片。
 - 共享网站图标是 `B.` 的确定性字母排版，详见 `assets/branding/README.md`。渲染时使用本机 Arial Bold 字体，未随仓库提供字体文件。
-- 樱色档案主题的标题（“Arataki.br’s Base”）使用 FONTDASU 的 Mochiy Pop One（Copyright 2020 The MochiyPop Project Authors），通过 npm 包 `@fontsource/mochiy-pop-one` 随站点自托管，只引入拉丁字母子集；许可为 SIL Open Font License 1.1，全文保存在 `public/licenses/mochiy-pop-one-OFL.txt`。
+- 樱色档案主题的标题（“Arataki.br’s Base”）使用 Duarte Pinto 设计的 Gloock（Copyright 2022 The Gloock Project Authors），通过 npm 包 `@fontsource/gloock` 随站点自托管，只引入拉丁字母子集；许可为 SIL Open Font License 1.1，全文保存在 `public/licenses/gloock-OFL.txt`。
 - 页面不从外部服务器加载字体；除上述标题字体外，文字使用访客设备的系统字体。
 
 ## 不发布的历史文件

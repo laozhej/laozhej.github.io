@@ -6,7 +6,7 @@ import BlankLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "../components/PageHead.astro";
 import themeLicense from "../../../../public/licenses/yuimi-chaya-MIT.txt?raw";
 import iconLicense from "../../../../public/licenses/tabler-icons-MIT.txt?raw";
-import fontLicense from "../../../../public/licenses/mochiy-pop-one-OFL.txt?raw";
+import fontLicense from "../../../../public/licenses/gloock-OFL.txt?raw";
 const { t, href } = getI18n(Astro.url.pathname);
 ---
 <BlankLayout title={`${t("credits.title")} | ${site.name}`} description={t("credits.description")}>
@@ -47,14 +47,14 @@ const { t, href } = getI18n(Astro.url.pathname);
   <section class="blank-section blank-about-section blank-credits-section">
     <div><p class="blank-kicker">04 / FONTS</p><h2>{t("credits.fontsHeading")}</h2></div>
     <div class="blank-credits-body">
-      <h3>Mochiy Pop One</h3>
+      <h3>Gloock</h3>
       <p>{t("credits.fontsText")}</p>
-      <a class="blank-text-link" href="https://github.com/fontdasu/Mochiypop" target="_blank" rel="noopener noreferrer">{t("credits.fontProject")} <Icon name="tabler:external-link" size={15} /></a>
+      <a class="blank-text-link" href="https://github.com/duartp/gloock" target="_blank" rel="noopener noreferrer">{t("credits.fontProject")} <Icon name="tabler:external-link" size={15} /></a>
       <details class="blank-license">
         <summary>{t("credits.licenseText")} · OFL-1.1</summary>
         <pre lang="en">{fontLicense}</pre>
       </details>
-      <a class="blank-text-link" href="/licenses/mochiy-pop-one-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+      <a class="blank-text-link" href="/licenses/gloock-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
     </div>
   </section>
   <section class="blank-section blank-about-section blank-credits-section">

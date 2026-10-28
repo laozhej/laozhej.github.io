@@ -9,7 +9,7 @@ html[data-theme="ema"] {
   --blank-width:1120px; --blank-sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
   --blank-serif:"Iowan Old Style","Songti SC",SimSun,Georgia,serif; --blank-mono:ui-monospace,Consolas,monospace;
   --blank-ease:cubic-bezier(.23,1,.32,1); --ema-pink:#a95478; --ema-blush:#fae8ee;
-  --ema-title-font:"Mochiy Pop One","Hiragino Maru Gothic ProN","Arial Rounded MT Bold",-apple-system,"PingFang SC",sans-serif;
+  --ema-title-font:"Gloock",var(--blank-serif);
   min-width:320px; background:var(--blank-paper); scroll-padding-top:110px; accent-color:var(--ema-pink);
 }
 html[data-theme="ema"][data-color-mode="dark"] {

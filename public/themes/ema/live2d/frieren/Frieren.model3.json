@@ -1,0 +1,28 @@
+{
+  "Version": 3,
+  "FileReferences": {
+    "Moc": "Frieren.moc3",
+    "Textures": [
+      "Frieren.8192/texture_00.png"
+    ],
+    "Physics": "Frieren.physics3.json"
+  },
+  "Groups": [
+    {
+      "Target": "Parameter",
+      "Name": "EyeBlink",
+      "Ids": [
+        "ParamEyeLOpen",
+        "ParamEyeROpen"
+      ]
+    },
+    {
+      "Target": "Parameter",
+      "Name": "LipSync",
+      "Ids": [
+        "ParamMouthOpenY"
+      ]
+    }
+  ],
+  "HitAreas": []
+}

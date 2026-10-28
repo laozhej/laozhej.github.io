@@ -24,12 +24,20 @@
 
 这些链接用于核实来源和规则，不表示权利人赞助、认可或授权本站。公开仓库分发图片与网站部署一样，需要考虑对应素材的使用范围。
 
+## 芙莉莲 Live2D 看板娘
+
+Ema 主题左下角使用 kyokiStudio 发布的《葬送的芙莉莲》同人 Live2D 模型，文件位于 `public/themes/ema/live2d/frieren/`。发布来源为 [BOOTH「[同人モデル] フリーレン / [FanArt Live2d] Frieren」](https://booth.pm/ja/items/5323958)，配布文件名为 `Frieren.zip`。
+
+该商品页写明：“Do not use for commerce and monetize please.” 本站按禁止商用、禁止变现的条件用于个人非商业展示。商品页没有单列网页嵌入或文件再分发条款。模型和原作角色的权利仍归各自权利人，仓库的软件 MIT 许可不覆盖模型、纹理或静态海报。上文关于四张插画的处理记录与授权状态仅指 `ema.webp`、`shiroha.webp`、`alice.webp`、`shiki.webp`。
+
 ## 软件、图标及字体
 
 - Blank 的软件版权声明和 MIT 文本保存在 `LICENSE` 与 `public/licenses/yuimi-chaya-MIT.txt`。
 - Tabler Icons 的 MIT 许可保存在 `public/licenses/tabler-icons-MIT.txt`；此许可不扩展到角色或漫画图片。
 - 共享网站图标是 `B.` 的确定性字母排版，详见 `assets/branding/README.md`。渲染时使用本机 Arial Bold 字体，未随仓库提供字体文件。
 - 樱色档案主题的标题（“Arataki.br’s Base”）使用 Duarte Pinto 设计的 Gloock（Copyright 2022 The Gloock Project Authors），通过 npm 包 `@fontsource/gloock` 随站点自托管，只引入拉丁字母子集；许可为 SIL Open Font License 1.1，全文保存在 `public/licenses/gloock-OFL.txt`。
+- Live2D 渲染使用 [PixiJS 6.5.10](https://github.com/pixijs/pixijs/tree/v6.5.10) 与 [pixi-live2d-display 0.4.0](https://github.com/guansss/pixi-live2d-display/tree/v0.4.0)，各自 MIT 许可保存在 `public/licenses/pixi-MIT.txt` 和 `public/licenses/pixi-live2d-display-MIT.txt`。
+- Cubism Core 从 [Live2D 官方 Cubism SDK for Web 5-r.4](https://www.live2d.com/en/sdk/download/web/) 提取，原样自托管于 `public/vendor/live2d/5-r.4/`；目录内保留 `LICENSE.md` 与 `RedistributableFiles.txt`。Core 适用 [Live2D Proprietary Software License](https://www.live2d.com/eula/live2d-proprietary-software-license-agreement_en.html)，渲染库包含的 Cubism Framework 适用 [Live2D Open Software License](https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html)，两者均不因外层库或本站采用 MIT 而改变许可。软件许可不授予模型或角色素材的使用权。
 - 页面不从外部服务器加载字体；除上述标题字体外，文字使用访客设备的系统字体。
 
 ## 不发布的历史文件

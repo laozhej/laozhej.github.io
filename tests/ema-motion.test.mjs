@@ -209,49 +209,69 @@ test("pausing mid-rain restores the ordinary tag list, and scrolling back up rep
   p.rain.cleanup();
 });
 
-function mascotPage({ hidden = null } = {}) {
+function mascotPage({ hidden = null, paused = true } = {}) {
   const store = new Map(hidden ? [[MASCOT_HIDDEN_KEY, hidden]] : []);
-  const session = new Map();
   const el = (extra = {}) => Object.assign(new EventTarget(), { hidden: false, dataset: {}, focus() { focused = this; }, classList: { add() {}, remove() {} } }, extra);
   let focused = null;
-  const bubble = el({ hidden: true });
+  let animations = 0, cancellations = 0;
+  const bubble = el({ hidden: true, animate() { animations += 1; return { cancel() { cancellations += 1; } }; } });
   const figure = el(), hide = el();
   const root = el({
     hidden: true,
-    dataset: { pokes: JSON.stringify(["a", "b", "c"]), greetings: JSON.stringify(["m", "n", "e", "z"]), pageLine: "page", back: "back", copy: "copy", tooFast: "slow" },
+    dataset: { pokes: JSON.stringify(["a", "b", "c"]), back: "back", tooFast: "slow" },
     querySelector: (selector) => ({ "[data-mascot-bubble]": bubble, "[data-mascot-poke]": figure, "[data-mascot-hide]": hide })[selector],
   });
   const recall = el({ hidden: true });
   const doc = Object.assign(new EventTarget(), {
-    hidden: false, documentElement: { dataset: { motionPaused: "true" } },
+    hidden: false, documentElement: { dataset: { motionPaused: String(paused) } },
     querySelector: (selector) => ({ "[data-ema-mascot]": root, "[data-mascot-show]": recall })[selector],
   });
   const timers = new Map();
   let next = 1;
   const win = {
     localStorage: { getItem: (key) => store.get(key) ?? null, setItem: (key, value) => store.set(key, value), removeItem: (key) => store.delete(key) },
-    sessionStorage: { getItem: (key) => session.get(key) ?? null, setItem: (key, value) => session.set(key, value), removeItem: (key) => session.delete(key) },
     setTimeout: (fn) => { timers.set(next, fn); return next++; },
     clearTimeout: (id) => timers.delete(id),
   };
-  const cleanup = mountEmaMascot(doc, win);
-  return { root, recall, bubble, figure, hide, doc, store, timers, cleanup, focused: () => focused };
+  const renderer = { initiallyHidden: null, refreshes: [], cleanups: 0 };
+  const cleanup = mountEmaMascot(doc, win, (guideRoot) => {
+    renderer.initiallyHidden = guideRoot.hidden;
+    return {
+      refresh() { renderer.refreshes.push(guideRoot.hidden); },
+      cleanup() { renderer.cleanups += 1; },
+    };
+  });
+  return { root, recall, bubble, figure, hide, doc, store, timers, renderer, cleanup, focused: () => focused,
+    motion: () => ({ animations, cancellations }) };
 }
 
-test("the corner guide answers pokes and copies, and asks for a break after rapid pokes", () => {
+test("the quiet corner guide speaks only on request and asks for a break after rapid clicks", () => {
   const p = mascotPage();
   assert.equal(p.root.hidden, false);
   assert.equal(p.recall.hidden, true);
+  assert.equal(p.timers.size, 0, "arrival does not schedule greetings or idle messages");
+  p.doc.dispatchEvent(new Event("copy"));
+  p.doc.hidden = true;
+  p.doc.dispatchEvent(new Event("visibilitychange"));
+  p.doc.hidden = false;
+  p.doc.dispatchEvent(new Event("visibilitychange"));
+  assert.equal(p.bubble.hidden, true, "copying and returning to the tab stay quiet");
   p.figure.dispatchEvent(new Event("click"));
   assert.equal(p.bubble.hidden, false);
   assert.ok(["a", "b", "c"].includes(p.bubble.textContent));
   for (let poke = 0; poke < 3; poke += 1) p.figure.dispatchEvent(new Event("click"));
   assert.equal(p.bubble.textContent, "slow");
-  p.doc.dispatchEvent(new Event("copy"));
-  assert.equal(p.bubble.textContent, "copy");
+  assert.equal(p.timers.size, 1, "a response schedules only its own dismissal");
+  for (const callback of [...p.timers.values()]) callback();
+  assert.equal(p.bubble.hidden, true);
+  assert.equal(p.timers.size, 0, "dismissing a response does not start idle chatter");
+  assert.equal(p.motion().animations, 0, "paused motion leaves the response still");
   p.cleanup();
   assert.equal(p.timers.size, 0, "cleanup cancels every pending line");
   assert.equal(p.bubble.hidden, true);
+  assert.equal(p.renderer.cleanups, 1);
+  p.figure.dispatchEvent(new Event("click"));
+  assert.equal(p.bubble.hidden, true, "navigation cleanup removes interaction listeners");
 });
 
 test("sending the guide to rest is remembered, and calling her back restores her", () => {
@@ -261,14 +281,31 @@ test("sending the guide to rest is remembered, and calling her back restores her
   assert.equal(p.recall.hidden, false);
   assert.equal(p.store.get(MASCOT_HIDDEN_KEY), "true");
   assert.equal(p.focused(), p.recall);
+  assert.deepEqual(p.renderer.refreshes, [true], "hiding immediately refreshes renderer visibility");
   p.cleanup();
   const again = mascotPage({ hidden: "true" });
   assert.equal(again.root.hidden, true, "stays away on the next page");
+  assert.equal(again.renderer.initiallyHidden, true, "the model mounts with the saved visibility already applied");
   again.recall.dispatchEvent(new Event("click"));
   assert.equal(again.root.hidden, false);
   assert.equal(again.store.has(MASCOT_HIDDEN_KEY), false);
   assert.equal(again.bubble.textContent, "back");
+  assert.equal(again.focused(), again.figure);
+  assert.deepEqual(again.renderer.refreshes, [false]);
   again.cleanup();
+});
+
+test("pausing motion cancels an in-flight guide response fade", () => {
+  const p = mascotPage({ paused: false });
+  p.figure.dispatchEvent(new Event("click"));
+  assert.equal(p.motion().animations, 0, "keyboard and programmatic clicks respond immediately");
+  p.figure.dispatchEvent(Object.assign(new Event("click"), { detail: 1 }));
+  assert.equal(p.motion().animations, 1);
+  p.doc.documentElement.dataset.motionPaused = "true";
+  p.doc.dispatchEvent(new Event("site:motion-change"));
+  assert.equal(p.motion().cancellations, 1);
+  assert.equal(p.bubble.hidden, false, "motion preference changes do not erase the response");
+  p.cleanup();
 });
 
 function fakeAudio() {

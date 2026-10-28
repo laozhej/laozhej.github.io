@@ -42,7 +42,7 @@ const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale),
       <div class="ema-header-actions">
         <ThemeSwitcher /><LanguageSwitcher />
         <button class="ema-icon-button" type="button" data-color-mode-toggle hidden aria-label={t("mode.label")} aria-pressed="false" title={t("mode.toDark")} data-label-dark={t("mode.toDark")} data-label-light={t("mode.toLight")}><span class="blank-mode-moon"><Icon name="tabler:moon" size={18} /></span><span class="blank-mode-sun"><Icon name="tabler:sun" size={18} /></span></button>
-        {home && <button class="ema-motion-toggle" type="button" data-motion-toggle hidden aria-pressed="false" aria-label={t("ema.motion.pause")} title={t("ema.motion.pause")}><span aria-hidden="true">Ⅱ</span><span class="ema-motion-label">{t("ema.motion.pause")}</span></button>}
+        {home && <button class="ema-motion-toggle" type="button" data-motion-toggle hidden aria-pressed="false" aria-label={t("ema.motion.pause")} title={t("ema.motion.pause")}><Icon name="tabler:player-pause" size={18} data-motion-pause-icon aria-hidden="true" /><Icon name="tabler:player-play" size={18} data-motion-play-icon aria-hidden="true" hidden /></button>}
       </div>
       {isArticlePage && <div class="blank-reading-track" aria-hidden="true"><span data-site-progress></span></div>}
     </header>

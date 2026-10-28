@@ -62,7 +62,7 @@ export const emaMessages = {
     "ema.favorites.intro": "喜欢的作品与角色，在这里慢慢收集。",
     "ema.favorites.open": "打开收藏馆",
     "ema.motion.pause": "暂停动效",
-    "ema.motion.resume": "继续动效",
+    "ema.motion.resume": "启用动效",
     "ema.motion.reduced": "系统已开启减少动态，页面保持静态展示"
   },
   ja: {

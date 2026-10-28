@@ -7,7 +7,7 @@ html[data-theme="ema"] {
   --blank-panel-bg:#edf2f5; --blank-panel-ink:#47536b; --blank-panel-muted:#68758a;
   --blank-footer-bg:#fafbf9; --blank-footer-ink:#47536b; --blank-footer-line:#dce3e9; --blank-footer-muted:#68758a;
   --blank-width:1120px; --blank-sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
-  --blank-serif:"Iowan Old Style","Songti SC",Georgia,serif; --blank-mono:ui-monospace,Consolas,monospace;
+  --blank-serif:"Iowan Old Style","Songti SC",SimSun,Georgia,serif; --blank-mono:ui-monospace,Consolas,monospace;
   --blank-ease:cubic-bezier(.23,1,.32,1); --ema-pink:#a95478; --ema-blush:#fae8ee;
   min-width:320px; background:var(--blank-paper); scroll-padding-top:110px; accent-color:var(--ema-pink);
 }
@@ -24,18 +24,21 @@ html[data-theme="ema"][data-color-mode="dark"] {
 body[data-ema] { font-size:14px; overflow-x:clip; }
 body[data-ema] img { height:auto; }
 body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var(--ema-pink); }
-.ema-header { position:fixed;top:0;left:0;z-index:50;width:100%;min-height:86px;padding:14px 3%;display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--blank-header-bg);border-bottom:1px solid transparent; }
+.ema-header { position:fixed;top:0;left:0;z-index:50;width:100%;min-height:86px;padding:14px 3%;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:20px;background:var(--blank-header-bg);border-bottom:1px solid transparent; }
 .ema-header.is-scrolled {border-bottom-color:var(--blank-line);}
-.ema-wordmark {display:flex;align-items:baseline;gap:12px;white-space:nowrap;}
+.ema-wordmark {display:flex;align-items:baseline;gap:12px;white-space:nowrap;justify-self:start;}
 .ema-wordmark strong {font:italic 23px Georgia,serif;letter-spacing:-1px;}
 .ema-wordmark strong span,.ema-footer-brand span {color:var(--ema-pink);}
 .ema-wordmark small {font:9px var(--blank-mono);color:var(--blank-muted);}
 .ema-nav {display:flex;justify-content:center;align-items:center;gap:4px;border:1px solid var(--blank-line);padding:5px;background:var(--blank-paper);border-radius:32px;box-shadow:0 4px 16px #46577708;}
 .ema-nav a {padding:8px 17px;border-radius:24px;font-size:12px;white-space:nowrap;letter-spacing:.06em;}
 .ema-nav a[aria-current="page"] {background:var(--ema-blush);color:var(--ema-pink);}
-.ema-header-actions {display:flex;align-items:center;gap:7px;}
+.ema-header-actions {display:flex;align-items:center;gap:7px;justify-self:end;}
 .ema-icon-button,.ema-motion-toggle {display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:40px;min-height:40px;padding:7px 10px;border:1px solid var(--blank-line);border-radius:20px;background:var(--blank-paper);font-size:11px;}
-.ema-motion-toggle {white-space:nowrap;}
+.ema-motion-toggle {position:relative;width:40px;height:40px;padding:0;flex-shrink:0;}
+.ema-motion-toggle::after {content:attr(aria-label);position:absolute;top:calc(100% + 9px);right:0;width:max-content;max-width:min(240px,calc(100vw - 32px));padding:6px 10px;border-radius:6px;background:var(--blank-ink);color:var(--blank-paper);font-size:12px;line-height:1.6;white-space:normal;pointer-events:none;visibility:hidden;}
+.ema-motion-toggle:focus-visible::after {visibility:visible;}
+.ema-motion-toggle[aria-disabled="true"] {cursor:default;color:var(--blank-muted);}
 .ema-header .site-language-menu>summary,.ema-header .site-theme-menu>summary {border-radius:20px;background:var(--blank-paper);}
 .ema-header .site-theme-menu>summary {height:40px;border:1px solid var(--blank-line);font-size:11px;white-space:nowrap;}
 .ema-header :is(.site-language-options,.site-theme-options) {background:var(--blank-paper);border-radius:14px;box-shadow:0 8px 32px #15203617;}
@@ -53,27 +56,28 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
 .ema-footer>p {font-size:12px;margin:12px 0 18px;letter-spacing:.1em;}
 .ema-social-links {display:flex;justify-content:center;gap:22px;font-size:12px;margin-bottom:22px;}
 .ema-footer-bottom {display:flex;justify-content:center;flex-wrap:wrap;gap:12px 24px;font-size:11px;}
-@media(hover:hover) and (pointer:fine) { .ema-nav a:hover {background:var(--ema-blush);} .ema-footer a:hover {color:var(--ema-pink);} }
-@media(max-width:1199px) { .ema-wordmark small {display:none;} .ema-nav a {padding:8px 12px;} .ema-motion-label {display:none;} }
+@media(hover:hover) and (pointer:fine) { .ema-nav a:hover {background:var(--ema-blush);} .ema-footer a:hover {color:var(--ema-pink);} .ema-motion-toggle:hover::after {visibility:visible;} }
+@media(max-width:1199px) {
+  .ema-wordmark small {display:none;}
+  .ema-nav a {padding:8px 12px;}
+  .ema-header .site-theme-menu>summary>:is(span,svg:last-child) {display:none;}
+}
 @media(max-width:999px) {
   html[data-theme="ema"] {scroll-padding-top:145px;}
-  .ema-header {min-height:127px;padding:13px 22px 68px;gap:12px;}
-  .ema-nav {position:absolute;left:50%;bottom:12px;transform:translateX(-50%);width:calc(100% - 44px);max-width:470px;justify-content:space-around;}
+  .ema-header {grid-template-columns:minmax(0,1fr) auto;min-height:127px;padding:13px 22px 12px;gap:12px;}
+  .ema-nav {grid-column:1 / -1;grid-row:2;justify-self:center;width:100%;max-width:470px;justify-content:space-around;}
   .ema-nav a {flex:1;text-align:center;padding:8px 7px;}
-  .ema-header-actions {gap:5px;}
+  .ema-header-actions {grid-column:2;grid-row:1;gap:5px;}
   .ema-content {padding-top:164px;}
 }
 @media(max-width:480px) {
-  .ema-header {padding:12px 16px 65px;}
+  .ema-header {padding:12px 16px;}
   .ema-wordmark strong {font-size:19px;}
   .ema-header .site-language-menu>summary {gap:5px;padding:0 8px;}
   .ema-header .site-theme-menu>summary {padding:0 10px;}
   .ema-header .site-theme-menu>summary>:is(span,svg:last-child) {display:none;}
   .ema-header .site-language-menu>summary>svg {display:none;}
   .ema-header :is(.ema-icon-button,.ema-motion-toggle) {min-width:36px;min-height:40px;padding:6px;}
-  .ema-header .ema-motion-toggle {font-size:0;}
-  .ema-header .ema-motion-toggle::before {content:'Ⅱ';font-size:13px;}
-  .ema-header .ema-motion-toggle[aria-pressed="true"]::before {content:'▷';}
   .ema-content {width:calc(100% - 40px);}
 }
 @media(max-width:359px) { .ema-wordmark strong {font-size:16px;} .ema-header .site-language-menu>summary>svg:last-child {display:none;} .ema-header-actions{gap:3px;} }

@@ -370,11 +370,15 @@ export function mountEmaHome(document, window) {
     root.dataset.paused = String(motionPaused());
     root.dataset.suspended = String(suspended());
     [...document.querySelectorAll('[data-motion-toggle]')].forEach((button) => {
+      const paused = motionPaused();
+      const label = reduced.matches ? root.dataset.motionReduced : userPaused ? root.dataset.motionResume : root.dataset.motionPause;
       button.hidden = false;
-      button.setAttribute('aria-pressed', String(userPaused));
-      button.textContent = userPaused ? root.dataset.motionResume : root.dataset.motionPause;
-      button.setAttribute('aria-label', button.textContent);
-      button.title = reduced.matches ? root.dataset.motionReduced : '';
+      button.setAttribute('aria-pressed', String(paused));
+      button.setAttribute('aria-disabled', String(reduced.matches));
+      button.setAttribute('aria-label', label);
+      button.title = label;
+      button.querySelector('[data-motion-pause-icon]')?.toggleAttribute('hidden', paused);
+      button.querySelector('[data-motion-play-icon]')?.toggleAttribute('hidden', !paused);
     });
     clearTyping();
     if (motionPaused()) { chars = commands[commandIndex].text.length; phase = 'hold'; renderCommand(); }
@@ -382,6 +386,7 @@ export function mountEmaHome(document, window) {
     updateScroll(); queueTyping(); scheduleMeasure();
   }
   [...document.querySelectorAll('[data-motion-toggle]')].forEach((button) => listen(button, 'click', () => {
+    if (reduced.matches) return;
     userPaused = !userPaused;
     try { window.localStorage.setItem('ema-home-motion-paused', String(userPaused)); } catch (_) {}
     refreshMotion();

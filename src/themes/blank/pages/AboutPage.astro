@@ -27,7 +27,7 @@ const { currentSignals, favoriteGames, profileIdentity, profileStatus, profileTe
     <div><p class="blank-kicker">02 / FAVORITES</p><h2>{t("about.favorites")}</h2></div>
     <div class="blank-favorites">
       <h3 class="blank-kicker">{t("about.gamesKicker")}</h3>
-      <ol class="blank-favorites-list">{favoriteGames.map((item, index) => <li><span class="blank-row-number">{String(index + 1).padStart(2, "0")}</span><div><strong><a class="blank-text-link" href={item.url} target="_blank" rel="noopener noreferrer">{item.title} <Icon name="tabler:external-link" size={15} /></a></strong><span>{item.subtitle}</span></div></li>)}</ol>
+      <ol class="blank-favorites-list">{favoriteGames.map((item, index) => <li><span class="blank-row-number">{String(index + 1).padStart(2, "0")}</span><div><strong>{"url" in item ? <a class="blank-text-link" href={item.url} target="_blank" rel="noopener noreferrer">{item.title} <Icon name="tabler:external-link" size={15} /></a> : item.title}</strong><span>{item.subtitle}</span></div></li>)}</ol>
       <h3 class="blank-kicker">{t("about.characterKicker")}</h3>
       <ul class="blank-preferences">{xpFavorites.map((item) => <li>{item.title}</li>)}</ul>
     </div>

@@ -7,24 +7,27 @@ const zh = { ...profile, ...projects, ...games };
 
 const ja = {
   profileIdentity: {
-    displayName: "名前はこれから",
+    displayName: "荒滝 旭",
     handle: "PROFILE / プロフィール",
     siteName: "Blank Space",
-    bio: "自己紹介や好きなこと、いま取り組んでいることを、ここに少しずつ。まだ少し余白を残して、ゆっくり知ってもらえたら。",
+    bio: "荒滝旭です。Nero とも呼ばれています。アニメやゲームのグッズ集めが好きで、AI やパソコンの技術にも関心があります。プログラミングを学びながら、アニメーション、モデリング、さまざまなゲームエンジンを探究しています。",
   },
-  profileStatus: ["個人サイトを制作中", "まずは Blank の基本テーマから"],
+  profileStatus: ["使用言語：中国語（普通話）、日本語、英語、スペイン語", "AI エージェントの時代に向けて準備中"],
   profileTech: [
-    { key: "website", name: "個人サイト", note: "土台を整え、少しずつ育てる" },
-    { key: "journal", name: "文章の記録", note: "考えを残せる場所をつくる" },
-    { key: "visual", name: "デザインの方向性", note: "好きなキャラクターから着想を得る" },
+    { key: "ai", name: "AI とプログラミング", note: "AI やパソコンの技術に関心を持ち、さまざまなプログラミング言語を学んでいます。" },
+    { key: "animation", name: "アニメーションとモデリング", note: "Blender や Live2D などを使い、アニメーションとモデリングを探究しています。" },
+    { key: "engines", name: "ゲームエンジン", note: "Godot、Unreal Engine、Unity を学んでいます。" },
   ],
   favoriteGames: [
+    { key: "rdr2", title: "レッド・デッド・リデンプション2", subtitle: "Red Dead Redemption 2" },
+    { key: "tsushima", title: "Ghost of Tsushima", subtitle: "ゴースト・オブ・ツシマ" },
+    { key: "yotei", title: "Ghost of Yōtei", subtitle: "ゴースト・オブ・ヨウテイ" },
     { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "ビジュアルノベル / キャラクターとデザインの着想", url: "https://manosaba.com/" },
   ],
   xpFavorites: [{ key: "emma", title: "桜羽エマ", subtitle: "キャラクターデザインの参考" }],
   currentSignals: [
-    { label: "いま", text: "個人サイトを制作中。まずはホーム、記事、それぞれのページを整えています。" },
-    { label: "次に", text: "自己紹介を加えたら、記事や制作の記録を少しずつ書いていく予定です。" },
+    { label: "いま", text: "AI エージェントの時代に向けて準備しながら、個人サイトも少しずつ整えています。" },
+    { label: "次に", text: "記事や制作の記録を少しずつ書いていく予定です。" },
     { label: "デザイン", text: "桜羽エマの雰囲気が好きで、今後のサイトテーマの着想にしたいと思っています。" },
   ],
   projectTechLines: [{ key: "web", label: "Web", note: "個人サイト / ページとインタラクション" }],
@@ -46,24 +49,27 @@ const ja = {
 
 const en = {
   profileIdentity: {
-    displayName: "Name to come",
+    displayName: "Arataki Asahi",
     handle: "PERSONAL PROFILE",
     siteName: "Blank Space",
-    bio: "A little about me, the things I like, and what I am working on will find their way here. For now, there is room to get acquainted slowly.",
+    bio: "I'm Arataki Asahi, also known as Nero. I collect anime and game merchandise and enjoy learning about AI and computer technology. I'm studying programming and exploring animation, modeling, and different game engines.",
   },
-  profileStatus: ["Building a personal website", "Starting with the basic Blank theme"],
+  profileStatus: ["Languages: Mandarin Chinese, Japanese, English, and Spanish", "Getting ready for the age of AI agents"],
   profileTech: [
-    { key: "website", name: "Personal website", note: "Building the foundation, one step at a time" },
-    { key: "journal", name: "Writing", note: "Making room for thoughts" },
-    { key: "visual", name: "Visual direction", note: "Finding inspiration in a favorite character" },
+    { key: "ai", name: "AI and programming", note: "Following AI and computer technology, and learning different programming languages." },
+    { key: "animation", name: "Animation and modeling", note: "Exploring animation and modeling with tools including Blender and Live2D." },
+    { key: "engines", name: "Game engines", note: "Exploring Godot, Unreal Engine, and Unity." },
   ],
   favoriteGames: [
+    { key: "rdr2", title: "Red Dead Redemption 2", subtitle: "A favorite game" },
+    { key: "tsushima", title: "Ghost of Tsushima", subtitle: "A favorite game" },
+    { key: "yotei", title: "Ghost of Yōtei", subtitle: "A favorite game" },
     { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "Visual novel / Character and visual inspiration", url: "https://manosaba.com/" },
   ],
   xpFavorites: [{ key: "emma", title: "Ema Sakuraba", subtitle: "Character design reference" }],
   currentSignals: [
-    { label: "Now", text: "Building a personal website, starting with the home page, articles, and the main sections." },
-    { label: "Next", text: "Adding an introduction, then gradually filling in articles and project notes." },
+    { label: "Now", text: "Getting ready for the age of AI agents while gradually building my personal website." },
+    { label: "Next", text: "Gradually adding articles and project notes." },
     { label: "Visual direction", text: "I like Ema Sakuraba's style and would like to draw on it for a future website theme." },
   ],
   projectTechLines: [{ key: "web", label: "Web", note: "Personal website / Pages and interactions" }],

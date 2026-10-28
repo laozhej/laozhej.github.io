@@ -154,8 +154,10 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
 #ema-home .chapter-card.is-active .chapter-copy{background:#fffcfd;}
 
 /* Scene two: a dusky close-up of Ema, the local clock, and a rain of favourite tags. */
-#ema-home .signal-scene{position:relative;isolation:isolate;overflow:clip;min-height:max(660px,94svh);display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,330px);grid-template-rows:auto auto 1fr;grid-template-areas:"word card" "bubble ." "tags tags";gap:30px 6%;margin-top:56px;padding:104px max(28px,7vw) 44px;color:#fff;}
-#ema-home .signal-backdrop{position:absolute;inset:0;z-index:-1;overflow:hidden;background:#5d6985;}
+#ema-home .signal-scene{--signal-tail:120px;position:relative;isolation:isolate;overflow:clip visible;clip-path:inset(0 0 calc(var(--signal-tail) * -1) 0);min-height:max(660px,94svh);display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,330px);grid-template-rows:auto auto 1fr;grid-template-areas:"word card" "bubble ." "tags tags";gap:30px 6%;margin-top:56px;padding:104px max(28px,7vw) 44px;color:#fff;}
+/* The backdrop runs on past the floor the tags land on, then dissolves into the
+   page, so the scene never ends on a hard edge. Its top softens the same way. */
+#ema-home .signal-backdrop{position:absolute;inset:0 0 calc(var(--signal-tail) * -1);z-index:-1;overflow:hidden;background:#5d6985;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 72px,#000 calc(100% - var(--signal-tail)),transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 72px,#000 calc(100% - var(--signal-tail)),transparent 100%);}
 #ema-home .signal-backdrop::before{content:"";position:absolute;inset:-24px;background:url('/themes/ema/assets/ema.webp') 50% 13%/max(1100px,118%) auto no-repeat;filter:blur(4px) saturate(.8);}
 #ema-home .signal-backdrop::after{content:"";position:absolute;inset:0;background:radial-gradient(#ffffff2e .6px,transparent .9px) 0 0/5px 5px,linear-gradient(180deg,#5b6886b3 0%,#46516ed1 62%,#3c4560e6 100%);}
 #ema-home .signal-word{grid-area:word;align-self:end;}
@@ -182,7 +184,7 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
 #ema-home .rain-layer{position:absolute;inset:0;z-index:5;pointer-events:none;}
 #ema-home .rain-blossom{position:absolute;left:0;top:0;width:38px;height:38px;background:var(--ema-blossom) center/contain no-repeat;filter:drop-shadow(0 4px 6px #1b223633);}
 /* grid-area:auto makes the whole scene, not the tags row, its containing block. */
-#ema-home .tag-rain.is-raining{grid-area:auto;position:absolute;inset:0;z-index:5;display:block;padding:0;pointer-events:none;}
+#ema-home .tag-rain.is-raining{grid-area:auto;position:absolute;inset:0;align-self:stretch;justify-self:stretch;z-index:5;display:block;padding:0;pointer-events:none;}
 #ema-home .tag-rain.is-raining li{position:absolute;left:0;top:0;will-change:transform;}
 
 #ema-home .reading-section{position:relative;max-width:1090px;margin:105px auto 112px;display:grid;grid-template-columns:1fr 1.8fr;gap:80px;padding:0 20px;}
@@ -293,7 +295,7 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
   #ema-home .pressed-flower{font-size:54px;}
   #ema-home .letter{left:17%;font-size:20px;}
   #ema-home .stamp{right:8%;}
-  #ema-home .signal-scene{align-content:start;grid-template-columns:minmax(0,1fr);grid-template-rows:auto;grid-template-areas:"word" "card" "bubble" "tags";gap:22px;min-height:0;margin-top:40px;padding:72px 20px 36px;}
+  #ema-home .signal-scene{--signal-tail:72px;align-content:start;grid-template-columns:minmax(0,1fr);grid-template-rows:auto;grid-template-areas:"word" "card" "bubble" "tags";gap:22px;min-height:0;margin-top:40px;padding:72px 20px 36px;}
   #ema-home .signal-backdrop::before{background-size:max(760px,190%) auto;background-position:50% 9%;}
   #ema-home .signal-word{text-align:center;}
   #ema-home .signal-word>span{font-size:clamp(30px,9.6vw,44px);}

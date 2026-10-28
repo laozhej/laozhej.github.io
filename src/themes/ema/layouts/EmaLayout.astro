@@ -20,6 +20,8 @@ const href = (path: string) => getThemePath("ema", path, locale);
 const path = stripTheme(Astro.url.pathname);
 const { title = site.name, description = t("site.description"), isArticlePage = false, article, home = false } = Astro.props;
 const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale), Astro.site) : undefined;
+// Deterministic petal paths so every page and locale renders the same markup.
+const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + index * 6.2).toFixed(1)}%;--petal-size:${9 + (index * 5) % 7}px;--petal-duration:${17 + (index * 7) % 13}s;--petal-delay:${-2 - (index * 11) % 29}s;--petal-drift:${[-72, 96, 40][index % 3]}px`);
 ---
 <!doctype html>
 <html lang={locale} data-theme="ema" transition:animate="none">
@@ -37,7 +39,8 @@ const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale),
     {article && <meta property="article:published_time" content={article.pubDate.toISOString()} />}
     <SiteNavigation />
   </head>
-  <body data-blank data-ema>
+  <body data-blank data-ema data-ema-home={home ? "" : undefined}>
+    <div class="ema-backdrop" aria-hidden="true"></div>
     <a class="blank-skip-link" href="#ema-main">{t("a11y.skip")}</a>
     <header class="ema-header" data-header data-site-header transition:name="site-header" transition:animate="none">
       <a class="ema-wordmark" href={href("/")} aria-label={`${site.name} ${t("a11y.home")}`}><strong>Blank Space<span>.</span></strong><small>EMA / 02</small></a>
@@ -56,6 +59,7 @@ const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale),
       <SocialLinks class="ema-social-links" />
       <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
     </footer>
+    <div class="ema-sakura" aria-hidden="true">{petals.map((style) => <span style={style}><i></i></span>)}</div>
     <script>
       import { registerThemeRuntime } from "@/core/themes/runtime.mjs";
       import { mountEma } from "../lib/runtime.mjs";

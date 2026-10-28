@@ -1,3 +1,6 @@
+import { mountNotice } from './notice.mjs';
+import { mountTagRain } from './tag-rain.mjs';
+
 export function mountEmaHome(document, window) {
   window.__emaHomeCleanup?.();
   const root = document.getElementById('ema-home');
@@ -35,115 +38,97 @@ export function mountEmaHome(document, window) {
     animate(element, [{ opacity: 0, transform: 'translateY(9px)' }, { opacity: 1, transform: 'translateY(0)' }],
       { duration: 300, easing: 'cubic-bezier(.23,1,.32,1)' });
   }
+  function scrollWindow(top, smooth) {
+    if (smooth) { window.scrollTo({ top, behavior: 'smooth' }); return; }
+    const oldBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo({ top, behavior: 'instant' });
+    document.documentElement.style.scrollBehavior = oldBehavior;
+  }
+  const parseList = (value, fallback) => {
+    try { const list = JSON.parse(value || '[]'); return Array.isArray(list) && list.length ? list.map(String) : fallback; }
+    catch (_) { return fallback; }
+  };
 
   const header = document.querySelector('[data-header]');
   const hero = $('[data-hero]');
-  const profile = $('[data-profile-panel]');
-  const profileToggles = $$('[data-profile-toggle]');
-  function setProfile(open, animated = true) {
-    if (!profile) return;
-    const changed = profile.hidden === open;
-    profile.hidden = !open;
-    root.classList.toggle('is-profile-open', open);
-    hero?.classList.toggle('is-docked', open);
-    profileToggles.forEach((button) => button.setAttribute('aria-expanded', String(open)));
-    profileToggles.forEach((button) => { const indicator = button.querySelector('span'); if (indicator) indicator.textContent = open ? '−' : '＋'; });
-    if (open && changed && animated) enter(profile);
-  }
-  profileToggles.forEach((button) => listen(button, 'click', (event) => {
-    setProfile(profile?.hidden ?? false, event.detail !== 0);
-  }));
-  if (profile) setProfile(!profile.hidden, false);
 
-  const typed = $('[data-typed]');
-  const commandResult = $('[data-command-result]');
-  const commandButtons = $$('[data-command]');
-  const commands = commandButtons.map((button) => ({
-    id: button.dataset.command,
-    text: button.dataset.commandText || '',
-    result: button.dataset.commandResult || ''
-  }));
-  if (!commands.length) return () => {};
-  let commandIndex = 0, chars = commands[0].text.length, phase = 'hold', typingTimer = 0;
-  const commandFocused = () => commandButtons.some((button) => button.contains(document.activeElement));
-  const canType = () => canAnimate() && heroVisible && !commandFocused() && !!typed;
-  function clearTyping() { window.clearTimeout(typingTimer); typingTimer = 0; }
-  function renderCommand() {
-    const command = commands[commandIndex];
-    if (typed) typed.textContent = command.text.slice(0, chars);
-    if (commandResult) commandResult.textContent = command.result;
-    commandButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.command === command.id)));
-  }
-  function queueTyping(delay = 2600) {
-    clearTyping();
-    if (canType()) typingTimer = window.setTimeout(typeTick, delay);
-  }
-  function typeTick() {
-    typingTimer = 0;
-    if (!canType()) return;
-    if (phase === 'hold') { phase = 'erase'; queueTyping(32); return; }
-    if (phase === 'erase') {
-      chars = Math.max(0, chars - 1);
-      if (typed) typed.textContent = commands[commandIndex].text.slice(0, chars);
-      if (!chars) {
-        commandIndex = (commandIndex + 1) % commands.length;
-        phase = 'type'; renderCommand(); queueTyping(300);
-      } else queueTyping(32);
-      return;
+  // Typing lines pause off screen and show their first full line when motion is off.
+  function typer(target, lines, { write = 58, erase = 32, hold = 2200 } = {}) {
+    let index = 0, chars = lines[0]?.length ?? 0, phase = 'hold', timer = 0;
+    const draw = () => { if (target) target.textContent = lines[index].slice(0, chars); };
+    const clear = () => { window.clearTimeout(timer); timer = 0; };
+    const allowed = () => !!target && lines.length > 0 && canAnimate() && heroVisible;
+    const queue = (delay) => { clear(); if (allowed()) timer = window.setTimeout(tick, delay); };
+    function tick() {
+      timer = 0;
+      if (!allowed()) return;
+      if (phase === 'hold') { phase = 'erase'; queue(erase); return; }
+      if (phase === 'erase') {
+        chars = Math.max(0, chars - 1); draw();
+        if (!chars) { index = (index + 1) % lines.length; phase = 'type'; queue(320); } else queue(erase);
+        return;
+      }
+      chars = Math.min(lines[index].length, chars + 1); draw();
+      if (chars === lines[index].length) { phase = 'hold'; queue(hold); } else queue(write);
     }
-    chars = Math.min(commands[commandIndex].text.length, chars + 1);
-    if (typed) typed.textContent = commands[commandIndex].text.slice(0, chars);
-    if (chars === commands[commandIndex].text.length) { phase = 'hold'; queueTyping(); }
-    else queueTyping(58);
+    return {
+      resume() { if (!timer) queue(phase === 'hold' ? hold : write); },
+      stop: clear,
+      settle() { clear(); index = 0; chars = lines[0]?.length ?? 0; phase = 'hold'; draw(); },
+    };
   }
-  commandButtons.forEach((button) => listen(button, 'click', () => {
-    const selected = commands.findIndex((command) => command.id === button.dataset.command);
-    if (selected < 0) return;
-    commandIndex = selected; chars = commands[selected].text.length; phase = 'hold';
-    renderCommand(); queueTyping(5000);
-  }));
-  listen(root, 'focusin', () => { if (commandFocused()) clearTyping(); });
-  listen(root, 'focusout', () => window.queueMicrotask(() => { if (!disposed) queueTyping(); }));
+  const typed = $('[data-typed]');
+  const commandTyper = typer(typed, parseList(typed?.dataset.commands, [typed?.textContent ?? '']));
+  const named = $('[data-name-typed]');
+  const nameTyper = typer(named, parseList(named?.dataset.names, [named?.textContent ?? '']), { write: 96, erase: 46, hold: 2600 });
+  const typers = [commandTyper, nameTyper];
 
-  const avatarButton = $('[data-avatar-button]');
-  const avatarMessage = $('[data-avatar-message]');
-  let bubbleTimer = 0;
-  listen(avatarButton, 'click', (event) => {
-    if (!avatarMessage) return;
+  // A few quick pokes earn a gentle "slow down" from the avatar.
+  const avatar = $('[data-avatar-button]');
+  const bubble = $('[data-avatar-message]');
+  let bubbleTimer = 0, pokes = [];
+  listen(avatar, 'click', (event) => {
+    if (!bubble) return;
+    const now = Date.now();
+    pokes = pokes.filter((time) => now - time < 1600).concat(now);
+    bubble.textContent = pokes.length >= 4 ? avatar.dataset.tooFast : avatar.dataset.message;
     window.clearTimeout(bubbleTimer);
-    avatarMessage.hidden = false;
-    if (event.detail !== 0) enter(avatarMessage);
-    bubbleTimer = window.setTimeout(() => { avatarMessage.hidden = true; }, 2200);
+    bubble.hidden = false;
+    if (event.detail !== 0) enter(bubble);
+    avatar.classList.remove('is-poked');
+    if (canAnimate()) { void avatar.offsetWidth; avatar.classList.add('is-poked'); }
+    bubbleTimer = window.setTimeout(() => { bubble.hidden = true; }, 2400);
   });
-  const noteButton = $('[data-note-toggle]');
-  const notePanel = $('[data-note-panel]');
-  listen(noteButton, 'click', (event) => {
-    if (!notePanel) return;
-    notePanel.hidden = !notePanel.hidden;
-    noteButton.setAttribute('aria-expanded', String(!notePanel.hidden));
-    noteButton.querySelector('span').textContent = notePanel.hidden ? '＋' : '−';
-    if (!notePanel.hidden && event.detail !== 0) enter(notePanel);
-  });
-  if (noteButton && notePanel) noteButton.setAttribute('aria-expanded', String(!notePanel.hidden));
 
+  // The pinned opening: scroll lifts the profile card in as the title steps back.
   const parallaxLayers = $$('[data-parallax-layer]');
   const heroScene = $('[data-hero-scene]');
-  const heroCopy = $('.hero-copy');
-  const heroTitle = $('.hero h1');
-  const polaroid = $('.shiroha-polaroid');
-  let heroTravel = 0, sceneReady = false;
+  const identity = $('[data-identity]');
+  let runway = 560, heroProgress = 0, sceneReady = false;
+  const sceneActive = () => heroScene?.dataset.sceneActive === 'true';
   function drawHeroLayers() {
     const enabled = canAnimate() && desktop.matches && heroVisible;
-    const distance = enabled ? heroTravel : 0;
     parallaxLayers.forEach((layer) => {
       const front = layer.dataset.parallaxLayer === 'front';
-      const px = enabled ? x * (front ? 9 : -4) : 0;
-      const py = enabled ? y * (front ? 6 : -3) + distance * (front ? .23 : -.14) : 0;
+      const px = enabled ? x * (front ? 10 : -5) : 0;
+      const py = enabled ? y * (front ? 7 : -4) + heroProgress * (front ? 36 : -24) : 0;
       layer.style.transform = enabled ? `translate3d(${px.toFixed(2)}px,${py.toFixed(2)}px,0)` : '';
     });
-    if (heroCopy) heroCopy.style.transform = enabled ? `translate3d(0,${(-distance * .12).toFixed(2)}px,0)` : '';
-    if (heroTitle) heroTitle.style.opacity = enabled ? String(1 - clamp(distance / 280, 0, 1) * .58) : '';
-    if (polaroid) polaroid.style.transform = enabled ? `translate3d(0,${(-distance * .2).toFixed(2)}px,0) rotate(${(8 - distance * .008).toFixed(2)}deg)` : '';
+  }
+  function setHeroProgress(progress) {
+    heroProgress = progress;
+    if (!hero?.style) return;
+    if (!sceneActive()) {
+      ['--copy-out', '--profile-in', '--cue-out'].forEach((name) => hero.style.removeProperty?.(name));
+      hero.classList?.remove('is-docked');
+      return;
+    }
+    const profileIn = clamp((progress - .14) / .46, 0, 1);
+    hero.style.setProperty('--copy-out', clamp((progress - .04) / .36, 0, 1).toFixed(3));
+    hero.style.setProperty('--profile-in', profileIn.toFixed(3));
+    hero.style.setProperty('--cue-out', clamp(progress / .26, 0, 1).toFixed(3));
+    hero.classList?.toggle('is-docked', profileIn > .6);
   }
   function updateHeroScene() {
     if (heroScene) {
@@ -160,9 +145,19 @@ export function mountEmaHome(document, window) {
       sceneReady = true;
     }
     const sceneTop = heroScene?.getBoundingClientRect().top ?? 0;
-    heroTravel = clamp(-sceneTop, 0, 500);
+    setHeroProgress(sceneActive() ? clamp(-sceneTop / runway, 0, 1) : 0);
     drawHeroLayers();
   }
+  function measureHero() {
+    const value = parseFloat(window.getComputedStyle?.(root)?.getPropertyValue('--hero-runway') ?? '');
+    if (value > 0) runway = value;
+  }
+  // Keyboard users reaching the card while it is still tucked away get scrolled to it.
+  listen(identity, 'focusin', () => {
+    if (!sceneActive() || heroProgress >= .7 || !heroScene) return;
+    scrollWindow(heroScene.getBoundingClientRect().top + window.scrollY + runway * .72, false);
+  });
+
   let parallaxFrameId = 0, lastFrameTime = 0;
   let x = 0, y = 0, vx = 0, vy = 0, targetX = 0, targetY = 0;
   function resetParallax() {
@@ -262,33 +257,19 @@ export function mountEmaHome(document, window) {
   }
   function scheduleMeasure() {
     if (measureFrame || disposed || suspended()) return;
-    measureFrame = window.requestAnimationFrame(() => { measureFrame = 0; updateHeroScene(); measureRail(); updateScroll(); });
+    measureFrame = window.requestAnimationFrame(() => { measureFrame = 0; measureHero(); updateHeroScene(); measureRail(); rain.measure(); updateScroll(); });
   }
-  function scrollWindow(top, smooth) {
-    if (smooth) { window.scrollTo({ top, behavior: 'smooth' }); return; }
-    const oldBehavior = document.documentElement.style.scrollBehavior;
-    document.documentElement.style.scrollBehavior = 'auto';
-    window.scrollTo({ top, behavior: 'instant' });
-    document.documentElement.style.scrollBehavior = oldBehavior;
-  }
-  function goChapter(index, keyboard = false, bringIntoView = false) {
+  function goChapter(index, keyboard = false) {
     if (!rail || !track || !chapters.length) return;
     const selected = clamp(index, 0, chapters.length - 1);
     const target = chapterTargets[selected] ?? 0;
     const smooth = !keyboard && canAnimate();
     if (railMode === 'scroll') scrollWindow(Math.max(0, railStart + target), smooth);
-    else {
-      track.scrollTo({ left: target, behavior: smooth ? 'smooth' : 'instant' });
-      if (bringIntoView) scrollWindow(Math.max(0, rail.getBoundingClientRect().top + window.scrollY - 90), smooth);
-    }
+    else track.scrollTo({ left: target, behavior: smooth ? 'smooth' : 'instant' });
     if (!smooth) updateRail();
   }
   listen(prev, 'click', (event) => goChapter(chapterIndex - 1, event.detail === 0));
   listen(next, 'click', (event) => goChapter(chapterIndex + 1, event.detail === 0));
-  $$('[data-open-chapter]').forEach((button) => listen(button, 'click', (event) => {
-    const index = Number(button.dataset.openChapter);
-    if (Number.isInteger(index)) { event.preventDefault(); goChapter(index, event.detail === 0, true); }
-  }));
   listen(track, 'focusin', event => {
     const chapter = event.target.closest('[data-chapter]');
     if (railMode === 'scroll' && chapter) goChapter(chapters.indexOf(chapter), true);
@@ -329,23 +310,39 @@ export function mountEmaHome(document, window) {
     revealGroups.forEach(group => revealObserver.observe(group));
   }
 
-  const tagCloud = $('[data-tag-cloud]');
-  const tags = tagCloud ? [...tagCloud.querySelectorAll('[data-tag]')] : [];
-  let tagsPlayed = false, tagObserver = null;
-  function showTags() {
-    if (tagsPlayed) return;
-    tagsPlayed = true; tagObserver?.disconnect();
-    tags.forEach((tag, index) => animate(tag,
-      [{ opacity: 0, transform: `translateY(-${32 + index % 3 * 12}px) rotate(${index % 2 ? 7 : -6}deg)` },
-        { opacity: 1, transform: 'translateY(0) rotate(0deg)' }],
-      { duration: 650, delay: index * 70, easing: 'cubic-bezier(.23,1,.32,1)', fill: 'backwards' }));
+  // Scene two: the visitor's own clock, ticking only while the scene is near.
+  const signal = $('[data-signal]');
+  const clockDate = $('[data-clock-date]'), clockTime = $('[data-clock-time]'), clockZone = $('[data-clock-zone]');
+  let clockTimer = 0, signalVisible = false, dateFormat = null, timeFormat = null;
+  try {
+    const language = document.documentElement?.lang || undefined;
+    dateFormat = new Intl.DateTimeFormat(language, { year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'long' });
+    timeFormat = new Intl.DateTimeFormat(language, { hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' });
+    const zone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (clockZone && zone) clockZone.textContent = `${clockZone.dataset.label} · ${zone.replace(/_/g, ' ')}`;
+  } catch (_) {}
+  function tickClock() {
+    window.clearTimeout(clockTimer); clockTimer = 0;
+    if (disposed || !timeFormat) return;
+    const now = new Date();
+    if (clockDate) clockDate.textContent = dateFormat.format(now);
+    if (clockTime) clockTime.textContent = timeFormat.format(now);
+    if (signalVisible && !suspended()) clockTimer = window.setTimeout(tickClock, 1005 - now.getMilliseconds());
   }
-  if (tagCloud && 'IntersectionObserver' in window) {
-    tagObserver = new window.IntersectionObserver((entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) showTags();
-    }, { threshold: .15 });
-    tagObserver.observe(tagCloud);
-  } else if (tagCloud) showTags();
+  const rain = mountTagRain(signal, document, window, { canAnimate });
+  let signalObserver = null;
+  if (signal && 'IntersectionObserver' in window) {
+    signalObserver = new window.IntersectionObserver((entries) => {
+      const entry = entries[entries.length - 1];
+      signalVisible = entry.isIntersecting;
+      tickClock();
+      rain.visibility(entry.intersectionRatio, entry.boundingClientRect.top);
+    }, { threshold: [0, .3, .6] });
+    signalObserver.observe(signal);
+  }
+  tickClock();
+
+  const closeNotice = mountNotice(root, document, window);
 
   function updateScroll() {
     if (disposed) return;
@@ -354,13 +351,12 @@ export function mountEmaHome(document, window) {
     const nextVisible = !rect || (rect.bottom > 0 && rect.top < window.innerHeight);
     if (nextVisible !== heroVisible) {
       heroVisible = nextVisible;
-      if (!heroVisible) { clearTyping(); resetParallax(); }
-      else queueTyping();
+      if (!heroVisible) { typers.forEach((item) => item.stop()); resetParallax(); }
+      else typers.forEach((item) => item.resume());
     }
     if (hero) hero.dataset.suspended = String(suspended() || !heroVisible);
     updateHeroScene();
     updateRail();
-
   }
   function scheduleScroll() {
     if (!scrollFrame && !disposed && !suspended()) scrollFrame = window.requestAnimationFrame(() => { scrollFrame = 0; updateScroll(); });
@@ -369,10 +365,10 @@ export function mountEmaHome(document, window) {
     if (disposed) return;
     root.dataset.paused = String(motionPaused());
     root.dataset.suspended = String(suspended());
-    clearTyping();
-    if (motionPaused()) { chars = commands[commandIndex].text.length; phase = 'hold'; renderCommand(); }
+    if (motionPaused()) typers.forEach((item) => item.settle());
     if (!canAnimate() || !fine.matches) { resetParallax(); stopAnimations(); }
-    updateScroll(); queueTyping(); scheduleMeasure();
+    rain.refresh();
+    updateScroll(); typers.forEach((item) => item.resume()); tickClock(); scheduleMeasure();
   }
   listen(document, 'site:motion-change', (event) => {
     userPaused = Boolean(event.detail?.userPaused);
@@ -394,24 +390,25 @@ export function mountEmaHome(document, window) {
   function cleanup() {
     if (disposed) return;
     disposed = true;
-    clearTyping(); resetParallax(); stopAnimations();
-    window.clearTimeout(bubbleTimer);
+    typers.forEach((item) => item.stop()); resetParallax(); stopAnimations();
+    window.clearTimeout(bubbleTimer); window.clearTimeout(clockTimer);
     window.cancelAnimationFrame(scrollFrame); window.cancelAnimationFrame(measureFrame);
-    tagObserver?.disconnect(); revealObserver?.disconnect(); resizeObserver?.disconnect();
+    revealObserver?.disconnect(); resizeObserver?.disconnect(); signalObserver?.disconnect();
+    rain.cleanup(); closeNotice();
     removers.splice(0).forEach((remove) => remove());
     if (window.__emaHomeCleanup === cleanup) delete window.__emaHomeCleanup;
   }
   listen(window, 'pagehide', (event) => {
     pageSuspended = true; root.dataset.suspended = 'true';
-    clearTyping(); resetParallax(); stopAnimations();
-    window.clearTimeout(bubbleTimer);
-    if (avatarMessage) avatarMessage.hidden = true;
+    typers.forEach((item) => item.stop()); resetParallax(); stopAnimations(); rain.refresh();
+    window.clearTimeout(bubbleTimer); window.clearTimeout(clockTimer);
+    if (bubble) bubble.hidden = true;
     window.cancelAnimationFrame(scrollFrame); window.cancelAnimationFrame(measureFrame);
     scrollFrame = measureFrame = 0;
     if (!event.persisted) cleanup();
   });
   listen(window, 'pageshow', () => { pageSuspended = false; refreshMotion(); });
   window.__emaHomeCleanup = cleanup;
-  renderCommand(); updateHeroScene(); measureRail(); refreshMotion();
+  measureHero(); updateHeroScene(); measureRail(); refreshMotion();
   return cleanup;
 }

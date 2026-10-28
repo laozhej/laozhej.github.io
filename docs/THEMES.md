@@ -80,6 +80,8 @@ import { pageTransition } from "@/core/navigation/animations.mjs";
 
 Ema 首页的主视觉和章节由原生滚动驱动，不取消 wheel 事件。桌面足够高度时使用 sticky 场景；触屏、窄屏、短屏和暂停状态回退为正常文档流与原生横向滚动。内容默认可见，IntersectionObserver 和 WAAPI 只负责一次入场增强；关闭脚本或取消动效都不会留下隐藏内容。
 
+Ema 首页的「今日公告」使用原生 `<dialog>`（`lib/notice.mjs`）：同一浏览器会话每天自动弹出一次，记录在 sessionStorage 的 `ema-notice-seen-日期`，勾选「今日不再弹出」写入 localStorage 的 `ema-notice-hidden-日期`。第二幕的标签雨（`lib/tag-rain.mjs`）只读取公共资料、收藏与社交链接；暂停动效、减少动态或无脚本时恢复为普通列表。时钟只使用访客本机时间和时区，不请求任何外部定位或天气服务。
+
 ### 搜索、筛选和排序
 
 | DOM 标记 | 用途 |

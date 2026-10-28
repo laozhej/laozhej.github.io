@@ -182,3 +182,58 @@ html[data-motion-paused="true"] .ema-header :is(.site-language-options,.site-the
   .ema-header :is(.site-language-options,.site-theme-options) {animation:none;}
   .ema-nav a::after,.ema-icon-button:active,.ema-motion-toggle:active,.ema-content .blank-post-row:hover .blank-row-arrow {transform:none;transition:none;}
 }
+
+/* Sakura Archive: shared paper, glass and petals for every Ema page. */
+html[data-theme="ema"] {
+  --ema-petal:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 38C7 30 3 15 11 4L20 10L29 4C37 15 33 30 20 38Z' fill='%23f7c4d6' stroke='%23eaa0bc' stroke-width='1.4'/><path d='M20 34V15' stroke='%23eaa0bc' stroke-width='1' opacity='.55'/></svg>");
+  --ema-blossom:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-50 -50 100 100'><defs><path id='p' d='M0-5C-15-15-19-33-8-45L0-38L8-45C19-33 15-15 0-5Z'/></defs><g fill='%23f8c3d5' stroke='%23e48fb0' stroke-width='2.4' stroke-linejoin='round'><use href='%23p'/><use href='%23p' transform='rotate(72)'/><use href='%23p' transform='rotate(144)'/><use href='%23p' transform='rotate(216)'/><use href='%23p' transform='rotate(288)'/></g><circle r='8' fill='%23fff3c9' stroke='%23eab35c' stroke-width='2'/></svg>");
+  background:radial-gradient(1100px 620px at 94% -8%,#fbe7ef 0,transparent 62%),radial-gradient(900px 560px at -12% 30%,#e7eff8 0,transparent 60%),var(--blank-paper);
+}
+html[data-theme="ema"][data-color-mode="dark"] {
+  background:radial-gradient(1100px 620px at 94% -8%,#3a2b3a 0,transparent 62%),radial-gradient(900px 560px at -12% 30%,#26324a 0,transparent 60%),var(--blank-paper);
+}
+html[data-theme="ema"] body[data-ema] {background:transparent;}
+.ema-backdrop {position:fixed;inset:0;z-index:-1;pointer-events:none;display:none;}
+.ema-backdrop::before,.ema-backdrop::after {
+  content:"";position:absolute;top:0;bottom:0;width:max(0px,calc((100vw - 1120px) / 2 + 60px));
+  background:url('/themes/ema/assets/shiki.webp') 0 0/100% auto repeat-y;filter:grayscale(1) contrast(1.05);opacity:.11;
+}
+.ema-backdrop::before {left:0;-webkit-mask-image:linear-gradient(90deg,#000 30%,transparent);mask-image:linear-gradient(90deg,#000 30%,transparent);}
+.ema-backdrop::after {right:0;background-position:0 38%;-webkit-mask-image:linear-gradient(270deg,#000 30%,transparent);mask-image:linear-gradient(270deg,#000 30%,transparent);}
+html[data-color-mode="dark"] .ema-backdrop::before,html[data-color-mode="dark"] .ema-backdrop::after {filter:grayscale(1) invert(1);opacity:.06;}
+@media(min-width:1240px) { body[data-ema]:not([data-ema-home]) .ema-backdrop {display:block;} }
+
+.ema-header {background:color-mix(in srgb,var(--blank-header-bg) 80%,transparent);-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);}
+body[data-ema-home] .ema-header:not(.is-scrolled) {background:linear-gradient(180deg,color-mix(in srgb,var(--blank-paper) 82%,transparent),transparent);-webkit-backdrop-filter:none;backdrop-filter:none;}
+.ema-nav {
+  background:color-mix(in srgb,var(--blank-paper) 66%,transparent);border-color:color-mix(in srgb,var(--blank-line) 70%,#fff);
+  box-shadow:inset 0 1px 0 #ffffffb3,0 8px 24px #526f8c1f;-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
+}
+html[data-color-mode="dark"] .ema-nav {box-shadow:inset 0 1px 0 #ffffff14,0 8px 24px #0005;}
+
+.ema-sakura {position:fixed;inset:0;z-index:45;overflow:hidden;pointer-events:none;}
+.ema-sakura span {position:absolute;top:-28px;left:var(--petal-left);width:var(--petal-size);height:var(--petal-size);opacity:0;animation:ema-petal-fall var(--petal-duration) linear var(--petal-delay) infinite;}
+.ema-sakura i {display:block;width:100%;height:100%;background:var(--ema-petal) center/contain no-repeat;transform-origin:50% 70%;animation:ema-petal-flutter 5.6s ease-in-out var(--petal-delay) infinite alternate;}
+.ema-sakura span:nth-child(even) i {animation-direction:alternate-reverse;animation-duration:7s;}
+body:not([data-ema-home]) .ema-sakura span:nth-child(n+9) {display:none;}
+@keyframes ema-petal-fall {
+  0% {opacity:0;transform:translate3d(0,0,0);}
+  8%,88% {opacity:.86;}
+  100% {opacity:0;transform:translate3d(var(--petal-drift),calc(100vh + 56px),0);}
+}
+@keyframes ema-petal-flutter {
+  0% {transform:rotate(-28deg) scaleX(.85);}
+  50% {transform:rotate(12deg) scaleX(1);}
+  100% {transform:rotate(58deg) scaleX(.7);}
+}
+
+.ema-scroll-track {display:none;}
+@media(min-width:1000px) and (hover:hover) and (pointer:fine) {
+  .ema-scroll-track {position:fixed;z-index:44;right:12px;top:24vh;bottom:24vh;display:block;width:4px;border-radius:4px;background:color-mix(in srgb,var(--blank-line) 75%,transparent);pointer-events:none;}
+  .ema-scroll-track::before {content:"";position:absolute;inset:0 0 auto;height:calc(var(--scroll-ratio,0) * 100%);border-radius:inherit;background:var(--ema-pink);opacity:.5;}
+  .ema-scroll-thumb {position:absolute;left:50%;top:calc(var(--scroll-ratio,0) * 100%);width:26px;height:26px;margin:-13px 0 0 -13px;background:var(--ema-blossom) center/contain no-repeat;transform:rotate(calc(var(--scroll-ratio,0) * 540deg));filter:drop-shadow(0 3px 5px #8599b440);}
+  .ema-header .ema-page-progress {display:none;}
+}
+@media(max-width:760px) { .ema-sakura span:nth-child(n+10) {display:none;} }
+html[data-motion-paused="true"] .ema-sakura {display:none;}
+@media(prefers-reduced-motion:reduce) { .ema-sakura {display:none;} }

@@ -10,53 +10,78 @@ import "../styles/home.css";
 
 const { locale, t, formatDate, categoryLabel } = getI18n(Astro.url.pathname);
 const href = (path: string) => getThemePath("ema", path, locale);
-const { profileIdentity, favoriteGames, xpFavorites } = getSiteContent(locale);
+const { profileIdentity, profileTech, favoriteGames, xpFavorites, projectTechLines } = getSiteContent(locale);
 const posts = (await getPublishedPosts(locale)).slice(0, 3);
-const [titleFirst, ...titleRest] = site.name.split(/\s+/);
-const favorites = [...favoriteGames, ...xpFavorites];
-const commands = [
-  { id: "journal", label: t("nav.blog") },
-  { id: "collection", label: t("nav.games") },
-  { id: "about", label: t("nav.about") }
-];
+const commands = ["journal", "collection", "about", "echo"].map((id) => t(`ema.command.${id}`));
+const noticeTips = Array.from({ length: 7 }, (_, index) => t(`ema.notice.tip${index + 1}`));
+// Everything that rains down comes from the shared profile, collection and social data.
+const tags = [...new Set([
+  ...favoriteGames.map((item) => item.title),
+  ...xpFavorites.map((item) => item.title),
+  ...profileTech.map((item) => item.name),
+  ...projectTechLines.map((item) => item.label),
+  ...Object.values(categoryLabel),
+  ...socialLinks.map((item) => item.label),
+])];
 const asset = (name: string) => `/themes/ema/assets/${name}.webp`;
+const panels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"];
 ---
 
 <EmaLayout title={`${site.name} | ${t("home.title")}`} description={t("ema.description")} home={true}>
-  <div id="ema-home" data-motion-pause={t("ema.motion.pause")} data-motion-resume={t("ema.motion.resume")} data-motion-reduced={t("ema.motion.reduced")}>
+  <div id="ema-home">
     <div class="hero-scroll-scene" data-hero-scene>
     <section class="hero" id="ema-top" data-hero aria-label={t("ema.hero.label")}>
-      <div class="back-layer" data-parallax-layer="back" aria-hidden="true">
-        <div class="paper-strip paper-strip-a"></div><div class="paper-strip paper-strip-b"></div>
-        <figure class="ink-frame shiki-frame"><div class="shiki-crop"></div><figcaption>{t("ema.art.quiet")}</figcaption></figure>
-        <figure class="ink-frame alice-frame"><div class="alice-crop"><img src={asset("alice")} alt="" width="750" height="1000" /></div><figcaption>{t("ema.art.pages")}</figcaption></figure>
-        <span class="margin-note note-a">{t("ema.art.margin1")}</span><span class="margin-note note-b">{t("ema.art.margin2")}</span>
+      <div class="manga-wall" data-parallax-layer="back" aria-hidden="true">
+        <div class="manga-grid">{panels.map((panel) => <i class={`panel panel-${panel}`}></i>)}</div>
       </div>
+      <div class="focus-lines" aria-hidden="true"></div>
       <div class="hero-art" data-parallax-layer="front"><img class="ema" src={asset("ema")} alt={t("ema.art.ema")} width="905" height="2400" fetchpriority="high" /></div>
-      <div class="petals" data-petals aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <div class="hero-copy">
-        <p class="eyebrow">{t("ema.hero.kicker")}</p>
-        <h1>{titleFirst}<br /><span>{titleRest.join(" ")}</span><em aria-hidden="true">.</em></h1>
-        <p class="hero-subtitle">{t("ema.hero.subtitle")}</p>
-        <section class="command-card" aria-label={t("ema.command.label")}>
-          <div class="command-bar"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span aria-hidden="true">blank-space.note</span><button type="button" data-profile-toggle aria-expanded="false" aria-controls="ema-profile-panel">{t("ema.profile.toggle")} <span aria-hidden="true">＋</span></button></div>
-          <div class="command-line" aria-hidden="true"><span class="prefix">❀ ~</span><code data-typed>{t("ema.command.journal")}</code><span class="caret"></span></div>
+      <div class="hero-veil" aria-hidden="true"></div>
+      <button class="notice-trigger" type="button" data-notice-open aria-haspopup="dialog" aria-controls="ema-notice" hidden><span aria-hidden="true">✿</span>{t("ema.notice.open")}</button>
+      <div class="hero-column">
+        <div class="hero-copy" data-hero-copy>
+          <p class="eyebrow"><span>{t("theme.ema")}</span>{t("ema.hero.subtitle")}</p>
+          <h1 class="hero-title" data-text={site.name}><span>{site.name}</span><em aria-hidden="true">.</em></h1>
+          <p class="hero-diary">{t("ema.hero.diary")}</p>
+          <p class="terminal-line" aria-hidden="true"><span class="terminal-prompt">ema@archive:~$</span><code data-typed data-commands={JSON.stringify(commands)}>{commands[0]}</code><span class="caret"></span></p>
           <p class="sr-only">{t("ema.command.accessible")}</p>
-          <p class="command-result"><span aria-hidden="true">↳</span><span data-command-result>{t("ema.command.journalResult")}</span></p>
-          <div class="command-actions" role="group" aria-label={t("ema.command.switch")}>
-            {commands.map((command, index) => <button type="button" data-command={command.id} data-command-text={t(`ema.command.${command.id}`)} data-command-result={t(`ema.command.${command.id}Result`)} aria-pressed={index === 0 ? "true" : "false"}>{command.label}</button>)}
+        </div>
+        <section class="identity" data-identity aria-label={t("ema.profile.label")}>
+          <div class="identity-avatar">
+            <button class="avatar-button" type="button" data-avatar-button aria-label={t("ema.profile.hello")} data-message={t("ema.profile.message")} data-too-fast={t("ema.profile.tooFast")}>
+              <span class="avatar-face" aria-hidden="true"></span>
+              <span class="avatar-flower" aria-hidden="true"></span>
+            </button>
+            <span class="avatar-bubble" role="status" data-avatar-message hidden></span>
           </div>
-          <div class="profile-panel" id="ema-profile-panel" data-profile-panel hidden>
-            <div class="profile-row"><button class="avatar" type="button" data-avatar-button aria-label={t("ema.profile.hello")}>{site.name.charAt(0)}<span aria-hidden="true">.</span></button><div><strong>{profileIdentity.displayName}</strong><p>{profileIdentity.bio}</p></div><span class="avatar-message" role="status" data-avatar-message hidden>{t("ema.profile.message")}</span></div>
-            <div class="profile-links">{socialLinks.map((social) => <a href={social.href} target="_blank" rel="noopener noreferrer" aria-label={t(`social.${social.key}`)}>{social.label} <span aria-hidden="true">↗</span></a>)}<a href={href("/about/")}>{t("common.about")} <span aria-hidden="true">↗</span></a></div>
+          <div class="identity-terminal">
+            <div class="identity-bar" aria-hidden="true"><span class="window-dots"><i></i><i></i><i></i></span><span>blank-space.profile</span></div>
+            <p class="identity-path" aria-hidden="true">~/blank-space/profile</p>
+            <p class="identity-command"><span class="terminal-prompt" aria-hidden="true">profile@blank:~$</span><strong data-name-typed data-names={JSON.stringify([profileIdentity.displayName, site.name])}>{profileIdentity.displayName}</strong><span class="caret" aria-hidden="true"></span></p>
+            <p class="identity-bio">{profileIdentity.bio}</p>
+            <div class="identity-links">{socialLinks.map((social) => <a href={social.href} target="_blank" rel="me noopener noreferrer" aria-label={t(`social.${social.key}`)}>{social.label} <span aria-hidden="true">↗</span></a>)}<a href={href("/about/")}>{t("common.about")} <span aria-hidden="true">→</span></a></div>
           </div>
         </section>
       </div>
-      <figure class="shiroha-polaroid"><span class="tape" aria-hidden="true"></span><div class="polaroid-photo"><img src={asset("shiroha")} alt={t("ema.art.shiroha")} width="1138" height="1600" /></div><figcaption>{t("ema.art.summer")} <span aria-hidden="true">✧</span></figcaption></figure>
-      <aside class="hero-note"><button type="button" data-note-toggle aria-expanded="true" aria-controls="ema-today-note">{t("ema.note.title")} <span aria-hidden="true">−</span></button><div id="ema-today-note" data-note-panel><p>{t("ema.note.line1")}<br />{t("ema.note.line2")}</p><small>{t("ema.note.signature")}</small></div></aside>
-      <a class="scroll-cue" href="#ema-chapters"><span>{t("ema.hero.down")}</span><b aria-hidden="true">↓</b></a><div class="paper-edge" aria-hidden="true"></div>
+      <a class="scroll-cue" href="#ema-chapters"><span class="terminal-prompt" aria-hidden="true">scroll@archive:~$</span><span>{t("ema.hero.down")}</span><b aria-hidden="true"><i>&gt;</i><i>&gt;</i><i>&gt;</i></b></a>
     </section>
     </div>
+
+    <dialog class="ema-notice" id="ema-notice" data-notice aria-labelledby="ema-notice-title" data-title={t("ema.notice.title")} data-tips={JSON.stringify(noticeTips)}>
+      <form method="dialog" class="notice-card">
+        <button class="notice-close" type="submit" aria-label={t("ema.notice.close")}><span aria-hidden="true">×</span></button>
+        <div class="notice-head">
+          <span class="notice-icon" aria-hidden="true">✿</span>
+          <div><p data-notice-date>{t("ema.notice.open")}</p><h2 id="ema-notice-title" data-notice-title>{t("ema.notice.open")}</h2></div>
+        </div>
+        <div class="notice-body">
+          <p class="notice-tip" data-notice-tip>{noticeTips[0]}</p>
+          <p class="notice-line">{t("ema.note.line1")}{t("ema.note.line2")}</p>
+          <small>— {t("ema.note.signature")}</small>
+        </div>
+        <label class="notice-skip"><input type="checkbox" data-notice-skip /><span>{t("ema.notice.skip")}</span></label>
+      </form>
+    </dialog>
 
     <section class="chapters" id="ema-chapters" aria-labelledby="ema-chapters-title">
       <div class="section-heading" data-ema-reveal><div><p class="eyebrow">{t("ema.chapters.kicker")}</p><h2 id="ema-chapters-title">{t("ema.chapters.title")}<span aria-hidden="true">.</span></h2></div><p>{t("ema.chapters.intro")}</p></div>
@@ -81,17 +106,33 @@ const asset = (name: string) => `/themes/ema/assets/${name}.webp`;
         </div>
       </div>
     </section>
+
+    <section class="signal-scene" data-signal aria-label={t("ema.signal.label")}>
+      <div class="signal-backdrop" aria-hidden="true"></div>
+      <div class="signal-word" aria-hidden="true"><span>{site.name}</span><small>{t("ema.signal.motto")}</small></div>
+      <div class="signal-card" role="group" aria-label={t("ema.signal.clock")}>
+        <p data-clock-date>&nbsp;</p>
+        <strong data-clock-time>--:--:--</strong>
+        <span data-clock-zone data-label={t("ema.signal.zone")}>{t("ema.signal.zone")}</span>
+      </div>
+      <div class="welcome-bubble">
+        <span class="quote-mark" aria-hidden="true">“</span>
+        <h2>{t("ema.signal.welcome")}</h2>
+        <p>{t("ema.signal.welcomeText")}</p>
+        <a href={href("/games/")}>{t("ema.favorites.open")} <span aria-hidden="true">↗</span></a>
+        <span class="quote-mark quote-end" aria-hidden="true">”</span>
+      </div>
+      <ul class="tag-rain" data-tag-rain aria-label={t("ema.signal.tags")}>
+        {tags.map((tag) => <li data-tag>{tag}</li>)}
+      </ul>
+    </section>
+
     <section class="reading-section" aria-labelledby="ema-reading-title">
       <div class="reading-intro" data-ema-reveal><p class="eyebrow">{t("ema.recent.kicker")}</p><h2 id="ema-reading-title">{t("ema.recent.title")}<span aria-hidden="true">.</span></h2><p>{t("ema.recent.intro")}</p><a href={href("/blog/")}>{t("common.allArticles")} <span aria-hidden="true">↗</span></a></div>
       <div class="article-list" data-ema-reveal>{posts.map((post, index) => {
         const date = post.data.updatedDate ?? post.data.pubDate;
         return <a href={href(`/blog/${post.slug}/`)} data-ema-reveal-item><span class="article-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span><div><small><time datetime={date.toISOString()}>{formatDate(date)}</time><span>{categoryLabel[post.data.category]}</span></small><h3 lang={post.data.locale}>{post.data.title}</h3>{post.data.locale !== locale && <p class="translation-fallback">{t("article.originalLanguage")}</p>}</div><span aria-hidden="true">↗</span></a>;
       })}{posts.length === 0 && <p>{t("home.empty")}</p>}</div>
-    </section>
-    <section class="favorites-section" aria-labelledby="ema-favorites-title">
-      <div data-ema-reveal><p class="eyebrow">{t("ema.favorites.kicker")}</p><h2 id="ema-favorites-title">{t("ema.favorites.title")}<span aria-hidden="true">.</span></h2><p>{t("ema.favorites.intro")}</p></div>
-      <div class="tag-cloud" data-tag-cloud>{favorites.map((favorite) => <span data-tag>{favorite.title}</span>)}</div>
-      <a class="favorites-note" href={href("/games/")}>{t("ema.favorites.open")} <span aria-hidden="true">↗</span></a>
     </section>
   </div>
 </EmaLayout>

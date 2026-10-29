@@ -3,6 +3,8 @@
 export const site = {
   name: "Blank Space",
   wordmark: "blank",
+  // The copyright holder shown in every theme's footer.
+  owner: "Asahi Arataki",
   nav: [
     { key: "home", href: "/" },
     { key: "blog", href: "/blog/" },

@@ -2,8 +2,7 @@
 import { site } from "@/lib/site";
 import { getI18n } from "@/core/i18n";
 const { t } = getI18n(Astro.url.pathname);
-// Themes with their own brand may pass it; every theme keeps the upstream credit.
-const { name = site.name } = Astro.props;
+// Every theme shows the same copyright holder and keeps the upstream credit.
 ---
-<span>© {new Date().getFullYear()} {name}</span>
+<span>© {new Date().getFullYear()} {site.owner}</span>
 <a href="https://github.com/Yuimi-chaya/Yuimi-chaya.github.io" target="_blank" rel="noopener noreferrer">{t("footer.themeCredit")} ↗</a>

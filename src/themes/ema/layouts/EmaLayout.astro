@@ -63,7 +63,7 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
       <a class="ema-footer-brand" href={href("/")}>{brand.split(/(\.)/).map((part) => part === "." ? <span>.</span> : part)}</a>
       <p>{t("home.statement2")}</p>
       <SocialLinks class="ema-social-links" />
-      <div class="ema-footer-bottom"><SiteAttribution name={brand} /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
+      <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
     </footer>
     <aside class="ema-mascot" data-ema-mascot hidden aria-label={t("ema.mascot.label")} data-pokes={JSON.stringify(mascotPokes)} data-back={t("ema.mascot.back")} data-too-fast={t("ema.mascot.tooFast")}>
       <p class="mascot-bubble" role="status" data-mascot-bubble hidden></p>

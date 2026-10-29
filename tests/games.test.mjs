@@ -22,6 +22,10 @@ test("every game's art is in public/games and listed in its source manifest", as
     assert.ok(existsSync(new URL(`../public/games/${item.art.file}`, import.meta.url)), `${item.key}: missing ${item.art.file}`);
     assert.ok(listed.has(item.art.file), `${item.key}: ${item.art.file} has no source record`);
   }
+  for (const item of games.filter((entry) => entry.icon)) {
+    assert.ok(existsSync(new URL(`../public/games/${item.icon}`, import.meta.url)), `${item.key}: missing ${item.icon}`);
+    assert.ok(listed.has(item.icon), `${item.key}: ${item.icon} has no source record`);
+  }
 });
 
 test("a broken game entry stops the build and names it", () => {
@@ -35,6 +39,7 @@ test("a broken game entry stops the build and names it", () => {
   assert.throws(() => checkGames([game({ note: { en: "Great" } })]), /"zh-CN" text/);
   assert.throws(() => checkGames([game({ art: { file: "../secret.png" } })]), /art.file/);
   assert.throws(() => checkGames([game({ art: { file: "a.webp", focus: "left" } })]), /art.focus/);
+  assert.throws(() => checkGames([game({ icon: "icons/a.webp" })]), /icon must be/);
 });
 
 test("each language shows its usual name, with the game's own title as the fallback", () => {
@@ -63,5 +68,6 @@ test("favorite games link to the official page first, otherwise Steam", () => {
   assert.equal(gamePage(game({ steam: 730 })), "https://store.steampowered.com/app/730/");
   assert.deepEqual(linkFavoriteGames([{ key: "sample", title: "Mine" }], [game({ steam: 730 })]), [{ key: "sample", title: "Mine", url: "https://store.steampowered.com/app/730/" }]);
   assert.throws(() => linkFavoriteGames([{ key: "missing", title: "Lost" }], [game()]), /"missing" is not on the game shelf/);
+  assert.equal(linkFavoriteGames([{ key: "sample", title: "Mine" }], [game({ steam: 730, icon: "sample-icon.webp" })])[0].icon, "/games/sample-icon.webp");
   for (const item of linkFavoriteGames(favoriteGames, games)) assert.match(item.url, /^https:\/\//, item.key);
 });

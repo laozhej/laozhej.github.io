@@ -14,6 +14,7 @@ export function checkGames(games) {
     if (game.steam !== undefined && !(Number.isInteger(game.steam) && game.steam > 0)) throw new Error(`${name}: steam must be the number in its store address`);
     if (game.url !== undefined && !/^https:\/\/\S+$/.test(game.url)) throw new Error(`${name}: the url must start with https://`);
     if (game.art !== undefined && !/^[a-z0-9-]+\.(webp|jpe?g|png)$/.test(game.art?.file ?? "")) throw new Error(`${name}: art.file must be a picture file name in public/games/`);
+    if (game.icon !== undefined && !/^[a-z0-9-]+\.(webp|jpe?g|png)$/.test(game.icon)) throw new Error(`${name}: icon must be a picture file name in public/games/`);
     if (game.art?.focus !== undefined && !/^\d{1,3}% \d{1,3}%$/.test(game.art.focus)) throw new Error(`${name}: art.focus must look like "50% 40%"`);
     if (game.status !== undefined && !gameStatuses.includes(game.status)) throw new Error(`${name}: the status must be one of ${gameStatuses.join(", ")}`);
     if (game.pick !== undefined && ![1, 2, 3].includes(game.pick)) throw new Error(`${name}: pick must be 1, 2 or 3`);
@@ -52,6 +53,6 @@ export function linkFavoriteGames(favorites, games) {
   return favorites.map((favorite) => {
     const game = games.find((entry) => entry.key === favorite.key);
     if (!game) throw new Error(`Favorite game "${favorite.key}" is not on the game shelf in src/core/data/games.ts`);
-    return { ...favorite, url: gamePage(game) };
+    return { ...favorite, url: gamePage(game), ...(game.icon && { icon: `/games/${game.icon}` }) };
   });
 }

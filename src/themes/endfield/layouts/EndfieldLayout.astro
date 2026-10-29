@@ -71,7 +71,7 @@ const navItems = site.nav.map((item, index) => ({
     <main id="endfield-main" class:list={[{ "ef-content blank-main": !home, "ef-home-main": home, "blank-main--article": isArticlePage }]} tabindex="-1" transition:name="site-content" transition:animate={pageTransition}><slot /></main>
     <footer class="ef-footer">
       <div class="ef-footer-top">
-        <a class="ef-footer-brand" href={href("/")}>{brand}</a>
+        <a class="ef-footer-brand" href={href("/")} aria-label={brand}><strong>{brandName}</strong><span class="ef-wordmark-tag" aria-hidden="true">{brandTail.join(" ")}</span></a>
         <nav class="ef-footer-links" aria-label={t("a11y.navigation")}>
           <a href={href("/blog/")}>{t("footer.journal")}</a>
           <a href={href("/projects/")}>{t("footer.projects")}</a>

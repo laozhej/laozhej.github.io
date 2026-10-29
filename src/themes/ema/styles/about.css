@@ -43,6 +43,10 @@ html[data-color-mode="dark"] .about-photo {background:#e4e7ee;box-shadow:0 14px 
 .about-chip {width:48px;height:48px;}
 .about-games>li {display:grid;grid-template-columns:86px minmax(0,1fr);gap:16px;align-items:center;padding:12px;}
 .about-cover {height:86px;padding:8px 10px;}
+/* An official game icon replaces the stand-in number; the card's tone shows through transparent icons. */
+.about-icon {padding:0;}
+.about-icon::after {display:none;}
+.about-icon img {display:block;width:100%;height:100%;object-fit:cover;}
 .about-games a {color:inherit;text-decoration:none;background:linear-gradient(var(--ema-pink),var(--ema-pink)) 0 100%/0 1px no-repeat;transition:background-size 200ms var(--blank-ease);}
 .about-games a svg {margin-left:5px;vertical-align:-1px;color:var(--ema-pink);}
 .about-more {display:inline-flex;align-items:center;gap:6px;justify-self:end;color:var(--ema-pink);font-size:13px;font-weight:600;text-decoration:none;}

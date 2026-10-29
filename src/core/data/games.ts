@@ -9,6 +9,8 @@
 //   The shelf card links to Steam first; favorites (About page) link to the official page first.
 // - `art`: a picture in public/games/ for its card, and the part to keep in view when the card crops it
 //   ("50% 50%" is the middle, "0% 0%" the top left). Record where the picture came from in public/games/ASSETS.json.
+// - `icon`: the game's official square icon in public/games/, shown on the favorite-games cards (About page).
+//   Record where it came from in public/games/ASSETS.json too.
 // Optional, whenever you like:
 // - `status`: "finished", "playing" or "wishlist".
 // - `pick`: 1, 2 or 3 blossoms for how strongly you recommend it.
@@ -23,13 +25,14 @@ export type GameEntry = {
   steam?: number;
   url?: string;
   art?: { file: string; focus?: string };
+  icon?: string;
   status?: "finished" | "playing" | "wishlist";
   pick?: 1 | 2 | 3;
   note?: { "zh-CN": string; "zh-TW"?: string; ja?: string; en?: string };
 };
 
 export const games: GameEntry[] = [
-  { key: "tsushima", title: "Ghost of Tsushima", names: { "zh-CN": "对马岛之魂", "zh-TW": "對馬戰鬼", ja: "ゴースト・オブ・ツシマ" }, genre: "action", steam: 2215430, url: "https://www.playstation.com/en-us/games/ghost-of-tsushima/", art: { file: "tsushima.webp", focus: "40% 50%" } },
+  { key: "tsushima", icon: "tsushima-icon.webp", title: "Ghost of Tsushima", names: { "zh-CN": "对马岛之魂", "zh-TW": "對馬戰鬼", ja: "ゴースト・オブ・ツシマ" }, genre: "action", steam: 2215430, url: "https://www.playstation.com/en-us/games/ghost-of-tsushima/", art: { file: "tsushima.webp", focus: "40% 50%" } },
   { key: "steins-gate-reboot", title: "STEINS;GATE RE:BOOT", names: { "zh-CN": "命运石之门 RE:BOOT", "zh-TW": "命運石之門 RE:BOOT" }, genre: "story", steam: 4012810, art: { file: "steins-gate-reboot.webp", focus: "78% 40%" } },
   { key: "steins-gate", title: "STEINS;GATE", names: { "zh-CN": "命运石之门", "zh-TW": "命運石之門" }, genre: "story", steam: 412830, art: { file: "steins-gate.webp", focus: "55% 40%" } },
   { key: "fate-extella", title: "Fate/EXTELLA", genre: "action", steam: 511680, art: { file: "fate-extella.webp", focus: "78% 40%" } },
@@ -49,7 +52,7 @@ export const games: GameEntry[] = [
   { key: "ff7-remake", title: "FINAL FANTASY VII REMAKE", names: { "zh-CN": "最终幻想 VII 重制版", "zh-TW": "Final Fantasy VII 重製版", ja: "ファイナルファンタジーVII リメイク" }, genre: "action", steam: 1462040, art: { file: "ff7-remake.webp", focus: "62% 50%" } },
   { key: "muse-dash", title: "Muse Dash", names: { "zh-CN": "喵斯快跑", "zh-TW": "喵斯快跑" }, genre: "rhythm", steam: 774171, art: { file: "muse-dash.webp", focus: "30% 40%" } },
   { key: "arcaea", title: "Arcaea", names: { "zh-CN": "韵律源点", "zh-TW": "韻律源點" }, genre: "rhythm", url: "https://arcaea.lowiro.com/", art: { file: "arcaea.webp", focus: "35% 40%" } },
-  { key: "rdr2", title: "Red Dead Redemption 2", names: { "zh-CN": "荒野大镖客：救赎 2", "zh-TW": "碧血狂殺 2", ja: "レッド・デッド・リデンプション2" }, genre: "action", steam: 1174180, url: "https://www.rockstargames.com/reddeadredemption2", art: { file: "rdr2.webp", focus: "72% 40%" } },
-  { key: "yotei", title: "Ghost of Yōtei", names: { "zh-CN": "羊蹄山之魂", "zh-TW": "羊蹄山戰鬼", ja: "ゴースト・オブ・ヨウテイ" }, genre: "action", url: "https://www.playstation.com/en-us/games/ghost-of-yotei/", art: { file: "yotei.webp", focus: "50% 0%" } },
-  { key: "manosaba", title: "魔法少女ノ魔女裁判", names: { "zh-CN": "魔法少女的魔女审判", "zh-TW": "魔法少女的魔女審判" }, genre: "story", steam: 3101040, url: "https://manosaba.com/", art: { file: "manosaba.webp", focus: "25% 50%" } },
+  { key: "rdr2", icon: "rdr2-icon.webp", title: "Red Dead Redemption 2", names: { "zh-CN": "荒野大镖客：救赎 2", "zh-TW": "碧血狂殺 2", ja: "レッド・デッド・リデンプション2" }, genre: "action", steam: 1174180, url: "https://www.rockstargames.com/reddeadredemption2", art: { file: "rdr2.webp", focus: "72% 40%" } },
+  { key: "yotei", icon: "yotei-icon.webp", title: "Ghost of Yōtei", names: { "zh-CN": "羊蹄山之魂", "zh-TW": "羊蹄山戰鬼", ja: "ゴースト・オブ・ヨウテイ" }, genre: "action", url: "https://www.playstation.com/en-us/games/ghost-of-yotei/", art: { file: "yotei.webp", focus: "50% 0%" } },
+  { key: "manosaba", icon: "manosaba-icon.webp", title: "魔法少女ノ魔女裁判", names: { "zh-CN": "魔法少女的魔女审判", "zh-TW": "魔法少女的魔女審判" }, genre: "story", steam: 3101040, url: "https://manosaba.com/", art: { file: "manosaba.webp", focus: "25% 50%" } },
 ];

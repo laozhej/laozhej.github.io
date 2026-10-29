@@ -206,7 +206,10 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-footer a:hover { text-decoration:underline; text-decoration-color:var(--ef-signal); }
 .ef-footer :focus-visible { outline-color:var(--ef-signal)!important; }
 .ef-footer-top { max-width:var(--blank-width); margin:0 auto; padding:40px clamp(16px,4vw,40px) 24px; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:24px; }
-.ef-footer-brand { font:600 clamp(1.4rem,3vw,2rem)/1.2 var(--ef-ui); font-stretch:125%; text-transform:uppercase; }
+.ef-footer-brand { display:flex; align-items:center; gap:10px; justify-self:start; font-family:var(--ef-ui); text-transform:uppercase; }
+.ef-footer-brand strong { font-size:clamp(1.6rem,3.4vw,2.3rem); font-weight:800; font-stretch:100%; line-height:1; letter-spacing:-.005em; }
+/* The footer is always dark, so its tag is always light. */
+.ef-footer-brand .ef-wordmark-tag { --ef-tag-bg:#ededed; --ef-tag-fg:#161616; font-size:11px; }
 .ef-footer-links { display:flex; flex-direction:column; align-items:flex-start; gap:8px; font:600 13px var(--ef-ui); font-stretch:112%; color:var(--blank-footer-muted); }
 .ef-footer-bottom { max-width:var(--blank-width); margin:0 auto; padding:16px clamp(16px,4vw,40px) 28px; display:flex; flex-wrap:wrap; gap:8px 24px; border-top:1px solid var(--blank-footer-line); font:12px var(--ef-ui); color:var(--blank-footer-muted); }
 
@@ -283,4 +286,4 @@ html:not([data-motion-paused="true"]) [data-ef-enter] .ef-frame { animation-dela
   [data-endfield] .ef-button-icon { width:40px; height:40px; }
   .ef-header .site-language-menu>summary>:is(span:not(:first-child),svg:last-child) { display:none; }
 }
-@media(max-width:389px) { .ef-wordmark-tag { display:none; } }
+@media(max-width:389px) { .ef-header .ef-wordmark-tag { display:none; } }

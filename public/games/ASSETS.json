@@ -1,7 +1,7 @@
 {
  "schema_version": 1,
- "verified_on": "2026-10-29",
- "scope": "Provenance of the game art shown on the Games page cards. This file is not a permission or license grant. These third-party media files are excluded from the repository software license.",
+ "verified_on": "2026-10-30",
+ "scope": "Provenance of the game art shown on the Games page cards and the favorite-game icons. This file is not a permission or license grant. These third-party media files are excluded from the repository software license.",
  "non_ai_processing": "No image generation, redrawing, generative fill, background synthesis or AI upscaling. Only deterministic proportional resizing and WebP encoding were applied. No pixels were cropped, recolored or composited in the asset files.",
  "assets": [
   {
@@ -624,6 +624,110 @@
    "generative_ai_used": false,
    "permission_status": "Promotional art published by the rights holder on its store page or official site. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
    "credit": "Developer: Acacia, Re,AER. Publisher: Re,AER, CIRCLE LINE GAMES. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "rdr2-icon",
+   "title": "Red Dead Redemption 2",
+   "file": "rdr2-icon.webp",
+   "source_page": "https://store.steampowered.com/app/1174180/",
+   "source_image": "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/apps/1174180/5bf6edd7efb1110b457da905e7ac696c6c619ed1.ico",
+   "source_kind": "Steam client icon (256×256 frame of the .ico)",
+   "developer": "Rockstar Games",
+   "publisher": "Rockstar Games",
+   "original_dimensions": [
+    256,
+    256
+   ],
+   "dimensions": [
+    256,
+    256
+   ],
+   "original_sha256": "e282c5d0138fc99d6aff5fe323d7d37adf89a7d7893dde99ad850090a5364593",
+   "sha256": "6f3c1856ed8457d3cd5274147b814dda90ca9193f223c9726392534b22e35179",
+   "bytes": 37886,
+   "format": "image/webp",
+   "processing": "The 256×256 frame was taken from the icon file as is, keeping its transparency, and encoded as lossy WebP (Pillow/libwebp, quality=90, method=6). No resizing or cropping.",
+   "generative_ai_used": false,
+   "permission_status": "Official icon published by the rights holder on its store page. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Rockstar Games. Publisher: Rockstar Games. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "tsushima-icon",
+   "title": "Ghost of Tsushima DIRECTOR'S CUT",
+   "file": "tsushima-icon.webp",
+   "source_page": "https://store.steampowered.com/app/2215430/",
+   "source_image": "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/apps/2215430/5ba81045bcf5da2a289fdba801f5a639758663d4.ico",
+   "source_kind": "Steam client icon (256×256 frame of the .ico)",
+   "developer": "Sucker Punch Productions, Nixxes Software",
+   "publisher": "PlayStation Publishing LLC",
+   "original_dimensions": [
+    256,
+    256
+   ],
+   "dimensions": [
+    256,
+    256
+   ],
+   "original_sha256": "93e11cff112572f103b95765e3847c59e1c2c7ba091a0b6da610bc1444be2d82",
+   "sha256": "ac8052a379480b664b55bf9d78fbd43b211d23a5b148f038af468f9f64438890",
+   "bytes": 10986,
+   "format": "image/webp",
+   "processing": "The 256×256 frame was taken from the icon file as is, keeping its transparency, and encoded as lossy WebP (Pillow/libwebp, quality=90, method=6). No resizing or cropping.",
+   "generative_ai_used": false,
+   "permission_status": "Official icon published by the rights holder on its store page. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Sucker Punch Productions, Nixxes Software. Publisher: PlayStation Publishing LLC. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "manosaba-icon",
+   "title": "Magical Girl Witch Trials (魔法少女ノ魔女裁判)",
+   "file": "manosaba-icon.webp",
+   "source_page": "https://store.steampowered.com/app/3101040/",
+   "source_image": "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/apps/3101040/49a81c413f56f2d6481bbf07d066f88f09733ca2.ico",
+   "source_kind": "Steam client icon (256×256 frame of the .ico)",
+   "developer": "Acacia, Re,AER",
+   "publisher": "Re,AER, CIRCLE LINE GAMES",
+   "original_dimensions": [
+    256,
+    256
+   ],
+   "dimensions": [
+    256,
+    256
+   ],
+   "original_sha256": "774c7ac585988eed9a16e306c648b82ca57bf3015ed91081eb912adab5762d46",
+   "sha256": "acad36b9ef161303876e0ec05001946d78d6a45c5b2528e2cfe9ccbc2349cdff",
+   "bytes": 27164,
+   "format": "image/webp",
+   "processing": "The 256×256 frame was taken from the icon file as is, keeping its transparency, and encoded as lossy WebP (Pillow/libwebp, quality=90, method=6). No resizing or cropping.",
+   "generative_ai_used": false,
+   "permission_status": "Official icon published by the rights holder on its store page. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Acacia, Re,AER. Publisher: Re,AER, CIRCLE LINE GAMES. As listed on the source page; all rights remain with their respective holders."
+  },
+  {
+   "id": "yotei-icon",
+   "title": "Ghost of Yōtei",
+   "file": "yotei-icon.webp",
+   "source_page": "https://www.playstation.com/en-us/games/ghost-of-yotei/",
+   "source_image": "https://image.api.playstation.com/vulcan/ap/rnd/202504/2116/050bb77f895515e0b0e906b0b9d75b6174b37eece097b462.png",
+   "source_kind": "PlayStation Store square product image (the PS5 game tile)",
+   "developer": "Sucker Punch Productions",
+   "publisher": "Sony Interactive Entertainment",
+   "original_dimensions": [
+    592,
+    592
+   ],
+   "dimensions": [
+    256,
+    256
+   ],
+   "original_sha256": "7f587a4303f1da901053327777f5bba4b133aba2c0f60a578fbc99a1acdd3459",
+   "sha256": "fc6a2c261af99af8f46d351476e03a40d06306f6b09cdf78eea66567de6c334c",
+   "bytes": 22256,
+   "format": "image/webp",
+   "processing": "Proportional LANCZOS downscale to 256×256 and lossy WebP encoding (Pillow/libwebp, quality=88, method=6). No cropping.",
+   "generative_ai_used": false,
+   "permission_status": "Official icon published by the rights holder on its store page. No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
+   "credit": "Developer: Sucker Punch Productions. Publisher: Sony Interactive Entertainment. As listed on the source page; all rights remain with their respective holders."
   }
  ],
  "credit_note": "Developer and publisher names are copied from the source pages (Steam store data or the official site), not formal copyright notices."

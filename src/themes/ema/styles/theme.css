@@ -194,11 +194,11 @@ html[data-theme="ema"] body[data-ema] {background:transparent;}
 .ema-backdrop {position:fixed;inset:0;z-index:-1;pointer-events:none;display:none;}
 .ema-backdrop::before,.ema-backdrop::after {
   content:"";position:absolute;top:0;bottom:0;width:max(0px,calc((100vw - 1120px) / 2 + 60px));
-  background:url('/themes/ema/assets/shiki.webp') 0 0/100% auto repeat-y;filter:grayscale(1) contrast(1.05);opacity:.11;
+  background:url('/themes/ema/assets/manga-memory.webp') 0 0/100% auto repeat-y;filter:grayscale(1) contrast(1.05);opacity:.11;
 }
 .ema-backdrop::before {left:0;-webkit-mask-image:linear-gradient(90deg,#000 30%,transparent);mask-image:linear-gradient(90deg,#000 30%,transparent);}
 .ema-backdrop::after {right:0;background-position:0 38%;-webkit-mask-image:linear-gradient(270deg,#000 30%,transparent);mask-image:linear-gradient(270deg,#000 30%,transparent);}
-html[data-color-mode="dark"] .ema-backdrop::before,html[data-color-mode="dark"] .ema-backdrop::after {filter:grayscale(1) invert(1);opacity:.06;}
+html[data-color-mode="dark"] .ema-backdrop::before,html[data-color-mode="dark"] .ema-backdrop::after {filter:grayscale(1) brightness(.5);opacity:.1;}
 @media(min-width:1240px) { body[data-ema]:not([data-ema-home]) .ema-backdrop {display:block;} }
 
 .ema-header {background:color-mix(in srgb,var(--blank-header-bg) 80%,transparent);-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);}

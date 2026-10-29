@@ -8,16 +8,16 @@
 #ema-home .manga-wall{position:absolute;inset:-24px;z-index:0;background:#fff;filter:grayscale(1) contrast(1.06) brightness(1.04);opacity:.56;pointer-events:none;}
 #ema-home .manga-grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(6,minmax(0,1fr));gap:12px;padding:12px;grid-template-areas:"a a a b b c c c c d d d" "a a a b b c c c c d d d" "e e f f f c c c c g g g" "e e f f f h h i i g g g" "j j j k k h h i i l l l" "j j j k k m m m m l l l";}
 #ema-home .panel{display:block;min-width:0;min-height:0;border:2px solid #23262d;background-color:#fff;background-repeat:no-repeat;}
-#ema-home .panel-a{grid-area:a;background-image:url('/themes/ema/assets/shiki.webp');background-size:175% auto;background-position:0 0;}
-#ema-home .panel-b{grid-area:b;background-image:url('/themes/ema/assets/shiki.webp');background-size:auto 245%;background-position:100% 0;}
+#ema-home .panel-a{grid-area:a;background-image:url('/themes/ema/assets/manga-memory.webp');background-size:cover;background-position:50% 30%;}
+#ema-home .panel-b{grid-area:b;background-image:url('/themes/ema/assets/manga-about.webp');background-size:cover;background-position:30% 50%;}
 #ema-home .panel-c{grid-area:c;background-image:url('/themes/ema/assets/shiroha.webp');background-size:cover;background-position:24% 42%;}
 #ema-home .panel-d{grid-area:d;background-image:url('/themes/ema/assets/alice.webp');background-size:150% auto;background-position:50% 4%;}
-#ema-home .panel-e{grid-area:e;background-image:url('/themes/ema/assets/shiki.webp');background-size:auto 330%;background-position:46% 54%;}
+#ema-home .panel-e{grid-area:e;background-image:url('/themes/ema/assets/manga-writing.webp');background-size:cover;background-position:50% 50%;}
 #ema-home .panel-f{grid-area:f;background-image:url('/themes/ema/assets/shiroha.webp');background-size:250% auto;background-position:96% 30%;}
-#ema-home .panel-g{grid-area:g;background-image:url('/themes/ema/assets/shiki.webp');background-size:175% auto;background-position:100% 100%;}
+#ema-home .panel-g{grid-area:g;background-image:url('/themes/ema/assets/manga-memory.webp');background-size:180% auto;background-position:100% 100%;}
 #ema-home .panel-h{grid-area:h;background-image:url('/themes/ema/assets/alice.webp');background-size:260% auto;background-position:50% 46%;}
-#ema-home .panel-i{grid-area:i;background-image:url('/themes/ema/assets/shiki.webp');background-size:auto 320%;background-position:22% 3%;}
-#ema-home .panel-j{grid-area:j;background-image:url('/themes/ema/assets/shiki.webp');background-size:240% auto;background-position:0 100%;}
+#ema-home .panel-i{grid-area:i;background-image:url('/themes/ema/assets/manga-about.webp');background-size:cover;background-position:80% 40%;}
+#ema-home .panel-j{grid-area:j;background-image:url('/themes/ema/assets/manga-writing.webp');background-size:160% auto;background-position:0 60%;}
 #ema-home .panel-k{grid-area:k;background-image:url('/themes/ema/assets/shiroha.webp');background-size:300% auto;background-position:4% 0;}
 #ema-home .panel-l{grid-area:l;background-image:url('/themes/ema/assets/alice.webp');background-size:cover;background-position:50% 18%;}
 #ema-home .panel-m{grid-area:m;background-image:url('/themes/ema/assets/shiroha.webp');background-size:200% auto;background-position:62% 97%;}
@@ -300,8 +300,10 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
 }
 
 html[data-color-mode=dark] #ema-home{--paper:#1b222c;--ink:#d6deea;--muted:#aab6c9;--pink:#e3a4c0;--rose:#eaa9c5;--pale-pink:#493447;--sky:#a9c8e4;--rule:#424c5c;--shadow:0 14px 34px #0a0f1a59;}
-html[data-color-mode=dark] #ema-home .hero{background:#1b222c;}
-html[data-color-mode=dark] #ema-home .manga-wall{filter:grayscale(1) invert(1) brightness(.78) contrast(1.05);opacity:.3;}
+/* Dark mode keeps the ink dark: white paper multiplies into an indigo-rose dusk instead of inverting into a negative. */
+html[data-color-mode=dark] #ema-home .hero{background:linear-gradient(115deg,#2a2440 0,#1d2638 45%,#3a2236 100%);}
+html[data-color-mode=dark] #ema-home .manga-wall{background:transparent;filter:grayscale(1) contrast(1.1) blur(.6px);mix-blend-mode:multiply;opacity:1;}
+html[data-color-mode=dark] #ema-home .panel{border-color:#0d1118;background-color:transparent;}
 html[data-color-mode=dark] #ema-home .manga-wall::after{opacity:.1;}
 html[data-color-mode=dark] #ema-home .focus-lines{background:repeating-conic-gradient(from 0deg at 66% 40%,#dfe6f514 0deg .8deg,transparent .8deg 4.4deg);}
 html[data-color-mode=dark] #ema-home .hero-veil{background:radial-gradient(ellipse 50% 62% at 22% 52%,#1b222cf0 0,#1b222cb8 46%,transparent 78%),radial-gradient(ellipse 30% 46% at 66% 44%,#1b222c8c 0,transparent 70%),linear-gradient(180deg,#1b222c00 76%,var(--paper) 100%);}

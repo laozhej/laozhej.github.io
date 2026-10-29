@@ -86,37 +86,10 @@
       "verified_against_source_image": "The original download was re-fetched on 2026-10-27 and matched byte-for-byte. Each image was visually inspected."
     },
     {
-      "id": "shiki",
-      "title": "Shiki Ryougi / 两仪式 / 両儀式",
-      "file": "assets/shiki.webp",
-      "source_page": "https://sai-zen-sen.jp/works/comics/karanokyoukai/01/01.html",
-      "source_image": "https://sai-zen-sen.jp/works/comics/karanokyoukai/01/01.res/008.png",
-      "attribution": "天空すふぃあ「空の境界 the Garden of sinners」1 / 俯瞰風景 第一回, page 008; original story 奈須きのこ; original character designs 武内崇; published by 星海社 / 最前線",
-      "rights_notice": "Rights remain with the original authors and publisher; no new license is granted here.",
-      "original_dimensions": [
-        600,
-        850
-      ],
-      "dimensions": [
-        600,
-        850
-      ],
-      "original_sha256": "6586ee019913627dca08b5d3a200a02a9eaa7c6ed254eab65b8dc56a8a77e4cb",
-      "has_alpha": false,
-      "rights_reference": "https://sai-zen-sen.jp/rule.html",
-      "sha256": "ac2a03f5c02e643a5962c5e65048598cbaa8bbcf23e901be711258b099cf6cd6",
-      "bytes": 194998,
-      "format": "image/webp",
-      "processing": "Original dimensions retained; palette/RGB(A) normalized and encoded as lossless WebP (Pillow/libwebp, lossless=true, method=6, exact=true).",
-      "generative_ai_used": false,
-      "permission_status": "No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
-      "verified_against_source_image": "The original download was re-fetched on 2026-10-27 and matched byte-for-byte. Each image was visually inspected."
-    },
-    {
       "id": "manga-writing",
       "title": "Frieren writing at a desk",
       "file": "assets/manga-writing.webp",
-      "placement": "chapter-journal",
+      "placement": "chapter-journal, hero-manga-wall",
       "source_page": "https://www.sunday-webry.com/episode/3269754496548997914",
       "source_image": "https://cdn-img.www.sunday-webry.com/public/page/2/3269754496556228798-78480bcc7081a5c1935901305bf965cd",
       "source_reader_page_index": 52,
@@ -152,7 +125,7 @@
       "id": "manga-memory",
       "title": "The party watching a meteor shower",
       "file": "assets/manga-memory.webp",
-      "placement": "chapter-collection",
+      "placement": "chapter-collection, hero-manga-wall, page-side-backdrop",
       "source_page": "https://www.sunday-webry.com/episode/3269754496548997914",
       "source_image": "https://cdn-img.www.sunday-webry.com/public/page/2/3269754496556228757-b11882e9fb5acd8f56b7e97c7fcdbfa4",
       "source_reader_page_index": 11,
@@ -188,7 +161,7 @@
       "id": "manga-about",
       "title": "Frieren: wanting to know people better",
       "file": "assets/manga-about.webp",
-      "placement": "chapter-about",
+      "placement": "chapter-about, hero-manga-wall",
       "source_page": "https://www.sunday-webry.com/episode/3269754496548997914",
       "source_image": "https://cdn-img.www.sunday-webry.com/public/page/2/3269754496556228782-5ae9d2193dd9d927ab25f28c9946098a",
       "source_reader_page_index": 36,

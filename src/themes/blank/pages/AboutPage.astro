@@ -7,7 +7,7 @@ import BlankLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "../components/PageHead.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 const { locale, t } = getI18n(Astro.url.pathname);
-const { animeFavorites, currentSignals, favoriteGames, profileIdentity, profileStatus, profileTech, xpFavorites } = getSiteContent(locale);
+const { animeFavorites, animeListUrl, currentSignals, favoriteGames, profileIdentity, profileStatus, profileTech, xpFavorites } = getSiteContent(locale);
 ---
 <BlankLayout title={`About | ${site.name}`} description={t("about.description")}>
   <PageHead index="04" title="About" label={t("common.about")} description={t("about.intro")} />
@@ -33,6 +33,7 @@ const { animeFavorites, currentSignals, favoriteGames, profileIdentity, profileS
       {xpFavorites.length > 6 && <button class="blank-text-link blank-character-toggle" type="button" data-site-disclosure-toggle data-label-more={t("about.charactersMore")} data-label-less={t("about.charactersLess")} aria-expanded="false" aria-controls="blank-character-list" hidden><span data-site-disclosure-label>{t("about.charactersMore")}</span><Icon name="tabler:chevron-down" size={16} aria-hidden="true" /></button>}
       <h3 class="blank-kicker blank-anime-kicker">{t("about.animeKicker")}</h3>
       <ol class="blank-favorites-list blank-anime-list">{animeFavorites.map((item, index) => <li><span class="blank-row-number">{String(index + 1).padStart(2, "0")}</span><div><strong><a class="blank-text-link" href={item.url} target="_blank" rel="noopener noreferrer">{item.title} <Icon name="tabler:external-link" size={15} /></a></strong><span>{item.subtitle}</span></div></li>)}</ol>
+      <a class="blank-text-link blank-anime-more" href={animeListUrl} target="_blank" rel="noopener noreferrer">{t("about.animesNotion")} <Icon name="tabler:external-link" size={15} /></a>
     </div>
   </section>
   <section class="blank-section blank-about-section">

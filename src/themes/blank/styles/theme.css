@@ -242,6 +242,7 @@ details[open] > summary > .blank-disclosure-icon { transform: rotate(180deg); }
 .blank-favorites-list { margin: 16px 0 36px !important; }
 .blank-anime-kicker { margin-top: 36px; }
 .blank-favorites-list.blank-anime-list { margin-bottom: 0 !important; }
+.blank-anime-more { display: inline-flex; align-items: center; gap: 4px; margin-top: 14px; font-size: .8125rem; }
 .blank-favorites-list li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 16px; border-bottom: 1px solid var(--blank-line); padding: 14px 0; }
 .blank-favorites-list strong, .blank-favorite-games strong { display: block; font-size: .875rem; font-weight: 500; }
 .blank-favorites-list li > div > span, .blank-favorite-games li > span { display: block; font-size: .6875rem; color: var(--blank-muted); margin-top: 3px; }

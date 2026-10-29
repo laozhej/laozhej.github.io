@@ -2,6 +2,8 @@
 // Source of truth: the owner's Notion database 动漫记录 (动漫 · 追番档案). Only rows with
 // 允许网站展示 ticked belong here, in the database's A–Z 排序键 order; synced 2026-10-29.
 // Cover provenance and crop records: public/animes/ASSETS.json.
+// The full list stays in Notion; the About page links to it. Visitors can open it only while the page is published to the web.
+export const animeListUrl = "https://www.notion.so/4055956f0cdc81ad869ec4b8472e6a85";
 type Locale = "zh-CN" | "ja" | "en";
 type Genre = "coming-of-age" | "music" | "sci-fi" | "fantasy" | "action" | "mystery" | "romance" | "road" | "life";
 

@@ -2,18 +2,19 @@ import * as profile from "@/core/data/profile";
 import * as projects from "@/core/data/projects";
 import { games } from "@/core/data/games";
 import { getFavoriteCharacters } from "@/core/data/characters";
-import { getFavoriteAnimes } from "@/core/data/animes";
+import { animeListUrl, getFavoriteAnimes } from "@/core/data/animes";
 import { checkGames, linkFavoriteGames, localizeGames } from "@/core/content/select-games.mjs";
 
 // Theme-independent content. Stable keys and URLs are shared by every locale.
 checkGames(games);
 // Favorite games get their link from the shelf entry with the same key, in every language.
 const linked = <T extends { favoriteGames: readonly { key: string }[] }>(content: T) => ({ ...content, favoriteGames: linkFavoriteGames(content.favoriteGames, games) });
-const zh = linked({ ...profile, ...projects, gameShelf: localizeGames(games, "zh-CN"), animeFavorites: getFavoriteAnimes("zh-CN") });
+const zh = linked({ ...profile, ...projects, gameShelf: localizeGames(games, "zh-CN"), animeFavorites: getFavoriteAnimes("zh-CN"), animeListUrl });
 
 const ja = linked({
   gameShelf: localizeGames(games, "ja"),
   animeFavorites: getFavoriteAnimes("ja"),
+  animeListUrl,
   profileIdentity: {
     displayName: "荒滝 旭",
     handle: "PROFILE / プロフィール",
@@ -55,6 +56,7 @@ const ja = linked({
 const en = linked({
   gameShelf: localizeGames(games, "en"),
   animeFavorites: getFavoriteAnimes("en"),
+  animeListUrl,
   profileIdentity: {
     displayName: "Arataki Asahi",
     handle: "PERSONAL PROFILE",

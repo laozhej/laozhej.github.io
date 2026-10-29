@@ -13,7 +13,7 @@ import "../styles/shelf.css";
 import "../styles/about.css";
 
 const { locale, t, href } = getI18n(Astro.url.pathname);
-const { animeFavorites, currentSignals, favoriteGames, gameShelf, profileIdentity, profileStatus, profileTech, projectTechLines, xpFavorites } = getSiteContent(locale);
+const { animeFavorites, animeListUrl, currentSignals, favoriteGames, gameShelf, profileIdentity, profileStatus, profileTech, projectTechLines, xpFavorites } = getSiteContent(locale);
 const tones = ["pink", "blue", "green", "lavender", "yellow"];
 const tone = (index: number, offset = 0) => `tone-${tones[(index + offset) % tones.length]}`;
 const number = (index: number) => String(index + 1).padStart(2, "0");
@@ -123,6 +123,7 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
             </li>
           ))}
         </ul>
+        <a class="about-more" href={animeListUrl} target="_blank" rel="noopener noreferrer">{t("about.animesNotion")}<Icon name="tabler:arrow-up-right" size={16} aria-hidden="true" /></a>
       </section>
 
       <section class="about-section" aria-labelledby="ema-about-now">

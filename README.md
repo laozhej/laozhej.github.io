@@ -106,6 +106,7 @@ tags: [标签一, 标签二]
 
 - [Asahi Arataki (@laozhej)](https://github.com/laozhej)：网站维护与内容。
 - [Codex (@codex)](https://github.com/codex)：协助网站开发与维护。
+- [Claude (@claude)](https://github.com/claude)：协助网站的前端设计、开发与维护。
 
 ## 来源与许可
 

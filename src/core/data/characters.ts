@@ -1,4 +1,4 @@
-// Owner-selected characters, in the order provided on 2026-10-29.
+// Owner-selected characters, preserving the requested order within each addition.
 // Artwork provenance and crop records: public/characters/ASSETS.json.
 const characters = [
   {
@@ -560,6 +560,326 @@ const characters = [
       "en": "The Angel Next Door Spoils Me Rotten"
     },
     "path": "/characters/mahiru.webp"
+  },
+  {
+    "key": "yui-hirasawa",
+    "title": {
+      "zh-CN": "平泽唯",
+      "zh-TW": "平澤唯",
+      "ja": "平沢唯",
+      "en": "Yui Hirasawa"
+    },
+    "work": {
+      "zh-CN": "轻音少女",
+      "zh-TW": "K-ON! 輕音部",
+      "ja": "けいおん！",
+      "en": "K-On!"
+    },
+    "path": "/characters/yui-hirasawa.webp"
+  },
+  {
+    "key": "mio-akiyama",
+    "title": {
+      "zh-CN": "秋山澪",
+      "zh-TW": "秋山澪",
+      "ja": "秋山澪",
+      "en": "Mio Akiyama"
+    },
+    "work": {
+      "zh-CN": "轻音少女",
+      "zh-TW": "K-ON! 輕音部",
+      "ja": "けいおん！",
+      "en": "K-On!"
+    },
+    "path": "/characters/mio-akiyama.webp"
+  },
+  {
+    "key": "azusa-nakano",
+    "title": {
+      "zh-CN": "中野梓",
+      "zh-TW": "中野梓",
+      "ja": "中野梓",
+      "en": "Azusa Nakano"
+    },
+    "work": {
+      "zh-CN": "轻音少女",
+      "zh-TW": "K-ON! 輕音部",
+      "ja": "けいおん！",
+      "en": "K-On!"
+    },
+    "path": "/characters/azusa-nakano.webp"
+  },
+  {
+    "key": "violet-evergarden",
+    "title": {
+      "zh-CN": "薇尔莉特",
+      "zh-TW": "薇爾莉特",
+      "ja": "ヴァイオレット・エヴァーガーデン",
+      "en": "Violet Evergarden"
+    },
+    "work": {
+      "zh-CN": "紫罗兰永恒花园",
+      "zh-TW": "紫羅蘭永恆花園",
+      "ja": "ヴァイオレット・エヴァーガーデン",
+      "en": "Violet Evergarden"
+    },
+    "path": "/characters/violet-evergarden.webp"
+  },
+  {
+    "key": "rintaro-okabe",
+    "title": {
+      "zh-CN": "冈部伦太郎",
+      "zh-TW": "岡部倫太郎",
+      "ja": "岡部倫太郎",
+      "en": "Rintaro Okabe"
+    },
+    "work": {
+      "zh-CN": "命运石之门",
+      "zh-TW": "命運石之門",
+      "ja": "シュタインズ・ゲート",
+      "en": "Steins;Gate"
+    },
+    "path": "/characters/rintaro-okabe.webp"
+  },
+  {
+    "key": "kurisu-makise",
+    "title": {
+      "zh-CN": "牧濑红莉栖",
+      "zh-TW": "牧瀨紅莉栖",
+      "ja": "牧瀬紅莉栖",
+      "en": "Kurisu Makise"
+    },
+    "work": {
+      "zh-CN": "命运石之门",
+      "zh-TW": "命運石之門",
+      "ja": "シュタインズ・ゲート",
+      "en": "Steins;Gate"
+    },
+    "path": "/characters/kurisu-makise.webp"
+  },
+  {
+    "key": "david-martinez",
+    "title": {
+      "zh-CN": "大卫·马丁内斯",
+      "zh-TW": "大衛・馬丁尼茲",
+      "ja": "デイビッド・マルティネス",
+      "en": "David Martinez"
+    },
+    "work": {
+      "zh-CN": "赛博朋克：边缘行者",
+      "zh-TW": "電馭叛客：邊緣行者",
+      "ja": "サイバーパンク エッジランナーズ",
+      "en": "Cyberpunk: Edgerunners"
+    },
+    "path": "/characters/david-martinez.webp"
+  },
+  {
+    "key": "rebecca",
+    "title": {
+      "zh-CN": "丽贝卡",
+      "zh-TW": "蕾貝卡",
+      "ja": "レベッカ",
+      "en": "Rebecca"
+    },
+    "work": {
+      "zh-CN": "赛博朋克：边缘行者",
+      "zh-TW": "電馭叛客：邊緣行者",
+      "ja": "サイバーパンク エッジランナーズ",
+      "en": "Cyberpunk: Edgerunners"
+    },
+    "path": "/characters/rebecca.webp"
+  },
+  {
+    "key": "kirito",
+    "title": {
+      "zh-CN": "桐人",
+      "zh-TW": "桐人",
+      "ja": "キリト",
+      "en": "Kirito"
+    },
+    "work": {
+      "zh-CN": "刀剑神域",
+      "zh-TW": "刀劍神域",
+      "ja": "ソードアート・オンライン",
+      "en": "Sword Art Online"
+    },
+    "path": "/characters/kirito.webp"
+  },
+  {
+    "key": "asuna",
+    "title": {
+      "zh-CN": "亚丝娜",
+      "zh-TW": "亞絲娜",
+      "ja": "アスナ",
+      "en": "Asuna"
+    },
+    "work": {
+      "zh-CN": "刀剑神域",
+      "zh-TW": "刀劍神域",
+      "ja": "ソードアート・オンライン",
+      "en": "Sword Art Online"
+    },
+    "path": "/characters/asuna.webp"
+  },
+  {
+    "key": "yukino-yukinoshita",
+    "title": {
+      "zh-CN": "雪之下雪乃",
+      "zh-TW": "雪之下雪乃",
+      "ja": "雪ノ下雪乃",
+      "en": "Yukino Yukinoshita"
+    },
+    "work": {
+      "zh-CN": "我的青春恋爱物语果然有问题。",
+      "zh-TW": "果然我的青春戀愛喜劇搞錯了。",
+      "ja": "やはり俺の青春ラブコメはまちがっている。",
+      "en": "My Teen Romantic Comedy SNAFU"
+    },
+    "path": "/characters/yukino-yukinoshita.webp"
+  },
+  {
+    "key": "sora-ngnl",
+    "title": {
+      "zh-CN": "空",
+      "zh-TW": "空",
+      "ja": "空",
+      "en": "Sora"
+    },
+    "work": {
+      "zh-CN": "游戏人生",
+      "zh-TW": "NO GAME NO LIFE 遊戲人生",
+      "ja": "ノーゲーム・ノーライフ",
+      "en": "No Game No Life"
+    },
+    "path": "/characters/sora-ngnl.webp"
+  },
+  {
+    "key": "shiro-ngnl",
+    "title": {
+      "zh-CN": "白",
+      "zh-TW": "白",
+      "ja": "白",
+      "en": "Shiro"
+    },
+    "work": {
+      "zh-CN": "游戏人生",
+      "zh-TW": "NO GAME NO LIFE 遊戲人生",
+      "ja": "ノーゲーム・ノーライフ",
+      "en": "No Game No Life"
+    },
+    "path": "/characters/shiro-ngnl.webp"
+  },
+  {
+    "key": "elaina",
+    "title": {
+      "zh-CN": "伊蕾娜",
+      "zh-TW": "伊蕾娜",
+      "ja": "イレイナ",
+      "en": "Elaina"
+    },
+    "work": {
+      "zh-CN": "魔女之旅",
+      "zh-TW": "魔女之旅",
+      "ja": "魔女の旅々",
+      "en": "Wandering Witch: The Journey of Elaina"
+    },
+    "path": "/characters/elaina.webp"
+  },
+  {
+    "key": "atri",
+    "title": {
+      "zh-CN": "亚托莉",
+      "zh-TW": "亞托莉",
+      "ja": "アトリ",
+      "en": "Atri"
+    },
+    "work": {
+      "zh-CN": "ATRI -My Dear Moments-",
+      "zh-TW": "ATRI -My Dear Moments-",
+      "ja": "ATRI -My Dear Moments-",
+      "en": "ATRI -My Dear Moments-"
+    },
+    "path": "/characters/atri.webp"
+  },
+  {
+    "key": "megumin",
+    "title": {
+      "zh-CN": "惠惠",
+      "zh-TW": "惠惠",
+      "ja": "めぐみん",
+      "en": "Megumin"
+    },
+    "work": {
+      "zh-CN": "为美好的世界献上爆焰！",
+      "zh-TW": "為美好的世界獻上爆焰！",
+      "ja": "この素晴らしい世界に爆焔を！",
+      "en": "KonoSuba: An Explosion on This Wonderful World!"
+    },
+    "path": "/characters/megumin.webp"
+  },
+  {
+    "key": "sora-kasugano",
+    "title": {
+      "zh-CN": "春日野穹",
+      "zh-TW": "春日野穹",
+      "ja": "春日野穹",
+      "en": "Sora Kasugano"
+    },
+    "work": {
+      "zh-CN": "缘之空",
+      "zh-TW": "緣之空",
+      "ja": "ヨスガノソラ",
+      "en": "Yosuga no Sora"
+    },
+    "path": "/characters/sora-kasugano.webp"
+  },
+  {
+    "key": "touko-nanami",
+    "title": {
+      "zh-CN": "七海灯子",
+      "zh-TW": "七海燈子",
+      "ja": "七海燈子",
+      "en": "Touko Nanami"
+    },
+    "work": {
+      "zh-CN": "终将成为你",
+      "zh-TW": "終將成為妳",
+      "ja": "やがて君になる",
+      "en": "Bloom Into You"
+    },
+    "path": "/characters/touko-nanami.webp"
+  },
+  {
+    "key": "eru-chitanda",
+    "title": {
+      "zh-CN": "千反田爱瑠",
+      "zh-TW": "千反田愛瑠",
+      "ja": "千反田える",
+      "en": "Eru Chitanda"
+    },
+    "work": {
+      "zh-CN": "冰菓",
+      "zh-TW": "冰菓",
+      "ja": "氷菓",
+      "en": "Hyouka"
+    },
+    "path": "/characters/eru-chitanda.webp"
+  },
+  {
+    "key": "miku-nakano",
+    "title": {
+      "zh-CN": "中野三玖",
+      "zh-TW": "中野三玖",
+      "ja": "中野三玖",
+      "en": "Miku Nakano"
+    },
+    "work": {
+      "zh-CN": "五等分的新娘",
+      "zh-TW": "五等分的新娘",
+      "ja": "五等分の花嫁",
+      "en": "The Quintessential Quintuplets"
+    },
+    "path": "/characters/miku-nakano.webp"
   }
 ] as const;
 

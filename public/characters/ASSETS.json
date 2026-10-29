@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "verified_on": "2026-10-29",
+  "verified_on": "2026-10-30",
   "scope": "Portraits for the owner-selected favorite characters. Third-party art is excluded from the repository software license. Source records do not grant republication rights.",
   "processing": "Deterministic rectangular crops, LANCZOS resizing, and WebP encoding only. No generative AI, generative fill, redrawing, or synthetic upscaling.",
   "assets": [
@@ -1537,6 +1537,946 @@
       "retrievedAt": "2026-10-29",
       "sha256": "61aae47feb0c4e21eb8cce2e03aaf910c116e95342a27551b7ab16811b7372e5",
       "bytes": 28732,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "yui-hirasawa",
+      "title": {
+        "zh-CN": "平泽唯",
+        "zh-TW": "平澤唯",
+        "ja": "平沢唯",
+        "en": "Yui Hirasawa"
+      },
+      "work": {
+        "zh-CN": "轻音少女",
+        "zh-TW": "K-ON! 輕音部",
+        "ja": "けいおん！",
+        "en": "K-On!"
+      },
+      "path": "/characters/yui-hirasawa.webp",
+      "sourcePage": "https://www.tbs.co.jp/anime/k-on/k-on_tv/chara/chara01.html",
+      "sourceImage": "https://www.tbs.co.jp/anime/k-on/k-on_tv/chara/images/chara_photo01.gif",
+      "copyright": "©かきふらい・芳文社／桜高軽音部",
+      "creator": "Original manga: かきふらい; animation production: 京都アニメーション",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          300,
+          441
+        ],
+        "box": [
+          0,
+          100,
+          175,
+          275
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "36ffb6ebe26c4213eb5096b4cfdd9c0e7499287001b93fcb4396b1e5029178e5",
+      "sha256": "5be80ed39e5fa5ca49118b23b9bc6ea31a52df80ebef8b0a56a5827c06b47605",
+      "bytes": 31822,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "mio-akiyama",
+      "title": {
+        "zh-CN": "秋山澪",
+        "zh-TW": "秋山澪",
+        "ja": "秋山澪",
+        "en": "Mio Akiyama"
+      },
+      "work": {
+        "zh-CN": "轻音少女",
+        "zh-TW": "K-ON! 輕音部",
+        "ja": "けいおん！",
+        "en": "K-On!"
+      },
+      "path": "/characters/mio-akiyama.webp",
+      "sourcePage": "https://www.tbs.co.jp/anime/k-on/k-on_tv/chara/chara02.html",
+      "sourceImage": "https://www.tbs.co.jp/anime/k-on/k-on_tv/chara/images/chara_photo02.gif",
+      "copyright": "©かきふらい・芳文社／桜高軽音部",
+      "creator": "Original manga: かきふらい; animation production: 京都アニメーション",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          300,
+          441
+        ],
+        "box": [
+          0,
+          100,
+          175,
+          275
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "896ed23f17b17465e8792f7640f138fd8759db4a38e26e4916cfc551a5a91926",
+      "sha256": "53b84d7c27102e823af36dc088c938f4d78692783ac61bdb23eb8acb3c7b3d0d",
+      "bytes": 19890,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "azusa-nakano",
+      "title": {
+        "zh-CN": "中野梓",
+        "zh-TW": "中野梓",
+        "ja": "中野梓",
+        "en": "Azusa Nakano"
+      },
+      "work": {
+        "zh-CN": "轻音少女",
+        "zh-TW": "K-ON! 輕音部",
+        "ja": "けいおん！",
+        "en": "K-On!"
+      },
+      "path": "/characters/azusa-nakano.webp",
+      "sourcePage": "https://www.tbs.co.jp/anime/k-on/k-on_tv/chara/chara08.html",
+      "sourceImage": "https://www.tbs.co.jp/anime/k-on/k-on_tv/chara/images/chara_photo08.gif",
+      "copyright": "©かきふらい・芳文社／桜高軽音部",
+      "creator": "Original manga: かきふらい; animation production: 京都アニメーション",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          300,
+          441
+        ],
+        "box": [
+          0,
+          100,
+          175,
+          275
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "0b7497834ed9650e804581ea4a997badbf450b466d02db98f3ba2c97763f4d71",
+      "sha256": "15da7f8b9e1b0d96c1e4e3145d249b44f0f3492654025bb4cbd47aa6ddc65f9c",
+      "bytes": 28092,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "violet-evergarden",
+      "title": {
+        "zh-CN": "薇尔莉特",
+        "zh-TW": "薇爾莉特",
+        "ja": "ヴァイオレット・エヴァーガーデン",
+        "en": "Violet Evergarden"
+      },
+      "work": {
+        "zh-CN": "紫罗兰永恒花园",
+        "zh-TW": "紫羅蘭永恆花園",
+        "ja": "ヴァイオレット・エヴァーガーデン",
+        "en": "Violet Evergarden"
+      },
+      "path": "/characters/violet-evergarden.webp",
+      "sourcePage": "https://tv.violet-evergarden.jp/character/",
+      "sourceImage": "https://tv.violet-evergarden.jp/img/character/violetImg.png",
+      "copyright": "©暁佳奈・京都アニメーション／ヴァイオレット・エヴァーガーデン製作委員会",
+      "creator": "Original work: 暁佳奈; animation production: 京都アニメーション",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          530,
+          520
+        ],
+        "box": [
+          190,
+          60,
+          350,
+          220
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "6093963b72d301805a9ff772ca3759fd0e8c587f10845d5b339f1eecdcf99fd2",
+      "sha256": "bbf3e3a1eaa3708f34a45d473f4d57dc013d3774dc18efa4a78bf947b5ac2371",
+      "bytes": 32702,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "rintaro-okabe",
+      "title": {
+        "zh-CN": "冈部伦太郎",
+        "zh-TW": "岡部倫太郎",
+        "ja": "岡部倫太郎",
+        "en": "Rintaro Okabe"
+      },
+      "work": {
+        "zh-CN": "命运石之门",
+        "zh-TW": "命運石之門",
+        "ja": "シュタインズ・ゲート",
+        "en": "Steins;Gate"
+      },
+      "path": "/characters/rintaro-okabe.webp",
+      "sourcePage": "http://www.steinsgate.tv/character/",
+      "sourceImage": "http://www.steinsgate.tv/character/images/img_okabe.jpg",
+      "copyright": "© 2009-2010 5pb. Inc./Nitroplus; © 2011 5pb.／Nitroplus 未来ガジェット研究所",
+      "creator": "Official TV anime character model sheet; individual illustration artist not specified on source page",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          720,
+          865
+        ],
+        "box": [
+          185,
+          10,
+          410,
+          235
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "b8f5cdf3ca1e7cd3f48aa1f3c6cff5ca2ac85689cccbc8598cdef9822fd0efc8",
+      "sha256": "666ccba4e4ebf18d6c5f02c99fc5cf060477687764776181ce81f086c93b2f8a",
+      "bytes": 26434,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "kurisu-makise",
+      "title": {
+        "zh-CN": "牧濑红莉栖",
+        "zh-TW": "牧瀨紅莉栖",
+        "ja": "牧瀬紅莉栖",
+        "en": "Kurisu Makise"
+      },
+      "work": {
+        "zh-CN": "命运石之门",
+        "zh-TW": "命運石之門",
+        "ja": "シュタインズ・ゲート",
+        "en": "Steins;Gate"
+      },
+      "path": "/characters/kurisu-makise.webp",
+      "sourcePage": "http://www.steinsgate.tv/character/chris.html",
+      "sourceImage": "http://www.steinsgate.tv/character/images/img_chris.jpg",
+      "copyright": "© 2009-2010 5pb. Inc./Nitroplus; © 2011 5pb.／Nitroplus 未来ガジェット研究所",
+      "creator": "Official TV anime character model sheet; individual illustration artist not specified on source page",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          720,
+          865
+        ],
+        "box": [
+          225,
+          10,
+          405,
+          190
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "aad9d2eba0ae68f03c2ceb5c060bc38354b5d27f86c3841acd3d7058ce78ee6e",
+      "sha256": "02b6ff1a4843664835a7b495b10c5a5f4c26f2d73bf385f551047eef93feac51",
+      "bytes": 16966,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "david-martinez",
+      "title": {
+        "zh-CN": "大卫·马丁内斯",
+        "zh-TW": "大衛・馬丁尼茲",
+        "ja": "デイビッド・マルティネス",
+        "en": "David Martinez"
+      },
+      "work": {
+        "zh-CN": "赛博朋克：边缘行者",
+        "zh-TW": "電馭叛客：邊緣行者",
+        "ja": "サイバーパンク エッジランナーズ",
+        "en": "Cyberpunk: Edgerunners"
+      },
+      "path": "/characters/david-martinez.webp",
+      "sourcePage": "https://www.cyberpunk.net/ja/edgerunners",
+      "sourceImage": "https://www.cyberpunk.net/build/images/edgerunners/characters/david@1x-6aa86c3e.png",
+      "copyright": "CD PROJEKT RED / TRIGGER; Cyberpunk: Edgerunners",
+      "creator": "Animation production: TRIGGER; CD PROJEKT RED",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          273,
+          400
+        ],
+        "box": [
+          70,
+          15,
+          190,
+          135
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "dd5f48b737d30e33633033a0726d9393f15c414fbd3b2c56294cce05578006f9",
+      "sha256": "30ed4ba7e5c2eeb2ce174d0c14c758a78e2018174071125d671cc8e7f9b2cebb",
+      "bytes": 17872,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "rebecca",
+      "title": {
+        "zh-CN": "丽贝卡",
+        "zh-TW": "蕾貝卡",
+        "ja": "レベッカ",
+        "en": "Rebecca"
+      },
+      "work": {
+        "zh-CN": "赛博朋克：边缘行者",
+        "zh-TW": "電馭叛客：邊緣行者",
+        "ja": "サイバーパンク エッジランナーズ",
+        "en": "Cyberpunk: Edgerunners"
+      },
+      "path": "/characters/rebecca.webp",
+      "sourcePage": "https://www.cyberpunk.net/ja/edgerunners",
+      "sourceImage": "https://www.cyberpunk.net/build/images/edgerunners/characters/rebecca@1x-b8bc9202.png",
+      "copyright": "CD PROJEKT RED / TRIGGER; Cyberpunk: Edgerunners",
+      "creator": "Animation production: TRIGGER; CD PROJEKT RED",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          273,
+          400
+        ],
+        "box": [
+          80,
+          43,
+          200,
+          163
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "bec04f6c692b34dcce1095842f4ed8b36c32a97366d4d6594ac9ba121d68deee",
+      "sha256": "28c1a28fcc99cbcde5a5d0c00c600980352784aca5ba917f1e840f201234eb75",
+      "bytes": 21718,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "kirito",
+      "title": {
+        "zh-CN": "桐人",
+        "zh-TW": "桐人",
+        "ja": "キリト",
+        "en": "Kirito"
+      },
+      "work": {
+        "zh-CN": "刀剑神域",
+        "zh-TW": "刀劍神域",
+        "ja": "ソードアート・オンライン",
+        "en": "Sword Art Online"
+      },
+      "path": "/characters/kirito.webp",
+      "sourcePage": "https://www.swordart-online.net/aincrad/character/",
+      "sourceImage": "https://www.swordart-online.net/aincrad/assets/img/chara/big/01_kirito.png",
+      "copyright": "©川原 礫／アスキー・メディアワークス／SAO Project",
+      "creator": "Original work: 川原礫; official Aincrad TV anime character model sheet",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          773,
+          1056
+        ],
+        "box": [
+          265,
+          0,
+          460,
+          195
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "b1cbe7a6c93e08e88bce2cb3604ae3d5e62ba08ebb09d3dfc49ca45a3401138a",
+      "sha256": "f13a5be575f51dcc9f2ab5be5ee58cf5de1b45bfd8274a22d527c8d10c0a2661",
+      "bytes": 23950,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "asuna",
+      "title": {
+        "zh-CN": "亚丝娜",
+        "zh-TW": "亞絲娜",
+        "ja": "アスナ",
+        "en": "Asuna"
+      },
+      "work": {
+        "zh-CN": "刀剑神域",
+        "zh-TW": "刀劍神域",
+        "ja": "ソードアート・オンライン",
+        "en": "Sword Art Online"
+      },
+      "path": "/characters/asuna.webp",
+      "sourcePage": "https://www.swordart-online.net/aincrad/character/",
+      "sourceImage": "https://www.swordart-online.net/aincrad/assets/img/chara/big/02_asuna.png",
+      "copyright": "©川原 礫／アスキー・メディアワークス／SAO Project",
+      "creator": "Original work: 川原礫; official Aincrad TV anime character model sheet",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          773,
+          1056
+        ],
+        "box": [
+          230,
+          0,
+          425,
+          195
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "1a6374775d2072fd899b5746dd8f1e4178812d4cf27e9e2bdd291d76a06bda90",
+      "sha256": "a9f6176bd327a941288ee920be1ad57010ceb8d21e91911e1465c328980d7c7f",
+      "bytes": 24220,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "yukino-yukinoshita",
+      "title": {
+        "zh-CN": "雪之下雪乃",
+        "zh-TW": "雪之下雪乃",
+        "ja": "雪ノ下雪乃",
+        "en": "Yukino Yukinoshita"
+      },
+      "work": {
+        "zh-CN": "我的青春恋爱物语果然有问题。",
+        "zh-TW": "果然我的青春戀愛喜劇搞錯了。",
+        "ja": "やはり俺の青春ラブコメはまちがっている。",
+        "en": "My Teen Romantic Comedy SNAFU"
+      },
+      "path": "/characters/yukino-yukinoshita.webp",
+      "sourcePage": "https://www.tbs.co.jp/anime/oregairu/character/chara02.html",
+      "sourceImage": "https://www.tbs.co.jp/anime/oregairu/character/img/charaall_02.png",
+      "copyright": "©渡 航、小学館／やはりこの製作委員会はまちがっている。完",
+      "creator": "Original work: 渡航; official TV anime character image",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          460,
+          460
+        ],
+        "box": [
+          15,
+          5,
+          375,
+          365
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "576139b8d15b71cac805fb712fc097218bcb534e6d63f2a7aba201587f8b03f6",
+      "sha256": "9939375f48fb2fd058da76be2d08427b9b6a4adffc4196b4709b1175957226d4",
+      "bytes": 16336,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "sora-ngnl",
+      "title": {
+        "zh-CN": "空",
+        "zh-TW": "空",
+        "ja": "空",
+        "en": "Sora"
+      },
+      "work": {
+        "zh-CN": "游戏人生",
+        "zh-TW": "NO GAME NO LIFE 遊戲人生",
+        "ja": "ノーゲーム・ノーライフ",
+        "en": "No Game No Life"
+      },
+      "path": "/characters/sora-ngnl.webp",
+      "sourcePage": "https://ngnl.jp/tv/character/",
+      "sourceImage": "https://ngnl.jp/tv/images/img-character-sora.png",
+      "copyright": "©2014 榎宮祐・株式会社KADOKAWA メディアファクトリー刊／ノーゲーム・ノーライフ全権代理委員会",
+      "creator": "Original work and illustrations: 榎宮祐; official TV anime character model sheet",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          742,
+          730
+        ],
+        "box": [
+          240,
+          360,
+          490,
+          610
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "7a2e40e69a46434549a649184b2e76078319a32aec872be797d9ccd0eaf6ca15",
+      "sha256": "b35552c09237116d5a5de0a7768f4f9422bd797c6e49025d4bcf3888d10fa25a",
+      "bytes": 33238,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "shiro-ngnl",
+      "title": {
+        "zh-CN": "白",
+        "zh-TW": "白",
+        "ja": "白",
+        "en": "Shiro"
+      },
+      "work": {
+        "zh-CN": "游戏人生",
+        "zh-TW": "NO GAME NO LIFE 遊戲人生",
+        "ja": "ノーゲーム・ノーライフ",
+        "en": "No Game No Life"
+      },
+      "path": "/characters/shiro-ngnl.webp",
+      "sourcePage": "https://ngnl.jp/tv/character/chara02.html",
+      "sourceImage": "https://ngnl.jp/tv/images/img-character-siro.png",
+      "copyright": "©2014 榎宮祐・株式会社KADOKAWA メディアファクトリー刊／ノーゲーム・ノーライフ全権代理委員会",
+      "creator": "Original work and illustrations: 榎宮祐; official TV anime character model sheet",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          740,
+          658
+        ],
+        "box": [
+          300,
+          320,
+          520,
+          540
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "44c46b1e43a998564204cbd2ddde9b48bd5c8c4d40d964019205644866add317",
+      "sha256": "c8ec2d943ab2519b07fb39b67ad43345078d05c85dcd8a3d0fc4af9cfda1c185",
+      "bytes": 43024,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "elaina",
+      "title": {
+        "zh-CN": "伊蕾娜",
+        "zh-TW": "伊蕾娜",
+        "ja": "イレイナ",
+        "en": "Elaina"
+      },
+      "work": {
+        "zh-CN": "魔女之旅",
+        "zh-TW": "魔女之旅",
+        "ja": "魔女の旅々",
+        "en": "Wandering Witch: The Journey of Elaina"
+      },
+      "path": "/characters/elaina.webp",
+      "sourcePage": "https://majotabi.jp/#Character",
+      "sourceImage": "https://majotabi.jp/assets/character/c1.png?0701",
+      "copyright": "©白石定規・SBクリエイティブ／魔女の旅々製作委員会",
+      "creator": "Original work: 白石定規; original character design: あずーる; anime character design: 小田武士; animation production: C2C",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          1440,
+          1440
+        ],
+        "box": [
+          870,
+          130,
+          1310,
+          570
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "b2bef69211232c0b0ce6d5ea4caebe2fe044c54c2befb1a289dbb2f2da5bb211",
+      "sha256": "6ff6b6a938b70e63ab997af37ae123003df5b254cf5a2b83302a5f872c92dc77",
+      "bytes": 25592,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "atri",
+      "title": {
+        "zh-CN": "亚托莉",
+        "zh-TW": "亞托莉",
+        "ja": "アトリ",
+        "en": "Atri"
+      },
+      "work": {
+        "zh-CN": "ATRI -My Dear Moments-",
+        "zh-TW": "ATRI -My Dear Moments-",
+        "ja": "ATRI -My Dear Moments-",
+        "en": "ATRI -My Dear Moments-"
+      },
+      "path": "/characters/atri.webp",
+      "sourcePage": "https://atri-anime.com/character/atri.html",
+      "sourceImage": "https://atri-anime.com/assets/img/character/ph/ph_atri.png",
+      "copyright": "©ATRI ANIME PROJECT",
+      "creator": "Official ATRI TV anime character model sheet; individual illustration artist not specified on source page",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          721,
+          974
+        ],
+        "box": [
+          210,
+          15,
+          440,
+          245
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "63744158d0812cf430c9612e48402851ae144603a6cb53fb6a9d6e629a3ab3eb",
+      "sha256": "0444f80eb5e7bcb2b9900b9f048e1ecc51991beb59f29e6a6c791469606be47d",
+      "bytes": 32142,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "megumin",
+      "title": {
+        "zh-CN": "惠惠",
+        "zh-TW": "惠惠",
+        "ja": "めぐみん",
+        "en": "Megumin"
+      },
+      "work": {
+        "zh-CN": "为美好的世界献上爆焰！",
+        "zh-TW": "為美好的世界獻上爆焰！",
+        "ja": "この素晴らしい世界に爆焔を！",
+        "en": "KonoSuba: An Explosion on This Wonderful World!"
+      },
+      "path": "/characters/megumin.webp",
+      "sourcePage": "https://konosuba.com/bakuen/character/",
+      "sourceImage": "https://konosuba.com/bakuen/character/img/megmin.png",
+      "copyright": "©2023 暁なつめ・三嶋くろね／KADOKAWA／このすば爆焔製作委員会",
+      "creator": "Original work: 暁なつめ; original illustrations: 三嶋くろね; official Bakuen TV anime character illustration",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          488,
+          689
+        ],
+        "box": [
+          125,
+          40,
+          345,
+          260
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "d37ddc03556925a5b1ec59e8aa02a3f85591a0e3669c7272c8ae6b3917551476",
+      "sha256": "a0568618ab8de4ad105967eae42ac3bf4a64423b568547c5cb414436035dd3db",
+      "bytes": 29296,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "sora-kasugano",
+      "title": {
+        "zh-CN": "春日野穹",
+        "zh-TW": "春日野穹",
+        "ja": "春日野穹",
+        "en": "Sora Kasugano"
+      },
+      "work": {
+        "zh-CN": "缘之空",
+        "zh-TW": "緣之空",
+        "ja": "ヨスガノソラ",
+        "en": "Yosuga no Sora"
+      },
+      "path": "/characters/sora-kasugano.webp",
+      "sourcePage": "https://king-cr.jp/special/yosuganosora/character/",
+      "sourceImage": "https://king-cr.jp/special/yosuganosora/images/chara/i_sora.png",
+      "copyright": "©Sphere／奥木染町内会",
+      "creator": "Official Yosuga no Sora TV anime character model sheet; individual illustration artist not specified on source page",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          600,
+          600
+        ],
+        "box": [
+          330,
+          15,
+          550,
+          235
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "e57d7f4b4eb93ce151a095bd0a7a125c6e4b87bbceb41f446a851e45be704f6d",
+      "sha256": "4acda1a08849cc9af26279f987fd440432b8b713f546855d0e685306a285e90b",
+      "bytes": 22464,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "touko-nanami",
+      "title": {
+        "zh-CN": "七海灯子",
+        "zh-TW": "七海燈子",
+        "ja": "七海燈子",
+        "en": "Touko Nanami"
+      },
+      "work": {
+        "zh-CN": "终将成为你",
+        "zh-TW": "終將成為妳",
+        "ja": "やがて君になる",
+        "en": "Bloom Into You"
+      },
+      "path": "/characters/touko-nanami.webp",
+      "sourcePage": "https://yagakimi.com/character/",
+      "sourceImage": "https://yagakimi.com/assets/character/c2.png",
+      "copyright": "©2018 仲谷 鳰／ＫＡＤＯＫＡＷＡ／やがて君になる製作委員会",
+      "creator": "Original manga: 仲谷鳰; official TV anime character model sheet",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          850,
+          650
+        ],
+        "box": [
+          270,
+          395,
+          485,
+          610
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "036d28082e8dc0466f010d7a8e85a7c7d9a95eb95f6b8584d3039e8076004825",
+      "sha256": "2b391077abc3eec03e4b58085124e7cc68e41aeebc308e03abea751109806abc",
+      "bytes": 25592,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "eru-chitanda",
+      "title": {
+        "zh-CN": "千反田爱瑠",
+        "zh-TW": "千反田愛瑠",
+        "ja": "千反田える",
+        "en": "Eru Chitanda"
+      },
+      "work": {
+        "zh-CN": "冰菓",
+        "zh-TW": "冰菓",
+        "ja": "氷菓",
+        "en": "Hyouka"
+      },
+      "path": "/characters/eru-chitanda.webp",
+      "sourcePage": "https://www.kyotoanimation.co.jp/kotenbu/character/",
+      "sourceImage": "https://www.kyotoanimation.co.jp/kotenbu/img/character/chitanda/01.png",
+      "copyright": "©米澤穂信・角川書店／神山高校古典部OB会",
+      "creator": "Original work: 米澤穂信; animation production: 京都アニメーション",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          240,
+          480
+        ],
+        "box": [
+          60,
+          55,
+          180,
+          175
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "74e44680222a9745f24b7356339b609b7ea23adf46865de00b3898b395fa2e07",
+      "sha256": "13b2ecce68ff76fadc76b300723c450cd3b29b599a50d4a178316190bdf3c7a9",
+      "bytes": 16494,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "miku-nakano",
+      "title": {
+        "zh-CN": "中野三玖",
+        "zh-TW": "中野三玖",
+        "ja": "中野三玖",
+        "en": "Miku Nakano"
+      },
+      "work": {
+        "zh-CN": "五等分的新娘",
+        "zh-TW": "五等分的新娘",
+        "ja": "五等分の花嫁",
+        "en": "The Quintessential Quintuplets"
+      },
+      "path": "/characters/miku-nakano.webp",
+      "sourcePage": "https://www.tbs.co.jp/anime/5hanayome/1st/chara/chara_miku.html",
+      "sourceImage": "https://www.tbs.co.jp/anime/5hanayome/1st/chara/img/chara_img_03.png",
+      "copyright": "©春場ねぎ・講談社／「五等分の花嫁」製作委員会",
+      "creator": "Original manga: 春場ねぎ; official first-season TV anime character illustration",
+      "provenance": "Existing character artwork published on the work’s official anime website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-30",
+      "crop": {
+        "sourceSize": [
+          390,
+          762
+        ],
+        "box": [
+          55,
+          20,
+          325,
+          290
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "64ca8f336e0ecf5f40473dc7410580c5fedaa7084436ea40cdf2198354b68410",
+      "sha256": "a99db2ac860f08ed61c95be66ab23da21de9393e460753c4c8d03fe1ebc7fc5d",
+      "bytes": 42686,
       "dimensions": [
         320,
         320

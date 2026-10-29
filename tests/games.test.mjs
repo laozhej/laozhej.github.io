@@ -2,7 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import { games } from "../src/core/data/games.ts";
-import { checkGames, localizeGames, gameGenres } from "../src/core/content/select-games.mjs";
+import { favoriteGames } from "../src/core/data/profile.ts";
+import { checkGames, gamePage, linkFavoriteGames, localizeGames, gameGenres } from "../src/core/content/select-games.mjs";
 
 const game = (extra = {}) => ({ key: "sample", title: "Sample", genre: "action", ...extra });
 
@@ -55,4 +56,12 @@ test("a note without a translation shows the Chinese original and says so", () =
   assert.deepEqual(localizeGames(entries, "ja")[0].note, { text: "很好玩", lang: "zh-CN", translated: false });
   assert.equal(localizeGames(entries, "ja")[0].pick, 3);
   assert.equal(localizeGames([game()], "en")[0].note, undefined);
+});
+
+test("favorite games link to the official page first, otherwise Steam", () => {
+  assert.equal(gamePage(game({ steam: 730, url: "https://example.com/game" })), "https://example.com/game");
+  assert.equal(gamePage(game({ steam: 730 })), "https://store.steampowered.com/app/730/");
+  assert.deepEqual(linkFavoriteGames([{ key: "sample", title: "Mine" }], [game({ steam: 730 })]), [{ key: "sample", title: "Mine", url: "https://store.steampowered.com/app/730/" }]);
+  assert.throws(() => linkFavoriteGames([{ key: "missing", title: "Lost" }], [game()]), /"missing" is not on the game shelf/);
+  for (const item of linkFavoriteGames(favoriteGames, games)) assert.match(item.url, /^https:\/\//, item.key);
 });

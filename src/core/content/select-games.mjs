@@ -33,10 +33,25 @@ export function localizeGames(games, locale) {
       name: game.names?.[locale]?.trim() || game.title,
       genre: game.genre,
       art: game.art ? { src: `/games/${game.art.file}`, focus: game.art.focus ?? "50% 50%" } : undefined,
+      page: gamePage(game),
       link: game.steam ? { href: `https://store.steampowered.com/app/${game.steam}/`, steam: true } : game.url ? { href: game.url, steam: false } : undefined,
       status: game.status,
       pick: game.pick,
       note: game.note ? { text: own || game.note["zh-CN"].trim(), lang: own ? locale : "zh-CN", translated: Boolean(own) } : undefined,
     };
+  });
+}
+
+// A game's own page: its official site first, otherwise its Steam store page.
+export function gamePage(game) {
+  return game.url ?? (game.steam ? `https://store.steampowered.com/app/${game.steam}/` : undefined);
+}
+
+// Favorite games (About page) take their link from the shelf entry with the same key, so every theme links them.
+export function linkFavoriteGames(favorites, games) {
+  return favorites.map((favorite) => {
+    const game = games.find((entry) => entry.key === favorite.key);
+    if (!game) throw new Error(`Favorite game "${favorite.key}" is not on the game shelf in src/core/data/games.ts`);
+    return { ...favorite, url: gamePage(game) };
   });
 }

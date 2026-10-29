@@ -17,6 +17,8 @@
 
 新功能涉及新的内容字段时，先扩展公共数据及三语内容，再由各主题决定如何展示。展示方式可以不同，数据身份、链接和分类键保持一致。
 
+喜欢的游戏（`favoriteGames`）每一项都带有 `url`：由 `getSiteContent` 按 `key` 从 `games.ts` 中同一款游戏取得，优先官方游戏页面，没有时用 Steam 商店页面。新主题展示喜欢的游戏时，游戏名必须链接到 `item.url`（新标签页打开，`rel="noopener noreferrer"`）；不要在主题里另写链接。新增喜欢的游戏时，先确认它在 `games.ts` 里，并填写 `url`（官方页面）或 `steam`。
+
 各主题的 `<head>` 统一使用 `src/core/components/SiteIcons.astro`，共用非 AI 的 `B.` 排版网站图标和触屏图标；不要在主题内另外维护图标链接。
 
 各主题的页脚统一挂载 `src/core/components/SiteAttribution.astro`，同时保留站点版权行和指向 Yuimi-chaya 主仓库的三语来源署名；不要在新主题中只复制版权行而遗漏作者署名。主题可自行安排其布局，详细素材来源仍在「致谢与许可」页展示。

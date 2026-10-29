@@ -1,13 +1,15 @@
 import * as profile from "@/core/data/profile";
 import * as projects from "@/core/data/projects";
 import { games } from "@/core/data/games";
-import { checkGames, localizeGames } from "@/core/content/select-games.mjs";
+import { checkGames, linkFavoriteGames, localizeGames } from "@/core/content/select-games.mjs";
 
 // Theme-independent content. Stable keys and URLs are shared by every locale.
 checkGames(games);
-const zh = { ...profile, ...projects, gameShelf: localizeGames(games, "zh-CN") };
+// Favorite games get their link from the shelf entry with the same key, in every language.
+const linked = <T extends { favoriteGames: readonly { key: string }[] }>(content: T) => ({ ...content, favoriteGames: linkFavoriteGames(content.favoriteGames, games) });
+const zh = linked({ ...profile, ...projects, gameShelf: localizeGames(games, "zh-CN") });
 
-const ja = {
+const ja = linked({
   gameShelf: localizeGames(games, "ja"),
   profileIdentity: {
     displayName: "荒滝 旭",
@@ -25,7 +27,7 @@ const ja = {
     { key: "rdr2", title: "レッド・デッド・リデンプション2", subtitle: "Red Dead Redemption 2" },
     { key: "tsushima", title: "Ghost of Tsushima", subtitle: "ゴースト・オブ・ツシマ" },
     { key: "yotei", title: "Ghost of Yōtei", subtitle: "ゴースト・オブ・ヨウテイ" },
-    { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "ビジュアルノベル / キャラクターとデザインの着想", url: "https://manosaba.com/" },
+    { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "ビジュアルノベル / キャラクターとデザインの着想" },
   ],
   xpFavorites: [
     { key: "emma", title: "桜羽エマ", subtitle: "キャラクターデザインの参考" },
@@ -44,9 +46,9 @@ const ja = {
       details: ["ホームと各ページへのナビゲーション", "記事一覧と記事ページ", "制作、好きなもの、プロフィールのページ"],
     },
   ],
-} as const;
+} as const);
 
-const en = {
+const en = linked({
   gameShelf: localizeGames(games, "en"),
   profileIdentity: {
     displayName: "Arataki Asahi",
@@ -64,7 +66,7 @@ const en = {
     { key: "rdr2", title: "Red Dead Redemption 2", subtitle: "A favorite game" },
     { key: "tsushima", title: "Ghost of Tsushima", subtitle: "A favorite game" },
     { key: "yotei", title: "Ghost of Yōtei", subtitle: "A favorite game" },
-    { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "Visual novel / Character and visual inspiration", url: "https://manosaba.com/" },
+    { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "Visual novel / Character and visual inspiration" },
   ],
   xpFavorites: [
     { key: "emma", title: "Ema Sakuraba", subtitle: "Character design reference" },
@@ -83,7 +85,7 @@ const en = {
       details: ["Home page and section navigation", "Article index and reading pages", "Projects, interests, and about pages"],
     },
   ],
-} as const;
+} as const);
 
 export function getSiteContent(locale: "zh-CN" | "ja" | "en") {
   return locale === "ja" ? ja : locale === "en" ? en : zh;

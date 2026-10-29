@@ -18,16 +18,12 @@ export const profileTech = [
   { key: "engines", name: "游戏引擎", note: "探索 Godot、Unreal Engine 和 Unity。" }
 ] as const;
 
+// Each key matches a game in games.ts; getSiteContent adds its link (official page, else Steam).
 export const favoriteGames = [
   { key: "rdr2", title: "荒野大镖客：救赎 2", subtitle: "Red Dead Redemption 2" },
   { key: "tsushima", title: "对马岛之魂", subtitle: "Ghost of Tsushima" },
   { key: "yotei", title: "羊蹄山之魂", subtitle: "Ghost of Yōtei" },
-  {
-    key: "manosaba",
-    title: "魔法少女的魔女审判",
-    subtitle: "视觉小说 / 角色与视觉灵感",
-    url: "https://manosaba.com/"
-  }
+  { key: "manosaba", title: "魔法少女的魔女审判", subtitle: "视觉小说 / 角色与视觉灵感" }
 ] as const;
 
 export const xpFavorites = [

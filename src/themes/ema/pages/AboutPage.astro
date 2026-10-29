@@ -85,7 +85,7 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
             <li class={`shelf-card ${tone(index, 4)}`}>
               <span class="shelf-cover about-cover" aria-hidden="true"><b>{number(index)}</b></span>
               <div>
-                <h3>{"url" in item ? <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}<Icon name="tabler:external-link" size={14} aria-hidden="true" /></a> : item.title}</h3>
+                <h3>{item.url ? <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}<Icon name="tabler:external-link" size={14} aria-hidden="true" /></a> : item.title}</h3>
                 <p>{item.subtitle}</p>
               </div>
             </li>

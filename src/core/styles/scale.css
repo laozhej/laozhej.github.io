@@ -1,0 +1,27 @@
+/* Wide screens: the px in every theme's CSS are compiled to multiples of --site-px
+   (src/core/styles/fluid-px.mjs). It is exactly 1px up to 1600px wide, then grows
+   with the window, up to 1.5px. The window height also bounds it, so pages built
+   around a full-height scene still fit on wide but short windows. */
+@supports (width: clamp(1px, min(1vw, 1vh), 2px)) {
+  :root {
+    /* px:fixed, as this is the scale itself. */
+    --site-px: clamp(1px, min(100vw / 1600, 100vh / 720), 1.5px);
+  }
+}
+/* rem sizes grow by the same amount, still starting from the visitor's own font size. */
+:root { font-size: calc(100% + 16 * (var(--site-px, 1px) - 1px)); }
+
+/* Icons carry their size in attributes; restating it here lets it scale too. */
+:where(svg[data-icon][width="11"]) { width: 11px; height: 11px; }
+:where(svg[data-icon][width="12"]) { width: 12px; height: 12px; }
+:where(svg[data-icon][width="14"]) { width: 14px; height: 14px; }
+:where(svg[data-icon][width="15"]) { width: 15px; height: 15px; }
+:where(svg[data-icon][width="16"]) { width: 16px; height: 16px; }
+:where(svg[data-icon][width="17"]) { width: 17px; height: 17px; }
+:where(svg[data-icon][width="18"]) { width: 18px; height: 18px; }
+:where(svg[data-icon][width="19"]) { width: 19px; height: 19px; }
+:where(svg[data-icon][width="20"]) { width: 20px; height: 20px; }
+:where(svg[data-icon][width="21"]) { width: 21px; height: 21px; }
+:where(svg[data-icon][width="22"]) { width: 22px; height: 22px; }
+:where(svg[data-icon][width="23"]) { width: 23px; height: 23px; }
+:where(svg[data-icon][width="24"]) { width: 24px; height: 24px; }

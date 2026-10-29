@@ -50,6 +50,12 @@ import ColorModePreference from "@/core/preferences/ColorModePreference.astro";
 
 `site-theme` 保存手动选择。**URL 始终决定当前主题**：保存的选择不会把显式主题链接、Blank 根路由或浏览器历史自动重定向。`html[data-theme]` 是当前主题；`data-preferred-theme` 是保存的偏好，存储不可用时回退到当前主题。切换链接在点击时读取当前 URL，保留语言、栏目、完整文章 slug、查询参数和锚点。禁用 JavaScript 时仍可用普通链接切换页面。
 
+## 大屏幕缩放
+
+各主题按笔记本尺寸用 px 设计。为了在大屏幕上不缩在页面中央，构建时 `src/core/styles/fluid-px.mjs`（在 `astro.config.mjs` 注册的 PostCSS 插件）把 `src/` 下样式里的 px 改写为 `calc(N * var(--site-px, 1px))`；1px 及以下的细线、`url()` 和字符串保持原样。`src/core/styles/scale.css` 定义 `--site-px`：窗口宽度不超过 1600px 时恰好是 1px，页面与原设计完全一致；更宽时随宽度增大，最多 1.5px，同时受窗口高度约束（`100vh / 720`），宽而矮的窗口里整屏场景仍放得下。根字号随之同比放大，rem 尺寸也一起缩放，并以访客自己的默认字号为起点。
+
+新主题布局要在主题样式之前 `import "@/core/styles/scale.css";`，样式照常写 px 即可。图标的尺寸来自 HTML 属性，`scale.css` 为 astro-icon 用到的 11–24 号尺寸补充了 CSS 尺寸；用到新尺寸时在那里加一行。脚本会解析、或者表示滚动距离而非视觉尺寸的 px 值，在声明前加 `/* px:fixed */` 注释即可保留原值，例如 Ema 的 `--hero-runway`。宽而矮的窗口里缩放受高度限制，横向排列的内容可以用 `max(设计宽度, 设计宽度 ÷ 1600 × 100vw)` 保持它在 1600px 窗口里所占的宽度比例，例如 Ema 首页章节轨道的 `max(1160px, 72.5vw)`。
+
 ## 功能入口
 
 每个主题布局在 `<head>` 挂载一次 `src/core/navigation/SiteNavigation.astro`，由它提供 Astro `ClientRouter` 和统一的页面生命周期。不要再在布局或切换器中单独调用运行时入口。

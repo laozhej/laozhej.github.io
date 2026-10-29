@@ -1,5 +1,5 @@
 /* Homepage presentation only; shared navigation and preferences belong to EmaLayout. */
-#ema-home{--paper:#fafbf9;--ink:#47536b;--muted:#6f7b8f;--pink:#b46082;--rose:#c06f93;--pale-pink:#fae8ee;--sky:#577f9f;--rule:#dce3e9;--glass:#ffffffd1;--shadow:0 14px 34px #8599b41f;--round:"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Varela Round","Yu Gothic UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1);--hero-runway:560px;color:var(--ink);background:var(--paper);font-size:14px;line-height:1.7;min-width:0;}
+#ema-home{--paper:#fafbf9;--ink:#47536b;--muted:#6f7b8f;--pink:#b46082;--rose:#c06f93;--pale-pink:#fae8ee;--sky:#577f9f;--rule:#dce3e9;--glass:#ffffffd1;--shadow:0 14px 34px #8599b41f;--round:"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Varela Round","Yu Gothic UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1);/* px:fixed, read by lib/home.mjs. */--hero-runway:560px;color:var(--ink);background:var(--paper);font-size:14px;line-height:1.7;min-width:0;}
 #ema-home *{box-sizing:border-box;}#ema-home a{color:inherit;text-decoration:none;}#ema-home button{font:inherit;color:inherit;cursor:pointer;border:0;background:transparent;}#ema-home button:focus-visible,#ema-home a:focus-visible,#ema-home [tabindex]:focus-visible,#ema-home input:focus-visible{outline:2px solid var(--pink);outline-offset:5px;}#ema-home img{display:block;max-width:100%;height:auto;}#ema-home figure,#ema-home p,#ema-home h1,#ema-home h2,#ema-home h3{margin:0;}#ema-home [hidden]{display:none!important;}#ema-home .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
 #ema-home .eyebrow{font:600 10px/1.8 var(--mono);letter-spacing:.2em;color:var(--muted);}
 
@@ -104,7 +104,8 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
 #ema-home .notice-skip input{width:16px;height:16px;margin:0;accent-color:var(--rose);}
 
 /* Chapters stay on native horizontal scroll; their leaves now read as manga pages. */
-#ema-home .chapters{padding:44px 0 30px;max-width:1160px;margin:0 auto;}
+/* On wide but short windows the rail keeps its share of the width and shows more of the next chapter. */
+#ema-home .chapters{padding:44px 0 30px;max-width:max(1160px,72.5vw);margin:0 auto;}
 #ema-home .section-heading{display:flex;justify-content:space-between;align-items:end;padding:0 12px;margin-bottom:27px;gap:24px;}
 #ema-home h2{font:29px/1.5 "Songti SC","Noto Serif CJK SC",Georgia,serif;font-weight:400;letter-spacing:.08em;}
 #ema-home h2>span{color:#c489a3;}
@@ -177,7 +178,7 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
 #ema-home .tag-rain.is-raining{grid-area:auto;position:absolute;inset:0;align-self:stretch;justify-self:stretch;z-index:5;display:block;padding:0;pointer-events:none;}
 #ema-home .tag-rain.is-raining li{position:absolute;left:0;top:0;will-change:transform;}
 
-#ema-home .reading-section{position:relative;max-width:1090px;margin:105px auto 112px;display:grid;grid-template-columns:1fr 1.8fr;gap:80px;padding:0 20px;}
+#ema-home .reading-section{position:relative;max-width:max(1090px,68vw);margin:105px auto 112px;display:grid;grid-template-columns:1fr 1.8fr;gap:80px;padding:0 20px;}
 #ema-home .reading-intro{align-self:start;}
 #ema-home .reading-intro h2{margin-top:10px;}
 #ema-home .reading-intro>p:not(.eyebrow){font-size:12px;color:var(--muted);margin:18px 0 28px;}
@@ -214,7 +215,7 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
   #ema-home .chapters{padding-top:84px;}
   #ema-home .section-heading{margin-bottom:26px;}
   #ema-home .section-heading h2{font-size:34px;margin-top:7px;}
-  #ema-home .chapter-card{width:72%;display:grid;grid-template-columns:45% 55%;min-height:390px;}
+  #ema-home .chapter-card{width:min(72%,821px);display:grid;grid-template-columns:45% 55%;min-height:390px;}
   #ema-home .chapter-visual{height:100%;aspect-ratio:auto;min-height:390px;border-bottom:0;border-right:2px solid #3a3f4a;}
   #ema-home .chapter-copy{display:flex;flex-direction:column;justify-content:center;padding:46px 38px;}
   #ema-home .chapter-copy h3{font-size:27px;}

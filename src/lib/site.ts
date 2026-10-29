@@ -5,6 +5,8 @@ export const site = {
   wordmark: "blank",
   // The copyright holder shown in every theme's footer.
   owner: "Asahi Arataki",
+  // This site's own source, linked from every theme's footer.
+  repository: "https://github.com/laozhej/laozhej.github.io",
   nav: [
     { key: "home", href: "/" },
     { key: "blog", href: "/blog/" },

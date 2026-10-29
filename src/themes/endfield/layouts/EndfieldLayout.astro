@@ -23,6 +23,9 @@ const path = stripTheme(Astro.url.pathname);
 const { title: pageTitle = site.name, description = t("site.description"), isArticlePage = false, article, home = false } = Astro.props;
 const brand = t("ema.brand");
 const title = pageTitle.replaceAll(site.name, brand);
+// The header mark matches the home nameplate: the name without its possessive, then the role on a cut tag.
+const [brandHead, ...brandTail] = brand.split(" ");
+const brandName = brandHead.replace(/[’']s$/i, "");
 const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale), Astro.site) : undefined;
 const navItems = site.nav.map((item, index) => ({
   ...item,
@@ -52,7 +55,7 @@ const navItems = site.nav.map((item, index) => ({
     <header class="ef-header" data-site-header transition:name="site-header" transition:animate="none">
       <div class="ef-tri" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="ef-header-inner">
-        <a class="ef-wordmark" href={href("/")} aria-label={`${brand} ${t("a11y.home")}`}><strong>{brand}</strong><small>EF / 03</small></a>
+        <a class="ef-wordmark" href={href("/")} aria-label={`${brand} ${t("a11y.home")}`}><strong>{brandName}</strong><span class="ef-wordmark-tag" aria-hidden="true">{brandTail.join(" ")}</span><small>EF / 03</small></a>
         <nav class="ef-nav" aria-label={t("a11y.navigation")}>
           {navItems.map((item) => <a href={href(item.href)} aria-current={item.active ? "page" : undefined}><span class="ef-nav-number" aria-hidden="true">{item.number}</span>{item.label}</a>)}
         </nav>

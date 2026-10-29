@@ -69,8 +69,10 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-tri { display:grid; grid-template-columns:repeat(3,1fr); height:3px; }
 .ef-tri i:nth-child(1) { background:var(--ef-tri-a); } .ef-tri i:nth-child(2) { background:var(--ef-signal); } .ef-tri i:nth-child(3) { background:var(--ef-tri-c); }
 .ef-header-inner { max-width:1440px; margin:0 auto; padding:10px clamp(16px,3vw,40px); display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:16px; }
-.ef-wordmark { display:flex; align-items:baseline; gap:12px; white-space:nowrap; justify-self:start; min-width:0; }
-.ef-wordmark strong { font-size:16px; font-weight:600; font-stretch:125%; line-height:1.2; letter-spacing:.03em; text-transform:uppercase; overflow:hidden; text-overflow:ellipsis; }
+.ef-wordmark { display:flex; align-items:center; gap:8px; white-space:nowrap; justify-self:start; min-width:0; }
+.ef-wordmark strong { font-size:19px; font-weight:800; font-stretch:100%; line-height:1; letter-spacing:-.005em; text-transform:uppercase; overflow:hidden; text-overflow:ellipsis; }
+.ef-wordmark-tag { padding:4px calc(7px + var(--ef-cut)) 4px 7px; border-left:3px solid var(--ef-signal); background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-tag-bg) 0); color:var(--ef-tag-fg); font-size:9.5px; font-weight:700; font-stretch:125%; line-height:1; letter-spacing:.2em; text-transform:uppercase; }
+.ef-wordmark small { margin-left:4px; }
 .ef-wordmark small { font-size:10px; letter-spacing:.14em; color:var(--ef-ink-2); }
 .ef-nav { display:flex; justify-content:center; gap:2px; }
 .ef-nav a { display:inline-flex; align-items:baseline; justify-content:center; gap:7px; padding:10px calc(10px + var(--ef-cut)) 10px 14px; font-size:13px; font-weight:700; white-space:nowrap; }
@@ -275,8 +277,9 @@ html:not([data-motion-paused="true"]) [data-ef-enter] .ef-frame { animation-dela
 }
 @media(max-width:559px) {
   .ef-nav-number { display:none; }
-  .ef-wordmark strong { font-size:13px; font-stretch:100%; line-height:1.1; white-space:normal; }
+  .ef-wordmark strong { font-size:16px; }
   .ef-actions { gap:4px; }
   [data-endfield] .ef-button-icon { width:40px; height:40px; }
   .ef-header .site-language-menu>summary>:is(span:not(:first-child),svg:last-child) { display:none; }
 }
+@media(max-width:389px) { .ef-wordmark-tag { display:none; } }

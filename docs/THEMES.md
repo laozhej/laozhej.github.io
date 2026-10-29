@@ -46,7 +46,7 @@ import ColorModePreference from "@/core/preferences/ColorModePreference.astro";
 
 ## 主题选择
 
-每个主题的 `<head>` 挂载 `src/core/themes/ThemePreference.astro`，导航挂载 `src/core/themes/ThemeSwitcher.astro`。二者无需参数。切换器提供自己的基础菜单样式，主题可用 `--site-menu-background` 和 `--site-menu-color` 调整菜单颜色。
+每个主题的 `<head>` 挂载 `src/core/themes/ThemePreference.astro`，并挂载一次 `src/core/themes/ThemeSwitcher.astro`。Blank 把切换器放在导航里，显示当前主题名称；其他主题传入 `floating`，在 `<body>` 里渲染为固定在右下角、没有文字的调色板按钮，点击后列表向上展开，列出带编号的全部主题。浮动按钮的外观和进出动效由各主题的 `.site-theme-dock` 样式提供：打开和关闭都要有动效（关闭借助 `::details-content` 的 `content-visibility` 过渡保持可见），暂停动效或系统减少动态时直接切换。切换器提供自己的基础菜单样式，主题可用 `--site-menu-background` 和 `--site-menu-color` 调整菜单颜色。
 
 `site-theme` 保存手动选择。**URL 始终决定当前主题**：保存的选择不会把显式主题链接、Blank 根路由或浏览器历史自动重定向。`html[data-theme]` 是当前主题；`data-preferred-theme` 是保存的偏好，存储不可用时回退到当前主题。切换链接在点击时读取当前 URL，保留语言、栏目、完整文章 slug、查询参数和锚点。禁用 JavaScript 时仍可用普通链接切换页面。
 

@@ -52,7 +52,7 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
       <a class="ema-wordmark" href={href("/")} aria-label={`${brand} ${t("a11y.home")}`}><strong><span>{brandHead.split(/(\.)/).map((part) => part === "." ? <i>.</i> : part)}</span> <span>{brandTail.join(" ")}</span></strong><small>EMA / 02</small></a>
       <nav class="ema-nav" aria-label={t("a11y.navigation")}>{site.nav.map(item => <a href={href(item.href)} aria-current={(item.href === "/" ? path === "/" : path.startsWith(item.href)) ? "page" : undefined}>{t(`nav.${item.key}`)}</a>)}</nav>
       <div class="ema-header-actions">
-        <ThemeSwitcher /><LanguageSwitcher />
+        <LanguageSwitcher />
         <button class="ema-icon-button" type="button" data-color-mode-toggle hidden aria-label={t("mode.label")} aria-pressed="false" title={t("mode.toDark")} data-label-dark={t("mode.toDark")} data-label-light={t("mode.toLight")}><span class="blank-mode-moon"><Icon name="tabler:moon" size={18} /></span><span class="blank-mode-sun"><Icon name="tabler:sun" size={18} /></span></button>
         <button class="ema-motion-toggle" type="button" data-motion-toggle data-motion-pause={t("ema.motion.pause")} data-motion-resume={t("ema.motion.resume")} data-motion-reduced={t("ema.motion.reduced")} hidden aria-pressed="false" aria-label={t("ema.motion.pause")} title={t("ema.motion.pause")}><Icon name="tabler:player-pause" size={18} data-motion-pause-icon aria-hidden="true" /><Icon name="tabler:player-play" size={18} data-motion-play-icon aria-hidden="true" hidden /></button>
       </div>
@@ -65,6 +65,7 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
       <SocialLinks class="ema-social-links" />
       <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
     </footer>
+    <ThemeSwitcher floating />
     <aside class="ema-mascot" data-ema-mascot hidden aria-label={t("ema.mascot.label")} data-pokes={JSON.stringify(mascotPokes)} data-back={t("ema.mascot.back")} data-too-fast={t("ema.mascot.tooFast")}>
       <p class="mascot-bubble" role="status" data-mascot-bubble hidden></p>
       <button class="mascot-figure" type="button" data-mascot-poke aria-label={t("ema.mascot.poke")}>

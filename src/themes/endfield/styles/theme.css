@@ -168,9 +168,10 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-content :is(.blank-kicker,.blank-list-heading) { font-weight:600; font-stretch:125%; letter-spacing:.14em; text-transform:uppercase; }
 .ef-content .blank-page-head .blank-kicker::before { content:"// "; }
 .ef-content :is(.blank-page-head,.blank-article-header) { border-color:var(--ef-ink); }
-.ef-content .blank-page-heading h1 { font:500 clamp(2.6rem,7vw,5.6rem)/.95 var(--ef-ui); font-stretch:125%; letter-spacing:.03em; text-transform:uppercase; overflow-wrap:anywhere; }
-.ef-content .blank-page-heading h1>span { font:inherit; }
-.ef-content .blank-page-count strong { font:500 clamp(2.4rem,5vw,3.4rem)/1 var(--ef-ui); font-stretch:112%; font-variant-numeric:tabular-nums; }
+/* Page titles use the home nameplate's heavy, narrow cut; the closing full stop becomes a signal block. */
+.ef-content .blank-page-heading h1 { font:800 clamp(2.75rem,8vw,5.4rem)/.9 var(--ef-ui); font-stretch:100%; letter-spacing:-.005em; text-transform:uppercase; overflow-wrap:anywhere; }
+.ef-content .blank-page-heading h1>span { display:inline-block; width:.17em; height:.17em; margin-left:.08em; overflow:hidden; background:var(--ef-signal); box-shadow:inset 0 0 0 1px var(--ef-ink); color:transparent; vertical-align:baseline; }
+.ef-content .blank-page-count strong { font:700 clamp(2.4rem,5vw,3.4rem)/1 var(--ef-ui); font-stretch:100%; font-variant-numeric:tabular-nums; }
 .ef-content :is(.blank-article-header h1,.blank-section-heading h2,.blank-about-section>div>h2,.blank-project-name h2,.blank-game-row h2,.blank-profile-name h2) { font-family:var(--ef-text); font-weight:800; letter-spacing:0; }
 /* Title strip: the three-colour line sits under an article title. */
 .ef-content .blank-article-header h1::after { content:""; display:block; width:min(280px,50%); height:3px; margin-top:20px; background:linear-gradient(90deg,var(--ef-tri-a) 0 33.33%,var(--ef-signal) 0 66.67%,var(--ef-tri-c) 0); }

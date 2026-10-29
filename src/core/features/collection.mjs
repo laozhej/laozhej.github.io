@@ -80,7 +80,8 @@ export function mountCollection(root, win) {
     if (input && input.value !== state.query) input.value = state.query;
     if (clear) clear.hidden = !state.query;
     if (count) count.textContent = `${visible} ${visible === 1 ? (root.dataset.unitOne ?? root.dataset.unit) : root.dataset.unit}`;
-    if (empty) empty.hidden = visible > 0;
+    // "No matches" is for filtered-out entries; an empty collection shows its own message.
+    if (empty) empty.hidden = visible > 0 || entries.length === 0;
     if (writeUrl) {
       if (immediate) syncUrl();
       else {

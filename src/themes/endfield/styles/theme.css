@@ -108,6 +108,10 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-frame-text { color:var(--ef-ink-2); }
 .ef-frame-plate { position:absolute; left:-12px; bottom:24px; padding:8px calc(18px + .6rem) 8px 14px; background:linear-gradient(315deg,transparent calc(.6rem * .7071),var(--ef-ink) 0); color:var(--ef-panel); font-weight:700; font-size:14px; }
 .ef-frame:is(:hover,:focus-visible) .ef-frame-plate { background:linear-gradient(315deg,transparent calc(.6rem * .7071),var(--ef-signal) 0); color:var(--ef-on-signal); }
+/* No entries yet: a square hatched plate (not pressable) holding a real zero and one plain sentence. */
+.ef-frame-empty { display:flex; flex-direction:column; justify-content:space-between; gap:24px; min-height:clamp(260px,30vw,360px); padding:clamp(22px,3vw,34px); border:1px solid var(--ef-rule); background:var(--ef-hatch); }
+.ef-frame-empty .ef-hollow-no { margin:0; -webkit-text-stroke-color:var(--ef-ink-2); }
+.ef-frame-empty p { align-self:flex-start; margin:0; padding:8px 12px; background:var(--ef-panel); font-weight:700; }
 .ef-index { display:grid; grid-template-columns:repeat(3,1fr); }
 .ef-index a { display:flex; flex-direction:column; gap:4px; padding:18px 16px 20px 0; border-top:1px solid var(--ef-ink); border-bottom:1px solid var(--ef-rule); }
 .ef-index a+a { padding-left:20px; border-left:1px solid var(--ef-rule); }

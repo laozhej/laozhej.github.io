@@ -48,9 +48,21 @@ npm run preview
 | 全主题共用的网站图标 | `src/core/components/SiteIcons.astro`、`assets/branding/` |
 | 正式网址 | `astro.config.mjs` 中的 `site` |
 
-`Blank Space` 是暂用站名。三篇文章均为示例，可以编辑或删除。GitHub 和 Steam 个人主页链接已配置；其他个人简介可继续完善，页面没有虚构经历。
+`Blank Space` 是暂用站名。示例文章已删除，`src/content/blog/` 目前为空，各页面显示空状态，等待第一篇正式文章。GitHub 和 Steam 个人主页链接已配置；其他个人简介可继续完善，页面没有虚构经历。
 
-添加文章时，复制已有 Markdown 文件，修改顶部的 `title`、`description`、`pubDate`、`category`、`tags`。分类可选 `tech`、`anime`、`life`；`draft: true` 的文章不会发布。正式发布自己的文章时，移除示例提示及 `示例` 标签。
+添加文章时，在 `src/content/blog/` 新建 Markdown 文件，文件名即文章地址（如 `first-post.md` → `/blog/first-post/`），顶部写：
+
+```yaml
+---
+title: 文章标题
+description: 一句话摘要
+pubDate: 2026-10-29
+category: life   # tech、anime 或 life
+tags: [标签一, 标签二]
+---
+```
+
+`draft: true` 的文章不会发布。
 
 ## 已包含
 
@@ -58,7 +70,7 @@ npm run preview
 - 标题 / 摘要 / 标签搜索，分类筛选，日期排序，URL 筛选状态恢复。
 - 文章目录、当前章节高亮、阅读进度、返回顶部。
 - 右上角月亮 / 太阳按钮切换浅色与深色；未手动选择时跟随系统变化，手动选择会在当前浏览器中保存，并在页面、语言、接入公共模块的主题之间共用。
-- 简体中文 / 日本語 / English 切换；三篇示例文章也有完整译文，语言和深浅色选择相互独立。
+- 简体中文 / 日本語 / English 切换；文章译文放在 `ja/`、`en/` 子目录，语言和深浅色选择相互独立。
 - Blank / 艾玛主题切换，保留当前语言、栏目、文章、查询参数和锚点。主题选择与深浅色选择相互独立。
 - 关于页与页脚的 GitHub / Steam 链接，以及三语致谢与许可页（`/credits/`）。
 - 站内页面切换不整页刷新：页头保持不动，正文淡出淡入；语言、主题和深浅色选择随之保留，浏览器前进 / 后退恢复原滚动位置。
@@ -103,5 +115,5 @@ Blank 主题的 CSS、组件与交互基于 [Yuimi-chaya/Yuimi-chaya.github.io](
 
 艾玛主题的四张角色／漫画图片来自各自记录的外部来源，下载后在本站本地提供，未使用生成式 AI 重绘；仅做等比例缩放和格式转换。原始来源、署名、校验值及处理方式见 [素材清单](public/themes/ema/ASSETS.json)。来源可追溯和署名不构成公开使用授权，图片不随软件 MIT 许可授权；面向装饰性网站公开使用的许可尚未确认。详见 [第三方素材说明](THIRD_PARTY_ASSETS.md)。
 
-示例文章及其译文的许可范围见 [内容许可说明](CONTENT_LICENSE.md)。网站不从外部服务器加载字体；樱色档案的标题字体 Mochiy Pop One（SIL OFL 1.1）和终末地工业风的拉丁字体 Saira（SIL OFL 1.1）随站点自托管，其余文字使用系统字体。
+文章及其译文的许可范围见 [内容许可说明](CONTENT_LICENSE.md)。网站不从外部服务器加载字体；樱色档案的标题字体 Mochiy Pop One（SIL OFL 1.1）和终末地工业风的拉丁字体 Saira（SIL OFL 1.1）随站点自托管，其余文字使用系统字体。
 

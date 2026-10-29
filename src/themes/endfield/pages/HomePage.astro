@@ -34,6 +34,7 @@ const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? pos
         <a class="ef-button ef-button--quiet" href={href("/about/")}>{t("common.about")}</a>
       </p>
     </div>
+    {!latest && <div class="ef-frame-empty"><span class="ef-hollow-no" aria-hidden="true">000</span><p>{t("home.empty")}</p></div>}
     {latest && (
       <a class="ef-frame" href={href(`/blog/${latest.slug}/`)}>
         <span class="ef-frame-window">
@@ -60,7 +61,7 @@ const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? pos
         <li><a href={href(`/blog/${post.slug}/`)}><span class="ef-tag">No.{serial(index + 1)}</span><time datetime={entryDate(post).toISOString()}>{formatDate(entryDate(post))}</time><span class="ef-record-title">{post.data.title}</span><span class="ef-record-kind">{categoryLabel[post.data.category]}</span></a></li>
       ))}
     </ol>
-    {posts.length < 2 && <p class="ef-empty">{t("home.empty")}</p>}
+    {posts.length === 0 && <p class="ef-empty">{t("blog.empty")}</p>}
   </section>
 
   <section class="ef-section" aria-labelledby="ef-practice-title">

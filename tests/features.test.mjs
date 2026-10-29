@@ -45,8 +45,8 @@ function browser(href) {
   return { win, system, timers, frames, writes: () => writes, flushTimers: () => flush(timers), flushFrames: () => flush(frames) };
 }
 
-function collection(theme = "blank", searchable = true) {
-  const entries = [
+function collection(theme = "blank", searchable = true, empty = false) {
+  const entries = empty ? [] : [
     element({ id: "first", dataset: { category: "notes", date: "100", search: "你好 Ema journal" } }),
     element({ id: "second", dataset: { category: "notes", date: "300", search: "日本語 Ema journal" } }),
     element({ id: "third", dataset: { category: "code", date: "200", search: "ＥＭＡ Website" } }),
@@ -139,6 +139,15 @@ test("different theme markup gets the same search, ordering, history and reset b
     assert.deepEqual(c.visible(), ["third"]);
     cleanup();
   }
+});
+
+test("an empty collection never claims its filters matched nothing", () => {
+  const c = collection("blank", true, true);
+  const b = browser("https://example.com/blog/?q=anything");
+  const cleanup = mountCollection(c.root, b.win);
+  assert.equal(c.nodes.empty.hidden, true);
+  assert.equal(c.nodes.count.textContent, "0 articles");
+  cleanup();
 });
 
 test("category-only collections work without optional search and sort controls", () => {

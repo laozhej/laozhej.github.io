@@ -18,7 +18,7 @@ const ja = linked({
     siteName: "Blank Space",
     bio: "荒滝旭です。Nero とも呼ばれています。アニメやゲームのグッズ集めが好きで、AI やパソコンの技術にも関心があります。プログラミングを学びながら、アニメーション、モデリング、さまざまなゲームエンジンを探究しています。",
   },
-  profileStatus: ["使用言語：中国語（普通話）、日本語、英語、スペイン語", "AI エージェントの時代に向けて準備中"],
+  profileStatus: ["使用言語：中国語（普通話）、日本語、英語、スペイン語", "AI の時代へ踏み出す"],
   profileTech: [
     { key: "ai", name: "AI とプログラミング", note: "AI やパソコンの技術に関心を持ち、さまざまなプログラミング言語を学んでいます。" },
     { key: "animation", name: "アニメーションとモデリング", note: "Blender や Live2D などを使い、アニメーションとモデリングを探究しています。" },
@@ -36,7 +36,7 @@ const ja = linked({
     ...getFavoriteCharacters("ja"),
   ],
   currentSignals: [
-    { label: "いま", text: "AI エージェントの時代に向けて準備しながら、個人サイトも少しずつ整えています。" },
+    { label: "いま", text: "AI の時代へ踏み出し、個人サイトも少しずつ整えています。" },
     { label: "次に", text: "記事や制作の記録を少しずつ書いていく予定です。" },
     { label: "デザイン", text: "桜羽エマから着想を得たテーマ「桜色の記録」が完成しました。これからも少しずつ磨いていきます。" },
   ],
@@ -58,7 +58,7 @@ const en = linked({
     siteName: "Blank Space",
     bio: "I'm Arataki Asahi, also known as Nero. I collect anime and game merchandise and enjoy learning about AI and computer technology. I'm studying programming and exploring animation, modeling, and different game engines.",
   },
-  profileStatus: ["Languages: Mandarin Chinese, Japanese, English, and Spanish", "Getting ready for the age of AI agents"],
+  profileStatus: ["Languages: Mandarin Chinese, Japanese, English, and Spanish", "Stepping into the AI era"],
   profileTech: [
     { key: "ai", name: "AI and programming", note: "Following AI and computer technology, and learning different programming languages." },
     { key: "animation", name: "Animation and modeling", note: "Exploring animation and modeling with tools including Blender and Live2D." },
@@ -76,7 +76,7 @@ const en = linked({
     ...getFavoriteCharacters("en"),
   ],
   currentSignals: [
-    { label: "Now", text: "Getting ready for the age of AI agents while gradually building my personal website." },
+    { label: "Now", text: "Stepping into the AI era while gradually building my personal website." },
     { label: "Next", text: "Gradually adding articles and project notes." },
     { label: "Visual direction", text: "The Sakura Archive theme, inspired by Ema Sakuraba, is now live. I'll keep polishing it little by little." },
   ],

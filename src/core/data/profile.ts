@@ -10,7 +10,7 @@ export const profileIdentity = {
 
 export const profileStatus = [
   "使用语言：中文普通话、日语、英语、西班牙语",
-  "准备进入 AI Agent 时代"
+  "开始进入 AI 时代"
 ] as const;
 
 export const profileTech = [
@@ -34,7 +34,7 @@ export const xpFavorites = [
 ] as const;
 
 export const currentSignals = [
-  { label: "正在做", text: "准备进入 AI Agent 时代，也在慢慢完善自己的个人网站。" },
+  { label: "正在做", text: "开始进入 AI 时代，也在慢慢完善自己的个人网站。" },
   { label: "接下来", text: "一点点写下文章和项目记录。" },
   { label: "视觉方向", text: "以樱羽艾玛为灵感的「樱色档案」主题已经上线，接下来会继续慢慢打磨。" }
 ] as const;

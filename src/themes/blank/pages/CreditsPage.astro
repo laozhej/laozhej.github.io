@@ -7,6 +7,7 @@ import PageHead from "../components/PageHead.astro";
 import themeLicense from "../../../../public/licenses/yuimi-chaya-MIT.txt?raw";
 import iconLicense from "../../../../public/licenses/tabler-icons-MIT.txt?raw";
 import fontLicense from "../../../../public/licenses/gloock-OFL.txt?raw";
+import sairaLicense from "../../../../public/licenses/saira-OFL.txt?raw";
 const { t, href } = getI18n(Astro.url.pathname);
 ---
 <BlankLayout title={`${t("credits.title")} | ${site.name}`} description={t("credits.description")}>
@@ -55,6 +56,14 @@ const { t, href } = getI18n(Astro.url.pathname);
         <pre lang="en">{fontLicense}</pre>
       </details>
       <a class="blank-text-link" href="/licenses/gloock-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+      <h3>Saira</h3>
+      <p>{t("credits.sairaText")}</p>
+      <a class="blank-text-link" href="https://github.com/Omnibus-Type/Saira" target="_blank" rel="noopener noreferrer">{t("credits.sairaProject")} <Icon name="tabler:external-link" size={15} /></a>
+      <details class="blank-license">
+        <summary>{t("credits.licenseText")} · OFL-1.1</summary>
+        <pre lang="en">{sairaLicense}</pre>
+      </details>
+      <a class="blank-text-link" href="/licenses/saira-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
     </div>
   </section>
   <section class="blank-section blank-about-section blank-credits-section">

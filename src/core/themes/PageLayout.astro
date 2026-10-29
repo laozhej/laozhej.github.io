@@ -1,7 +1,9 @@
 ---
 import BlankLayout from "@/themes/blank/layouts/BlankLayout.astro";
 import EmaLayout from "@/themes/ema/layouts/EmaLayout.astro";
+import EndfieldLayout from "@/themes/endfield/layouts/EndfieldLayout.astro";
 import { getTheme } from "./registry";
-const Layout = getTheme(Astro.url.pathname) === "ema" ? EmaLayout : BlankLayout;
+const layouts = { blank: BlankLayout, ema: EmaLayout, endfield: EndfieldLayout };
+const Layout = layouts[getTheme(Astro.url.pathname)];
 ---
 <Layout {...Astro.props}><slot /></Layout>

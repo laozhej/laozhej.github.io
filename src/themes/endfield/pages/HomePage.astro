@@ -1,0 +1,77 @@
+---
+import { getSiteContent } from "@/core/i18n/content";
+import { getPublishedPosts } from "@/core/content/blog";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import PageLayout from "@/core/themes/PageLayout.astro";
+const { locale, t, unit, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
+const { profileTech, currentSignals, projectEntries, favoriteGames } = getSiteContent(locale);
+const posts = await getPublishedPosts(locale);
+const [latest, ...older] = posts;
+// Entries are numbered oldest first, so a number never changes once given.
+const serial = (index: number) => String(posts.length - index).padStart(3, "0");
+const count = (value: number) => String(value).padStart(2, "0");
+const brand = t("ema.brand");
+const [brandHead, ...brandTail] = brand.split(" ");
+const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? post.data.pubDate;
+---
+<PageLayout title={`${brand} | ${t("home.title")}`} description={t("endfield.description")} home>
+  <section class="ef-hero" aria-labelledby="ef-home-title" data-ef-enter>
+    <div class="ef-hero-top">
+      <ul class="ef-fields" aria-label={t("endfield.index")}>
+        {latest && <li><time datetime={entryDate(latest).toISOString()}>{formatDate(entryDate(latest))}</time></li>}
+        <li>{posts.length} {unit("common.entries", posts.length)}</li>
+        <li>{projectEntries.length} {unit("common.projects", projectEntries.length)}</li>
+      </ul>
+      <h1 id="ef-home-title" class="ef-wordmark-hero"><span class="ef-solid">{brandHead}</span> <span class="ef-hollow">{brandTail.join(" ")}</span></h1>
+    </div>
+    <div class="ef-hero-copy">
+      <p class="ef-statement"><span class="ef-marker">{t("home.statement1")}</span><br />{t("home.statement2")}</p>
+      <p class="ef-intro">{t("home.intro1")}{t("home.intro2")}</p>
+      <p class="ef-hero-actions">
+        {latest && <a class="ef-button ef-button--main" href={href(`/blog/${latest.slug}/`)}>{t("home.latestLink")}</a>}
+        <a class="ef-button ef-button--quiet" href={href("/about/")}>{t("common.about")}</a>
+      </p>
+    </div>
+    {latest && (
+      <a class="ef-frame" href={href(`/blog/${latest.slug}/`)}>
+        <span class="ef-frame-window">
+          <span class="ef-hollow-no" aria-hidden="true">{serial(0)}</span>
+          <span class="ef-fields"><span>No.{serial(0)}</span><span>{categoryLabel[latest.data.category]}</span><time datetime={entryDate(latest).toISOString()}>{formatDate(entryDate(latest))}</time></span>
+          <strong class="ef-frame-title">{latest.data.title}</strong>
+          <span class="ef-frame-text">{latest.data.description}</span>
+        </span>
+        <span class="ef-frame-plate">{t("endfield.latest")}</span>
+      </a>
+    )}
+  </section>
+
+  <nav class="ef-index" aria-label={t("endfield.index")}>
+    <a href={href("/blog/")}><small>{t("home.writingIndex")}</small><span><b>{count(posts.length)}</b> {unit("common.entries", posts.length)}</span></a>
+    <a href={href("/projects/")}><small>{t("home.practiceIndex")}</small><span><b>{count(projectEntries.length)}</b> {unit("common.projects", projectEntries.length)}</span></a>
+    <a href={href("/games/")}><small>{t("home.playIndex")}</small><span><b>{count(favoriteGames.length)}</b> {unit("endfield.games", favoriteGames.length)}</span></a>
+  </nav>
+
+  <section class="ef-section" aria-labelledby="ef-records-title">
+    <header class="ef-head"><div><p class="ef-eyebrow">// 01 Records</p><h2 id="ef-records-title">{t("home.latest")}</h2></div><a class="ef-link" href={href("/blog/")}>{t("common.allArticles")}</a></header>
+    <ol class="ef-records">
+      {older.slice(0, 5).map((post, index) => (
+        <li><a href={href(`/blog/${post.slug}/`)}><span class="ef-tag">No.{serial(index + 1)}</span><time datetime={entryDate(post).toISOString()}>{formatDate(entryDate(post))}</time><span class="ef-record-title">{post.data.title}</span><span class="ef-record-kind">{categoryLabel[post.data.category]}</span></a></li>
+      ))}
+    </ol>
+    {posts.length < 2 && <p class="ef-empty">{t("home.empty")}</p>}
+  </section>
+
+  <section class="ef-section" aria-labelledby="ef-practice-title">
+    <header class="ef-head"><div><p class="ef-eyebrow">// 02 In practice</p><h2 id="ef-practice-title">{t("home.inProgress")}</h2></div><a class="ef-link" href={href("/projects/")}>{t("common.projectNotes")}</a></header>
+    <p class="ef-lede">{t("home.practice1")}{t("home.practice2")}</p>
+    <dl class="ef-boards">
+      {profileTech.map((item, index) => <div class="ef-board"><dt><span class="ef-num">{count(index + 1)}</span>{item.name}</dt><dd>{item.note}</dd></div>)}
+    </dl>
+  </section>
+
+  <section class="ef-section ef-now" aria-labelledby="ef-now-title">
+    <p class="ef-eyebrow" id="ef-now-title">// 03 {t("home.currently")}</p>
+    <p class="ef-now-text">{currentSignals[0].text}</p>
+    <a class="ef-link" href={href("/about/")}>{t("common.moreNow")}</a>
+  </section>
+</PageLayout>

@@ -1,11 +1,13 @@
 // Shared UI copy for every theme. Add each new key in all three languages.
 import { themeMessages } from "./theme-messages.ts";
 import { emaMessages } from "./ema-messages.ts";
+import { endfieldMessages } from "./endfield-messages.ts";
 import { mediaMessages } from "./media-messages.ts";
 export const messages = {
   "zh-CN": {
     ...themeMessages["zh-CN"],
     ...emaMessages["zh-CN"],
+    ...endfieldMessages["zh-CN"],
     ...mediaMessages["zh-CN"],
     "site.description": "一处慢慢填满的个人空间。记录想法，收藏喜欢，做一点自己的东西。",
     "nav.home": "首页",
@@ -163,6 +165,7 @@ export const messages = {
   "ja": {
     ...themeMessages.ja,
     ...emaMessages.ja,
+    ...endfieldMessages.ja,
     ...mediaMessages.ja,
     "site.description": "少しずつ書き足していく、自分だけの場所。考えを記録し、好きなものを集め、自分の手で何かをつくる。",
     "nav.home": "ホーム",
@@ -320,6 +323,7 @@ export const messages = {
   "en": {
     ...themeMessages.en,
     ...emaMessages.en,
+    ...endfieldMessages.en,
     ...mediaMessages.en,
     "site.description": "A personal space, filled one page at a time. Notes, favorite things, and small creations.",
     "nav.home": "Home",

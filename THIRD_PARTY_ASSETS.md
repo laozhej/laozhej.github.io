@@ -49,7 +49,9 @@ Ema 主题左下角使用 kyokiStudio 发布的《葬送的芙莉莲》同人 Li
 - 樱色档案主题的标题（“Arataki.br’s Base”）使用 Duarte Pinto 设计的 Gloock（Copyright 2022 The Gloock Project Authors），通过 npm 包 `@fontsource/gloock` 随站点自托管，只引入拉丁字母子集；许可为 SIL Open Font License 1.1，全文保存在 `public/licenses/gloock-OFL.txt`。
 - Live2D 渲染使用 [PixiJS 6.5.10](https://github.com/pixijs/pixijs/tree/v6.5.10) 与 [pixi-live2d-display 0.4.0](https://github.com/guansss/pixi-live2d-display/tree/v0.4.0)，各自 MIT 许可保存在 `public/licenses/pixi-MIT.txt` 和 `public/licenses/pixi-live2d-display-MIT.txt`。
 - Cubism Core 从 [Live2D 官方 Cubism SDK for Web 5-r.4](https://www.live2d.com/en/sdk/download/web/) 提取，原样自托管于 `public/vendor/live2d/5-r.4/`；目录内保留 `LICENSE.md` 与 `RedistributableFiles.txt`。Core 适用 [Live2D Proprietary Software License](https://www.live2d.com/eula/live2d-proprietary-software-license-agreement_en.html)，渲染库包含的 Cubism Framework 适用 [Live2D Open Software License](https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html)，两者均不因外层库或本站采用 MIT 而改变许可。软件许可不授予模型或角色素材的使用权。
-- 页面不从外部服务器加载字体；除上述标题字体外，文字使用访客设备的系统字体。
+- 终末地工业风主题的英文标签、编号和标题使用 Saira（Copyright 2020 The Saira Project Authors），通过 npm 包 `@fontsource-variable/saira` 随站点自托管，浏览器只按需下载用到的拉丁字母子集；许可为 SIL Open Font License 1.1，全文保存在 `public/licenses/saira-OFL.txt`。
+- 终末地工业风主题背景的等高线 `public/themes/endfield/contour-a.svg`、`contour-b.svg` 由 endfield-ui 设计套件的生成脚本绘制，不含任何游戏官方素材；该主题只借鉴界面结构习惯，不使用《明日方舟：终末地》的字体、标志、图标、立绘或截图。
+- 页面不从外部服务器加载字体；除上述字体外，文字使用访客设备的系统字体。
 
 ## 不发布的历史文件
 

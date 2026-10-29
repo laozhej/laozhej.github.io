@@ -1,0 +1,20 @@
+---
+import { render } from "astro:content";
+import { getThemeStaticPaths } from "@/core/themes/static-paths";
+import HomePage from "@/themes/endfield/pages/HomePage.astro";
+import BlogIndexPage from "@/themes/blank/pages/BlogIndexPage.astro";
+import ArticlePage from "@/themes/blank/pages/ArticlePage.astro";
+import ProjectsPage from "@/themes/blank/pages/ProjectsPage.astro";
+import GamesPage from "@/themes/blank/pages/GamesPage.astro";
+import AboutPage from "@/themes/blank/pages/AboutPage.astro";
+import CreditsPage from "@/themes/blank/pages/CreditsPage.astro";
+import NotFoundPage from "@/themes/blank/pages/NotFoundPage.astro";
+
+export const getStaticPaths = () => getThemeStaticPaths(["ja", "en"]);
+const { kind, post } = Astro.props;
+const pages = { home: HomePage, blog: BlogIndexPage, projects: ProjectsPage, games: GamesPage, about: AboutPage, credits: CreditsPage, "404": NotFoundPage };
+const Page = pages[kind as keyof typeof pages];
+const rendered = post ? await render(post) : undefined;
+const Content = rendered?.Content;
+---
+{Content ? <ArticlePage frontmatter={post.data} headings={rendered.headings}><Content /></ArticlePage> : <Page />}

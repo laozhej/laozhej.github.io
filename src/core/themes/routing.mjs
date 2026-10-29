@@ -4,6 +4,7 @@ export const themePreferenceKey = "site-theme";
 export const themes = [
   { id: "blank", root: "", labelKey: "theme.blank" },
   { id: "ema", root: "/themes/ema", labelKey: "theme.ema" },
+  { id: "endfield", root: "/themes/endfield", labelKey: "theme.endfield" },
 ];
 
 export function isTheme(value) {

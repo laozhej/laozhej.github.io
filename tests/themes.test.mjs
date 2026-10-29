@@ -8,10 +8,14 @@ test("theme changes round-trip every locale, section and nested article without 
   for (const locale of ["zh-CN", "ja", "en"]) {
     for (const path of ["/", "/blog/", "/blog/notes/first-post/", "/projects/", "/games/", "/about/", "/credits/"]) {
       const original = localizePath(`${path}?q=hello%20world&category=life&sort=oldest&ref=shared#section-two`, locale);
-      const themed = getThemePath("ema", original);
-      assert.equal(getTheme(themed), "ema");
-      assert.equal(getThemePath("blank", themed), original);
-      assert.equal(getThemePath("ema", themed), themed, "never stack theme roots");
+      for (const theme of ["ema", "endfield"]) {
+        const themed = getThemePath(theme, original);
+        assert.equal(getTheme(themed), theme);
+        assert.equal(getThemePath("blank", themed), original);
+        assert.equal(getThemePath(theme, themed), themed, "never stack theme roots");
+        const other = getThemePath(theme === "ema" ? "endfield" : "ema", themed);
+        assert.equal(getThemePath(theme, other), themed, "named themes switch between each other");
+      }
     }
   }
 });
@@ -31,6 +35,7 @@ test("404 switching maps to the actual static routes and language changes retain
   assert.equal(getThemePath("ema", "/404.html?q=x#top"), "/themes/ema/404/?q=x#top");
   assert.equal(getThemePath("blank", "/themes/ema/404/?q=x#top"), "/404.html?q=x#top");
   assert.equal(getThemePath("ema", "/ja/404/"), "/ja/themes/ema/404/");
+  assert.equal(getThemePath("endfield", "/themes/ema/404/?q=x#top"), "/themes/endfield/404/?q=x#top");
   assert.equal(localizePath("/en/themes/ema/404/", "zh-CN"), "/themes/ema/404/");
   assert.equal(localizePath("/en/themes/ema/blog/welcome/", "ja"), "/ja/themes/ema/blog/welcome/");
 });

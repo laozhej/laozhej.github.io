@@ -95,9 +95,15 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-hero { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:clamp(28px,4vw,48px) clamp(32px,5vw,72px); align-items:center; padding-block:clamp(40px,6vw,76px) clamp(28px,4vw,48px); }
 .ef-hero-top { grid-column:1/-1; }
 .ef-hero-copy { align-self:end; padding-bottom:28px; }
-.ef-wordmark-hero { margin:22px 0 0; font:500 clamp(2rem,9vw,8.4rem)/.84 var(--ef-ui); font-stretch:125%; letter-spacing:.03em; text-transform:uppercase; overflow-wrap:anywhere; }
-.ef-wordmark-hero span { display:block; }
-.ef-hollow { margin-top:.14em; font-size:.56em; letter-spacing:.08em; color:transparent; -webkit-text-stroke:1.25px var(--ef-ink); }
+/* Nameplate: a heavy, narrow mark sized to the grid, with the site's role on a cut tag and a rule running to the edge. */
+.ef-wordmark-hero { margin:22px 0 0; font:800 clamp(2.75rem,10.5vw,6.4rem)/.86 var(--ef-ui); font-stretch:100%; letter-spacing:-.005em; text-transform:uppercase; overflow-wrap:anywhere; }
+.ef-wordmark-hero>span { display:block; }
+.ef-sr { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.ef-wordmark-hero>.ef-plate { display:flex; align-items:stretch; gap:8px; margin-top:clamp(14px,1.6vw,22px); font-size:13px; font-weight:700; font-stretch:125%; letter-spacing:.22em; line-height:1; }
+.ef-plate::before { content:""; width:6px; background:var(--ef-signal); }
+.ef-plate>span { padding:7px calc(12px + var(--ef-cut)) 7px 12px; background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-tag-bg) 0); color:var(--ef-tag-fg); }
+.ef-plate>span::before { content:"// "; content:"// " / ""; opacity:.6; }
+.ef-plate::after { content:""; flex:1; align-self:center; height:1px; margin-left:4px; background:var(--ef-ink); }
 .ef-statement { margin:0 0 12px; font-size:clamp(1.25rem,2.4vw,1.7rem); font-weight:800; line-height:1.6; }
 .ef-intro { margin:0 0 26px; color:var(--ef-ink-2); font-size:16px; max-width:34rem; }
 .ef-hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin:0; }
@@ -236,8 +242,8 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 /* Entrance: short and mechanical, one sequence under a second. Content stays visible without it. */
 @keyframes ef-drive { from { clip-path:inset(0 100% 0 0); } }
 @keyframes ef-come { from { opacity:0; transform:translateY(14px); } }
-html:not([data-motion-paused="true"]) [data-ef-enter] :is(.ef-fields,.ef-wordmark-hero span,.ef-marker) { animation:ef-drive .52s var(--ef-mech) backwards; }
-html:not([data-motion-paused="true"]) [data-ef-enter] .ef-wordmark-hero .ef-hollow { animation-delay:140ms; }
+html:not([data-motion-paused="true"]) [data-ef-enter] :is(.ef-fields,.ef-wordmark-hero>span,.ef-marker) { animation:ef-drive .52s var(--ef-mech) backwards; }
+html:not([data-motion-paused="true"]) [data-ef-enter] .ef-wordmark-hero .ef-plate { animation-delay:140ms; }
 html:not([data-motion-paused="true"]) [data-ef-enter] .ef-marker { animation-delay:280ms; }
 html:not([data-motion-paused="true"]) [data-ef-enter] :is(.ef-intro,.ef-hero-actions,.ef-frame) { animation:ef-come .4s var(--ef-snap) backwards; }
 html:not([data-motion-paused="true"]) [data-ef-enter] .ef-intro { animation-delay:320ms; }
@@ -265,13 +271,11 @@ html:not([data-motion-paused="true"]) [data-ef-enter] .ef-frame { animation-dela
   .ef-record-title { grid-column:1/-1; } .ef-record-kind { grid-column:1/-1; justify-self:start; }
   .ef-head { flex-wrap:wrap; } .ef-head::after { display:none; } .ef-head>div { flex:1 1 100%; }
   .ef-footer-top { grid-template-columns:1fr; }
-  .ef-hollow { -webkit-text-stroke-width:1px; }
   body[data-endfield]::before { -webkit-mask:url("/themes/endfield/contour-a.svg") right -12rem top -4rem/34rem auto no-repeat; mask:url("/themes/endfield/contour-a.svg") right -12rem top -4rem/34rem auto no-repeat; }
 }
 @media(max-width:559px) {
   .ef-nav-number { display:none; }
   .ef-wordmark strong { font-size:13px; font-stretch:100%; line-height:1.1; white-space:normal; }
-  .ef-hollow { font-size:.8em; }
   .ef-actions { gap:4px; }
   [data-endfield] .ef-button-icon { width:40px; height:40px; }
   .ef-header .site-language-menu>summary>:is(span:not(:first-child),svg:last-child) { display:none; }

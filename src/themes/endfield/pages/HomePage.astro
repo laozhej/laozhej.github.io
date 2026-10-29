@@ -12,6 +12,9 @@ const serial = (index: number) => String(posts.length - index).padStart(3, "0");
 const count = (value: number) => String(value).padStart(2, "0");
 const brand = t("ema.brand");
 const [brandHead, ...brandTail] = brand.split(" ");
+// The nameplate drops the possessive visually; screen readers still hear the full brand.
+const brandName = brandHead.replace(/[’']s$/i, "");
+const possessive = brandHead.slice(brandName.length);
 // Chinese and Japanese sentences join directly; English needs a space.
 const join = (...parts: string[]) => parts.join(locale === "en" ? " " : "");
 const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? post.data.pubDate;
@@ -24,7 +27,7 @@ const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? pos
         <li>{posts.length} {unit("common.entries", posts.length)}</li>
         <li>{projectEntries.length} {unit("common.projects", projectEntries.length)}</li>
       </ul>
-      <h1 id="ef-home-title" class="ef-wordmark-hero"><span class="ef-solid">{brandHead}</span> <span class="ef-hollow">{brandTail.join(" ")}</span></h1>
+      <h1 id="ef-home-title" class="ef-wordmark-hero"><span class="ef-solid">{brandName}<span class="ef-sr">{possessive}</span></span> <span class="ef-plate"><span>{brandTail.join(" ")}</span></span></h1>
     </div>
     <div class="ef-hero-copy">
       <p class="ef-statement"><span class="ef-marker">{t("home.statement1")}</span><br />{t("home.statement2")}</p>

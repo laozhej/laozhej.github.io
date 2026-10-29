@@ -1,5 +1,6 @@
 // Adapted from the owner's public Steam introduction, with permission on 2026-10-28.
 // Source: https://steamcommunity.com/id/asahiarataki
+import { getFavoriteCharacters } from "./characters.ts";
 export const profileIdentity = {
   displayName: "荒泷旭",
   handle: "PROFILE / 个人档案",
@@ -27,8 +28,9 @@ export const favoriteGames = [
 ] as const;
 
 export const xpFavorites = [
-  { key: "emma", title: "樱羽艾玛", subtitle: "角色风格参考" },
-  { key: "yuki", title: "月代雪", subtitle: "现在的头像角色" }
+  { key: "emma", title: "樱羽艾玛", subtitle: "角色风格参考", portrait: "/themes/ema/assets/ema-avatar.webp" },
+  { key: "yuki", title: "月代雪", subtitle: "现在的头像角色", portrait: "/themes/ema/assets/yuki.webp" },
+  ...getFavoriteCharacters("zh-CN"),
 ] as const;
 
 export const currentSignals = [

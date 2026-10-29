@@ -1,0 +1,1548 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-10-29",
+  "scope": "Portraits for the owner-selected favorite characters. Third-party art is excluded from the repository software license. Source records do not grant republication rights.",
+  "processing": "Deterministic rectangular crops, LANCZOS resizing, and WebP encoding only. No generative AI, generative fill, redrawing, or synthetic upscaling.",
+  "assets": [
+    {
+      "key": "sakura-matou",
+      "title": {
+        "zh-CN": "间桐樱",
+        "ja": "間桐桜",
+        "en": "Sakura Matou"
+      },
+      "work": {
+        "zh-CN": "Fate/stay night",
+        "ja": "Fate/stay night",
+        "en": "Fate/stay night"
+      },
+      "sourcePage": "https://www.fate-sn.com/ubw/chara/",
+      "sourceImage": "https://www.fate-sn.com/ubw/chara/img/ch05.jpg",
+      "copyright": "© TYPE-MOON・ufotable・FSNPC",
+      "creator": "ufotable; original character designs by 武内崇 (Takashi Takeuchi)",
+      "provenance": "Official 2014–2015 TV anime character page and credited studio; existing published animation frame.",
+      "path": "/characters/sakura-matou.webp",
+      "crop": {
+        "sourceSize": [
+          530,
+          298
+        ],
+        "box": [
+          110,
+          0,
+          408,
+          298
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "f81d998700c3366e647df2b96a80dff3abd777d1829976175df5b0cf7a22207f",
+      "bytes": 14294,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "saber",
+      "title": {
+        "zh-CN": "Saber",
+        "ja": "セイバー",
+        "en": "Saber"
+      },
+      "work": {
+        "zh-CN": "Fate/stay night",
+        "ja": "Fate/stay night",
+        "en": "Fate/stay night"
+      },
+      "sourcePage": "https://www.fate-sn.com/ubw/chara/",
+      "sourceImage": "https://www.fate-sn.com/ubw/chara/img/ch02.jpg",
+      "copyright": "© TYPE-MOON・ufotable・FSNPC",
+      "creator": "ufotable; original character designs by 武内崇 (Takashi Takeuchi)",
+      "provenance": "Official 2014–2015 TV anime character page and credited studio; existing published animation frame.",
+      "path": "/characters/saber.webp",
+      "crop": {
+        "sourceSize": [
+          530,
+          298
+        ],
+        "box": [
+          110,
+          0,
+          408,
+          298
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "9f5ec05b285acf29e2c38e324131caffabfca4fd09cb67f86b861e3e5061edc9",
+      "bytes": 16030,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "archer",
+      "title": {
+        "zh-CN": "Archer",
+        "ja": "アーチャー",
+        "en": "Archer"
+      },
+      "work": {
+        "zh-CN": "Fate/stay night",
+        "ja": "Fate/stay night",
+        "en": "Fate/stay night"
+      },
+      "sourcePage": "https://www.fate-sn.com/ubw/chara/",
+      "sourceImage": "https://www.fate-sn.com/ubw/chara/img/ch04.jpg",
+      "copyright": "© TYPE-MOON・ufotable・FSNPC",
+      "creator": "ufotable; original character designs by 武内崇 (Takashi Takeuchi)",
+      "provenance": "Official 2014–2015 TV anime character page and credited studio; existing published animation frame.",
+      "path": "/characters/archer.webp",
+      "crop": {
+        "sourceSize": [
+          530,
+          298
+        ],
+        "box": [
+          110,
+          0,
+          408,
+          298
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "648ef33fe9040b3ed0102929c70b095e9046b0ec1fc71f10e497e8a8f7481937",
+      "bytes": 11698,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "rin-tohsaka",
+      "title": {
+        "zh-CN": "远坂凛",
+        "ja": "遠坂凛",
+        "en": "Rin Tohsaka"
+      },
+      "work": {
+        "zh-CN": "Fate/stay night",
+        "ja": "Fate/stay night",
+        "en": "Fate/stay night"
+      },
+      "sourcePage": "https://www.fate-sn.com/ubw/chara/",
+      "sourceImage": "https://www.fate-sn.com/ubw/chara/img/ch03.jpg",
+      "copyright": "© TYPE-MOON・ufotable・FSNPC",
+      "creator": "ufotable; original character designs by 武内崇 (Takashi Takeuchi)",
+      "provenance": "Official 2014–2015 TV anime character page and credited studio; existing published animation frame.",
+      "path": "/characters/rin-tohsaka.webp",
+      "crop": {
+        "sourceSize": [
+          530,
+          298
+        ],
+        "box": [
+          110,
+          0,
+          408,
+          298
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "ca5ab9a60a6b645175863566ffbe89f6fce644a596f30f551b721faba5211359",
+      "bytes": 9652,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "aoko",
+      "title": {
+        "zh-CN": "苍崎青子",
+        "ja": "蒼崎青子",
+        "en": "Aoko Aozaki"
+      },
+      "work": {
+        "zh-CN": "魔法使之夜",
+        "ja": "魔法使いの夜",
+        "en": "Witch on the Holy Night"
+      },
+      "sourcePage": "https://typemoon.com/products/mahoyo/character/",
+      "sourceImage": "https://cache.typemoon.com/images/ic82fb58099fa5d9f5ef8c249849df4abmg",
+      "copyright": "© TYPE-MOON",
+      "creator": "こやまひろかず (Hirokazu Koyama), character design and original art; TYPE-MOON",
+      "provenance": "Official character illustration for the console edition of the 2012 visual novel.",
+      "path": "/characters/aoko.webp",
+      "crop": {
+        "sourceSize": [
+          750,
+          1000
+        ],
+        "box": [
+          290,
+          15,
+          610,
+          335
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "50f2c231ff7bbac64fc1acb51b03c680a3ac29f96c681c4cec84f9cf918bb192",
+      "bytes": 16738,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "alice",
+      "title": {
+        "zh-CN": "久远寺有珠",
+        "ja": "久遠寺有珠",
+        "en": "Alice Kuonji"
+      },
+      "work": {
+        "zh-CN": "魔法使之夜",
+        "ja": "魔法使いの夜",
+        "en": "Witch on the Holy Night"
+      },
+      "sourcePage": "https://typemoon.com/products/mahoyo/character/",
+      "sourceImage": "https://cache.typemoon.com/images/i1a15e54749c924b159ed1b84b5b56495mg",
+      "copyright": "© TYPE-MOON",
+      "creator": "こやまひろかず (Hirokazu Koyama), character design and original art; TYPE-MOON",
+      "provenance": "Previously verified official character illustration; see public/themes/ema/ASSETS.json.",
+      "path": "/characters/alice.webp",
+      "crop": {
+        "sourceSize": [
+          750,
+          1000
+        ],
+        "box": [
+          210,
+          15,
+          550,
+          355
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "286f57d8f989d947e6ba964abf4f8957cba56599a4c96fadd435784da1ae0c92",
+      "bytes": 12300,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "shiki",
+      "title": {
+        "zh-CN": "两仪式",
+        "ja": "両儀式",
+        "en": "Shiki Ryougi"
+      },
+      "work": {
+        "zh-CN": "空之境界",
+        "ja": "空の境界",
+        "en": "The Garden of Sinners"
+      },
+      "sourcePage": "https://www.karanokyoukai.com/archive/index.html",
+      "sourceImage": "https://www.karanokyoukai.com/archive/images/images-c1/character/character_set01-Shiki.png",
+      "copyright": "© 奈須きのこ／講談社・アニプレックス・ノーツ・ufotable",
+      "creator": "ufotable; original character designs by 武内崇; anime character designs by 須藤友徳／高橋タクロヲ",
+      "provenance": "Official first-film character introduction, 2007; staff credited on the same page.",
+      "path": "/characters/shiki.webp",
+      "crop": {
+        "sourceSize": [
+          878,
+          400
+        ],
+        "box": [
+          340,
+          0,
+          670,
+          330
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "0ecdb0c94460346e7edf0641948724cf73f30b671415fe9f4f735b1413ccab8c",
+      "bytes": 7542,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "mimi",
+      "title": {
+        "zh-CN": "美美",
+        "ja": "ミミ",
+        "en": "Mimi"
+      },
+      "work": {
+        "zh-CN": "与你相恋到生命尽头",
+        "ja": "きみが死ぬまで恋をしたい",
+        "en": "I Want to Love You Till Your Dying Day"
+      },
+      "path": "/characters/mimi.webp",
+      "sourcePage": "https://kimishinu-anime.com/character/",
+      "sourceImage": "https://kimishinu-anime.com/assets/img/character/chara2_face1-1.png",
+      "copyright": "©あおのなち・一迅社／「きみ死ぬ」製作委員会",
+      "creator": "Original manga: あおのなち; anime character design: 油布京子",
+      "crop": {
+        "sourceSize": [
+          400,
+          400
+        ],
+        "box": [
+          0,
+          0,
+          400,
+          400
+        ],
+        "output": [
+          320,
+          320
+        ]
+      },
+      "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-29",
+      "notes": "Official full name: カガリ・ミミ / Kagari Mimi.",
+      "sha256": "17038772256778299cbf2288d502af23ade8587df7f88cc0c40298736895415a",
+      "bytes": 28742,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "sheena",
+      "title": {
+        "zh-CN": "席娜",
+        "ja": "シーナ",
+        "en": "Sheena"
+      },
+      "work": {
+        "zh-CN": "与你相恋到生命尽头",
+        "ja": "きみが死ぬまで恋をしたい",
+        "en": "I Want to Love You Till Your Dying Day"
+      },
+      "path": "/characters/sheena.webp",
+      "sourcePage": "https://kimishinu-anime.com/character/",
+      "sourceImage": "https://kimishinu-anime.com/assets/img/character/chara1_face1-1.png",
+      "copyright": "©あおのなち・一迅社／「きみ死ぬ」製作委員会",
+      "creator": "Original manga: あおのなち; anime character design: 油布京子",
+      "crop": {
+        "sourceSize": [
+          400,
+          400
+        ],
+        "box": [
+          0,
+          0,
+          400,
+          400
+        ],
+        "output": [
+          320,
+          320
+        ]
+      },
+      "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-29",
+      "notes": "Official full name: トツキ・シーナ / Totsuki Sheena.",
+      "sha256": "2457d183d715b461e90fb39b4b26a1e82019f53bb3ae7ea1836f544ee7c51a6d",
+      "bytes": 24722,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "frieren",
+      "title": {
+        "zh-CN": "芙莉莲",
+        "ja": "フリーレン",
+        "en": "Frieren"
+      },
+      "work": {
+        "zh-CN": "葬送的芙莉莲",
+        "ja": "葬送のフリーレン",
+        "en": "Frieren: Beyond Journey’s End"
+      },
+      "path": "/characters/frieren.webp",
+      "sourcePage": "https://frieren-anime.jp/character/chara_group1/1-1/",
+      "sourceImage": "https://frieren-anime.jp/wp-content/uploads/2023/08/chara01_full1.png",
+      "copyright": "© 山田鐘人・アベツカサ／小学館／「葬送のフリーレン」製作委員会",
+      "creator": "Original work: 山田鐘人・アベツカサ; season 1 character design: 長澤礼子",
+      "crop": {
+        "sourceSize": [
+          750,
+          683
+        ],
+        "box": [
+          280,
+          0,
+          485,
+          205
+        ],
+        "output": [
+          320,
+          320
+        ]
+      },
+      "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-29",
+      "sha256": "1bf9cc523c69fe14517cf9b286cd289d12f9bab881a927e2bdd295e78201c2d4",
+      "bytes": 27560,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "fern",
+      "title": {
+        "zh-CN": "菲伦",
+        "ja": "フェルン",
+        "en": "Fern"
+      },
+      "work": {
+        "zh-CN": "葬送的芙莉莲",
+        "ja": "葬送のフリーレン",
+        "en": "Frieren: Beyond Journey’s End"
+      },
+      "path": "/characters/fern.webp",
+      "sourcePage": "https://frieren-anime.jp/character/chara_group1/1-5/",
+      "sourceImage": "https://frieren-anime.jp/wp-content/uploads/2023/08/chara02_full1.png",
+      "copyright": "© 山田鐘人・アベツカサ／小学館／「葬送のフリーレン」製作委員会",
+      "creator": "Original work: 山田鐘人・アベツカサ; season 1 character design: 長澤礼子",
+      "crop": {
+        "sourceSize": [
+          750,
+          683
+        ],
+        "box": [
+          330,
+          0,
+          530,
+          200
+        ],
+        "output": [
+          320,
+          320
+        ]
+      },
+      "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-29",
+      "sha256": "898696740f99642ebe9424516ac4ce6537e2af17b5c554d132cb6d6da76f3257",
+      "bytes": 17624,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ak-shu",
+      "id": "char_2025_shu",
+      "title": {
+        "zh-CN": "黍",
+        "ja": "シュウ",
+        "en": "Shu"
+      },
+      "work": {
+        "zh-CN": "明日方舟",
+        "ja": "アークナイツ",
+        "en": "Arknights"
+      },
+      "path": "/characters/ak-shu.webp",
+      "sourcePage": "https://github.com/yuanyan3060/ArknightsGameResource/blob/main/avatar/char_2025_shu.png",
+      "sourceImage": "https://raw.githubusercontent.com/yuanyan3060/ArknightsGameResource/main/avatar/char_2025_shu.png",
+      "copyright": "© HYPERGRYPH / 上海鹰角网络科技有限公司",
+      "creator": "IRIS_呓",
+      "provenance": "Official in-game default operator avatar, mirrored from the game client. Artist credit from gamedata/excel/skin_table.json displaySkin.drawerList. Mirror README reserves all static resource rights to Arknights/HYPERGRYPH.",
+      "crop": {
+        "sourceSize": [
+          180,
+          180
+        ],
+        "box": [
+          0,
+          0,
+          180,
+          180
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "792d5e16c57519f86445a6b5b70a6eadb414bca8a0c81b996155f41f3ba4e475",
+      "bytes": 40008,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ak-wang",
+      "id": "char_2027_wang",
+      "title": {
+        "zh-CN": "望",
+        "ja": "ウァン",
+        "en": "Wang"
+      },
+      "work": {
+        "zh-CN": "明日方舟",
+        "ja": "アークナイツ",
+        "en": "Arknights"
+      },
+      "path": "/characters/ak-wang.webp",
+      "sourcePage": "https://github.com/yuanyan3060/ArknightsGameResource/blob/main/avatar/char_2027_wang.png",
+      "sourceImage": "https://raw.githubusercontent.com/yuanyan3060/ArknightsGameResource/main/avatar/char_2027_wang.png",
+      "copyright": "© HYPERGRYPH / 上海鹰角网络科技有限公司",
+      "creator": "KuroBlood",
+      "provenance": "Official in-game default operator avatar, mirrored from the game client. Artist credit from gamedata/excel/skin_table.json displaySkin.drawerList. Mirror README reserves all static resource rights to Arknights/HYPERGRYPH.",
+      "crop": {
+        "sourceSize": [
+          180,
+          180
+        ],
+        "box": [
+          0,
+          0,
+          180,
+          180
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "16fe6ed4e8945026242e4f5ec9c17e20383f5e74b5f03ff07d8595c38c5e36de",
+      "bytes": 39580,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ak-civilight-eterna",
+      "id": "char_4134_cetsyr",
+      "title": {
+        "zh-CN": "魔王（特蕾西娅）",
+        "ja": "シヴィライト・エテルナ（テレジア）",
+        "en": "Civilight Eterna (Theresa)"
+      },
+      "work": {
+        "zh-CN": "明日方舟",
+        "ja": "アークナイツ",
+        "en": "Arknights"
+      },
+      "path": "/characters/ak-civilight-eterna.webp",
+      "sourcePage": "https://github.com/yuanyan3060/ArknightsGameResource/blob/main/avatar/char_4134_cetsyr.png",
+      "sourceImage": "https://raw.githubusercontent.com/yuanyan3060/ArknightsGameResource/main/avatar/char_4134_cetsyr.png",
+      "copyright": "© HYPERGRYPH / 上海鹰角网络科技有限公司",
+      "creator": "Chuzenji",
+      "provenance": "Official in-game default operator avatar, mirrored from the game client. Artist credit from gamedata/excel/skin_table.json displaySkin.drawerList. Mirror README reserves all static resource rights to Arknights/HYPERGRYPH.",
+      "crop": {
+        "sourceSize": [
+          180,
+          180
+        ],
+        "box": [
+          0,
+          0,
+          180,
+          180
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "98ef9ddaa83b20217a510d47f4cc1a73e76e2d1b1d25c0672d97b3dd5a93bdbc",
+      "bytes": 42938,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ak-wisadel",
+      "id": "char_1035_wisdel",
+      "title": {
+        "zh-CN": "维什戴尔",
+        "ja": "ウィシャデル",
+        "en": "Wiš'adel"
+      },
+      "work": {
+        "zh-CN": "明日方舟",
+        "ja": "アークナイツ",
+        "en": "Arknights"
+      },
+      "path": "/characters/ak-wisadel.webp",
+      "sourcePage": "https://github.com/yuanyan3060/ArknightsGameResource/blob/main/avatar/char_1035_wisdel.png",
+      "sourceImage": "https://raw.githubusercontent.com/yuanyan3060/ArknightsGameResource/main/avatar/char_1035_wisdel.png",
+      "copyright": "© HYPERGRYPH / 上海鹰角网络科技有限公司",
+      "creator": "Liduke",
+      "provenance": "Official in-game default operator avatar, mirrored from the game client. Artist credit from gamedata/excel/skin_table.json displaySkin.drawerList. Mirror README reserves all static resource rights to Arknights/HYPERGRYPH.",
+      "crop": {
+        "sourceSize": [
+          180,
+          180
+        ],
+        "box": [
+          0,
+          0,
+          180,
+          180
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "6c35547a7793b94ba827f822dda8bb94ba929ef7089b5df14d39fb07b6b54901",
+      "bytes": 49110,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ak-texas-omertosa",
+      "id": "char_1028_texas2",
+      "title": {
+        "zh-CN": "缄默德克萨斯",
+        "ja": "血掟テキサス",
+        "en": "Texas the Omertosa"
+      },
+      "work": {
+        "zh-CN": "明日方舟",
+        "ja": "アークナイツ",
+        "en": "Arknights"
+      },
+      "path": "/characters/ak-texas-omertosa.webp",
+      "sourcePage": "https://github.com/yuanyan3060/ArknightsGameResource/blob/main/avatar/char_1028_texas2.png",
+      "sourceImage": "https://raw.githubusercontent.com/yuanyan3060/ArknightsGameResource/main/avatar/char_1028_texas2.png",
+      "copyright": "© HYPERGRYPH / 上海鹰角网络科技有限公司",
+      "creator": "幻象黑兔",
+      "provenance": "Official in-game default operator avatar, mirrored from the game client. Artist credit from gamedata/excel/skin_table.json displaySkin.drawerList. Mirror README reserves all static resource rights to Arknights/HYPERGRYPH.",
+      "crop": {
+        "sourceSize": [
+          180,
+          180
+        ],
+        "box": [
+          0,
+          0,
+          180,
+          180
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "9787d98745fbcdfda1552c3e3434a26e18e937fddb67f9f9641eea4ef6a930be",
+      "bytes": 28796,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ak-dusk",
+      "id": "char_2015_dusk",
+      "title": {
+        "zh-CN": "夕",
+        "ja": "シー",
+        "en": "Dusk"
+      },
+      "work": {
+        "zh-CN": "明日方舟",
+        "ja": "アークナイツ",
+        "en": "Arknights"
+      },
+      "path": "/characters/ak-dusk.webp",
+      "sourcePage": "https://github.com/yuanyan3060/ArknightsGameResource/blob/main/avatar/char_2015_dusk.png",
+      "sourceImage": "https://raw.githubusercontent.com/yuanyan3060/ArknightsGameResource/main/avatar/char_2015_dusk.png",
+      "copyright": "© HYPERGRYPH / 上海鹰角网络科技有限公司",
+      "creator": "幻象黑兔",
+      "provenance": "Official in-game default operator avatar, mirrored from the game client. Artist credit from gamedata/excel/skin_table.json displaySkin.drawerList. Mirror README reserves all static resource rights to Arknights/HYPERGRYPH.",
+      "crop": {
+        "sourceSize": [
+          180,
+          180
+        ],
+        "box": [
+          0,
+          0,
+          180,
+          180
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "71f323a809fad3509431655839b8d1893253453cdfcf30ec1cbebb96fa537e6d",
+      "bytes": 41066,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ak-nian",
+      "id": "char_2014_nian",
+      "title": {
+        "zh-CN": "年",
+        "ja": "ニェン",
+        "en": "Nian"
+      },
+      "work": {
+        "zh-CN": "明日方舟",
+        "ja": "アークナイツ",
+        "en": "Arknights"
+      },
+      "path": "/characters/ak-nian.webp",
+      "sourcePage": "https://github.com/yuanyan3060/ArknightsGameResource/blob/main/avatar/char_2014_nian.png",
+      "sourceImage": "https://raw.githubusercontent.com/yuanyan3060/ArknightsGameResource/main/avatar/char_2014_nian.png",
+      "copyright": "© HYPERGRYPH / 上海鹰角网络科技有限公司",
+      "creator": "幻象黑兔",
+      "provenance": "Official in-game default operator avatar, mirrored from the game client. Artist credit from gamedata/excel/skin_table.json displaySkin.drawerList. Mirror README reserves all static resource rights to Arknights/HYPERGRYPH.",
+      "crop": {
+        "sourceSize": [
+          180,
+          180
+        ],
+        "box": [
+          0,
+          0,
+          180,
+          180
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "f76f8aa6bcb777a16d1a9508090e322c6eead208ff72b7a96c831b8e7bbb5b5f",
+      "bytes": 38950,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ak-eyjafjalla",
+      "id": "char_180_amgoat",
+      "title": {
+        "zh-CN": "艾雅法拉",
+        "ja": "エイヤフィヤトラ",
+        "en": "Eyjafjalla"
+      },
+      "work": {
+        "zh-CN": "明日方舟",
+        "ja": "アークナイツ",
+        "en": "Arknights"
+      },
+      "path": "/characters/ak-eyjafjalla.webp",
+      "sourcePage": "https://github.com/yuanyan3060/ArknightsGameResource/blob/main/avatar/char_180_amgoat.png",
+      "sourceImage": "https://raw.githubusercontent.com/yuanyan3060/ArknightsGameResource/main/avatar/char_180_amgoat.png",
+      "copyright": "© HYPERGRYPH / 上海鹰角网络科技有限公司",
+      "creator": "Anmi",
+      "provenance": "Official in-game default operator avatar, mirrored from the game client. Artist credit from gamedata/excel/skin_table.json displaySkin.drawerList. Mirror README reserves all static resource rights to Arknights/HYPERGRYPH.",
+      "crop": {
+        "sourceSize": [
+          180,
+          180
+        ],
+        "box": [
+          0,
+          0,
+          180,
+          180
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "f8bc3ff1f74efa89c797a6538ea1c41caf6f03367c004c3d6696ac3ee127fc6c",
+      "bytes": 38012,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ak-hoshiguma-breacher",
+      "id": "char_1044_hsgma2",
+      "title": {
+        "zh-CN": "斩业星熊",
+        "ja": "斬業ホシグマ",
+        "en": "Hoshiguma the Breacher"
+      },
+      "work": {
+        "zh-CN": "明日方舟",
+        "ja": "アークナイツ",
+        "en": "Arknights"
+      },
+      "path": "/characters/ak-hoshiguma-breacher.webp",
+      "sourcePage": "https://github.com/yuanyan3060/ArknightsGameResource/blob/main/avatar/char_1044_hsgma2.png",
+      "sourceImage": "https://raw.githubusercontent.com/yuanyan3060/ArknightsGameResource/main/avatar/char_1044_hsgma2.png",
+      "copyright": "© HYPERGRYPH / 上海鹰角网络科技有限公司",
+      "creator": "树豚",
+      "provenance": "Official in-game default operator avatar, mirrored from the game client. Artist credit from gamedata/excel/skin_table.json displaySkin.drawerList. Mirror README reserves all static resource rights to Arknights/HYPERGRYPH.",
+      "crop": {
+        "sourceSize": [
+          180,
+          180
+        ],
+        "box": [
+          0,
+          0,
+          180,
+          180
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "inputAlias": "斩夜星熊",
+      "sha256": "43c85ebf8d04bf8476df49564a15baa207234a2e0c7f38ffb1289f5276297e92",
+      "bytes": 38614,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ak-chen-dawnstreak",
+      "id": "char_1050_chen3",
+      "title": {
+        "zh-CN": "赤刃明霄陈",
+        "ja": "赤刃明霄チェン",
+        "en": "Ch'en the Dawnstreak"
+      },
+      "work": {
+        "zh-CN": "明日方舟",
+        "ja": "アークナイツ",
+        "en": "Arknights"
+      },
+      "path": "/characters/ak-chen-dawnstreak.webp",
+      "sourcePage": "https://github.com/yuanyan3060/ArknightsGameResource/blob/main/avatar/char_1050_chen3.png",
+      "sourceImage": "https://raw.githubusercontent.com/yuanyan3060/ArknightsGameResource/main/avatar/char_1050_chen3.png",
+      "copyright": "© HYPERGRYPH / 上海鹰角网络科技有限公司",
+      "creator": "三目YYB",
+      "provenance": "Official in-game default operator avatar, mirrored from the game client. Artist credit from gamedata/excel/skin_table.json displaySkin.drawerList. Mirror README reserves all static resource rights to Arknights/HYPERGRYPH.",
+      "crop": {
+        "sourceSize": [
+          180,
+          180
+        ],
+        "box": [
+          0,
+          0,
+          180,
+          180
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "54342e0b5c8d798666998b2a58810b2e14509b96cae46494e29810cff4f3a3d8",
+      "bytes": 49610,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ak-mon3tr",
+      "id": "char_4179_monstr",
+      "title": {
+        "zh-CN": "Mon3tr",
+        "ja": "Mon3tr",
+        "en": "Mon3tr"
+      },
+      "work": {
+        "zh-CN": "明日方舟",
+        "ja": "アークナイツ",
+        "en": "Arknights"
+      },
+      "path": "/characters/ak-mon3tr.webp",
+      "sourcePage": "https://github.com/yuanyan3060/ArknightsGameResource/blob/main/avatar/char_4179_monstr.png",
+      "sourceImage": "https://raw.githubusercontent.com/yuanyan3060/ArknightsGameResource/main/avatar/char_4179_monstr.png",
+      "copyright": "© HYPERGRYPH / 上海鹰角网络科技有限公司",
+      "creator": "伍秋秋秋秋",
+      "provenance": "Official in-game default operator avatar, mirrored from the game client. Artist credit from gamedata/excel/skin_table.json displaySkin.drawerList. Mirror README reserves all static resource rights to Arknights/HYPERGRYPH.",
+      "crop": {
+        "sourceSize": [
+          180,
+          180
+        ],
+        "box": [
+          0,
+          0,
+          180,
+          180
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "inputAlias": "mon3r",
+      "sha256": "ab85b54c0793acc1b8f6f94f2745a5e9e872a804363c859fc16c5383c92a4172",
+      "bytes": 37674,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ren-amamiya",
+      "title": {
+        "zh-CN": "雨宫莲",
+        "ja": "雨宮 蓮",
+        "en": "Ren Amamiya"
+      },
+      "work": {
+        "zh-CN": "女神异闻录5 皇家版",
+        "ja": "ペルソナ5 ザ・ロイヤル",
+        "en": "Persona 5 Royal"
+      },
+      "path": "/characters/ren-amamiya.webp",
+      "sourcePage": "https://p5r.jp/character/hero/",
+      "sourceImage": "https://p5r.jp/resources/img/character/hero/costume1_34a127b20fa0197fe10f79f74300d382.png",
+      "copyright": "©ATLUS. ©SEGA.",
+      "creator": "ATLUS / P-Studio; character design: Shigenori Soejima",
+      "crop": {
+        "sourceSize": [
+          797,
+          937
+        ],
+        "box": [
+          0,
+          0,
+          245,
+          245
+        ],
+        "output": [
+          320,
+          320
+        ]
+      },
+      "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-29",
+      "notes": "P5R official page labels the playable protagonist 主人公 / Hero; Ren Amamiya is the user-specified name.",
+      "sha256": "988cb08df1e1a887f0ed0e5e1a04774d3a8ea00fd434126c82f47b8af64df2b7",
+      "bytes": 30248,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "futaba-sakura",
+      "title": {
+        "zh-CN": "佐仓双叶",
+        "ja": "佐倉 双葉",
+        "en": "Futaba Sakura"
+      },
+      "work": {
+        "zh-CN": "女神异闻录5 皇家版",
+        "ja": "ペルソナ5 ザ・ロイヤル",
+        "en": "Persona 5 Royal"
+      },
+      "path": "/characters/futaba-sakura.webp",
+      "sourcePage": "https://p5r.jp/character/futaba/",
+      "sourceImage": "https://p5r.jp/resources/img/character/futaba/costume1_162d335f6b2c4b75d3f0d918e795933d.png",
+      "copyright": "©ATLUS. ©SEGA.",
+      "creator": "ATLUS / P-Studio; character design: Shigenori Soejima",
+      "crop": {
+        "sourceSize": [
+          1034,
+          599
+        ],
+        "box": [
+          300,
+          0,
+          580,
+          280
+        ],
+        "output": [
+          320,
+          320
+        ]
+      },
+      "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-29",
+      "sha256": "1501a2e5a6f061b67ae9060a89cf36f95188c6a28512ba53789ea25292df1061",
+      "bytes": 31894,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "makoto-yuki",
+      "title": {
+        "zh-CN": "结城理",
+        "ja": "結城 理",
+        "en": "Makoto Yuki"
+      },
+      "work": {
+        "zh-CN": "女神异闻录3 Reload",
+        "ja": "ペルソナ3 リロード",
+        "en": "Persona 3 Reload"
+      },
+      "path": "/characters/makoto-yuki.webp",
+      "sourcePage": "https://p3re.jp/",
+      "sourceImage": "https://p3re.jp/resources/img/top/character_modal/img_character1_f234d553552dd807c323dfecb0663805.webp",
+      "copyright": "©ATLUS. ©SEGA.",
+      "creator": "ATLUS / P-Studio",
+      "crop": {
+        "sourceSize": [
+          1080,
+          1080
+        ],
+        "box": [
+          430,
+          70,
+          690,
+          330
+        ],
+        "output": [
+          320,
+          320
+        ]
+      },
+      "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-29",
+      "notes": "P3R official page labels the playable protagonist 主人公 / Hero; Makoto Yuki is the user-specified name.",
+      "sha256": "ac8c7a52b5a2f690be073cdec0874bff2ea0b6a7c2a4fda4293ce1f8a65e863d",
+      "bytes": 18492,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ef-zhuang-fangyi",
+      "id": "zhuangfy",
+      "title": {
+        "zh-CN": "庄方宜",
+        "ja": "ゾアン・ファンイ",
+        "en": "Zhuang Fangyi"
+      },
+      "work": {
+        "zh-CN": "明日方舟：终末地",
+        "ja": "アークナイツ：エンドフィールド",
+        "en": "Arknights: Endfield"
+      },
+      "path": "/characters/ef-zhuang-fangyi.webp",
+      "sourcePage": "https://endfield.hypergryph.com/operator",
+      "sourceImage": "https://web.hycdn.cn/endfield/official-v4/_next/static/media/zhuangfy.50a608b8.png",
+      "copyright": "© HYPERGRYPH. All Rights Reserved.",
+      "creator": "HYPERGRYPH / 峘形山工作室 (official publisher artwork; individual artist not credited on source page)",
+      "provenance": "Official operator card artwork served directly by the Endfield website CDN; Japanese names verified at https://endfield.gryphline.com/ja-jp/operator.",
+      "crop": {
+        "sourceSize": [
+          303,
+          386
+        ],
+        "box": [
+          25,
+          45,
+          300,
+          320
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "e81fa7ffdc9b871a7294f62aa05148e942a24dd3a141bff38569f7d33a76bb61",
+      "bytes": 49482,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ef-laevatain",
+      "id": "laevatain",
+      "title": {
+        "zh-CN": "莱万汀",
+        "ja": "レーヴァテイン",
+        "en": "Laevatain"
+      },
+      "work": {
+        "zh-CN": "明日方舟：终末地",
+        "ja": "アークナイツ：エンドフィールド",
+        "en": "Arknights: Endfield"
+      },
+      "path": "/characters/ef-laevatain.webp",
+      "sourcePage": "https://endfield.hypergryph.com/operator",
+      "sourceImage": "https://web.hycdn.cn/endfield/official-v4/_next/static/media/laevatain.edd103d4.png",
+      "copyright": "© HYPERGRYPH. All Rights Reserved.",
+      "creator": "HYPERGRYPH / 峘形山工作室 (official publisher artwork; individual artist not credited on source page)",
+      "provenance": "Official operator card artwork served directly by the Endfield website CDN; Japanese names verified at https://endfield.gryphline.com/ja-jp/operator.",
+      "crop": {
+        "sourceSize": [
+          303,
+          386
+        ],
+        "box": [
+          20,
+          40,
+          300,
+          320
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "91069dc1b7bd5a55a72cc13f795fa8999eda2d0dba72a856e15d5b43a22053a3",
+      "bytes": 55406,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "ef-rossi",
+      "id": "rossi",
+      "title": {
+        "zh-CN": "洛茜",
+        "ja": "ロッシ",
+        "en": "Rossi"
+      },
+      "work": {
+        "zh-CN": "明日方舟：终末地",
+        "ja": "アークナイツ：エンドフィールド",
+        "en": "Arknights: Endfield"
+      },
+      "path": "/characters/ef-rossi.webp",
+      "sourcePage": "https://endfield.hypergryph.com/operator",
+      "sourceImage": "https://web.hycdn.cn/endfield/official-v4/_next/static/media/rossi.c58b721b.png",
+      "copyright": "© HYPERGRYPH. All Rights Reserved.",
+      "creator": "HYPERGRYPH / 峘形山工作室 (official publisher artwork; individual artist not credited on source page)",
+      "provenance": "Official operator card artwork served directly by the Endfield website CDN; Japanese names verified at https://endfield.gryphline.com/ja-jp/operator.",
+      "crop": {
+        "sourceSize": [
+          303,
+          386
+        ],
+        "box": [
+          10,
+          35,
+          300,
+          325
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "inputAlias": "洛西",
+      "sha256": "49394b6e62d6f832096e3445485893b4800085155d51e375c53c4d149a3b0c43",
+      "bytes": 44482,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "arcueid",
+      "title": {
+        "zh-CN": "爱尔奎特",
+        "ja": "アルクェイド",
+        "en": "Arcueid Brunestud"
+      },
+      "work": {
+        "zh-CN": "月姬",
+        "ja": "月姫",
+        "en": "Tsukihime"
+      },
+      "sourcePage": "https://typemoon.com/products/tsukihime/",
+      "sourceImage": "https://cache.typemoon.com/images/i3dd1eb5a788fa600d006ba11ca5c0397mg",
+      "copyright": "© TYPE-MOON",
+      "creator": "武内崇 (Takashi Takeuchi), character design; TYPE-MOON",
+      "provenance": "Official Tsukihime remake character illustration, 2021; character design credited on the official page.",
+      "path": "/characters/arcueid.webp",
+      "crop": {
+        "sourceSize": [
+          470,
+          1140
+        ],
+        "box": [
+          40,
+          0,
+          370,
+          330
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sha256": "748eb03eb7055c280e05431b12efd66fb87cd5c37503bd3790e9f91e02995ef3",
+      "bytes": 26858,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "iroha",
+      "title": {
+        "zh-CN": "酒寄彩叶",
+        "ja": "酒寄彩葉",
+        "en": "Iroha Sakayori"
+      },
+      "work": {
+        "zh-CN": "超时空辉夜姬！",
+        "ja": "超かぐや姫！",
+        "en": "Cosmic Princess Kaguya!"
+      },
+      "path": "/characters/iroha.webp",
+      "sourcePage": "https://www.cho-kaguyahime.com/",
+      "sourceImage": "https://www.cho-kaguyahime.com/assets/img/character/character_1main_2.webp",
+      "copyright": "©コロリド・ツインエンジンパートナーズ",
+      "creator": "Studio Colorido / Studio Chromato; character designs credited to Hechima (Tsukuyomi) and Akihiro Nagae (real world)",
+      "crop": {
+        "sourceSize": [
+          1920,
+          1800
+        ],
+        "box": [
+          790,
+          280,
+          1130,
+          620
+        ],
+        "output": [
+          320,
+          320
+        ]
+      },
+      "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-29",
+      "sha256": "5aaa81c8e3f567474dbc705803f61558be14b189ed480cca260cc0e49493954f",
+      "bytes": 24352,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "kaguya",
+      "title": {
+        "zh-CN": "辉夜姬",
+        "ja": "かぐや",
+        "en": "Kaguya"
+      },
+      "work": {
+        "zh-CN": "超时空辉夜姬！",
+        "ja": "超かぐや姫！",
+        "en": "Cosmic Princess Kaguya!"
+      },
+      "path": "/characters/kaguya.webp",
+      "sourcePage": "https://www.cho-kaguyahime.com/",
+      "sourceImage": "https://www.cho-kaguyahime.com/assets/img/character/character_0main_2.webp",
+      "copyright": "©コロリド・ツインエンジンパートナーズ",
+      "creator": "Studio Colorido / Studio Chromato; character designs credited to Hechima (Tsukuyomi) and Akihiro Nagae (real world)",
+      "crop": {
+        "sourceSize": [
+          1920,
+          1800
+        ],
+        "box": [
+          750,
+          245,
+          1170,
+          665
+        ],
+        "output": [
+          320,
+          320
+        ]
+      },
+      "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-29",
+      "sha256": "4aab2d85214d0db1835842f1f9a68aed6744772235c2b55eb2646c0c0bf95440",
+      "bytes": 30720,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "yachiyo",
+      "title": {
+        "zh-CN": "月见八千代",
+        "ja": "月見ヤチヨ",
+        "en": "Yachiyo Runami"
+      },
+      "work": {
+        "zh-CN": "超时空辉夜姬！",
+        "ja": "超かぐや姫！",
+        "en": "Cosmic Princess Kaguya!"
+      },
+      "path": "/characters/yachiyo.webp",
+      "sourcePage": "https://www.cho-kaguyahime.com/",
+      "sourceImage": "https://www.cho-kaguyahime.com/assets/img/character/character_2main.webp",
+      "copyright": "©コロリド・ツインエンジンパートナーズ",
+      "creator": "Studio Colorido / Studio Chromato; character designs credited to Hechima (Tsukuyomi) and Akihiro Nagae (real world)",
+      "crop": {
+        "sourceSize": [
+          1920,
+          1800
+        ],
+        "box": [
+          720,
+          300,
+          1180,
+          760
+        ],
+        "output": [
+          320,
+          320
+        ]
+      },
+      "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-29",
+      "notes": "Official English surname is Runami; Japanese surname 月見 is pronounced Runami for this character, per official English name.",
+      "sha256": "e3d5f1fd98a383f9fda09f298f51a136fef48e9357ea0588dfaa6c7516ff821d",
+      "bytes": 30634,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "chisato",
+      "title": {
+        "zh-CN": "锦木千束",
+        "ja": "錦木千束",
+        "en": "Chisato Nishikigi"
+      },
+      "work": {
+        "zh-CN": "莉可丽丝",
+        "ja": "リコリス・リコイル",
+        "en": "Lycoris Recoil"
+      },
+      "path": "/characters/chisato.webp",
+      "sourcePage": "https://lycorisrecoil.com/character/",
+      "sourceImage": "https://lycorisrecoil.com/assets/img/character/chara_chisato.png",
+      "copyright": "©Spider Lily/Aniplex, ABC ANIMATION, BS11",
+      "creator": "Spider Lily / A-1 Pictures; original character design: いみぎむる",
+      "crop": {
+        "sourceSize": [
+          450,
+          910
+        ],
+        "box": [
+          145,
+          55,
+          315,
+          225
+        ],
+        "output": [
+          320,
+          320
+        ]
+      },
+      "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-29",
+      "sha256": "63fb1e7a473c2b9e39ea59974de6ab92dc9567a14f58fa8db58758d7b75ea759",
+      "bytes": 24542,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "takina",
+      "title": {
+        "zh-CN": "井上泷奈",
+        "ja": "井ノ上たきな",
+        "en": "Takina Inoue"
+      },
+      "work": {
+        "zh-CN": "莉可丽丝",
+        "ja": "リコリス・リコイル",
+        "en": "Lycoris Recoil"
+      },
+      "path": "/characters/takina.webp",
+      "sourcePage": "https://lycorisrecoil.com/character/?chara=takina",
+      "sourceImage": "https://lycorisrecoil.com/assets/img/character/chara_takina.png",
+      "copyright": "©Spider Lily/Aniplex, ABC ANIMATION, BS11",
+      "creator": "Spider Lily / A-1 Pictures; original character design: いみぎむる",
+      "crop": {
+        "sourceSize": [
+          450,
+          910
+        ],
+        "box": [
+          145,
+          65,
+          315,
+          235
+        ],
+        "output": [
+          320,
+          320
+        ]
+      },
+      "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-29",
+      "sha256": "3652ede1a459f9ca45568841547f2b3e646911a0091956aa2007e4f87dfdb13c",
+      "bytes": 19774,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "mahiru",
+      "title": {
+        "zh-CN": "椎名真昼",
+        "ja": "椎名真昼",
+        "en": "Mahiru Shiina"
+      },
+      "work": {
+        "zh-CN": "邻家的天使大人",
+        "ja": "お隣の天使様にいつの間にか駄目人間にされていた件",
+        "en": "The Angel Next Door Spoils Me Rotten"
+      },
+      "path": "/characters/mahiru.webp",
+      "sourcePage": "https://otonarino-tenshisama.jp/",
+      "sourceImage": "https://otonarino-tenshisama.jp/wordpress/wp-content/themes/otonari/images/characterS2-2.png",
+      "copyright": "©佐伯さん・SBクリエイティブ／アニメ「お隣の天使様」製作委員会",
+      "creator": "Original work: 佐伯さん; original character design: はねこと; anime character design: 野口孝行",
+      "crop": {
+        "sourceSize": [
+          940,
+          1429
+        ],
+        "box": [
+          260,
+          20,
+          560,
+          320
+        ],
+        "output": [
+          320,
+          320
+        ]
+      },
+      "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
+      "retrievedAt": "2026-10-29",
+      "sha256": "61aae47feb0c4e21eb8cce2e03aaf910c116e95342a27551b7ab16811b7372e5",
+      "bytes": 28732,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    }
+  ]
+}

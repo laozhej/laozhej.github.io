@@ -19,7 +19,7 @@ const tone = (index: number, offset = 0) => `tone-${tones[(index + offset) % ton
 const number = (index: number) => String(index + 1).padStart(2, "0");
 const techIcons: Record<string, string> = { ai: "tabler:cpu", animation: "tabler:keyframes", engines: "tabler:device-gamepad-2", web: "tabler:world-www" };
 const tech = [...profileTech, ...projectTechLines.map(({ key, label, note }) => ({ key, name: label, note }))];
-// Characters with a local portrait get a sticker; anyone else still gets a name tag.
+// Retain the two original portrait stickers; added portraits share their frame.
 const portraits: Record<string, string> = { emma: "ema", yuki: "yuki" };
 const marks = [
   { id: "tech", icon: "tabler:code" },
@@ -94,16 +94,19 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
         <a class="about-more" href={href("/games/")}>{t("ema.about.gamesAll").replace("{n}", String(gameShelf.length))}<Icon name="tabler:arrow-right" size={16} aria-hidden="true" /></a>
       </section>
 
-      <section class="about-section" aria-labelledby="ema-about-characters">
+      <section class="about-section" aria-labelledby="ema-about-characters" data-site-disclosure data-limit="6">
         <div class="shelf-heading"><span class={`shelf-chip ${tone(0)}`}><Icon name="tabler:heart" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">{t("ema.about.charactersKicker")}</p><h2 id="ema-about-characters">{t("ema.about.charactersTitle")}</h2></div></div>
-        <ul class="about-characters">
+        <ul class="about-characters" id="ema-character-list">
           {xpFavorites.map((item, index) => (
-            <li class={`shelf-card ${tone(index * 3)}`}>
-              {portraits[item.key] && <span class={`about-portrait about-portrait-${portraits[item.key]}`} aria-hidden="true"></span>}
+            <li class={`shelf-card ${tone(index * 3)}`} data-site-disclosure-item>
+              {portraits[item.key]
+                ? <span class={`about-portrait about-portrait-${portraits[item.key]}`} aria-hidden="true"></span>
+                : <img class="about-portrait" src={item.portrait} alt="" width="66" height="66" loading="lazy" decoding="async" />}
               <div><h3>{item.title}</h3><p>{item.subtitle}</p></div>
             </li>
           ))}
         </ul>
+        {xpFavorites.length > 6 && <button class="about-more about-character-toggle" type="button" data-site-disclosure-toggle data-label-more={t("about.charactersMore")} data-label-less={t("about.charactersLess")} aria-expanded="false" aria-controls="ema-character-list" hidden><span data-site-disclosure-label>{t("about.charactersMore")}</span><Icon name="tabler:chevron-down" size={16} aria-hidden="true" /></button>}
       </section>
 
       <section class="about-section" aria-labelledby="ema-about-now">

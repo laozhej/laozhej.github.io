@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { collectionUrl, matchesEntry, mountCollection, readCollectionState } from "../src/core/features/collection.mjs";
 import { mountReading, readingProgress } from "../src/core/features/reading.mjs";
 import { mountSiteFeatures } from "../src/core/features/runtime.mjs";
+import { mountDisclosure } from "../src/core/features/disclosure.mjs";
 
 // Small DOM fixtures keep these behavior checks independent of any theme's CSS.
 function element(extra = {}) {
@@ -13,6 +14,48 @@ function element(extra = {}) {
     focus() { this.focused = true; },
   }, extra);
 }
+
+test("character lists show six, expand fully and keep collapse reachable after remount", () => {
+  const items = Array.from({ length: 37 }, () => element());
+  const label = element();
+  const toggle = element({
+    hidden: true, dataset: { labelMore: "显示更多", labelLess: "收起" },
+    getAttribute(key) { return this.attributes[key]; },
+    querySelector: () => label,
+    getBoundingClientRect: () => ({ top: -300, bottom: -256 }),
+    scrollIntoView() { this.scrolled = true; },
+  });
+  const root = element({ dataset: { limit: "6" }, querySelector: () => toggle, querySelectorAll: () => items });
+  const visible = () => items.filter((item) => !item.hidden).length;
+  let cleanup = mountDisclosure(root, { innerHeight: 600 });
+  assert.equal(visible(), 6);
+  assert.equal(toggle.hidden, false);
+  assert.equal(toggle.attributes["aria-expanded"], "false");
+  assert.equal(label.textContent, "显示更多");
+  toggle.dispatchEvent(new Event("click"));
+  assert.equal(visible(), 37);
+  assert.equal(toggle.attributes["aria-expanded"], "true");
+  assert.equal(label.textContent, "收起");
+  cleanup();
+  cleanup = mountDisclosure(root, { innerHeight: 600 });
+  assert.equal(visible(), 37, "navigation remount preserves the restored state");
+  toggle.dispatchEvent(new Event("click"));
+  assert.equal(visible(), 6);
+  assert.equal(toggle.scrolled, true);
+  cleanup();
+  toggle.dispatchEvent(new Event("click"));
+  assert.equal(visible(), 6, "cleanup removes the old handler");
+});
+
+test("six or fewer characters leave the unnecessary toggle hidden", () => {
+  for (const count of [0, 2, 6]) {
+    const toggle = element({ hidden: true, querySelector: () => element() });
+    const items = Array.from({ length: count }, () => element());
+    mountDisclosure(element({ dataset: { limit: "6" }, querySelector: () => toggle, querySelectorAll: () => items }), {});
+    assert.equal(toggle.hidden, true);
+    assert.ok(items.every((item) => !item.hidden));
+  }
+});
 
 function browser(href) {
   let next = 0;

@@ -19,6 +19,7 @@ export const mediaMessages = {
     "media.frameworkLicense": "Cubism Framework 许可",
     "media.games": "游戏页卡片上的图片是各游戏在 Steam 商店页或官网公开的宣传图（Steam 资料库背景、商店页背景或官网分享图），只作等比例缩放与 WebP 转换，页面按卡片裁切显示。图片版权属于各游戏的开发商与发行商；本站未取得转载许可，署名不等于授权。",
     "media.gamesManifest": "游戏图片的来源与文件校验",
+    "media.charactersManifest": "喜欢的角色 · 头像来源、作者与裁切记录",
   },
   ja: {
     "media.heading": "Ema テーマと素材の出典",
@@ -39,6 +40,7 @@ export const mediaMessages = {
     "media.frameworkLicense": "Cubism Framework のライセンス",
     "media.games": "ゲームページのカードの画像は、各ゲームの Steam ストアページまたは公式サイトで公開されている宣伝用画像（Steam ライブラリの背景、ストアページの背景、公式サイトの共有画像）です。縦横比を保った縮小と WebP 変換のみを行い、ページ上でカードに合わせて切り抜いて表示しています。著作権は各ゲームの開発・販売元に帰属します。本サイトは転載の許諾を得ておらず、クレジット表記は許諾を意味しません。",
     "media.gamesManifest": "ゲーム画像の出典とファイル検証情報",
+    "media.charactersManifest": "好きなキャラクター · アイコンの出典・作者・切り抜き記録",
   },
   en: {
     "media.heading": "Ema theme and artwork sources",
@@ -59,5 +61,6 @@ export const mediaMessages = {
     "media.frameworkLicense": "Cubism Framework license",
     "media.games": "The pictures on the Games page cards are promotional art published on each game's Steam store page or official site (Steam library backgrounds, store page backgrounds or share images). They were only resized and converted to WebP; the page crops them to fit each card. The art belongs to each game's developers and publishers. This site has no permission to republish it, and crediting it is not a license.",
     "media.gamesManifest": "Sources and checksums for the game pictures",
+    "media.charactersManifest": "Favorite characters: portrait sources, creators and crops",
   },
 } as const;

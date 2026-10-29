@@ -1,6 +1,7 @@
 import * as profile from "@/core/data/profile";
 import * as projects from "@/core/data/projects";
 import { games } from "@/core/data/games";
+import { getFavoriteCharacters } from "@/core/data/characters";
 import { checkGames, linkFavoriteGames, localizeGames } from "@/core/content/select-games.mjs";
 
 // Theme-independent content. Stable keys and URLs are shared by every locale.
@@ -30,8 +31,9 @@ const ja = linked({
     { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "ビジュアルノベル / キャラクターとデザインの着想" },
   ],
   xpFavorites: [
-    { key: "emma", title: "桜羽エマ", subtitle: "キャラクターデザインの参考" },
-    { key: "yuki", title: "月代ユキ", subtitle: "いまのアイコンのキャラクター" },
+    { key: "emma", title: "桜羽エマ", subtitle: "キャラクターデザインの参考", portrait: "/themes/ema/assets/ema-avatar.webp" },
+    { key: "yuki", title: "月代ユキ", subtitle: "いまのアイコンのキャラクター", portrait: "/themes/ema/assets/yuki.webp" },
+    ...getFavoriteCharacters("ja"),
   ],
   currentSignals: [
     { label: "いま", text: "AI エージェントの時代に向けて準備しながら、個人サイトも少しずつ整えています。" },
@@ -69,8 +71,9 @@ const en = linked({
     { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "Visual novel / Character and visual inspiration" },
   ],
   xpFavorites: [
-    { key: "emma", title: "Ema Sakuraba", subtitle: "Character design reference" },
-    { key: "yuki", title: "Yuki Tsukishiro", subtitle: "The character on my avatar" },
+    { key: "emma", title: "Ema Sakuraba", subtitle: "Character design reference", portrait: "/themes/ema/assets/ema-avatar.webp" },
+    { key: "yuki", title: "Yuki Tsukishiro", subtitle: "The character on my avatar", portrait: "/themes/ema/assets/yuki.webp" },
+    ...getFavoriteCharacters("en"),
   ],
   currentSignals: [
     { label: "Now", text: "Getting ready for the age of AI agents while gradually building my personal website." },

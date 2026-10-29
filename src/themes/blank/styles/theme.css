@@ -247,6 +247,11 @@ details[open] > summary > .blank-disclosure-icon { transform: rotate(180deg); }
 .blank-favorite-games li { padding: 16px 0; border-bottom: 1px solid var(--blank-line); }
 .blank-preferences { display: flex; flex-wrap: wrap; gap: 12px 20px; margin-top: 14px !important; }
 .blank-preferences li { font-size: .8125rem; }
+.blank-preferences li { display: flex; align-items: center; gap: 8px; }
+.blank-preferences img { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+.blank-preferences li[hidden],.blank-character-toggle[hidden] { display: none; }
+.blank-character-toggle { display: flex; width: fit-content; min-height: 44px; margin: 12px 0 0 auto; padding: 6px 0 6px 12px; border: 0; background: transparent; cursor: pointer; }
+.blank-character-toggle[aria-expanded="true"] svg { rotate: 180deg; }
 .blank-preferences li + li { padding-left: 20px; border-left: 1px solid var(--blank-line); }
 .blank-signals > div { padding: 24px 0; border-bottom: 1px solid var(--blank-line); }
 .blank-signals > div:first-child { padding-top: 0; }

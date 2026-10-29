@@ -12,6 +12,8 @@ const serial = (index: number) => String(posts.length - index).padStart(3, "0");
 const count = (value: number) => String(value).padStart(2, "0");
 const brand = t("ema.brand");
 const [brandHead, ...brandTail] = brand.split(" ");
+// Chinese and Japanese sentences join directly; English needs a space.
+const join = (...parts: string[]) => parts.join(locale === "en" ? " " : "");
 const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? post.data.pubDate;
 ---
 <PageLayout title={`${brand} | ${t("home.title")}`} description={t("endfield.description")} home>
@@ -26,7 +28,7 @@ const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? pos
     </div>
     <div class="ef-hero-copy">
       <p class="ef-statement"><span class="ef-marker">{t("home.statement1")}</span><br />{t("home.statement2")}</p>
-      <p class="ef-intro">{t("home.intro1")}{t("home.intro2")}</p>
+      <p class="ef-intro">{join(t("home.intro1"), t("home.intro2"))}</p>
       <p class="ef-hero-actions">
         {latest && <a class="ef-button ef-button--main" href={href(`/blog/${latest.slug}/`)}>{t("home.latestLink")}</a>}
         <a class="ef-button ef-button--quiet" href={href("/about/")}>{t("common.about")}</a>
@@ -63,7 +65,7 @@ const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? pos
 
   <section class="ef-section" aria-labelledby="ef-practice-title">
     <header class="ef-head"><div><p class="ef-eyebrow">// 02 In practice</p><h2 id="ef-practice-title">{t("home.inProgress")}</h2></div><a class="ef-link" href={href("/projects/")}>{t("common.projectNotes")}</a></header>
-    <p class="ef-lede">{t("home.practice1")}{t("home.practice2")}</p>
+    <p class="ef-lede">{join(t("home.practice1"), t("home.practice2"))}</p>
     <dl class="ef-boards">
       {profileTech.map((item, index) => <div class="ef-board"><dt><span class="ef-num">{count(index + 1)}</span>{item.name}</dt><dd>{item.note}</dd></div>)}
     </dl>

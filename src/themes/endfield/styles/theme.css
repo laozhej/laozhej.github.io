@@ -66,7 +66,7 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-tri i:nth-child(1) { background:var(--ef-tri-a); } .ef-tri i:nth-child(2) { background:var(--ef-signal); } .ef-tri i:nth-child(3) { background:var(--ef-tri-c); }
 .ef-header-inner { max-width:1440px; margin:0 auto; padding:10px clamp(16px,3vw,40px); display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:16px; }
 .ef-wordmark { display:flex; align-items:baseline; gap:12px; white-space:nowrap; justify-self:start; min-width:0; }
-.ef-wordmark strong { font-size:16px; font-weight:800; font-stretch:125%; line-height:1.2; letter-spacing:.03em; text-transform:uppercase; overflow:hidden; text-overflow:ellipsis; }
+.ef-wordmark strong { font-size:16px; font-weight:600; font-stretch:125%; line-height:1.2; letter-spacing:.03em; text-transform:uppercase; overflow:hidden; text-overflow:ellipsis; }
 .ef-wordmark small { font-size:10px; letter-spacing:.14em; color:var(--ef-ink-2); }
 .ef-nav { display:flex; justify-content:center; gap:2px; }
 .ef-nav a { display:inline-flex; align-items:baseline; justify-content:center; gap:7px; padding:10px calc(10px + var(--ef-cut)) 10px 14px; font-size:13px; font-weight:700; white-space:nowrap; }
@@ -92,9 +92,9 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-hero { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:clamp(28px,4vw,48px) clamp(32px,5vw,72px); align-items:center; padding-block:clamp(40px,6vw,76px) clamp(28px,4vw,48px); }
 .ef-hero-top { grid-column:1/-1; }
 .ef-hero-copy { align-self:end; padding-bottom:28px; }
-.ef-wordmark-hero { margin:22px 0 0; font:800 clamp(2rem,9vw,8.4rem)/.84 var(--ef-ui); font-stretch:125%; letter-spacing:-.02em; text-transform:uppercase; overflow-wrap:anywhere; }
+.ef-wordmark-hero { margin:22px 0 0; font:500 clamp(2rem,9vw,8.4rem)/.84 var(--ef-ui); font-stretch:125%; letter-spacing:.03em; text-transform:uppercase; overflow-wrap:anywhere; }
 .ef-wordmark-hero span { display:block; }
-.ef-hollow { margin-top:.12em; font-size:.56em; color:transparent; -webkit-text-stroke:2px var(--ef-ink); }
+.ef-hollow { margin-top:.14em; font-size:.56em; letter-spacing:.08em; color:transparent; -webkit-text-stroke:1.25px var(--ef-ink); }
 .ef-statement { margin:0 0 12px; font-size:clamp(1.25rem,2.4vw,1.7rem); font-weight:800; line-height:1.6; }
 .ef-intro { margin:0 0 26px; color:var(--ef-ink-2); font-size:16px; max-width:34rem; }
 .ef-hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin:0; }
@@ -102,8 +102,8 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-frame::before { content:""; position:absolute; inset:22px -16px -16px 22px; z-index:-1; background:var(--ef-hatch); }
 .ef-frame-window { display:flex; flex-direction:column; gap:12px; min-height:clamp(300px,34vw,400px); padding:clamp(22px,3vw,34px) clamp(22px,3vw,34px) 76px; background:var(--ef-panel);
   clip-path:polygon(var(--frame-cut) 0,100% 0,100% calc(100% - var(--frame-cut)),calc(100% - var(--frame-cut)) 100%,0 100%,0 var(--frame-cut)); }
-.ef-hollow-no { align-self:flex-end; margin-bottom:auto; font:800 clamp(5rem,11vw,9rem)/.8 var(--ef-ui); font-stretch:112%; letter-spacing:-.03em; font-variant-numeric:tabular-nums;
-  color:transparent; -webkit-text-stroke:2px var(--ef-ink); background:linear-gradient(var(--ef-ink),var(--ef-ink)) left/0% 100% no-repeat; -webkit-background-clip:text; background-clip:text; transition:background-size .45s var(--ef-mech); }
+.ef-hollow-no { align-self:flex-end; margin-bottom:auto; font:500 clamp(5rem,11vw,9rem)/.8 var(--ef-ui); font-stretch:112%; letter-spacing:0; font-variant-numeric:tabular-nums;
+  color:transparent; -webkit-text-stroke:1.25px var(--ef-ink); background:linear-gradient(var(--ef-ink),var(--ef-ink)) left/0% 100% no-repeat; -webkit-background-clip:text; background-clip:text; transition:background-size .45s var(--ef-mech); }
 .ef-frame:is(:hover,:focus-visible) .ef-hollow-no { background-size:100% 100%; }
 .ef-frame-title { font-size:clamp(1.25rem,2.2vw,1.6rem); font-weight:800; line-height:1.4; }
 .ef-frame-text { color:var(--ef-ink-2); }
@@ -114,7 +114,7 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-index a+a { padding-left:20px; border-left:1px solid var(--ef-rule); }
 .ef-index small { font-size:11px; font-weight:600; font-stretch:125%; letter-spacing:.14em; color:var(--ef-ink-2); }
 .ef-index span { font-family:var(--ef-text); font-weight:700; }
-.ef-index b { margin-right:4px; padding:0 4px; font:800 2rem/1.1 var(--ef-ui); font-stretch:112%; }
+.ef-index b { margin-right:4px; padding:0 4px; font:500 2rem/1.1 var(--ef-ui); font-stretch:112%; }
 @media(hover:hover) and (pointer:fine) { .ef-index a:hover b { background:var(--ef-signal); color:var(--ef-on-signal); } }
 .ef-index a:focus-visible b { background:var(--ef-signal); color:var(--ef-on-signal); }
 
@@ -153,9 +153,9 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-content :is(.blank-kicker,.blank-list-heading) { font-weight:600; font-stretch:125%; letter-spacing:.14em; text-transform:uppercase; }
 .ef-content .blank-page-head .blank-kicker::before { content:"// "; }
 .ef-content :is(.blank-page-head,.blank-article-header) { border-color:var(--ef-ink); }
-.ef-content .blank-page-heading h1 { font:800 clamp(2.6rem,7vw,5.6rem)/.95 var(--ef-ui); font-stretch:125%; letter-spacing:-.01em; text-transform:uppercase; overflow-wrap:anywhere; }
+.ef-content .blank-page-heading h1 { font:500 clamp(2.6rem,7vw,5.6rem)/.95 var(--ef-ui); font-stretch:125%; letter-spacing:.03em; text-transform:uppercase; overflow-wrap:anywhere; }
 .ef-content .blank-page-heading h1>span { font:inherit; }
-.ef-content .blank-page-count strong { font:800 clamp(2.4rem,5vw,3.4rem)/1 var(--ef-ui); font-stretch:112%; font-variant-numeric:tabular-nums; }
+.ef-content .blank-page-count strong { font:500 clamp(2.4rem,5vw,3.4rem)/1 var(--ef-ui); font-stretch:112%; font-variant-numeric:tabular-nums; }
 .ef-content :is(.blank-article-header h1,.blank-section-heading h2,.blank-about-section>div>h2,.blank-project-name h2,.blank-game-row h2,.blank-profile-name h2) { font-family:var(--ef-text); font-weight:800; letter-spacing:0; }
 /* Title strip: the three-colour line sits under an article title. */
 .ef-content .blank-article-header h1::after { content:""; display:block; width:min(280px,50%); height:3px; margin-top:20px; background:linear-gradient(90deg,var(--ef-tri-a) 0 33.33%,var(--ef-signal) 0 66.67%,var(--ef-tri-c) 0); }
@@ -190,7 +190,7 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-footer a:hover { text-decoration:underline; text-decoration-color:var(--ef-signal); }
 .ef-footer :focus-visible { outline-color:var(--ef-signal)!important; }
 .ef-footer-top { max-width:var(--blank-width); margin:0 auto; padding:40px clamp(16px,4vw,40px) 24px; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:24px; }
-.ef-footer-brand { font:800 clamp(1.4rem,3vw,2rem)/1.2 var(--ef-ui); font-stretch:125%; text-transform:uppercase; }
+.ef-footer-brand { font:600 clamp(1.4rem,3vw,2rem)/1.2 var(--ef-ui); font-stretch:125%; text-transform:uppercase; }
 .ef-footer-links { display:flex; flex-direction:column; align-items:flex-start; gap:8px; font:600 13px var(--ef-ui); font-stretch:112%; color:var(--blank-footer-muted); }
 .ef-footer-bottom { max-width:var(--blank-width); margin:0 auto; padding:16px clamp(16px,4vw,40px) 28px; display:flex; flex-wrap:wrap; gap:8px 24px; border-top:1px solid var(--blank-footer-line); font:12px var(--ef-ui); color:var(--blank-footer-muted); }
 
@@ -227,7 +227,7 @@ html:not([data-motion-paused]) [data-ef-enter] .ef-frame { animation-delay:200ms
   .ef-record-title { grid-column:1/-1; } .ef-record-kind { grid-column:1/-1; justify-self:start; }
   .ef-head { flex-wrap:wrap; } .ef-head::after { display:none; } .ef-head>div { flex:1 1 100%; }
   .ef-footer-top { grid-template-columns:1fr; }
-  .ef-hollow { -webkit-text-stroke-width:1.5px; }
+  .ef-hollow { -webkit-text-stroke-width:1px; }
   body[data-endfield]::before { -webkit-mask:url("/themes/endfield/contour-a.svg") right -12rem top -4rem/34rem auto no-repeat; mask:url("/themes/endfield/contour-a.svg") right -12rem top -4rem/34rem auto no-repeat; }
 }
 @media(max-width:559px) {

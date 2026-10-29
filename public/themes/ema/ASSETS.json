@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "verified_on": "2026-10-27",
-  "scope": "Provenance of the four source images used for Ema theme development and review. This file is not a permission or license grant. These third-party media files are excluded from the repository software license.",
-  "non_ai_processing": "No image generation, redrawing, generative fill, background synthesis, or AI concept mockup is included. Only deterministic proportional resizing and lossless format conversion were applied to these files. No pixels were cropped, recolored, or composited in the asset files. Page styling may frame images separately.",
+  "verified_on": "2026-10-29",
+  "scope": "Provenance of original character assets and the three black-and-white manga excerpts used in Ema. This file is not a permission or license grant. Third-party media are excluded from the repository software license.",
+  "non_ai_processing": "No generative AI, image synthesis, generative fill, redrawing, or upscaling is used. Existing character assets retain their documented processing. Manga excerpts reproduce the official reader display by deterministic 4×4 tile transposition, followed by a rectangular panel crop and lossless WebP encoding. No recoloring, text replacement, or compositing is applied.",
   "assets": [
     {
       "id": "ema",
@@ -111,6 +111,114 @@
       "generative_ai_used": false,
       "permission_status": "No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
       "verified_against_source_image": "The original download was re-fetched on 2026-10-27 and matched byte-for-byte. Each image was visually inspected."
+    },
+    {
+      "id": "manga-writing",
+      "title": "Frieren writing at a desk",
+      "file": "assets/manga-writing.webp",
+      "placement": "chapter-journal",
+      "source_page": "https://www.sunday-webry.com/episode/3269754496548997914",
+      "source_image": "https://cdn-img.www.sunday-webry.com/public/page/2/3269754496556228798-78480bcc7081a5c1935901305bf965cd",
+      "source_reader_page_index": 52,
+      "source_published_at": "2020-05-13",
+      "attribution": "葬送のフリーレン / Frieren: Beyond Journey’s End — story: 山田鐘人 (Kanehito Yamada); art: アベツカサ (Tsukasa Abe); publisher: 小学館 (Shogakukan), official Sunday Webry sample.",
+      "rights_notice": "© 山田鐘人・アベツカサ／小学館. Third-party manga; excluded from the repository MIT license.",
+      "rights_reference": "https://www.sunday-webry.com/episode/3269754496548997914",
+      "original_dimensions": [
+        836,
+        1200
+      ],
+      "dimensions": [
+        393,
+        353
+      ],
+      "crop_box_xyxy": [
+        443,
+        0,
+        836,
+        353
+      ],
+      "original_sha256": "875de67be4440af499b4a267992b88685702add5f344ae56b34bcb8d7989b500",
+      "sha256": "cf42e7069430161098e63e9fde7acdaad5a9daa7b33529fea79ab5096c9a92fc",
+      "bytes": 110324,
+      "format": "image/webp",
+      "has_alpha": false,
+      "processing": "Reproduce the publicly displayed reader image by transposing its 4×4 grid of tiles (tile width=floor(width/32)*8, height=floor(height/32)*8; retain right/bottom remainders), then crop at crop_box_xyxy and encode losslessly with Pillow/libwebp. No resampling, recoloring, retouching, or generated pixels.",
+      "generative_ai_used": false,
+      "provenance_evidence": "Original story/art credits and public episode date verified on the official publisher reader; the artwork is credited to the original manga authors in the 2020 publication. The displayed reading order was visually checked in the official reader.",
+      "permission_status": "Official public sample verified. No separate permission for decorative republication or redistribution has been established; attribution is not a license."
+    },
+    {
+      "id": "manga-memory",
+      "title": "The party watching a meteor shower",
+      "file": "assets/manga-memory.webp",
+      "placement": "chapter-collection",
+      "source_page": "https://www.sunday-webry.com/episode/3269754496548997914",
+      "source_image": "https://cdn-img.www.sunday-webry.com/public/page/2/3269754496556228757-b11882e9fb5acd8f56b7e97c7fcdbfa4",
+      "source_reader_page_index": 11,
+      "source_published_at": "2020-05-13",
+      "attribution": "葬送のフリーレン / Frieren: Beyond Journey’s End — story: 山田鐘人 (Kanehito Yamada); art: アベツカサ (Tsukasa Abe); publisher: 小学館 (Shogakukan), official Sunday Webry sample.",
+      "rights_notice": "© 山田鐘人・アベツカサ／小学館. Third-party manga; excluded from the repository MIT license.",
+      "rights_reference": "https://www.sunday-webry.com/episode/3269754496548997914",
+      "original_dimensions": [
+        836,
+        1200
+      ],
+      "dimensions": [
+        793,
+        844
+      ],
+      "crop_box_xyxy": [
+        0,
+        356,
+        793,
+        1200
+      ],
+      "original_sha256": "db34eee8093ff670bb6516185d1eb604d44e3babe9a0375e82bac4198042ff64",
+      "sha256": "3fdfeff6989385a519a6dd5eb0ad686b990869e88fd2f1bb3ca09f05fdee2199",
+      "bytes": 478796,
+      "format": "image/webp",
+      "has_alpha": false,
+      "processing": "Reproduce the publicly displayed reader image by transposing its 4×4 grid of tiles (tile width=floor(width/32)*8, height=floor(height/32)*8; retain right/bottom remainders), then crop at crop_box_xyxy and encode losslessly with Pillow/libwebp. No resampling, recoloring, retouching, or generated pixels.",
+      "generative_ai_used": false,
+      "provenance_evidence": "Original story/art credits and public episode date verified on the official publisher reader; the artwork is credited to the original manga authors in the 2020 publication. The displayed reading order was visually checked in the official reader.",
+      "permission_status": "Official public sample verified. No separate permission for decorative republication or redistribution has been established; attribution is not a license."
+    },
+    {
+      "id": "manga-about",
+      "title": "Frieren: wanting to know people better",
+      "file": "assets/manga-about.webp",
+      "placement": "chapter-about",
+      "source_page": "https://www.sunday-webry.com/episode/3269754496548997914",
+      "source_image": "https://cdn-img.www.sunday-webry.com/public/page/2/3269754496556228782-5ae9d2193dd9d927ab25f28c9946098a",
+      "source_reader_page_index": 36,
+      "source_published_at": "2020-05-13",
+      "attribution": "葬送のフリーレン / Frieren: Beyond Journey’s End — story: 山田鐘人 (Kanehito Yamada); art: アベツカサ (Tsukasa Abe); publisher: 小学館 (Shogakukan), official Sunday Webry sample.",
+      "rights_notice": "© 山田鐘人・アベツカサ／小学館. Third-party manga; excluded from the repository MIT license.",
+      "rights_reference": "https://www.sunday-webry.com/episode/3269754496548997914",
+      "original_dimensions": [
+        836,
+        1200
+      ],
+      "dimensions": [
+        483,
+        486
+      ],
+      "crop_box_xyxy": [
+        44,
+        0,
+        527,
+        486
+      ],
+      "original_sha256": "72946ff977ab9463bc71475197cd7466af46c61f3f5cffa1b7beccc2c199e1e6",
+      "sha256": "2c8be0c9c38429d9c84d3f09a9c568f289dac2c9a458a829a478786a5635b1a5",
+      "bytes": 136414,
+      "format": "image/webp",
+      "has_alpha": false,
+      "processing": "Reproduce the publicly displayed reader image by transposing its 4×4 grid of tiles (tile width=floor(width/32)*8, height=floor(height/32)*8; retain right/bottom remainders), then crop at crop_box_xyxy and encode losslessly with Pillow/libwebp. No resampling, recoloring, retouching, or generated pixels.",
+      "generative_ai_used": false,
+      "provenance_evidence": "Original story/art credits and public episode date verified on the official publisher reader; the artwork is credited to the original manga authors in the 2020 publication. The displayed reading order was visually checked in the official reader.",
+      "permission_status": "Official public sample verified. No separate permission for decorative republication or redistribution has been established; attribution is not a license."
     }
   ]
 }

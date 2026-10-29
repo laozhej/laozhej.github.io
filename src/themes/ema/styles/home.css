@@ -126,7 +126,7 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
 #ema-home .chapter-card{--leaf-tint:#e7f0f8;width:calc((min(1160px,100vw - 60px) - 35px)/2);flex-shrink:0;border:2px solid #3a3f4a;background:#fff;border-radius:3px;box-shadow:7px 8px 0 var(--leaf-tint);overflow:hidden;scroll-snap-align:start;}
 #ema-home .chapter-card:nth-child(2){--leaf-tint:#f4e2eb;}
 #ema-home .chapter-card:nth-child(3){--leaf-tint:#e4f0e8;}
-#ema-home .chapter-visual{height:210px;position:relative;overflow:hidden;border-bottom:2px solid #3a3f4a;}
+#ema-home .chapter-visual{height:auto;aspect-ratio:1;position:relative;overflow:hidden;border-bottom:2px solid #3a3f4a;}
 #ema-home .chapter-visual::after{content:"";position:absolute;inset:0;background:radial-gradient(#3a3f4a .7px,transparent .9px) 0 0/6px 6px;opacity:.12;pointer-events:none;}
 #ema-home .chapter-copy{padding:24px 26px 28px;position:relative;transition:background-color 200ms ease;}
 #ema-home .chapter-number{position:absolute;right:0;top:0;padding:6px 14px;background:#3a3f4a;color:#fff;font:600 13px var(--mono);letter-spacing:.08em;}
@@ -135,20 +135,10 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
 #ema-home .chapter-copy p:not(.eyebrow){font-size:12px;color:var(--muted);}
 #ema-home .chapter-copy>a{display:inline-flex;gap:30px;align-items:center;margin-top:20px;font-size:12px;border-bottom:1px solid #d7dfe6;padding-bottom:4px;}
 #ema-home .chapter-copy>a span{color:#b57491;}
-#ema-home .notebook-art{background:#f0f0e8;}
-#ema-home .notebook{position:absolute;width:52%;height:190px;background:repeating-linear-gradient(#fffdf8 0 25px,#dce3df 25px 26px);border:1px solid #deded4;left:22%;top:24px;transform:rotate(-12deg);box-shadow:4px 5px 0 #dbdcd4;}
-#ema-home .notebook span{display:block;font:italic 22px Georgia,serif;color:#899794;margin:25px 15px;}
-#ema-home .notebook::before{content:"";position:absolute;left:15px;top:0;height:100%;width:1px;background:#e5c9d0;}
-#ema-home .pencil{position:absolute;left:62%;top:54px;width:8px;height:176px;background:linear-gradient(to right,#8ba4a1 0 50%,#718b89 50%);transform:rotate(30deg);clip-path:polygon(0 0,100% 0,100% 91%,50% 100%,0 91%);}
-#ema-home .pressed-flower{position:absolute;left:9%;top:30px;color:#d5a4b6;font:75px Georgia,serif;transform:rotate(12deg);}
-#ema-home .sea-art{background:#dceff4;}
-#ema-home .sea-art img{width:100%;height:auto;position:absolute;top:0;left:0;}
-#ema-home .sea-label{position:absolute;z-index:1;bottom:16px;right:18px;font:italic 24px Georgia,serif;color:#fff;text-shadow:0 1px 4px #557a92;}
-#ema-home .letter-art{background:#f3edf0;}
-#ema-home .envelope{width:280px;height:155px;position:absolute;left:50%;top:62px;transform:translateX(-50%) rotate(5deg);background:linear-gradient(150deg,transparent 49%,#ded7cf 49% 50%,transparent 50%),linear-gradient(30deg,transparent 49%,#ded7cf 49% 50%,transparent 50%),#f9f5eb;border:1px solid #ddd6cf;}
-#ema-home .letter{position:absolute;left:25%;top:18px;width:205px;height:140px;background:#fffdfa;border:1px solid #e6ded6;padding:20px;font:italic 23px/1.6 Georgia,serif;transform:rotate(-8deg);}
-#ema-home .letter span{font-size:14px;}
-#ema-home .stamp{position:absolute;right:13%;top:40px;border:1px dashed #c491a7;padding:5px 12px;font:italic 30px Georgia,serif;color:#ae718b;transform:rotate(10deg);}
+/* Original black-and-white manga excerpts keep their ink, screen tones and white margins. */
+#ema-home .manga-art{background:#fff;}
+#ema-home .manga-art::after{content:none;}
+#ema-home .manga-art img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;}
 #ema-home .chapter-card.is-active{border-color:#8d6a7d;}
 #ema-home .chapter-card.is-active .chapter-number{background:var(--pink);}
 #ema-home .chapter-card.is-active .chapter-copy{background:#fffcfd;}
@@ -225,17 +215,10 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
   #ema-home .section-heading{margin-bottom:26px;}
   #ema-home .section-heading h2{font-size:34px;margin-top:7px;}
   #ema-home .chapter-card{width:72%;display:grid;grid-template-columns:45% 55%;min-height:390px;}
-  #ema-home .chapter-visual{height:100%;min-height:390px;border-bottom:0;border-right:2px solid #3a3f4a;}
+  #ema-home .chapter-visual{height:100%;aspect-ratio:auto;min-height:390px;border-bottom:0;border-right:2px solid #3a3f4a;}
   #ema-home .chapter-copy{display:flex;flex-direction:column;justify-content:center;padding:46px 38px;}
   #ema-home .chapter-copy h3{font-size:27px;}
   #ema-home .chapter-copy>a{align-self:flex-start;margin-top:30px;}
-  #ema-home .notebook{top:85px;height:270px;width:72%;left:17%;}
-  #ema-home .pencil{top:120px;left:70%;height:240px;}
-  #ema-home .pressed-flower{left:4%;top:40px;}
-  #ema-home .sea-art img{width:140%;max-width:none;left:-12%;top:-7%;}
-  #ema-home .letter{top:84px;left:16%;}
-  #ema-home .envelope{top:156px;}
-  #ema-home .stamp{top:78px;right:6%;}
   #ema-home .reading-intro{position:sticky;top:155px;}
 }
 @media(max-width:1199px) and (min-width:761px){
@@ -285,16 +268,10 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
   #ema-home .rail-viewport{padding:6px 0 20px;}
   #ema-home .rail-track{gap:18px;padding:0 24px 15px;scroll-padding-left:24px;}
   #ema-home .chapter-card{width:calc(100vw - 66px);max-width:390px;}
-  #ema-home .chapter-visual{height:170px;}
+  #ema-home .chapter-visual{height:auto;aspect-ratio:1;}
   #ema-home .chapter-copy{padding:21px 22px 24px;}
   #ema-home .chapter-copy h3{font-size:22px;}
   #ema-home .chapter-copy p:not(.eyebrow){font-size:11px;}
-  #ema-home .notebook{height:165px;top:20px;}
-  #ema-home .notebook span{font-size:16px;}
-  #ema-home .pencil{height:140px;top:45px;}
-  #ema-home .pressed-flower{font-size:54px;}
-  #ema-home .letter{left:17%;font-size:20px;}
-  #ema-home .stamp{right:8%;}
   #ema-home .signal-scene{--signal-tail:72px;align-content:start;grid-template-columns:minmax(0,1fr);grid-template-rows:auto;grid-template-areas:"word" "card" "bubble" "tags";gap:22px;min-height:0;margin-top:40px;padding:72px 20px 36px;}
   #ema-home .signal-backdrop::before{background-size:max(760px,190%) auto;background-position:50% 9%;}
   #ema-home .signal-word{text-align:center;}

@@ -101,15 +101,15 @@ const panels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"]
           <div class="rail-progress" aria-hidden="true"><span data-rail-progress></span></div>
           <div class="rail-viewport"><div class="rail-track" data-rail-track tabindex="0" role="region" aria-label={t("ema.chapters.label")}>
             <article class="chapter-card chapter-journal" data-chapter data-ema-reveal>
-              <div class="chapter-visual notebook-art" aria-hidden="true"><div class="notebook"><span>{t("ema.journal.art")}</span><i></i><i></i><i></i></div><div class="pencil"></div><span class="pressed-flower">✳</span></div>
+              <div class="chapter-visual manga-art manga-writing" aria-hidden="true"><img src={asset("manga-writing")} alt="" width="393" height="353" loading="lazy" /></div>
               <div class="chapter-copy"><span class="chapter-number" aria-hidden="true">01</span><p class="eyebrow">{t("ema.journal.kicker")}</p><h3>{t("ema.journal.title")}</h3><p>{t("ema.journal.intro")}</p><a href={href("/blog/")}>{t("ema.journal.open")} <span aria-hidden="true">↗</span></a></div>
             </article>
             <article class="chapter-card chapter-collection" data-chapter data-ema-reveal>
-              <div class="chapter-visual sea-art" aria-hidden="true"><img src={asset("shiroha")} alt="" width="1138" height="1600" loading="lazy" /><span class="sea-label">{t("ema.collection.art")}</span></div>
+              <div class="chapter-visual manga-art manga-memory" aria-hidden="true"><img src={asset("manga-memory")} alt="" width="793" height="844" loading="lazy" /></div>
               <div class="chapter-copy"><span class="chapter-number" aria-hidden="true">02</span><p class="eyebrow">{t("ema.collection.kicker")}</p><h3>{t("ema.collection.title")}</h3><p>{t("ema.collection.intro")}</p><a href={href("/games/")}>{t("ema.collection.open")} <span aria-hidden="true">↗</span></a></div>
             </article>
             <article class="chapter-card chapter-about" data-chapter data-ema-reveal>
-              <div class="chapter-visual letter-art" aria-hidden="true"><div class="envelope"></div><div class="letter">{t("ema.about.art1")}<br /><span>{t("ema.about.art2")}</span></div><span class="stamp">{brand.charAt(0)}.</span></div>
+              <div class="chapter-visual manga-art manga-about" aria-hidden="true"><img src={asset("manga-about")} alt="" width="483" height="486" loading="lazy" /></div>
               <div class="chapter-copy"><span class="chapter-number" aria-hidden="true">03</span><p class="eyebrow">{t("ema.about.kicker")}</p><h3>{t("ema.about.title")}</h3><p>{t("ema.about.intro")}</p><a href={href("/about/")}>{t("ema.about.open")} <span aria-hidden="true">↗</span></a></div>
             </article>
           </div></div>

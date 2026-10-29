@@ -12,6 +12,10 @@ html[data-theme="ema"] {
   --ema-title-font:"Gloock",var(--blank-serif);
   min-width:320px; background:var(--blank-paper); scroll-padding-top:110px; accent-color:var(--ema-pink);
 }
+html[data-theme="ema"]:lang(zh-TW) {
+  --blank-sans:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;
+  --blank-serif:"Iowan Old Style","Songti TC",PMingLiU,Georgia,serif;
+}
 html[data-theme="ema"][data-color-mode="dark"] {
   color-scheme:dark;
   --blank-paper:#20232c; --blank-ink:#e3e5ed; --blank-muted:#b0bacb; --blank-line:#444958;

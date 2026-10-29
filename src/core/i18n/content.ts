@@ -11,6 +11,48 @@ checkGames(games);
 const linked = <T extends { favoriteGames: readonly { key: string }[] }>(content: T) => ({ ...content, favoriteGames: linkFavoriteGames(content.favoriteGames, games) });
 const zh = linked({ ...profile, ...projects, gameShelf: localizeGames(games, "zh-CN"), animeFavorites: getFavoriteAnimes("zh-CN"), animeListUrl });
 
+const zhTW = linked({
+  gameShelf: localizeGames(games, "zh-TW"),
+  animeFavorites: getFavoriteAnimes("zh-TW"),
+  animeListUrl,
+  profileIdentity: {
+    displayName: "荒瀧旭",
+    handle: "PROFILE / 個人檔案",
+    siteName: "Blank Space",
+    bio: "我是荒瀧旭，也可以叫我 Nero。喜歡收集動漫與遊戲周邊，關注 AI 和電腦技術；平時學習程式設計，鑽研動畫、建模與不同的遊戲引擎。",
+  },
+  profileStatus: ["使用語言：中文（華語）、日語、英語、西班牙語", "開始進入 AI 時代"],
+  profileTech: [
+    { key: "ai", name: "AI 與程式設計", note: "關注 AI 和電腦技術，學習不同的程式語言。" },
+    { key: "animation", name: "動畫與建模", note: "鑽研動畫與建模，常用 Blender、Live2D 等工具。" },
+    { key: "engines", name: "遊戲引擎", note: "探索 Godot、Unreal Engine 和 Unity。" },
+  ],
+  favoriteGames: [
+    { key: "rdr2", title: "碧血狂殺 2", subtitle: "Red Dead Redemption 2" },
+    { key: "tsushima", title: "對馬戰鬼", subtitle: "Ghost of Tsushima" },
+    { key: "yotei", title: "羊蹄山戰鬼", subtitle: "Ghost of Yōtei" },
+    { key: "manosaba", title: "魔法少女的魔女審判", subtitle: "視覺小說 / 角色與視覺靈感" },
+  ],
+  xpFavorites: [
+    { key: "emma", title: "櫻羽艾瑪", subtitle: "角色風格參考", portrait: "/themes/ema/assets/ema-avatar.webp" },
+    { key: "yuki", title: "月代雪", subtitle: "現在的頭像角色", portrait: "/themes/ema/assets/yuki.webp" },
+    ...getFavoriteCharacters("zh-TW"),
+  ],
+  currentSignals: [
+    { label: "正在做", text: "開始進入 AI 時代，也在慢慢完善自己的個人網站。" },
+    { label: "接下來", text: "一點一點寫下文章和專案紀錄。" },
+    { label: "視覺方向", text: "以櫻羽艾瑪為靈感的「櫻色檔案」主題已經上線，接下來會繼續慢慢打磨。" },
+  ],
+  projectTechLines: [{ key: "web", label: "Web", note: "個人網站 / 頁面與互動" }],
+  projectEntries: [
+    {
+      id: "blank-personal-site", title: "個人網站 · 基礎版", type: "Personal Website", line: "web", status: "建置中",
+      summary: "以 Blank 主題為起點，為文字、專案和喜歡的作品建立一個自己的空間。",
+      details: ["首頁與單元導覽", "文章列表與閱讀頁面", "專案、閒暇與關於頁面"],
+    },
+  ],
+} as const);
+
 const ja = linked({
   gameShelf: localizeGames(games, "ja"),
   animeFavorites: getFavoriteAnimes("ja"),
@@ -95,6 +137,6 @@ const en = linked({
   ],
 } as const);
 
-export function getSiteContent(locale: "zh-CN" | "ja" | "en") {
-  return locale === "ja" ? ja : locale === "en" ? en : zh;
+export function getSiteContent(locale: "zh-CN" | "zh-TW" | "ja" | "en") {
+  return locale === "zh-TW" ? zhTW : locale === "ja" ? ja : locale === "en" ? en : zh;
 }

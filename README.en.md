@@ -29,11 +29,11 @@ The build output is `dist/`, which can be deployed to a static hosting service.
 | What to change | File |
 | --- | --- |
 | Site name and navigation paths | `src/lib/site.ts` |
-| UI text, navigation labels, and category names in all three languages | `src/core/i18n/messages.ts` |
-| Japanese and English profile and collection data | `src/core/i18n/content.ts` |
+| UI text, navigation labels, and category names in every language | `src/core/i18n/messages.ts` |
+| Traditional Chinese, Japanese, and English profile and collection data | `src/core/i18n/content.ts` |
 | Biography, updates, and interests | `src/core/data/profile.ts` |
 | Project list | `src/core/data/projects.ts` |
-| Game shelf (all three language names in each entry) | `src/core/data/games.ts` |
+| Game shelf (every language's names in each entry) | `src/core/data/games.ts` |
 | Game card images and their source manifest | `public/games/`, `public/games/ASSETS.json` |
 | Favorite anime (synced from Notion rows ticked 允许网站展示) | `src/core/data/animes.ts`, `public/animes/ASSETS.json` |
 | Daily notes on the Sakura Archive homepage | `src/core/data/notes.ts` |
@@ -75,9 +75,9 @@ Articles with `draft: true` are not published.
 - Search by title, description, and tags; filter by category; sort by date; restore filter state from the URL.
 - Article table of contents, active heading highlighting, reading progress, and back-to-top links.
 - A moon / sun button in the top right switches between light and dark modes. Until a manual choice is made, the site follows system changes. A manual choice is saved in the current browser and shared across pages, languages, and themes using the common modules.
-- Simplified Chinese / Japanese / English switching. Article translations live in the `ja/` and `en/` subdirectories. Language and color mode are independent preferences.
+- Simplified Chinese / Traditional Chinese (Taiwan) / Japanese / English switching. Article translations live in the `zh-TW/`, `ja/`, and `en/` subdirectories. Language and color mode are independent preferences.
 - Blank / Ema / Endfield Industrial switching preserves the current language, section, article, query parameters, and anchor. Theme and color mode are independent preferences. Blank keeps its switcher in the top navigation; the other themes use a palette button in the bottom right.
-- GitHub / Steam links on the about page and in the footer, plus a credits and licenses page in all three languages (`/credits/`).
+- GitHub / Steam links on the about page and in the footer, plus a credits and licenses page in every language (`/credits/`).
 - Internal navigation updates the content without reloading the whole page. The header stays in place while the content fades out and in. Language, theme, and color mode are preserved; browser back / forward navigation restores the scroll position.
 - Sakura Archive (the Ema theme) uses “Arataki.br’s Base” as its name and Gloock for its headings. Its homepage takes inspiration from Yuimi-chaya’s Fuyukawa Kagari theme: a manga-style wall built from four existing assets, focus lines, Ema Sakuraba character art, terminal typing, daily notices, a profile card revealed on scroll, and a second scene with the visitor’s local time and falling tags. The chapter cards use three black-and-white manga excerpts from *Frieren: Beyond Journey’s End*.
 - Ema includes falling cherry blossom petals, a side scroll marker on wide screens, and a Frieren Live2D mascot in the bottom left. The mascot appears at viewport widths of at least 1000px, follows the mouse with its gaze, and responds when clicked or recalled. Its hidden state is saved in the current browser, and a static poster is shown if loading fails.
@@ -88,15 +88,15 @@ Articles with `draft: true` are not published.
 
 ## Site-wide languages and themes
 
-Chinese uses `/`, Japanese `/ja/`, and English `/en/`. The language switcher in the top right preserves the current section or article and saves the shared `site-locale` preference. Entry URLs without a language prefix use that preference; explicit `/ja/` and `/en/` links take priority. Language links also work without JavaScript.
+Simplified Chinese uses `/`, Taiwanese Traditional Chinese `/zh-TW/`, Japanese `/ja/`, and English `/en/`. The language switcher in the top right preserves the current section or article and saves the shared `site-locale` preference. Entry URLs without a language prefix use that preference; explicit `/zh-TW/`, `/ja/`, and `/en/` links take priority. Language links also work without JavaScript.
 
-Chinese originals live in `src/content/blog/`; translations go in the `ja/` and `en/` subdirectories. Set `locale` and a `translationKey` matching the Chinese filename. Do not hard-code language prefixes in article links. If a translation is missing, the Chinese original is shown with an explicit notice. Translations are not generated automatically or presented as available when they are missing.
+Chinese originals live in `src/content/blog/`; translations go in the `zh-TW/`, `ja/`, and `en/` subdirectories. Set `locale` and a `translationKey` matching the Chinese filename. Do not hard-code language prefixes in article links. If a translation is missing, the Chinese original is shown with an explicit notice. Translations are not generated automatically or presented as available when they are missing.
 
-The language layer lives in `src/core/i18n/` and is independent of Blank. Future themes must reuse `getI18n()`, `getSiteContent()`, `LanguagePreference.astro`, and `LanguageSwitcher.astro`, and generate pages for all three languages. Theme paths follow the language prefix, as in `/ja/themes/new/blog/`, and theme switching preserves the current language. This requirement is also recorded in the project’s `AGENTS.md`.
+The language layer lives in `src/core/i18n/` and is independent of Blank. Future themes must reuse `getI18n()`, `getSiteContent()`, `LanguagePreference.astro`, and `LanguageSwitcher.astro`, and generate pages for all four languages. Theme paths follow the language prefix, as in `/ja/themes/new/blog/`, and theme switching preserves the current language. This requirement is also recorded in the project’s `AGENTS.md`.
 
 Profiles, projects, collections, and social links come from the same shared data, and articles use one shared set of Markdown sources. After an edit and redeployment, every theme using those sources reflects the update. Content is shared within each language; changes to Chinese content do not automatically translate into Japanese or English. Translations must be maintained separately.
 
-Search, category filtering, date sorting, reading progress, and color mode logic live in the shared core. Blank uses the root path, Ema uses `/themes/ema/`, and Endfield Industrial uses `/themes/endfield/`. Japanese and English add `/ja/` and `/en/` before the theme path, for example `/ja/themes/endfield/`. The theme menu preserves the current section, article, language, and applicable query parameters and anchors. The choice is saved under the shared `site-theme` preference, while the URL determines the actual page theme. Saved preferences do not force changes to direct links or browser history.
+Search, category filtering, date sorting, reading progress, and color mode logic live in the shared core. Blank uses the root path, Ema uses `/themes/ema/`, and Endfield Industrial uses `/themes/endfield/`. Traditional Chinese, Japanese, and English add `/zh-TW/`, `/ja/`, and `/en/` before the theme path, for example `/ja/themes/endfield/`. The theme menu preserves the current section, article, language, and applicable query parameters and anchors. The choice is saved under the shared `site-theme` preference, while the URL determines the actual page theme. Saved preferences do not force changes to direct links or browser history.
 
 Themes control layout, colors, and interaction presentation, connecting to the same features through shared hooks. When adding a theme, follow the [theme integration guide](docs/THEMES.md) for data, features, languages, and routing. Keep business logic in the shared core.
 

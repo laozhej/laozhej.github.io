@@ -30,6 +30,11 @@ html[data-theme="blank"] {
   scroll-padding-top: 112px;
   accent-color: var(--blank-ink);
 }
+/* Taiwanese Traditional Chinese uses its own glyph standard. */
+html[data-theme="blank"]:lang(zh-TW) {
+  --blank-sans: Arial, "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --blank-serif: "Iowan Old Style", "Palatino Linotype", "Songti TC", PMingLiU, serif;
+}
 
 html[data-theme="blank"][data-color-mode="dark"] {
   color-scheme: dark;
@@ -104,7 +109,7 @@ button.blank-text-link { border: 0; padding: 0; background: transparent; }
 .blank-nav a[aria-current="page"]::after { transform: scaleX(1); }
 .blank-theme-trigger { justify-self: end; border: 1px solid var(--blank-line); }
 .blank-header-actions { display: flex; justify-self: end; align-items: center; gap: 8px; }
-html:lang(zh-CN) :is(.blank-nav, .blank-header-actions, .ema-nav, .ema-header-actions) { font-family: var(--blank-serif); }
+html:is(:lang(zh-CN), :lang(zh-TW)) :is(.blank-nav, .blank-header-actions, .ema-nav, .ema-header-actions) { font-family: var(--blank-serif); }
 .blank-header .site-theme-menu > summary { min-height:40px; border:1px solid var(--blank-line); border-radius:0; font-size:.6875rem; white-space:nowrap; }
 @media (max-width:1100px) and (min-width:901px) {
   .blank-header-inner { grid-template-columns:1fr auto; gap:0 16px; min-height:0; padding-top:12px; }

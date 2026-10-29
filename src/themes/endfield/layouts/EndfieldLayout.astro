@@ -41,7 +41,7 @@ const navItems = site.nav.map((item, index) => ({
     <title>{title}</title><meta name="description" content={description} />
     <meta property="og:title" content={title} /><meta property="og:description" content={description} />
     <meta property="og:type" content={isArticlePage ? "article" : "website"} />
-    <meta property="og:locale" content={{ "zh-CN": "zh_CN", ja: "ja_JP", en: "en_US" }[locale]} />
+    <meta property="og:locale" content={{ "zh-CN": "zh_CN", "zh-TW": "zh_TW", ja: "ja_JP", en: "en_US" }[locale]} />
     {canonical && <><link rel="canonical" href={canonical} /><meta property="og:url" content={canonical} /></>}
     {Astro.site && locales.map((language: Locale) => <link rel="alternate" hreflang={language} href={new URL(localizePath(Astro.url.pathname, language), Astro.site)} />)}
     {article && <meta property="article:published_time" content={article.pubDate.toISOString()} />}

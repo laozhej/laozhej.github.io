@@ -21,6 +21,10 @@ html[data-theme="endfield"] {
   --site-menu-background:var(--ef-panel); --site-menu-color:var(--ef-ink);
   min-width:320px; background:var(--ef-paper); scroll-padding-top:120px; accent-color:var(--ef-ink);
 }
+html[data-theme="endfield"]:lang(zh-TW) {
+  --ef-ui:"Saira Variable","PingFang TC","Hiragino Sans","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  --ef-text:"PingFang TC","Hiragino Sans","Noto Sans TC","Noto Sans JP","Microsoft JhengHei",sans-serif;
+}
 html[data-theme="endfield"][data-color-mode="dark"] {
   color-scheme:dark;
   --ef-paper:#191919; --ef-panel:#222; --ef-ink:#ededed; --ef-ink-2:#a3a3a3; --ef-rule:#353535; --ef-chip:#2e2e2e;

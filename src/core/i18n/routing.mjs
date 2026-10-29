@@ -1,15 +1,15 @@
 // Shared by every theme. Locale prefixes always precede theme routes.
-export const locales = ["zh-CN", "ja", "en"];
+export const locales = ["zh-CN", "zh-TW", "ja", "en"];
 export const localePreferenceKey = "site-locale";
 
 export function getLocale(pathname) {
   const prefix = String(pathname).split(/[/?#]/)[1];
-  return prefix === "ja" || prefix === "en" ? prefix : "zh-CN";
+  return prefix === "zh-TW" || prefix === "ja" || prefix === "en" ? prefix : "zh-CN";
 }
 
 export function stripLocale(path) {
   const value = String(path || "/");
-  const stripped = value.replace(/^\/(?:ja|en)(?=\/|[?#]|$)/, "");
+  const stripped = value.replace(/^\/(?:zh-TW|ja|en)(?=\/|[?#]|$)/, "");
   if (!stripped || stripped.startsWith("?") || stripped.startsWith("#")) return `/${stripped}`;
   return stripped;
 }

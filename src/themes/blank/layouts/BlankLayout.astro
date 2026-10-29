@@ -16,7 +16,7 @@ import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
 import { pageTransition } from "@/core/navigation/animations.mjs";
 const { locale, t, href } = getI18n(Astro.url.pathname);
 const path = stripLocale(Astro.url.pathname);
-const ogLocale = { "zh-CN": "zh_CN", ja: "ja_JP", en: "en_US" }[locale];
+const ogLocale = { "zh-CN": "zh_CN", "zh-TW": "zh_TW", ja: "ja_JP", en: "en_US" }[locale];
 interface Props {
   title?: string;
   description?: string;

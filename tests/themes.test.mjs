@@ -5,7 +5,7 @@ import { localizePath } from "../src/core/i18n/routing.mjs";
 import { mountThemePreference, readThemePreference } from "../src/core/themes/preference.mjs";
 
 test("theme changes round-trip every locale, section and nested article without losing URL state", () => {
-  for (const locale of ["zh-CN", "ja", "en"]) {
+  for (const locale of ["zh-CN", "zh-TW", "ja", "en"]) {
     for (const path of ["/", "/blog/", "/blog/notes/first-post/", "/projects/", "/games/", "/about/", "/credits/"]) {
       const original = localizePath(`${path}?q=hello%20world&category=life&sort=oldest&ref=shared#section-two`, locale);
       for (const theme of ["ema", "endfield"]) {

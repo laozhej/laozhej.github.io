@@ -1,11 +1,11 @@
 import { messages } from "./messages";
 import { getLocale as localeFromPath, localizePath, stripLocale, locales } from "./routing.mjs";
 
-export type Locale = "zh-CN" | "ja" | "en";
+export type Locale = "zh-CN" | "zh-TW" | "ja" | "en";
 export { localizePath, stripLocale, locales };
 export const getLocale = (path: string): Locale => localeFromPath(path) as Locale;
-export const localeNames: Record<Locale, string> = { "zh-CN": "简体中文", ja: "日本語", en: "English" };
-export const localeCodes: Record<Locale, string> = { "zh-CN": "中文", ja: "日本語", en: "EN" };
+export const localeNames: Record<Locale, string> = { "zh-CN": "简体中文", "zh-TW": "繁體中文", ja: "日本語", en: "English" };
+export const localeCodes: Record<Locale, string> = { "zh-CN": "简中", "zh-TW": "繁中", ja: "日本語", en: "EN" };
 
 export function getI18n(path: string) {
   const locale = getLocale(path);

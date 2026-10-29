@@ -1,5 +1,6 @@
 /* Homepage presentation only; shared navigation and preferences belong to EmaLayout. */
-#ema-home{--paper:#fafbf9;--ink:#47536b;--muted:#6f7b8f;--pink:#b46082;--rose:#c06f93;--pale-pink:#fae8ee;--sky:#577f9f;--rule:#dce3e9;--glass:#ffffffd1;--shadow:0 14px 34px #8599b41f;--round:"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Varela Round","Yu Gothic UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1);/* px:fixed, read by lib/home.mjs. */--hero-runway:560px;color:var(--ink);background:var(--paper);font-size:14px;line-height:1.7;min-width:0;}
+#ema-home{--paper:#fafbf9;--ink:#47536b;--muted:#6f7b8f;--pink:#b46082;--rose:#c06f93;--pale-pink:#fae8ee;--sky:#577f9f;--rule:#dce3e9;--glass:#ffffffd1;--shadow:0 14px 34px #8599b41f;--round:"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Varela Round","Yu Gothic UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;--song:"Songti SC","Noto Serif CJK SC";--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--ease-out:cubic-bezier(.23,1,.32,1);--ease-in-out:cubic-bezier(.77,0,.175,1);/* px:fixed, read by lib/home.mjs. */--hero-runway:560px;color:var(--ink);background:var(--paper);font-size:14px;line-height:1.7;min-width:0;}
+#ema-home:lang(zh-TW){--round:"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Varela Round","Yu Gothic UI","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;--song:"Songti TC","Noto Serif CJK TC";}
 #ema-home *{box-sizing:border-box;}#ema-home a{color:inherit;text-decoration:none;}#ema-home button{font:inherit;color:inherit;cursor:pointer;border:0;background:transparent;}#ema-home button:focus-visible,#ema-home a:focus-visible,#ema-home [tabindex]:focus-visible,#ema-home input:focus-visible{outline:2px solid var(--pink);outline-offset:5px;}#ema-home img{display:block;max-width:100%;height:auto;}#ema-home figure,#ema-home p,#ema-home h1,#ema-home h2,#ema-home h3{margin:0;}#ema-home [hidden]{display:none!important;}#ema-home .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
 #ema-home .eyebrow{font:600 10px/1.8 var(--mono);letter-spacing:.2em;color:var(--muted);}
 
@@ -37,7 +38,7 @@
 #ema-home .title-line-2{margin-left:1.15em;}
 #ema-home .title-line{color:var(--ink);text-shadow:0 2px 18px #fafbf9b3;}
 #ema-home .hero-title i{font-style:normal;color:var(--rose);-webkit-text-fill-color:var(--rose);}
-#ema-home .hero-diary{margin-top:12px;font:500 16px/1.9 "Songti SC","Noto Serif CJK SC",Georgia,serif;letter-spacing:.06em;color:#5f6d88;text-shadow:0 1px 8px #fff,0 0 16px #fff;}
+#ema-home .hero-diary{margin-top:12px;font:500 16px/1.9 var(--song),Georgia,serif;letter-spacing:.06em;color:#5f6d88;text-shadow:0 1px 8px #fff,0 0 16px #fff;}
 #ema-home .terminal-line{display:flex;align-items:center;gap:10px;width:min(100%,440px);min-height:46px;margin-top:22px;padding:9px 14px;background:#ffffffcc;border-bottom:2px solid #e9c5d8;box-shadow:0 10px 26px #8599b41a;backdrop-filter:blur(6px);font:13px/1.5 var(--mono);color:#7c6a84;overflow:hidden;white-space:nowrap;}
 #ema-home .terminal-prompt{color:var(--rose);font-weight:600;white-space:nowrap;}
 #ema-home .terminal-line code{font:inherit;white-space:pre;min-width:0;overflow:hidden;}
@@ -98,7 +99,7 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
 #ema-home .notice-body{padding:18px 2px 6px;}
 #ema-home .notice-fallback{margin-bottom:8px;font-size:12px;line-height:1.7;color:var(--muted);}
 #ema-home .notice-text{font-size:15px;line-height:1.95;white-space:pre-line;}
-#ema-home .notice-line{margin-top:14px;padding:12px 16px;border-left:2px solid var(--rose);background:#fbf3f6;font:15px/1.8 "Songti SC","Noto Serif CJK SC",Georgia,serif;color:#6b6475;}
+#ema-home .notice-line{margin-top:14px;padding:12px 16px;border-left:2px solid var(--rose);background:#fbf3f6;font:15px/1.8 var(--song),Georgia,serif;color:#6b6475;}
 #ema-home .notice-body small{display:block;margin-top:8px;text-align:right;font-size:12px;color:var(--muted);}
 #ema-home .notice-skip{display:inline-flex;align-items:center;gap:8px;min-height:36px;margin-top:10px;font-size:12px;color:var(--muted);cursor:pointer;}
 #ema-home .notice-skip input{width:16px;height:16px;margin:0;accent-color:var(--rose);}
@@ -107,7 +108,7 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
 /* On wide but short windows the rail keeps its share of the width and shows more of the next chapter. */
 #ema-home .chapters{padding:44px 0 30px;max-width:max(1160px,72.5vw);margin:0 auto;}
 #ema-home .section-heading{display:flex;justify-content:space-between;align-items:end;padding:0 12px;margin-bottom:27px;gap:24px;}
-#ema-home h2{font:29px/1.5 "Songti SC","Noto Serif CJK SC",Georgia,serif;font-weight:400;letter-spacing:.08em;}
+#ema-home h2{font:29px/1.5 var(--song),Georgia,serif;font-weight:400;letter-spacing:.08em;}
 #ema-home h2>span{color:#c489a3;}
 #ema-home .section-heading>p{font-size:12px;color:var(--muted);}
 #ema-home .chapter-rail{position:relative;}
@@ -132,7 +133,7 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
 #ema-home .chapter-copy{padding:24px 26px 28px;position:relative;transition:background-color 200ms ease;}
 #ema-home .chapter-number{position:absolute;right:0;top:0;padding:6px 14px;background:#3a3f4a;color:#fff;font:600 13px var(--mono);letter-spacing:.08em;}
 #ema-home .chapter-copy .eyebrow{font-size:9px;margin-bottom:12px;}
-#ema-home .chapter-copy h3{font:25px/1.7 "Songti SC",Georgia,serif;margin-bottom:8px;overflow-wrap:anywhere;}
+#ema-home .chapter-copy h3{font:25px/1.7 var(--song),Georgia,serif;margin-bottom:8px;overflow-wrap:anywhere;}
 #ema-home .chapter-copy p:not(.eyebrow){font-size:12px;color:var(--muted);}
 #ema-home .chapter-copy>a{display:inline-flex;gap:30px;align-items:center;margin-top:20px;font-size:12px;border-bottom:1px solid #d7dfe6;padding-bottom:4px;}
 #ema-home .chapter-copy>a span{color:#b57491;}
@@ -188,7 +189,7 @@ html:has(#ema-home .ema-notice[open]){overflow:hidden;}
 #ema-home .article-list .article-index{font:italic 15px Georgia,serif;color:var(--pink);align-self:start;padding-top:2px;}
 #ema-home .article-list small{font:10px var(--mono);color:var(--muted);}
 #ema-home .article-list small span{font:10px -apple-system,"PingFang SC",sans-serif;margin-left:12px;color:#9e7d90;}
-#ema-home .article-list h3{font:18px/1.7 "Songti SC",Georgia,serif;margin-top:10px;}
+#ema-home .article-list h3{font:18px/1.7 var(--song),Georgia,serif;margin-top:10px;}
 #ema-home .article-list>a>span:last-child{color:#b7849a;}
 #ema-home .article-list>a::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:var(--pink);transform:scaleX(0);transform-origin:left;transition:transform 250ms var(--ease-out);}
 #ema-home .translation-fallback{font-size:11px;color:var(--muted);margin-top:8px;}

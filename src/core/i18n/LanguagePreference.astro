@@ -2,10 +2,10 @@
 import { localePreferenceKey, locales } from "./routing.mjs";
 ---
 <script is:inline define:vars={{ localePreferenceKey, locales }}>
-  // Explicit /ja/ and /en/ URLs win over a saved preference. Unprefixed
+  // Explicit /zh-TW/, /ja/ and /en/ URLs win over a saved preference. Unprefixed
   // entry links use the visitor's preference, before any page is painted.
   (() => {
-    if (/^\/(ja|en)(\/|$)/.test(location.pathname)) return;
+    if (/^\/(zh-TW|ja|en)(\/|$)/.test(location.pathname)) return;
     try {
       const saved = localStorage.getItem(localePreferenceKey);
       if (locales.includes(saved) && saved !== "zh-CN") {

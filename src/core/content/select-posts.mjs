@@ -3,7 +3,7 @@ export function selectPosts(entries, locale) {
   const groups = new Map();
   for (const entry of entries) {
     if (entry.data.draft) continue;
-    const key = entry.data.translationKey ?? entry.id.replace(/^(ja|en)\//, "");
+    const key = entry.data.translationKey ?? entry.id.replace(/^(zh-TW|ja|en)\//, "");
     const translations = groups.get(key) ?? [];
     if (translations.some((post) => post.data.locale === entry.data.locale)) {
       throw new Error(`Duplicate article translation: ${key} / ${entry.data.locale}`);

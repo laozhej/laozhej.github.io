@@ -1,6 +1,6 @@
 // Sakura notes are numbered by their place in src/core/data/notes.ts, from No.001.
 const dayPattern = /^\d{4}-\d{2}-\d{2}$/;
-const translations = ["ja", "en"];
+const translations = ["zh-TW", "ja", "en"];
 
 const pad = (value, length = 2) => String(value).padStart(length, "0");
 const parseDay = (day) => {

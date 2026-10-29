@@ -12,7 +12,7 @@ import NotFoundPage from "@/themes/blank/pages/NotFoundPage.astro";
 
 export async function getStaticPaths() {
   const routes = [];
-  for (const locale of ["ja", "en"] as const) {
+  for (const locale of ["zh-TW", "ja", "en"] as const) {
     for (const page of ["", "blog", "projects", "games", "about", "credits", "404"]) {
       routes.push({ params: { lang: locale, page: page || undefined }, props: { kind: page || "home" } });
     }

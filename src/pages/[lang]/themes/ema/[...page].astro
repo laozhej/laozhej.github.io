@@ -10,7 +10,7 @@ import AboutPage from "@/themes/ema/pages/AboutPage.astro";
 import CreditsPage from "@/themes/ema/pages/CreditsPage.astro";
 import NotFoundPage from "@/themes/ema/pages/NotFoundPage.astro";
 
-export const getStaticPaths = () => getThemeStaticPaths(["ja", "en"]);
+export const getStaticPaths = () => getThemeStaticPaths(["zh-TW", "ja", "en"]);
 const { kind, post } = Astro.props;
 const pages = { home: HomePage, blog: BlogIndexPage, projects: ProjectsPage, games: GamesPage, about: AboutPage, credits: CreditsPage, "404": NotFoundPage };
 const Page = pages[kind as keyof typeof pages];

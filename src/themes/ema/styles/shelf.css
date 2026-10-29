@@ -6,6 +6,9 @@
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   color:var(--blank-ink);
 }
+.ema-shelf:lang(zh-TW) {
+  --round:"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Varela Round","Yu Gothic UI","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+}
 html[data-color-mode="dark"] .ema-shelf {--card:#272c37;--card-shadow:0 12px 30px #05080e59;--frame:#6d4c61;}
 .ema-shelf :is(h2,h3,p,ul,ol,figure) {margin:0;}
 .ema-shelf :is(ul,ol) {padding:0;list-style:none;}

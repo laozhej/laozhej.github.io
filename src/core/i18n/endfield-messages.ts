@@ -9,6 +9,15 @@ export const endfieldMessages = {
     "credits.sairaText": "终末地工业风主题的英文标签、编号和标题使用 Omnibus-Type 设计的 Saira 可变字体，通过 Fontsource 随站点自托管，采用 SIL Open Font License 1.1。中文与日文使用访客设备上的黑体。",
     "credits.sairaProject": "Saira 项目",
   },
+  "zh-TW": {
+    "endfield.description": "工業手冊風格的個人網站：文章、專案與喜歡的遊戲，依編號歸檔。",
+    "endfield.latest": "最新一篇",
+    "endfield.index": "索引",
+    "endfield.games": "款喜歡的遊戲",
+    "endfield.gamesOne": "款喜歡的遊戲",
+    "credits.sairaText": "終末地工業風主題的英文標籤、編號和標題使用 Omnibus-Type 設計的 Saira 可變字型，透過 Fontsource 隨網站自行託管，採用 SIL Open Font License 1.1。中文與日文使用訪客裝置上的黑體。",
+    "credits.sairaProject": "Saira 專案",
+  },
   ja: {
     "endfield.description": "産業マニュアル調の個人サイト。記事、プロジェクト、好きなゲームを番号順にまとめています。",
     "endfield.latest": "最新の記事",

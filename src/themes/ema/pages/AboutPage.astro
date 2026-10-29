@@ -13,7 +13,7 @@ import "../styles/shelf.css";
 import "../styles/about.css";
 
 const { locale, t, href } = getI18n(Astro.url.pathname);
-const { currentSignals, favoriteGames, gameShelf, profileIdentity, profileStatus, profileTech, projectTechLines, xpFavorites } = getSiteContent(locale);
+const { animeFavorites, currentSignals, favoriteGames, gameShelf, profileIdentity, profileStatus, profileTech, projectTechLines, xpFavorites } = getSiteContent(locale);
 const tones = ["pink", "blue", "green", "lavender", "yellow"];
 const tone = (index: number, offset = 0) => `tone-${tones[(index + offset) % tones.length]}`;
 const number = (index: number) => String(index + 1).padStart(2, "0");
@@ -25,6 +25,7 @@ const marks = [
   { id: "tech", icon: "tabler:code" },
   { id: "games", icon: "tabler:device-gamepad" },
   { id: "characters", icon: "tabler:heart" },
+  { id: "animes", icon: "tabler:movie" },
   { id: "now", icon: "tabler:flower" },
 ];
 const socialIcons: Record<string, string> = { github: "tabler:brand-github", steam: "tabler:brand-steam" };
@@ -107,6 +108,21 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
           ))}
         </ul>
         {xpFavorites.length > 6 && <button class="about-more about-character-toggle" type="button" data-site-disclosure-toggle data-label-more={t("about.charactersMore")} data-label-less={t("about.charactersLess")} aria-expanded="false" aria-controls="ema-character-list" hidden><span data-site-disclosure-label>{t("about.charactersMore")}</span><Icon name="tabler:chevron-down" size={16} aria-hidden="true" /></button>}
+      </section>
+
+      <section class="about-section" aria-labelledby="ema-about-animes">
+        <div class="shelf-heading"><span class={`shelf-chip ${tone(3)}`}><Icon name="tabler:movie" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">{t("ema.about.animesKicker")}</p><h2 id="ema-about-animes">{t("ema.about.animesTitle")}</h2></div></div>
+        <ul class="about-animes">
+          {animeFavorites.map((item, index) => (
+            <li class={`shelf-card ${tone(index, 3)}`}>
+              <img class="about-poster" src={item.cover} alt="" width="300" height="450" loading="lazy" decoding="async" />
+              <div>
+                <h3><a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}<Icon name="tabler:external-link" size={14} aria-hidden="true" /></a></h3>
+                <p>{item.subtitle}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section class="about-section" aria-labelledby="ema-about-now">

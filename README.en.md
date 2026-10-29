@@ -35,6 +35,7 @@ The build output is `dist/`, which can be deployed to a static hosting service.
 | Project list | `src/core/data/projects.ts` |
 | Game shelf (all three language names in each entry) | `src/core/data/games.ts` |
 | Game card images and their source manifest | `public/games/`, `public/games/ASSETS.json` |
+| Favorite anime (synced from Notion rows ticked 允许网站展示) | `src/core/data/animes.ts`, `public/animes/ASSETS.json` |
 | Daily notes on the Sakura Archive homepage | `src/core/data/notes.ts` |
 | GitHub / Steam profile links shared across languages and themes | `src/core/data/social.ts` |
 | Shared search, filtering, sorting, and reading progress | `src/core/features/` |

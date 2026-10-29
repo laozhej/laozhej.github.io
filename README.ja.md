@@ -35,6 +35,7 @@ npm run preview
 | プロジェクト一覧 | `src/core/data/projects.ts` |
 | ゲーム棚（3 言語の名前を同じ項目で管理） | `src/core/data/games.ts` |
 | ゲームカード画像と出典一覧 | `public/games/`、`public/games/ASSETS.json` |
+| 好きなアニメ（Notion「动漫记录」で「允许网站展示」にチェックした作品を同期） | `src/core/data/animes.ts`、`public/animes/ASSETS.json` |
 | 桜色アーカイブのホームに表示する日々のメモ | `src/core/data/notes.ts` |
 | GitHub / Steam のプロフィールリンク（全言語・全テーマ共通） | `src/core/data/social.ts` |
 | 共通の検索、絞り込み、並べ替え、読書進捗 | `src/core/features/` |

@@ -35,6 +35,7 @@ npm run preview
 | 项目列表 | `src/core/data/projects.ts` |
 | 游戏架（三语名称写在同一条目里） | `src/core/data/games.ts` |
 | 游戏卡片图片及其来源清单 | `public/games/`、`public/games/ASSETS.json` |
+| 喜欢的动画（从 Notion「动漫记录」勾选「允许网站展示」的条目同步） | `src/core/data/animes.ts`、`public/animes/ASSETS.json` |
 | 樱色档案首页的每日便笺 | `src/core/data/notes.ts` |
 | GitHub / Steam 个人主页链接（所有语言和主题共用） | `src/core/data/social.ts` |
 | 全主题共用的搜索、筛选、排序、阅读进度 | `src/core/features/` |

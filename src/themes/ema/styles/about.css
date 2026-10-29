@@ -60,6 +60,14 @@ img.about-portrait {display:block;object-fit:cover;}
 .about-characters h3 {display:inline-block;padding:2px 12px;border:2px solid var(--line);border-radius:999px;background:var(--fill);color:var(--tone-ink);font-family:var(--round);font-size:14px;rotate:-2deg;}
 .about-characters li:nth-child(even) h3 {rotate:2deg;}
 .ema-about .about-characters p {margin-top:8px;}
+/* Anime: a taped-in poster beside the title, in the card's tone. */
+.about-animes {display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
+.about-animes>li {display:flex;align-items:center;gap:16px;padding:12px 16px 12px 12px;}
+.about-animes>li>div {min-width:0;overflow-wrap:anywhere;}
+.about-poster {flex-shrink:0;display:block;width:64px;height:96px;object-fit:cover;border:3px solid var(--line);border-radius:8px;background:var(--fill);rotate:-2deg;}
+.about-animes li:nth-child(even) .about-poster {rotate:2deg;}
+.about-animes a {color:inherit;text-decoration:none;background:linear-gradient(var(--ema-pink),var(--ema-pink)) 0 100%/0 1px no-repeat;transition:background-size 200ms var(--blank-ease);}
+.about-animes a svg {margin-left:5px;vertical-align:-1px;color:var(--ema-pink);}
 .about-now {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
 .about-now>li {padding:18px;}
 .about-now span {display:inline-block;padding:3px 12px;border:1px solid var(--line);border-radius:999px;background:var(--fill);color:var(--tone-ink);font-size:12px;font-weight:700;}
@@ -67,7 +75,7 @@ img.about-portrait {display:block;object-fit:cover;}
 
 @media(hover:hover) and (pointer:fine) {
   .about-links a:hover,.about-marks a:hover {transform:translateY(-2px);border-color:var(--ema-pink);color:var(--ema-pink);}
-  .about-games a:hover {background-size:100% 1px;}
+  .about-games a:hover,.about-animes a:hover {background-size:100% 1px;}
   .about-more:hover svg {translate:3px 0;}
 }
 @media(min-width:1000px) and (min-height:760px) {

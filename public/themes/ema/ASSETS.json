@@ -219,6 +219,64 @@
       "generative_ai_used": false,
       "provenance_evidence": "Original story/art credits and public episode date verified on the official publisher reader; the artwork is credited to the original manga authors in the 2020 publication. The displayed reading order was visually checked in the official reader.",
       "permission_status": "Official public sample verified. No separate permission for decorative republication or redistribution has been established; attribution is not a license."
+    },
+    {
+      "id": "yuki-avatar",
+      "title": "Yuki Tsukishiro / 月代雪 / 月代ユキ",
+      "file": "assets/yuki.webp",
+      "placement": "profile-avatar, about-character-portrait",
+      "original_dimensions": [
+        1132,
+        1594
+      ],
+      "crop_circle_center_radius": [
+        546.5,
+        462.5,
+        375
+      ],
+      "source_page": null,
+      "source_image": "User-supplied screenshot shared in a Claude Code session on 2026-10-29; original artist and publication not yet recorded.",
+      "attribution": "Unverified — fan or official illustration supplied by the site owner; record the artist and source before relying on this asset.",
+      "dimensions": [
+        480,
+        480
+      ],
+      "format": "image/webp",
+      "has_alpha": true,
+      "processing": "Square crop around the site owner's marked circle, LANCZOS resize to 480×480, antialiased circular alpha mask, lossy WebP (quality 90). No recoloring, retouching, or generated pixels.",
+      "generative_ai_used": false,
+      "permission_status": "No permission for publication or redistribution has been established. Attribution is not a license.",
+      "sha256": "4dfa4291fcdce46567611324b7ad7f406f59190c916db5dbfbe410d5437c6451",
+      "bytes": 53316
+    },
+    {
+      "id": "ema-avatar",
+      "title": "Ema Sakuraba / 樱羽艾玛 / 桜羽エマ",
+      "file": "assets/ema-avatar.webp",
+      "placement": "about-character-portrait",
+      "original_dimensions": [
+        1130,
+        1600
+      ],
+      "crop_circle_center_radius": [
+        587.5,
+        617.5,
+        540
+      ],
+      "source_page": null,
+      "source_image": "User-supplied screenshot shared in a Claude Code session on 2026-10-29; original artist and publication not yet recorded.",
+      "attribution": "Unverified — fan or official illustration supplied by the site owner; record the artist and source before relying on this asset.",
+      "dimensions": [
+        480,
+        480
+      ],
+      "format": "image/webp",
+      "has_alpha": true,
+      "processing": "Square crop around the site owner's marked circle, LANCZOS resize to 480×480, antialiased circular alpha mask, lossy WebP (quality 90). No recoloring, retouching, or generated pixels.",
+      "generative_ai_used": false,
+      "permission_status": "No permission for publication or redistribution has been established. Attribution is not a license.",
+      "sha256": "46ad6afdfc6dc3fb8c96034032e9ce9bf2cb4d0d59f27f4bea427158069cd298",
+      "bytes": 48120
     }
   ]
 }

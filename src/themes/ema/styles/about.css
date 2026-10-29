@@ -50,7 +50,7 @@ html[data-color-mode="dark"] .about-photo {background:#e4e7ee;box-shadow:0 14px 
 .about-characters {display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
 .about-characters>li {display:flex;align-items:center;gap:16px;padding:14px 16px;}
 .about-portrait {flex-shrink:0;width:66px;height:66px;border:3px solid var(--line);border-radius:50%;background-color:var(--fill);background-repeat:no-repeat;}
-.about-portrait-ema {background-image:url('/themes/ema/assets/ema.webp');background-size:300% auto;background-position:40.6% 9.1%;}
+.about-portrait-ema {background-image:url('/themes/ema/assets/ema-avatar.webp');background-size:cover;background-position:center;}
 .about-portrait-yuki {background-image:url('/themes/ema/assets/yuki.webp');background-size:cover;background-position:center;}
 .about-characters h3 {display:inline-block;padding:2px 12px;border:2px solid var(--line);border-radius:999px;background:var(--fill);color:var(--tone-ink);font-family:var(--round);font-size:14px;rotate:-2deg;}
 .about-characters li:nth-child(even) h3 {rotate:2deg;}

@@ -13,12 +13,15 @@ import "../styles/shelf.css";
 import "../styles/about.css";
 
 const { locale, t, href } = getI18n(Astro.url.pathname);
-const { animeFavorites, animeListUrl, currentSignals, favoriteGames, gameShelf, profileIdentity, profileStatus, profileTech, projectTechLines, xpFavorites } = getSiteContent(locale);
+const { animeFavorites, animeListUrl, currentSignals, favoriteGames, gameShelf, profileIdentity, profileStatus, profileTech, xpFavorites } = getSiteContent(locale);
 const tones = ["pink", "blue", "green", "lavender", "yellow"];
 const tone = (index: number, offset = 0) => `tone-${tones[(index + offset) % tones.length]}`;
 const number = (index: number) => String(index + 1).padStart(2, "0");
-const techIcons: Record<string, string> = { ai: "tabler:cpu", animation: "tabler:keyframes", engines: "tabler:device-gamepad-2", web: "tabler:world-www" };
-const tech = [...profileTech, ...projectTechLines.map(({ key, label, note }) => ({ key, name: label, note }))];
+const techIcons: Record<string, string> = {
+  unity: "tabler:brand-unity", blender: "tabler:brand-blender", unreal: "unreal-engine",
+  godot: "godot-engine", rpgmaker: "tabler:sword", vscode: "tabler:brand-vscode",
+};
+const techTones: Record<string, string> = { unity: "blue", blender: "orange", unreal: "slate", godot: "blue", rpgmaker: "pink", vscode: "green" };
 // Retain the two original portrait stickers; added portraits share their frame.
 const portraits: Record<string, string> = { emma: "ema", yuki: "yuki" };
 const marks = [
@@ -75,7 +78,7 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
       <section class="about-section" aria-labelledby="ema-about-tech">
         <div class="shelf-heading"><span class={`shelf-chip ${tone(0)}`}><Icon name="tabler:code" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">{t("ema.about.techKicker")}</p><h2 id="ema-about-tech">{t("ema.about.techTitle")}</h2></div></div>
         <ul class="about-tech">
-          {tech.map((item, index) => <li class={`shelf-card ${tone(index)}`}><span class="shelf-chip about-chip"><Icon name={techIcons[item.key] ?? "tabler:sparkles"} size={22} aria-hidden="true" /></span><div><h3>{item.name}</h3><p>{item.note}</p></div></li>)}
+          {profileTech.map((item) => <li class={`shelf-card tone-${techTones[item.key]}`}><span class="shelf-chip about-chip"><Icon name={techIcons[item.key]} size={25} aria-hidden="true" /></span><div><h3>{item.name}</h3><p>{item.note}</p></div></li>)}
         </ul>
       </section>
 

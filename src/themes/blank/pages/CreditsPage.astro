@@ -43,6 +43,12 @@ const { t, href } = getI18n(Astro.url.pathname);
         <pre lang="en">{iconLicense}</pre>
       </details>
       <a class="blank-text-link" href="/licenses/tabler-icons-MIT.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+      <h3>Simple Icons</h3>
+      <p>{t("credits.simpleIconsText")}</p>
+      <div class="blank-credits-links">
+        <a class="blank-text-link" href="https://github.com/simple-icons/simple-icons" target="_blank" rel="noopener noreferrer">Simple Icons <Icon name="tabler:external-link" size={15} /></a>
+        <a class="blank-text-link" href="/licenses/simple-icons-CC0.txt">CC0 1.0 · {t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+      </div>
     </div>
   </section>
   <section class="blank-section blank-about-section blank-credits-section">

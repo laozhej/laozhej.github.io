@@ -38,9 +38,15 @@ html[data-color-mode="dark"] .about-photo {background:#e4e7ee;box-shadow:0 14px 
 .about-section {display:grid;gap:18px;}
 .ema-about li h3 {font-size:15px;font-weight:700;line-height:1.45;color:var(--blank-ink);}
 .ema-about li p {margin-top:4px;font-size:13px;line-height:1.75;color:var(--blank-muted);}
-.about-tech,.about-games {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
-.about-tech>li {display:grid;grid-template-columns:48px minmax(0,1fr);gap:14px;align-items:start;padding:18px;}
-.about-chip {width:48px;height:48px;}
+.about-tech {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
+.about-tech>li {display:grid;grid-template-rows:auto 1fr;gap:18px;align-content:start;padding:20px;}
+.about-tech>li>div {min-width:0;overflow-wrap:anywhere;}
+.about-chip {width:42px;height:42px;border-radius:9px;}
+.about-tech .tone-orange {--fill:#fff0df;--line:#f1cb9c;--tone-ink:#a3561a;}
+.about-tech .tone-slate {--fill:#334662;--line:#334662;--tone-ink:#fff;}
+html[data-color-mode="dark"] .about-tech .tone-orange {--fill:#493723;--line:#956c3b;--tone-ink:#ffd3a3;}
+html[data-color-mode="dark"] .about-tech .tone-slate {--fill:#34435c;--line:#6b7d9b;--tone-ink:#e3eaf8;}
+.about-games {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
 .about-games>li {display:grid;grid-template-columns:86px minmax(0,1fr);gap:16px;align-items:center;padding:12px;}
 .about-cover {height:86px;padding:8px 10px;}
 /* An official game icon replaces the stand-in number; the card's tone shows through transparent icons. */
@@ -85,19 +91,26 @@ img.about-portrait {display:block;object-fit:cover;}
 @media(min-width:1000px) and (min-height:760px) {
   .about-side {position:sticky;top:112px;}
 }
+@media(min-width:1000px) and (max-width:1199px) {
+  .about-tech {grid-template-columns:repeat(2,minmax(0,1fr));}
+}
 @media(max-width:999px) {
   .ema-about {grid-template-columns:minmax(0,1fr);gap:40px;margin-top:40px;}
   .about-side {grid-template-columns:auto minmax(0,1fr);gap:20px 32px;}
   .about-status {grid-column:1/-1;}
 }
 @media(max-width:760px) {
+  .about-tech {grid-template-columns:repeat(2,minmax(0,1fr));}
   .about-now {grid-template-columns:minmax(0,1fr);}
 }
 @media(max-width:640px) {
   .about-side {grid-template-columns:minmax(0,1fr);}
   .about-letter {grid-template-columns:minmax(0,1fr);gap:28px;padding:26px 22px 28px 38px;}
   .about-photo {justify-self:center;width:min(210px,72%);}
-  .about-tech,.about-games {grid-template-columns:minmax(0,1fr);}
+  .about-games {grid-template-columns:minmax(0,1fr);}
+}
+@media(max-width:520px) {
+  .about-tech {grid-template-columns:minmax(0,1fr);}
 }
 html[data-motion-paused="true"] .ema-about :is(a,a svg) {transition:none;}
 @media(prefers-reduced-motion:reduce) {

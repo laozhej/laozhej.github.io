@@ -1,4 +1,5 @@
 import { motionIsPaused } from "../preferences/motion.mjs";
+import { versionNavigationRequest } from "./request-version.mjs";
 
 // Astro owns navigation, history, focus restoration, loading and cancellation.
 // This small adapter owns the lifetime of our imperative page enhancements.
@@ -18,6 +19,9 @@ export function installNavigationLifecycle(doc, win, mountPage) {
   const click = (event) => {
     const link = event.target.closest?.("a[href]");
     if (link && !event.metaKey && !event.ctrlKey && !event.altKey && !event.shiftKey) keyboardNavigation = event.detail === 0;
+  };
+  const beforePreparation = (event) => {
+    versionNavigationRequest(event, doc.querySelector('meta[name="site-build"]')?.content);
   };
   const beforeSwap = (event) => {
     // Popstate has already selected the destination history entry. Capture its
@@ -66,6 +70,7 @@ export function installNavigationLifecycle(doc, win, mountPage) {
     }
   };
   doc.addEventListener("click", click, true);
+  doc.addEventListener("astro:before-preparation", beforePreparation);
   doc.addEventListener("astro:before-swap", beforeSwap);
   doc.addEventListener("astro:after-swap", afterSwap);
   doc.addEventListener("astro:page-load", mount);
@@ -73,6 +78,7 @@ export function installNavigationLifecycle(doc, win, mountPage) {
   return () => {
     cleanup();
     doc.removeEventListener("click", click, true);
+    doc.removeEventListener("astro:before-preparation", beforePreparation);
     doc.removeEventListener("astro:before-swap", beforeSwap);
     doc.removeEventListener("astro:after-swap", afterSwap);
     doc.removeEventListener("astro:page-load", mount);

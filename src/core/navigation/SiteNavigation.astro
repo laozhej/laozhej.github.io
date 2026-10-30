@@ -1,6 +1,9 @@
 ---
 import { ClientRouter } from "astro:transitions";
+// Shared by all routes in a Pages deployment; local previews use their own key.
+const build = process.env.GITHUB_SHA || "local-preview";
 ---
+<meta name="site-build" content={build} />
 <ClientRouter fallback="animate" />
 <script>
   import { installNavigationLifecycle } from "./lifecycle.mjs";

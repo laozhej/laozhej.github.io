@@ -23,4 +23,11 @@ export const notes: SakuraNote[] = [
     ja: "今日は、小さなことをひとつ書き留めるのにぴったりの日。一行だけでも。",
     en: "A good day to write down one small thing, even a single line.",
   },
+  {
+    date: "2026-10-30",
+    "zh-CN": "好困啊\n是时候该喝点咖啡了",
+    "zh-TW": "好睏啊\n該喝點咖啡了",
+    ja: "すごく眠いなあ\nそろそろコーヒーでも飲もうかな",
+    en: "So sleepy\nTime for some coffee",
+  },
 ];

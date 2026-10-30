@@ -20,6 +20,10 @@ import { pageTransition } from "@/core/navigation/animations.mjs";
 const { locale, t } = getI18n(Astro.url.pathname);
 const href = (path: string) => getThemePath("ema", path, locale);
 const path = stripTheme(Astro.url.pathname);
+const navIcons: Record<string, string> = {
+  home: "tabler:home-heart", blog: "tabler:notebook", projects: "tabler:code",
+  games: "tabler:device-gamepad-2", about: "tabler:user-heart",
+};
 const { title: pageTitle = site.name, description = t("site.description"), isArticlePage = false, article, home = false } = Astro.props;
 // Sakura Archive carries its own name; shared pages still pass the shared site name.
 const brand = t("ema.brand");
@@ -51,7 +55,7 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
     <a class="blank-skip-link" href="#ema-main">{t("a11y.skip")}</a>
     <header class="ema-header" data-header data-site-header transition:name="site-header" transition:animate="none">
       <a class="ema-wordmark" href={href("/")} aria-label={`${brand} ${t("a11y.home")}`}><strong><span>{brandHead.split(/(\.)/).map((part) => part === "." ? <i>.</i> : part)}</span> <span>{brandTail.join(" ")}</span></strong><small>EMA / 02</small></a>
-      <nav class="ema-nav" aria-label={t("a11y.navigation")}>{site.nav.map(item => <a href={href(item.href)} aria-current={(item.href === "/" ? path === "/" : path.startsWith(item.href)) ? "page" : undefined}>{t(`nav.${item.key}`)}</a>)}</nav>
+      <nav class="ema-nav" aria-label={t("a11y.navigation")}>{site.nav.map(item => <a href={href(item.href)} aria-current={(item.href === "/" ? path === "/" : path.startsWith(item.href)) ? "page" : undefined}><Icon name={navIcons[item.key]} size={17} aria-hidden="true" /><span>{t(`nav.${item.key}`)}</span></a>)}</nav>
       <div class="ema-header-actions">
         <LanguageSwitcher />
         <button class="ema-icon-button" type="button" data-color-mode-toggle hidden aria-label={t("mode.label")} aria-pressed="false" title={t("mode.toDark")} data-label-dark={t("mode.toDark")} data-label-light={t("mode.toLight")}><span class="blank-mode-moon"><Icon name="tabler:moon" size={18} /></span><span class="blank-mode-sun"><Icon name="tabler:sun" size={18} /></span></button>

@@ -27,6 +27,13 @@ const tags = [...new Set([
   ...socialLinks.map((item) => item.label),
 ])];
 const asset = (name: string) => `/themes/ema/assets/${name}.webp`;
+const frames = [
+  { name: "ema", label: "smile", width: 905, height: 2400 },
+  { name: "ema-frame-wave", label: "wave", width: 1030, height: 2400 },
+  { name: "ema-frame-together", label: "together", width: 1030, height: 2400 },
+  { name: "ema-frame-talk", label: "talk", width: 1030, height: 2400 },
+  { name: "ema-frame-refute", label: "refute", width: 1472, height: 2048 },
+];
 const brand = t("ema.brand");
 const [brandHead, ...brandTail] = brand.split(" ");
 // The dot in the name takes the rose accent; the apostrophe is optically tightened.
@@ -42,9 +49,19 @@ const panels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"]
         <div class="manga-grid">{panels.map((panel) => <i class={`panel panel-${panel}`}></i>)}</div>
       </div>
       <div class="focus-lines" aria-hidden="true"></div>
-      <div class="hero-art" data-parallax-layer="front"><img class="ema" src={asset("ema")} alt={t("ema.art.ema")} width="905" height="2400" fetchpriority="high" /></div>
-      <div class="hero-veil" aria-hidden="true"></div>
+      <div class="hero-art" data-parallax-layer="front" data-ema-frames>
+        {frames.map((frame, index) => <img class={`ema ema-frame ${index === 4 ? "ema-frame-refute" : ""}`} data-ema-frame data-active={String(index === 0)} data-src={asset(frame.name)} data-label={t(`ema.frames.${frame.label}`)} src={index === 0 ? asset(frame.name) : undefined} alt={index === 0 ? t("ema.art.ema") : ""} aria-hidden={index !== 0 ? "true" : undefined} width={frame.width} height={frame.height} fetchpriority={index === 0 ? "high" : "low"} decoding="async" />)}
+      </div>
+      <button class="ema-frame-hit" data-frame-hit type="button" aria-label={t("ema.frames.hint")} hidden></button>
+      <div class="hero-tools">
+      <div class="ema-frame-controls" data-frame-controls role="group" aria-label={t("ema.frames.label")} data-next={t("ema.frames.next")} data-restart={t("ema.frames.restart")} data-error={t("ema.frames.error")} hidden>
+        <button type="button" data-frame-prev aria-label={t("ema.frames.previous")}>←</button>
+        <span class="ema-frame-caption" data-frame-status role="status" aria-live="polite" aria-atomic="true">01 / 05 · {t("ema.frames.smile")}</span>
+        <button type="button" data-frame-next><span data-frame-next-label>{t("ema.frames.next")}</span><span aria-hidden="true"> →</span></button>
+      </div>
       <button class="notice-trigger" type="button" data-notice-open aria-haspopup="dialog" aria-controls="ema-notice" hidden><span aria-hidden="true">✿</span>{t("ema.notice.open")}</button>
+      </div>
+      <div class="hero-veil" aria-hidden="true"></div>
       <div class="hero-column">
         <div class="hero-copy" data-hero-copy>
           <p class="eyebrow"><span>{t("theme.ema")}</span>{t("ema.hero.subtitle")}</p>

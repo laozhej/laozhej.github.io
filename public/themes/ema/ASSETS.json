@@ -250,6 +250,106 @@
       "permission_status": "No permission for publication or redistribution has been established. Attribution is not a license.",
       "sha256": "46ad6afdfc6dc3fb8c96034032e9ce9bf2cb4d0d59f27f4bea427158069cd298",
       "bytes": 48120
+    },
+    {
+      "id": "ema-frame-wave",
+      "title": "Ema Sakuraba in-game sprite 11",
+      "file": "assets/ema-frame-wave.webp",
+      "source_page": "https://acacia.wiki.gg/wiki/Ema_Sakuraba/Gallery",
+      "source_image": "https://acacia.wiki.gg/images/Ema_11.png",
+      "attribution": "魔法少女ノ魔女裁判 / Acacia; in-game sprite catalogued by Acacia Wiki (community wiki). Character design: 梅まろ.",
+      "rights_notice": "©Acacia",
+      "original_dimensions": [
+        1680,
+        3914
+      ],
+      "dimensions": [
+        1030,
+        2400
+      ],
+      "has_alpha": true,
+      "original_sha256": "147b2320b90140cd0097d8c89d231900d13e98deab66d3763f0b062ee26e5902",
+      "sha256": "71a9e9fda324c76edb5e87d16bd830888b318274eaee182549482587f201dcd0",
+      "bytes": 727484,
+      "processing": "Proportional LANCZOS downscale and lossless WebP conversion only. No synthesized or repainted pixels.",
+      "generative_ai_used": false,
+      "verified_on": "2026-10-30",
+      "permission_status": "Source provenance is recorded; decorative website redistribution permission has not been established."
+    },
+    {
+      "id": "ema-frame-together",
+      "title": "Ema Sakuraba in-game sprite 12",
+      "file": "assets/ema-frame-together.webp",
+      "source_page": "https://acacia.wiki.gg/wiki/Ema_Sakuraba/Gallery",
+      "source_image": "https://acacia.wiki.gg/images/Ema_12.png",
+      "attribution": "魔法少女ノ魔女裁判 / Acacia; in-game sprite catalogued by Acacia Wiki (community wiki). Character design: 梅まろ.",
+      "rights_notice": "©Acacia",
+      "original_dimensions": [
+        1680,
+        3914
+      ],
+      "dimensions": [
+        1030,
+        2400
+      ],
+      "has_alpha": true,
+      "original_sha256": "9e806f15e99dfd8628ade25971d6c367d415e20ddba248aaca95293a5fae5cb6",
+      "sha256": "9efc1c28720e9d454b36b79b17d2aa84759912f77282861c2c8a4a1d8c6b7d34",
+      "bytes": 707876,
+      "processing": "Proportional LANCZOS downscale and lossless WebP conversion only. No synthesized or repainted pixels.",
+      "generative_ai_used": false,
+      "verified_on": "2026-10-30",
+      "permission_status": "Source provenance is recorded; decorative website redistribution permission has not been established."
+    },
+    {
+      "id": "ema-frame-talk",
+      "title": "Ema Sakuraba in-game sprite 07",
+      "file": "assets/ema-frame-talk.webp",
+      "source_page": "https://acacia.wiki.gg/wiki/Ema_Sakuraba/Gallery",
+      "source_image": "https://acacia.wiki.gg/images/Ema_07.png",
+      "attribution": "魔法少女ノ魔女裁判 / Acacia; in-game sprite catalogued by Acacia Wiki (community wiki). Character design: 梅まろ.",
+      "rights_notice": "©Acacia",
+      "original_dimensions": [
+        1680,
+        3914
+      ],
+      "dimensions": [
+        1030,
+        2400
+      ],
+      "has_alpha": true,
+      "original_sha256": "032270da114361131f461361bf14def5e8bf037adf2f535b6ef882d392d0a343",
+      "sha256": "b8ec25271b5a17c5dc0d6d00694891697e1909ead97093db4bfd207f96058d8d",
+      "bytes": 727724,
+      "processing": "Proportional LANCZOS downscale and lossless WebP conversion only. No synthesized or repainted pixels.",
+      "generative_ai_used": false,
+      "verified_on": "2026-10-30",
+      "permission_status": "Source provenance is recorded; decorative website redistribution permission has not been established."
+    },
+    {
+      "id": "ema-frame-refute",
+      "title": "Ema Sakuraba refutation cut-in 002",
+      "file": "assets/ema-frame-refute.webp",
+      "source_page": "https://wiki.biligame.com/manosaba/樱羽艾玛",
+      "source_image": "https://patchwiki.biligame.com/images/manosaba/2/2d/kscgtahjztsgxoaxyi5h0m0y1dvearg.png",
+      "attribution": "魔法少女ノ魔女裁判 / Acacia; original game cut-in hosted by BWIKI.",
+      "rights_notice": "©Acacia",
+      "original_dimensions": [
+        1472,
+        2048
+      ],
+      "dimensions": [
+        1472,
+        2048
+      ],
+      "has_alpha": true,
+      "original_sha256": "13cd92e41d77ef1eb137eb8bf547b50ef1471c20c4ba0fdce9c2ec5e2183f61a",
+      "sha256": "0405f914f4150e9672e93addbb1d2b57fc2169549f4fc0513093eb4b4f1e9716",
+      "bytes": 989858,
+      "processing": "Lossless WebP format conversion only.",
+      "generative_ai_used": false,
+      "verified_on": "2026-10-30",
+      "permission_status": "Source provenance is recorded; decorative website redistribution permission has not been established."
     }
   ]
 }

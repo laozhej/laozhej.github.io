@@ -355,3 +355,38 @@ html.is-ema-scene-cut{scroll-behavior:auto;}
   #ema-home .hero-scroll-scene[data-scene-active=true]{height:auto;}
   #ema-home .hero-scroll-scene[data-scene-active=true] .hero{position:relative;}
 }
+
+/* Click-through character frames. The existing art wrapper retains parallax. */
+#ema-home .ema-frame{position:absolute;top:0;left:0;opacity:0;transition:opacity 220ms var(--ease-out);pointer-events:none;}
+#ema-home .ema-frame[data-active=true]{opacity:1;}
+/* Game sprites have a wider transparent canvas than the original portrait. */
+#ema-home .ema-frame:not(:first-child):not(.ema-frame-refute){width:114%;max-width:none;left:-7%;}
+#ema-home .ema-frame-refute{width:114%;max-width:none;left:-7%;top:8%;}
+#ema-home [data-ema-frames][data-instant=true] .ema-frame{transition:none;}
+#ema-home .ema-frame-hit{position:absolute;z-index:3;left:52%;top:140px;width:32%;height:calc(100% - 260px);border-radius:45% 45% 12% 12%;touch-action:manipulation;}
+#ema-home .ema-frame-hit:focus-visible{outline-offset:0;outline-style:dashed;}
+#ema-home .hero-tools{position:absolute;z-index:6;top:112px;right:max(24px,4vw);display:flex;align-items:center;justify-content:flex-end;gap:12px;max-width:calc(100% - 28px);}
+#ema-home .hero-tools .notice-trigger{position:static;flex-shrink:0;}
+#ema-home .ema-frame-controls{display:flex;align-items:center;gap:4px;max-width:calc(100% - 32px);padding:2px 6px;border:1px solid var(--rule);border-radius:6px;background:var(--paper);color:var(--ink);box-shadow:var(--shadow);}
+#ema-home .ema-frame-controls button{min-width:44px;min-height:44px;padding:8px;font-family:var(--song),serif;white-space:nowrap;}
+#ema-home .ema-frame-caption{font:12px/1.5 var(--mono);padding:0 8px;}
+#ema-home .ema-frame-controls[aria-busy=true]{cursor:progress;}
+#ema-home[data-paused=true] .ema-frame,#ema-home[data-suspended=true] .ema-frame{transition:none;}
+@media(hover:hover) and (pointer:fine){#ema-home .ema-frame-controls button:hover{color:var(--rose);}}
+@media(max-width:760px){
+  #ema-home .ema-frame-hit{left:15%;top:420px;width:70%;height:300px;}
+  #ema-home .hero-tools{top:136px;right:14px;gap:8px;flex-wrap:wrap;width:calc(100% - 28px);}
+  #ema-home .hero-tools .notice-trigger{margin-left:auto;}
+  #ema-home .ema-frame-controls{position:absolute;top:48px;right:0;width:max-content;max-width:100%;}
+  #ema-home .ema-frame-refute{top:0;}
+}
+@media(prefers-reduced-motion:reduce){#ema-home .ema-frame{transition:none;}}
+
+@media(min-width:761px) and (max-width:999px){#ema-home .hero-tools{top:148px;}}
+#ema-home .hero-tools .ema-frame-controls{opacity:0;pointer-events:none;transition:opacity 160ms var(--ease-out);}
+#ema-home .hero-tools:has(:focus-visible) .ema-frame-controls{opacity:1;pointer-events:auto;}
+@media(hover:hover) and (pointer:fine){
+  #ema-home .hero-tools:hover .ema-frame-controls{opacity:1;pointer-events:auto;}
+}
+#ema-home[data-paused=true] .hero-tools .ema-frame-controls{transition:none;}
+@media(prefers-reduced-motion:reduce){#ema-home .hero-tools .ema-frame-controls{transition:none;}}

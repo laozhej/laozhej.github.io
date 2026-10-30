@@ -1,6 +1,7 @@
 import { mountNotice } from './notice.mjs';
 import { mountTagRain } from './tag-rain.mjs';
 import { mountEmaScenes } from './scenes.mjs';
+import { mountEmaFrames } from './frames.mjs';
 
 export function mountEmaHome(document, window) {
   window.__emaHomeCleanup?.();
@@ -352,6 +353,7 @@ export function mountEmaHome(document, window) {
 
   const closeNotice = mountNotice(root, document, window);
   const scenes = mountEmaScenes(root, document, window, { canAnimate });
+  const frames = mountEmaFrames(root, window, { canAnimate, onChange: resetParallax });
 
   function updateScroll() {
     if (disposed) return;
@@ -377,6 +379,7 @@ export function mountEmaHome(document, window) {
     if (motionPaused()) typers.forEach((item) => item.settle());
     if (!canAnimate() || !fine.matches) { resetParallax(); stopAnimations(); scenes.cancel(); }
     rain.refresh();
+    frames.refresh();
     updateScroll(); typers.forEach((item) => item.resume()); tickClock(); scheduleMeasure();
   }
   listen(document, 'site:motion-change', (event) => {
@@ -403,7 +406,7 @@ export function mountEmaHome(document, window) {
     window.clearTimeout(bubbleTimer); window.clearTimeout(clockTimer);
     window.cancelAnimationFrame(scrollFrame); window.cancelAnimationFrame(measureFrame);
     revealObserver?.disconnect(); resizeObserver?.disconnect(); signalObserver?.disconnect();
-    rain.cleanup(); scenes.cleanup(); closeNotice();
+    rain.cleanup(); scenes.cleanup(); frames.cleanup(); closeNotice();
     removers.splice(0).forEach((remove) => remove());
     if (window.__emaHomeCleanup === cleanup) delete window.__emaHomeCleanup;
   }

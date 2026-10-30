@@ -1,6 +1,18 @@
 // Shared presentation copy for Ema. Merge each locale into the central messages.
 export const emaMessages = {
   "zh-CN": {
+    "ema.frames.label": "艾玛的小剧场",
+    "ema.frames.next": "下一幕",
+    "ema.frames.previous": "上一幕",
+    "ema.frames.restart": "重新翻阅",
+    "ema.frames.hint": "点击艾玛，翻开下一幕",
+    "ema.frames.smile": "微笑",
+    "ema.frames.wave": "挥手",
+    "ema.frames.together": "小小的期待",
+    "ema.frames.talk": "交谈",
+    "ema.frames.refute": "论破！",
+    "ema.frames.error": "画面暂时未能加载，请再试一次。",
+
     "ema.description": "把喜欢的日常，慢慢收进这里。以樱羽艾玛为主视觉的个人手账，记录文章、项目与喜欢的作品。",
     "ema.brand": "Arataki.br’s Base",
     "ema.hero.label": "艾玛主视觉与漫画手账",
@@ -115,6 +127,18 @@ export const emaMessages = {
     "ema.radio.unsupported": "这个浏览器无法播放网页音频。"
   },
   "zh-TW": {
+    "ema.frames.label": "艾瑪的小劇場",
+    "ema.frames.next": "下一幕",
+    "ema.frames.previous": "上一幕",
+    "ema.frames.restart": "重新翻閱",
+    "ema.frames.hint": "點一下艾瑪，翻開下一幕",
+    "ema.frames.smile": "微笑",
+    "ema.frames.wave": "揮手",
+    "ema.frames.together": "小小的期待",
+    "ema.frames.talk": "交談",
+    "ema.frames.refute": "論破！",
+    "ema.frames.error": "畫面暫時無法載入，請再試一次。",
+
     "ema.description": "把喜歡的日常，慢慢收進這裡。以櫻羽艾瑪為主視覺的個人手帳，記錄文章、專案與喜歡的作品。",
     "ema.brand": "Arataki.br’s Base",
     "ema.hero.label": "艾瑪主視覺與漫畫手帳",
@@ -228,6 +252,18 @@ export const emaMessages = {
     "ema.radio.unsupported": "這個瀏覽器無法播放網頁音訊。",
   },
   ja: {
+    "ema.frames.label": "エマの小さな劇場",
+    "ema.frames.next": "次のカット",
+    "ema.frames.previous": "前のカット",
+    "ema.frames.restart": "最初から",
+    "ema.frames.hint": "エマをクリックして次のカットへ",
+    "ema.frames.smile": "微笑み",
+    "ema.frames.wave": "手を振って",
+    "ema.frames.together": "小さな期待",
+    "ema.frames.talk": "おしゃべり",
+    "ema.frames.refute": "論破！",
+    "ema.frames.error": "画像を読み込めませんでした。もう一度お試しください。",
+
     "ema.description": "好きな日々を、少しずつここへ。桜羽エマをメインビジュアルに、文章や制作、好きな作品を綴る個人の手帳。",
     "ema.brand": "Arataki.br’s Base",
     "ema.hero.label": "桜羽エマと漫画の手帳",
@@ -342,6 +378,18 @@ export const emaMessages = {
     "ema.radio.unsupported": "このブラウザでは Web オーディオを再生できません。"
   },
   en: {
+    "ema.frames.label": "A little scene with Ema",
+    "ema.frames.next": "Next scene",
+    "ema.frames.previous": "Previous scene",
+    "ema.frames.restart": "Start again",
+    "ema.frames.hint": "Click Ema for the next scene",
+    "ema.frames.smile": "A smile",
+    "ema.frames.wave": "A little wave",
+    "ema.frames.together": "A little hope",
+    "ema.frames.talk": "A chat",
+    "ema.frames.refute": "Objection!",
+    "ema.frames.error": "The image could not load. Please try again.",
+
     "ema.description": "A little space for everyday favorites. A personal journal featuring Ema Sakuraba, with writing, projects, and favorite works.",
     "ema.brand": "Arataki.br’s Base",
     "ema.hero.label": "Ema Sakuraba and a manga-style journal",

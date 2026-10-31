@@ -1,0 +1,131 @@
+{
+  "capturedDate": "2026-10-31",
+  "baselineCommit": "de9b413e6944d27f3c105c53f85ddf9a160d7deb",
+  "build": "Production build with showcase project-link update",
+  "browser": {
+    "engine": "Chromium",
+    "version": "156.0.8078.74"
+  },
+  "environment": "macOS desktop browser; narrow viewport captures are not physical-device tests",
+  "deviceScaleFactor": 1,
+  "pageErrors": [],
+  "captures": [
+    {
+      "file": "blank-desktop.png",
+      "route": "/",
+      "width": 1440,
+      "height": 960,
+      "locale": "zh-CN",
+      "theme": "blank",
+      "colorMode": "light",
+      "motion": "false",
+      "horizontalOverflow": false,
+      "sha256": "3cfaaa22bbaa8bb3d8237d83a7aaa3bbc2c93d517e0ee0f78bf51164c274b47b",
+      "bytes": 65785
+    },
+    {
+      "file": "ema-desktop.png",
+      "route": "/themes/ema/",
+      "width": 1440,
+      "height": 960,
+      "locale": "zh-CN",
+      "theme": "ema",
+      "colorMode": "light",
+      "motion": "false",
+      "horizontalOverflow": false,
+      "sha256": "3c9cdfe6a799fd92048a9639b166266eba89dd1f193f2459dc0948a577299e3f",
+      "bytes": 1655231
+    },
+    {
+      "file": "endfield-desktop.png",
+      "route": "/themes/endfield/",
+      "width": 1440,
+      "height": 960,
+      "locale": "zh-CN",
+      "theme": "endfield",
+      "colorMode": "light",
+      "motion": "false",
+      "horizontalOverflow": false,
+      "sha256": "6c02ea339840a4f7cabdbb79a919d8a63d8bab5a6872e9faeb2c6d08c2ff7418",
+      "bytes": 149556
+    },
+    {
+      "file": "blank-dark.png",
+      "route": "/",
+      "width": 1440,
+      "height": 960,
+      "locale": "zh-CN",
+      "theme": "blank",
+      "colorMode": "dark",
+      "motion": "false",
+      "horizontalOverflow": false,
+      "sha256": "90cc373406518f44fcab0c15261a706720c1efd6d4070b02d8c73664ddbe011c",
+      "bytes": 65377
+    },
+    {
+      "file": "ema-dark.png",
+      "route": "/themes/ema/",
+      "width": 1440,
+      "height": 960,
+      "locale": "zh-CN",
+      "theme": "ema",
+      "colorMode": "dark",
+      "motion": "false",
+      "horizontalOverflow": false,
+      "sha256": "92ceb8c963daa464220fbbfa386cd4a03c655da247d04289965c442b6bfd176a",
+      "bytes": 1422596
+    },
+    {
+      "file": "blank-mobile.png",
+      "route": "/",
+      "width": 390,
+      "height": 844,
+      "locale": "zh-CN",
+      "theme": "blank",
+      "colorMode": "light",
+      "motion": "false",
+      "horizontalOverflow": false,
+      "sha256": "479ef0089ba326c7c18e6faedc7a8046d2f76501eeb6908471f014b91872132f",
+      "bytes": 42436
+    },
+    {
+      "file": "ema-mobile.png",
+      "route": "/themes/ema/",
+      "width": 390,
+      "height": 844,
+      "locale": "zh-CN",
+      "theme": "ema",
+      "colorMode": "light",
+      "motion": "false",
+      "horizontalOverflow": false,
+      "sha256": "1d507bcc58d1efe1b73de4f3ee4a3d3cd6c4b2fdf3fdb06e92de176fe8802fa4",
+      "bytes": 428282
+    },
+    {
+      "file": "endfield-mobile.png",
+      "route": "/themes/endfield/",
+      "width": 390,
+      "height": 844,
+      "locale": "zh-CN",
+      "theme": "endfield",
+      "colorMode": "light",
+      "motion": "false",
+      "horizontalOverflow": false,
+      "sha256": "d852f130827322d951c7450b3269f2be1c5964317598f392f83b7070cc949144",
+      "bytes": 56837
+    },
+    {
+      "file": "projects-desktop.png",
+      "route": "/projects/",
+      "width": 1440,
+      "height": 960,
+      "locale": "zh-CN",
+      "theme": "blank",
+      "colorMode": "light",
+      "motion": "false",
+      "horizontalOverflow": false,
+      "sha256": "c5e2d4932572736791be7752481bf0317a1dd287c93bb8fd27b89ac592683e43",
+      "bytes": 71083
+    }
+  ]
+}

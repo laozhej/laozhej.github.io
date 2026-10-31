@@ -1,0 +1,104 @@
+{
+  "checkedDate": "2026-10-31",
+  "browser": "156.0.8078.74",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "projectPages": [
+    {
+      "route": "/projects/",
+      "locale": "zh-CN",
+      "theme": "blank",
+      "horizontalOverflow": false,
+      "label": "查看项目案例（中文）"
+    },
+    {
+      "route": "/themes/ema/projects/",
+      "locale": "zh-CN",
+      "theme": "ema",
+      "horizontalOverflow": false,
+      "label": "查看项目案例（中文）"
+    },
+    {
+      "route": "/themes/endfield/projects/",
+      "locale": "zh-CN",
+      "theme": "endfield",
+      "horizontalOverflow": false,
+      "label": "查看项目案例（中文）"
+    },
+    {
+      "route": "/zh-TW/projects/",
+      "locale": "zh-TW",
+      "theme": "blank",
+      "horizontalOverflow": false,
+      "label": "查看專案案例（簡體中文）"
+    },
+    {
+      "route": "/zh-TW/themes/ema/projects/",
+      "locale": "zh-TW",
+      "theme": "ema",
+      "horizontalOverflow": false,
+      "label": "查看專案案例（簡體中文）"
+    },
+    {
+      "route": "/zh-TW/themes/endfield/projects/",
+      "locale": "zh-TW",
+      "theme": "endfield",
+      "horizontalOverflow": false,
+      "label": "查看專案案例（簡體中文）"
+    },
+    {
+      "route": "/ja/projects/",
+      "locale": "ja",
+      "theme": "blank",
+      "horizontalOverflow": false,
+      "label": "制作事例を読む（中国語簡体字）"
+    },
+    {
+      "route": "/ja/themes/ema/projects/",
+      "locale": "ja",
+      "theme": "ema",
+      "horizontalOverflow": false,
+      "label": "制作事例を読む（中国語簡体字）"
+    },
+    {
+      "route": "/ja/themes/endfield/projects/",
+      "locale": "ja",
+      "theme": "endfield",
+      "horizontalOverflow": false,
+      "label": "制作事例を読む（中国語簡体字）"
+    },
+    {
+      "route": "/en/projects/",
+      "locale": "en",
+      "theme": "blank",
+      "horizontalOverflow": false,
+      "label": "Read the case study (Simplified Chinese)"
+    },
+    {
+      "route": "/en/themes/ema/projects/",
+      "locale": "en",
+      "theme": "ema",
+      "horizontalOverflow": false,
+      "label": "Read the case study (Simplified Chinese)"
+    },
+    {
+      "route": "/en/themes/endfield/projects/",
+      "locale": "en",
+      "theme": "endfield",
+      "horizontalOverflow": false,
+      "label": "Read the case study (Simplified Chinese)"
+    }
+  ],
+  "interactions": {
+    "themeSwitchPreservesLocaleQueryAndAnchor": true,
+    "languageSwitchPreservesThemeAndQuery": true,
+    "languageSwitchClearsTranslationSpecificAnchor": true,
+    "colorModePersists": true,
+    "clientNavigationKeepsWindow": true,
+    "backNavigationRestoresLocale": true,
+    "reducedMotionPausesEma": true
+  },
+  "pageErrors": []
+}

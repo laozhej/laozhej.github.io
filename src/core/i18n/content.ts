@@ -49,9 +49,10 @@ const zhTW = linked({
   projectTechLines: [{ key: "web", label: "Web", note: "個人網站 / 頁面與互動" }],
   projectEntries: [
     {
-      id: "blank-personal-site", title: "個人網站 · 基礎版", type: "Personal Website", line: "web", status: "建置中",
-      summary: "以 Blank 主題為起點，為文字、專案和喜歡的作品建立一個自己的空間。",
-      details: ["首頁與單元導覽", "文章列表與閱讀頁面", "專案、閒暇與關於頁面"],
+      id: "blank-personal-site", title: "個人網站 · 多主題與多語言", type: "Personal Website", line: "web", status: "持續更新",
+      summary: "從 Blank 出發，讓黑白閱讀、櫻色檔案與工業風三套介面共用內容、語言和互動。專案案例記錄設計取捨、共用架構與驗證過程。",
+      details: ["三套主題與四種語言", "共用內容、偏好與頁面生命週期", "實際截圖、原始碼導覽與驗證紀錄"],
+      url: projects.personalSiteShowcaseUrl,
     },
   ],
 } as const);
@@ -94,9 +95,10 @@ const ja = linked({
   projectTechLines: [{ key: "web", label: "Web", note: "個人サイト / ページとインタラクション" }],
   projectEntries: [
     {
-      id: "blank-personal-site", title: "個人サイト · 基本版", type: "Personal Website", line: "web", status: "制作中",
-      summary: "Blank テーマを出発点に、文章や制作物、好きな作品を置ける自分の場所をつくっています。",
-      details: ["ホームと各ページへのナビゲーション", "記事一覧と記事ページ", "制作、好きなもの、プロフィールのページ"],
+      id: "blank-personal-site", title: "個人サイト · テーマと言語の切り替え", type: "Personal Website", line: "web", status: "継続更新中",
+      summary: "Blank を出発点に、モノクロ、桜色アーカイブ、工業風の3つのテーマでコンテンツ、言語、操作を共有。設計上の判断、共通アーキテクチャ、検証の過程を事例としてまとめています。",
+      details: ["3つのテーマと4つの言語", "コンテンツ・設定・ページのライフサイクルを共有", "実際の画面、ソースコード案内、検証記録"],
+      url: projects.personalSiteShowcaseUrl,
     },
   ],
 } as const);
@@ -139,9 +141,10 @@ const en = linked({
   projectTechLines: [{ key: "web", label: "Web", note: "Personal website / Pages and interactions" }],
   projectEntries: [
     {
-      id: "blank-personal-site", title: "Personal website · First version", type: "Personal Website", line: "web", status: "In progress",
-      summary: "Starting with the Blank theme to build a place for writing, projects, and favorite works.",
-      details: ["Home page and section navigation", "Article index and reading pages", "Projects, interests, and about pages"],
+      id: "blank-personal-site", title: "Personal website · Themes and languages", type: "Personal Website", line: "web", status: "Ongoing",
+      summary: "Built from Blank, with monochrome, Sakura Archive, and industrial interfaces sharing content, languages, and behavior. The case study documents design decisions, the shared architecture, and validation.",
+      details: ["Three themes and four languages", "Shared content, preferences, and page lifecycle", "Real screenshots, source tour, and validation records"],
+      url: projects.personalSiteShowcaseUrl,
     },
   ],
 } as const);

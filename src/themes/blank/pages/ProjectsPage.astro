@@ -28,7 +28,7 @@ const { projectEntries, projectTechLines } = getSiteContent(locale);
             <span class="blank-project-status">{project.status}</span>
             <Icon class="blank-disclosure-icon" name="tabler:arrow-down" size={21} />
           </summary>
-          <div class="blank-project-body"><p>{project.summary}</p><ul>{project.details.map((detail) => <li>{detail}</li>)}</ul></div>
+          <div class="blank-project-body"><p>{project.summary}<br /><a class="blank-text-link" href={project.url}>{t("projects.caseStudy")} <Icon name="tabler:arrow-up-right" size={17} /></a></p><ul>{project.details.map((detail) => <li>{detail}</li>)}</ul></div>
         </details>
       ))}
     </div>

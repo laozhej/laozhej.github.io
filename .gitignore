@@ -8,3 +8,5 @@ dist/
 .sites-runtime/
 .openai/
 *.tar.gz
+output/playwright/
+.playwright-cli/

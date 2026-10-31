@@ -4,7 +4,9 @@
 
 基于 [Yuimi-chaya 的 Blank 主题](https://yuimi-chaya.github.io/themes/blank/)独立化的 Astro 静态站。保留 Blank 的黑白阅读界面，并提供艾玛「樱色档案」与「终末地工业风」主题。三套主题共用文章、个人资料、作品、收藏和公共功能。
 
-网站：**[laozhej.github.io](https://laozhej.github.io/)** · 支持简体中文、日本語、English，以及浅色 / 深色模式。
+网站：**[laozhej.github.io](https://laozhej.github.io/)** · 支持简体中文、台湾繁体中文、日本語、English，以及浅色 / 深色模式。
+
+**[项目 Showcase：三套界面，一份内容 →](showcase/README.md)** · 真实截图、设计取舍、共享架构、源码导览与验证记录。
 
 ## 本地运行
 

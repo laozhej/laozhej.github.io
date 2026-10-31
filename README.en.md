@@ -4,7 +4,9 @@
 
 An Astro static site adapted into a standalone project from [Yuimi-chaya’s Blank theme](https://yuimi-chaya.github.io/themes/blank/). It keeps Blank’s monochrome reading interface and adds Ema’s “Sakura Archive” and “Endfield Industrial” themes. All three themes share articles, profile data, projects, collections, and common features.
 
-Website: **[laozhej.github.io](https://laozhej.github.io/)** · Supports Simplified Chinese, Japanese, and English, with light and dark modes.
+Website: **[laozhej.github.io](https://laozhej.github.io/)** · Supports Simplified Chinese, Taiwanese Traditional Chinese, Japanese, and English, with light and dark modes.
+
+**[Project showcase: three interfaces, shared content →](showcase/README.md)** · Real screenshots, design decisions, architecture, source tour, and validation records. Detailed case study in Simplified Chinese.
 
 ## Run locally
 

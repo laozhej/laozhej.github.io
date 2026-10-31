@@ -1,4 +1,4 @@
-// Shared UI copy for every theme. Add each new key in all three languages.
+// Shared UI copy for every theme. Add each new key in all four locales.
 import { themeMessages } from "./theme-messages.ts";
 import { emaMessages } from "./ema-messages.ts";
 import { endfieldMessages } from "./endfield-messages.ts";
@@ -98,6 +98,7 @@ export const messages = {
     "projects.reset": "查看全部",
     "projects.categoryKicker": "INDEX / 项目分类",
     "projects.directions": "项目方向",
+    "projects.caseStudy": "查看项目案例（中文）",
     "games.description": "荒泷旭玩过并喜欢的游戏，也是想推荐给你的游戏。",
     "games.label": "游戏架",
     "games.intro": "玩过并且喜欢的游戏，也是想推荐给你的。",
@@ -262,6 +263,7 @@ export const messages = {
     "projects.reset": "檢視全部",
     "projects.categoryKicker": "INDEX / 專案分類",
     "projects.directions": "專案方向",
+    "projects.caseStudy": "查看專案案例（簡體中文）",
     "games.description": "荒瀧旭玩過並喜歡的遊戲，也是想推薦給你的遊戲。",
     "games.label": "遊戲架",
     "games.intro": "玩過並且喜歡的遊戲，也是想推薦給你的。",
@@ -426,6 +428,7 @@ export const messages = {
     "projects.reset": "すべて表示",
     "projects.categoryKicker": "INDEX / プロジェクトの分類",
     "projects.directions": "取り組みの分野",
+    "projects.caseStudy": "制作事例を読む（中国語簡体字）",
     "games.description": "荒滝旭が遊んで好きになったゲームと、おすすめしたいゲームの棚。",
     "games.label": "ゲーム棚",
     "games.intro": "遊んで好きになったゲーム。あなたにもおすすめしたい作品たち。",
@@ -590,6 +593,7 @@ export const messages = {
     "projects.reset": "Show all",
     "projects.categoryKicker": "PROJECT CATEGORIES",
     "projects.directions": "Areas of work",
+    "projects.caseStudy": "Read the case study (Simplified Chinese)",
     "games.description": "Games Arataki Asahi has played and loved, and would recommend to you.",
     "games.label": "Game shelf",
     "games.intro": "Games I've played, loved and would recommend to you.",

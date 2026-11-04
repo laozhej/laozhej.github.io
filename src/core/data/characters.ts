@@ -880,6 +880,166 @@ const characters = [
       "en": "The Quintessential Quintuplets"
     },
     "path": "/characters/miku-nakano.webp"
+  },
+  {
+    "key": "reimu-hakurei",
+    "title": {
+      "zh-CN": "博丽灵梦",
+      "zh-TW": "博麗靈夢",
+      "ja": "博麗霊夢",
+      "en": "Reimu Hakurei"
+    },
+    "work": {
+      "zh-CN": "东方Project",
+      "zh-TW": "東方Project",
+      "ja": "東方Project",
+      "en": "Touhou Project"
+    },
+    "path": "/characters/reimu-hakurei.webp"
+  },
+  {
+    "key": "marisa-kirisame",
+    "title": {
+      "zh-CN": "雾雨魔理沙",
+      "zh-TW": "霧雨魔理沙",
+      "ja": "霧雨魔理沙",
+      "en": "Marisa Kirisame"
+    },
+    "work": {
+      "zh-CN": "东方Project",
+      "zh-TW": "東方Project",
+      "ja": "東方Project",
+      "en": "Touhou Project"
+    },
+    "path": "/characters/marisa-kirisame.webp"
+  },
+  {
+    "key": "seiga-kaku",
+    "title": {
+      "zh-CN": "霍青娥",
+      "zh-TW": "霍青娥",
+      "ja": "霍青娥",
+      "en": "Seiga Kaku"
+    },
+    "work": {
+      "zh-CN": "东方Project",
+      "zh-TW": "東方Project",
+      "ja": "東方Project",
+      "en": "Touhou Project"
+    },
+    "path": "/characters/seiga-kaku.webp"
+  },
+  {
+    "key": "fujiwara-no-mokou",
+    "title": {
+      "zh-CN": "藤原妹红",
+      "zh-TW": "藤原妹紅",
+      "ja": "藤原妹紅",
+      "en": "Fujiwara no Mokou"
+    },
+    "work": {
+      "zh-CN": "东方Project",
+      "zh-TW": "東方Project",
+      "ja": "東方Project",
+      "en": "Touhou Project"
+    },
+    "path": "/characters/fujiwara-no-mokou.webp"
+  },
+  {
+    "key": "flandre-scarlet",
+    "title": {
+      "zh-CN": "芙兰朵露·斯卡雷特",
+      "zh-TW": "芙蘭朵露・斯卡蕾特",
+      "ja": "フランドール・スカーレット",
+      "en": "Flandre Scarlet"
+    },
+    "work": {
+      "zh-CN": "东方Project",
+      "zh-TW": "東方Project",
+      "ja": "東方Project",
+      "en": "Touhou Project"
+    },
+    "path": "/characters/flandre-scarlet.webp"
+  },
+  {
+    "key": "remilia-scarlet",
+    "title": {
+      "zh-CN": "蕾米莉亚·斯卡雷特",
+      "zh-TW": "蕾米莉亞・斯卡蕾特",
+      "ja": "レミリア・スカーレット",
+      "en": "Remilia Scarlet"
+    },
+    "work": {
+      "zh-CN": "东方Project",
+      "zh-TW": "東方Project",
+      "ja": "東方Project",
+      "en": "Touhou Project"
+    },
+    "path": "/characters/remilia-scarlet.webp"
+  },
+  {
+    "key": "sakuya-izayoi",
+    "title": {
+      "zh-CN": "十六夜咲夜",
+      "zh-TW": "十六夜咲夜",
+      "ja": "十六夜咲夜",
+      "en": "Sakuya Izayoi"
+    },
+    "work": {
+      "zh-CN": "东方Project",
+      "zh-TW": "東方Project",
+      "ja": "東方Project",
+      "en": "Touhou Project"
+    },
+    "path": "/characters/sakuya-izayoi.webp"
+  },
+  {
+    "key": "youmu-konpaku",
+    "title": {
+      "zh-CN": "魂魄妖梦",
+      "zh-TW": "魂魄妖夢",
+      "ja": "魂魄妖夢",
+      "en": "Youmu Konpaku"
+    },
+    "work": {
+      "zh-CN": "东方Project",
+      "zh-TW": "東方Project",
+      "ja": "東方Project",
+      "en": "Touhou Project"
+    },
+    "path": "/characters/youmu-konpaku.webp"
+  },
+  {
+    "key": "reisen-udongein-inaba",
+    "title": {
+      "zh-CN": "铃仙·优昙华院·因幡",
+      "zh-TW": "鈴仙・優曇華院・因幡",
+      "ja": "鈴仙・優曇華院・イナバ",
+      "en": "Reisen Udongein Inaba"
+    },
+    "work": {
+      "zh-CN": "东方Project",
+      "zh-TW": "東方Project",
+      "ja": "東方Project",
+      "en": "Touhou Project"
+    },
+    "path": "/characters/reisen-udongein-inaba.webp"
+  },
+  {
+    "key": "hong-meiling",
+    "title": {
+      "zh-CN": "红美铃",
+      "zh-TW": "紅美鈴",
+      "ja": "紅美鈴",
+      "en": "Hong Meiling"
+    },
+    "work": {
+      "zh-CN": "东方Project",
+      "zh-TW": "東方Project",
+      "ja": "東方Project",
+      "en": "Touhou Project"
+    },
+    "path": "/characters/hong-meiling.webp"
   }
 ] as const;
 

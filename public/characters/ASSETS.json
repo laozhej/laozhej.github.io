@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "verified_on": "2026-10-30",
+  "verified_on": "2026-11-05",
   "scope": "Portraits for the owner-selected favorite characters. Third-party art is excluded from the repository software license. Source records do not grant republication rights.",
   "processing": "Deterministic rectangular crops, LANCZOS resizing, and WebP encoding only. No generative AI, generative fill, redrawing, or synthetic upscaling.",
   "assets": [
@@ -2477,6 +2477,476 @@
       "sourceSha256": "64ca8f336e0ecf5f40473dc7410580c5fedaa7084436ea40cdf2198354b68410",
       "sha256": "a99db2ac860f08ed61c95be66ab23da21de9393e460753c4c8d03fe1ebc7fc5d",
       "bytes": 42686,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "reimu-hakurei",
+      "title": {
+        "zh-CN": "博丽灵梦",
+        "zh-TW": "博麗靈夢",
+        "ja": "博麗霊夢",
+        "en": "Reimu Hakurei"
+      },
+      "work": {
+        "zh-CN": "东方Project",
+        "zh-TW": "東方Project",
+        "ja": "東方Project",
+        "en": "Touhou Project"
+      },
+      "path": "/characters/reimu-hakurei.webp",
+      "sourcePage": "https://danmaku.jp/archive/character/c001/",
+      "sourceImage": "https://danmaku.jp/import/character/c001_boss.png",
+      "copyright": "©上海アリス幻樂団　©アンノウンX",
+      "creator": "粗茶／アンノウンX",
+      "provenance": "Character illustration published in the official Touhou Danmaku Kagura archive. The character page credits the illustrator of this artwork.",
+      "retrievedAt": "2026-11-05",
+      "crop": {
+        "sourceSize": [
+          578,
+          448
+        ],
+        "box": [
+          239,
+          23,
+          487,
+          271
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "9a6c6e15ed738ca1014423577526fa10c6400b41e2c8db3c3038d39dbf375cff",
+      "sha256": "e8e145dca1b62650ee3b3e35747a6a8d9fc9965bda08275dee188df98bc92803",
+      "bytes": 61074,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "marisa-kirisame",
+      "title": {
+        "zh-CN": "雾雨魔理沙",
+        "zh-TW": "霧雨魔理沙",
+        "ja": "霧雨魔理沙",
+        "en": "Marisa Kirisame"
+      },
+      "work": {
+        "zh-CN": "东方Project",
+        "zh-TW": "東方Project",
+        "ja": "東方Project",
+        "en": "Touhou Project"
+      },
+      "path": "/characters/marisa-kirisame.webp",
+      "sourcePage": "https://danmaku.jp/archive/character/c002/",
+      "sourceImage": "https://danmaku.jp/import/character/c002_boss.png",
+      "copyright": "©上海アリス幻樂団　©アンノウンX",
+      "creator": "粗茶／アンノウンX",
+      "provenance": "Character illustration published in the official Touhou Danmaku Kagura archive. The character page credits the illustrator of this artwork.",
+      "retrievedAt": "2026-11-05",
+      "crop": {
+        "sourceSize": [
+          509,
+          420
+        ],
+        "box": [
+          28,
+          3,
+          252,
+          227
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "afd4b4536081ba353f97a6a937d46de15f2f5ca3553682d2f9f94f855f05a8ed",
+      "sha256": "cb3799db53c9f662982f2ccec8723b6e9e9964fddfcd6736d3d62b6f6282e007",
+      "bytes": 51286,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "seiga-kaku",
+      "title": {
+        "zh-CN": "霍青娥",
+        "zh-TW": "霍青娥",
+        "ja": "霍青娥",
+        "en": "Seiga Kaku"
+      },
+      "work": {
+        "zh-CN": "东方Project",
+        "zh-TW": "東方Project",
+        "ja": "東方Project",
+        "en": "Touhou Project"
+      },
+      "path": "/characters/seiga-kaku.webp",
+      "sourcePage": "https://danmaku.jp/archive/character/c080/",
+      "sourceImage": "https://images.ctfassets.net/rnt9181hio7z/4DACxcYjUg5TPtXwU7wa8z/d95bdbda3336539930f9049d90acda85/c080_boss.png",
+      "copyright": "©上海アリス幻樂団　©アンノウンX",
+      "creator": "粗茶",
+      "provenance": "Character illustration published in the official Touhou Danmaku Kagura archive. The character page credits the illustrator of this artwork.",
+      "retrievedAt": "2026-11-05",
+      "crop": {
+        "sourceSize": [
+          686,
+          517
+        ],
+        "box": [
+          292,
+          0,
+          550,
+          258
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "f74e4c49c0e3b0279c2f2f49beaa3b8fea943db8ff6030c2e503b17455757a9d",
+      "sha256": "ba052be8dc52280a5f04a72c4300e8b7138c8703a51980f0ef611221a9c11db4",
+      "bytes": 54630,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "fujiwara-no-mokou",
+      "title": {
+        "zh-CN": "藤原妹红",
+        "zh-TW": "藤原妹紅",
+        "ja": "藤原妹紅",
+        "en": "Fujiwara no Mokou"
+      },
+      "work": {
+        "zh-CN": "东方Project",
+        "zh-TW": "東方Project",
+        "ja": "東方Project",
+        "en": "Touhou Project"
+      },
+      "path": "/characters/fujiwara-no-mokou.webp",
+      "sourcePage": "https://danmaku.jp/archive/character/c051/",
+      "sourceImage": "https://danmaku.jp/import/character/c051_boss.png",
+      "copyright": "©上海アリス幻樂団　©アンノウンX",
+      "creator": "こざくら",
+      "provenance": "Character illustration published in the official Touhou Danmaku Kagura archive. The character page credits the illustrator of this artwork.",
+      "retrievedAt": "2026-11-05",
+      "crop": {
+        "sourceSize": [
+          656,
+          462
+        ],
+        "box": [
+          139,
+          0,
+          321,
+          182
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "cc612bf7e5fa29cb2457016eae439eacd693c363f4bcf484ab4526d19f7b9ecf",
+      "sha256": "016d1b010957cbf12c916f86bbd1cd32fdcb40981e75f5f6a6fbced5f9a8ef44",
+      "bytes": 40930,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "flandre-scarlet",
+      "title": {
+        "zh-CN": "芙兰朵露·斯卡雷特",
+        "zh-TW": "芙蘭朵露・斯卡蕾特",
+        "ja": "フランドール・スカーレット",
+        "en": "Flandre Scarlet"
+      },
+      "work": {
+        "zh-CN": "东方Project",
+        "zh-TW": "東方Project",
+        "ja": "東方Project",
+        "en": "Touhou Project"
+      },
+      "path": "/characters/flandre-scarlet.webp",
+      "sourcePage": "https://danmaku.jp/archive/character/c013/",
+      "sourceImage": "https://danmaku.jp/import/character/c013_boss.png",
+      "copyright": "©上海アリス幻樂団　©アンノウンX",
+      "creator": "栗栖 歳",
+      "provenance": "Character illustration published in the official Touhou Danmaku Kagura archive. The character page credits the illustrator of this artwork.",
+      "retrievedAt": "2026-11-05",
+      "crop": {
+        "sourceSize": [
+          675,
+          467
+        ],
+        "box": [
+          56,
+          0,
+          302,
+          246
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "17cd873d644c05ff53849c3a9ba77916155e755ade8b8504660b48d7756f61b8",
+      "sha256": "4d5b23ebcdf6ae2e46f91ec2aaacf5dcab53cc77019d56f084ced820e07b88e0",
+      "bytes": 54998,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "remilia-scarlet",
+      "title": {
+        "zh-CN": "蕾米莉亚·斯卡雷特",
+        "zh-TW": "蕾米莉亞・斯卡蕾特",
+        "ja": "レミリア・スカーレット",
+        "en": "Remilia Scarlet"
+      },
+      "work": {
+        "zh-CN": "东方Project",
+        "zh-TW": "東方Project",
+        "ja": "東方Project",
+        "en": "Touhou Project"
+      },
+      "path": "/characters/remilia-scarlet.webp",
+      "sourcePage": "https://danmaku.jp/archive/character/c007/",
+      "sourceImage": "https://danmaku.jp/import/character/c007_boss.png",
+      "copyright": "©上海アリス幻樂団　©アンノウンX",
+      "creator": "栗栖 歳",
+      "provenance": "Character illustration published in the official Touhou Danmaku Kagura archive. The character page credits the illustrator of this artwork.",
+      "retrievedAt": "2026-11-05",
+      "crop": {
+        "sourceSize": [
+          692,
+          482
+        ],
+        "box": [
+          204,
+          0,
+          402,
+          198
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "f26defe2ce1b93567ae58763672d7408d5f9b381df1506679934bca9fff11cd5",
+      "sha256": "f7e00d719c014a8aae9bcd4f9c6cee52edc6cd01c653e3a72d03aa165dcc07d9",
+      "bytes": 51010,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "sakuya-izayoi",
+      "title": {
+        "zh-CN": "十六夜咲夜",
+        "zh-TW": "十六夜咲夜",
+        "ja": "十六夜咲夜",
+        "en": "Sakuya Izayoi"
+      },
+      "work": {
+        "zh-CN": "东方Project",
+        "zh-TW": "東方Project",
+        "ja": "東方Project",
+        "en": "Touhou Project"
+      },
+      "path": "/characters/sakuya-izayoi.webp",
+      "sourcePage": "https://danmaku.jp/archive/character/c006/",
+      "sourceImage": "https://danmaku.jp/import/character/c006_boss.png",
+      "copyright": "©上海アリス幻樂団　©アンノウンX",
+      "creator": "こざくら",
+      "provenance": "Character illustration published in the official Touhou Danmaku Kagura archive. The character page credits the illustrator of this artwork.",
+      "retrievedAt": "2026-11-05",
+      "crop": {
+        "sourceSize": [
+          617,
+          430
+        ],
+        "box": [
+          88,
+          17,
+          250,
+          179
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "7f6e92d2e6c72795c53e074cbd0f682341b7fe55485d1370ce514e2d4b402773",
+      "sha256": "bf059d168eabfa92aa494305e0c03c1c1dca00397a1d7e753e8afaa2f6133422",
+      "bytes": 47336,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "youmu-konpaku",
+      "title": {
+        "zh-CN": "魂魄妖梦",
+        "zh-TW": "魂魄妖夢",
+        "ja": "魂魄妖夢",
+        "en": "Youmu Konpaku"
+      },
+      "work": {
+        "zh-CN": "东方Project",
+        "zh-TW": "東方Project",
+        "ja": "東方Project",
+        "en": "Touhou Project"
+      },
+      "path": "/characters/youmu-konpaku.webp",
+      "sourcePage": "https://danmaku.jp/archive/character/c015/",
+      "sourceImage": "https://danmaku.jp/import/character/c015_boss.png",
+      "copyright": "©上海アリス幻樂団　©アンノウンX",
+      "creator": "こざくら",
+      "provenance": "Character illustration published in the official Touhou Danmaku Kagura archive. The character page credits the illustrator of this artwork.",
+      "retrievedAt": "2026-11-05",
+      "crop": {
+        "sourceSize": [
+          546,
+          440
+        ],
+        "box": [
+          126,
+          0,
+          322,
+          196
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "547c836e7d50c09c20f4f34a81759383aa29f0ada91e22142825d42a78b4abd0",
+      "sha256": "bc79109dc211e86cf57f466f0a36ee71ef1a60d011c42976af1e93b14263009a",
+      "bytes": 45438,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "reisen-udongein-inaba",
+      "title": {
+        "zh-CN": "铃仙·优昙华院·因幡",
+        "zh-TW": "鈴仙・優曇華院・因幡",
+        "ja": "鈴仙・優曇華院・イナバ",
+        "en": "Reisen Udongein Inaba"
+      },
+      "work": {
+        "zh-CN": "东方Project",
+        "zh-TW": "東方Project",
+        "ja": "東方Project",
+        "en": "Touhou Project"
+      },
+      "path": "/characters/reisen-udongein-inaba.webp",
+      "sourcePage": "https://danmaku.jp/archive/character/c017/",
+      "sourceImage": "https://danmaku.jp/import/character/c017_boss.png",
+      "copyright": "©上海アリス幻樂団　©アンノウンX",
+      "creator": "こざくら",
+      "provenance": "Character illustration published in the official Touhou Danmaku Kagura archive. The character page credits the illustrator of this artwork.",
+      "retrievedAt": "2026-11-05",
+      "crop": {
+        "sourceSize": [
+          519,
+          444
+        ],
+        "box": [
+          68,
+          12,
+          268,
+          212
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "0b230072d1b845f838379316fa5278fc2c6c9e18f0679ad3ab470cf972bc818c",
+      "sha256": "1bce1ce10f11f33aa6d2521cee27703a5cd0ba604a8ef088a2ee38937d6897fb",
+      "bytes": 43556,
+      "dimensions": [
+        320,
+        320
+      ],
+      "format": "image/webp",
+      "generative_ai_used": false
+    },
+    {
+      "key": "hong-meiling",
+      "title": {
+        "zh-CN": "红美铃",
+        "zh-TW": "紅美鈴",
+        "ja": "紅美鈴",
+        "en": "Hong Meiling"
+      },
+      "work": {
+        "zh-CN": "东方Project",
+        "zh-TW": "東方Project",
+        "ja": "東方Project",
+        "en": "Touhou Project"
+      },
+      "path": "/characters/hong-meiling.webp",
+      "sourcePage": "https://danmaku.jp/archive/character/c058/",
+      "sourceImage": "https://danmaku.jp/import/character/c058_boss.png",
+      "copyright": "©上海アリス幻樂団　©アンノウンX",
+      "creator": "アンノウンX",
+      "provenance": "Character illustration published in the official Touhou Danmaku Kagura archive. The character page credits the illustrator of this artwork.",
+      "retrievedAt": "2026-11-05",
+      "crop": {
+        "sourceSize": [
+          528,
+          433
+        ],
+        "box": [
+          70,
+          2,
+          280,
+          212
+        ],
+        "outputSize": [
+          320,
+          320
+        ]
+      },
+      "sourceSha256": "c19a09fdb0a6b951b7d2aa4fb054e69a9f7025122a43c964db791b69e4cf8790",
+      "sha256": "40c75cb5a3dbbc31a5cf21c33279c927dff4c69b57c55773e6a3b9c9205d369f",
+      "bytes": 40108,
       "dimensions": [
         320,
         320

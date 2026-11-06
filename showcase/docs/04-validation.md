@@ -10,6 +10,8 @@
 - 使用现有依赖与锁文件，不为 showcase 添加前端运行依赖。
 - 截图来源：本机生产构建，由 Chromium 浏览器访问；尺寸与显示状态见[截图清单](../gallery/README.md)。
 
+2026-11-06 已移除 Live2D 看板娘及其专属测试。下方结果保留 2026-10-31 的历史记录；测试文件表仅链接当前仍保留的模块，画廊和截图清单未随此次移除重拍。
+
 ## 已执行的检查
 
 | 检查 | 结果及含义 |
@@ -28,7 +30,7 @@
 | 语言与主题路径、偏好、404 映射 | [`i18n`](../../tests/i18n.test.mjs)、[`themes`](../../tests/themes.test.mjs)、[`preferences`](../../tests/preferences.test.mjs) |
 | 导航清理、换页、构建缓存与主题登记 | [`navigation`](../../tests/navigation.test.mjs)、[`navigation-cache`](../../tests/navigation-cache.test.mjs)、[`theme-runtime`](../../tests/theme-runtime.test.mjs) |
 | 搜索筛选、收藏、便笺与宽屏转换 | [`features`](../../tests/features.test.mjs)、[`games`](../../tests/games.test.mjs)、[`notes`](../../tests/notes.test.mjs)、[`fluid-px`](../../tests/fluid-px.test.mjs) |
-| 艾玛动效、场景、图片帧、电台和看板娘控制 | [`ema-motion`](../../tests/ema-motion.test.mjs)、[`ema-scenes`](../../tests/ema-scenes.test.mjs)、[`ema-frames`](../../tests/ema-frames.test.mjs)、[`live2d-controller`](../../tests/live2d-controller.test.mjs) |
+| 艾玛动效、场景、图片帧和电台 | [`ema-motion`](../../tests/ema-motion.test.mjs)、[`ema-scenes`](../../tests/ema-scenes.test.mjs)、[`ema-frames`](../../tests/ema-frames.test.mjs) |
 
 部分测试使用受控 DOM、窗口或音频替身，适合检查状态与清理逻辑。它们不能替代真实浏览器渲染、实际声音质量或视觉审阅。
 
@@ -59,4 +61,4 @@ npm run preview
 
 ## 尚未覆盖
 
-本次未执行 Lighthouse 性能基准、完整 WCAG 审核、真实 iOS / Android 设备测试或 Firefox / Safari 的兼容矩阵。没有发布这些方面的评分或通过结论。Live2D 控制逻辑测试也不等于模型在所有 GPU 上的渲染验证。
+本次未执行 Lighthouse 性能基准、完整 WCAG 审核、真实 iOS / Android 设备测试或 Firefox / Safari 的兼容矩阵。没有发布这些方面的评分或通过结论。当时的 Live2D 控制逻辑测试也不等于模型在所有 GPU 上的渲染验证。

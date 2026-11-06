@@ -26,6 +26,10 @@ npm run preview
 
 The build output is `dist/`, which can be deployed to a static hosting service.
 
+## Import images
+
+Run `npm run images` and open the local URL to drag in images, compress and name them, record their sources, and copy paths, Markdown or HTML. The CLI is also available: `npm run image:import -- <image-path> --original`. See the [image import guide](docs/IMAGE_IMPORT.md) (Simplified Chinese).
+
 ## Edit content
 
 | What to change | File |
@@ -51,7 +55,6 @@ The build output is `dist/`, which can be deployed to a static hosting service.
 | Endfield Industrial pages and styles | `src/themes/endfield/` |
 | Theme registration, switching, and preferences | `src/core/themes/` |
 | Ema images and source records | `public/themes/ema/assets/`, `public/themes/ema/ASSETS.json` |
-| Frieren Live2D model and rendering core | `public/themes/ema/live2d/frieren/`, `src/core/live2d/` |
 | Site icons shared by every theme | `src/core/components/SiteIcons.astro`, `assets/branding/` |
 | Production URL | `site` in `astro.config.mjs` |
 
@@ -82,7 +85,7 @@ Articles with `draft: true` are not published.
 - GitHub / Steam links on the about page and in the footer, plus a credits and licenses page in every language (`/credits/`).
 - Internal navigation updates the content without reloading the whole page. The header stays in place while the content fades out and in. Language, theme, and color mode are preserved; browser back / forward navigation restores the scroll position.
 - Sakura Archive (the Ema theme) uses “Arataki.br’s Base” as its name and Gloock for its headings. Its homepage takes inspiration from Yuimi-chaya’s Fuyukawa Kagari theme: a manga-style wall built from four existing assets, focus lines, Ema Sakuraba character art, terminal typing, daily notices, a profile card revealed on scroll, and a second scene with the visitor’s local time and falling tags. The chapter cards use three black-and-white manga excerpts from *Frieren: Beyond Journey’s End*.
-- Ema includes falling cherry blossom petals, a side scroll marker on wide screens, and a Frieren Live2D mascot in the bottom left. The mascot appears at viewport widths of at least 1000px, follows the mouse with its gaze, and responds when clicked or recalled. Its hidden state is saved in the current browser, and a static poster is shown if loading fails.
+- Ema includes falling cherry blossom petals, a side scroll marker on wide screens, and Sakura Radio.
 - “Sakura Radio” in Ema’s left console offers three original music-box pieces synthesized in real time in the browser. It loads no audio files, keeps playing between Ema pages, and stops when another theme is opened.
 - Endfield Industrial uses paper and ink colors, yellow accents, controls with cut corners, contour-line backgrounds, and the self-hosted Saira font. It draws on the game’s interface structure and uses no official game assets.
 - Every Ema page has an animation pause / play button. Pausing skips page transitions across all themes. The system’s reduced-motion preference also skips transitions and disables the button.
@@ -126,6 +129,6 @@ The upstream site owner’s articles, manga, character art, music, and profile w
 
 Ema’s four character / manga images and three *Frieren: Beyond Journey’s End* chapter excerpts come from their individually recorded external sources and are served locally. They have not been redrawn with generative AI. Original sources, credits, checksums, and per-file processing records, including resizing, cropping, and format conversion, are listed in the [asset manifest](public/themes/ema/ASSETS.json). Game card images have a separate [game asset manifest](public/games/ASSETS.json). Traceable sources and attribution do not grant permission for public use. The images are excluded from the software’s MIT license, and permission for public use on a decorative website has not been established.
 
-The Frieren Live2D model was released by kyokiStudio and is used for personal display under the release page’s stated prohibition on commercial use and monetization. The model, textures, and poster are excluded from the software’s MIT license. Cubism Core and Framework are subject to their respective Live2D licenses. See the [third-party asset notice](THIRD_PARTY_ASSETS.md) for full sources, license files, and usage boundaries.
+See the [third-party asset notice](THIRD_PARTY_ASSETS.md) for full sources, license files, and usage boundaries.
 
 See the [content license notice](CONTENT_LICENSE.md) for the scope of licensing for articles and their translations. Fonts are not loaded from external servers. Sakura Archive’s Gloock heading font and Endfield Industrial’s Saira Latin font are self-hosted under SIL OFL 1.1; other text uses system fonts.

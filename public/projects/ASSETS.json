@@ -1,0 +1,13 @@
+{
+  "assets": [
+    {
+      "path": "/projects/personal-site-preview.jpg",
+      "kind": "actual website screenshot",
+      "source": "https://laozhej.github.io/themes/ema/",
+      "capturedFrom": "http://127.0.0.1:4322/themes/ema/",
+      "capturedDate": "2026-11-06",
+      "description": "Actual local release screenshot at 1440x960: the published Ema layout is preserved, with only the Frieren Live2D model removed. Captured using browser automation; not AI-generated.",
+      "artworkAttribution": "Underlying existing artwork retains the sources and credits in /themes/ema/ASSETS.json and THIRD_PARTY_ASSETS.md."
+    }
+  ]
+}

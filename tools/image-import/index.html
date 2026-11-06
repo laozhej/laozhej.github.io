@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="import-token" content="__IMPORT_TOKEN__" />
+    <title>图片导入</title>
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/app.mjs"></script>
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="brand"><strong>B.</strong><span data-i18n="local"></span></div>
+      <label class="language"><span data-i18n="language"></span><select id="locale"><option value="zh-CN">简体中文</option><option value="zh-TW">繁體中文</option><option value="ja">日本語</option><option value="en">English</option></select></label>
+    </header>
+    <main>
+      <div class="heading"><h1 data-i18n="title"></h1><p data-i18n="intro"></p></div>
+      <form id="import-form">
+        <div class="workspace">
+          <section class="selection">
+            <label class="drop-zone" id="drop-zone">
+              <svg viewBox="0 0 32 32" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M16 21V5m-6 6 6-6 6 6M5 21v6h22v-6"/></svg>
+              <strong data-i18n="drop"></strong><span data-i18n="formats"></span>
+              <input id="files" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/gif" multiple data-label="choose" />
+            </label>
+            <div class="section-heading"><h2 data-i18n="queue"></h2><button id="clear" type="button" class="text-button" data-i18n="clear" disabled></button></div>
+            <p id="queue-empty" class="empty" data-i18n="empty"></p>
+            <ul id="queue"></ul>
+          </section>
+          <aside>
+            <fieldset id="source-fields">
+              <legend data-i18n="source"></legend><p class="help" data-i18n="sourceHelp"></p>
+              <label><span data-i18n="sourceType"></span><select id="source-type" name="type"><option value="external" data-i18n="external"></option><option value="original" data-i18n="original"></option></select></label>
+              <label><span data-i18n="sourcePage"></span><input id="source-page" name="page" type="url" maxlength="2000" required data-placeholder="sourcePlaceholder" /></label>
+              <div class="pair"><label><span data-i18n="creator"></span><input name="creator" maxlength="300" data-placeholder="optional" /></label><label><span data-i18n="license"></span><input name="license" maxlength="500" data-placeholder="licensePlaceholder" /></label></div>
+              <details><summary data-i18n="sourceMore"></summary>
+                <label><span data-i18n="sourceImage"></span><input name="image" type="url" maxlength="2000" placeholder="https://…" /></label>
+                <label><span data-i18n="notes"></span><textarea name="notes" rows="2" maxlength="2000" data-placeholder="optional"></textarea></label>
+              </details>
+            </fieldset>
+            <fieldset class="compression"><legend data-i18n="settings"></legend>
+              <div class="pair"><label><span data-i18n="maxSize"></span><input id="max-size" type="number" min="64" max="4096" step="1" value="1600" required /></label><label><span data-i18n="quality"></span><input id="quality" type="number" min="40" max="100" step="1" value="82" required /></label></div>
+              <p class="help" data-i18n="settingsHelp"></p>
+            </fieldset>
+            <button class="primary" id="submit" type="submit" data-i18n="import" disabled></button>
+          </aside>
+        </div>
+      </form>
+      <p id="status" role="status" aria-live="polite"></p>
+      <section id="results-section" hidden><div class="section-heading"><h2 data-i18n="results"></h2><button type="button" class="text-button" id="copy-all" data-i18n="copyAll"></button></div><div id="results" class="image-list"></div></section>
+      <section class="library-section"><div class="section-heading"><h2 data-i18n="library"></h2><button type="button" class="text-button" id="reload" data-i18n="reload"></button></div><p id="library-empty" class="empty" data-i18n="libraryEmpty"></p><div id="library" class="image-list"></div></section>
+      <footer data-i18n="publicNote"></footer>
+    </main>
+  </body>
+</html>

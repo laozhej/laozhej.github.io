@@ -3,9 +3,13 @@
 import { getFavoriteCharacters } from "./characters.ts";
 export const profileIdentity = {
   displayName: "荒泷旭",
+  alias: "Nero",
+  avatar: "/themes/ema/assets/yuki.webp",
   handle: "PROFILE / 个人档案",
   siteName: "Blank Space",
-  bio: "我是荒泷旭，也可以叫我 Nero。喜欢收集动漫与游戏周边，关注 AI 和电脑技术；平时学习编程，钻研动画、建模与不同的游戏引擎。"
+  bio: "我是荒泷旭，也可以叫我 Nero。喜欢收集动漫与游戏周边，关注 AI 和电脑技术；平时学习编程，钻研动画、建模与不同的游戏引擎。",
+  // The bio without the name: homepages already show the name and alias beside it.
+  intro: "喜欢收集动漫与游戏周边，关注 AI 和电脑技术；平时学习编程，钻研动画、建模与不同的游戏引擎。"
 } as const;
 
 export const profileStatus = [

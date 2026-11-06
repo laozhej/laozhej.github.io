@@ -82,17 +82,18 @@ import { pageTransition } from "@/core/navigation/animations.mjs";
 </script>
 ```
 
-挂载函数接收 `(document, window)`，可返回清理函数；不要在其中再次调用 `mountSiteFeatures`。生命周期只挂载 `html[data-theme]` 对应的运行时，因此其他主题的页面不会加载或执行它。首次从别的主题进入时，布局脚本在页面替换之后才执行，登记时会立即挂载到当前页面；同一主题重复登记会被忽略。Blank 的 `lib/runtime.mjs` 只处理 404 路径提示；Ema 的 `lib/runtime.mjs` 组合 `mountEmaHome` 与 `mountEmaPresentation`。可复用功能继续放在 `src/core/features`。
+挂载函数接收 `(document, window)`，可返回清理函数；不要在其中再次调用 `mountSiteFeatures`。生命周期只挂载 `html[data-theme]` 对应的运行时，因此其他主题的页面不会加载或执行它。首次从别的主题进入时，布局脚本在页面替换之后才执行，登记时会立即挂载到当前页面；同一主题重复登记会被忽略。Blank 的 `lib/runtime.mjs` 只处理 404 路径提示；Ema 的 `lib/runtime.mjs` 组合 `mountEmaHome`、`mountEmaPresentation` 与 `mountEmaConsole`。可复用功能继续放在 `src/core/features`。
 
 页面正文使用 200ms 淡出和 280ms 淡入／轻微位移，页头保持稳定；不支持原生 View Transition 时由 Astro 的动画回退接管。暂停动效或系统 reduced motion 时跳过过渡。手动偏好沿用 `ema-home-motion-paused`，由共享 `motion.mjs` 管理，`html[data-motion-paused]` 反映最终状态，`site:motion-change` 在 document 上广播 `{ paused, userPaused, reduced }`。Ema 各页面都有同一个暂停／播放按钮，图标、鼠标提示与键盘提示保持一致。
 
-Ema 首页的主视觉和章节由原生滚动驱动，不取消 wheel 事件。桌面足够高度时使用 sticky 场景；触屏、窄屏、短屏和暂停状态回退为正常文档流与原生横向滚动。内容默认可见，IntersectionObserver 和 WAAPI 只负责一次入场增强；关闭脚本或取消动效都不会留下隐藏内容。
+Blank 首页（`src/themes/blank/pages/HomePage.astro`）以共享资料中的小尺寸头像、姓名、Nero、简短介绍和社交链接开篇，接着展示 `projectEntries` 中首个真实项目的截图、标题、状态、摘要和案例入口；下方集中展示近况与少量精选游戏、动画和角色图片，并保留完整收藏入口。常用工具留在关于页。有文章时展示最近三篇及日期，缺少译文时标明原文语言；没有文章时省略首页文章区，保留顶栏文章导航。
+
+Ema 首页固定场景内部由原生滚动驱动；桌面场景交接处由 `lib/scenes.mjs` 处理滚轮事件，以短暂遮罩连接主视觉、章节和标签区。桌面足够高度时使用 sticky 场景；触屏、窄屏、短屏和暂停状态回退为正常文档流与原生横向滚动。内容默认可见，IntersectionObserver 和 WAAPI 只负责一次入场增强；关闭脚本或取消动效都不会留下隐藏内容。
 
 Ema 首页的「今日公告」使用原生 `<dialog>`（`lib/notice.mjs`）：同一浏览器会话每天自动弹出一次，记录在 sessionStorage 的 `ema-notice-seen-日期`，勾选「今日不再弹出」写入 localStorage 的 `ema-notice-hidden-日期`。第二幕的标签雨（`lib/tag-rain.mjs`）只读取公共资料、收藏与社交链接；暂停动效、减少动态或无脚本时恢复为普通列表。时钟只使用访客本机时间和时区，不请求任何外部定位或天气服务。
 
-左下角的芙莉莲 Live2D 看板娘只在视口宽度至少 1000px 时显示。视线和头部平滑跟随整个页面内的鼠标，以人物头部为原点计算方向；移出窗口后回正，触控不启用跟随。`lib/mascot.mjs` 管理点击、隐藏、召回与本地化对话，仅在点击或召回时说话；关闭状态沿用 localStorage 的 `ema-mascot-hidden`，不再记录会话问候状态。`lib/frieren.mjs` 提供主题配置，`src/core/live2d` 管理加载、渲染与生命周期：隐藏或暂停动效时停止更新，页面清理时释放资源，加载失败时显示静态海报。模型位于 `public/themes/ema/live2d/frieren/`，由 [kyokiStudio 在 BOOTH 发布](https://booth.pm/ja/items/5323958)，该商品页注明禁止商用及变现。渲染采用 PixiJS 6.5.10 与 pixi-live2d-display 0.4.0，Cubism Core 从官方 SDK 5-r.4 提取并自托管；来源和各自许可见 `THIRD_PARTY_ASSETS.md`。
 
-左侧控制台（`lib/console.mjs`）复用看板娘按钮，并控制「樱色电台」（`lib/radio.mjs`）：曲目以音符数据写在代码中，用 Web Audio 合成；播放引擎挂在 `window.__emaRadio`，每个艾玛页面挂载时 `hold()`、清理时 `release()`，最后一个页面释放 1.5 秒后仍无新页面接手就停止，因此切换到其他主题会自动静音。
+左侧控制台（`lib/console.mjs`）控制「樱色电台」（`lib/radio.mjs`）：曲目以音符数据写在代码中，用 Web Audio 合成；播放引擎挂在 `window.__emaRadio`，每个艾玛页面挂载时 `hold()`、清理时 `release()`，最后一个页面释放 1.5 秒后仍无新页面接手就停止，因此切换到其他主题会自动静音。
 
 ### 搜索、筛选和排序
 

@@ -1,0 +1,70 @@
+:root { color-scheme: light; --paper: #fff; --ink: #111; --muted: #626262; --line: #dedede; --soft: #f5f5f5; --error: #a82121; --serif: "Iowan Old Style", "Songti SC", SimSun, serif; --sans: Arial, "PingFang SC", "Microsoft YaHei", sans-serif; }
+:root:lang(zh-TW) { --serif: "Iowan Old Style", "Songti TC", PMingLiU, serif; --sans: Arial, "PingFang TC", "Microsoft JhengHei", sans-serif; }
+@media (prefers-color-scheme: dark) { :root { color-scheme: dark; --paper: #141414; --ink: #eee; --muted: #aaa; --line: #383838; --soft: #222; --error: #ff9d9d; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 14px/1.65 var(--sans); }
+button, input, textarea, select { font: inherit; color: inherit; }
+button, select { cursor: pointer; }
+input, select, textarea { width: 100%; min-width: 0; min-height: 44px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 0; background: var(--paper); }
+textarea { resize: vertical; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+button { min-height: 44px; }
+button:disabled { opacity: .45; cursor: default; }
+[hidden] { display: none !important; }
+h1, h2, p { margin: 0; }
+.masthead { max-width: 1280px; margin: auto; padding: 22px 48px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); gap: 24px; }
+.brand { display: flex; align-items: baseline; gap: 18px; }
+.brand strong { font-size: 28px; line-height: 1; }
+.brand span { color: var(--muted); font-size: 12px; }
+.language { display: flex; align-items: center; gap: 12px; font-size: 12px; }
+.language select { width: auto; border: 0; }
+main { max-width: 1280px; padding: 48px; margin: auto; }
+.heading { margin-bottom: 32px; }
+h1 { font: 600 40px/1.25 var(--serif); margin-bottom: 12px; }
+.heading p, .help, .empty { color: var(--muted); }
+.workspace { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 48px; }
+.drop-zone { position: relative; min-height: 220px; border: 1px dashed var(--muted); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 24px; text-align: center; cursor: pointer; }
+.drop-zone strong { font-weight: 500; font-size: 16px; }
+.drop-zone > span { font-size: 12px; color: var(--muted); }
+.drop-zone input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.drop-zone:focus-within { outline: 2px solid var(--ink); outline-offset: 4px; }
+.drop-zone[data-dragging="true"] { border: 2px solid var(--ink); background: var(--soft); }
+.section-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin: 24px 0 12px; }
+h2, legend { font-size: 16px; font-weight: 600; }
+.text-button { border: 0; background: transparent; padding: 4px 0; text-decoration: underline; text-underline-offset: 4px; font-size: 12px; }
+.empty { padding: 20px 0; font-size: 13px; }
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+legend { padding: 0; margin: 0 0 8px; }
+.help { font-size: 12px; margin-bottom: 18px; }
+fieldset label { display: block; margin-bottom: 14px; }
+details summary { min-height: 44px; padding: 10px 0; cursor: pointer; font-size: 12px; color: var(--muted); }
+details[open] summary { margin-bottom: 8px; }
+label > span, .queue-fields label > span { display: block; font-size: 12px; margin-bottom: 6px; }
+.pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+.compression { border-top: 1px solid var(--line); margin-top: 20px; padding-top: 20px; }
+.compression legend { float: left; width: 100%; margin-bottom: 16px; }
+.compression .pair { clear: both; }
+.primary { width: 100%; min-height: 48px; border: 1px solid var(--ink); padding: 12px 18px; background: var(--ink); color: var(--paper); font-weight: 600; }
+ul { list-style: none; padding: 0; margin: 0; }
+.queue-item { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 18px; border-top: 1px solid var(--line); padding: 20px 0; }
+.thumbnail { width: 88px; height: 88px; object-fit: contain; background: var(--soft); }
+.queue-title { display: flex; align-items: start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.filename { overflow-wrap: anywhere; font-size: 12px; }
+.file-info { color: var(--muted); font-size: 12px; }
+.queue-title .text-button { min-height: 24px; flex-shrink: 0; }
+.queue-fields { display: grid; gap: 12px; }
+.queue-fields input { font-size: 13px; }
+#status { min-height: 28px; margin: 24px 0; overflow-wrap: anywhere; }
+#status[data-error="true"] { color: var(--error); }
+.image-row { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 24px; padding: 24px 0; border-top: 1px solid var(--line); }
+.image-row .thumbnail { width: 104px; height: 104px; }
+.image-meta { display: flex; gap: 8px 16px; flex-wrap: wrap; margin-bottom: 8px; font-size: 12px; color: var(--muted); }
+.image-meta strong { font-weight: 500; color: var(--ink); }
+.image-row code { display: block; font: 12px/1.7 "SFMono-Regular", Consolas, monospace; overflow-wrap: anywhere; padding: 10px 12px; background: var(--soft); user-select: all; }
+.image-row .source-line { margin-top: 10px; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+.source-line a { color: inherit; text-underline-offset: 3px; }
+.copy-actions { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 4px; }
+.library-section { margin-top: 40px; }
+footer { margin-top: 40px; border-top: 1px solid var(--line); padding-top: 20px; color: var(--muted); font-size: 12px; }
+@media (max-width: 760px) { .masthead { padding: 18px 24px; }.brand span { display: none; }main { padding: 32px 24px; }h1 { font-size: 32px; }.workspace { grid-template-columns: minmax(0, 1fr); gap: 32px; }.drop-zone { min-height: 190px; }.image-row { grid-template-columns: 72px minmax(0, 1fr); gap: 16px; }.image-row .thumbnail { width: 72px; height: 72px; }.section-heading { align-items: flex-start; }.section-heading .text-button { text-align: right; }.language { gap: 4px; } }
+@media (max-width: 380px) { .pair { grid-template-columns: minmax(0, 1fr); gap: 0; }.queue-item { grid-template-columns: 60px minmax(0, 1fr); gap: 12px; }.thumbnail { width: 60px; height: 60px; } }

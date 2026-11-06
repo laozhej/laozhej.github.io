@@ -1,6 +1,6 @@
 import { getRadio, TRACKS, trackLength } from './radio.mjs';
 
-// The left-edge console: mascot shortcuts and the Sakura Radio controls.
+// The left-edge console contains the Sakura Radio controls.
 export function mountEmaConsole(doc, win) {
   const root = doc.querySelector('[data-ema-console]');
   if (!root) return () => {};
@@ -32,26 +32,6 @@ export function mountEmaConsole(doc, win) {
       if (event.key === 'Escape' && !panel.hidden) { setOpen(false); toggle.focus(); }
     });
   }
-
-  // Mascot shortcuts reuse the guide's own buttons, so its state stays in one place.
-  const mascot = doc.querySelector('[data-ema-mascot]');
-  const mascotToggle = $('[data-console-mascot="toggle"]');
-  const syncMascot = () => {
-    if (!mascotToggle || !mascot) return;
-    mascotToggle.textContent = mascot.hidden ? mascotToggle.dataset.show : mascotToggle.dataset.hide;
-  };
-  listen(mascotToggle, 'click', () => {
-    if (!mascot) return;
-    doc.querySelector(mascot.hidden ? '[data-mascot-show]' : '[data-mascot-hide]')?.click();
-    syncMascot();
-    mascotToggle.focus();
-  });
-  listen($('[data-console-mascot="talk"]'), 'click', () => {
-    if (mascot?.hidden) doc.querySelector('[data-mascot-show]')?.click();
-    else mascot?.querySelector('[data-mascot-poke]')?.click();
-    syncMascot();
-  });
-  syncMascot();
 
   const radio = getRadio(win);
   let names = [];

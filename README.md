@@ -26,6 +26,10 @@ npm run preview
 
 构建输出为 `dist/`，可部署到支持静态网站的服务。
 
+## 导入图片
+
+运行 `npm run images`，打开终端中的本地地址，即可拖入图片并自动压缩、命名、记录来源，复制路径、Markdown 或 HTML 引用。也支持命令行 `npm run image:import -- <图片路径> --original`。使用方法见 [图片导入工具](docs/IMAGE_IMPORT.md)。
+
 ## 修改内容
 
 | 要修改的内容 | 文件 |
@@ -51,7 +55,6 @@ npm run preview
 | 终末地工业风主题的页面与样式 | `src/themes/endfield/` |
 | 主题注册、切换和偏好 | `src/core/themes/` |
 | 艾玛主题图片与来源记录 | `public/themes/ema/assets/`、`public/themes/ema/ASSETS.json` |
-| 芙莉莲 Live2D 模型与渲染核心 | `public/themes/ema/live2d/frieren/`、`src/core/live2d/` |
 | 全主题共用的网站图标 | `src/core/components/SiteIcons.astro`、`assets/branding/` |
 | 正式网址 | `astro.config.mjs` 中的 `site` |
 
@@ -82,7 +85,7 @@ tags: [标签一, 标签二]
 - 关于页与页脚的 GitHub / Steam 链接，以及多语言致谢与许可页（`/credits/`）。
 - 站内页面切换不整页刷新：页头保持不动，正文淡出淡入；语言、主题和深浅色选择随之保留，浏览器前进 / 后退恢复原滚动位置。
 - 樱色档案（艾玛主题）以“Arataki.br’s Base”为站名，标题使用 Gloock。首页参考 Yuimi-chaya 的 Fuyukawa Kagari 主题：用本站四张素材拼成的漫画分镜墙、集中线和樱羽艾玛立绘、终端打字行、每日公告便笺、随滚动浮现的站长名片，以及显示访客本地时间和掉落标签的第二幕。章节卡片使用三张《葬送的芙莉莲》黑白漫画摘图。
-- 艾玛主题包含樱花飘落、宽屏侧边滚动标记和左下角的芙莉莲 Live2D 看板娘。看板娘在视口宽度至少 1000px 时显示，视线随鼠标移动，点击或召回时回应；关闭状态在当前浏览器中保存，加载失败时显示静态海报。
+- 艾玛主题包含樱花飘落、宽屏侧边滚动标记和樱色电台。
 - 艾玛主题左侧控制台的「樱色电台」提供三首在浏览器中实时合成的原创八音盒小曲，不加载音频文件，在艾玛页面间切换时继续播放，切换到其他主题即停止。
 - 终末地工业风主题使用纸色与墨色、黄色强调、切角控件、等高线背景和自托管的 Saira 字体；只借鉴界面结构，不使用游戏官方素材。
 - 艾玛主题各页面都有暂停 / 播放动效按钮；暂停后所有主题都跳过页面过渡。系统开启减少动态时同样跳过，并停用该按钮。
@@ -126,7 +129,7 @@ Blank 主题的 CSS、组件与交互基于 [Yuimi-chaya/Yuimi-chaya.github.io](
 
 艾玛主题的四张角色／漫画图片及三张《葬送的芙莉莲》章节摘图来自各自记录的外部来源，并在本站本地提供，未使用生成式 AI 重绘。原始来源、署名、校验值及各文件的缩放、裁切和格式转换等处理记录见 [素材清单](public/themes/ema/ASSETS.json)；游戏卡片图另见 [游戏素材清单](public/games/ASSETS.json)。来源可追溯和署名不构成公开使用授权，图片不随软件 MIT 许可授权；面向装饰性网站公开使用的许可尚未确认。
 
-芙莉莲 Live2D 模型由 kyokiStudio 发布，本站按发布页注明的禁止商用及变现条件用于个人展示。模型、纹理与海报不属于软件 MIT 许可；Cubism Core 和 Framework 适用各自的 Live2D 许可。完整来源、许可文件及使用边界见 [第三方素材说明](THIRD_PARTY_ASSETS.md)。
+完整来源、许可文件及使用边界见 [第三方素材说明](THIRD_PARTY_ASSETS.md)。
 
 文章及其译文的许可范围见 [内容许可说明](CONTENT_LICENSE.md)。网站不从外部服务器加载字体；樱色档案的标题字体 Gloock（SIL OFL 1.1）和终末地工业风的拉丁字体 Saira（SIL OFL 1.1）随站点自托管，其余文字使用系统字体。
 

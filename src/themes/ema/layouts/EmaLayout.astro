@@ -25,7 +25,6 @@ const { title: pageTitle = site.name, description = t("site.description"), isArt
 const brand = t("ema.brand");
 const title = pageTitle.replaceAll(site.name, brand);
 const [brandHead, ...brandTail] = brand.split(" ");
-const mascotPokes = Array.from({ length: 5 }, (_, index) => t(`ema.mascot.poke${index + 1}`));
 const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale), Astro.site) : undefined;
 // Deterministic petal paths so every page and locale renders the same markup.
 const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + index * 6.2).toFixed(1)}%;--petal-size:${9 + (index * 5) % 7}px;--petal-duration:${17 + (index * 7) % 13}s;--petal-delay:${-2 - (index * 11) % 29}s;--petal-drift:${[-72, 96, 40][index % 3]}px`);
@@ -67,23 +66,10 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
       <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
     </footer>
     <ThemeSwitcher floating />
-    <aside class="ema-mascot" data-ema-mascot hidden aria-label={t("ema.mascot.label")} data-pokes={JSON.stringify(mascotPokes)} data-back={t("ema.mascot.back")} data-too-fast={t("ema.mascot.tooFast")}>
-      <p class="mascot-bubble" role="status" data-mascot-bubble hidden></p>
-      <button class="mascot-figure" type="button" data-mascot-poke aria-label={t("ema.mascot.poke")}>
-        <img class="mascot-poster" data-live2d-poster src="/themes/ema/live2d/frieren/poster.webp" alt="" width="164" height="240" loading="lazy" decoding="async" aria-hidden="true" />
-        <canvas class="mascot-canvas" data-live2d-canvas width="328" height="480" aria-hidden="true"></canvas>
-      </button>
-      <button class="mascot-hide" type="button" data-mascot-hide aria-label={t("ema.mascot.hide")} title={t("ema.mascot.hide")}><Icon name="tabler:x" size={14} /></button>
-    </aside>
-    <button class="mascot-recall" type="button" data-mascot-show hidden aria-label={t("ema.mascot.show")} title={t("ema.mascot.show")}><span aria-hidden="true">✿</span></button>
     <div class="ema-console" data-ema-console>
       <button class="console-tab" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={16} aria-hidden="true" /><span>{t("ema.console.tab")}</span></button>
       <section class="console-panel" id="ema-console-panel" data-console-panel aria-label={t("ema.console.label")} hidden>
         <div class="console-head"><p>{t("ema.console.label")}</p><button type="button" data-console-close aria-label={t("ema.console.close")} title={t("ema.console.close")}><Icon name="tabler:x" size={15} /></button></div>
-        <div class="console-card">
-          <p class="console-kicker">{t("ema.console.mascot")}</p>
-          <div class="console-actions"><button type="button" data-console-mascot="toggle" data-show={t("ema.mascot.show")} data-hide={t("ema.mascot.hide")}>{t("ema.mascot.hide")}</button><button type="button" data-console-mascot="talk">{t("ema.console.talk")}</button></div>
-        </div>
         <div class="console-card radio" data-radio data-tracks={JSON.stringify([1, 2, 3].map((index) => t(`ema.radio.track${index}`)))}>
           <div class="radio-head"><span class="radio-disc" aria-hidden="true"></span><div><p class="console-kicker">{t("ema.radio.label")}</p><strong data-radio-title>{t("ema.radio.track1")}</strong><small data-radio-count>1 / 3</small></div></div>
           <div class="radio-progress" aria-hidden="true"><span data-radio-progress></span></div>

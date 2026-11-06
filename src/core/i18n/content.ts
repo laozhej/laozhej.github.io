@@ -17,9 +17,12 @@ const zhTW = linked({
   animeListUrl,
   profileIdentity: {
     displayName: "荒瀧旭",
+    alias: profile.profileIdentity.alias,
+    avatar: profile.profileIdentity.avatar,
     handle: "PROFILE / 個人檔案",
     siteName: "Blank Space",
     bio: "我是荒瀧旭，也可以叫我 Nero。喜歡收集動漫與遊戲周邊，關注 AI 和電腦技術；平時學習程式設計，鑽研動畫、建模與不同的遊戲引擎。",
+    intro: "喜歡收集動漫與遊戲周邊，關注 AI 和電腦技術；平時學習程式設計，鑽研動畫、建模與不同的遊戲引擎。",
   },
   profileStatus: ["使用語言：中文（華語）、日語、英語、西班牙語", "掌握多種程式語言", "正在學習如何用 AI 協助開發", "了解未來的遊戲趨勢"],
   profileTech: [
@@ -53,6 +56,7 @@ const zhTW = linked({
       summary: "從 Blank 出發，讓黑白閱讀、櫻色檔案與工業風三套介面共用內容、語言和互動。專案案例記錄設計取捨、共用架構與驗證過程。",
       details: ["三套主題與四種語言", "共用內容、偏好與頁面生命週期", "實際截圖、原始碼導覽與驗證紀錄"],
       url: projects.personalSiteShowcaseUrl,
+      image: { ...projects.personalSitePreview, alt: "個人網站櫻色檔案主題的首頁截圖：左側是站名與終端文字，右側是櫻羽艾瑪立繪與漫畫分鏡" },
     },
   ],
 } as const);
@@ -63,9 +67,12 @@ const ja = linked({
   animeListUrl,
   profileIdentity: {
     displayName: "荒滝 旭",
+    alias: profile.profileIdentity.alias,
+    avatar: profile.profileIdentity.avatar,
     handle: "PROFILE / プロフィール",
     siteName: "Blank Space",
     bio: "荒滝旭です。Nero とも呼ばれています。アニメやゲームのグッズ集めが好きで、AI やパソコンの技術にも関心があります。プログラミングを学びながら、アニメーション、モデリング、さまざまなゲームエンジンを探究しています。",
+    intro: "アニメやゲームのグッズ集めが好きで、AI やパソコンの技術にも関心があります。プログラミングを学びながら、アニメーション、モデリング、さまざまなゲームエンジンを探究しています。",
   },
   profileStatus: ["使用言語：中国語（普通話）、日本語、英語、スペイン語", "複数のプログラミング言語を習得", "AI を開発に活用する方法を学習中", "これからのゲームの動向を探る"],
   profileTech: [
@@ -99,6 +106,7 @@ const ja = linked({
       summary: "Blank を出発点に、モノクロ、桜色アーカイブ、工業風の3つのテーマでコンテンツ、言語、操作を共有。設計上の判断、共通アーキテクチャ、検証の過程を事例としてまとめています。",
       details: ["3つのテーマと4つの言語", "コンテンツ・設定・ページのライフサイクルを共有", "実際の画面、ソースコード案内、検証記録"],
       url: projects.personalSiteShowcaseUrl,
+      image: { ...projects.personalSitePreview, alt: "個人サイトの桜色アーカイブテーマのホーム画面：左にサイト名とターミナル風のテキスト、右に桜羽エマの立ち絵と漫画のコマ" },
     },
   ],
 } as const);
@@ -109,9 +117,12 @@ const en = linked({
   animeListUrl,
   profileIdentity: {
     displayName: "Arataki Asahi",
+    alias: profile.profileIdentity.alias,
+    avatar: profile.profileIdentity.avatar,
     handle: "PERSONAL PROFILE",
     siteName: "Blank Space",
     bio: "I'm Arataki Asahi, also known as Nero. I collect anime and game merchandise and enjoy learning about AI and computer technology. I'm studying programming and exploring animation, modeling, and different game engines.",
+    intro: "I collect anime and game merchandise and enjoy learning about AI and computer technology. I'm studying programming and exploring animation, modeling, and different game engines.",
   },
   profileStatus: ["Languages: Mandarin Chinese, Japanese, English, and Spanish", "Proficient in multiple programming languages", "Learning how to use AI to assist development", "Exploring future trends in gaming"],
   profileTech: [
@@ -145,6 +156,7 @@ const en = linked({
       summary: "Built from Blank, with monochrome, Sakura Archive, and industrial interfaces sharing content, languages, and behavior. The case study documents design decisions, the shared architecture, and validation.",
       details: ["Three themes and four languages", "Shared content, preferences, and page lifecycle", "Real screenshots, source tour, and validation records"],
       url: projects.personalSiteShowcaseUrl,
+      image: { ...projects.personalSitePreview, alt: "Screenshot of the Sakura Archive home page of this website: the site name and terminal-style text on the left, Ema Sakuraba and manga panels on the right" },
     },
   ],
 } as const);

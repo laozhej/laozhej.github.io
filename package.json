@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "images": "node scripts/image-import.mjs serve",
+    "image:import": "node scripts/image-import.mjs import",
     "dev": "astro dev --host 127.0.0.1",
     "build": "astro build",
     "test": "node --test tests/*.test.mjs",
@@ -15,16 +17,12 @@
     "@fontsource/gloock": "5.3.0",
     "@iconify-json/tabler": "1.2.35",
     "astro": "7.3.5",
-    "astro-icon": "1.2.0",
-    "pixi-live2d-display": "0.4.0",
-    "pixi.js": "6.5.10"
+    "astro-icon": "1.2.0"
   },
   "engines": {
     "node": ">=22.12.0"
   },
-  "overrides": {
-    "pixi-live2d-display": {
-      "gh-pages": "6.3.0"
-    }
+  "devDependencies": {
+    "sharp": "0.35.5"
   }
 }

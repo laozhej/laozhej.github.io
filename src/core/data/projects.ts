@@ -5,7 +5,8 @@ export const projectTechLines = [
 export const personalSiteShowcaseUrl = "https://github.com/laozhej/laozhej.github.io/tree/main/showcase";
 
 // Screenshot provenance: public/projects/ASSETS.json. Each locale adds its own alt text.
-export const personalSitePreview = { src: "/projects/personal-site-preview.jpg", width: 1440, height: 960 } as const;
+// `darkSrc` is the same page captured in the dark colour mode; pages in dark mode show it instead.
+export const personalSitePreview = { src: "/projects/personal-site-preview.jpg", darkSrc: "/projects/personal-site-preview-dark.jpg", width: 1440, height: 960 } as const;
 
 export const projectEntries = [
   {

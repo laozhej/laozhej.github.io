@@ -152,6 +152,12 @@ html[data-color-mode="dark"] .blank-mode-sun { display: inline-flex; }
 .blank-home-links .blank-text-link { justify-content: space-between; width: 100%; min-height: 44px; border-top: 1px solid var(--blank-line); font-size: .875rem; }
 .blank-home-project { padding: 40px 0 56px; border-top: 1px solid var(--blank-ink); }
 .blank-home-project > img { display: block; width: 100%; height: auto; border: 1px solid var(--blank-line); }
+/* A screenshot comes as a light and a dark capture of the same page, so a dark page never carries a bright white
+   rectangle. The portraits are light crops with no dark counterpart; dark mode turns them down instead. */
+body[data-blank] img.blank-shot-dark, html[data-color-mode="dark"] body[data-blank] img.blank-shot-light { display: none; }
+html[data-color-mode="dark"] body[data-blank] img.blank-shot-dark { display: block; }
+html[data-color-mode="dark"] .blank-home-owner img { background: var(--blank-soft); filter: brightness(.82); }
+html[data-color-mode="dark"] .blank-home-sheet .is-portrait img { filter: brightness(.86); }
 .blank-home-project-copy { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
 .blank-home-project-copy .blank-project-status { color: var(--blank-ink); font-size: .8125rem; }
 .blank-home-project-copy h2 { margin: 12px 0 16px; font: 400 1.75rem/1.45 var(--blank-serif); }
@@ -660,6 +666,10 @@ html[data-yuimi-visibility="hidden"] body[data-blank] *::after { animation-play-
   .blank-prose pre, body[data-blank] .expressive-code pre { background: #fff !important; color: #000 !important; border: 1px solid #ccc; }
   body[data-blank] .expressive-code :where(.ec-line span[style]) { color: #000 !important; }
   .blank-header, .blank-footer, .blank-toc, .blank-context-menu, .blank-article-topline, .blank-article-end, .blank-skip-link { display: none !important; }
+  /* Paper is light whatever the screen was: print the light capture and the portraits at full brightness. */
+  body[data-blank] img.blank-shot-light { display: block !important; }
+  body[data-blank] img.blank-shot-dark { display: none !important; }
+  .blank-home-owner img, .blank-home-sheet .is-portrait img { filter: none !important; }
   .blank-main { width: 100%; max-width: none; padding: 0; }
   .blank-article-shell { display: block; padding-top: 24px; }
   .blank-article-header h1 { font-size: 24pt; }

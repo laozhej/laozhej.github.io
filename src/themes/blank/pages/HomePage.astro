@@ -38,7 +38,8 @@ const favorites = [
 
   {project && (
     <section class="blank-home-project" aria-labelledby="blank-home-project">
-      <img src={project.image.src} alt={project.image.alt} width={project.image.width} height={project.image.height} fetchpriority="high" decoding="async" />
+      <img class="blank-shot-light" src={project.image.src} alt={project.image.alt} width={project.image.width} height={project.image.height} fetchpriority="high" decoding="async" />
+      <img class="blank-shot-dark" src={project.image.darkSrc} alt={project.image.alt} width={project.image.width} height={project.image.height} loading="lazy" decoding="async" />
       <div class="blank-home-project-copy">
         <span class="blank-project-status">{project.status}</span>
         <h2 id="blank-home-project">{keepTails(project.title)}</h2>

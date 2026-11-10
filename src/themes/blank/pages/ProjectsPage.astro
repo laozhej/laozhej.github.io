@@ -29,7 +29,8 @@ const filterable = projectEntries.length > 1 && projectTechLines.length > 1;
         <details id={project.id} class="blank-project" open={index === 0} data-site-entry data-category={project.line}>
           <summary>
             <span class="blank-row-number">{String(index + 1).padStart(2, "0")}</span>
-            <img class="blank-project-thumb" src={project.image.src} alt="" width={project.image.width} height={project.image.height} loading={index === 0 ? "eager" : "lazy"} decoding="async" />
+            <img class="blank-project-thumb blank-shot-light" src={project.image.src} alt="" width={project.image.width} height={project.image.height} loading={index === 0 ? "eager" : "lazy"} decoding="async" />
+            <img class="blank-project-thumb blank-shot-dark" src={project.image.darkSrc} alt="" width={project.image.width} height={project.image.height} loading="lazy" decoding="async" />
             <div class="blank-project-name"><span class="blank-kicker">{project.type}</span><h2>{keepTails(project.title)}</h2></div>
             <span class="blank-project-status">{project.status}</span>
             <Icon class="blank-disclosure-icon" name="tabler:arrow-down" size={21} />

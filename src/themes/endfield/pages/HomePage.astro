@@ -5,7 +5,7 @@ import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import PageLayout from "@/core/themes/PageLayout.astro";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 const { locale, t, unit, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
-const { profileTech, currentSignals, projectEntries, favoriteGames } = getSiteContent(locale);
+const { profileTech, currentSignals, projectEntries, favoriteGames, gameShelf } = getSiteContent(locale);
 const posts = await getPublishedPosts(locale);
 const [latest, ...older] = posts;
 // Entries are numbered oldest first, so a number never changes once given.
@@ -55,7 +55,7 @@ const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? pos
   <nav class="ef-index" aria-label={t("endfield.index")}>
     <a href={href("/blog/")}><small>{t("home.writingIndex")}</small><span><b>{count(posts.length)}</b> {unit("common.entries", posts.length)}</span></a>
     <a href={href("/projects/")}><small>{t("home.practiceIndex")}</small><span><b>{count(projectEntries.length)}</b> {unit("common.projects", projectEntries.length)}</span></a>
-    <a href={href("/games/")}><small>{t("home.playIndex")}</small><span><b>{count(favoriteGames.length)}</b> {unit("endfield.games", favoriteGames.length)}</span></a>
+    <a href={href("/games/")}><small>{t("home.playIndex")}</small><span><b>{count(favoriteGames.length)}</b> {unit("endfield.games", favoriteGames.length)}<i>{t("ema.about.gamesAll").replace("{n}", String(gameShelf.length))}</i></span></a>
   </nav>
 
   <section class="ef-section" aria-labelledby="ef-records-title">

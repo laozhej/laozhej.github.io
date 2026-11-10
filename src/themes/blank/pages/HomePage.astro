@@ -6,6 +6,7 @@ import { Icon } from "astro-icon/components";
 import BlankLayout from "@/core/themes/PageLayout.astro";
 import { getPublishedPosts } from "@/core/content/blog";
 import { socialLinks } from "@/core/data/social";
+import { keepTails } from "@/core/i18n/wrap.mjs";
 const { locale, t, href, formatDate } = getI18n(Astro.url.pathname);
 const { animeFavorites, currentSignals, favoriteGames, gameShelf, profileIdentity, projectEntries, xpFavorites } = getSiteContent(locale);
 const [project] = projectEntries;
@@ -27,7 +28,7 @@ const favorites = [
     <div class="blank-home-owner">
       <img src={profileIdentity.avatar} alt={t("ema.about.avatar").replace("{name}", profileIdentity.displayName)} width="104" height="104" decoding="async" />
       <h1 id="blank-home-title">{profileIdentity.displayName} <span>{profileIdentity.alias}</span></h1>
-      <p>{profileIdentity.intro}</p>
+      <p>{keepTails(profileIdentity.intro)}</p>
     </div>
     <div class="blank-home-links">
       <a class="blank-text-link" href={href("/about/")}>{t("common.about")} <Icon name="tabler:arrow-right" size={17} /></a>
@@ -40,11 +41,11 @@ const favorites = [
       <img src={project.image.src} alt={project.image.alt} width={project.image.width} height={project.image.height} fetchpriority="high" decoding="async" />
       <div class="blank-home-project-copy">
         <span class="blank-project-status">{project.status}</span>
-        <h2 id="blank-home-project">{project.title}</h2>
-        <p>{project.summary}</p>
+        <h2 id="blank-home-project">{keepTails(project.title)}</h2>
+        <p>{keepTails(project.summary)}</p>
         <div class="blank-home-project-links">
-          <a class="blank-text-link" href={project.url}>{t("projects.caseStudy")} <Icon name="tabler:arrow-up-right" size={17} /></a>
-          <a class="blank-text-link" href={href("/projects/")}>{t("common.projectNotes")} <Icon name="tabler:arrow-right" size={17} /></a>
+          <a class="blank-button" href={project.url}>{t("projects.caseStudy")} <Icon name="tabler:arrow-up-right" size={17} /></a>
+          <a class="blank-button blank-button--outline" href={href("/projects/")}>{t("common.projectNotes")} <Icon name="tabler:arrow-right" size={17} /></a>
         </div>
       </div>
     </section>
@@ -54,7 +55,7 @@ const favorites = [
     <div class="blank-home-side">
       <section aria-labelledby="blank-home-now">
         <h2 id="blank-home-now">{t("about.now")}</h2>
-        <dl class="blank-home-signals">{currentSignals.slice(0, 2).map((item) => <div><dt>{item.label}</dt><dd>{item.text}</dd></div>)}</dl>
+        <dl class="blank-home-signals">{currentSignals.slice(0, 2).map((item) => <div><dt>{item.label}</dt><dd>{keepTails(item.text)}</dd></div>)}</dl>
         <a class="blank-text-link" href={href("/about/")}>{t("common.moreNow")} <Icon name="tabler:arrow-right" size={17} /></a>
       </section>
       {posts.length > 0 && (
@@ -62,7 +63,7 @@ const favorites = [
           <h2 id="blank-home-writing">{t("nav.blog")}</h2>
           <ol class="blank-home-posts">{posts.map((post) => {
             const date = post.data.updatedDate ?? post.data.pubDate;
-            return <li><a href={href(`/blog/${post.slug}/`)}><time datetime={date.toISOString()}>{formatDate(date)}</time><span lang={post.data.locale}>{post.data.title}</span>{post.data.locale !== locale && <small>{t("article.originalLanguage")}</small>}</a></li>;
+            return <li><a href={href(`/blog/${post.slug}/`)}><time datetime={date.toISOString()}>{formatDate(date)}</time><span lang={post.data.locale}>{keepTails(post.data.title)}</span>{post.data.locale !== locale && <small>{t("article.originalLanguage")}</small>}</a></li>;
           })}</ol>
           <a class="blank-text-link" href={href("/blog/")}>{t("common.allArticles")} <Icon name="tabler:arrow-right" size={17} /></a>
         </section>
@@ -83,7 +84,7 @@ const favorites = [
             <a href={item.url} target={item.external ? "_blank" : undefined} rel={item.external ? "noopener noreferrer" : undefined}>
               <img src={item.image} alt="" width="480" height="432" loading="lazy" decoding="async" style={item.focus ? `object-position:${item.focus}` : undefined} />
               <span>{item.kind}</span>
-              <strong>{item.title}</strong>
+              <strong>{keepTails(item.title)}</strong>
             </a>
           </li>
         ))}

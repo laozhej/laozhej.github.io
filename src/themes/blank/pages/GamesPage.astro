@@ -6,6 +6,7 @@ import { gameGenres } from "@/core/content/select-games.mjs";
 import { Icon } from "astro-icon/components";
 import BlankLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "../components/PageHead.astro";
+import { keepTails } from "@/core/i18n/wrap.mjs";
 const { locale, t, unit } = getI18n(Astro.url.pathname);
 const { favoriteGames, gameShelf } = getSiteContent(locale);
 const favorites = new Set<string>(favoriteGames.map((game) => game.key));
@@ -30,10 +31,10 @@ const linkLabel = (game: (typeof gameShelf)[number]) => (game.link?.steam ? "Ste
         <li class="blank-game-row" data-site-entry data-category={game.genre} data-search={`${game.name} ${game.title}`}>
           <span class="blank-row-number">{pad(game.number)}</span>
           <div>
-            <h2>{game.name}</h2>
+            <h2>{keepTails(game.name)}</h2>
             <p>{[game.name !== game.title && game.title, t(`games.genre.${game.genre}`), favorites.has(game.key) && t("games.favorite"), game.status && t(`games.status.${game.status}`), game.pick && t("games.pick").replace("{n}", String(game.pick))].filter(Boolean).join(" · ")}</p>
             {game.note && !game.note.translated && <p>{t("games.untranslated")}</p>}
-            {game.note && <p class="blank-game-note" lang={game.note.lang}>{game.note.text}</p>}
+            {game.note && <p class="blank-game-note" lang={game.note.lang}>{keepTails(game.note.text)}</p>}
           </div>
           {game.link && <a class="blank-text-link" href={game.link.href} target="_blank" rel="noopener noreferrer" aria-label={t("games.opens").replace("{name}", game.name).replace("{site}", linkLabel(game))}>{linkLabel(game)} <Icon name="tabler:external-link" size={15} /></a>}
         </li>

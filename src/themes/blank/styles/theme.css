@@ -77,6 +77,10 @@ body[data-blank] :where(button, summary, select) { cursor: pointer; }
 body[data-blank] a { color: inherit; text-decoration: none; text-underline-offset: .25em; text-decoration-thickness: 1px; }
 body[data-blank] :where(ul, ol) { padding: 0; margin: 0; list-style: none; }
 body[data-blank] :where(h1, h2, h3, p, li, dd, a, span) { overflow-wrap: anywhere; }
+/* Paragraphs avoid a stranded last word and short headings balance their lines, where the browser can.
+   The longhand leaves text-wrap-mode alone, so single-line labels stay on one line. */
+body[data-blank] :where(p, li, dd, figcaption) { text-wrap-style: pretty; }
+body[data-blank] :where(h1, h2, h3) { text-wrap-style: balance; }
 body[data-blank] svg { flex-shrink: 0; vertical-align: middle; }
 body[data-blank] :where(a, button, input, select, summary, [tabindex]):focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
 body[data-blank] [hidden] { display: none !important; }
@@ -93,6 +97,7 @@ body[data-blank] :where(img, video, iframe, canvas) { max-width: 100%; }
 button.blank-text-link { border: 0; padding: 0; background: transparent; }
 .blank-text-link svg { transition: transform 160ms var(--blank-ease); }
 .blank-button { display: inline-flex; justify-content: center; align-items: center; gap: 12px; min-height: 48px; padding: 10px 22px; border: 1px solid var(--blank-ink); background: var(--blank-ink); color: var(--blank-paper) !important; font-size: .8125rem; font-weight: 600; }
+.blank-button--outline { background: transparent; color: var(--blank-ink) !important; }
 .blank-icon-button { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: 0; background: transparent; color: inherit; }
 .blank-tooltip { position: absolute; top: calc(100% + 9px); right: 0; padding: 5px 9px; width: max-content; max-width: 160px; color: var(--blank-paper); background: var(--blank-ink); font-size: .6875rem; pointer-events: none; opacity: 0; }
 .blank-icon-button:focus-visible .blank-tooltip { opacity: 1; }
@@ -143,15 +148,16 @@ html[data-color-mode="dark"] .blank-mode-sun { display: inline-flex; }
 .blank-home-owner h1 { font: 400 2.75rem/1.25 var(--blank-serif); }
 .blank-home-owner h1 span { margin-left: .2em; color: var(--blank-muted); font-size: .5em; }
 .blank-home-owner p { max-width: 36em; font: 400 1.125rem/1.85 var(--blank-serif); }
-.blank-home-links, .blank-home-project-links { display: grid; }
-.blank-home-links .blank-text-link, .blank-home-project-links .blank-text-link { justify-content: space-between; width: 100%; min-height: 44px; border-top: 1px solid var(--blank-line); font-size: .875rem; }
+.blank-home-links { display: grid; }
+.blank-home-links .blank-text-link { justify-content: space-between; width: 100%; min-height: 44px; border-top: 1px solid var(--blank-line); font-size: .875rem; }
 .blank-home-project { padding: 40px 0 56px; border-top: 1px solid var(--blank-ink); }
 .blank-home-project > img { display: block; width: 100%; height: auto; border: 1px solid var(--blank-line); }
 .blank-home-project-copy { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
 .blank-home-project-copy .blank-project-status { color: var(--blank-ink); font-size: .8125rem; }
 .blank-home-project-copy h2 { margin: 12px 0 16px; font: 400 1.75rem/1.45 var(--blank-serif); }
 .blank-home-project-copy p { font-size: 1rem; line-height: 1.85; }
-.blank-home-project-links { width: 100%; margin-top: auto; padding-top: 20px; }
+/* The two ways into the project sit directly under its summary, as buttons. */
+.blank-home-project-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .blank-home-band { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 48px; padding-top: 40px; border-top: 1px solid var(--blank-line); }
 .blank-home-band h2 { font: 400 1.5rem/1.5 var(--blank-serif); }
 .blank-home-side { display: grid; align-content: start; gap: 40px; min-width: 0; }
@@ -161,7 +167,7 @@ html[data-color-mode="dark"] .blank-mode-sun { display: inline-flex; }
 .blank-home-signals > div { display: grid; grid-template-columns: 4.5em minmax(0, 1fr); gap: 12px; }
 .blank-home-signals > div + div { margin-top: 8px; }
 .blank-home-signals dt { color: var(--blank-muted); font-size: .8125rem; line-height: 1.9; }
-.blank-home-signals dd { font-size: .9375rem; line-height: 1.75; }
+.blank-home-signals dd { font-size: .9375rem; line-height: 1.75; text-wrap-style: balance; }
 .blank-home-posts a { display: grid; gap: 2px; min-height: 44px; padding: 10px 0; border-top: 1px solid var(--blank-line); font-size: .9375rem; line-height: 1.6; }
 .blank-home-posts :is(time, small) { color: var(--blank-muted); font-size: .8125rem; }
 .blank-home-favorites { min-width: 0; }
@@ -428,6 +434,7 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-post-row:hover h2 { text-decoration: underline; text-underline-offset: .2em; text-decoration-thickness: 1px; }
   :is(.blank-home-sheet a:hover strong, .blank-home-posts a:hover span) { text-decoration: underline; text-underline-offset: .2em; text-decoration-thickness: 1px; }
   .blank-button:hover { background: var(--blank-paper); color: var(--blank-ink) !important; }
+  .blank-button--outline:hover { background: var(--blank-ink); color: var(--blank-paper) !important; }
   .blank-context-menu :where(button, a):not([aria-pressed="true"]):hover { background: var(--blank-inline-code); }
   .blank-project summary:hover .blank-project-name h2 { text-decoration: underline; text-underline-offset: .25em; }
   .blank-toc a:hover { color: var(--blank-ink); }

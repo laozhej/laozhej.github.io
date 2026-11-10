@@ -5,6 +5,7 @@ import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import { Icon } from "astro-icon/components";
 import BlankLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "../components/PageHead.astro";
+import { keepTails } from "@/core/i18n/wrap.mjs";
 const { locale, t, unit } = getI18n(Astro.url.pathname);
 const { projectEntries, projectTechLines } = getSiteContent(locale);
 ---
@@ -24,11 +25,11 @@ const { projectEntries, projectTechLines } = getSiteContent(locale);
         <details id={project.id} class="blank-project" open={index === 0} data-site-entry data-category={project.line}>
           <summary>
             <span class="blank-row-number">{String(index + 1).padStart(2, "0")}</span>
-            <div class="blank-project-name"><span class="blank-kicker">{project.type}</span><h2>{project.title}</h2></div>
+            <div class="blank-project-name"><span class="blank-kicker">{project.type}</span><h2>{keepTails(project.title)}</h2></div>
             <span class="blank-project-status">{project.status}</span>
             <Icon class="blank-disclosure-icon" name="tabler:arrow-down" size={21} />
           </summary>
-          <div class="blank-project-body"><p>{project.summary}<br /><a class="blank-text-link" href={project.url}>{t("projects.caseStudy")} <Icon name="tabler:arrow-up-right" size={17} /></a></p><ul>{project.details.map((detail) => <li>{detail}</li>)}</ul></div>
+          <div class="blank-project-body"><p>{keepTails(project.summary)}<br /><a class="blank-text-link" href={project.url}>{t("projects.caseStudy")} <Icon name="tabler:arrow-up-right" size={17} /></a></p><ul>{project.details.map((detail) => <li>{keepTails(detail)}</li>)}</ul></div>
         </details>
       ))}
     </div>

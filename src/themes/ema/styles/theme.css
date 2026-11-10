@@ -1,7 +1,7 @@
 html[data-theme="ema"] {
   color-scheme: light;
   --blank-paper:#fafbf9; --blank-ink:#47536b; --blank-muted:#68758a;
-  --blank-line:#dce3e9; --blank-soft:#f0f3f5; --blank-header-bg:#fafbf9f2;
+  --blank-line:#dce3e9; --blank-soft:#f0f3f5; --blank-header-bg:#fafbf9;
   --blank-control-line:#9aa5b2; --blank-anchor-muted:#68758a; --blank-quote:#65778c;
   --blank-inline-code:#eff1f5; --blank-foldout-line:#c5cdd8; --blank-scrollbar:#bac4d3;
   --blank-panel-bg:#edf2f5; --blank-panel-ink:#47536b; --blank-panel-muted:#68758a;
@@ -19,7 +19,7 @@ html[data-theme="ema"]:lang(zh-TW) {
 html[data-theme="ema"][data-color-mode="dark"] {
   color-scheme:dark;
   --blank-paper:#20232c; --blank-ink:#e3e5ed; --blank-muted:#b0bacb; --blank-line:#444958;
-  --blank-soft:#2b303c; --blank-header-bg:#20232cf5; --blank-control-line:#758299;
+  --blank-soft:#2b303c; --blank-header-bg:#20232c; --blank-control-line:#758299;
   --blank-anchor-muted:#acb7cb; --blank-quote:#bcc6dc; --blank-inline-code:#323847;
   --blank-foldout-line:#545d72; --blank-scrollbar:#6c758a; --blank-panel-bg:#2c3340;
   --blank-panel-ink:#e3e5ed; --blank-panel-muted:#b0bacb; --blank-footer-bg:#20232c;
@@ -205,10 +205,12 @@ html[data-theme="ema"] body[data-ema] {background:transparent;}
 html[data-color-mode="dark"] .ema-backdrop::before,html[data-color-mode="dark"] .ema-backdrop::after {filter:grayscale(1) brightness(.5);opacity:.1;}
 @media(min-width:1240px) { body[data-ema]:not([data-ema-home]) .ema-backdrop {display:block;} }
 
-.ema-header {background:color-mix(in srgb,var(--blank-header-bg) 80%,transparent);-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);}
-body[data-ema-home] .ema-header:not(.is-scrolled) {background:linear-gradient(180deg,color-mix(in srgb,var(--blank-paper) 82%,transparent),transparent);-webkit-backdrop-filter:none;backdrop-filter:none;}
+/* Frosted, but dense enough that titles and covers scrolling underneath do not read through. */
+.ema-header {background:color-mix(in srgb,var(--blank-header-bg) 94%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.15);backdrop-filter:blur(18px) saturate(1.15);}
+/* Only the wide cover lets the header float over the art, and only until the page moves. */
+@media(min-width:1000px) { body[data-ema-home] .ema-header:not(.is-scrolled) {background:linear-gradient(180deg,color-mix(in srgb,var(--blank-paper) 82%,transparent),transparent);-webkit-backdrop-filter:none;backdrop-filter:none;} }
 .ema-nav {
-  background:color-mix(in srgb,var(--blank-paper) 66%,transparent);border-color:color-mix(in srgb,var(--blank-line) 70%,#fff);
+  background:color-mix(in srgb,var(--blank-paper) 88%,transparent);border-color:color-mix(in srgb,var(--blank-line) 70%,#fff);
   box-shadow:inset 0 1px 0 #ffffffb3,0 8px 24px #526f8c1f;-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
 }
 html[data-color-mode="dark"] .ema-nav {box-shadow:inset 0 1px 0 #ffffff14,0 8px 24px #0005;}

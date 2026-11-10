@@ -16,7 +16,7 @@ html[data-theme="endfield"] {
   --blank-soft:var(--ef-chip); --blank-header-bg:var(--ef-panel); --blank-control-line:#8a8a86; --blank-anchor-muted:var(--ef-ink-2);
   --blank-quote:var(--ef-ink-2); --blank-inline-code:var(--ef-chip); --blank-foldout-line:#b8b8b4; --blank-scrollbar:#a8a8a4;
   --blank-panel-bg:var(--ef-panel); --blank-panel-ink:var(--ef-ink); --blank-panel-muted:var(--ef-ink-2);
-  --blank-footer-bg:#161616; --blank-footer-ink:#ededed; --blank-footer-line:#353535; --blank-footer-muted:#a3a3a3;
+  --blank-footer-bg:#161616; --blank-footer-ink:#ededed; --blank-footer-line:#353535; --blank-footer-muted:#cfcfcf;
   --blank-width:1180px; --blank-sans:var(--ef-text); --blank-serif:var(--ef-text); --blank-mono:ui-monospace,"SFMono-Regular",Consolas,monospace;
   --site-menu-background:var(--ef-panel); --site-menu-color:var(--ef-ink);
   min-width:320px; background:var(--ef-paper); scroll-padding-top:120px; accent-color:var(--ef-ink);

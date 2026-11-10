@@ -225,10 +225,11 @@ html[data-color-mode="dark"] .blank-search input::placeholder { color: var(--bla
 .blank-list-heading { display: flex; justify-content: space-between; gap: 20px; padding: 24px 0 4px; }
 .blank-empty-results { padding: 64px 0; text-align: center; border-bottom: 1px solid var(--blank-line); }
 .blank-empty-results > p { margin-bottom: 16px; font: 400 1.5rem/1.6 var(--blank-serif); }
-.blank-empty-message { padding: 44px 0; color: var(--blank-muted); }
+.blank-empty-message { padding: 56px 0; border-bottom: 1px solid var(--blank-line); color: var(--blank-muted); font: 400 1.5rem/1.6 var(--blank-serif); }
 
 .blank-project { border-bottom: 1px solid var(--blank-line); }
-.blank-project summary { list-style: none; display: grid; grid-template-columns: 72px minmax(0, 1fr) 130px 24px; gap: 24px; align-items: center; padding: 28px 0; }
+.blank-project summary { list-style: none; display: grid; grid-template-columns: 72px 176px minmax(0, 1fr) 130px 24px; gap: 24px; align-items: center; padding: 28px 0; }
+.blank-project-thumb { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border: 1px solid var(--blank-line); }
 .blank-project summary::-webkit-details-marker, .blank-toc summary::-webkit-details-marker { display: none; }
 .blank-project-name { min-width: 0; }
 .blank-project-name h2 { margin-top: 8px; font-size: 1.5rem; font-weight: 500; line-height: 1.5; }
@@ -236,7 +237,7 @@ html[data-color-mode="dark"] .blank-search input::placeholder { color: var(--bla
 .blank-project-status::before { content: ""; flex-shrink: 0; width: 4px; height: 4px; background: currentColor; }
 .blank-disclosure-icon { transition: transform 160ms var(--blank-ease); }
 details[open] > summary > .blank-disclosure-icon { transform: rotate(180deg); }
-.blank-project-body { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(140px, 1fr); gap: 56px; margin-left: 96px; padding: 0 48px 32px 0; }
+.blank-project-body { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(140px, 1fr); gap: 56px; margin-left: 296px; padding: 0 48px 32px 0; }
 .blank-project-body > p { color: var(--blank-muted); font-size: .875rem; line-height: 1.9; max-width: 62ch; }
 .blank-project-body ul { border-left: 1px solid var(--blank-line); padding-left: 24px; font-size: .75rem; }
 .blank-project-body li + li { margin-top: 6px; }
@@ -247,7 +248,11 @@ details[open] > summary > .blank-disclosure-icon { transform: rotate(180deg); }
 .blank-toolkit dd { color: var(--blank-muted); font-size: .75rem; }
 
 .blank-game-list { margin: 0; padding: 0; list-style: none; }
-.blank-game-row { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 6px 28px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--blank-line); }
+.blank-game-row { display: grid; grid-template-columns: 64px 176px minmax(0, 1fr) auto; gap: 6px 28px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--blank-line); }
+/* Each cover is cropped to one shape around the focus point set in games.ts. */
+.blank-game-art { display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--blank-soft); }
+/* Two classes, so the themes' own "img { height: auto }" cannot shrink the cover inside its frame. */
+.blank-game-row .blank-game-art img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .blank-game-row h2 { margin: 0; font: 400 1.5rem/1.35 var(--blank-serif); }
 .blank-game-row p { margin: 6px 0 0; color: var(--blank-muted); font-size: .8125rem; line-height: 1.7; }
 .blank-game-row .blank-game-note { color: var(--blank-ink); }
@@ -452,8 +457,9 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-page-heading h1 { font-size: 5.5rem; }
   .blank-profile, .blank-about-section { gap: 40px; }
   .blank-article-shell { grid-template-columns: 180px minmax(0, 1fr); gap: 36px; }
-  .blank-project summary { grid-template-columns: 44px minmax(0, 1fr) 100px 24px; gap: 20px; }
-  .blank-project-body { margin-left: 64px; padding-right: 24px; gap: 32px; }
+  .blank-project summary { grid-template-columns: 44px 144px minmax(0, 1fr) 100px 24px; gap: 20px; }
+  .blank-project-body { margin-left: 228px; padding-right: 24px; gap: 32px; }
+  .blank-game-row { grid-template-columns: 44px 144px minmax(0, 1fr) auto; gap: 6px 20px; }
   .blank-footer { padding-inline: 32px; }
 }
 
@@ -512,15 +518,20 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-filters button { font-size: .75rem; }
   .blank-project summary { grid-template-columns: 28px minmax(0, 1fr) 22px; gap: 12px; padding: 24px 0; }
   .blank-project-name h2 { font-size: 1.1875rem; }
-  .blank-project-status { grid-column: 2; grid-row: 2; }
-  .blank-project summary > .blank-disclosure-icon { grid-row: 1; grid-column: 3; }
+  /* The thumbnail leads the card; number, name and arrow follow on the next row. */
+  .blank-project-thumb { grid-column: 1 / -1; grid-row: 1; }
+  .blank-project summary > .blank-row-number { grid-column: 1; grid-row: 2; }
+  .blank-project-name { grid-column: 2; grid-row: 2; }
+  .blank-project-status { grid-column: 2; grid-row: 3; }
+  .blank-project summary > .blank-disclosure-icon { grid-row: 2; grid-column: 3; }
   .blank-project-body { grid-template-columns: 1fr; margin-left: 40px; padding-right: 0; gap: 20px; }
   .blank-project-body > p { font-size: .8125rem; }
   .blank-toolkit { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-top: 24px; }
   .blank-toolkit > div, .blank-toolkit > div + div { padding: 0 0 20px; border-left: 0; border-bottom: 1px solid var(--blank-line); }
-  .blank-game-row { grid-template-columns: 40px minmax(0, 1fr); padding: 20px 0; }
+  .blank-game-row { grid-template-columns: 28px 120px minmax(0, 1fr); gap: 4px 14px; align-items: start; padding: 20px 0; }
+  .blank-game-row > .blank-row-number { padding-top: 4px; }
   .blank-game-row h2 { font-size: 1.25rem; }
-  .blank-game-row > .blank-text-link { grid-column: 2; }
+  .blank-game-row > .blank-text-link { grid-column: 3; }
   .blank-endnote { flex-direction: column; gap: 12px; padding-top: 28px; }
   .blank-profile { padding: 36px 0; }
   .blank-profile-name h2 { margin-block: 16px; font-size: 2.5rem; }
@@ -565,6 +576,10 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-sort { margin-left: auto; }
   .blank-post-row { grid-template-columns: minmax(0, 1fr) 20px; gap: 12px; }
   .blank-post-row > .blank-row-number { display: none; }
+  .blank-game-row { grid-template-columns: 104px minmax(0, 1fr); }
+  .blank-game-row > .blank-row-number { display: none; }
+  .blank-game-row > .blank-text-link { grid-column: 2; }
+  .blank-empty-message { font-size: 1.25rem; }
   .blank-tag-line { margin-top: 12px; }
   .blank-page-count strong { font-size: 1.75rem; }
   .blank-page-count > span { font-size: .5625rem; }

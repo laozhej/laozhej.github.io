@@ -141,6 +141,7 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
 .ema-content .blank-post-row h2 {font-family:var(--blank-serif);font-weight:500;}
 .ema-content .blank-row-arrow {transition:transform 180ms var(--blank-ease),color 180ms ease;}
 .ema-content .blank-project-name h2 {font-family:var(--blank-serif);}
+.ema-content .blank-project-thumb {border-radius:8px;}
 .ema-content .blank-project[open] .blank-project-name h2 {color:var(--ema-pink);}
 .ema-content .blank-project-body ul {border-left-color:var(--ema-pink);}
 .ema-content .blank-profile {border-bottom-color:var(--blank-line);}

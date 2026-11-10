@@ -12,10 +12,16 @@
 | 已发布文章、稳定 slug、译文缺失处理 | `getPublishedPosts(locale)`，来自 `src/core/content/blog.ts` |
 | 站名和全站导航定义 | `site`，来自 `src/lib/site.ts` |
 | UI、无障碍与 SEO 文案 | `getI18n(pathname)`，来自 `src/core/i18n` |
+| 避免尴尬换行 | `keepTails(text)`，来自 `src/core/i18n/wrap.mjs` |
+| 项目截图及其深色版本 | `project.image.src` 与 `project.image.darkSrc`，来源记录在 `public/projects/ASSETS.json` |
 
 所有主题都从这些接口读取，不在主题目录复制个人资料或文章。文章详细页继续通过 Astro 内容渲染接口显示同一篇 Markdown。更新内容并重新构建、部署后，所有接入的主题同步更新。不同语言的译文仍要分别维护，不能把内容共用理解为自动翻译。
 
 新功能涉及新的内容字段时，先扩展公共数据及各语言内容，再由各主题决定如何展示。展示方式可以不同，数据身份、链接和分类键保持一致。
+
+页面上显示的标题和短句用 `keepTails()` 包一层：它把结尾的数字和前一个词连在一起（「救赎 2」不会只剩「2」换到下一行），并让中日文句末的两个字留在同一行（不会出现「交／互。」）。只用于显示的文字，不要用于 `data-search`、`aria-label` 等属性。数据文件里照常书写，不要手动插入不换行字符。
+
+项目截图有浅色和深色两张，都是同一页面的真实截图。展示截图的页面同时输出两张 `<img>`，分别加上 `blank-shot-light` 和 `blank-shot-dark`，由 Blank 样式按 `html[data-color-mode]` 只显示其中一张，深色页面上不会出现一块亮白的图。更换截图时两张一起重新截取，并更新 `ASSETS.json`。
 
 喜欢的游戏（`favoriteGames`）每一项都带有 `url`：由 `getSiteContent` 按 `key` 从 `games.ts` 中同一款游戏取得，优先官方游戏页面，没有时用 Steam 商店页面。新主题展示喜欢的游戏时，游戏名必须链接到 `item.url`（新标签页打开，`rel="noopener noreferrer"`）；不要在主题里另写链接。新增喜欢的游戏时，先确认它在 `games.ts` 里，并填写 `url`（官方页面）或 `steam`。
 
@@ -110,7 +116,7 @@ Ema 首页的「今日公告」使用原生 `<dialog>`（`lib/notice.mjs`）：�
 | `data-site-empty` | 可选空结果提示，初始 `hidden` |
 | `data-site-count` | 可选结果数量输出，建议 `aria-live="polite"` |
 
-表单和条目容器是必需的；搜索、排序和提示可以按页面需要省略。含筛选控件的主题应确保 `[hidden]` 元素不会被自己的 CSS 强制显示。无 JavaScript 时仍显示全部内容。
+要使用筛选时，表单和条目容器是必需的；搜索、排序和提示可以按页面需要省略。没有可选的条件时不输出表单：作品页只有一个项目时省略分类，文章页没有文章时只保留空状态（它保留 `#blank-search` 锚点，顶栏的搜索入口仍然落在这里）。没有表单时公共核心不做任何处理，条目照常显示。含筛选控件的主题应确保 `[hidden]` 元素不会被自己的 CSS 强制显示。无 JavaScript 时仍显示全部内容。
 
 URL 参数 `q`、`category`、`sort` 由公共核心读写，保留当前语言、主题路径、无关参数和锚点。一个页面只放一组使用这些 URL 参数的集合，避免相互覆盖。Blank 继续保留原来的 `#blank-search` 输入锚点，其他主题可用自己的输入 id。
 

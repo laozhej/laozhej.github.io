@@ -6,6 +6,7 @@ import { Icon } from "astro-icon/components";
 import { getSiteContent } from "@/core/i18n/content";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import { gameGenres } from "@/core/content/select-games.mjs";
+import { keepTails } from "@/core/i18n/wrap.mjs";
 import { site } from "@/lib/site";
 import PageLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "@/themes/blank/components/PageHead.astro";
@@ -50,11 +51,11 @@ const linkLabel = (game: (typeof gameShelf)[number]) => (game.link?.steam ? "Ste
               {favorites.has(game.key) && <span class="game-favorite"><Icon name="tabler:heart-filled" size={11} aria-hidden="true" />{t("games.favorite")}</span>}
               {game.status && <span class="game-status">{t(`games.status.${game.status}`)}</span>}
             </p>
-            <h2>{game.name}</h2>
+            <h2>{keepTails(game.name)}</h2>
             {game.name !== game.title && <p class="game-title">{game.title}</p>}
             {game.pick && <p class="game-pick" role="img" aria-label={t("games.pick").replace("{n}", String(game.pick))}>{[1, 2, 3].map((step) => <span class:list={{ "is-on": step <= (game.pick ?? 0) }}></span>)}</p>}
             {game.note && !game.note.translated && <p class="game-untranslated">{t("games.untranslated")}</p>}
-            {game.note && <p class="game-note" lang={game.note.lang}>{game.note.text}</p>}
+            {game.note && <p class="game-note" lang={game.note.lang}>{keepTails(game.note.text)}</p>}
             {game.link && <a class="game-link" href={game.link.href} target="_blank" rel="noopener noreferrer" aria-label={t("games.opens").replace("{name}", game.name).replace("{site}", linkLabel(game))}><Icon name={game.link.steam ? "tabler:brand-steam" : "tabler:world"} size={15} aria-hidden="true" />{linkLabel(game)}<Icon name="tabler:arrow-up-right" size={14} aria-hidden="true" /></a>}
           </div>
         </li>

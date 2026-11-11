@@ -43,7 +43,7 @@ export const xpFavorites = [
 ] as const;
 
 export const currentSignals = [
-  { label: "正在做", text: "开始研究各种与AI, 软件开发和游戏制作相关的内容" },
+  { label: "正在做", text: "开始研究各种与 AI、软件开发和游戏制作相关的内容" },
   { label: "接下来", text: "将会慢慢记录我的研究进程和日常" },
   { label: "视觉方向", text: "此网站已做成多个主题，未来会慢慢打磨并增加新内容" }
 ] as const;

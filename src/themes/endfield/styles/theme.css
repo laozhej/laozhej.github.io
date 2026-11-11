@@ -16,7 +16,7 @@ html[data-theme="endfield"] {
   --blank-soft:var(--ef-chip); --blank-header-bg:var(--ef-panel); --blank-control-line:#8a8a86; --blank-anchor-muted:var(--ef-ink-2);
   --blank-quote:var(--ef-ink-2); --blank-inline-code:var(--ef-chip); --blank-foldout-line:#b8b8b4; --blank-scrollbar:#a8a8a4;
   --blank-panel-bg:var(--ef-panel); --blank-panel-ink:var(--ef-ink); --blank-panel-muted:var(--ef-ink-2);
-  --blank-footer-bg:#161616; --blank-footer-ink:#ededed; --blank-footer-line:#353535; --blank-footer-muted:#a3a3a3;
+  --blank-footer-bg:#161616; --blank-footer-ink:#ededed; --blank-footer-line:#353535; --blank-footer-muted:#cfcfcf;
   --blank-width:1180px; --blank-sans:var(--ef-text); --blank-serif:var(--ef-text); --blank-mono:ui-monospace,"SFMono-Regular",Consolas,monospace;
   --site-menu-background:var(--ef-panel); --site-menu-color:var(--ef-ink);
   min-width:320px; background:var(--ef-paper); scroll-padding-top:120px; accent-color:var(--ef-ink);
@@ -49,7 +49,10 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-marker { padding:.05em .4em; background:var(--ef-signal); color:var(--ef-on-signal); -webkit-box-decoration-break:clone; box-decoration-break:clone; }
 [data-endfield] :is(.ef-button,.ef-button-icon) { position:relative; isolation:isolate; display:inline-flex; align-items:center; justify-content:center; gap:10px; min-height:46px; padding:0 calc(20px + var(--ef-cut)) 0 20px; border:0;
   background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-ink) 0); color:var(--ef-paper); font-size:14px; font-weight:700; letter-spacing:.06em; cursor:pointer; }
-[data-endfield] .ef-button--quiet,[data-endfield] .ef-button-icon { background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-chip) 0); color:var(--ef-ink); }
+[data-endfield] .ef-button-icon { background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-chip) 0); color:var(--ef-ink); }
+/* The second action is outlined in ink on the panel colour, so beside the accent it reads as pressable rather than switched off.
+   Two painted layers keep the cut corner: an ink shape, and the panel colour inset by the line's width. */
+[data-endfield] .ef-button--quiet { color:var(--ef-ink); background:linear-gradient(315deg,transparent calc(var(--ef-cut-at) - .6px),var(--ef-panel) 0) 1.5px 1.5px/calc(100% - 3px) calc(100% - 3px) no-repeat,linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-ink) 0); }
 [data-endfield] .ef-button-icon { width:42px; height:42px; min-height:0; padding:0; flex-shrink:0; }
 /* The accent wipes in from the left on hover, focus and press. */
 :is(.ef-button,.ef-button-icon)::before { content:""; position:absolute; inset:0; z-index:-1; background:var(--ef-signal); clip-path:polygon(0 0,0 0,0 100%,0 100%); transition:clip-path .28s var(--ef-mech); }
@@ -66,8 +69,6 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 
 /* header */
 .ef-header { position:fixed; top:0; left:0; z-index:50; width:100%; background:var(--ef-panel); border-bottom:1px solid var(--ef-rule); }
-.ef-tri { display:grid; grid-template-columns:repeat(3,1fr); height:3px; }
-.ef-tri i:nth-child(1) { background:var(--ef-tri-a); } .ef-tri i:nth-child(2) { background:var(--ef-signal); } .ef-tri i:nth-child(3) { background:var(--ef-tri-c); }
 .ef-header-inner { max-width:1440px; margin:0 auto; padding:10px clamp(16px,3vw,40px); display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:16px; }
 .ef-wordmark { display:flex; align-items:center; gap:8px; white-space:nowrap; justify-self:start; min-width:0; }
 .ef-wordmark strong { font-size:19px; font-weight:800; font-stretch:100%; line-height:1; letter-spacing:-.005em; text-transform:uppercase; overflow:hidden; text-overflow:ellipsis; }
@@ -89,8 +90,8 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-motion-toggle:focus-visible::after { visibility:visible; }
 .ef-motion-toggle[aria-disabled="true"] { cursor:default; color:var(--ef-ink-2); }
 @media(hover:hover) and (pointer:fine) { .ef-motion-toggle:hover::after { visibility:visible; } }
-.ef-content { padding-top:104px; }
-.ef-home-main { padding-top:66px; }
+.ef-content { padding-top:101px; }
+.ef-home-main { padding-top:63px; }
 
 /* home: first screen. The site's own wordmark is the main visual; the latest entry sits in a framed window. */
 .ef-hero,.ef-index,.ef-section { max-width:var(--blank-width); margin:0 auto; padding-inline:clamp(16px,4vw,40px); }
@@ -108,7 +109,7 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-plate::after { content:""; flex:1; align-self:center; height:1px; margin-left:4px; background:var(--ef-ink); }
 .ef-statement { margin:0 0 12px; font-size:clamp(1.25rem,2.4vw,1.7rem); font-weight:800; line-height:1.6; }
 .ef-intro { margin:0 0 26px; color:var(--ef-ink-2); font-size:16px; max-width:34rem; }
-.ef-hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin:0; }
+[data-endfield] .ef-hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin:26px 0 0; }
 .ef-frame { position:relative; isolation:isolate; display:block; margin:0 16px 16px 0; --frame-cut:2.25rem; }
 .ef-frame::before { content:""; position:absolute; inset:22px -16px -16px 22px; z-index:-1; background:var(--ef-hatch); }
 .ef-frame-window { display:flex; flex-direction:column; gap:12px; min-height:clamp(300px,34vw,400px); padding:clamp(22px,3vw,34px) clamp(22px,3vw,34px) 76px; background:var(--ef-panel);
@@ -130,6 +131,8 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-index small { font-size:11px; font-weight:600; font-stretch:125%; letter-spacing:.14em; color:var(--ef-ink-2); }
 .ef-index span { font-family:var(--ef-text); font-weight:700; }
 .ef-index b { margin-right:4px; padding:0 4px; font:500 2rem/1.1 var(--ef-ui); font-stretch:112%; }
+/* Beside a count of favourites, the size of the whole shelf the link opens. */
+.ef-index i { display:inline-block; margin-left:12px; padding-left:12px; border-left:1px solid var(--ef-rule); font-style:normal; font-weight:400; font-size:13px; color:var(--ef-ink-2); }
 @media(hover:hover) and (pointer:fine) { .ef-index a:hover b { background:var(--ef-signal); color:var(--ef-on-signal); } }
 .ef-index a:focus-visible b { background:var(--ef-signal); color:var(--ef-on-signal); }
 
@@ -270,7 +273,7 @@ html:not([data-motion-paused="true"]) [data-ef-enter] .ef-frame { animation-dela
   .ef-header-inner { grid-template-columns:minmax(0,1fr) auto; gap:8px 12px; padding-bottom:0; }
   .ef-nav { grid-column:1/-1; grid-row:2; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:0; margin:0 calc(-1 * clamp(16px,3vw,40px)); border-top:1px solid var(--ef-rule); }
   .ef-nav a { min-height:46px; align-items:center; padding:8px calc(4px + var(--ef-cut)) 8px 4px; font-size:12px; }
-  .ef-content { padding-top:128px; } .ef-home-main { padding-top:112px; }
+  .ef-content { padding-top:125px; } .ef-home-main { padding-top:109px; }
   .ef-hero { grid-template-columns:1fr; }
   .ef-index { grid-template-columns:1fr; } .ef-index a+a { padding-left:0; border-left:0; border-top-color:var(--ef-rule); }
   .ef-records a { grid-template-columns:auto minmax(0,1fr); gap:6px 14px; }

@@ -53,7 +53,6 @@ const navItems = site.nav.map((item, index) => ({
   <body data-blank data-endfield data-endfield-home={home ? "" : undefined}>
     <a class="blank-skip-link" href="#endfield-main">{t("a11y.skip")}</a>
     <header class="ef-header" data-site-header transition:name="site-header" transition:animate="none">
-      <div class="ef-tri" aria-hidden="true"><i></i><i></i><i></i></div>
       <div class="ef-header-inner">
         <a class="ef-wordmark" href={href("/")} aria-label={`${brand} ${t("a11y.home")}`}><strong>{brandName}</strong><span class="ef-wordmark-tag" aria-hidden="true">{brandTail.join(" ")}</span><small>EF / 03</small></a>
         <nav class="ef-nav" aria-label={t("a11y.navigation")}>

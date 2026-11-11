@@ -66,6 +66,7 @@ const panels = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"]
         <div class="hero-copy" data-hero-copy>
           <p class="eyebrow"><span>{t("theme.ema")}</span>{t("ema.hero.subtitle")}</p>
           <h1 class="hero-title"><span class="title-line">{lettering(brandHead).map(({ part, kind }) => kind === "dot" ? <i>{part}</i> : kind === "apos" ? <span class="apos">{part}</span> : part)}</span> <span class="title-line title-line-2">{brandTail.join(" ")}</span></h1>
+          <p class="hero-owner"><strong>{profileIdentity.displayName}</strong><i aria-hidden="true">/</i><span>{profileIdentity.alias}</span></p>
           <p class="hero-diary">{t("ema.hero.diary")}</p>
           <p class="terminal-line" aria-hidden="true"><span class="terminal-prompt">ema@archive:~$</span><code data-typed data-commands={JSON.stringify(commands)}>{commands[0]}</code><span class="caret"></span></p>
           <p class="sr-only">{t("ema.command.accessible")}</p>

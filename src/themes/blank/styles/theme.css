@@ -5,7 +5,7 @@ html[data-theme="blank"] {
   --blank-muted: #666;
   --blank-line: #dedede;
   --blank-soft: #f5f5f5;
-  --blank-header-bg: rgba(255, 255, 255, .97);
+  --blank-header-bg: #fff;
   --blank-control-line: #999;
   --blank-anchor-muted: #777;
   --blank-quote: #555;
@@ -18,7 +18,7 @@ html[data-theme="blank"] {
   --blank-footer-bg: #000;
   --blank-footer-ink: #fff;
   --blank-footer-line: #333;
-  --blank-footer-muted: #aaa;
+  --blank-footer-muted: #d9d9d9;
   --blank-width: 1280px;
   --blank-sans: Arial, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
   --blank-serif: "Iowan Old Style", "Palatino Linotype", "Songti SC", SimSun, serif;
@@ -43,7 +43,7 @@ html[data-theme="blank"][data-color-mode="dark"] {
   --blank-muted: #aaaaaa;
   --blank-line: #383838;
   --blank-soft: #222222;
-  --blank-header-bg: rgba(20, 20, 20, .97);
+  --blank-header-bg: #141414;
   --blank-control-line: #777777;
   --blank-anchor-muted: #aaaaaa;
   --blank-quote: #bbbbbb;
@@ -56,7 +56,7 @@ html[data-theme="blank"][data-color-mode="dark"] {
   --blank-footer-bg: #0a0a0a;
   --blank-footer-ink: #eeeeee;
   --blank-footer-line: #333333;
-  --blank-footer-muted: #aaaaaa;
+  --blank-footer-muted: #d4d4d4;
 }
 
 body[data-blank] {
@@ -77,6 +77,10 @@ body[data-blank] :where(button, summary, select) { cursor: pointer; }
 body[data-blank] a { color: inherit; text-decoration: none; text-underline-offset: .25em; text-decoration-thickness: 1px; }
 body[data-blank] :where(ul, ol) { padding: 0; margin: 0; list-style: none; }
 body[data-blank] :where(h1, h2, h3, p, li, dd, a, span) { overflow-wrap: anywhere; }
+/* Paragraphs avoid a stranded last word and short headings balance their lines, where the browser can.
+   The longhand leaves text-wrap-mode alone, so single-line labels stay on one line. */
+body[data-blank] :where(p, li, dd, figcaption) { text-wrap-style: pretty; }
+body[data-blank] :where(h1, h2, h3) { text-wrap-style: balance; }
 body[data-blank] svg { flex-shrink: 0; vertical-align: middle; }
 body[data-blank] :where(a, button, input, select, summary, [tabindex]):focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
 body[data-blank] [hidden] { display: none !important; }
@@ -93,6 +97,7 @@ body[data-blank] :where(img, video, iframe, canvas) { max-width: 100%; }
 button.blank-text-link { border: 0; padding: 0; background: transparent; }
 .blank-text-link svg { transition: transform 160ms var(--blank-ease); }
 .blank-button { display: inline-flex; justify-content: center; align-items: center; gap: 12px; min-height: 48px; padding: 10px 22px; border: 1px solid var(--blank-ink); background: var(--blank-ink); color: var(--blank-paper) !important; font-size: .8125rem; font-weight: 600; }
+.blank-button--outline { background: transparent; color: var(--blank-ink) !important; }
 .blank-icon-button { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; padding: 0; border: 0; background: transparent; color: inherit; }
 .blank-tooltip { position: absolute; top: calc(100% + 9px); right: 0; padding: 5px 9px; width: max-content; max-width: 160px; color: var(--blank-paper); background: var(--blank-ink); font-size: .6875rem; pointer-events: none; opacity: 0; }
 .blank-icon-button:focus-visible .blank-tooltip { opacity: 1; }
@@ -143,15 +148,22 @@ html[data-color-mode="dark"] .blank-mode-sun { display: inline-flex; }
 .blank-home-owner h1 { font: 400 2.75rem/1.25 var(--blank-serif); }
 .blank-home-owner h1 span { margin-left: .2em; color: var(--blank-muted); font-size: .5em; }
 .blank-home-owner p { max-width: 36em; font: 400 1.125rem/1.85 var(--blank-serif); }
-.blank-home-links, .blank-home-project-links { display: grid; }
-.blank-home-links .blank-text-link, .blank-home-project-links .blank-text-link { justify-content: space-between; width: 100%; min-height: 44px; border-top: 1px solid var(--blank-line); font-size: .875rem; }
+.blank-home-links { display: grid; }
+.blank-home-links .blank-text-link { justify-content: space-between; width: 100%; min-height: 44px; border-top: 1px solid var(--blank-line); font-size: .875rem; }
 .blank-home-project { padding: 40px 0 56px; border-top: 1px solid var(--blank-ink); }
 .blank-home-project > img { display: block; width: 100%; height: auto; border: 1px solid var(--blank-line); }
+/* A screenshot comes as a light and a dark capture of the same page, so a dark page never carries a bright white
+   rectangle. The portraits are light crops with no dark counterpart; dark mode turns them down instead. */
+body[data-blank] img.blank-shot-dark, html[data-color-mode="dark"] body[data-blank] img.blank-shot-light { display: none; }
+html[data-color-mode="dark"] body[data-blank] img.blank-shot-dark { display: block; }
+html[data-color-mode="dark"] .blank-home-owner img { background: var(--blank-soft); filter: brightness(.82); }
+html[data-color-mode="dark"] .blank-home-sheet .is-portrait img { filter: brightness(.86); }
 .blank-home-project-copy { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
 .blank-home-project-copy .blank-project-status { color: var(--blank-ink); font-size: .8125rem; }
 .blank-home-project-copy h2 { margin: 12px 0 16px; font: 400 1.75rem/1.45 var(--blank-serif); }
 .blank-home-project-copy p { font-size: 1rem; line-height: 1.85; }
-.blank-home-project-links { width: 100%; margin-top: auto; padding-top: 20px; }
+/* The two ways into the project sit directly under its summary, as buttons. */
+.blank-home-project-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .blank-home-band { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 48px; padding-top: 40px; border-top: 1px solid var(--blank-line); }
 .blank-home-band h2 { font: 400 1.5rem/1.5 var(--blank-serif); }
 .blank-home-side { display: grid; align-content: start; gap: 40px; min-width: 0; }
@@ -161,7 +173,7 @@ html[data-color-mode="dark"] .blank-mode-sun { display: inline-flex; }
 .blank-home-signals > div { display: grid; grid-template-columns: 4.5em minmax(0, 1fr); gap: 12px; }
 .blank-home-signals > div + div { margin-top: 8px; }
 .blank-home-signals dt { color: var(--blank-muted); font-size: .8125rem; line-height: 1.9; }
-.blank-home-signals dd { font-size: .9375rem; line-height: 1.75; }
+.blank-home-signals dd { font-size: .9375rem; line-height: 1.75; text-wrap-style: balance; }
 .blank-home-posts a { display: grid; gap: 2px; min-height: 44px; padding: 10px 0; border-top: 1px solid var(--blank-line); font-size: .9375rem; line-height: 1.6; }
 .blank-home-posts :is(time, small) { color: var(--blank-muted); font-size: .8125rem; }
 .blank-home-favorites { min-width: 0; }
@@ -219,10 +231,11 @@ html[data-color-mode="dark"] .blank-search input::placeholder { color: var(--bla
 .blank-list-heading { display: flex; justify-content: space-between; gap: 20px; padding: 24px 0 4px; }
 .blank-empty-results { padding: 64px 0; text-align: center; border-bottom: 1px solid var(--blank-line); }
 .blank-empty-results > p { margin-bottom: 16px; font: 400 1.5rem/1.6 var(--blank-serif); }
-.blank-empty-message { padding: 44px 0; color: var(--blank-muted); }
+.blank-empty-message { padding: 56px 0; border-bottom: 1px solid var(--blank-line); color: var(--blank-muted); font: 400 1.5rem/1.6 var(--blank-serif); }
 
 .blank-project { border-bottom: 1px solid var(--blank-line); }
-.blank-project summary { list-style: none; display: grid; grid-template-columns: 72px minmax(0, 1fr) 130px 24px; gap: 24px; align-items: center; padding: 28px 0; }
+.blank-project summary { list-style: none; display: grid; grid-template-columns: 72px 176px minmax(0, 1fr) 130px 24px; gap: 24px; align-items: center; padding: 28px 0; }
+.blank-project-thumb { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border: 1px solid var(--blank-line); }
 .blank-project summary::-webkit-details-marker, .blank-toc summary::-webkit-details-marker { display: none; }
 .blank-project-name { min-width: 0; }
 .blank-project-name h2 { margin-top: 8px; font-size: 1.5rem; font-weight: 500; line-height: 1.5; }
@@ -230,7 +243,7 @@ html[data-color-mode="dark"] .blank-search input::placeholder { color: var(--bla
 .blank-project-status::before { content: ""; flex-shrink: 0; width: 4px; height: 4px; background: currentColor; }
 .blank-disclosure-icon { transition: transform 160ms var(--blank-ease); }
 details[open] > summary > .blank-disclosure-icon { transform: rotate(180deg); }
-.blank-project-body { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(140px, 1fr); gap: 56px; margin-left: 96px; padding: 0 48px 32px 0; }
+.blank-project-body { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(140px, 1fr); gap: 56px; margin-left: 296px; padding: 0 48px 32px 0; }
 .blank-project-body > p { color: var(--blank-muted); font-size: .875rem; line-height: 1.9; max-width: 62ch; }
 .blank-project-body ul { border-left: 1px solid var(--blank-line); padding-left: 24px; font-size: .75rem; }
 .blank-project-body li + li { margin-top: 6px; }
@@ -241,7 +254,11 @@ details[open] > summary > .blank-disclosure-icon { transform: rotate(180deg); }
 .blank-toolkit dd { color: var(--blank-muted); font-size: .75rem; }
 
 .blank-game-list { margin: 0; padding: 0; list-style: none; }
-.blank-game-row { display: grid; grid-template-columns: 64px minmax(0, 1fr) auto; gap: 6px 28px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--blank-line); }
+.blank-game-row { display: grid; grid-template-columns: 64px 176px minmax(0, 1fr) auto; gap: 6px 28px; align-items: center; padding: 20px 0; border-bottom: 1px solid var(--blank-line); }
+/* Each cover is cropped to one shape around the focus point set in games.ts. */
+.blank-game-art { display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--blank-soft); }
+/* Two classes, so the themes' own "img { height: auto }" cannot shrink the cover inside its frame. */
+.blank-game-row .blank-game-art img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .blank-game-row h2 { margin: 0; font: 400 1.5rem/1.35 var(--blank-serif); }
 .blank-game-row p { margin: 6px 0 0; color: var(--blank-muted); font-size: .8125rem; line-height: 1.7; }
 .blank-game-row .blank-game-note { color: var(--blank-ink); }
@@ -406,8 +423,8 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
 .blank-footer-brand > span { font-family: var(--blank-serif); font-weight: 400; }
 .blank-footer-links { display: flex; flex-wrap: wrap; gap: 20px 32px; }
 .blank-footer-links a, .blank-back-top { display: inline-flex; align-items: center; gap: 9px; min-height: 36px; font-size: .75rem; }
-.blank-footer-bottom { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding-top: 20px; border-top: 1px solid var(--blank-footer-line); color: var(--blank-footer-muted); font-size: .625rem; }
-.blank-back-top { font-size: .625rem; }
+.blank-footer-bottom { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding-top: 20px; border-top: 1px solid var(--blank-footer-line); color: var(--blank-footer-muted); font-size: .6875rem; }
+.blank-back-top { font-size: .6875rem; }
 .blank-footer ::selection { background: var(--blank-panel-ink); color: var(--blank-panel-bg); }
 .blank-noscript-themes { display: flex; flex-wrap: wrap; gap: 20px; padding-top: 20px; font-size: .75rem; }
 .blank-context-menu { position: fixed; z-index: 2000; width: min(252px, calc(100vw - 16px)); max-height: calc(100dvh - 16px); overflow-y: auto; padding: 10px; border: 1px solid var(--blank-ink); background: var(--blank-paper); color: var(--blank-ink); }
@@ -428,6 +445,7 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-post-row:hover h2 { text-decoration: underline; text-underline-offset: .2em; text-decoration-thickness: 1px; }
   :is(.blank-home-sheet a:hover strong, .blank-home-posts a:hover span) { text-decoration: underline; text-underline-offset: .2em; text-decoration-thickness: 1px; }
   .blank-button:hover { background: var(--blank-paper); color: var(--blank-ink) !important; }
+  .blank-button--outline:hover { background: var(--blank-ink); color: var(--blank-paper) !important; }
   .blank-context-menu :where(button, a):not([aria-pressed="true"]):hover { background: var(--blank-inline-code); }
   .blank-project summary:hover .blank-project-name h2 { text-decoration: underline; text-underline-offset: .25em; }
   .blank-toc a:hover { color: var(--blank-ink); }
@@ -445,8 +463,9 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-page-heading h1 { font-size: 5.5rem; }
   .blank-profile, .blank-about-section { gap: 40px; }
   .blank-article-shell { grid-template-columns: 180px minmax(0, 1fr); gap: 36px; }
-  .blank-project summary { grid-template-columns: 44px minmax(0, 1fr) 100px 24px; gap: 20px; }
-  .blank-project-body { margin-left: 64px; padding-right: 24px; gap: 32px; }
+  .blank-project summary { grid-template-columns: 44px 144px minmax(0, 1fr) 100px 24px; gap: 20px; }
+  .blank-project-body { margin-left: 228px; padding-right: 24px; gap: 32px; }
+  .blank-game-row { grid-template-columns: 44px 144px minmax(0, 1fr) auto; gap: 6px 20px; }
   .blank-footer { padding-inline: 32px; }
 }
 
@@ -505,15 +524,20 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-filters button { font-size: .75rem; }
   .blank-project summary { grid-template-columns: 28px minmax(0, 1fr) 22px; gap: 12px; padding: 24px 0; }
   .blank-project-name h2 { font-size: 1.1875rem; }
-  .blank-project-status { grid-column: 2; grid-row: 2; }
-  .blank-project summary > .blank-disclosure-icon { grid-row: 1; grid-column: 3; }
+  /* The thumbnail leads the card; number, name and arrow follow on the next row. */
+  .blank-project-thumb { grid-column: 1 / -1; grid-row: 1; }
+  .blank-project summary > .blank-row-number { grid-column: 1; grid-row: 2; }
+  .blank-project-name { grid-column: 2; grid-row: 2; }
+  .blank-project-status { grid-column: 2; grid-row: 3; }
+  .blank-project summary > .blank-disclosure-icon { grid-row: 2; grid-column: 3; }
   .blank-project-body { grid-template-columns: 1fr; margin-left: 40px; padding-right: 0; gap: 20px; }
   .blank-project-body > p { font-size: .8125rem; }
   .blank-toolkit { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-top: 24px; }
   .blank-toolkit > div, .blank-toolkit > div + div { padding: 0 0 20px; border-left: 0; border-bottom: 1px solid var(--blank-line); }
-  .blank-game-row { grid-template-columns: 40px minmax(0, 1fr); padding: 20px 0; }
+  .blank-game-row { grid-template-columns: 28px 120px minmax(0, 1fr); gap: 4px 14px; align-items: start; padding: 20px 0; }
+  .blank-game-row > .blank-row-number { padding-top: 4px; }
   .blank-game-row h2 { font-size: 1.25rem; }
-  .blank-game-row > .blank-text-link { grid-column: 2; }
+  .blank-game-row > .blank-text-link { grid-column: 3; }
   .blank-endnote { flex-direction: column; gap: 12px; padding-top: 28px; }
   .blank-profile { padding: 36px 0; }
   .blank-profile-name h2 { margin-block: 16px; font-size: 2.5rem; }
@@ -558,6 +582,10 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-sort { margin-left: auto; }
   .blank-post-row { grid-template-columns: minmax(0, 1fr) 20px; gap: 12px; }
   .blank-post-row > .blank-row-number { display: none; }
+  .blank-game-row { grid-template-columns: 104px minmax(0, 1fr); }
+  .blank-game-row > .blank-row-number { display: none; }
+  .blank-game-row > .blank-text-link { grid-column: 2; }
+  .blank-empty-message { font-size: 1.25rem; }
   .blank-tag-line { margin-top: 12px; }
   .blank-page-count strong { font-size: 1.75rem; }
   .blank-page-count > span { font-size: .5625rem; }
@@ -638,6 +666,10 @@ html[data-yuimi-visibility="hidden"] body[data-blank] *::after { animation-play-
   .blank-prose pre, body[data-blank] .expressive-code pre { background: #fff !important; color: #000 !important; border: 1px solid #ccc; }
   body[data-blank] .expressive-code :where(.ec-line span[style]) { color: #000 !important; }
   .blank-header, .blank-footer, .blank-toc, .blank-context-menu, .blank-article-topline, .blank-article-end, .blank-skip-link { display: none !important; }
+  /* Paper is light whatever the screen was: print the light capture and the portraits at full brightness. */
+  body[data-blank] img.blank-shot-light { display: block !important; }
+  body[data-blank] img.blank-shot-dark { display: none !important; }
+  .blank-home-owner img, .blank-home-sheet .is-portrait img { filter: none !important; }
   .blank-main { width: 100%; max-width: none; padding: 0; }
   .blank-article-shell { display: block; padding-top: 24px; }
   .blank-article-header h1 { font-size: 24pt; }

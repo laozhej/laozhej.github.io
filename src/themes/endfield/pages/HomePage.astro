@@ -3,8 +3,9 @@ import { getSiteContent } from "@/core/i18n/content";
 import { getPublishedPosts } from "@/core/content/blog";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import PageLayout from "@/core/themes/PageLayout.astro";
+import { keepTails } from "@/core/i18n/wrap.mjs";
 const { locale, t, unit, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
-const { profileTech, currentSignals, projectEntries, favoriteGames } = getSiteContent(locale);
+const { profileTech, currentSignals, projectEntries, favoriteGames, gameShelf } = getSiteContent(locale);
 const posts = await getPublishedPosts(locale);
 const [latest, ...older] = posts;
 // Entries are numbered oldest first, so a number never changes once given.
@@ -31,7 +32,7 @@ const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? pos
     </div>
     <div class="ef-hero-copy">
       <p class="ef-statement"><span class="ef-marker">{t("home.statement1")}</span><br />{t("home.statement2")}</p>
-      <p class="ef-intro">{join(t("home.intro1"), t("home.intro2"))}</p>
+      <p class="ef-intro">{keepTails(join(t("home.intro1"), t("home.intro2")))}</p>
       <p class="ef-hero-actions">
         {latest && <a class="ef-button ef-button--main" href={href(`/blog/${latest.slug}/`)}>{t("home.latestLink")}</a>}
         <a class="ef-button ef-button--quiet" href={href("/about/")}>{t("common.about")}</a>
@@ -54,7 +55,7 @@ const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? pos
   <nav class="ef-index" aria-label={t("endfield.index")}>
     <a href={href("/blog/")}><small>{t("home.writingIndex")}</small><span><b>{count(posts.length)}</b> {unit("common.entries", posts.length)}</span></a>
     <a href={href("/projects/")}><small>{t("home.practiceIndex")}</small><span><b>{count(projectEntries.length)}</b> {unit("common.projects", projectEntries.length)}</span></a>
-    <a href={href("/games/")}><small>{t("home.playIndex")}</small><span><b>{count(favoriteGames.length)}</b> {unit("endfield.games", favoriteGames.length)}</span></a>
+    <a href={href("/games/")}><small>{t("home.playIndex")}</small><span><b>{count(favoriteGames.length)}</b> {unit("endfield.games", favoriteGames.length)}<i>{t("ema.about.gamesAll").replace("{n}", String(gameShelf.length))}</i></span></a>
   </nav>
 
   <section class="ef-section" aria-labelledby="ef-records-title">
@@ -77,7 +78,7 @@ const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? pos
 
   <section class="ef-section ef-now" aria-labelledby="ef-now-title">
     <p class="ef-eyebrow" id="ef-now-title">// 03 {t("home.currently")}</p>
-    <p class="ef-now-text">{currentSignals[0].text}</p>
+    <p class="ef-now-text">{keepTails(currentSignals[0].text)}</p>
     <a class="ef-link" href={href("/about/")}>{t("common.moreNow")}</a>
   </section>
 </PageLayout>

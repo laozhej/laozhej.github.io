@@ -6,6 +6,7 @@ import { Icon } from "astro-icon/components";
 import { getSiteContent } from "@/core/i18n/content";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import { socialLinks } from "@/core/data/social";
+import { keepTails } from "@/core/i18n/wrap.mjs";
 import { site } from "@/lib/site";
 import PageLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "@/themes/blank/components/PageHead.astro";
@@ -46,7 +47,7 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
         <p class="shelf-kicker">{t("ema.about.kicker")}</p>
         <h2>{profileIdentity.displayName}<span aria-hidden="true">.</span></h2>
         <p class="about-handle">{t("ema.brand")}</p>
-        <p class="about-bio">{profileIdentity.bio}</p>
+        <p class="about-bio">{keepTails(profileIdentity.bio)}</p>
         <ul class="about-links">
           {socialLinks.map((social) => <li><a href={social.href} target="_blank" rel="me noopener noreferrer" aria-label={t(`social.${social.key}`)}><Icon name={socialIcons[social.key] ?? "tabler:link"} size={17} aria-hidden="true" />{social.label}</a></li>)}
         </ul>
@@ -91,7 +92,7 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
                 ? <span class="shelf-cover about-cover about-icon" aria-hidden="true"><img src={item.icon} alt="" width="86" height="86" loading="lazy" decoding="async" /></span>
                 : <span class="shelf-cover about-cover" aria-hidden="true"><b>{number(index)}</b></span>}
               <div>
-                <h3>{item.url ? <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}<Icon name="tabler:external-link" size={14} aria-hidden="true" /></a> : item.title}</h3>
+                <h3>{item.url ? <a href={item.url} target="_blank" rel="noopener noreferrer">{keepTails(item.title)}<Icon name="tabler:external-link" size={14} aria-hidden="true" /></a> : keepTails(item.title)}</h3>
                 <p>{item.subtitle}</p>
               </div>
             </li>
@@ -134,7 +135,7 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
       <section class="about-section" aria-labelledby="ema-about-now">
         <div class="shelf-heading"><span class={`shelf-chip ${tone(2)}`}><Icon name="tabler:flower" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">{t("ema.about.nowKicker")}</p><h2 id="ema-about-now">{t("about.now")}</h2></div></div>
         <ul class="about-now">
-          {currentSignals.map((item, index) => <li class={`shelf-card ${tone(index)}`}><span>{item.label}</span><p>{item.text}</p></li>)}
+          {currentSignals.map((item, index) => <li class={`shelf-card ${tone(index)}`}><span>{item.label}</span><p>{keepTails(item.text)}</p></li>)}
         </ul>
       </section>
     </div>

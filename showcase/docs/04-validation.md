@@ -30,7 +30,7 @@
 | 语言与主题路径、偏好、404 映射 | [`i18n`](../../tests/i18n.test.mjs)、[`themes`](../../tests/themes.test.mjs)、[`preferences`](../../tests/preferences.test.mjs) |
 | 导航清理、换页、构建缓存与主题登记 | [`navigation`](../../tests/navigation.test.mjs)、[`navigation-cache`](../../tests/navigation-cache.test.mjs)、[`theme-runtime`](../../tests/theme-runtime.test.mjs) |
 | 搜索筛选、收藏、便笺与宽屏转换 | [`features`](../../tests/features.test.mjs)、[`games`](../../tests/games.test.mjs)、[`notes`](../../tests/notes.test.mjs)、[`fluid-px`](../../tests/fluid-px.test.mjs) |
-| 艾玛动效、场景、图片帧和电台 | [`ema-motion`](../../tests/ema-motion.test.mjs)、[`ema-scenes`](../../tests/ema-scenes.test.mjs)、[`ema-frames`](../../tests/ema-frames.test.mjs) |
+| 艾玛动效、场景、图片帧和电台 | [`ema-motion`](../../tests/ema-motion.test.mjs)、[`ema-scenes`](https://github.com/laozhej/laozhej.github.io/blob/de9b413e6944d27f3c105c53f85ddf9a160d7deb/tests/ema-scenes.test.mjs)（快照版本；该测试与它覆盖的场景切换脚本已于 2026-11-13 一并移除）、[`ema-frames`](../../tests/ema-frames.test.mjs) |
 
 部分测试使用受控 DOM、窗口或音频替身，适合检查状态与清理逻辑。它们不能替代真实浏览器渲染、实际声音质量或视觉审阅。
 

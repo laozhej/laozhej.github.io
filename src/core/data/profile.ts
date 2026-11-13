@@ -4,7 +4,6 @@ import { getFavoriteCharacters } from "./characters.ts";
 export const profileIdentity = {
   displayName: "荒泷旭",
   alias: "Nero",
-  avatar: "/themes/ema/assets/yuki.webp",
   handle: "PROFILE / 个人档案",
   siteName: "Blank Space",
   bio: "我是荒泷旭，也可以叫我 Nero。喜欢收集动漫与游戏周边，关注 AI 和电脑技术；平时学习编程，钻研动画、建模与不同的游戏引擎。",
@@ -36,9 +35,11 @@ export const favoriteGames = [
   { key: "manosaba", title: "魔法少女的魔女审判", subtitle: "视觉小说 / 角色与视觉灵感" }
 ] as const;
 
+// `portrait: null`: no cleared portrait, so each theme's About page draws an empty frame instead
+// (the earlier crops were removed on 2026-11-13; see docs/ART-DIRECTION.md).
 export const xpFavorites = [
-  { key: "emma", title: "樱羽艾玛", subtitle: "角色风格参考", portrait: "/themes/ema/assets/ema-avatar.webp" },
-  { key: "yuki", title: "月代雪", subtitle: "现在的头像角色", portrait: "/themes/ema/assets/yuki.webp" },
+  { key: "emma", title: "樱羽艾玛", subtitle: "角色风格参考", portrait: null },
+  { key: "yuki", title: "月代雪", subtitle: "以前的头像角色", portrait: null },
   ...getFavoriteCharacters("zh-CN"),
 ] as const;
 

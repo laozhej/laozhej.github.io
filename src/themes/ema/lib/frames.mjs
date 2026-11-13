@@ -64,7 +64,15 @@ export function mountEmaFrames(root, window, { canAnimate, onChange = () => {} }
     }
   }
   const forward = (event) => show(requested + 1, event.detail === 0);
-  listen(hit, 'click', forward);
+  // A press on Ema that turns into a drag is not a request for the next pose. (Touch panning never
+  // produces a click; this covers a mouse or pen dragged across her.) Keyboard clicks have detail 0.
+  let downX = 0, downY = 0, dragged = false;
+  listen(hit, 'pointerdown', (event) => { downX = event.clientX; downY = event.clientY; dragged = false; });
+  listen(hit, 'pointermove', (event) => { if (event.buttons && Math.hypot(event.clientX - downX, event.clientY - downY) > 10) dragged = true; });
+  listen(hit, 'click', (event) => {
+    if (dragged && event.detail !== 0) { dragged = false; return; }
+    forward(event);
+  });
   listen(next, 'click', forward);
   listen(prev, 'click', (event) => show(requested - 1, event.detail === 0));
   const keys = (event) => {

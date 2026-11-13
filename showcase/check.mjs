@@ -15,6 +15,7 @@ const caseLabels = {
   ja: "制作事例を読む（中国語簡体字）",
   en: "Read the case study (Simplified Chinese)",
 };
+const emaAssets = JSON.parse(await readFile(path.join(root, "public/themes/ema/ASSETS.json"), "utf8")).assets;
 const route = (locale, theme, section) => {
   if (locale === "zh-CN" && theme === "blank" && section === "404") return "/404.html";
   return "/" + [locale === "zh-CN" ? "" : locale, theme === "blank" ? "" : `themes/${theme}`, section].filter(Boolean).join("/") + (locale === "zh-CN" && theme === "blank" && !section ? "" : "/");
@@ -38,6 +39,18 @@ for (const locale of locales) {
         assert(html.includes(`href="${showcaseUrl}"`), `${url}: missing case-study link`);
         assert(html.includes(caseLabels[locale]), `${url}: missing localized label`);
         projects++;
+      }
+      if (theme === "ema" && section === "") {
+        const frames = html.match(/<img\b[^>]*\bdata-ema-frame\b[^>]*>/g) ?? [];
+        assert.equal(frames.length, 5, `${url}: five image poses`);
+        assert(!html.includes('class="k-slate"') && !html.includes('class="ef"'), `${url}: no wireframe or placeholder slate`);
+        for (const [index, frame] of frames.entries()) {
+          const asset = emaAssets[index];
+          const src = `/themes/ema/${asset.file}`;
+          assert(frame.includes(`data-src="${src}"`), `${url}: pose ${index + 1} source`);
+          assert.equal(/\ssrc="/.test(frame), index === 0, `${url}: only the first pose loads initially`);
+          assert(frame.includes(`width="${asset.dimensions[0]}"`) && frame.includes(`height="${asset.dimensions[1]}"`), `${url}: original dimensions`);
+        }
       }
       pages++;
     }

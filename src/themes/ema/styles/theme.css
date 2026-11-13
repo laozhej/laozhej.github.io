@@ -41,24 +41,45 @@ html[data-theme="ema"][data-color-mode="dark"] {
 body[data-ema] { font-size:14px; overflow-x:clip; }
 body[data-ema] img { height:auto; }
 body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var(--ema-pink); }
-.ema-header { position:fixed;top:0;left:0;z-index:50;width:100%;min-height:86px;padding:14px 3%;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:20px;background:var(--blank-header-bg);border-bottom:1px solid transparent; }
+/* Header, after the reference: a band with the brand on the left, a centred glass pill whose items pair an
+   icon and a label with a small Latin hint, and this site's controls (language, colour mode, motion, palette) on
+   the right. On the homepage the band is transparent over the stage; narrow windows fold the controls into one button. */
+.ema-header { position:fixed;top:0;left:0;z-index:50;width:100%;min-height:68px;padding:7px max(28px,calc((100% - 1240px) / 2));display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:16px;background:var(--blank-header-bg);border-bottom:1px solid transparent; }
 .ema-header.is-scrolled {border-bottom-color:var(--blank-line);}
-.ema-wordmark {display:flex;align-items:baseline;gap:12px;white-space:nowrap;justify-self:start;}
-.ema-wordmark strong {font:400 18px/1.15 var(--ema-title-font);letter-spacing:0;color:var(--blank-ink);}
+.ema-wordmark {display:flex;align-items:center;gap:9px;min-width:0;white-space:nowrap;justify-self:start;}
+.ema-mark {display:grid;place-items:center;flex:none;width:34px;height:34px;}
+.ema-mark svg {display:block;overflow:visible;}
+.ema-mark path {fill:#f8c3d5;stroke:#e48fb0;stroke-width:.9;stroke-linejoin:round;}
+.ema-mark circle {fill:#fff3c9;stroke:#eab35c;stroke-width:.7;}
+.ema-wordmark strong {font:400 19px/1.15 var(--ema-title-font);letter-spacing:0;color:var(--blank-ink);}
 .ema-wordmark strong i {font-style:normal;color:var(--ema-pink);}
 .ema-footer-brand span {color:var(--ema-pink);}
 .ema-wordmark small {font:9px var(--blank-mono);color:var(--blank-muted);}
-.ema-nav {display:flex;justify-content:center;align-items:center;gap:4px;border:1px solid var(--blank-line);padding:5px;background:var(--blank-paper);border-radius:32px;box-shadow:0 4px 16px rgba(70,54,48,.03);}
-.ema-nav a {padding:8px 17px;border-radius:24px;font-size:13px;white-space:nowrap;letter-spacing:.06em;}
-.ema-nav a[aria-current="page"] {background:var(--ema-blush);color:var(--ema-pink);}
-.ema-header-actions {display:flex;align-items:center;gap:7px;justify-self:end;}
-.ema-icon-button,.ema-motion-toggle {display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:40px;min-height:40px;padding:7px 10px;border:1px solid var(--blank-line);border-radius:20px;background:var(--blank-paper);font-size:11px;}
-.ema-motion-toggle {position:relative;width:40px;height:40px;padding:0;flex-shrink:0;}
+.ema-nav {display:flex;justify-content:center;align-items:center;gap:6px;padding:5px;border-radius:999px;}
+.ema-nav a {display:grid;grid-template-columns:auto auto;column-gap:7px;row-gap:1px;align-items:center;min-height:46px;padding:7px 13px;border-radius:999px;color:var(--blank-muted);white-space:nowrap;letter-spacing:.04em;}
+.ema-nav-icon {grid-row:1 / span 2;display:grid;place-items:center;width:22px;height:26px;}
+.ema-nav-label {font:600 13px/1 var(--blank-serif);}
+.ema-nav-hint {font:600 10px/1 var(--blank-sans);letter-spacing:.02em;opacity:.78;text-transform:lowercase;}
+.ema-nav a[aria-current="page"] {color:var(--ema-pink);background:color-mix(in srgb,var(--ema-blush) 80%,transparent);box-shadow:inset 0 -2px 0 var(--ema-pink-soft);}
+.ema-nav a:nth-child(even)[aria-current="page"] {color:var(--ema-lav);background:color-mix(in srgb,var(--ema-lav-wash) 82%,transparent);box-shadow:inset 0 -2px 0 var(--ema-lav-soft);}
+.ema-header-actions {position:relative;display:flex;align-items:center;gap:6px;justify-self:end;}
+.ema-controls {display:flex;align-items:center;gap:6px;}
+.ema-icon-button,.ema-motion-toggle,.ema-settings-toggle {display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:40px;min-height:40px;padding:7px 10px;border:1px solid var(--ema-glass-line);border-radius:999px;background:var(--ema-glass);color:var(--blank-ink);font-size:11px;-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);cursor:pointer;}
+/* The motion switch shows its pause/play icon with a short visible label (contained in its spoken name),
+   so it reads as a control rather than an ornament; paused, it fills in. The action shows on hover and focus. */
+.ema-motion-toggle {position:relative;width:auto;height:40px;padding:0 13px 0 11px;gap:6px;flex-shrink:0;border-color:color-mix(in srgb,var(--ema-pink) 42%,var(--ema-glass-line));background:var(--ema-card);color:var(--ema-pink);}
+.ema-motion-label {font-size:12px;font-weight:600;line-height:1;white-space:nowrap;}
+.ema-motion-toggle[aria-pressed="true"] {background:var(--ema-blush);border-color:var(--ema-pink);}
+.ema-header .ema-settings-toggle {display:none;}
 .ema-motion-toggle::after {content:attr(aria-label);position:absolute;top:calc(100% + 9px);right:0;width:max-content;max-width:min(240px,calc(100vw - 32px));padding:6px 10px;border-radius:6px;background:var(--blank-ink);color:var(--blank-paper);font-size:12px;line-height:1.6;white-space:normal;pointer-events:none;visibility:hidden;}
 .ema-motion-toggle:focus-visible::after {visibility:visible;}
 .ema-motion-toggle[aria-disabled="true"] {cursor:default;color:var(--blank-muted);}
-.ema-header .site-language-menu>summary {border-radius:20px;background:var(--blank-paper);}
+.ema-header .site-language-menu>summary {min-height:40px;border:1px solid var(--ema-glass-line);border-radius:999px;background:var(--ema-glass);-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);}
 .ema-header .site-language-options {background:var(--ema-card);border-radius:14px;box-shadow:0 8px 32px rgba(60,44,36,.1);}
+html[data-theme="ema"] {--ema-glass:color-mix(in srgb,var(--ema-card) 70%,transparent);--ema-glass-line:color-mix(in srgb,var(--ema-line-strong) 62%,#fff);}
+html[data-theme="ema"][data-color-mode="dark"] {--ema-glass:color-mix(in srgb,var(--ema-card) 64%,transparent);--ema-glass-line:rgba(255,255,255,.1);}
+body[data-ema-home] .ema-header,body[data-ema-home] .ema-header.is-scrolled {background:transparent;border-bottom-color:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;}
+body[data-ema-home] .ema-wordmark {text-shadow:0 1px 8px var(--blank-paper),0 0 16px var(--blank-paper);}
 .ema-home-main {min-height:100svh;}
 .ema-content {padding-top:150px;}
 .ema-content .blank-page-head {border-color:var(--blank-line);}
@@ -73,29 +94,38 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
 .ema-social-links {display:flex;justify-content:center;gap:22px;font-size:12px;margin-bottom:22px;}
 .ema-footer-bottom {display:flex;justify-content:center;flex-wrap:wrap;gap:12px 24px;font-size:11px;}
 @media(hover:hover) and (pointer:fine) { .ema-nav a:hover {background:var(--ema-blush);} .ema-footer a:hover {color:var(--ema-pink);} .ema-motion-toggle:hover::after {visibility:visible;} }
-@media(max-width:1199px) {
+@media(max-width:1180px) {
   .ema-wordmark small {display:none;}
-  .ema-nav a {padding:8px 12px;}
+  .ema-nav-hint {display:none;}
+  .ema-nav-icon {grid-row:auto;}
+  .ema-nav a {padding:7px 12px;}
 }
+@media(max-width:1100px) { .ema-wordmark strong {display:none;} }
 @media(max-width:999px) {
-  html[data-theme="ema"] {scroll-padding-top:145px;}
-  .ema-header {grid-template-columns:minmax(0,1fr) auto;min-height:127px;padding:13px 22px 12px;gap:12px;}
-  .ema-nav {grid-column:1 / -1;grid-row:2;justify-self:center;width:100%;max-width:470px;justify-content:space-around;}
-  .ema-nav a {flex:1;text-align:center;padding:8px 7px;}
-  .ema-header-actions {grid-column:2;grid-row:1;gap:5px;}
-  .ema-content {padding-top:164px;}
+  html[data-theme="ema"] {scroll-padding-top:96px;}
+  .ema-content {padding-top:120px;}
+}
+@media(max-width:1100px) {
+  .ema-header[data-settings-ready] .ema-settings-toggle {display:inline-flex;width:40px;padding:0;}
+  .ema-header[data-settings-ready] .ema-controls {position:absolute;top:calc(100% + 10px);right:0;z-index:2;display:none;gap:8px;padding:10px;border:1px solid var(--blank-line);border-radius:18px;background:var(--ema-card);box-shadow:0 14px 40px rgba(60,44,36,.16);}
+  .ema-header[data-settings-ready] .ema-controls[data-open] {display:flex;}
+  .ema-header:not([data-settings-ready]) .ema-header-actions {grid-column:1 / -1;justify-self:center;}
+  .ema-settings-toggle[aria-expanded="true"] {border-color:var(--ema-pink);color:var(--ema-pink);}
+}
+@media(max-width:760px) {
+  .ema-header {min-height:66px;padding:8px 12px;gap:8px;}
+  .ema-wordmark {display:none;}
+  .ema-nav {grid-column:2;gap:2px;}
+  .ema-nav a {display:flex;flex-direction:column;justify-content:center;gap:3px;min-height:44px;padding:4px 10px;}
+  .ema-nav-icon {width:20px;height:21px;}
+  .ema-nav-label {font-size:10px;letter-spacing:.02em;}
 }
 @media(max-width:480px) {
-  .ema-header {padding:12px 16px;}
-  .ema-wordmark strong {font-size:14px;line-height:1.08;}
-  .ema-wordmark strong>span {display:block;}
-  .ema-wordmark strong>span:last-child {padding-left:.9em;}
+  .ema-nav a {padding:4px 7px;}
   .ema-header .site-language-menu>summary {gap:5px;padding:0 8px;}
-  .ema-header .site-language-menu>summary>svg {display:none;}
-  .ema-header :is(.ema-icon-button,.ema-motion-toggle) {min-width:36px;min-height:40px;padding:6px;}
   .ema-content {width:calc(100% - 40px);}
 }
-@media(max-width:359px) { .ema-wordmark strong {font-size:13px;} .ema-nav a {font-size:12px;} .ema-header .site-language-menu>summary>svg:last-child {display:none;} .ema-header-actions{gap:3px;} }
+@media(max-width:359px) { .ema-header {padding:8px 6px;} .ema-nav a {padding:4px 5px;} .ema-nav-label {font-size:9.5px;} }
 @media(prefers-reduced-motion:reduce) {html[data-theme="ema"] {scroll-behavior:auto;}}
 
 /* The same paper, ink and rose accents continue beyond the illustrated cover. */
@@ -108,15 +138,15 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
   pointer-events:none;
 }
 .ema-nav a {
-  position:relative;font-family:var(--blank-serif);
-  transition:color 180ms ease,background-color 180ms ease;
+  position:relative;
+  transition:color 180ms ease,background-color 180ms ease,box-shadow 180ms ease;
 }
 .ema-nav a::after {
   content:"";position:absolute;bottom:5px;left:calc(50% - 2px);width:4px;height:4px;
   border-radius:50%;background:currentColor;opacity:0;transform:translateY(3px);
   transition:opacity 160ms ease,transform 160ms var(--blank-ease);
 }
-.ema-nav a[aria-current="page"]::after {opacity:.65;transform:translateY(0);}
+.ema-nav a::after {display:none;}
 .ema-icon-button,.ema-motion-toggle,.ema-header summary {
   transition:background-color 180ms ease,border-color 180ms ease,transform 160ms var(--blank-ease);
 }
@@ -210,21 +240,12 @@ html[data-theme="ema"] {
   background-repeat:no-repeat,no-repeat,repeat,no-repeat;
 }
 html[data-theme="ema"] body[data-ema] {background:transparent;}
-.ema-backdrop {position:fixed;inset:0;z-index:-1;pointer-events:none;display:none;}
-.ema-backdrop::before,.ema-backdrop::after {
-  content:"";position:absolute;top:0;bottom:0;width:max(0px,calc((100vw - 1120px) / 2 + 60px));
-  background:url('/themes/ema/assets/manga-memory.webp') 0 0/100% auto repeat-y;filter:grayscale(1) contrast(1.05);opacity:.11;
-}
-.ema-backdrop::before {left:0;-webkit-mask-image:linear-gradient(90deg,#000 30%,transparent);mask-image:linear-gradient(90deg,#000 30%,transparent);}
-.ema-backdrop::after {right:0;background-position:0 38%;-webkit-mask-image:linear-gradient(270deg,#000 30%,transparent);mask-image:linear-gradient(270deg,#000 30%,transparent);}
-html[data-color-mode="dark"] .ema-backdrop::before,html[data-color-mode="dark"] .ema-backdrop::after {filter:grayscale(1) brightness(.5);opacity:.1;}
-@media(min-width:1240px) { body[data-ema]:not([data-ema-home]) .ema-backdrop {display:block;} }
 
 /* Frosted, but dense enough that titles and covers scrolling underneath do not read through. */
 .ema-header {background:color-mix(in srgb,var(--blank-header-bg) 94%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.15);backdrop-filter:blur(18px) saturate(1.15);}
 .ema-nav {
-  background:color-mix(in srgb,var(--blank-paper) 88%,transparent);border-color:color-mix(in srgb,var(--blank-line) 70%,#fff);
-  box-shadow:inset 0 1px 0 #ffffffb3,0 8px 24px rgba(96,74,60,.1);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
+  border:1px solid var(--ema-glass-line);background:var(--ema-glass);
+  box-shadow:inset 0 1px 0 #ffffffd9,inset 0 -1px 0 color-mix(in srgb,var(--ema-pink-soft) 45%,transparent),0 8px 24px rgba(120,72,96,.12);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
 }
 html[data-color-mode="dark"] .ema-nav {border-color:var(--blank-line);box-shadow:inset 0 1px 0 #ffffff14,0 8px 24px #0005;}
 

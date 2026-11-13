@@ -1,30 +1,12 @@
 {
   "assets": [
     {
-      "path": "/projects/personal-site-preview.jpg",
-      "kind": "actual website screenshot",
-      "source": "https://laozhej.github.io/themes/ema/",
-      "capturedFrom": "http://127.0.0.1:4322/themes/ema/",
-      "capturedDate": "2026-11-06",
-      "description": "Actual local release screenshot at 1440x960: the published Ema layout is preserved, with only the Frieren Live2D model removed. Captured using browser automation; not AI-generated.",
-      "artworkAttribution": "Underlying existing artwork retains the sources and credits in /themes/ema/ASSETS.json and THIRD_PARTY_ASSETS.md."
-    },
-    {
-      "path": "/projects/personal-site-preview-dark.jpg",
-      "kind": "actual website screenshot",
-      "source": "https://laozhej.github.io/themes/ema/",
-      "capturedFrom": "http://127.0.0.1:4391/themes/ema/",
-      "capturedDate": "2026-11-11",
-      "description": "Actual local build screenshot at 1440x960 in the site's dark colour mode: the dark counterpart of personal-site-preview.jpg, shown in its place on pages that are in dark mode. Captured using browser automation and encoded to JPEG without resizing, cropping or retouching; not AI-generated.",
-      "artworkAttribution": "Underlying existing artwork retains the sources and credits in /themes/ema/ASSETS.json and THIRD_PARTY_ASSETS.md."
-    },
-    {
       "path": "/projects/gallery/blank-desktop.png",
       "kind": "actual website screenshot",
       "source": "https://laozhej.github.io/",
       "capturedFrom": "showcase/gallery/blank-desktop.png (production build at de9b413, Chromium 156)",
       "capturedDate": "2026-10-31",
-      "description": "Byte-identical copy of the case study screenshot at 1440x960, light mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated.",
+      "description": "Byte-identical copy of the case study screenshot at 1440x960, light mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated. Since 2026-11-13 it is also the project's thumbnail on the Projects pages, in place of an earlier Ema homepage capture that showed uncleared artwork.",
       "sha256": "3cfaaa22bbaa8bb3d8237d83a7aaa3bbc2c93d517e0ee0f78bf51164c274b47b"
     },
     {
@@ -33,7 +15,7 @@
       "source": "https://laozhej.github.io/",
       "capturedFrom": "showcase/gallery/blank-dark.png (production build at de9b413, Chromium 156)",
       "capturedDate": "2026-10-31",
-      "description": "Byte-identical copy of the case study screenshot at 1440x960, dark mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated.",
+      "description": "Byte-identical copy of the case study screenshot at 1440x960, dark mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated. Since 2026-11-13 it is also the project's thumbnail on the Projects pages, in place of an earlier Ema homepage capture that showed uncleared artwork.",
       "sha256": "90cc373406518f44fcab0c15261a706720c1efd6d4070b02d8c73664ddbe011c"
     },
     {

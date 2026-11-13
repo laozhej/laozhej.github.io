@@ -179,6 +179,8 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 /* Title strip: the three-colour line sits under an article title. */
 .ef-content .blank-article-header h1::after { content:""; display:block; width:min(280px,50%); height:3px; margin-top:20px; background:linear-gradient(90deg,var(--ef-tri-a) 0 33.33%,var(--ef-signal) 0 66.67%,var(--ef-tri-c) 0); }
 .ef-content .blank-post-row h2 { font-weight:700; }
+/* A favourite character without a cleared portrait: the empty frame takes the theme's hatching. */
+.ef-content .blank-preferences .blank-portrait-empty { border-color:var(--ef-rule); background:var(--ef-hatch); }
 .ef-content :is(.blank-post-row,.blank-project summary)>.blank-row-number { justify-self:start; align-self:start; white-space:nowrap; padding:2px calc(8px + var(--ef-cut)) 2px 8px; background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-tag-bg) 0); color:var(--ef-tag-fg); font-weight:700; }
 .ef-content .blank-post-row { position:relative; transition:transform .2s var(--ef-snap); }
 .ef-content .blank-post-row::before { content:""; position:absolute; left:-10px; top:-1px; bottom:-1px; width:4px; background:var(--ef-trace); transform:scaleY(0); transform-origin:top; transition:transform .15s var(--ef-snap); }

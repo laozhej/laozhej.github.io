@@ -28,6 +28,9 @@ const title = pageTitle.replaceAll(site.name, brand);
 const [brandHead, ...brandTail] = brand.split(" ");
 const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale), Astro.site) : undefined;
 // Deterministic petal paths so every page and locale renders the same markup.
+// The reference's navigation pairs an icon and a label with a small Latin hint (decorative, hidden from screen readers).
+const navIcons: Record<string, string> = { home: "tabler:home", blog: "tabler:notebook", projects: "tabler:code", games: "tabler:device-gamepad-2", about: "tabler:user-heart" };
+const navHints: Record<string, string> = { home: "front page", blog: "notes", projects: "works", games: "playroom", about: "profile" };
 const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + index * 6.2).toFixed(1)}%;--petal-size:${9 + (index * 5) % 7}px;--petal-duration:${17 + (index * 7) % 13}s;--petal-delay:${-2 - (index * 11) % 29}s;--petal-drift:${[-72, 96, 40][index % 3]}px`);
 ---
 <!doctype html>
@@ -47,16 +50,18 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
     <SiteNavigation />
   </head>
   <body data-blank data-ema data-ema-home={home ? "" : undefined}>
-    <div class="ema-backdrop" aria-hidden="true"></div>
     <a class="blank-skip-link" href="#ema-main">{t("a11y.skip")}</a>
     <header class="ema-header" data-header data-site-header transition:name="site-header" transition:animate="none">
-      <a class="ema-wordmark" href={href("/")} aria-label={`${brand} ${t("a11y.home")}`}><strong><span>{brandHead.split(/(\.)/).map((part) => part === "." ? <i>.</i> : part)}</span> <span>{brandTail.join(" ")}</span></strong><small>EMA / 02</small></a>
-      <nav class="ema-nav" aria-label={t("a11y.navigation")}>{site.nav.map(item => <a href={href(item.href)} aria-current={(item.href === "/" ? path === "/" : path.startsWith(item.href)) ? "page" : undefined}>{t(`nav.${item.key}`)}</a>)}</nav>
+      <a class="ema-wordmark" href={href("/")} aria-label={`${brand} ${t("a11y.home")}`}><span class="ema-mark" aria-hidden="true"><svg viewBox="-12 -12 24 24" width="30" height="30"><g>{[0, 72, 144, 216, 288].map((turn) => <path d="M0 0 C-4.2 -3.6 -5 -8.6 -2 -10 L0 -8.6 L2 -10 C5 -8.6 4.2 -3.6 0 0 Z" transform={`rotate(${turn})`} />)}</g><circle r="1.6" /></svg></span><strong><span>{brandHead.split(/(\.)/).map((part) => part === "." ? <i>.</i> : part)}</span> <span>{brandTail.join(" ")}</span></strong><small>EMA / 02</small></a>
+      <nav class="ema-nav" aria-label={t("a11y.navigation")}>{site.nav.map(item => <a href={href(item.href)} aria-current={(item.href === "/" ? path === "/" : path.startsWith(item.href)) ? "page" : undefined}><span class="ema-nav-icon" aria-hidden="true"><Icon name={navIcons[item.key]} size={17} /></span><span class="ema-nav-label">{t(`nav.${item.key}`)}</span><span class="ema-nav-hint" aria-hidden="true">{navHints[item.key]}</span></a>)}</nav>
       <div class="ema-header-actions">
-        <LanguageSwitcher />
-        <button class="ema-icon-button" type="button" data-color-mode-toggle hidden aria-label={t("mode.label")} aria-pressed="false" title={t("mode.toDark")} data-label-dark={t("mode.toDark")} data-label-light={t("mode.toLight")}><span class="blank-mode-moon"><Icon name="tabler:moon" size={18} /></span><span class="blank-mode-sun"><Icon name="tabler:sun" size={18} /></span></button>
-        <button class="ema-motion-toggle" type="button" data-motion-toggle data-motion-pause={t("ema.motion.pause")} data-motion-resume={t("ema.motion.resume")} data-motion-reduced={t("ema.motion.reduced")} hidden aria-pressed="false" aria-label={t("ema.motion.pause")} title={t("ema.motion.pause")}><Icon name="tabler:player-pause" size={18} data-motion-pause-icon aria-hidden="true" /><Icon name="tabler:player-play" size={18} data-motion-play-icon aria-hidden="true" hidden /></button>
-        <div class="ema-theme-docked"><ThemeSwitcher floating /></div>
+        <button class="ema-settings-toggle" type="button" data-ema-settings-toggle aria-expanded="false" aria-controls="ema-controls" aria-label={t("ema.home.settings")} title={t("ema.home.settings")} hidden><Icon name="tabler:adjustments-horizontal" size={19} aria-hidden="true" /></button>
+        <div class="ema-controls" id="ema-controls" data-ema-controls>
+          <LanguageSwitcher />
+          <button class="ema-icon-button" type="button" data-color-mode-toggle hidden aria-label={t("mode.label")} aria-pressed="false" title={t("mode.toDark")} data-label-dark={t("mode.toDark")} data-label-light={t("mode.toLight")}><span class="blank-mode-moon"><Icon name="tabler:moon" size={18} /></span><span class="blank-mode-sun"><Icon name="tabler:sun" size={18} /></span></button>
+          <button class="ema-motion-toggle" type="button" data-motion-toggle data-motion-pause={t("ema.motion.pause")} data-motion-resume={t("ema.motion.resume")} data-motion-reduced={t("ema.motion.reduced")} hidden aria-pressed="false" aria-label={t("ema.motion.pause")} title={t("ema.motion.pause")}><Icon name="tabler:player-pause" size={18} data-motion-pause-icon aria-hidden="true" /><Icon name="tabler:player-play" size={18} data-motion-play-icon aria-hidden="true" hidden /><span class="ema-motion-label">{t("ema.motion.short")}</span></button>
+          <div class="ema-theme-docked"><ThemeSwitcher floating /></div>
+        </div>
       </div>
       {isArticlePage && <div class="blank-reading-track" aria-hidden="true"><span data-site-progress></span></div>}
     </header>

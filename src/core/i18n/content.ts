@@ -18,7 +18,6 @@ const zhTW = linked({
   profileIdentity: {
     displayName: "荒瀧旭",
     alias: profile.profileIdentity.alias,
-    avatar: profile.profileIdentity.avatar,
     handle: "PROFILE / 個人檔案",
     siteName: "Blank Space",
     bio: "我是荒瀧旭，也可以叫我 Nero。喜歡收集動漫與遊戲周邊，關注 AI 和電腦技術；平時學習程式設計，鑽研動畫、建模與不同的遊戲引擎。",
@@ -40,8 +39,8 @@ const zhTW = linked({
     { key: "manosaba", title: "魔法少女的魔女審判", subtitle: "視覺小說 / 角色與視覺靈感" },
   ],
   xpFavorites: [
-    { key: "emma", title: "櫻羽艾瑪", subtitle: "角色風格參考", portrait: "/themes/ema/assets/ema-avatar.webp" },
-    { key: "yuki", title: "月代雪", subtitle: "現在的頭像角色", portrait: "/themes/ema/assets/yuki.webp" },
+    { key: "emma", title: "櫻羽艾瑪", subtitle: "角色風格參考", portrait: null },
+    { key: "yuki", title: "月代雪", subtitle: "以前的頭像角色", portrait: null },
     ...getFavoriteCharacters("zh-TW"),
   ],
   currentSignals: [
@@ -56,7 +55,7 @@ const zhTW = linked({
       summary: "從 Blank 出發，讓黑白閱讀、櫻色檔案與工業風三套介面共用內容、語言和互動。專案案例記錄設計取捨、共用架構與驗證過程。",
       details: ["三套主題與四種語言", "共用內容、偏好與頁面生命週期", "實際截圖、原始碼導覽與驗證紀錄"],
       url: projects.personalSiteShowcaseUrl,
-      image: { ...projects.personalSitePreview, alt: "個人網站櫻色檔案主題的首頁截圖：左側是站名與終端文字，右側是櫻羽艾瑪立繪與漫畫分鏡" },
+      image: { ...projects.personalSitePreview, alt: "Blank 主題首頁截圖：白底黑字的大標題 Blank Space、簡介與文章入口" },
       gallery: [
         { ...projects.personalSiteGallery[0], label: "Blank 主題 · 首頁", meta: "淺色 · 1440×960 · 2026-10-31 截圖", alt: "Blank 主題首頁截圖：白底黑字的大標題 Blank Space、簡介與文章入口" },
         { ...projects.personalSiteGallery[1], label: "Blank 主題 · 首頁（深色）", meta: "深色 · 1440×960 · 2026-10-31 截圖", alt: "Blank 主題首頁的深色模式截圖：黑底白字的大標題 Blank Space" },
@@ -76,7 +75,6 @@ const ja = linked({
   profileIdentity: {
     displayName: "荒滝 旭",
     alias: profile.profileIdentity.alias,
-    avatar: profile.profileIdentity.avatar,
     handle: "PROFILE / プロフィール",
     siteName: "Blank Space",
     bio: "荒滝旭です。Nero とも呼ばれています。アニメやゲームのグッズ集めが好きで、AI やパソコンの技術にも関心があります。プログラミングを学びながら、アニメーション、モデリング、さまざまなゲームエンジンを探究しています。",
@@ -98,8 +96,8 @@ const ja = linked({
     { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "ビジュアルノベル / キャラクターとデザインの着想" },
   ],
   xpFavorites: [
-    { key: "emma", title: "桜羽エマ", subtitle: "キャラクターデザインの参考", portrait: "/themes/ema/assets/ema-avatar.webp" },
-    { key: "yuki", title: "月代ユキ", subtitle: "いまのアイコンのキャラクター", portrait: "/themes/ema/assets/yuki.webp" },
+    { key: "emma", title: "桜羽エマ", subtitle: "キャラクターデザインの参考", portrait: null },
+    { key: "yuki", title: "月代ユキ", subtitle: "以前のアイコンのキャラクター", portrait: null },
     ...getFavoriteCharacters("ja"),
   ],
   currentSignals: [
@@ -114,7 +112,7 @@ const ja = linked({
       summary: "Blank を出発点に、モノクロ、桜色アーカイブ、工業風の3つのテーマでコンテンツ、言語、操作を共有。設計上の判断、共通アーキテクチャ、検証の過程を事例としてまとめています。",
       details: ["3つのテーマと4つの言語", "コンテンツ・設定・ページのライフサイクルを共有", "実際の画面、ソースコード案内、検証記録"],
       url: projects.personalSiteShowcaseUrl,
-      image: { ...projects.personalSitePreview, alt: "個人サイトの桜色アーカイブテーマのホーム画面：左にサイト名とターミナル風のテキスト、右に桜羽エマの立ち絵と漫画のコマ" },
+      image: { ...projects.personalSitePreview, alt: "Blank テーマのホーム画面：白地に黒の大きな見出し Blank Space、紹介文と記事への入口" },
       gallery: [
         { ...projects.personalSiteGallery[0], label: "Blank テーマ · ホーム", meta: "ライト · 1440×960 · 2026-10-31 撮影", alt: "Blank テーマのホーム画面：白地に黒の大きな見出し Blank Space、紹介文と記事への入口" },
         { ...projects.personalSiteGallery[1], label: "Blank テーマ · ホーム（ダーク）", meta: "ダーク · 1440×960 · 2026-10-31 撮影", alt: "Blank テーマのホーム画面（ダークモード）：黒地に白の大きな見出し Blank Space" },
@@ -134,7 +132,6 @@ const en = linked({
   profileIdentity: {
     displayName: "Arataki Asahi",
     alias: profile.profileIdentity.alias,
-    avatar: profile.profileIdentity.avatar,
     handle: "PERSONAL PROFILE",
     siteName: "Blank Space",
     bio: "I'm Arataki Asahi, also known as Nero. I collect anime and game merchandise and enjoy learning about AI and computer technology. I'm studying programming and exploring animation, modeling, and different game engines.",
@@ -156,8 +153,8 @@ const en = linked({
     { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "Visual novel / Character and visual inspiration" },
   ],
   xpFavorites: [
-    { key: "emma", title: "Ema Sakuraba", subtitle: "Character design reference", portrait: "/themes/ema/assets/ema-avatar.webp" },
-    { key: "yuki", title: "Yuki Tsukishiro", subtitle: "The character on my avatar", portrait: "/themes/ema/assets/yuki.webp" },
+    { key: "emma", title: "Ema Sakuraba", subtitle: "Character design reference", portrait: null },
+    { key: "yuki", title: "Yuki Tsukishiro", subtitle: "Former avatar character", portrait: null },
     ...getFavoriteCharacters("en"),
   ],
   currentSignals: [
@@ -172,7 +169,7 @@ const en = linked({
       summary: "Built from Blank, with monochrome, Sakura Archive, and industrial interfaces sharing content, languages, and behavior. The case study documents design decisions, the shared architecture, and validation.",
       details: ["Three themes and four languages", "Shared content, preferences, and page lifecycle", "Real screenshots, source tour, and validation records"],
       url: projects.personalSiteShowcaseUrl,
-      image: { ...projects.personalSitePreview, alt: "Screenshot of the Sakura Archive home page of this website: the site name and terminal-style text on the left, Ema Sakuraba and manga panels on the right" },
+      image: { ...projects.personalSitePreview, alt: "Blank theme home page: the large black-on-white title Blank Space, a short intro and the way into the journal" },
       gallery: [
         { ...projects.personalSiteGallery[0], label: "Blank theme · Home", meta: "Light · 1440×960 · captured 2026-10-31", alt: "Blank theme home page: the large black-on-white title Blank Space, a short intro and the way into the journal" },
         { ...projects.personalSiteGallery[1], label: "Blank theme · Home (dark)", meta: "Dark · 1440×960 · captured 2026-10-31", alt: "Blank theme home page in dark mode: the large white-on-black title Blank Space" },

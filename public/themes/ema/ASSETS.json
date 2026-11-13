@@ -1,13 +1,14 @@
 {
   "schema_version": 1,
-  "verified_on": "2026-10-29",
-  "scope": "Provenance of original character assets and the three black-and-white manga excerpts used in Ema. This file is not a permission or license grant. Third-party media are excluded from the repository software license.",
-  "non_ai_processing": "No generative AI, image synthesis, generative fill, redrawing, or upscaling is used. Existing character assets retain their documented processing. Manga excerpts reproduce the official reader display by deterministic 4×4 tile transposition, followed by a rectangular panel crop and lossless WebP encoding. No recoloring, text replacement, or compositing is applied.",
+  "verified_on": "2026-11-14",
+  "verification_scope": "File identity against commit 76c9da5690e89a7816bb4b44eefacbcc87521446 only; source and permission status remain unconfirmed.",
+  "scope": "Only Ema’s five homepage poses were restored at the site owner’s explicit request on 2026-11-14, overriding the earlier placeholder-only constraint for these five files. All other media removed on 2026-11-13 remain removed. The owner’s avatar remains the monogram 旭. Historical source records are retained for traceability, not as confirmed provenance or a permission grant. Third-party media are excluded from the repository software license.",
+  "non_ai_processing": "Restoration and filename changes only. Original file bytes, dimensions and alpha are preserved. No generative AI, image synthesis, generative fill, redrawing, re-encoding or upscaling is used. Per-asset processing records describe the historical import, not new processing.",
   "assets": [
     {
-      "id": "ema",
+      "id": "ema-pose-01",
       "title": "Ema Sakuraba / 樱羽艾玛 / 桜羽エマ",
-      "file": "assets/ema.webp",
+      "file": "assets/ema-pose-01.webp",
       "source_page": "https://wiki.biligame.com/manosaba/文件:樱羽艾玛.png",
       "source_image": "https://patchwiki.biligame.com/images/manosaba/c/ca/nw1b1tih5nvw5w0qu6l9e2f56vrrbsf.png",
       "attribution": "魔法少女ノ魔女裁判 / Acacia; source copy hosted by Bilibili BWIKI",
@@ -28,233 +29,23 @@
       "format": "image/webp",
       "processing": "Proportional LANCZOS downscale followed by lossless WebP encoding (Pillow/libwebp, lossless=true, method=6, exact=true).",
       "generative_ai_used": false,
-      "permission_status": "No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
-      "verified_against_source_image": "The original download was re-fetched on 2026-10-27 and matched byte-for-byte. Each image was visually inspected."
+      "permission_status": "Unconfirmed. The site owner explicitly requested this restoration on 2026-11-14; this is not a rights-holder license for publication or redistribution.",
+      "verified_against_source_image": "The original download was re-fetched on 2026-10-27 and matched byte-for-byte. Each image was visually inspected.",
+      "placement": "home-stage-pose",
+      "pose_key": "ema.frames.smile",
+      "source_status": "Unconfirmed. Source URLs, attribution and earlier verification notes are retained from the historical manifest; source and creator have not been independently confirmed for this restoration.",
+      "restoration": {
+        "date": "2026-11-14",
+        "commit": "76c9da5690e89a7816bb4b44eefacbcc87521446",
+        "path": "public/themes/ema/assets/ema.webp",
+        "sha256": "65eb570bcc3b40a06e5d90b661592990434311a09435a044d1363c68aa15b576",
+        "processing": "Byte-for-byte Git blob restoration and filename change only. No decoding/re-encoding, resampling, cropping, alpha changes, redrawing, upscaling or generative AI."
+      }
     },
     {
-      "id": "shiroha",
-      "title": "Shiroha Naruse / 鸣濑白羽 / 鳴瀬しろは",
-      "file": "assets/shiroha.webp",
-      "source_page": "https://summerpockets-anime.jp/visualgallery/",
-      "source_image": "https://summerpockets-anime.jp/wp_summer/wp-content/uploads/2025/08/20250801064822.jpg",
-      "attribution": "TV anime Summer Pockets official visual gallery; メインビジュアル（鳴瀬しろは編）",
-      "rights_notice": "©VISUAL ARTS/Key/鳥白島観光協会",
-      "original_dimensions": [
-        1422,
-        2000
-      ],
-      "dimensions": [
-        1138,
-        1600
-      ],
-      "original_sha256": "7dd92d791fa299526e298e6e766b333a59b7c328359fe79abfd0700d6fafaee2",
-      "has_alpha": false,
-      "rights_reference": "https://summerpockets-anime.jp/visualgallery/",
-      "sha256": "08f34f9ca5d15736d375bf41e1b9bbffb3f6216f750fb09d98865d44d188c858",
-      "bytes": 1876106,
-      "format": "image/webp",
-      "processing": "Proportional LANCZOS downscale followed by lossless WebP encoding (Pillow/libwebp, lossless=true, method=6, exact=true).",
-      "generative_ai_used": false,
-      "permission_status": "No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
-      "verified_against_source_image": "The original download was re-fetched on 2026-10-27 and matched byte-for-byte. Each image was visually inspected."
-    },
-    {
-      "id": "alice",
-      "title": "Alice Kuonji / 久远寺有珠 / 久遠寺有珠",
-      "file": "assets/alice.webp",
-      "source_page": "https://typemoon.com/products/mahoyo/character/",
-      "source_image": "https://cache.typemoon.com/images/i1a15e54749c924b159ed1b84b5b56495mg",
-      "attribution": "TYPE-MOON, 魔法使いの夜 official character page; Alice illustration",
-      "rights_notice": "©TYPE-MOON",
-      "original_dimensions": [
-        750,
-        1000
-      ],
-      "dimensions": [
-        750,
-        1000
-      ],
-      "original_sha256": "471c7125c3c5ee6a7c09eab2970332e4cf84c50a5912a9f7c0da6751bdf63e92",
-      "has_alpha": true,
-      "rights_reference": "https://typemoon.com/copyright",
-      "sha256": "13d1e420a62d956f61af6c56add60bf0170b6b26fca3c39e51d05f3f2fcfcb5b",
-      "bytes": 80958,
-      "format": "image/webp",
-      "processing": "Original dimensions retained; palette/RGB(A) normalized and encoded as lossless WebP (Pillow/libwebp, lossless=true, method=6, exact=true).",
-      "generative_ai_used": false,
-      "permission_status": "No permission for decorative website publication or redistribution has been established. Attribution is not a license.",
-      "verified_against_source_image": "The original download was re-fetched on 2026-10-27 and matched byte-for-byte. Each image was visually inspected."
-    },
-    {
-      "id": "manga-writing",
-      "title": "Frieren writing at a desk",
-      "file": "assets/manga-writing.webp",
-      "placement": "chapter-journal, hero-manga-wall",
-      "source_page": "https://www.sunday-webry.com/episode/3269754496548997914",
-      "source_image": "https://cdn-img.www.sunday-webry.com/public/page/2/3269754496556228798-78480bcc7081a5c1935901305bf965cd",
-      "source_reader_page_index": 52,
-      "source_published_at": "2020-05-13",
-      "attribution": "葬送のフリーレン / Frieren: Beyond Journey’s End — story: 山田鐘人 (Kanehito Yamada); art: アベツカサ (Tsukasa Abe); publisher: 小学館 (Shogakukan), official Sunday Webry sample.",
-      "rights_notice": "© 山田鐘人・アベツカサ／小学館. Third-party manga; excluded from the repository MIT license.",
-      "rights_reference": "https://www.sunday-webry.com/episode/3269754496548997914",
-      "original_dimensions": [
-        836,
-        1200
-      ],
-      "dimensions": [
-        393,
-        353
-      ],
-      "crop_box_xyxy": [
-        443,
-        0,
-        836,
-        353
-      ],
-      "original_sha256": "875de67be4440af499b4a267992b88685702add5f344ae56b34bcb8d7989b500",
-      "sha256": "cf42e7069430161098e63e9fde7acdaad5a9daa7b33529fea79ab5096c9a92fc",
-      "bytes": 110324,
-      "format": "image/webp",
-      "has_alpha": false,
-      "processing": "Reproduce the publicly displayed reader image by transposing its 4×4 grid of tiles (tile width=floor(width/32)*8, height=floor(height/32)*8; retain right/bottom remainders), then crop at crop_box_xyxy and encode losslessly with Pillow/libwebp. No resampling, recoloring, retouching, or generated pixels.",
-      "generative_ai_used": false,
-      "provenance_evidence": "Original story/art credits and public episode date verified on the official publisher reader; the artwork is credited to the original manga authors in the 2020 publication. The displayed reading order was visually checked in the official reader.",
-      "permission_status": "Official public sample verified. No separate permission for decorative republication or redistribution has been established; attribution is not a license."
-    },
-    {
-      "id": "manga-memory",
-      "title": "The party watching a meteor shower",
-      "file": "assets/manga-memory.webp",
-      "placement": "chapter-collection, hero-manga-wall, page-side-backdrop",
-      "source_page": "https://www.sunday-webry.com/episode/3269754496548997914",
-      "source_image": "https://cdn-img.www.sunday-webry.com/public/page/2/3269754496556228757-b11882e9fb5acd8f56b7e97c7fcdbfa4",
-      "source_reader_page_index": 11,
-      "source_published_at": "2020-05-13",
-      "attribution": "葬送のフリーレン / Frieren: Beyond Journey’s End — story: 山田鐘人 (Kanehito Yamada); art: アベツカサ (Tsukasa Abe); publisher: 小学館 (Shogakukan), official Sunday Webry sample.",
-      "rights_notice": "© 山田鐘人・アベツカサ／小学館. Third-party manga; excluded from the repository MIT license.",
-      "rights_reference": "https://www.sunday-webry.com/episode/3269754496548997914",
-      "original_dimensions": [
-        836,
-        1200
-      ],
-      "dimensions": [
-        793,
-        844
-      ],
-      "crop_box_xyxy": [
-        0,
-        356,
-        793,
-        1200
-      ],
-      "original_sha256": "db34eee8093ff670bb6516185d1eb604d44e3babe9a0375e82bac4198042ff64",
-      "sha256": "3fdfeff6989385a519a6dd5eb0ad686b990869e88fd2f1bb3ca09f05fdee2199",
-      "bytes": 478796,
-      "format": "image/webp",
-      "has_alpha": false,
-      "processing": "Reproduce the publicly displayed reader image by transposing its 4×4 grid of tiles (tile width=floor(width/32)*8, height=floor(height/32)*8; retain right/bottom remainders), then crop at crop_box_xyxy and encode losslessly with Pillow/libwebp. No resampling, recoloring, retouching, or generated pixels.",
-      "generative_ai_used": false,
-      "provenance_evidence": "Original story/art credits and public episode date verified on the official publisher reader; the artwork is credited to the original manga authors in the 2020 publication. The displayed reading order was visually checked in the official reader.",
-      "permission_status": "Official public sample verified. No separate permission for decorative republication or redistribution has been established; attribution is not a license."
-    },
-    {
-      "id": "manga-about",
-      "title": "Frieren: wanting to know people better",
-      "file": "assets/manga-about.webp",
-      "placement": "chapter-about, hero-manga-wall",
-      "source_page": "https://www.sunday-webry.com/episode/3269754496548997914",
-      "source_image": "https://cdn-img.www.sunday-webry.com/public/page/2/3269754496556228782-5ae9d2193dd9d927ab25f28c9946098a",
-      "source_reader_page_index": 36,
-      "source_published_at": "2020-05-13",
-      "attribution": "葬送のフリーレン / Frieren: Beyond Journey’s End — story: 山田鐘人 (Kanehito Yamada); art: アベツカサ (Tsukasa Abe); publisher: 小学館 (Shogakukan), official Sunday Webry sample.",
-      "rights_notice": "© 山田鐘人・アベツカサ／小学館. Third-party manga; excluded from the repository MIT license.",
-      "rights_reference": "https://www.sunday-webry.com/episode/3269754496548997914",
-      "original_dimensions": [
-        836,
-        1200
-      ],
-      "dimensions": [
-        483,
-        486
-      ],
-      "crop_box_xyxy": [
-        44,
-        0,
-        527,
-        486
-      ],
-      "original_sha256": "72946ff977ab9463bc71475197cd7466af46c61f3f5cffa1b7beccc2c199e1e6",
-      "sha256": "2c8be0c9c38429d9c84d3f09a9c568f289dac2c9a458a829a478786a5635b1a5",
-      "bytes": 136414,
-      "format": "image/webp",
-      "has_alpha": false,
-      "processing": "Reproduce the publicly displayed reader image by transposing its 4×4 grid of tiles (tile width=floor(width/32)*8, height=floor(height/32)*8; retain right/bottom remainders), then crop at crop_box_xyxy and encode losslessly with Pillow/libwebp. No resampling, recoloring, retouching, or generated pixels.",
-      "generative_ai_used": false,
-      "provenance_evidence": "Original story/art credits and public episode date verified on the official publisher reader; the artwork is credited to the original manga authors in the 2020 publication. The displayed reading order was visually checked in the official reader.",
-      "permission_status": "Official public sample verified. No separate permission for decorative republication or redistribution has been established; attribution is not a license."
-    },
-    {
-      "id": "yuki-avatar",
-      "title": "Yuki Tsukishiro / 月代雪 / 月代ユキ",
-      "file": "assets/yuki.webp",
-      "placement": "profile-avatar, about-character-portrait",
-      "original_dimensions": [
-        1132,
-        1594
-      ],
-      "crop_circle_center_radius": [
-        546.5,
-        462.5,
-        375
-      ],
-      "source_page": null,
-      "source_image": "User-supplied screenshot shared in a Claude Code session on 2026-10-29; original artist and publication not yet recorded.",
-      "attribution": "Unverified — fan or official illustration supplied by the site owner; record the artist and source before relying on this asset.",
-      "dimensions": [
-        480,
-        480
-      ],
-      "format": "image/webp",
-      "has_alpha": true,
-      "processing": "Square crop around the site owner's marked circle, LANCZOS resize to 480×480, antialiased circular alpha mask, lossy WebP (quality 90). No recoloring, retouching, or generated pixels.",
-      "generative_ai_used": false,
-      "permission_status": "No permission for publication or redistribution has been established. Attribution is not a license.",
-      "sha256": "4dfa4291fcdce46567611324b7ad7f406f59190c916db5dbfbe410d5437c6451",
-      "bytes": 53316
-    },
-    {
-      "id": "ema-avatar",
-      "title": "Ema Sakuraba / 樱羽艾玛 / 桜羽エマ",
-      "file": "assets/ema-avatar.webp",
-      "placement": "about-character-portrait",
-      "original_dimensions": [
-        1130,
-        1600
-      ],
-      "crop_circle_center_radius": [
-        587.5,
-        617.5,
-        540
-      ],
-      "source_page": null,
-      "source_image": "User-supplied screenshot shared in a Claude Code session on 2026-10-29; original artist and publication not yet recorded.",
-      "attribution": "Unverified — fan or official illustration supplied by the site owner; record the artist and source before relying on this asset.",
-      "dimensions": [
-        480,
-        480
-      ],
-      "format": "image/webp",
-      "has_alpha": true,
-      "processing": "Square crop around the site owner's marked circle, LANCZOS resize to 480×480, antialiased circular alpha mask, lossy WebP (quality 90). No recoloring, retouching, or generated pixels.",
-      "generative_ai_used": false,
-      "permission_status": "No permission for publication or redistribution has been established. Attribution is not a license.",
-      "sha256": "46ad6afdfc6dc3fb8c96034032e9ce9bf2cb4d0d59f27f4bea427158069cd298",
-      "bytes": 48120
-    },
-    {
-      "id": "ema-frame-wave",
+      "id": "ema-pose-02",
       "title": "Ema Sakuraba in-game sprite 11",
-      "file": "assets/ema-frame-wave.webp",
+      "file": "assets/ema-pose-02.webp",
       "source_page": "https://acacia.wiki.gg/wiki/Ema_Sakuraba/Gallery",
       "source_image": "https://acacia.wiki.gg/images/Ema_11.png",
       "attribution": "魔法少女ノ魔女裁判 / Acacia; in-game sprite catalogued by Acacia Wiki (community wiki). Character design: 梅まろ.",
@@ -274,12 +65,23 @@
       "processing": "Proportional LANCZOS downscale and lossless WebP conversion only. No synthesized or repainted pixels.",
       "generative_ai_used": false,
       "verified_on": "2026-10-30",
-      "permission_status": "Source provenance is recorded; decorative website redistribution permission has not been established."
+      "permission_status": "Unconfirmed. The site owner explicitly requested this restoration on 2026-11-14; this is not a rights-holder license for publication or redistribution.",
+      "placement": "home-stage-pose",
+      "pose_key": "ema.frames.wave",
+      "source_status": "Unconfirmed. Source URLs, attribution and earlier verification notes are retained from the historical manifest; source and creator have not been independently confirmed for this restoration.",
+      "format": "image/webp",
+      "restoration": {
+        "date": "2026-11-14",
+        "commit": "76c9da5690e89a7816bb4b44eefacbcc87521446",
+        "path": "public/themes/ema/assets/ema-frame-wave.webp",
+        "sha256": "71a9e9fda324c76edb5e87d16bd830888b318274eaee182549482587f201dcd0",
+        "processing": "Byte-for-byte Git blob restoration and filename change only. No decoding/re-encoding, resampling, cropping, alpha changes, redrawing, upscaling or generative AI."
+      }
     },
     {
-      "id": "ema-frame-together",
+      "id": "ema-pose-03",
       "title": "Ema Sakuraba in-game sprite 12",
-      "file": "assets/ema-frame-together.webp",
+      "file": "assets/ema-pose-03.webp",
       "source_page": "https://acacia.wiki.gg/wiki/Ema_Sakuraba/Gallery",
       "source_image": "https://acacia.wiki.gg/images/Ema_12.png",
       "attribution": "魔法少女ノ魔女裁判 / Acacia; in-game sprite catalogued by Acacia Wiki (community wiki). Character design: 梅まろ.",
@@ -299,12 +101,23 @@
       "processing": "Proportional LANCZOS downscale and lossless WebP conversion only. No synthesized or repainted pixels.",
       "generative_ai_used": false,
       "verified_on": "2026-10-30",
-      "permission_status": "Source provenance is recorded; decorative website redistribution permission has not been established."
+      "permission_status": "Unconfirmed. The site owner explicitly requested this restoration on 2026-11-14; this is not a rights-holder license for publication or redistribution.",
+      "placement": "home-stage-pose",
+      "pose_key": "ema.frames.together",
+      "source_status": "Unconfirmed. Source URLs, attribution and earlier verification notes are retained from the historical manifest; source and creator have not been independently confirmed for this restoration.",
+      "format": "image/webp",
+      "restoration": {
+        "date": "2026-11-14",
+        "commit": "76c9da5690e89a7816bb4b44eefacbcc87521446",
+        "path": "public/themes/ema/assets/ema-frame-together.webp",
+        "sha256": "9efc1c28720e9d454b36b79b17d2aa84759912f77282861c2c8a4a1d8c6b7d34",
+        "processing": "Byte-for-byte Git blob restoration and filename change only. No decoding/re-encoding, resampling, cropping, alpha changes, redrawing, upscaling or generative AI."
+      }
     },
     {
-      "id": "ema-frame-talk",
+      "id": "ema-pose-04",
       "title": "Ema Sakuraba in-game sprite 07",
-      "file": "assets/ema-frame-talk.webp",
+      "file": "assets/ema-pose-04.webp",
       "source_page": "https://acacia.wiki.gg/wiki/Ema_Sakuraba/Gallery",
       "source_image": "https://acacia.wiki.gg/images/Ema_07.png",
       "attribution": "魔法少女ノ魔女裁判 / Acacia; in-game sprite catalogued by Acacia Wiki (community wiki). Character design: 梅まろ.",
@@ -324,12 +137,23 @@
       "processing": "Proportional LANCZOS downscale and lossless WebP conversion only. No synthesized or repainted pixels.",
       "generative_ai_used": false,
       "verified_on": "2026-10-30",
-      "permission_status": "Source provenance is recorded; decorative website redistribution permission has not been established."
+      "permission_status": "Unconfirmed. The site owner explicitly requested this restoration on 2026-11-14; this is not a rights-holder license for publication or redistribution.",
+      "placement": "home-stage-pose",
+      "pose_key": "ema.frames.talk",
+      "source_status": "Unconfirmed. Source URLs, attribution and earlier verification notes are retained from the historical manifest; source and creator have not been independently confirmed for this restoration.",
+      "format": "image/webp",
+      "restoration": {
+        "date": "2026-11-14",
+        "commit": "76c9da5690e89a7816bb4b44eefacbcc87521446",
+        "path": "public/themes/ema/assets/ema-frame-talk.webp",
+        "sha256": "b8ec25271b5a17c5dc0d6d00694891697e1909ead97093db4bfd207f96058d8d",
+        "processing": "Byte-for-byte Git blob restoration and filename change only. No decoding/re-encoding, resampling, cropping, alpha changes, redrawing, upscaling or generative AI."
+      }
     },
     {
-      "id": "ema-frame-refute",
+      "id": "ema-pose-05",
       "title": "Ema Sakuraba refutation cut-in 002",
-      "file": "assets/ema-frame-refute.webp",
+      "file": "assets/ema-pose-05.webp",
       "source_page": "https://wiki.biligame.com/manosaba/樱羽艾玛",
       "source_image": "https://patchwiki.biligame.com/images/manosaba/2/2d/kscgtahjztsgxoaxyi5h0m0y1dvearg.png",
       "attribution": "魔法少女ノ魔女裁判 / Acacia; original game cut-in hosted by BWIKI.",
@@ -349,7 +173,18 @@
       "processing": "Lossless WebP format conversion only.",
       "generative_ai_used": false,
       "verified_on": "2026-10-30",
-      "permission_status": "Source provenance is recorded; decorative website redistribution permission has not been established."
+      "permission_status": "Unconfirmed. The site owner explicitly requested this restoration on 2026-11-14; this is not a rights-holder license for publication or redistribution.",
+      "placement": "home-stage-pose",
+      "pose_key": "ema.frames.refute",
+      "source_status": "Unconfirmed. Source URLs, attribution and earlier verification notes are retained from the historical manifest; source and creator have not been independently confirmed for this restoration.",
+      "format": "image/webp",
+      "restoration": {
+        "date": "2026-11-14",
+        "commit": "76c9da5690e89a7816bb4b44eefacbcc87521446",
+        "path": "public/themes/ema/assets/ema-frame-refute.webp",
+        "sha256": "0405f914f4150e9672e93addbb1d2b57fc2169549f4fc0513093eb4b4f1e9716",
+        "processing": "Byte-for-byte Git blob restoration and filename change only. No decoding/re-encoding, resampling, cropping, alpha changes, redrawing, upscaling or generative AI."
+      }
     }
   ]
 }

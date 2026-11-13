@@ -4,25 +4,19 @@
 
 ## 艾玛主题
 
-`public/themes/ema/ASSETS.json` 是四张图片的来源清单，包含来源页面、原图 URL、署名、原始及输出 SHA-256、尺寸、处理方式和核对日期。文件位于 `public/themes/ema/assets/`：
+2026-11-14，站主明确要求从提交 `76c9da5690e89a7816bb4b44eefacbcc87521446` 恢复首页五张艾玛图片，覆盖此前仅允许占位图的限制。本次只恢复以下五个 Git blob 并更改文件名，字节、透明通道和尺寸不变，没有重新编码、缩放、裁切、重绘或生成式 AI 处理：
 
-| 文件 | 内容与来源 |
-| --- | --- |
-| `ema.webp` | 《魔法少女ノ魔女裁判》樱羽艾玛立绘，来源副本由 Bilibili BWIKI 收录；作品归属 Acacia。 |
-| `shiroha.webp` | TV 动画《Summer Pockets》官方画廊「メインビジュアル（鳴瀬しろは編）」；©VISUAL ARTS/Key/鳥白島観光協会。 |
-| `alice.webp` | TYPE-MOON《魔法使いの夜》官网久远寺有珠角色插画；©TYPE-MOON。 |
-| `shiki.webp` | 星海社・最前線公开试读《空の境界 the Garden of sinners》第1回第008页；漫画天空すふぃあ，原作奈須きのこ，角色设计原案武内崇。 |
+| 历史文件 | 当前文件（`public/themes/ema/assets/`） | 尺寸 |
+| --- | --- | --- |
+| `ema.webp` | `ema-pose-01.webp` | 905 × 2400 |
+| `ema-frame-wave.webp` | `ema-pose-02.webp` | 1030 × 2400 |
+| `ema-frame-together.webp` | `ema-pose-03.webp` | 1030 × 2400 |
+| `ema-frame-talk.webp` | `ema-pose-04.webp` | 1030 × 2400 |
+| `ema-frame-refute.webp` | `ema-pose-05.webp` | 1472 × 2048 |
 
-这四个文件未使用生成式 AI 制作、重绘、扩图或补画。转换仅包含等比例 LANCZOS 缩放、RGB / RGBA 模式转换及无损 WebP 编码；资产文件没有裁切、调色或更改漫画文字。页面可能通过 CSS 容器显示局部或应用显示滤镜，这不改变原始文件，也不产生新的素材授权。
+[素材清单](public/themes/ema/ASSETS.json) 保留历史来源 URL、署名、导入处理记录、原图哈希，并新增恢复提交、旧路径与文件校验信息。历史记录将这些文件记为《魔法少女ノ魔女裁判》／Acacia 的四张立绘和一张论破演出图；本次只确认与 Git 历史文件一致，**来源、具体创作信息与公开使用授权仍未确认**。站主的恢复指令不等于权利人的授权，文件校验一致也不构成授权或来源认证。
 
-当前没有确认这四张图获得装饰性网站公开使用或再分发的许可。适用说明需要与实际使用方式逐项核对：
-
-- [Acacia 官方指南](https://manosaba.com/guidelines)第7节说明官方立绘、背景等素材的使用和转载限制。
-- [TYPE-MOON 官方版权说明](https://typemoon.com/copyright)说明作品图片使用规则以及作品介绍、感想引用的例外。
-- [最前線使用条款](https://sai-zen-sen.jp/rule.html)及[下载 FAQ](https://sai-zen-sen.jp/faq.html)区分私人下载与内容转载。
-- [Summer Pockets 动画官方画廊](https://summerpockets-anime.jp/visualgallery/)提供来源和版权署名；本站未确认面向装饰性网站使用的许可。
-
-这些链接用于核实来源和规则，不表示权利人赞助、认可或授权本站。公开仓库分发图片与网站部署一样，需要考虑对应素材的使用范围。
+其余 2026-11-13 清理的素材仍未恢复，包括三张《葬送的芙莉莲》摘图、《Summer Pockets》主视觉、久远寺有珠插画、艾玛和月代雪头像裁图、旧项目缩略图与旧 showcase 截图。站长头像仍是「旭」字。五张图片沿用当前 B 构图和切换交互；后续新画稿计划及本次恢复的范围见 [docs/ART-DIRECTION.md](docs/ART-DIRECTION.md#13-owner-requested-restoration-2026-11-14)。
 
 ## 喜欢的角色头像
 
@@ -32,7 +26,7 @@
 
 2026-11-05 新增的 10 位《东方Project》角色采用《东方弹幕神乐》手游官方档案中的角色立绘。每张头像的画师署名均取自对应角色页，清单还记录原图和 320 × 320 WebP 头像的 SHA-256。[官方角色档案](https://danmaku.jp/archive/character/) · [游戏二次创作指南](https://danmaku.jp/archive/news/637Qdiel8W3Kx5mFbTDQAz/)
 
-仅进行矩形裁切、LANCZOS 缩放和 WebP 编码，未使用生成式 AI。角色与插图版权归原权利人所有，仓库 MIT 许可不覆盖头像；来源及署名记录不构成转载授权。原有两位角色的头像来源仍见 `public/themes/ema/ASSETS.json`。
+仅进行矩形裁切、LANCZOS 缩放和 WebP 编码，未使用生成式 AI。角色与插图版权归原权利人所有，仓库 MIT 许可不覆盖头像；来源及署名记录不构成转载授权。樱羽艾玛、月代雪两项没有经确认的头像，各主题的关于页以代码绘制的空白头像框代替。
 
 ## 游戏页卡片图
 

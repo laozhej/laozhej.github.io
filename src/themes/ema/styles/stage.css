@@ -1,0 +1,587 @@
+/* Sakura Archive homepage. Layout and motion follow the reference's Fuyukawa Kagari home
+   (Yuimi-chaya/Yuimi-chaya.github.io, MIT); colours, type and artwork are this site's own.
+   Without the script the page is a plain, complete column: the identity card sits after the stage
+   and the chapter rail scrolls sideways. lib/stage.mjs opts into the docking stage and the rail walk. */
+
+#ema-stage {
+  --k-card: #fffdf9;
+  --k-glass: rgba(255, 253, 249, .66);
+  --k-glass-line: rgba(255, 255, 255, .8);
+  --k-glow: #fffdf9;
+  --k-title-shadow: #efc5d3;
+  --k-tint-pink: #f5e1e8;
+  --k-tint-lav: #e7e2f3;
+  --k-tint-gold: #f1e7d4;
+  --k-tint-mint: #e2eee8;
+  --k-terminal-bg: rgba(255, 253, 249, .8);
+  --k-terminal-ink: #7d5f73;
+  --k-accent: #a64c77;
+  --k-shadow: 0 14px 34px rgba(120, 72, 96, .12);
+  --k-cue-bg: rgba(255, 253, 249, .8);
+  --sb-paper: #fffdf9;
+  --sb-ink: rgba(84, 82, 102, .42);
+  --sb-ink-soft: rgba(84, 82, 102, .26);
+  --sb-dot: rgba(196, 160, 178, .38);
+  --sb-dot-lav: rgba(160, 152, 196, .32);
+  --sb-hatch: rgba(196, 182, 160, .34);
+  --sb-speed: rgba(120, 112, 150, .16);
+  --sb-bloom: rgba(246, 226, 233, .7);
+  --sb-bloom-core: rgba(199, 107, 146, .3);
+  --sb-petal: rgba(232, 160, 188, .45);
+  --sb-spark: rgba(170, 140, 170, .3);
+  --ef-glow: #fde8ef;
+  position: relative;
+  color: var(--blank-ink);
+}
+html[data-color-mode="dark"] #ema-stage {
+  --k-card: #2a2833;
+  --k-glass: rgba(42, 40, 51, .66);
+  --k-glass-line: rgba(255, 255, 255, .1);
+  --k-glow: #201f28;
+  --k-title-shadow: #6e3f58;
+  --k-tint-pink: #3b2c38;
+  --k-tint-lav: #302d45;
+  --k-tint-gold: #38322a;
+  --k-tint-mint: #2a3632;
+  --k-terminal-bg: rgba(42, 40, 51, .82);
+  --k-terminal-ink: #e2c6d6;
+  --k-accent: #f2aec8;
+  --k-shadow: 0 14px 34px rgba(0, 0, 0, .35);
+  --k-cue-bg: rgba(42, 40, 51, .82);
+  --sb-paper: #2a2833;
+  --sb-ink: rgba(220, 214, 236, .34);
+  --sb-ink-soft: rgba(220, 214, 236, .22);
+  --sb-dot: rgba(242, 174, 200, .26);
+  --sb-dot-lav: rgba(195, 185, 236, .24);
+  --sb-hatch: rgba(220, 214, 236, .12);
+  --sb-speed: rgba(220, 214, 236, .1);
+  --sb-bloom: rgba(122, 76, 99, .5);
+  --sb-bloom-core: rgba(242, 174, 200, .5);
+  --sb-petal: rgba(242, 174, 200, .4);
+  --sb-spark: rgba(242, 174, 200, .36);
+  --ef-glow: #4a3445;
+}
+
+/* ---------- Stage ---------- */
+#ema-stage .k-stage { position: relative; }
+#ema-stage .k-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: calc(100svh - 82px);
+  min-height: 600px;
+  padding: 140px max(48px, calc((100% - 1240px) / 2)) 110px;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--blank-paper);
+}
+#ema-stage .k-scene { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+#ema-stage .k-camera { position: absolute; inset: -24px; }
+#ema-stage .k-back { position: absolute; inset: 0; backface-visibility: hidden; opacity: .9; --sb-focus: 51.5% 57%; --sb-reach: 23% 54%; }
+/* The panels thin out around Ema: lower contrast and density right behind her, full strength at the sides. */
+#ema-stage .sb {
+  display: block; width: 100%; height: 100%;
+  -webkit-mask-image: radial-gradient(ellipse var(--sb-reach) at var(--sb-focus), rgb(0 0 0 / .3) 0%, rgb(0 0 0 / .38) 50%, rgb(0 0 0 / .8) 82%, #000 100%);
+  mask-image: radial-gradient(ellipse var(--sb-reach) at var(--sb-focus), rgb(0 0 0 / .3) 0%, rgb(0 0 0 / .38) 50%, rgb(0 0 0 / .8) 82%, #000 100%);
+}
+#ema-stage .sb .sb-paper { fill: var(--sb-paper); }
+#ema-stage .sb .sb-frame { fill: none; stroke: var(--sb-ink); stroke-width: 2.2; stroke-linejoin: round; }
+#ema-stage .sb .sb-dot { fill: var(--sb-dot); }
+#ema-stage .sb .sb-dot-lav { fill: var(--sb-dot-lav); }
+#ema-stage .sb .sb-hatch { stroke: var(--sb-hatch); stroke-width: 1.5; }
+#ema-stage .sb .sb-speed path { stroke: var(--sb-speed); stroke-width: 1.4; }
+#ema-stage .sb .sb-bloom path { fill: var(--sb-bloom); stroke: var(--sb-ink-soft); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+#ema-stage .sb .sb-core { fill: var(--sb-bloom-core); }
+#ema-stage .sb .sb-petal path { fill: var(--sb-petal); }
+#ema-stage .sb .sb-spark path { fill: var(--sb-spark); }
+#ema-stage .sb .sb-bubble { opacity: .5; }
+#ema-stage .sb .sb-bubble path { fill: var(--sb-paper); stroke: var(--sb-ink-soft); stroke-width: 1.5; }
+#ema-stage .sb .sb-line :is(rect, path) { fill: none; stroke: var(--sb-ink-soft); stroke-width: 1.8; stroke-linecap: round; }
+/* A paper veil keeps the identity text readable and lets the stage fade into the page. */
+#ema-stage .k-veil {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 34% 46% at 21% 50%, color-mix(in srgb, var(--blank-paper) 90%, transparent), color-mix(in srgb, var(--blank-paper) 46%, transparent) 62%, transparent 100%),
+    linear-gradient(180deg, transparent 64%, var(--blank-paper) 100%);
+}
+
+/* Ema: the full-height front layer, bottom-anchored at the centre of the stage. */
+#ema-stage .k-ema {
+  position: absolute; z-index: 2; left: 50%; bottom: 0; top: 74px;
+  aspect-ratio: 520 / 760; height: calc(100% - 74px);
+  margin: 0; translate: -45% 0;
+}
+#ema-stage .k-frames { position: relative; width: 100%; height: 100%; }
+/* Preserve the old figure's soft light independently of the original image pixels. */
+#ema-stage .k-frames::before {
+  content: ""; position: absolute; inset: 0 -5%; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 44%, var(--ef-glow), transparent 70%);
+}
+#ema-stage .k-frame {
+  position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom;
+  -webkit-mask-image: linear-gradient(to bottom, #000 76%, #000c 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 76%, #000c 86%, transparent 100%);
+  transform: translate3d(22px, 0, 0) scale(.985); transform-origin: 50% 100%;
+  transition: opacity 260ms ease, transform 460ms var(--blank-ease);
+}
+#ema-stage .k-frame[data-active="true"] { opacity: 1; transform: none; }
+#ema-stage .k-frames[data-instant="true"] .k-frame { transition: none; }
+#ema-stage .k-ema-hit {
+  position: absolute; z-index: 3; inset: 5% 12% 10%; padding: 0; border: 0;
+  border-radius: 46% 46% 14% 14%; background: transparent; cursor: pointer;
+}
+#ema-stage .k-ema-hit[hidden] { display: none; }
+/* Tapping Ema changes the pose; a swipe across her scrolls the page as usual. */
+#ema-stage .k-ema-hit { touch-action: pan-y pinch-zoom; -webkit-tap-highlight-color: transparent; }
+#ema-stage .k-ema-hit:focus-visible { outline: 2px dashed var(--ema-pink); outline-offset: 6px; }
+
+/* Identity text on Ema's left. */
+#ema-stage .k-copy {
+  position: relative; z-index: 4; display: grid; justify-items: start;
+  width: 39%; max-width: 440px; min-width: 0;
+  opacity: var(--copy-opacity, 1);
+  transform: translateY(calc(-20px + (1 - var(--copy-opacity, 1)) * -30px));
+  transition: opacity 220ms ease, transform 220ms ease;
+  text-shadow: 0 1px 8px var(--k-glow), 0 0 16px var(--k-glow);
+}
+#ema-stage :is(.k-eyebrow, .k-kicker) {
+  display: inline-flex; align-items: center; gap: 8px; margin: 0;
+  font: 700 11px/1.4 var(--blank-sans); letter-spacing: .04em; text-transform: uppercase;
+}
+#ema-stage .k-eyebrow { margin-bottom: 14px; color: var(--blank-muted); font-weight: 600; }
+#ema-stage .k-kicker { color: var(--ema-pink); }
+#ema-stage :is(.k-eyebrow, .k-kicker)::before {
+  content: ""; flex: none; width: 8px; height: 8px; border: 2px solid var(--ema-blush); border-radius: 2px;
+  background: #e59ab7; box-shadow: 3px 3px 0 var(--ema-lav-wash); transform: rotate(-12deg);
+}
+#ema-stage .k-title {
+  margin: 0; font: 400 66px/1.02 var(--ema-title-font); letter-spacing: 0; color: var(--blank-ink);
+  text-shadow: none; filter: drop-shadow(3px 4px 0 var(--k-title-shadow)) drop-shadow(0 1px 8px var(--k-glow));
+}
+/* The owner's name in the CJK serif, the alias in the wordmark face. */
+#ema-stage .k-title--name { font: 600 calc(var(--k-name-size, 72px) * var(--k-name-scale, 1))/1.12 var(--blank-serif); letter-spacing: .04em; }
+#ema-stage .k-title-alias { font: 400 .6em/1 var(--ema-title-font); letter-spacing: 0; color: var(--ema-pink); white-space: nowrap; }
+html:lang(en) #ema-stage { --k-name-scale: .8; }
+html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); font-weight: 400; line-height: 1.06; letter-spacing: 0; }
+#ema-stage .k-diary { margin: 16px 0 0; font: 500 16px/1.9 var(--blank-serif); letter-spacing: .04em; color: var(--blank-muted); }
+#ema-stage .k-terminal {
+  display: flex; align-items: flex-start; gap: 10px; width: 380px; max-width: 100%; min-height: 44px;
+  margin: 18px 0 0; padding: 10px 12px;
+  background: var(--k-terminal-bg); border-bottom: 2px solid var(--ema-pink-soft);
+  font: 13px/1.6 var(--blank-mono); color: var(--k-terminal-ink); text-shadow: none;
+}
+#ema-stage .k-terminal svg { flex: none; margin-top: 2px; color: var(--k-accent); }
+#ema-stage .k-typing { min-width: 0; overflow-wrap: anywhere; }
+#ema-stage .k-caret { display: inline-block; flex: none; width: 2px; height: 16px; margin: 3px 0 0 2px; background: #e59ab7; animation: k-blink 1.05s steps(1, end) infinite; }
+
+/* Ema's theatre: the five-pose controls on her right. */
+#ema-stage .k-theatre {
+  position: absolute; z-index: 4; top: 50%; right: max(48px, calc((100% - 1240px) / 2));
+  display: grid; gap: 10px; width: 216px; padding: 18px 18px 16px; translate: 0 -24%;
+  background: var(--k-card); border: 1px solid var(--ema-line-strong); border-radius: 4px;
+  box-shadow: 6px 7px 0 var(--k-tint-lav);
+  opacity: var(--copy-opacity, 1); transition: opacity 220ms ease;
+}
+#ema-stage .k-theatre[hidden] { display: none; }
+#ema-stage .k-theatre-status { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 6px; color: var(--blank-ink); }
+#ema-stage .k-theatre-no { font: 400 26px/1.1 var(--ema-title-font); }
+#ema-stage .k-theatre-pose { font: 600 15px/1.5 var(--blank-serif); }
+#ema-stage .k-theatre-buttons { display: flex; gap: 8px; }
+#ema-stage .k-theatre-buttons button,
+#ema-stage .x {
+  display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  border: 1px solid var(--ema-line-strong); border-radius: 50%;
+  background: var(--k-card); color: var(--blank-ink); cursor: pointer;
+}
+#ema-stage .k-theatre-buttons button[aria-busy="true"] { opacity: .6; }
+#ema-stage .k-hint { display: flex; align-items: flex-start; gap: 6px; margin: 0; font-size: 12px; line-height: 1.6; color: var(--blank-muted); }
+#ema-stage .k-hint svg { flex: none; margin-top: 2px; color: var(--k-accent); }
+
+#ema-stage .k-note-open {
+  position: absolute; z-index: 5; top: 92px; right: max(72px, calc((100% - 1240px) / 2));
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 9px 14px;
+  border: 1px solid var(--ema-pink-soft); border-radius: 6px;
+  background: var(--k-card); color: var(--ema-pink); box-shadow: 3px 3px 0 var(--k-tint-pink);
+  font: 600 13px/1 var(--blank-sans); cursor: pointer;
+  opacity: var(--copy-opacity, 1); transition: transform 180ms ease, box-shadow 180ms ease, opacity 220ms ease;
+}
+#ema-stage .k-note-open[hidden] { display: none; }
+#ema-stage .k-cue {
+  position: absolute; z-index: 5; left: 50%; bottom: 20px; translate: -50% 0;
+  display: inline-flex; align-items: center; gap: 10px; min-height: 36px; padding: 6px 13px;
+  border: 1px solid var(--blank-line); border-radius: 6px; background: var(--k-cue-bg); color: var(--k-accent);
+  font: 700 12px/1 var(--blank-mono); white-space: nowrap; text-decoration: none;
+  -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px);
+  opacity: var(--cue-opacity, 1); transition: opacity 220ms ease;
+}
+#ema-stage .k-cue-arrows { display: inline-flex; gap: 1px; font-size: 17px; font-weight: 900; }
+#ema-stage .k-cue-arrows i { display: inline-block; font-style: normal; transform: rotate(90deg); animation: k-arrow 1.05s steps(1, end) infinite; }
+#ema-stage .k-cue-arrows i:nth-child(1) { color: #e891b4; }
+#ema-stage .k-cue-arrows i:nth-child(2) { color: #b9a6e3; animation-delay: .15s; }
+#ema-stage .k-cue-arrows i:nth-child(3) { color: #9cc1df; animation-delay: .3s; }
+
+/* Identity card. In the page flow by default; the stage script docks it over the stage. */
+#ema-stage .k-profile {
+  position: relative; z-index: 6; display: flex; align-items: center; justify-content: center;
+  gap: 16px; max-width: 760px; margin: 8px auto 40px; padding: 0 24px;
+}
+#ema-stage .k-avatar {
+  --flower-sway: 0deg;
+  position: relative; flex: none; display: grid; place-items: center;
+  width: clamp(104px, 13.5vw, 158px); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #fff, var(--ema-blush) 70%);
+  border: 3px solid var(--k-card);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--ema-pink-soft) 40%, transparent), 0 18px 54px rgba(120, 72, 96, .22);
+  transition: transform 760ms cubic-bezier(.18, 1.18, .28, 1);
+}
+html[data-color-mode="dark"] #ema-stage .k-avatar { background: radial-gradient(circle at 34% 30%, #4a3445, #2a2833 74%); }
+#ema-stage .k-avatar-face { font: 400 clamp(40px, 5vw, 58px)/1 var(--blank-serif); color: var(--ema-pink); }
+#ema-stage .k-avatar-flower { position: absolute; top: -26px; left: 50%; width: 34px; height: 44px; translate: -50% 0; transform-origin: 50% 100%; rotate: var(--flower-sway); transition: rotate 220ms ease; }
+#ema-stage .k-avatar-flower::before { content: ""; position: absolute; left: 50%; bottom: 0; width: 2px; height: 22px; translate: -50% 0; background: #8fb59c; border-radius: 2px; }
+#ema-stage .k-avatar-flower i {
+  position: absolute; top: 0; left: 50%; width: 26px; height: 26px; translate: -50% 0;
+  background: radial-gradient(circle, #fff6 0 3px, #e891b4 4px 5px, transparent 6px),
+    conic-gradient(from 0deg, #f4b6cc 0 14%, transparent 0 20%, #f4b6cc 0 34%, transparent 0 40%, #f4b6cc 0 54%, transparent 0 60%, #f4b6cc 0 74%, transparent 0 80%, #f4b6cc 0 94%, transparent 0);
+  border-radius: 50%;
+}
+#ema-stage .k-card {
+  display: grid; gap: 8px; width: auto; max-width: 440px; min-width: 0;
+  padding: 16px 18px 15px; border: 2px solid color-mix(in srgb, var(--ema-pink-soft) 70%, transparent); border-radius: 8px;
+  background: color-mix(in srgb, var(--k-card) 98%, transparent); box-shadow: var(--k-shadow);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+}
+#ema-stage .k-card-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; font: 600 11px/1.4 var(--blank-mono); color: var(--blank-muted); }
+#ema-stage .k-dots { display: inline-flex; gap: 6px; }
+#ema-stage .k-dots i { width: 10px; height: 10px; border-radius: 50%; background: #f2a7c3; }
+#ema-stage .k-dots i:nth-child(2) { background: #f3d18c; }
+#ema-stage .k-dots i:nth-child(3) { background: #a7d8bf; }
+#ema-stage .k-card-path { margin: 0; font: 11px/1.5 var(--blank-mono); color: var(--blank-muted); overflow-wrap: anywhere; }
+#ema-stage .k-card-cmd { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 0; font: 700 14px/1.5 var(--blank-mono); color: var(--k-accent); }
+#ema-stage .k-card-cmd b { color: var(--ema-lav); }
+#ema-stage .k-card-name { margin: 2px 0 0; font: 600 18px/1.4 var(--blank-serif); color: var(--blank-ink); }
+#ema-stage .k-card-name span { font-weight: 400; color: var(--blank-muted); }
+#ema-stage .k-card-intro { margin: 0; font-size: 13px; line-height: 1.75; color: var(--blank-muted); }
+#ema-stage .k-card-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 0; }
+#ema-stage .k-card-links a {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 38px; padding: 6px 11px;
+  border: 1px solid var(--blank-line); border-radius: 6px; background: var(--ema-lav-wash); color: var(--ema-lav);
+  font: 600 13px/1 var(--blank-sans); text-decoration: none;
+}
+#ema-stage .k-card-links a:nth-child(2) { background: var(--ema-blush); color: var(--ema-pink); }
+#ema-stage .k-card-links .k-card-about { background: transparent; color: var(--blank-ink); }
+
+/* Stage mode (wide fine pointers with motion on): the reference's pull-and-dock reveal. */
+#ema-stage[data-mode="stage"] .k-stage { height: calc(100svh - 82px); min-height: 600px; }
+#ema-stage[data-mode="stage"] .k-hero { position: sticky; top: 0; height: 100%; }
+#ema-stage[data-mode="stage"] .k-profile {
+  position: absolute; left: 50%; top: 52%; margin: 0; padding: 0;
+  width: min(680px, calc(100% - 32px)); max-width: none; gap: 0;
+  opacity: var(--profile-opacity, 0);
+  transform: translate(-50%, calc(-50% + var(--avatar-y, 56vh))) scale(var(--avatar-scale, .78));
+  pointer-events: none;
+  transition: opacity 240ms ease, transform 520ms cubic-bezier(.2, 1.25, .32, 1);
+  will-change: transform, opacity;
+}
+#ema-stage[data-mode="stage"] .k-stage.is-docked .k-profile { transition: opacity 220ms ease, transform 680ms cubic-bezier(.18, 1.08, .25, 1); }
+#ema-stage[data-mode="stage"] .k-avatar { pointer-events: auto; }
+#ema-stage[data-mode="stage"] .k-stage.is-docked .k-avatar { transform: translateX(-10px); }
+#ema-stage[data-mode="stage"] .k-card {
+  width: 0; max-width: 0; min-height: 0; margin-left: 0; padding: 0; border-width: 0; overflow: hidden;
+  opacity: 0; transform: translateX(-28px) scaleX(.72); transform-origin: left center;
+  transition: width 760ms cubic-bezier(.18, 1.08, .25, 1), max-width 760ms cubic-bezier(.18, 1.08, .25, 1),
+    min-height 760ms cubic-bezier(.18, 1.08, .25, 1), margin-left 760ms cubic-bezier(.18, 1.08, .25, 1),
+    padding 420ms ease 90ms, border-width 260ms ease 90ms, opacity 240ms ease 120ms,
+    transform 760ms cubic-bezier(.18, 1.08, .25, 1);
+}
+#ema-stage[data-mode="stage"] .k-stage.is-docked .k-card {
+  width: min(400px, calc(100vw - 210px)); max-width: 400px; min-height: 156px; margin-left: 16px;
+  padding: 16px 18px 15px; border-width: 2px; opacity: 1; pointer-events: auto; transform: none;
+}
+#ema-stage[data-mode="stage"] .k-stage.is-docked .k-slate { opacity: 0; }
+#ema-stage[data-mode="stage"] .k-stage.is-pulling .k-ema,
+#ema-stage[data-mode="stage"] .k-stage.is-docked .k-ema { filter: saturate(.9) brightness(.98); }
+html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-behavior: auto; }
+.k-cover { position: fixed; z-index: 48; inset: 0; background: var(--blank-paper); pointer-events: none; }
+.k-cover[hidden] { display: none; }
+
+/* ---------- Chapter rail ---------- */
+#ema-stage .k-rail {
+  --leaf-w: clamp(340px, 40vw, 680px); --rail-gutter: clamp(28px, 4vw, 72px);
+  position: relative; padding: 32px 0 40px; overflow: clip;
+  background: color-mix(in srgb, var(--k-card) 72%, var(--blank-paper));
+  border-top: 1px solid var(--blank-line);
+}
+#ema-stage .k-rail-stage { width: 100%; overflow: clip; }
+#ema-stage .k-rail-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin: 0 var(--rail-gutter) 20px; }
+#ema-stage .k-rail-head h2 { margin: 8px 0 0; font: 400 28px/1.45 var(--blank-serif); letter-spacing: .04em; color: var(--blank-ink); }
+#ema-stage .k-rail-status { position: relative; flex: none; min-width: 96px; padding-bottom: 12px; text-align: right; font: 12px/1.4 var(--blank-mono); color: var(--blank-muted); }
+#ema-stage .k-rail-status::before,
+#ema-stage .k-rail-progress { content: ""; position: absolute; inset: auto 0 0; height: 2px; background: var(--blank-line); }
+#ema-stage .k-rail-progress { background: var(--ema-pink); transform: scaleX(0); transform-origin: left; }
+#ema-stage .k-track {
+  position: relative; display: flex; gap: 28px; width: 100%; padding: 12px var(--rail-gutter) 18px;
+  overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: var(--rail-gutter);
+  scrollbar-width: none;
+}
+#ema-stage .k-track::-webkit-scrollbar { display: none; }
+#ema-stage .k-track:focus-visible { outline: 2px solid var(--ema-pink); outline-offset: -4px; }
+#ema-stage .k-leaf {
+  --leaf-tint: var(--k-tint-pink);
+  position: relative; display: flex; flex: 0 0 var(--leaf-w); flex-direction: column; min-width: 0; min-height: 430px;
+  padding: 22px; border: 1px solid var(--ema-line-strong); border-radius: 4px;
+  background: var(--k-card); color: var(--blank-ink); text-decoration: none;
+  box-shadow: 6px 7px 0 var(--leaf-tint); scroll-snap-align: center;
+}
+#ema-stage .k-leaf:nth-child(2) { --leaf-tint: var(--k-tint-lav); }
+#ema-stage .k-leaf:nth-child(3) { --leaf-tint: var(--k-tint-gold); }
+#ema-stage .k-leaf:nth-child(4) { --leaf-tint: var(--k-tint-mint); }
+#ema-stage .k-leaf[data-active] { border-color: color-mix(in srgb, var(--ema-pink) 46%, var(--ema-line-strong)); }
+#ema-stage .k-leaf:focus-visible { outline: 2px solid var(--ema-pink); outline-offset: 4px; }
+#ema-stage .k-leaf-no { font: 12px/1.4 var(--blank-mono); color: var(--ema-pink); }
+#ema-stage .k-plate {
+  position: relative; flex: 1 1 0; min-height: 0; margin: 18px 20px 8px; display: grid; place-items: center;
+  border: 1px dashed var(--blank-line); border-radius: 3px; overflow: hidden;
+  background: color-mix(in srgb, var(--blank-paper) 70%, var(--k-card));
+  transition: transform 260ms var(--blank-ease);
+}
+#ema-stage .k-leaf[data-active] .k-plate { transform: scale(1.04); }
+#ema-stage .k-plate > div { display: grid; justify-items: center; gap: 8px; width: min(100%, 380px); padding: 20px 18px; text-align: center; }
+#ema-stage .k-plate strong { font: 400 64px/1 var(--ema-title-font); color: var(--ema-pink); }
+#ema-stage .k-plate > div > span { font: 600 13px/1.4 var(--blank-sans); letter-spacing: .08em; color: var(--blank-muted); }
+#ema-stage .k-plate p { margin: 6px 0 0; font: 15px/1.8 var(--blank-serif); color: var(--blank-ink); }
+#ema-stage .k-plate :is(ul, ol) { display: grid; gap: 6px; width: 100%; margin: 8px 0 0; padding: 0; list-style: none; font-size: 13px; line-height: 1.5; }
+#ema-stage .k-plate-journal { background: repeating-linear-gradient(180deg, transparent 0 27px, color-mix(in srgb, var(--ema-pink-soft) 45%, transparent) 27px 28px); }
+#ema-stage .k-plate-works .k-plate-window { display: grid; justify-items: center; gap: 6px; width: 100%; padding: 12px 14px 16px; border: 1px solid var(--ema-line-strong); border-radius: 8px; background: var(--k-card); }
+#ema-stage .k-plate-works .k-plate-window .k-dots { justify-self: start; }
+#ema-stage .k-plate-works .k-plate-window b { font: 600 22px/1.4 var(--blank-serif); }
+#ema-stage .k-plate-works .k-plate-window small { font: 12px/1.4 var(--blank-mono); color: var(--blank-muted); }
+#ema-stage .k-plate-chip { display: inline-flex; margin: 0 4px; padding: 3px 10px; border-radius: 999px; background: var(--ema-blush); color: var(--ema-pink); font: 600 12px/1.6 var(--blank-sans); }
+#ema-stage .k-plate-chip.is-line { background: var(--ema-lav-wash); color: var(--ema-lav); }
+#ema-stage .k-plate-works li::before { content: "✿ "; color: var(--k-accent); }
+#ema-stage .k-plate-games ol li { display: flex; gap: 10px; align-items: baseline; padding: 6px 10px; border-radius: 4px; background: var(--k-card); border: 1px solid var(--blank-line); text-align: start; }
+#ema-stage .k-plate-games ol b { font: 12px var(--blank-mono); color: var(--ema-pink); }
+#ema-stage .k-plate-face { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 50%; background: var(--ema-blush); font: 400 40px/1 var(--blank-serif); color: var(--ema-pink); border: 2px solid var(--k-card); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ema-pink-soft) 40%, transparent); }
+#ema-stage .k-plate-about b { font: 600 20px/1.3 var(--blank-serif); }
+#ema-stage .k-plate-about small { font: 13px var(--blank-mono); color: var(--blank-muted); }
+#ema-stage .k-plate-about ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+#ema-stage .k-plate-about li { padding: 3px 10px; border-radius: 999px; background: var(--ema-lav-wash); color: var(--ema-lav); font-size: 12px; }
+#ema-stage .k-stamp {
+  position: absolute; right: 22px; bottom: 84px; display: grid; place-items: center; align-content: center; gap: 2px;
+  width: 104px; height: 104px; border-radius: 50%; border: 2px dashed color-mix(in srgb, var(--ema-pink) 55%, transparent);
+  background: color-mix(in srgb, var(--k-card) 88%, transparent); color: var(--ema-pink);
+  font: 400 15px/1 var(--ema-title-font); transform: rotate(-12deg); transform-origin: 50% 100%;
+  transition: transform 260ms var(--blank-ease);
+}
+#ema-stage .k-stamp i { width: 22px; height: 22px; border-radius: 50%; background: conic-gradient(from 0deg, #f4b6cc 0 14%, transparent 0 20%, #f4b6cc 0 34%, transparent 0 40%, #f4b6cc 0 54%, transparent 0 60%, #f4b6cc 0 74%, transparent 0 80%, #f4b6cc 0 94%, transparent 0); }
+#ema-stage .k-leaf[data-active] .k-stamp { transform: rotate(-12deg) scale(1.3); }
+#ema-stage .k-leaf-caption { margin-top: auto; padding: 18px 136px 4px 8px; }
+#ema-stage .k-leaf-caption h3 { margin: 0 0 7px; font: 600 20px/1.5 var(--blank-serif); }
+#ema-stage .k-leaf-caption p { margin: 0; font-size: 13px; line-height: 1.7; color: var(--blank-muted); }
+#ema-stage .k-leaf-arrow { position: absolute; right: 22px; bottom: 22px; color: var(--ema-pink); }
+#ema-stage .k-rail[data-mode="scroll"] { height: var(--rail-runway); padding: 0; }
+#ema-stage .k-rail[data-mode="scroll"] .k-rail-stage { position: sticky; top: 0; display: flex; flex-direction: column; height: 100svh; padding: clamp(86px, 10svh, 118px) 0 clamp(22px, 4svh, 44px); }
+#ema-stage .k-rail[data-mode="scroll"] .k-track { flex: 1 1 0; min-height: 0; width: max-content; overflow: visible; padding-block: 12px; scroll-snap-type: none; }
+#ema-stage .k-rail[data-mode="scroll"] .k-leaf { height: 100%; min-height: 0; }
+
+/* ---------- Signal scene ---------- */
+#ema-stage .k-signal {
+  position: relative; min-height: 640px; overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 70% at 18% 30%, var(--ema-wash-a), transparent 70%),
+    radial-gradient(ellipse 60% 70% at 86% 72%, var(--ema-wash-b), transparent 70%),
+    var(--blank-paper);
+  border-top: 1px solid var(--blank-line);
+}
+#ema-stage .k-signal-word { position: absolute; z-index: 2; left: 28%; top: 27%; width: 44%; translate: -50% -50%; text-align: center; }
+#ema-stage .k-signal-word h2 { margin: 0; font: 400 64px/1.1 var(--ema-title-font); color: var(--blank-ink); filter: drop-shadow(3px 4px 0 var(--k-title-shadow)); }
+#ema-stage .k-signal-word h2 i { font-style: normal; color: var(--ema-pink); }
+#ema-stage .k-signal-word small { display: block; margin-top: 8px; font: 12px/1.4 var(--blank-mono); letter-spacing: .1em; color: var(--blank-muted); }
+#ema-stage .k-clock {
+  position: absolute; z-index: 2; top: 64px; right: 5%; display: grid; gap: 4px; width: 300px; min-height: 160px; padding: 24px;
+  background: var(--k-card); border: 1px solid var(--blank-line); border-radius: 6px; box-shadow: var(--k-shadow);
+}
+#ema-stage .k-clock p, #ema-stage .k-clock span { margin: 0; font-size: 13px; color: var(--blank-muted); }
+#ema-stage .k-clock strong { font: 400 46px/1.1 var(--ema-title-font); font-variant-numeric: tabular-nums; color: var(--ema-pink); text-shadow: 2px 2px 0 var(--k-tint-lav); }
+#ema-stage .k-bubble {
+  position: absolute; z-index: 2; left: 6%; bottom: 168px; display: grid; gap: 8px; width: 460px; max-width: calc(100% - 48px);
+  margin: 0; padding: 20px 24px; background: var(--k-card); border: 1px solid var(--blank-line); border-radius: 18px 18px 18px 4px; box-shadow: var(--k-shadow);
+}
+#ema-stage .k-bubble figcaption { font: 700 12px/1.4 var(--blank-sans); letter-spacing: .06em; color: var(--ema-pink); }
+#ema-stage .k-bubble p { margin: 0; font: 17px/1.85 var(--blank-serif); white-space: pre-line; color: var(--blank-ink); }
+#ema-stage .k-text-button {
+  display: inline-flex; align-items: center; gap: 6px; justify-self: start; min-height: 40px; padding: 0;
+  border: 0; background: none; color: var(--ema-pink); font: 600 13px/1 var(--blank-sans); cursor: pointer;
+}
+#ema-stage .k-text-button[hidden] { display: none; }
+#ema-stage .k-rain { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; }
+#ema-stage .k-tags { position: absolute; z-index: 1; left: 50%; bottom: 24px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: min(1040px, calc(100% - 48px)); margin: 0; padding: 0; list-style: none; translate: -50% 0; }
+#ema-stage .k-tags li { padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--ema-pink-soft); background: var(--k-card); font: 600 13px/1.4 var(--blank-sans); color: var(--blank-ink); }
+#ema-stage .k-tags li:nth-child(3n + 2) { border-color: var(--ema-lav-soft); }
+#ema-stage .k-tags li:nth-child(3n) { border-color: #d9cdb3; }
+#ema-stage .k-signal.is-raining .k-tags { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+#ema-stage .k-rain-again { position: absolute; z-index: 2; right: 5%; bottom: 24px; }
+
+/* ---------- Journal ---------- */
+#ema-stage .k-journal { max-width: 1200px; margin: 0 auto; padding: 48px 28px 88px; }
+#ema-stage .k-journal-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+#ema-stage .k-journal-head h2 { margin: 8px 0 0; font: 400 30px/1.4 var(--blank-serif); letter-spacing: .04em; }
+#ema-stage .k-journal-head > a { display: inline-flex; align-items: center; gap: 8px; color: var(--ema-pink); font-size: 14px; }
+#ema-stage .k-journal-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
+#ema-stage .k-entry { position: relative; display: grid; gap: 8px; padding-bottom: 22px; border-bottom: 2px solid var(--k-tint-pink); color: var(--blank-ink); }
+#ema-stage .k-entry time { font: 12px var(--blank-mono); color: var(--ema-pink); }
+#ema-stage .k-entry h3 { margin: 0; font: 600 18px/1.6 var(--blank-serif); }
+#ema-stage .k-entry p { margin: 0; padding-right: 22px; font-size: 13px; color: var(--blank-muted); }
+#ema-stage .k-entry-arrow { position: absolute; right: 0; bottom: 26px; color: var(--ema-pink); }
+#ema-stage .k-empty {
+  display: grid; justify-items: center; gap: 10px; padding: 56px 24px; text-align: center;
+  border: 1.5px dashed var(--ema-line-strong); border-radius: 6px; background: color-mix(in srgb, var(--k-card) 80%, transparent);
+}
+#ema-stage .k-empty p { margin: 0; font: 400 22px/1.6 var(--blank-serif); }
+#ema-stage .k-empty small { font-size: 14px; color: var(--blank-muted); }
+#ema-stage .k-empty-acts { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; }
+#ema-stage .k-pill {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 18px; border-radius: 999px;
+  border: 1px solid var(--ema-pink); background: var(--ema-pink); color: var(--ema-on-pink); font: 600 14px/1 var(--blank-sans); cursor: pointer;
+}
+#ema-stage .k-pill.is-quiet { background: transparent; color: var(--ema-pink); }
+#ema-stage .k-pill[hidden] { display: none; }
+
+/* ---------- Sakura note dialog ---------- */
+#ema-stage .ema-notice { width: min(420px, calc(100vw - 32px)); padding: 0; border: 1px solid var(--ema-line-strong); border-radius: 16px; background: var(--k-card); color: var(--blank-ink); box-shadow: 0 30px 60px -30px #000a; }
+#ema-stage .ema-notice::backdrop { background: rgba(38, 32, 46, .56); }
+html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
+#ema-stage .notice-in { display: grid; gap: 10px; padding: 18px 20px 22px; }
+#ema-stage .notice-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+#ema-stage .notice-h h2 { margin: 0; font: 400 20px/1.3 var(--blank-serif); letter-spacing: .08em; }
+#ema-stage .notice-h form { margin: 0; }
+#ema-stage .notice-date { margin: 0; font: 12px/1.4 var(--blank-mono); letter-spacing: .08em; color: var(--blank-muted); }
+#ema-stage .notice-fallback { margin: 0; font-size: 12px; line-height: 1.7; color: var(--blank-muted); }
+#ema-stage .notice-text { margin: 0; font: 17px/1.9 var(--blank-serif); letter-spacing: .04em; white-space: pre-line; }
+
+@keyframes k-blink { 50% { opacity: 0; } }
+@keyframes k-arrow { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+
+@media (hover: hover) and (pointer: fine) {
+  #ema-stage .k-ema:has(.k-ema-hit:hover) .k-frame[data-active="true"] { filter: drop-shadow(0 0 22px color-mix(in srgb, var(--ema-pink-soft) 70%, transparent)); }
+  #ema-stage :is(.k-theatre-buttons button, .x):hover { border-color: var(--ema-pink); background: var(--ema-blush); }
+  #ema-stage .k-note-open:hover { transform: translateY(-2px) rotate(1deg); box-shadow: 5px 6px 0 var(--k-tint-pink); }
+  #ema-stage .k-leaf:hover .k-leaf-arrow { color: var(--ema-lav); }
+  #ema-stage .k-card-links a:hover { border-color: currentColor; }
+  #ema-stage .k-entry:hover h3 { color: var(--ema-pink); }
+}
+
+@media (max-width: 1100px) {
+  #ema-stage .k-copy { width: 41%; }
+  #ema-stage .k-title { font-size: 56px; }
+  #ema-stage { --k-name-size: 62px; }
+  #ema-stage .k-theatre { width: 196px; padding: 16px; }
+}
+
+/* Phones and portrait tablets: the reference's narrow stage. The title sits above Ema, who fills the
+   rest of the first screen; the theatre controls ride along her lower edge. */
+@media (max-width: 760px), (max-width: 1100px) and (orientation: portrait) {
+  #ema-stage .k-hero { --k-theatre-bottom: 64px; min-height: 560px; padding: 118px 24px 96px; align-items: flex-start; }
+  #ema-stage .k-copy {
+    position: absolute; top: 128px; left: 24px; right: 24px; width: auto; max-width: none;
+    justify-items: center; text-align: center; transform: none;
+  }
+  #ema-stage .k-eyebrow { margin-bottom: 8px; }
+  #ema-stage .k-title { font-size: 46px; }
+  #ema-stage .k-diary { margin-top: 6px; font-size: 14px; }
+  #ema-stage .k-terminal { display: none; }
+  #ema-stage .k-ema { top: auto; bottom: 0; height: min(calc(100% - 256px), calc(100vw * 1.5)); translate: -50% 0; }
+  /* The theatre card keeps its title and its tap hint on phones; its arrows switch poses, the cue below scrolls. */
+  #ema-stage .k-theatre {
+    top: auto; right: auto; left: 50%; bottom: var(--k-theatre-bottom); translate: -50% 0;
+    grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "kicker buttons" "status buttons" "hint hint";
+    align-items: center; width: min(360px, calc(100% - 32px)); gap: 0 10px; padding: 10px 10px 8px 14px;
+    border-radius: 16px; box-shadow: 4px 5px 0 var(--k-tint-lav);
+  }
+  #ema-stage .k-theatre .k-kicker { grid-area: kicker; }
+  #ema-stage .k-theatre-status { grid-area: status; }
+  #ema-stage .k-theatre-no { font-size: 20px; }
+  #ema-stage .k-theatre-pose { font-size: 13px; }
+  #ema-stage .k-theatre-buttons { grid-area: buttons; }
+  #ema-stage .k-hint { grid-area: hint; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--blank-line); }
+  #ema-stage .k-back { --sb-focus: 50% 66%; --sb-reach: 48% 42%; }
+  #ema-stage { --k-name-size: 52px; }
+  #ema-stage .k-note-open { top: 76px; right: 16px; min-height: 40px; padding: 8px 11px; font-size: 12px; }
+  #ema-stage .k-cue { bottom: 16px; }
+}
+@media (max-width: 760px) {
+  #ema-stage .k-profile { flex-direction: column; margin-top: 24px; }
+  #ema-stage .k-card { max-width: 100%; }
+  #ema-stage .k-rail { --leaf-w: min(82vw, 460px); --rail-gutter: 24px; padding: 28px 0 32px; }
+  #ema-stage .k-rail-head { flex-wrap: wrap; gap: 16px; }
+  #ema-stage .k-rail-head h2 { font-size: 22px; }
+  #ema-stage .k-track { gap: 20px; }
+  #ema-stage .k-leaf { min-height: 420px; }
+  #ema-stage .k-signal { display: grid; gap: 18px; min-height: 0; padding: 40px 24px 120px; }
+  #ema-stage :is(.k-signal-word, .k-clock, .k-bubble) { position: relative; inset: auto; translate: none; width: auto; max-width: none; }
+  #ema-stage .k-signal-word { text-align: start; }
+  #ema-stage .k-signal-word h2 { font-size: 40px; }
+  #ema-stage .k-clock { min-height: 0; }
+  #ema-stage .k-tags { position: relative; left: auto; bottom: auto; translate: none; width: auto; justify-content: flex-start; }
+  #ema-stage .k-rain-again { right: 24px; }
+  #ema-stage .k-journal { padding: 32px 24px 56px; }
+  #ema-stage .k-journal-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 480px) {
+  #ema-stage .k-copy { top: 122px; }
+  #ema-stage .k-title { font-size: 40px; }
+  #ema-stage { --k-name-size: 46px; }
+  #ema-stage .k-ema { height: min(calc(100% - 244px), calc(100vw * 1.6)); }
+  #ema-stage .k-leaf { padding: 18px; }
+  #ema-stage .k-plate { margin-inline: 0; }
+  #ema-stage .k-leaf-caption { padding-right: 84px; }
+  #ema-stage .k-leaf-caption h3 { font-size: 17px; }
+  #ema-stage .k-stamp { right: 12px; width: 78px; height: 78px; font-size: 12px; }
+  #ema-stage .k-leaf[data-active] .k-stamp { transform: rotate(-12deg) scale(1.18); }
+  #ema-stage .k-journal-head h2 { font-size: 24px; }
+}
+@media (min-width: 761px) and (max-width: 1100px) and (orientation: portrait) {
+  #ema-stage .k-hero { padding-top: 140px; }
+  #ema-stage .k-copy { top: 140px; }
+  #ema-stage .k-title { font-size: 60px; }
+  #ema-stage { --k-name-size: 64px; }
+  #ema-stage .k-terminal { display: flex; }
+  #ema-stage .k-ema { height: min(calc(100% - 330px), calc(100vw * 1.1)); }
+  #ema-stage .k-hero { --k-theatre-bottom: 76px; }
+}
+/* When the theatre crosses the figure, end the whole figure layer behind the card so her legs
+   cannot reappear below it. Keep the original image box/scale; 16px covers the maximum parallax.
+   Hidden controls (no JS) and the short layout with the card beside Ema need no occlusion. */
+@media (max-width: 760px) and (min-height: 621px), (min-width: 761px) and (max-width: 1100px) and (orientation: portrait) {
+  #ema-stage .k-hero:has(.k-theatre:not([hidden])) .k-frames {
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--k-theatre-bottom) - 48px), transparent calc(100% - var(--k-theatre-bottom) - 16px));
+    mask-image: linear-gradient(to bottom, #000 calc(100% - var(--k-theatre-bottom) - 48px), transparent calc(100% - var(--k-theatre-bottom) - 16px));
+    clip-path: inset(0 0 calc(var(--k-theatre-bottom) + 16px));
+  }
+}
+/* Short landscape phones: text on the left half, Ema on the right. */
+@media (max-width: 760px) and (max-height: 620px) {
+  #ema-stage .k-copy { top: 96px; left: 24px; right: 52%; justify-items: start; text-align: start; }
+  #ema-stage .k-title { font-size: 34px; }
+  #ema-stage { --k-name-size: 38px; }
+  #ema-stage .k-ema { left: 70%; height: calc(100% - 92px); }
+  #ema-stage .k-theatre { left: 26%; }
+}
+/* Short screens held sideways (phones in landscape, very short windows). Ema keeps her size, so the
+   stage is taller than the screen and the page scrolls naturally. The theatre card sits at the bottom
+   of the first screen, so its label and hint are in view; the cue stays at the end of the stage, where
+   scrolling arrives. */
+@media (max-height: 500px) and (orientation: landscape) {
+  #ema-stage .k-theatre { top: auto; bottom: calc(100% - 100svh + 16px); translate: none; }
+}
+@media (max-width: 760px) and (max-height: 500px) and (orientation: landscape) {
+  #ema-stage .k-theatre { left: 24px; right: auto; width: calc(48% - 24px); bottom: calc(100% - 100svh + 12px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #ema-stage .k-frame, #ema-stage .k-plate, #ema-stage .k-stamp, #ema-stage .k-copy { transition: none; }
+  #ema-stage .k-leaf[data-active] .k-plate, #ema-stage .k-leaf[data-active] .k-stamp { transform: rotate(-12deg); }
+  #ema-stage .k-leaf[data-active] .k-plate { transform: none; }
+  #ema-stage .k-caret, #ema-stage .k-cue-arrows i { animation: none; }
+}
+html[data-motion-paused="true"] #ema-stage :is(.k-caret, .k-cue-arrows i) { animation: none; }

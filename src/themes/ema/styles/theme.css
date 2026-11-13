@@ -1,14 +1,19 @@
+/* Sakura Archive palette (reviewed prototype r3): warm cream paper, plum-grey ink, sakura and lavender accents.
+   The Blank tokens carry it to every Ema page; the --ema-* tokens add r3's card, strong line, soft pink and lavender. */
 html[data-theme="ema"] {
   color-scheme: light;
-  --blank-paper:#fafbf9; --blank-ink:#47536b; --blank-muted:#68758a;
-  --blank-line:#dce3e9; --blank-soft:#f0f3f5; --blank-header-bg:#fafbf9;
-  --blank-control-line:#9aa5b2; --blank-anchor-muted:#68758a; --blank-quote:#65778c;
-  --blank-inline-code:#eff1f5; --blank-foldout-line:#c5cdd8; --blank-scrollbar:#bac4d3;
-  --blank-panel-bg:#edf2f5; --blank-panel-ink:#47536b; --blank-panel-muted:#68758a;
-  --blank-footer-bg:#fafbf9; --blank-footer-ink:#47536b; --blank-footer-line:#dce3e9; --blank-footer-muted:#68758a;
+  --blank-paper:#fbf7ef; --blank-ink:#434861; --blank-muted:#62667e;
+  --blank-line:#e7dece; --blank-soft:#f4ede0; --blank-header-bg:#fbf7ef;
+  --blank-control-line:#a89c87; --blank-anchor-muted:#62667e; --blank-quote:#5d6179;
+  --blank-inline-code:#f2eadc; --blank-foldout-line:#d3c7b2; --blank-scrollbar:#cbbfa9;
+  --blank-panel-bg:#f4ede0; --blank-panel-ink:#434861; --blank-panel-muted:#62667e;
+  --blank-footer-bg:#fbf7ef; --blank-footer-ink:#434861; --blank-footer-line:#e7dece; --blank-footer-muted:#62667e;
   --blank-width:1120px; --blank-sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
   --blank-serif:"Iowan Old Style","Songti SC",SimSun,Georgia,serif; --blank-mono:ui-monospace,Consolas,monospace;
-  --blank-ease:cubic-bezier(.23,1,.32,1); --ema-pink:#a95478; --ema-blush:#fae8ee;
+  --blank-ease:cubic-bezier(.23,1,.32,1); --ema-pink:#9c4872; --ema-blush:#fbe9ee;
+  --ema-card:#fffdf9; --ema-line-strong:#d3c7b2; --ema-pink-soft:#efc5d3; --ema-on-pink:#fffdf9;
+  --ema-lav:#62589a; --ema-lav-soft:#d6cdec; --ema-lav-wash:#efebf8;
+  --ema-wash-a:rgba(251,233,238,.8); --ema-wash-b:rgba(239,235,248,.84);
   --ema-title-font:"Gloock",var(--blank-serif);
   min-width:320px; background:var(--blank-paper); scroll-padding-top:110px; accent-color:var(--ema-pink);
 }
@@ -16,15 +21,22 @@ html[data-theme="ema"]:lang(zh-TW) {
   --blank-sans:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;
   --blank-serif:"Iowan Old Style","Songti TC",PMingLiU,Georgia,serif;
 }
+html[data-theme="ema"]:lang(ja) {
+  --blank-sans:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+  --blank-serif:"Iowan Old Style","Hiragino Mincho ProN","Yu Mincho",Georgia,serif;
+}
 html[data-theme="ema"][data-color-mode="dark"] {
   color-scheme:dark;
-  --blank-paper:#20232c; --blank-ink:#e3e5ed; --blank-muted:#b0bacb; --blank-line:#444958;
-  --blank-soft:#2b303c; --blank-header-bg:#20232c; --blank-control-line:#758299;
-  --blank-anchor-muted:#acb7cb; --blank-quote:#bcc6dc; --blank-inline-code:#323847;
-  --blank-foldout-line:#545d72; --blank-scrollbar:#6c758a; --blank-panel-bg:#2c3340;
-  --blank-panel-ink:#e3e5ed; --blank-panel-muted:#b0bacb; --blank-footer-bg:#20232c;
-  --blank-footer-ink:#e3e5ed; --blank-footer-line:#444958; --blank-footer-muted:#b0bacb;
-  --ema-pink:#efa8c5; --ema-blush:#41303c;
+  --blank-paper:#201f28; --blank-ink:#ece9f1; --blank-muted:#b6b3c7; --blank-line:#3e3c4b;
+  --blank-soft:#302e3b; --blank-header-bg:#201f28; --blank-control-line:#7a7590;
+  --blank-anchor-muted:#b6b3c7; --blank-quote:#c9c5d8; --blank-inline-code:#302e3b;
+  --blank-foldout-line:#56536b; --blank-scrollbar:#6c6880; --blank-panel-bg:#302e3b;
+  --blank-panel-ink:#ece9f1; --blank-panel-muted:#b6b3c7; --blank-footer-bg:#201f28;
+  --blank-footer-ink:#ece9f1; --blank-footer-line:#3e3c4b; --blank-footer-muted:#b6b3c7;
+  --ema-pink:#f2aec8; --ema-blush:#3b2c38;
+  --ema-card:#292832; --ema-line-strong:#56536b; --ema-pink-soft:#7a4c63; --ema-on-pink:#2a1c25;
+  --ema-lav:#c3b9ec; --ema-lav-soft:#524b76; --ema-lav-wash:#302d45;
+  --ema-wash-a:rgba(62,42,58,.7); --ema-wash-b:rgba(38,42,74,.72);
 }
 body[data-ema] { font-size:14px; overflow-x:clip; }
 body[data-ema] img { height:auto; }
@@ -36,8 +48,8 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
 .ema-wordmark strong i {font-style:normal;color:var(--ema-pink);}
 .ema-footer-brand span {color:var(--ema-pink);}
 .ema-wordmark small {font:9px var(--blank-mono);color:var(--blank-muted);}
-.ema-nav {display:flex;justify-content:center;align-items:center;gap:4px;border:1px solid var(--blank-line);padding:5px;background:var(--blank-paper);border-radius:32px;box-shadow:0 4px 16px #46577708;}
-.ema-nav a {padding:8px 17px;border-radius:24px;font-size:12px;white-space:nowrap;letter-spacing:.06em;}
+.ema-nav {display:flex;justify-content:center;align-items:center;gap:4px;border:1px solid var(--blank-line);padding:5px;background:var(--blank-paper);border-radius:32px;box-shadow:0 4px 16px rgba(70,54,48,.03);}
+.ema-nav a {padding:8px 17px;border-radius:24px;font-size:13px;white-space:nowrap;letter-spacing:.06em;}
 .ema-nav a[aria-current="page"] {background:var(--ema-blush);color:var(--ema-pink);}
 .ema-header-actions {display:flex;align-items:center;gap:7px;justify-self:end;}
 .ema-icon-button,.ema-motion-toggle {display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:40px;min-height:40px;padding:7px 10px;border:1px solid var(--blank-line);border-radius:20px;background:var(--blank-paper);font-size:11px;}
@@ -46,12 +58,11 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
 .ema-motion-toggle:focus-visible::after {visibility:visible;}
 .ema-motion-toggle[aria-disabled="true"] {cursor:default;color:var(--blank-muted);}
 .ema-header .site-language-menu>summary {border-radius:20px;background:var(--blank-paper);}
-.ema-header .site-language-options {background:var(--blank-paper);border-radius:14px;box-shadow:0 8px 32px #15203617;}
+.ema-header .site-language-options {background:var(--ema-card);border-radius:14px;box-shadow:0 8px 32px rgba(60,44,36,.1);}
 .ema-home-main {min-height:100svh;}
 .ema-content {padding-top:150px;}
 .ema-content .blank-page-head {border-color:var(--blank-line);}
 .ema-content :is(.blank-page-head h1,.blank-article-header h1) {font-family:var(--blank-serif);font-weight:400;}
-.ema-content .blank-featured {border-radius:14px;}
 .ema-content .blank-button {border-radius:8px;background:var(--ema-pink);border-color:var(--ema-pink);color:var(--blank-paper)!important;}
 .ema-content .blank-prose a {text-decoration-color:var(--ema-pink);}
 .ema-content .blank-toc a[aria-current="location"] {color:var(--ema-pink);}
@@ -84,7 +95,7 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
   .ema-header :is(.ema-icon-button,.ema-motion-toggle) {min-width:36px;min-height:40px;padding:6px;}
   .ema-content {width:calc(100% - 40px);}
 }
-@media(max-width:359px) { .ema-wordmark strong {font-size:13px;} .ema-header .site-language-menu>summary>svg:last-child {display:none;} .ema-header-actions{gap:3px;} }
+@media(max-width:359px) { .ema-wordmark strong {font-size:13px;} .ema-nav a {font-size:12px;} .ema-header .site-language-menu>summary>svg:last-child {display:none;} .ema-header-actions{gap:3px;} }
 @media(prefers-reduced-motion:reduce) {html[data-theme="ema"] {scroll-behavior:auto;}}
 
 /* The same paper, ink and rose accents continue beyond the illustrated cover. */
@@ -190,10 +201,13 @@ html[data-motion-paused="true"] .ema-header .site-language-options {animation:no
 html[data-theme="ema"] {
   --ema-petal:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 38C7 30 3 15 11 4L20 10L29 4C37 15 33 30 20 38Z' fill='%23f7c4d6' stroke='%23eaa0bc' stroke-width='1.4'/><path d='M20 34V15' stroke='%23eaa0bc' stroke-width='1' opacity='.55'/></svg>");
   --ema-blossom:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-50 -50 100 100'><defs><path id='p' d='M0-5C-15-15-19-33-8-45L0-38L8-45C19-33 15-15 0-5Z'/></defs><g fill='%23f8c3d5' stroke='%23e48fb0' stroke-width='2.4' stroke-linejoin='round'><use href='%23p'/><use href='%23p' transform='rotate(72)'/><use href='%23p' transform='rotate(144)'/><use href='%23p' transform='rotate(216)'/><use href='%23p' transform='rotate(288)'/></g><circle r='8' fill='%23fff3c9' stroke='%23eab35c' stroke-width='2'/></svg>");
-  background:radial-gradient(1100px 620px at 94% -8%,#fbe7ef 0,transparent 62%),radial-gradient(900px 560px at -12% 30%,#e7eff8 0,transparent 60%),var(--blank-paper);
-}
-html[data-theme="ema"][data-color-mode="dark"] {
-  background:radial-gradient(1100px 620px at 94% -8%,#3a2b3a 0,transparent 62%),radial-gradient(900px 560px at -12% 30%,#26324a 0,transparent 60%),var(--blank-paper);
+  /* r3's paper: a sakura wash at the top right, a lavender one on the left, and a faint dot grid. */
+  background:
+    radial-gradient(46% 420px at 100% 0,var(--ema-wash-a),transparent 70%),
+    radial-gradient(40% 380px at 0 90px,var(--ema-wash-b),transparent 70%),
+    radial-gradient(circle at 1px 1px,color-mix(in srgb,var(--ema-line-strong) 34%,transparent) 1px,transparent 0) 0 0/22px 22px,
+    var(--blank-paper);
+  background-repeat:no-repeat,no-repeat,repeat,no-repeat;
 }
 html[data-theme="ema"] body[data-ema] {background:transparent;}
 .ema-backdrop {position:fixed;inset:0;z-index:-1;pointer-events:none;display:none;}
@@ -208,13 +222,11 @@ html[data-color-mode="dark"] .ema-backdrop::before,html[data-color-mode="dark"] 
 
 /* Frosted, but dense enough that titles and covers scrolling underneath do not read through. */
 .ema-header {background:color-mix(in srgb,var(--blank-header-bg) 94%,transparent);-webkit-backdrop-filter:blur(18px) saturate(1.15);backdrop-filter:blur(18px) saturate(1.15);}
-/* Only the wide cover lets the header float over the art, and only until the page moves. */
-@media(min-width:1000px) { body[data-ema-home] .ema-header:not(.is-scrolled) {background:linear-gradient(180deg,color-mix(in srgb,var(--blank-paper) 82%,transparent),transparent);-webkit-backdrop-filter:none;backdrop-filter:none;} }
 .ema-nav {
   background:color-mix(in srgb,var(--blank-paper) 88%,transparent);border-color:color-mix(in srgb,var(--blank-line) 70%,#fff);
-  box-shadow:inset 0 1px 0 #ffffffb3,0 8px 24px #526f8c1f;-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
+  box-shadow:inset 0 1px 0 #ffffffb3,0 8px 24px rgba(96,74,60,.1);-webkit-backdrop-filter:blur(16px) saturate(1.3);backdrop-filter:blur(16px) saturate(1.3);
 }
-html[data-color-mode="dark"] .ema-nav {box-shadow:inset 0 1px 0 #ffffff14,0 8px 24px #0005;}
+html[data-color-mode="dark"] .ema-nav {border-color:var(--blank-line);box-shadow:inset 0 1px 0 #ffffff14,0 8px 24px #0005;}
 
 .ema-sakura {position:fixed;inset:0;z-index:45;overflow:hidden;pointer-events:none;}
 .ema-sakura span {position:absolute;top:-28px;left:var(--petal-left);width:var(--petal-size);height:var(--petal-size);opacity:0;animation:ema-petal-fall var(--petal-duration) linear var(--petal-delay) infinite;}
@@ -236,62 +248,81 @@ body:not([data-ema-home]) .ema-sakura span:nth-child(n+9) {display:none;}
 @media(min-width:1000px) and (hover:hover) and (pointer:fine) {
   .ema-scroll-track {position:fixed;z-index:44;right:12px;top:24vh;bottom:24vh;display:block;width:4px;border-radius:4px;background:color-mix(in srgb,var(--blank-line) 75%,transparent);pointer-events:none;}
   .ema-scroll-track::before {content:"";position:absolute;inset:0 0 auto;height:calc(var(--scroll-ratio,0) * 100%);border-radius:inherit;background:var(--ema-pink);opacity:.5;}
-  .ema-scroll-thumb {position:absolute;left:50%;top:calc(var(--scroll-ratio,0) * 100%);width:26px;height:26px;margin:-13px 0 0 -13px;background:var(--ema-blossom) center/contain no-repeat;transform:rotate(calc(var(--scroll-ratio,0) * 540deg));filter:drop-shadow(0 3px 5px #8599b440);}
+  .ema-scroll-thumb {position:absolute;left:50%;top:calc(var(--scroll-ratio,0) * 100%);width:26px;height:26px;margin:-13px 0 0 -13px;background:var(--ema-blossom) center/contain no-repeat;transform:rotate(calc(var(--scroll-ratio,0) * 540deg));filter:drop-shadow(0 3px 5px rgba(96,74,60,.25));}
   .ema-header .ema-page-progress {display:none;}
 }
 @media(max-width:760px) { .ema-sakura span:nth-child(n+10) {display:none;} }
 html[data-motion-paused="true"] .ema-sakura {display:none;}
 @media(prefers-reduced-motion:reduce) { .ema-sakura {display:none;} }
 
-/* Left-edge console: Sakura Radio, like Kagari's side drawer. */
-.ema-console {display:none;}
-@media(min-width:1000px) {
-  .ema-console {display:block;}
-  .console-tab {position:fixed;left:0;top:42vh;z-index:46;display:flex;flex-direction:column;align-items:center;gap:8px;padding:12px 7px;border:1px solid var(--blank-line);border-left:0;border-radius:0 12px 12px 0;background:color-mix(in srgb,var(--blank-paper) 86%,transparent);color:var(--ema-pink);font-size:11px;letter-spacing:.12em;writing-mode:vertical-rl;cursor:pointer;box-shadow:0 8px 22px #8599b42a;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:padding 180ms var(--blank-ease),background-color 180ms ease;}
-  .console-tab svg {writing-mode:horizontal-tb;}
-  .console-tab[hidden] {display:none;}
-  .ema-console.is-open .console-tab {background:var(--ema-blush);}
-  .console-panel {position:fixed;left:44px;top:max(120px,calc(42vh - 150px));z-index:46;display:grid;gap:12px;width:292px;padding:14px;border:1px solid color-mix(in srgb,var(--blank-line) 70%,#fff);border-radius:16px;background:color-mix(in srgb,var(--blank-paper) 84%,transparent);color:var(--blank-ink);box-shadow:0 22px 50px #46577729;-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);animation:ema-console-in 240ms var(--blank-ease);}
-  .console-panel[hidden] {display:none;}
-  .console-head {display:flex;align-items:center;justify-content:space-between;gap:10px;}
-  .console-head p {margin:0;font:400 15px/1.4 var(--ema-title-font);}
-  .console-head button {display:grid;place-items:center;width:30px;height:30px;padding:0;border:1px solid var(--blank-line);border-radius:50%;background:transparent;color:var(--blank-muted);cursor:pointer;}
-  .console-card {display:grid;gap:10px;padding:12px;border:1px solid var(--blank-line);border-radius:12px;background:color-mix(in srgb,var(--blank-paper) 70%,transparent);}
-  .console-kicker {margin:0;font:600 10px/1.6 var(--blank-mono);letter-spacing:.16em;color:var(--blank-muted);}
-  .radio-head {display:flex;align-items:center;gap:12px;}
-  .radio-head strong {display:block;font-size:14px;font-weight:600;}
-  .radio-head small {font:11px var(--blank-mono);color:var(--blank-muted);}
-  .radio-disc {position:relative;flex-shrink:0;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle,var(--ema-pink) 0 5px,var(--blank-paper) 5.5px 8px,transparent 8.5px),repeating-radial-gradient(circle,#2b2f3a 0 2px,#3b4050 2.5px 3.5px);box-shadow:0 4px 12px #1b223640;animation:ema-disc-spin 4s linear infinite;animation-play-state:paused;}
-  .radio-disc::after {content:"";position:absolute;inset:0;border-radius:50%;background:var(--ema-blossom) center/42% no-repeat;opacity:.9;}
-  .radio.is-playing .radio-disc {animation-play-state:running;}
-  .radio-progress {height:4px;border-radius:4px;background:var(--blank-line);overflow:hidden;}
-  .radio-progress span {display:block;height:100%;background:var(--ema-pink);transform:scaleX(0);transform-origin:left;}
-  .radio-time {display:flex;justify-content:space-between;font:10px var(--blank-mono);color:var(--blank-muted);}
-  .radio-controls {display:flex;align-items:center;justify-content:center;gap:14px;}
-  .radio-controls button {display:grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid var(--blank-line);border-radius:50%;background:var(--blank-paper);color:var(--blank-ink);cursor:pointer;}
-  .radio-controls .radio-play {width:46px;height:46px;background:var(--ema-pink);border-color:var(--ema-pink);color:var(--blank-paper);}
-  .radio-controls button:disabled,.radio-volume input:disabled {opacity:.4;cursor:default;}
-  .radio-volume {display:flex;align-items:center;gap:8px;color:var(--blank-muted);}
-  .radio-volume input {flex:1;accent-color:var(--ema-pink);}
-  .radio-note {margin:0;font-size:11px;line-height:1.6;color:var(--blank-muted);}
-  .ema-console :is(button,input):focus-visible {outline:2px solid var(--ema-pink);outline-offset:2px;}
-}
-@media(min-width:1000px) and (hover:hover) and (pointer:fine) {
-  .console-tab:hover {padding-left:11px;}
+/* Corner controls: the console (Sakura Radio, like Kagari's side drawer) and the theme palette.
+   Where the page leaves room beside its 1120px column (1260px and wider), the console is a tab on the left edge
+   and the palette floats in the lower right. Narrower windows dock both so neither covers the page (reviewed
+   prototype r3): the console opens from the footer and the palette joins the header's buttons. */
+/* r3's edge tab: a slim card with the icon above the vertical label, centred on the left edge. */
+.console-tab {position:fixed;left:0;top:50%;z-index:46;display:grid;justify-items:center;gap:6px;width:34px;padding:10px 0;border:1px solid var(--blank-line);border-left:0;border-radius:0 12px 12px 0;background:var(--ema-card);color:var(--blank-muted);font:12px/1.15 var(--blank-serif);cursor:pointer;box-shadow:0 8px 22px rgba(96,74,60,.12);transform:translateY(-50%);transition:color 180ms ease,background-color 180ms ease;}
+.console-tab span {writing-mode:vertical-rl;letter-spacing:.2em;}
+.console-tab svg {color:var(--ema-pink);}
+.console-tab[hidden] {display:none;}
+.ema-console.is-open .console-tab {background:var(--ema-blush);color:var(--ema-pink);}
+.ema-console-dock {display:inline-flex;align-items:center;gap:5px;padding:0;border:0;background:none;color:inherit;font:inherit;text-decoration:underline;text-decoration-color:var(--ema-pink-soft);text-underline-offset:4px;cursor:pointer;}
+.ema-console-dock svg {color:var(--ema-pink);}
+.ema-console-dock[aria-expanded="true"] {color:var(--ema-pink);}
+.ema-console-dock[hidden] {display:none;}
+.console-panel {position:fixed;left:44px;top:max(120px,calc(50vh - 150px));max-height:calc(100vh - max(120px,calc(50vh - 150px)) - 16px);overflow:auto;overscroll-behavior:contain;z-index:46;display:grid;gap:12px;width:292px;padding:14px;border:1px solid color-mix(in srgb,var(--blank-line) 70%,#fff);border-radius:16px;background:color-mix(in srgb,var(--ema-card) 86%,transparent);color:var(--blank-ink);box-shadow:0 22px 50px rgba(96,74,60,.18);-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);animation:ema-console-in 240ms var(--blank-ease);}
+html[data-color-mode="dark"] .console-panel {border-color:var(--blank-line);box-shadow:0 22px 50px #00000073;}
+.console-panel[hidden] {display:none;}
+.console-head {display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.console-head p {margin:0;font:400 15px/1.4 var(--ema-title-font);}
+.console-head button {display:grid;place-items:center;width:30px;height:30px;padding:0;border:1px solid var(--blank-line);border-radius:50%;background:transparent;color:var(--blank-muted);cursor:pointer;}
+.console-card {display:grid;gap:10px;padding:12px;border:1px solid var(--blank-line);border-radius:12px;background:color-mix(in srgb,var(--blank-paper) 70%,transparent);}
+.console-card[hidden] {display:none;}
+.console-kicker {margin:0;font:600 10px/1.6 var(--blank-mono);letter-spacing:.16em;color:var(--blank-muted);}
+.radio-head {display:flex;align-items:center;gap:12px;}
+.radio-head strong {display:block;font-size:14px;font-weight:600;}
+.radio-head small {font:11px var(--blank-mono);color:var(--blank-muted);}
+.radio-disc {position:relative;flex-shrink:0;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle,var(--ema-pink) 0 5px,var(--blank-paper) 5.5px 8px,transparent 8.5px),repeating-radial-gradient(circle,#2b2f3a 0 2px,#3b4050 2.5px 3.5px);box-shadow:0 4px 12px #1b223640;animation:ema-disc-spin 4s linear infinite;animation-play-state:paused;}
+.radio-disc::after {content:"";position:absolute;inset:0;border-radius:50%;background:var(--ema-blossom) center/42% no-repeat;opacity:.9;}
+.radio.is-playing .radio-disc {animation-play-state:running;}
+.radio-progress {height:4px;border-radius:4px;background:var(--blank-line);overflow:hidden;}
+.radio-progress span {display:block;height:100%;background:var(--ema-pink);transform:scaleX(0);transform-origin:left;}
+.radio-time {display:flex;justify-content:space-between;font:10px var(--blank-mono);color:var(--blank-muted);}
+.radio-controls {display:flex;align-items:center;justify-content:center;gap:14px;}
+.radio-controls button {display:grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid var(--blank-line);border-radius:50%;background:var(--ema-card);color:var(--blank-ink);cursor:pointer;}
+.radio-controls .radio-play {width:46px;height:46px;background:var(--ema-pink);border-color:var(--ema-pink);color:var(--ema-on-pink);}
+.radio-controls button:disabled,.radio-volume input:disabled {opacity:.4;cursor:default;}
+.radio-volume {display:flex;align-items:center;gap:8px;color:var(--blank-muted);}
+.radio-volume input {flex:1;accent-color:var(--ema-pink);}
+.radio-note {margin:0;font-size:11px;line-height:1.6;color:var(--blank-muted);}
+/* The cursor ring's switch (Home and Games only): a labelled on/off control, its state also written out. */
+.ring-switch {display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:36px;padding:0;border:0;background:none;color:var(--blank-ink);font:600 13px/1.4 var(--blank-sans);text-align:start;cursor:pointer;}
+.ring-switch-state {display:inline-flex;align-items:center;gap:8px;font:500 11px/1 var(--blank-mono);letter-spacing:.06em;color:var(--blank-muted);}
+.ring-switch-track {position:relative;flex:none;width:38px;height:22px;border:1px solid var(--ema-line-strong);border-radius:999px;background:var(--blank-soft);transition:background-color 180ms ease,border-color 180ms ease;}
+.ring-switch-track::after {content:"";position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:var(--ema-card);box-shadow:0 1px 3px rgba(60,44,36,.3);transition:transform 200ms var(--blank-ease);}
+.ring-switch[aria-checked="true"] .ring-switch-state {color:var(--ema-pink);}
+.ring-switch[aria-checked="true"] .ring-switch-track {border-color:var(--ema-pink);background:var(--ema-pink);}
+.ring-switch[aria-checked="true"] .ring-switch-track::after {transform:translateX(16px);}
+.ema-console :is(button,input):focus-visible {outline:2px solid var(--ema-pink);outline-offset:2px;}
+@media(hover:hover) and (pointer:fine) {
+  .console-tab:hover {background:var(--ema-blush);color:var(--ema-pink);}
   .radio-controls button:not(.radio-play):not(:disabled):hover {border-color:var(--ema-pink);}
+  .ring-switch:hover .ring-switch-track {border-color:var(--ema-pink);}
+  .ema-console-dock:hover {color:var(--ema-pink);text-decoration-color:var(--ema-pink);}
 }
+@media(pointer:coarse) { .ema-console-dock {min-height:44px;} }
 @keyframes ema-console-in {from {opacity:0;transform:translateX(-12px);} to {opacity:1;transform:none;}}
+@keyframes ema-console-up {from {opacity:0;transform:translateY(14px);} to {opacity:1;transform:none;}}
 @keyframes ema-disc-spin {to {transform:rotate(360deg);}}
 html[data-motion-paused="true"] :is(.console-panel,.radio-disc) {animation:none;}
-html[data-motion-paused="true"] .console-tab {transition:none;}
-@media(prefers-reduced-motion:reduce) { .console-panel,.radio-disc {animation:none;} .console-tab {transition:none;} }
+html[data-motion-paused="true"] :is(.console-tab,.ring-switch-track,.ring-switch-track::after) {transition:none;}
+@media(prefers-reduced-motion:reduce) { .console-panel,.radio-disc {animation:none;} .console-tab,.ring-switch-track,.ring-switch-track::after {transition:none;} }
 
-/* Theme dock: a round petal-pink button in the lower right; the list blooms upward from it. */
-[data-ema] .site-theme-dock>summary {border:1px solid var(--blank-line);border-radius:50%;background:var(--blank-paper);color:var(--ema-pink);box-shadow:0 6px 20px #4657771f;transition:background-color 200ms ease,color 200ms ease,transform 260ms var(--blank-ease);}
+/* Theme palette: a round petal-pink button; the list blooms out of it. */
+[data-ema] .site-theme-dock>summary {border:1px solid var(--blank-line);border-radius:50%;background:var(--ema-card);color:var(--ema-pink);box-shadow:0 6px 20px rgba(70,54,48,.12);transition:background-color 200ms ease,color 200ms ease,transform 260ms var(--blank-ease);}
 [data-ema] .site-theme-dock>summary svg {transition:transform 420ms var(--blank-ease);}
-[data-ema] .site-theme-dock[open]>summary {background:var(--ema-pink);border-color:var(--ema-pink);color:var(--blank-paper);}
+[data-ema] .site-theme-dock[open]>summary {background:var(--ema-pink);border-color:var(--ema-pink);color:var(--ema-on-pink);}
 [data-ema] .site-theme-dock[open]>summary svg {transform:rotate(-40deg);}
-[data-ema] .site-theme-dock .site-theme-options {padding:8px;border:1px solid var(--blank-line);border-radius:18px;background:var(--blank-paper);color:var(--blank-ink);box-shadow:0 14px 40px #15203624;transform-origin:bottom right;}
+[data-ema] .site-theme-dock .site-theme-options {padding:8px;border:1px solid var(--blank-line);border-radius:18px;background:var(--ema-card);color:var(--blank-ink);box-shadow:0 14px 40px rgba(60,44,36,.14);transform-origin:bottom right;}
 [data-ema] .site-theme-dock .site-theme-title {font:400 15px/1.4 var(--ema-title-font);color:var(--blank-muted);opacity:1;}
 [data-ema] .site-theme-dock a {gap:12px;padding:10px 12px;border-radius:12px;font-size:13px;}
 [data-ema] .site-theme-dock a[aria-current="true"] {background:var(--ema-blush);color:var(--ema-pink);}
@@ -308,9 +339,41 @@ html[data-motion-paused="true"] .console-tab {transition:none;}
   html:not([data-motion-paused="true"]) [data-ema] .site-theme-dock:not([open]) :is(.site-theme-options,a) {opacity:0;transition-delay:0ms;transition-duration:180ms;}
   html:not([data-motion-paused="true"]) [data-ema] .site-theme-dock:not([open]) .site-theme-options {transform:translateY(10px) scale(.94);}
   html:not([data-motion-paused="true"]) [data-ema] .site-theme-dock:not([open]) a {transform:translateY(6px);}
+  /* Docked in the header, the list blooms downward instead. */
+  html:not([data-motion-paused="true"]) [data-ema] .ema-header .site-theme-dock:not([open]) .site-theme-options {transform:translateY(-10px) scale(.94);}
+  html:not([data-motion-paused="true"]) [data-ema] .ema-header .site-theme-dock:not([open]) a {transform:translateY(-6px);}
   @starting-style {
     html:not([data-motion-paused="true"]) [data-ema] .site-theme-dock[open] .site-theme-options {opacity:0;transform:translateY(10px) scale(.94);}
     html:not([data-motion-paused="true"]) [data-ema] .site-theme-dock[open] a {opacity:0;transform:translateY(6px);}
+    html:not([data-motion-paused="true"]) [data-ema] .ema-header .site-theme-dock[open] .site-theme-options {opacity:0;transform:translateY(-10px) scale(.94);}
+    html:not([data-motion-paused="true"]) [data-ema] .ema-header .site-theme-dock[open] a {opacity:0;transform:translateY(-6px);}
   }
 }
 html[data-motion-paused="true"] [data-ema] .site-theme-dock>:is(summary,summary svg) {transition:none;}
+
+/* The palette's place in the header: a header-sized button whose list opens below it. */
+.ema-theme-docked {display:none;}
+html[data-theme="ema"] [data-ema] .ema-header .site-theme-dock {position:relative;right:auto;bottom:auto;z-index:auto;}
+html[data-theme="ema"] [data-ema] .ema-header .site-theme-dock>summary {width:40px;height:40px;box-shadow:none;}
+html[data-theme="ema"] .ema-header .site-theme-dock .site-theme-options {top:calc(100% + 9px);bottom:auto;transform-origin:top right;}
+@media(max-width:1259px) {
+  .ema-theme-floating,.console-tab {display:none;}
+  .ema-theme-docked {display:block;}
+  /* Opened from the footer: a small sheet that rises from the bottom edge, centred inside the window. */
+  .console-panel {left:16px;right:16px;top:auto;bottom:max(16px,env(safe-area-inset-bottom));width:min(320px,calc(100% - 32px));max-height:calc(100dvh - 32px);margin-inline:auto;overflow:auto;overscroll-behavior:contain;animation-name:ema-console-up;}
+}
+@media(min-width:1260px) { .ema-console-dock {display:none;} }
+@media(max-width:480px) {
+  html[data-theme="ema"] [data-ema] .ema-header .site-theme-dock>summary {width:36px;}
+}
+
+/* Cursor ring (Home and Games, mouse or trackpad only; reviewed prototype r3): a thin ring keeps close to the
+   native pointer, which always stays visible. lib/cursor-ring.mjs writes its size and position inline, in
+   unscaled px, so it matches the system pointer at every window width. */
+.ema-ring {position:fixed;left:0;top:0;z-index:97;pointer-events:none;}
+.ema-ring i,.ema-ring b {position:absolute;left:0;top:0;box-sizing:border-box;pointer-events:none;will-change:transform;}
+.ema-ring i {opacity:0;border:1.5px solid color-mix(in srgb,var(--ema-pink) 66%,transparent);background:radial-gradient(circle,color-mix(in srgb,var(--ema-pink-soft) 30%,transparent),transparent 72%);}
+.ema-ring[data-on="hug"] i {border-color:var(--ema-pink);background:none;}
+.ema-ring b {opacity:0;border:1.5px solid var(--ema-pink);border-radius:50%;}
+.ema-ring b.is-pop {animation:ema-ring-pop 380ms ease-out;}
+@keyframes ema-ring-pop {from {opacity:.7;transform:translate3d(var(--x),var(--y),0) scale(.8);} to {opacity:0;transform:translate3d(var(--x),var(--y),0) scale(2.2);}}

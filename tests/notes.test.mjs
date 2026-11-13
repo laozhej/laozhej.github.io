@@ -51,9 +51,9 @@ test("a page ships only the notes a visitor could still be shown", () => {
   }
 });
 
-test("the dialog shows today's note with its number, date and fallback line", () => {
+test("the note opens only when asked, shows its number, date and fallback line, and stores nothing", () => {
   const field = () => ({ textContent: "", lang: "", hidden: false });
-  const parts = { "[data-notice-title]": field(), "[data-notice-date]": field(), "[data-notice-text]": field(), "[data-notice-fallback]": field(), "[data-notice-skip]": { checked: false } };
+  const parts = { "[data-notice-title]": field(), "[data-notice-date]": field(), "[data-notice-text]": field(), "[data-notice-fallback]": field() };
   const shipped = localizeNotes([note("2020-01-01", "一"), note("2020-01-02", "二"), note("2999-01-01", "未来", { en: "Later" })], "en");
   const dialog = Object.assign(new EventTarget(), {
     open: false,
@@ -64,9 +64,15 @@ test("the dialog shows today's note with its number, date and fallback line", ()
   });
   const opener = Object.assign(new EventTarget(), { hidden: true });
   const root = { querySelector: () => dialog, querySelectorAll: () => [opener] };
-  const storage = { getItem: () => "1", setItem() {} };
-  const win = { location: { hash: "" }, scrollY: 0, localStorage: storage, sessionStorage: storage, setTimeout: () => 0, clearTimeout() {} };
+  // The conditions under which the old dialog opened by itself: top of the page, nothing stored yet.
+  const timers = [], writes = [];
+  const storage = { getItem: () => null, setItem: (key) => writes.push(key) };
+  const win = { location: { hash: "" }, scrollY: 0, localStorage: storage, sessionStorage: storage, setTimeout: (fn) => { timers.push(fn); return 1; }, clearTimeout() {} };
   const cleanup = mountNotice(root, { documentElement: { lang: "en" }, hidden: false }, win);
+  timers.forEach((fn) => fn());
+  assert.equal(dialog.open, false, "the note waits to be asked for");
+  assert.equal(timers.length, 0, "no timer is set to open it");
+  assert.deepEqual(writes, [], "nothing is stored");
   assert.equal(parts["[data-notice-title]"].textContent, "Sakura note No.002");
   assert.match(parts["[data-notice-date]"].textContent, /2020/);
   assert.equal(parts["[data-notice-text]"].textContent, "二");

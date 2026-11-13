@@ -5,16 +5,16 @@
 /* The profile card stays beside the shelves while there is room for all of it. */
 .about-side {display:grid;gap:20px;}
 .about-avatar {position:relative;justify-self:start;width:152px;height:152px;margin:6px 0 0 6px;}
-.ema-about .about-avatar img {display:block;width:100%;height:100%;border:5px solid var(--card);border-radius:50%;object-fit:cover;box-shadow:0 14px 30px #8599b433,0 0 0 1px var(--frame);}
+.ema-about .about-avatar img {display:block;width:100%;height:100%;border:5px solid var(--card);border-radius:50%;object-fit:cover;box-shadow:0 14px 30px rgba(96,74,60,.2),0 0 0 1px var(--frame);}
 .about-blossom {position:absolute;top:-12px;right:-6px;width:40px;height:40px;background:var(--ema-blossom) center/contain no-repeat;rotate:14deg;}
-.about-tape {position:absolute;z-index:1;width:74px;height:22px;background:repeating-linear-gradient(90deg,#f8dbe6d9 0 6px,#fbe7eed9 6px 12px);box-shadow:0 1px 2px #8599b42e;}
+.about-tape {position:absolute;z-index:1;width:74px;height:22px;background:repeating-linear-gradient(90deg,#f8dbe6d9 0 6px,#fbe7eed9 6px 12px);box-shadow:0 1px 2px rgba(96,74,60,.18);}
 .about-avatar .about-tape {top:8px;left:-24px;rotate:-34deg;}
 .about-id h2 {margin-top:6px;font:400 2.25rem/1.2 var(--ema-title-font);letter-spacing:-.01em;color:var(--blank-ink);}
 .about-id h2 span {color:var(--ema-pink);}
 .ema-about .about-handle {margin-top:4px;font:12px/1.6 var(--mono);color:var(--blank-muted);}
 .ema-about .about-bio {margin-top:14px;font-size:13.5px;line-height:1.9;color:var(--blank-muted);}
 .ema-about .about-links {display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
-.about-links a,.about-marks a {display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:7px 15px;border:1px solid var(--blank-line);border-radius:999px;background:var(--card);color:var(--blank-ink);font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 4px 12px #8599b414;transition:transform 180ms var(--blank-ease),border-color 180ms ease,color 180ms ease;}
+.about-links a,.about-marks a {display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:7px 15px;border:1px solid var(--blank-line);border-radius:999px;background:var(--card);color:var(--blank-ink);font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 4px 12px rgba(96,74,60,.08);transition:transform 180ms var(--blank-ease),border-color 180ms ease,color 180ms ease;}
 .about-marks svg {color:var(--ema-pink);}
 .about-status {padding:16px 18px;border:1px solid var(--blank-line);border-radius:14px;background:var(--card);box-shadow:var(--card-shadow);}
 .about-status ul {display:grid;gap:10px;margin-top:10px;}
@@ -23,13 +23,13 @@
 
 /* A letter with a taped photo, then bookmarks into the shelves. */
 .about-main {display:grid;gap:44px;min-width:0;}
-.about-letter {display:grid;grid-template-columns:minmax(0,1fr) 196px;gap:40px;align-items:center;padding:34px 36px 34px 46px;border:1px solid var(--blank-line);border-radius:16px;box-shadow:var(--card-shadow);background:linear-gradient(90deg,transparent 24px,#f2c4d4 24px 25px,transparent 25px),radial-gradient(#dce3e9 .7px,transparent 1px) 0 0/14px 14px,var(--card);}
-html[data-color-mode="dark"] .about-letter {background:linear-gradient(90deg,transparent 24px,#6d4c61 24px 25px,transparent 25px),radial-gradient(#3a404d .7px,transparent 1px) 0 0/14px 14px,var(--card);}
+.about-letter {display:grid;grid-template-columns:minmax(0,1fr) 196px;gap:40px;align-items:center;padding:34px 36px 34px 46px;border:1px solid var(--blank-line);border-radius:16px;box-shadow:var(--card-shadow);background:linear-gradient(90deg,transparent 24px,#f2c4d4 24px 25px,transparent 25px),radial-gradient(var(--blank-line) .7px,transparent 1px) 0 0/14px 14px,var(--card);}
+html[data-color-mode="dark"] .about-letter {background:linear-gradient(90deg,transparent 24px,#6d4c61 24px 25px,transparent 25px),radial-gradient(var(--blank-line) .7px,transparent 1px) 0 0/14px 14px,var(--card);}
 .about-letter h2 {margin-top:10px;font:500 clamp(1.45rem,2.4vw,1.95rem)/1.45 var(--blank-serif);color:var(--blank-ink);}
 .about-letter-copy>p:not(.shelf-kicker) {margin-top:14px;font-size:14.5px;line-height:2;color:var(--blank-muted);}
 .about-letter-copy>p.about-signature {text-align:right;font:italic 13px/1.6 var(--blank-serif);color:var(--ema-pink);}
-.about-photo {position:relative;padding:10px 10px 28px;border-radius:4px;background:#fff;box-shadow:0 14px 28px #8599b433;rotate:3deg;}
-html[data-color-mode="dark"] .about-photo {background:#e4e7ee;box-shadow:0 14px 28px #05080e80;}
+.about-photo {position:relative;padding:10px 10px 28px;border-radius:4px;background:#fff;box-shadow:0 14px 28px rgba(96,74,60,.2);rotate:3deg;}
+html[data-color-mode="dark"] .about-photo {background:#e4e7ee;box-shadow:0 14px 28px #00000080;}
 .about-photo img {display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:30% 50%;border-radius:2px;}
 .about-photo .about-tape {top:-11px;left:calc(50% - 37px);rotate:-5deg;}
 .about-marks {display:flex;flex-wrap:wrap;gap:10px;margin-top:-18px;}

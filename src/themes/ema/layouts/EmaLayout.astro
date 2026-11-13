@@ -20,7 +20,8 @@ import { pageTransition } from "@/core/navigation/animations.mjs";
 const { locale, t } = getI18n(Astro.url.pathname);
 const href = (path: string) => getThemePath("ema", path, locale);
 const path = stripTheme(Astro.url.pathname);
-const { title: pageTitle = site.name, description = t("site.description"), isArticlePage = false, article, home = false } = Astro.props;
+// `cursorRing` (Home and Games) adds the cursor ring's switch to the console; the ring runs only where it is rendered.
+const { title: pageTitle = site.name, description = t("site.description"), isArticlePage = false, article, home = false, cursorRing = false } = Astro.props;
 // Sakura Archive carries its own name; shared pages still pass the shared site name.
 const brand = t("ema.brand");
 const title = pageTitle.replaceAll(site.name, brand);
@@ -35,7 +36,7 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <LanguagePreference /><ThemePreference /><SiteIcons />
-    <ColorModePreference lightColor="#fafbf9" darkColor="#20232c" />
+    <ColorModePreference lightColor="#fbf7ef" darkColor="#201f28" />
     <title>{title}</title><meta name="description" content={description} />
     <meta property="og:title" content={title} /><meta property="og:description" content={description} />
     <meta property="og:type" content={isArticlePage ? "article" : "website"} />
@@ -55,6 +56,7 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
         <LanguageSwitcher />
         <button class="ema-icon-button" type="button" data-color-mode-toggle hidden aria-label={t("mode.label")} aria-pressed="false" title={t("mode.toDark")} data-label-dark={t("mode.toDark")} data-label-light={t("mode.toLight")}><span class="blank-mode-moon"><Icon name="tabler:moon" size={18} /></span><span class="blank-mode-sun"><Icon name="tabler:sun" size={18} /></span></button>
         <button class="ema-motion-toggle" type="button" data-motion-toggle data-motion-pause={t("ema.motion.pause")} data-motion-resume={t("ema.motion.resume")} data-motion-reduced={t("ema.motion.reduced")} hidden aria-pressed="false" aria-label={t("ema.motion.pause")} title={t("ema.motion.pause")}><Icon name="tabler:player-pause" size={18} data-motion-pause-icon aria-hidden="true" /><Icon name="tabler:player-play" size={18} data-motion-play-icon aria-hidden="true" hidden /></button>
+        <div class="ema-theme-docked"><ThemeSwitcher floating /></div>
       </div>
       {isArticlePage && <div class="blank-reading-track" aria-hidden="true"><span data-site-progress></span></div>}
     </header>
@@ -63,9 +65,9 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
       <a class="ema-footer-brand" href={href("/")}>{brand.split(/(\.)/).map((part) => part === "." ? <span>.</span> : part)}</a>
       <p>{t("home.statement2")}</p>
       <SocialLinks class="ema-social-links" />
-      <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#ema-main">{t("footer.top")} ↑</a></div>
+      <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><button class="ema-console-dock" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={14} aria-hidden="true" />{t("ema.console.tab")}</button><a href="#ema-main">{t("footer.top")} ↑</a></div>
     </footer>
-    <ThemeSwitcher floating />
+    <div class="ema-theme-floating"><ThemeSwitcher floating /></div>
     <div class="ema-console" data-ema-console>
       <button class="console-tab" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={16} aria-hidden="true" /><span>{t("ema.console.tab")}</span></button>
       <section class="console-panel" id="ema-console-panel" data-console-panel aria-label={t("ema.console.label")} hidden>
@@ -83,6 +85,13 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
           <p class="radio-note">{t("ema.radio.note")}</p>
           <p class="radio-note" data-radio-unsupported hidden>{t("ema.radio.unsupported")}</p>
         </div>
+        {cursorRing && (
+          <div class="console-card ring-card" data-ring-card hidden>
+            <button class="ring-switch" type="button" role="switch" aria-checked="true" aria-describedby="ema-ring-note ema-ring-status" data-ring-toggle><span>{t("ema.ring.label")}</span><span class="ring-switch-state" aria-hidden="true"><span data-ring-state data-on={t("ema.ring.on")} data-off={t("ema.ring.off")}>{t("ema.ring.on")}</span><span class="ring-switch-track"></span></span></button>
+            <p class="radio-note" id="ema-ring-note">{t("ema.ring.note")}</p>
+            <p class="radio-note" id="ema-ring-status" data-ring-status data-paused={t("ema.ring.paused")} data-reduced={t("ema.ring.reduced")} hidden></p>
+          </div>
+        )}
       </section>
     </div>
     <div class="ema-sakura" aria-hidden="true">{petals.map((style) => <span style={style}><i></i></span>)}</div>

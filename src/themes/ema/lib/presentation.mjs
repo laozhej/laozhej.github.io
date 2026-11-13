@@ -37,10 +37,16 @@ export function mountEmaPresentation(doc, win) {
   track.append(doc.createElement('span'));
   track.firstChild.className = 'ema-scroll-thumb';
   if (!header.querySelector('[data-site-progress]')) { header.append(progress); doc.body.append(track); }
+  // Games: the filter bar takes its own paper only while it is stuck under the header.
+  const tools = doc.querySelector('.ema-games .games-tools');
   function update() {
     frame = 0;
     if (disposed) return;
     header.classList.toggle('is-scrolled', win.scrollY > 12);
+    if (tools) {
+      const top = parseFloat(win.getComputedStyle(tools).top);
+      tools.classList.toggle('is-stuck', win.scrollY > 0 && Number.isFinite(top) && tools.getBoundingClientRect().top <= top + .5);
+    }
     const distance = doc.documentElement.scrollHeight - win.innerHeight;
     const ratio = distance > 0 ? Math.max(0, Math.min(1, win.scrollY / distance)) : 0;
     progress.style.transform = `scaleX(${ratio})`;

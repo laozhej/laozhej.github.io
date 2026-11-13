@@ -57,6 +57,14 @@ const zhTW = linked({
       details: ["三套主題與四種語言", "共用內容、偏好與頁面生命週期", "實際截圖、原始碼導覽與驗證紀錄"],
       url: projects.personalSiteShowcaseUrl,
       image: { ...projects.personalSitePreview, alt: "個人網站櫻色檔案主題的首頁截圖：左側是站名與終端文字，右側是櫻羽艾瑪立繪與漫畫分鏡" },
+      gallery: [
+        { ...projects.personalSiteGallery[0], label: "Blank 主題 · 首頁", meta: "淺色 · 1440×960 · 2026-10-31 截圖", alt: "Blank 主題首頁截圖：白底黑字的大標題 Blank Space、簡介與文章入口" },
+        { ...projects.personalSiteGallery[1], label: "Blank 主題 · 首頁（深色）", meta: "深色 · 1440×960 · 2026-10-31 截圖", alt: "Blank 主題首頁的深色模式截圖：黑底白字的大標題 Blank Space" },
+        { ...projects.personalSiteGallery[2], label: "Blank 主題 · 作品頁", meta: "淺色 · 1440×960 · 2026-10-31 截圖", alt: "Blank 主題作品頁截圖：標題 Works 與個人網站專案條目" },
+        { ...projects.personalSiteGallery[3], label: "終末地工業風主題 · 首頁", meta: "淺色 · 1440×960 · 2026-10-31 截圖", alt: "終末地工業風主題首頁截圖：ARATAKI.BR 標題、黃色醒目標語與統計數字" },
+        { ...projects.personalSiteGallery[4], label: "Blank 主題 · 手機寬度", meta: "淺色 · 390×844 · 2026-10-31 截圖", alt: "Blank 主題首頁在手機寬度下的截圖" },
+        { ...projects.personalSiteGallery[5], label: "終末地工業風主題 · 手機寬度", meta: "淺色 · 390×844 · 2026-10-31 截圖", alt: "終末地工業風主題首頁在手機寬度下的截圖" },
+      ],
     },
   ],
 } as const);
@@ -107,6 +115,14 @@ const ja = linked({
       details: ["3つのテーマと4つの言語", "コンテンツ・設定・ページのライフサイクルを共有", "実際の画面、ソースコード案内、検証記録"],
       url: projects.personalSiteShowcaseUrl,
       image: { ...projects.personalSitePreview, alt: "個人サイトの桜色アーカイブテーマのホーム画面：左にサイト名とターミナル風のテキスト、右に桜羽エマの立ち絵と漫画のコマ" },
+      gallery: [
+        { ...projects.personalSiteGallery[0], label: "Blank テーマ · ホーム", meta: "ライト · 1440×960 · 2026-10-31 撮影", alt: "Blank テーマのホーム画面：白地に黒の大きな見出し Blank Space、紹介文と記事への入口" },
+        { ...projects.personalSiteGallery[1], label: "Blank テーマ · ホーム（ダーク）", meta: "ダーク · 1440×960 · 2026-10-31 撮影", alt: "Blank テーマのホーム画面（ダークモード）：黒地に白の大きな見出し Blank Space" },
+        { ...projects.personalSiteGallery[2], label: "Blank テーマ · 制作ページ", meta: "ライト · 1440×960 · 2026-10-31 撮影", alt: "Blank テーマの制作ページ：見出し Works と個人サイトのプロジェクト項目" },
+        { ...projects.personalSiteGallery[3], label: "終末地インダストリアル · ホーム", meta: "ライト · 1440×960 · 2026-10-31 撮影", alt: "終末地インダストリアルテーマのホーム画面：ARATAKI.BR の見出し、黄色で強調したキャッチコピーと数字" },
+        { ...projects.personalSiteGallery[4], label: "Blank テーマ · スマートフォン幅", meta: "ライト · 390×844 · 2026-10-31 撮影", alt: "スマートフォン幅で表示した Blank テーマのホーム画面" },
+        { ...projects.personalSiteGallery[5], label: "終末地インダストリアル · スマートフォン幅", meta: "ライト · 390×844 · 2026-10-31 撮影", alt: "スマートフォン幅で表示した終末地インダストリアルテーマのホーム画面" },
+      ],
     },
   ],
 } as const);
@@ -157,6 +173,14 @@ const en = linked({
       details: ["Three themes and four languages", "Shared content, preferences, and page lifecycle", "Real screenshots, source tour, and validation records"],
       url: projects.personalSiteShowcaseUrl,
       image: { ...projects.personalSitePreview, alt: "Screenshot of the Sakura Archive home page of this website: the site name and terminal-style text on the left, Ema Sakuraba and manga panels on the right" },
+      gallery: [
+        { ...projects.personalSiteGallery[0], label: "Blank theme · Home", meta: "Light · 1440×960 · captured 2026-10-31", alt: "Blank theme home page: the large black-on-white title Blank Space, a short intro and the way into the journal" },
+        { ...projects.personalSiteGallery[1], label: "Blank theme · Home (dark)", meta: "Dark · 1440×960 · captured 2026-10-31", alt: "Blank theme home page in dark mode: the large white-on-black title Blank Space" },
+        { ...projects.personalSiteGallery[2], label: "Blank theme · Works page", meta: "Light · 1440×960 · captured 2026-10-31", alt: "Blank theme Works page: the title Works and the personal website project entry" },
+        { ...projects.personalSiteGallery[3], label: "Endfield Industrial theme · Home", meta: "Light · 1440×960 · captured 2026-10-31", alt: "Endfield Industrial theme home page: the ARATAKI.BR title, a yellow-highlighted tagline and figures" },
+        { ...projects.personalSiteGallery[4], label: "Blank theme · Phone width", meta: "Light · 390×844 · captured 2026-10-31", alt: "Blank theme home page at phone width" },
+        { ...projects.personalSiteGallery[5], label: "Endfield Industrial theme · Phone width", meta: "Light · 390×844 · captured 2026-10-31", alt: "Endfield Industrial theme home page at phone width" },
+      ],
     },
   ],
 } as const);

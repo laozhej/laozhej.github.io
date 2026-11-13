@@ -1,58 +1,58 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { mountEmaHome } from "../src/themes/ema/lib/home.mjs";
-import { mountTagRain } from "../src/themes/ema/lib/tag-rain.mjs";
 import { getRadio, TRACKS, trackLength } from "../src/themes/ema/lib/radio.mjs";
 
+// Records every listener so a test can prove what the homepage never listens to.
 function element(extra = {}) {
-  return Object.assign(new EventTarget(), {
+  const target = new EventTarget();
+  const types = [];
+  const add = target.addEventListener.bind(target);
+  target.addEventListener = (type, ...rest) => { types.push(type); add(type, ...rest); };
+  return Object.assign(target, {
+    listenerTypes: types,
     dataset: {}, style: {}, attributes: {}, hidden: false,
-    setAttribute(key, value) { this.attributes[key] = value; },
+    setAttribute(key, value) { this.attributes[key] = String(value); },
+    getAttribute(key) { return this.attributes[key] ?? null; },
+    removeAttribute(key) { delete this.attributes[key]; },
     contains() { return false; },
   }, extra);
 }
 
-function page({ paused = false, reduced = false, desktop = true, withRail = false } = {}) {
+function page({ paused = false, reduced = false, desktop = true, sections = { works: 100, games: 300, journal: 700, tags: 1200 }, chips = 20, limit = 14 } = {}) {
   const animations = [], observers = [], frames = new Map();
-  const scene = element({ getBoundingClientRect: () => ({ top: -200 }) });
-  const front = element({ dataset: { parallaxLayer: "front" } });
-  const back = element({ dataset: { parallaxLayer: "back" } });
-  const heroStyle = { props: {}, setProperty(key, value) { this.props[key] = value; }, removeProperty(key) { delete this.props[key]; } };
-  const docked = new Set();
-  const hero = element({
-    style: heroStyle,
-    classList: { toggle: (name, on) => (on ? docked.add(name) : docked.delete(name)), remove: name => docked.delete(name) },
-    getBoundingClientRect: () => ({ top: 0, bottom: 900, left: 0, width: 1000, height: 900 }),
-  });
-  const revealItem = element({ animate(keyframes, options) {
+  const animated = (extra = {}) => element({ ...extra, animate(keyframes, options) {
     const animation = { keyframes, options, cancelled: false, finished: new Promise(() => {}), cancel() { this.cancelled = true; } };
     animations.push(animation); return animation;
   } });
-  const group = element({ querySelectorAll: () => [revealItem] });
-  const heightWrites = [];
-  const rail = element({ getBoundingClientRect: () => ({ top: 1000, height: 1000 }) });
-  Object.defineProperty(rail.style, 'height', { set: value => heightWrites.push(value), get: () => heightWrites.at(-1) ?? '' });
-  const stage = element({ clientWidth: 1000, getBoundingClientRect: () => ({ top: 1000, height: 400 }) });
-  const track = element({ clientWidth: 1000, scrollWidth: 1600, scrollLeft: 0, tabIndex: 0 });
-  const selectors = new Map([["[data-hero-scene]", scene], ["[data-hero]", hero]]);
-  if (withRail) { selectors.set("[data-rail]", rail); selectors.set("[data-rail-stage]", stage); selectors.set("[data-rail-track]", track); }
-  const root = element({
-    querySelector: selector => selectors.get(selector) ?? null,
-    querySelectorAll: selector => ({ "[data-parallax-layer]": [front, back], "[data-ema-reveal]": [group] }[selector] ?? []),
-  });
+  const front = element({ dataset: { parallaxLayer: "front" } });
+  const back = element({ dataset: { parallaxLayer: "back" } });
+  const heroStyle = { props: {}, setProperty(key, value) { this.props[key] = value; } };
+  const hero = element({ style: heroStyle, getBoundingClientRect: () => ({ top: 0, bottom: 900, left: 0, width: 1000, height: 900 }) });
+  const group = animated();
+  const targets = Object.fromEntries(Object.entries(sections).map(([id, top]) => [`#${id}`, element({ getBoundingClientRect: () => ({ top: top - (win?.scrollY ?? 0) }) })]));
+  const links = Object.keys(targets).map((href) => element({ attributes: { href } }));
+  const items = Array.from({ length: chips }, () => animated());
+  const label = element();
+  const toggle = element({ dataset: { open: "Show less", closed: "Show {n} more" }, hidden: true, querySelector: () => label });
+  const tagGroup = element({ dataset: { limit: String(limit) }, querySelector: (s) => (s === "[data-tag-toggle]" ? toggle : null), querySelectorAll: () => items });
+  const drop = element({ hidden: true });
+  const single = new Map([["[data-hero]", hero], ["[data-tags-drop]", drop], ...Object.entries(targets)]);
+  const lists = { "[data-parallax-layer]": [front, back], "[data-ema-reveal]": [group], ".chapters a": links, "[data-tag-group]": [tagGroup], "[data-tag-group] .chips li": items };
+  const root = element({ querySelector: (s) => single.get(s) ?? null, querySelectorAll: (s) => lists[s] ?? [] });
   const doc = element({
-    documentElement: element({ dataset: { motionPaused: String(paused || reduced) } }),
+    documentElement: element({ dataset: { motionPaused: String(paused || reduced) }, scrollHeight: 5000 }),
     getElementById: () => root, querySelector: () => null,
   });
   const system = element({ matches: reduced });
   const otherMedia = element({ matches: desktop });
-  const win = element({
-    scrollY: 200, innerHeight: 900,
-    matchMedia: query => query.includes("prefers-reduced-motion") ? system : otherMedia,
+  var win = element({
+    scrollY: 0, innerHeight: 900,
+    matchMedia: (query) => (query.includes("prefers-reduced-motion") ? system : otherMedia),
     localStorage: { getItem: () => String(paused) },
     setTimeout: () => 1, clearTimeout() {},
-    requestAnimationFrame: fn => { const id = frames.size + 1; frames.set(id, fn); return id; },
-    cancelAnimationFrame: id => frames.delete(id),
+    requestAnimationFrame: (fn) => { const id = frames.size + 1 + Math.random(); frames.set(id, fn); return id; },
+    cancelAnimationFrame: (id) => frames.delete(id),
     IntersectionObserver: class {
       constructor(callback) { this.callback = callback; this.disconnected = false; observers.push(this); }
       observe() {} unobserve() {}
@@ -60,47 +60,76 @@ function page({ paused = false, reduced = false, desktop = true, withRail = fals
     },
   });
   const cleanup = mountEmaHome(doc, win);
-  const changeMotion = userPaused => {
+  const changeMotion = (userPaused) => {
     doc.documentElement.dataset.motionPaused = String(userPaused || system.matches);
     doc.dispatchEvent(new CustomEvent("site:motion-change", { detail: { paused: userPaused || system.matches, userPaused, reduced: system.matches } }));
   };
-  return { root, doc, win, scene, hero, docked, front, back, group, animations, observers, frames, cleanup, changeMotion, system, heightWrites };
+  // Runs queued animation frames (the pointer spring and scroll updates) until none are left.
+  const flush = (limitFrames = 400) => {
+    let now = 0;
+    while (frames.size && limitFrames--) {
+      const [id, fn] = frames.entries().next().value;
+      frames.delete(id); now += 16; fn(now);
+    }
+  };
+  const point = (clientX, clientY, pointerType = "mouse") => {
+    hero.dispatchEvent(Object.assign(new Event("pointermove"), { clientX, clientY, pointerType }));
+    flush();
+  };
+  const scrollTo = (y) => { win.scrollY = y; win.dispatchEvent(new Event("scroll")); flush(); };
+  return { root, doc, win, hero, heroStyle, front, back, group, links, items, toggle, label, drop, animations, observers, frames, cleanup, changeMotion, flush, point, scrollTo, system };
 }
+const current = (p) => p.links.findIndex((link) => link.attributes["aria-current"] === "true");
 
-test("native scroll drives the pinned opening and resets when the shared motion preference changes", () => {
+test("pointer depth moves the picture and the echo word, never the heading, and follows the shared motion preference", () => {
   const p = page();
-  assert.equal(p.scene.dataset.sceneActive, "true");
-  // 200px into a 560px runway: the title steps back while the profile card rises.
-  assert.match(p.front.style.transform, /12\.86px/);
-  assert.match(p.back.style.transform, /-8\.57px/);
-  assert.equal(p.hero.style.props["--copy-out"], "0.818");
-  assert.equal(p.hero.style.props["--profile-in"], "0.343");
-  assert.equal(p.docked.has("is-docked"), false);
+  assert.equal(p.front.style.transform, "translate3d(0.00px,0.00px,0)");
+  p.point(1000, 450);
+  assert.match(p.front.style.transform, /^translate3d\([1-9]\.\d\dpx,0\.00px,0\)$/, "the picture follows the pointer to the right");
+  assert.match(p.back.style.transform, /^translate3d\(-[1-9]\.\d\dpx,/, "the echo word drifts the other way");
+  assert.ok(Number(p.heroStyle.props["--px"]) > .9, "only the heading's shadow takes the offset");
+  assert.equal(p.hero.style.transform, undefined, "the heading block itself is never transformed");
   p.changeMotion(true);
   assert.equal(p.root.dataset.paused, "true");
-  assert.equal(p.scene.dataset.sceneActive, "false");
   assert.equal(p.front.style.transform, "");
-  assert.equal(p.hero.style.props["--profile-in"], undefined);
+  assert.equal(p.heroStyle.props["--px"], "0");
   p.changeMotion(false);
-  assert.equal(p.scene.dataset.sceneActive, "true");
   assert.equal(p.root.dataset.paused, "false");
   p.cleanup();
 });
 
-test("touch and reduced motion keep the hero in normal document flow", () => {
+test("touch, small screens, reduced motion and pause keep the opening still", () => {
   for (const config of [{ desktop: false }, { reduced: true }, { paused: true }]) {
     const p = page(config);
-    assert.equal(p.scene.dataset.sceneActive, "false");
+    p.point(1000, 450);
+    p.scrollTo(300);
     assert.equal(p.front.style.transform, "");
+    assert.equal(p.back.style.transform, "");
     p.cleanup();
   }
+  const touch = page();
+  touch.point(1000, 450, "touch");
+  assert.equal(touch.front.style.transform, "translate3d(0.00px,0.00px,0)");
+  touch.cleanup();
 });
 
-test("without its scenes the homepage never captures or cancels a wheel", () => {
+test("the first 420px of scrolling lift the picture and settle the echo word, then stop", () => {
+  const p = page();
+  p.scrollTo(210);
+  assert.equal(p.front.style.transform, "translate3d(0.00px,-3.00px,0)");
+  assert.equal(p.back.style.transform, "translate3d(0.00px,4.00px,0)");
+  p.scrollTo(2000);
+  assert.equal(p.front.style.transform, "translate3d(0.00px,-6.00px,0)");
+  p.cleanup();
+});
+
+test("the homepage scrolls natively: it never listens to, captures or cancels a wheel", () => {
   const p = page();
   const wheel = new Event("wheel", { cancelable: true });
   p.win.dispatchEvent(wheel);
+  p.doc.dispatchEvent(wheel);
   assert.equal(wheel.defaultPrevented, false);
+  for (const target of [p.win, p.doc, p.root, p.hero]) assert.equal(target.listenerTypes.includes("wheel"), false);
   p.cleanup();
 });
 
@@ -128,84 +157,47 @@ test("a paused entry remains visible and does not replay when resumed", () => {
   p.cleanup();
 });
 
-
-test("remeasuring a scrolling chapter rail never collapses its existing runway", () => {
-  const p = page({ withRail: true });
-  assert.equal(p.heightWrites.at(-1), "1000px");
-  p.heightWrites.length = 0;
-  for (const [id, frame] of [...p.frames]) { p.frames.delete(id); frame(); }
-  p.win.dispatchEvent(new Event("resize"));
-  for (const [id, frame] of [...p.frames]) { p.frames.delete(id); frame(); }
-  assert.ok(p.heightWrites.length > 0);
-  assert.equal(p.heightWrites.includes(""), false);
-  assert.equal(p.heightWrites.at(-1), "1000px");
+test("the chapter index marks the section whose top has passed 42% of the window, and the last at the bottom", () => {
+  const p = page();
+  assert.equal(current(p), 1, "works and games have passed the line at 378px; journal has not");
+  p.scrollTo(450);
+  assert.equal(current(p), 2);
+  p.scrollTo(4100);
+  assert.equal(current(p), 3, "at the bottom of the page the last section is current");
+  assert.equal(p.links.filter((link) => link.attributes["aria-current"]).length, 1);
   p.cleanup();
 });
 
-function rainScene({ width = 375, height = 900, widths = [96, 260, 140, 72, 180, 120, 88, 150, 110, 210, 64, 130] } = {}) {
-  const node = (extra = {}) => ({
-    style: {}, children: [], classes: new Set(),
-    classList: { add(name) { node.owner(this).classes.add(name); }, remove(name) { node.owner(this).classes.delete(name); } },
-    setAttribute() {}, remove() { this.removed = true; },
-    appendChild(child) { this.children.push(child); return child; },
-    append(child) { this.children.push(child); },
-    ...extra,
-  });
-  node.owner = (classList) => [list, section].find((item) => item.classList === classList);
-  const tags = widths.map((w) => node({ offsetWidth: w, offsetHeight: 36 }));
-  const list = node({ querySelectorAll: () => tags });
-  const section = node({ clientWidth: width, clientHeight: height, querySelector: () => list });
-  const frames = [];
-  const doc = { createElement: () => node({ offsetWidth: 36, offsetHeight: 36 }) };
-  const win = { requestAnimationFrame: (fn) => frames.push(fn), cancelAnimationFrame() { frames.length = 0; } };
-  let allowed = true;
-  const rain = mountTagRain(section, doc, win, { canAnimate: () => allowed });
-  const run = (limit = 4000) => {
-    let now = 0;
-    for (let step = 0; step < limit && frames.length; step += 1) { now += 16; frames.shift()(now); }
-    return frames.length;
-  };
-  return { rain, section, list, tags, run, setAllowed: (value) => { allowed = value; } };
-}
-
-const placement = (element, size) => {
-  const [, x, y, angle] = element.style.transform.match(/translate3d\(([-\d.]+)px,([-\d.]+)px,0\) rotate\(([-\d.]+)rad\)/).map(Number);
-  return { x, y, angle, ...size };
-};
-
-test("tag rain waits for the scene, then every tag comes to rest inside it", () => {
-  const p = rainScene();
-  p.rain.visibility(.1, 200);
-  assert.equal(p.list.classes.has("is-raining"), false);
-  p.rain.visibility(.4, 0);
-  assert.equal(p.list.classes.has("is-raining"), true);
-  assert.equal(p.section.style.minHeight, "996px", "narrow scenes keep the static height plus a little floor");
-  assert.equal(p.run(), 0, "the animation finishes and stops requesting frames");
-  for (const tag of p.tags) {
-    const body = placement(tag, { w: tag.offsetWidth, h: tag.offsetHeight });
-    assert.ok(body.x >= 0 && body.x + body.w <= 375, `inside the walls: ${body.x}`);
-    assert.ok(body.y + body.h / 2 <= 996, `above the floor: ${body.y}`);
-    assert.ok(body.y > -40, `not left hanging above the scene: ${body.y}`);
-    assert.ok(Math.abs(body.angle) <= .35, `tilted at most ~20°: ${body.angle}`);
-  }
+test("a long tag group shows its first chips and a toggle that names how many more there are", () => {
+  const p = page({ chips: 20, limit: 14 });
+  assert.equal(p.toggle.hidden, false);
+  assert.deepEqual(p.items.map((item) => item.hidden), [...Array(14).fill(false), ...Array(6).fill(true)]);
+  assert.equal(p.label.textContent, "Show 6 more");
+  assert.equal(p.toggle.attributes["aria-expanded"], "false");
+  p.toggle.dispatchEvent(new Event("click"));
+  assert.equal(p.items.every((item) => !item.hidden), true);
+  assert.equal(p.label.textContent, "Show less");
+  assert.equal(p.toggle.attributes["aria-expanded"], "true");
+  p.toggle.dispatchEvent(new Event("click"));
+  assert.equal(p.items.filter((item) => item.hidden).length, 6);
+  p.cleanup();
+  const short = page({ chips: 10, limit: 14 });
+  assert.equal(short.toggle.hidden, true, "a group within the limit keeps every chip and no toggle");
+  assert.equal(short.items.some((item) => item.hidden), false);
+  short.cleanup();
 });
 
-test("pausing mid-rain restores the ordinary tag list, and scrolling back up replays it", () => {
-  const p = rainScene();
-  p.rain.visibility(.6, 0);
-  p.run(20);
-  p.setAllowed(false);
-  p.rain.refresh();
-  assert.equal(p.list.classes.has("is-raining"), false);
-  assert.equal(p.section.style.minHeight, "");
-  assert.ok(p.tags.every((tag) => tag.style.transform === ""));
-  p.setAllowed(true);
-  p.rain.refresh();
-  assert.equal(p.list.classes.has("is-raining"), true);
-  p.run();
-  p.rain.visibility(0, 900);
-  assert.equal(p.list.classes.has("is-raining"), false, "leaving below the viewport resets for the next pass");
-  p.rain.cleanup();
+test("the tag drop plays once per press for the visible chips, and is withdrawn while motion is off", () => {
+  const p = page({ chips: 20, limit: 14 });
+  assert.equal(p.drop.hidden, false);
+  p.drop.dispatchEvent(new Event("click"));
+  assert.equal(p.animations.length, 14, "only the 14 chips in view fall");
+  p.changeMotion(true);
+  assert.equal(p.drop.hidden, true);
+  assert.equal(p.animations.every((animation) => animation.cancelled), true);
+  p.drop.dispatchEvent(new Event("click"));
+  assert.equal(p.animations.length, 14, "a paused page plays nothing");
+  p.cleanup();
 });
 
 function fakeAudio() {

@@ -1,5 +1,6 @@
-// Load only requested poses; keep the current image visible until its replacement
-// has decoded. A generation token makes rapid clicks and page teardown safe.
+// Ema's five poses. A pose is either an image, loaded only when requested and kept hidden
+// until it has decoded, or a labelled placeholder plate that shows at once. A generation
+// token makes rapid clicks and page teardown safe.
 export function mountEmaFrames(root, window, { canAnimate, onChange = () => {} }) {
   const art = root.querySelector('[data-ema-frames]');
   const controls = root.querySelector('[data-frame-controls]');
@@ -12,7 +13,15 @@ export function mountEmaFrames(root, window, { canAnimate, onChange = () => {} }
   const next = controls.querySelector('[data-frame-next]');
   const nextLabel = controls.querySelector('[data-frame-next-label]');
   const status = controls.querySelector('[data-frame-status]');
-  const description = frames[0].alt;
+  // The status may hold the number and the pose in separate parts (short windows hide the pose).
+  const statusNumber = status.querySelector?.('[data-frame-status-no]');
+  const statusLabel = status.querySelector?.('[data-frame-status-label]');
+  const isImage = (frame) => typeof frame.decode === 'function';
+  const description = isImage(frames[0]) ? frames[0].alt : '';
+  const setStatus = (number, label) => {
+    if (statusNumber && statusLabel) { statusNumber.textContent = number; statusLabel.textContent = label; }
+    else status.textContent = number + label;
+  };
   let current = 0, requested = 0, generation = 0, disposed = false;
   const removers = [];
   const listen = (el, type, fn) => {
@@ -27,8 +36,10 @@ export function mountEmaFrames(root, window, { canAnimate, onChange = () => {} }
     const selected = requested, token = ++generation, image = frames[selected];
     controls.setAttribute('aria-busy', 'true');
     try {
-      if (!image.getAttribute('src')) image.src = image.dataset.src;
-      await image.decode();
+      if (isImage(image)) {
+        if (!image.getAttribute('src')) image.src = image.dataset.src;
+        await image.decode();
+      }
       if (disposed || token !== generation) return;
       art.dataset.instant = String(keyboard || !canAnimate());
       onChange();
@@ -36,9 +47,9 @@ export function mountEmaFrames(root, window, { canAnimate, onChange = () => {} }
       frames.forEach((frame, i) => {
         frame.dataset.active = String(i === current);
         frame.setAttribute('aria-hidden', String(i !== current));
-        frame.alt = i === current ? `${description} · ${frame.dataset.label}` : '';
+        if (isImage(frame)) frame.alt = i === current ? `${description} · ${frame.dataset.label}` : '';
       });
-      status.textContent = `${String(current + 1).padStart(2, '0')} / ${String(frames.length).padStart(2, '0')} · ${image.dataset.label}`;
+      setStatus(`${String(current + 1).padStart(2, '0')} / ${String(frames.length).padStart(2, '0')}`, ` · ${image.dataset.label}`);
       const action = current === frames.length - 1 ? controls.dataset.restart : controls.dataset.next;
       nextLabel.textContent = action;
       hit.setAttribute('aria-label', action);
@@ -46,7 +57,7 @@ export function mountEmaFrames(root, window, { canAnimate, onChange = () => {} }
       if (!disposed && token === generation) {
         image.removeAttribute('src');
         requested = current;
-        status.textContent = controls.dataset.error;
+        setStatus('', controls.dataset.error);
       }
     } finally {
       if (!disposed && token === generation) controls.setAttribute('aria-busy', 'false');

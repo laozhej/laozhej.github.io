@@ -4,7 +4,7 @@
 .games-tools {display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;margin-bottom:28px;}
 .games-filters {min-width:0;}
 .games-filters fieldset {display:flex;flex-wrap:wrap;gap:10px;min-width:0;margin:0;padding:0;border:0;}
-.games-filters button {display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:7px 14px;border:1px solid var(--blank-line);border-radius:999px;background:var(--card);color:var(--blank-ink);font:inherit;font-size:13px;font-weight:600;line-height:1.2;cursor:pointer;box-shadow:0 4px 12px #8599b414;transition:transform 180ms var(--blank-ease),border-color 180ms ease,background-color 180ms ease;}
+.games-filters button {display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:7px 14px;border:1px solid var(--blank-line);border-radius:999px;background:var(--card);color:var(--blank-ink);font:inherit;font-size:13px;font-weight:600;line-height:1.2;cursor:pointer;box-shadow:0 4px 12px rgba(96,74,60,.08);transition:transform 180ms var(--blank-ease),border-color 180ms ease,background-color 180ms ease;}
 .games-filters button svg {color:var(--tone-ink,var(--ema-pink));}
 .games-filters button span {font:11px/1 var(--mono);color:var(--blank-muted);}
 .games-filters button[aria-pressed="true"] {border-color:var(--line,var(--ema-pink));background:var(--fill,var(--ema-blush));color:var(--tone-ink,var(--ema-pink));}
@@ -39,7 +39,7 @@
 .ema-games .games-more {margin-top:44px;text-align:center;font:italic 14px/1.8 var(--blank-serif);color:var(--blank-muted);}
 
 @media(hover:hover) and (pointer:fine) {
-  .game-card:hover {transform:translateY(-3px);box-shadow:0 18px 36px #8599b42e;}
+  .game-card:hover {transform:translateY(-3px);box-shadow:0 18px 36px rgba(96,74,60,.18);}
   .games-filters button:hover {transform:translateY(-1px);border-color:var(--line,var(--ema-pink));}
   .game-link:hover svg:last-child {translate:2px -2px;}
   .game-card:hover .game-cover img {scale:1.05;}
@@ -50,10 +50,10 @@
 @media(max-width:760px) {
   .games-tools {gap:10px;}
   .games-filters {width:100%;}
-  /* One row that scrolls sideways, fading out at the edge it continues past. */
-  .games-filters fieldset {flex-wrap:nowrap;overflow-x:auto;padding:2px 2px 10px;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);}
-  .games-filters fieldset::-webkit-scrollbar {display:none;}
-  .games-filters button {flex-shrink:0;white-space:nowrap;}
+  /* Every genre stays in view: the filters wrap onto a second row instead of scrolling sideways. */
+  .games-filters fieldset {gap:8px 6px;}
+  .games-filters button {min-height:44px;padding:7px 11px;white-space:nowrap;}
+  .games-filters button[aria-pressed="false"] svg {display:none;}
   .games-grid {grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
   .game-card {padding:8px;}
   .game-cover span {font-size:1rem;}
@@ -65,3 +65,31 @@ html[data-motion-paused="true"] .ema-games :is(.game-card,button,svg,img) {trans
 @media(prefers-reduced-motion:reduce) {
   .ema-games :is(.game-card,button,svg,img) {transition:none;}
 }
+
+/* Reviewed prototype r3: an echo numeral and a soft aura behind the page head and a layered title shadow;
+   the selected filter shows a check; the filter bar stays under the header on tall windows; favourites
+   carry a pink edge; Japanese names break at the middle dots rather than inside a word. */
+.games-head {position:relative;isolation:isolate;}
+.games-echo {position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 80%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 80%,transparent);}
+.games-echo span {position:absolute;right:190px;bottom:-8px;font:400 clamp(100px,11vw,140px)/.84 var(--ema-title-font);color:rgba(226,170,190,.07);-webkit-text-stroke:1px rgba(204,140,168,.36);user-select:none;-webkit-user-select:none;}
+.games-aura {position:absolute;z-index:-1;top:-10px;right:130px;bottom:-6px;width:min(520px,44%);pointer-events:none;}
+.games-aura::before {content:"";position:absolute;inset:0;opacity:.8;background:radial-gradient(50% 70% at 30% 40%,rgba(255,226,168,.95),transparent 72%),radial-gradient(46% 70% at 74% 44%,rgba(244,178,202,.92),transparent 72%),radial-gradient(60% 60% at 54% 90%,rgba(196,184,236,.95),transparent 74%);-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 50%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 50%,transparent 100%);animation:ema-games-aura 16s ease-in-out infinite alternate;}
+@keyframes ema-games-aura {from {opacity:.7;transform:scale(1);} to {opacity:.82;transform:scale(1.05);}}
+.games-head .blank-page-heading h1 {text-shadow:2.5px 3.5px 0 #f2ccd8,0 0 14px var(--blank-paper),0 0 3px var(--blank-paper);}
+html[data-color-mode="dark"] .games-echo span {color:rgba(196,160,214,.04);-webkit-text-stroke-color:rgba(196,160,214,.24);}
+html[data-color-mode="dark"] .games-aura::before {background:radial-gradient(50% 70% at 30% 40%,rgba(118,62,104,.92),transparent 72%),radial-gradient(46% 70% at 74% 44%,rgba(50,62,124,.95),transparent 72%),radial-gradient(60% 60% at 54% 90%,rgba(132,70,106,.72),transparent 74%);}
+html[data-color-mode="dark"] .games-head .blank-page-heading h1 {text-shadow:2.5px 3.5px 0 #6a4158,0 0 14px var(--blank-paper),0 0 3px var(--blank-paper);}
+.games-filters .games-check {display:none;}
+.games-filters button[aria-pressed="true"] .games-check {display:block;}
+.games-filters button[aria-pressed="true"] .games-genre-icon {display:none;}
+.game-card.is-favorite {border-color:var(--ema-pink-soft);}
+.ema-games:lang(ja) .game-card h2 {word-break:keep-all;overflow-wrap:anywhere;}
+@media(min-width:761px) and (min-height:700px) {
+  .ema-games .games-tools {position:sticky;top:86px;z-index:20;margin:0 -12px 28px;padding:10px 12px;border-radius:0 0 14px 14px;}
+  .ema-games .games-tools.is-stuck {background:color-mix(in srgb,var(--blank-paper) 92%,transparent);box-shadow:0 1px 0 var(--blank-line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}
+}
+@media(min-width:761px) and (max-width:999px) and (min-height:700px) {.ema-games .games-tools {top:127px;}}
+/* On phones the page head shows its count at the right, where the echo numeral would sit behind it. */
+@media(max-width:760px) {.games-echo {display:none;} .games-aura {top:-8px;right:-8px;bottom:auto;width:58%;height:86px;}}
+html[data-motion-paused="true"] .games-aura::before {animation:none;}
+@media(prefers-reduced-motion:reduce) {.games-aura::before {animation:none;}}

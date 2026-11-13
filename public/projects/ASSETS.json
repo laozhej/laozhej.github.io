@@ -17,6 +17,60 @@
       "capturedDate": "2026-11-11",
       "description": "Actual local build screenshot at 1440x960 in the site's dark colour mode: the dark counterpart of personal-site-preview.jpg, shown in its place on pages that are in dark mode. Captured using browser automation and encoded to JPEG without resizing, cropping or retouching; not AI-generated.",
       "artworkAttribution": "Underlying existing artwork retains the sources and credits in /themes/ema/ASSETS.json and THIRD_PARTY_ASSETS.md."
+    },
+    {
+      "path": "/projects/gallery/blank-desktop.png",
+      "kind": "actual website screenshot",
+      "source": "https://laozhej.github.io/",
+      "capturedFrom": "showcase/gallery/blank-desktop.png (production build at de9b413, Chromium 156)",
+      "capturedDate": "2026-10-31",
+      "description": "Byte-identical copy of the case study screenshot at 1440x960, light mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated.",
+      "sha256": "3cfaaa22bbaa8bb3d8237d83a7aaa3bbc2c93d517e0ee0f78bf51164c274b47b"
+    },
+    {
+      "path": "/projects/gallery/blank-dark.png",
+      "kind": "actual website screenshot",
+      "source": "https://laozhej.github.io/",
+      "capturedFrom": "showcase/gallery/blank-dark.png (production build at de9b413, Chromium 156)",
+      "capturedDate": "2026-10-31",
+      "description": "Byte-identical copy of the case study screenshot at 1440x960, dark mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated.",
+      "sha256": "90cc373406518f44fcab0c15261a706720c1efd6d4070b02d8c73664ddbe011c"
+    },
+    {
+      "path": "/projects/gallery/projects-desktop.png",
+      "kind": "actual website screenshot",
+      "source": "https://laozhej.github.io/projects/",
+      "capturedFrom": "showcase/gallery/projects-desktop.png (production build at de9b413, Chromium 156)",
+      "capturedDate": "2026-10-31",
+      "description": "Byte-identical copy of the case study screenshot at 1440x960, light mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated.",
+      "sha256": "c5e2d4932572736791be7752481bf0317a1dd287c93bb8fd27b89ac592683e43"
+    },
+    {
+      "path": "/projects/gallery/endfield-desktop.png",
+      "kind": "actual website screenshot",
+      "source": "https://laozhej.github.io/themes/endfield/",
+      "capturedFrom": "showcase/gallery/endfield-desktop.png (production build at de9b413, Chromium 156)",
+      "capturedDate": "2026-10-31",
+      "description": "Byte-identical copy of the case study screenshot at 1440x960, light mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated.",
+      "sha256": "6c02ea339840a4f7cabdbb79a919d8a63d8bab5a6872e9faeb2c6d08c2ff7418"
+    },
+    {
+      "path": "/projects/gallery/blank-mobile.png",
+      "kind": "actual website screenshot",
+      "source": "https://laozhej.github.io/",
+      "capturedFrom": "showcase/gallery/blank-mobile.png (production build at de9b413, Chromium 156)",
+      "capturedDate": "2026-10-31",
+      "description": "Byte-identical copy of the case study screenshot at 390x844, light mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated.",
+      "sha256": "479ef0089ba326c7c18e6faedc7a8046d2f76501eeb6908471f014b91872132f"
+    },
+    {
+      "path": "/projects/gallery/endfield-mobile.png",
+      "kind": "actual website screenshot",
+      "source": "https://laozhej.github.io/themes/endfield/",
+      "capturedFrom": "showcase/gallery/endfield-mobile.png (production build at de9b413, Chromium 156)",
+      "capturedDate": "2026-10-31",
+      "description": "Byte-identical copy of the case study screenshot at 390x844, light mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated.",
+      "sha256": "d852f130827322d951c7450b3269f2be1c5964317598f392f83b7070cc949144"
     }
   ]
 }

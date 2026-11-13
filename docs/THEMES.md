@@ -54,13 +54,15 @@ import ColorModePreference from "@/core/preferences/ColorModePreference.astro";
 
 每个主题的 `<head>` 挂载 `src/core/themes/ThemePreference.astro`，并挂载一次 `src/core/themes/ThemeSwitcher.astro`。Blank 把切换器放在导航里，显示当前主题名称；其他主题传入 `floating`，在 `<body>` 里渲染为固定在右下角、没有文字的调色板按钮，点击后列表向上展开，列出带编号的全部主题。浮动按钮的外观和进出动效由各主题的 `.site-theme-dock` 样式提供：打开和关闭都要有动效（关闭借助 `::details-content` 的 `content-visibility` 过渡保持可见），暂停动效或系统减少动态时直接切换。切换器提供自己的基础菜单样式，主题可用 `--site-menu-background` 和 `--site-menu-color` 调整菜单颜色。
 
+Ema 是例外：窗口宽度不足 1260px 时，页面两侧放不下浮动按钮，Ema 在顶栏按钮里再渲染一次同一个 `floating` 切换器（列表向下展开），由 CSS 按宽度只显示其中一个。`src/core/themes/preference.mjs` 本来就处理页面上的所有 `[data-site-theme-menu]`，共享代码无需改动。
+
 `site-theme` 保存手动选择。**URL 始终决定当前主题**：保存的选择不会把显式主题链接、Blank 根路由或浏览器历史自动重定向。`html[data-theme]` 是当前主题；`data-preferred-theme` 是保存的偏好，存储不可用时回退到当前主题。切换链接在点击时读取当前 URL，保留语言、栏目、完整文章 slug、查询参数和锚点。禁用 JavaScript 时仍可用普通链接切换页面。
 
 ## 大屏幕缩放
 
 各主题按笔记本尺寸用 px 设计。为了在大屏幕上不缩在页面中央，构建时 `src/core/styles/fluid-px.mjs`（在 `astro.config.mjs` 注册的 PostCSS 插件）把 `src/` 下样式里的 px 改写为 `calc(N * var(--site-px, 1px))`；1px 及以下的细线、`url()` 和字符串保持原样。`src/core/styles/scale.css` 定义 `--site-px`：窗口宽度不超过 1600px 时恰好是 1px，页面与原设计完全一致；更宽时随宽度增大，最多 1.5px，同时受窗口高度约束（`100vh / 720`），宽而矮的窗口里整屏场景仍放得下。根字号随之同比放大，rem 尺寸也一起缩放，并以访客自己的默认字号为起点。
 
-新主题布局要在主题样式之前 `import "@/core/styles/scale.css";`，样式照常写 px 即可。图标的尺寸来自 HTML 属性，`scale.css` 为 astro-icon 用到的 11–24 号尺寸补充了 CSS 尺寸；用到新尺寸时在那里加一行。脚本会解析、或者表示滚动距离而非视觉尺寸的 px 值，在声明前加 `/* px:fixed */` 注释即可保留原值，例如 Ema 的 `--hero-runway`。宽而矮的窗口里缩放受高度限制，横向排列的内容可以用 `max(设计宽度, 设计宽度 ÷ 1600 × 100vw)` 保持它在 1600px 窗口里所占的宽度比例，例如 Ema 首页章节轨道的 `max(1160px, 72.5vw)`。
+新主题布局要在主题样式之前 `import "@/core/styles/scale.css";`，样式照常写 px 即可。图标的尺寸来自 HTML 属性，`scale.css` 为 astro-icon 用到的 11–24 号尺寸补充了 CSS 尺寸；用到新尺寸时在那里加一行。脚本会解析、或者表示滚动距离而非视觉尺寸的 px 值，在声明前加 `/* px:fixed */` 注释即可保留原值。宽而矮的窗口里缩放受高度限制，横向排列的内容可以用 `max(设计宽度, 设计宽度 ÷ 1600 × 100vw)` 保持它在 1600px 窗口里所占的宽度比例。
 
 ## 功能入口
 
@@ -94,12 +96,12 @@ import { pageTransition } from "@/core/navigation/animations.mjs";
 
 Blank 首页（`src/themes/blank/pages/HomePage.astro`）以共享资料中的小尺寸头像、姓名、Nero、简短介绍和社交链接开篇，接着展示 `projectEntries` 中首个真实项目的截图、标题、状态、摘要和案例入口；下方集中展示近况与少量精选游戏、动画和角色图片，并保留完整收藏入口。常用工具留在关于页。有文章时展示最近三篇及日期，缺少译文时标明原文语言；没有文章时省略首页文章区，保留顶栏文章导航。
 
-Ema 首页固定场景内部由原生滚动驱动；桌面场景交接处由 `lib/scenes.mjs` 处理滚轮事件，以短暂遮罩连接主视觉、章节和标签区。桌面足够高度时使用 sticky 场景；触屏、窄屏、短屏和暂停状态回退为正常文档流与原生横向滚动。内容默认可见，IntersectionObserver 和 WAAPI 只负责一次入场增强；关闭脚本或取消动效都不会留下隐藏内容。
+Ema 首页（`src/themes/ema/pages/HomePage.astro`）整页使用原生滚动，脚本不处理滚轮事件。首屏左侧是站长姓名、Nero、简介和入口，右侧是「艾玛的小剧场」：五个姿态由 `lib/frames.mjs` 切换，立绘确定前使用标明的临时占位（`ema.frames.placeholder`），提示、上一幕／下一幕和最后一幕的「重新翻阅」沿用 `ema-messages`。其下依次是代表作品（`projectEntries` 的第一个项目）、喜欢的游戏、最近文章（没有文章时显示 Ema 专用的空状态）和分组的喜欢标签；宽屏右侧有本页目录。标题本身不移动，只有立绘位和背景字随指针及开头一段滚动轻微位移（`lib/home.mjs`）。内容默认可见，IntersectionObserver 和 WAAPI 只负责一次入场增强；暂停动效、减少动态或关闭脚本时页面保持静止且内容完整。
 
-Ema 首页的「今日公告」使用原生 `<dialog>`（`lib/notice.mjs`）：同一浏览器会话每天自动弹出一次，记录在 sessionStorage 的 `ema-notice-seen-日期`，勾选「今日不再弹出」写入 localStorage 的 `ema-notice-hidden-日期`。第二幕的标签雨（`lib/tag-rain.mjs`）只读取公共资料、收藏与社交链接；暂停动效、减少动态或无脚本时恢复为普通列表。时钟只使用访客本机时间和时区，不请求任何外部定位或天气服务。
+Ema 首页的「樱色便笺」使用原生 `<dialog>`（`lib/notice.mjs`），只在点击首屏或文章空状态里的入口后打开，不会自动弹出，也不在浏览器里保存任何状态；便笺按访客本地日期从共享便笺中选取，缺少译文时显示原文并说明。喜欢的标签只读取公共资料、收藏与社交链接，较长的分组先显示一部分；「让标签落下一次」只在动效开启时出现。
 
 
-左侧控制台（`lib/console.mjs`）控制「樱色电台」（`lib/radio.mjs`）：曲目以音符数据写在代码中，用 Web Audio 合成；播放引擎挂在 `window.__emaRadio`，每个艾玛页面挂载时 `hold()`、清理时 `release()`，最后一个页面释放 1.5 秒后仍无新页面接手就停止，因此切换到其他主题会自动静音。
+控制台（`lib/console.mjs`）在 1260px 及更宽的窗口里从左侧边缘的标签打开；更窄时标签收进页脚的「控制台」按钮，面板从窗口底部升起，两种位置都不遮挡页面内容。首页和游戏页给 `EmaLayout` 传入 `cursorRing`，控制台里多一个「光标光圈」开关（`lib/cursor-ring.mjs`）：细圈跟随鼠标或触控板指针，系统指针保持不变；默认开启，访客的选择保存在 localStorage 的 `ema-cursor-ring`；触屏、暂停动效或系统减少动态时不显示。控制台控制「樱色电台」（`lib/radio.mjs`）：曲目以音符数据写在代码中，用 Web Audio 合成；播放引擎挂在 `window.__emaRadio`，每个艾玛页面挂载时 `hold()`、清理时 `release()`，最后一个页面释放 1.5 秒后仍无新页面接手就停止，因此切换到其他主题会自动静音。
 
 ### 搜索、筛选和排序
 

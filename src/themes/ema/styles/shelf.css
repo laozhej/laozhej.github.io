@@ -1,7 +1,7 @@
 /* Shared pieces of Sakura Archive's card pages (About, Games): paper cards,
    the homepage tag colours, mono kickers, tinted heading chips and screentone covers. */
 .ema-shelf {
-  --card:#ffffff; --card-shadow:0 12px 30px #8599b41a; --frame:#ead6df;
+  --card:var(--ema-card); --card-shadow:0 12px 30px rgba(96,74,60,.1); --frame:#ead6df;
   --round:"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Varela Round","Yu Gothic UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   color:var(--blank-ink);
@@ -9,19 +9,19 @@
 .ema-shelf:lang(zh-TW) {
   --round:"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Varela Round","Yu Gothic UI","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
 }
-html[data-color-mode="dark"] .ema-shelf {--card:#272c37;--card-shadow:0 12px 30px #05080e59;--frame:#6d4c61;}
+html[data-color-mode="dark"] .ema-shelf {--card-shadow:0 12px 30px #00000059;--frame:#6d4c61;}
 .ema-shelf :is(h2,h3,p,ul,ol,figure) {margin:0;}
 .ema-shelf :is(ul,ol) {padding:0;list-style:none;}
-.ema-shelf .tone-pink {--fill:#ffddea;--line:#f2a8bd;--tone-ink:#824759;}
-.ema-shelf .tone-blue {--fill:#dff2ff;--line:#9fc8eb;--tone-ink:#315a78;}
-.ema-shelf .tone-green {--fill:#dff5ea;--line:#9bd6b7;--tone-ink:#315e49;}
-.ema-shelf .tone-lavender {--fill:#eee4ff;--line:#c9b8ef;--tone-ink:#57467b;}
-.ema-shelf .tone-yellow {--fill:#fff5bf;--line:#f0c95a;--tone-ink:#725d22;}
-html[data-color-mode="dark"] .ema-shelf .tone-pink {--fill:#47303d;--line:#8a5670;--tone-ink:#f6c2d6;}
-html[data-color-mode="dark"] .ema-shelf .tone-blue {--fill:#263a4b;--line:#4f7898;--tone-ink:#bfe0f7;}
-html[data-color-mode="dark"] .ema-shelf .tone-green {--fill:#253f35;--line:#4f8a70;--tone-ink:#bfe9d3;}
-html[data-color-mode="dark"] .ema-shelf .tone-lavender {--fill:#352e4b;--line:#6f5f9e;--tone-ink:#d9ccfa;}
-html[data-color-mode="dark"] .ema-shelf .tone-yellow {--fill:#3f3820;--line:#8c7a37;--tone-ink:#f5e3a0;}
+.ema-shelf .tone-pink {--fill:#fbe9ee;--line:#efc5d3;--tone-ink:#824759;}
+.ema-shelf .tone-blue {--fill:#e8f0f7;--line:#c4d6e8;--tone-ink:#315a78;}
+.ema-shelf .tone-green {--fill:#e9f2e8;--line:#c5dbc4;--tone-ink:#315e49;}
+.ema-shelf .tone-lavender {--fill:#efebf8;--line:#d6cdec;--tone-ink:#57467b;}
+.ema-shelf .tone-yellow {--fill:#f9f0d8;--line:#e4d39f;--tone-ink:#725d22;}
+html[data-color-mode="dark"] .ema-shelf .tone-pink {--fill:#3b2c38;--line:#7a4c63;--tone-ink:#f6c2d6;}
+html[data-color-mode="dark"] .ema-shelf .tone-blue {--fill:#262f3f;--line:#3f556f;--tone-ink:#bfe0f7;}
+html[data-color-mode="dark"] .ema-shelf .tone-green {--fill:#26332c;--line:#3f5a49;--tone-ink:#bfe9d3;}
+html[data-color-mode="dark"] .ema-shelf .tone-lavender {--fill:#302d45;--line:#524b76;--tone-ink:#d9ccfa;}
+html[data-color-mode="dark"] .ema-shelf .tone-yellow {--fill:#36301f;--line:#6a5c35;--tone-ink:#f5e3a0;}
 .shelf-kicker {font:600 10px/1.8 var(--mono);letter-spacing:.16em;color:var(--ema-pink);}
 .shelf-heading {display:flex;align-items:center;gap:14px;}
 .shelf-heading h2 {margin-top:2px;font:500 1.45rem/1.35 var(--blank-serif);color:var(--blank-ink);}

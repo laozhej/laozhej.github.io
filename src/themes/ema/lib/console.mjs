@@ -1,10 +1,12 @@
 import { getRadio, TRACKS, trackLength } from './radio.mjs';
 
-// The left-edge console contains the Sakura Radio controls.
+// The console holds the Sakura Radio controls (and, on Home and Games, the cursor ring's switch).
+// Wide windows open it from the tab on the left edge; narrower ones from the footer, where it is docked
+// so it never covers the page. Both openers control the same panel.
 export function mountEmaConsole(doc, win) {
   const root = doc.querySelector('[data-ema-console]');
   if (!root) return () => {};
-  const toggle = root.querySelector('[data-console-toggle]');
+  const toggles = [...doc.querySelectorAll('[data-console-toggle]')];
   const panel = root.querySelector('[data-console-panel]');
   const close = root.querySelector('[data-console-close]');
   const radioRoot = root.querySelector('[data-radio]');
@@ -16,20 +18,26 @@ export function mountEmaConsole(doc, win) {
   };
   const $ = (selector) => root.querySelector(selector);
   const clock = (seconds) => `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;
+  // Focus returns to the opener the visitor used, or to whichever opener the current layout shows.
+  let opener = null;
+  const shown = (element) => Boolean(element?.getClientRects?.().length);
+  const returnFocus = () => (shown(opener) ? opener : toggles.find(shown) ?? opener ?? toggles[0])?.focus();
 
   function setOpen(open) {
-    if (!panel || !toggle) return;
+    if (!panel || !toggles.length) return;
     panel.hidden = !open;
-    toggle.setAttribute('aria-expanded', String(open));
+    toggles.forEach((toggle) => toggle.setAttribute('aria-expanded', String(open)));
     root.classList.toggle('is-open', open);
   }
-  if (toggle && panel) {
-    toggle.hidden = false;
+  if (toggles.length && panel) {
     setOpen(false);
-    listen(toggle, 'click', () => setOpen(panel.hidden));
-    listen(close, 'click', () => { setOpen(false); toggle.focus(); });
+    toggles.forEach((toggle) => {
+      toggle.hidden = false;
+      listen(toggle, 'click', () => { opener = toggle; setOpen(panel.hidden); });
+    });
+    listen(close, 'click', () => { setOpen(false); returnFocus(); });
     listen(doc, 'keydown', (event) => {
-      if (event.key === 'Escape' && !panel.hidden) { setOpen(false); toggle.focus(); }
+      if (event.key === 'Escape' && !panel.hidden) { setOpen(false); returnFocus(); }
     });
   }
 
@@ -76,7 +84,7 @@ export function mountEmaConsole(doc, win) {
     listen($('[data-radio-prev]'), 'click', () => radio.select(radio.index - 1));
     listen($('[data-radio-next]'), 'click', () => radio.select(radio.index + 1));
     listen(volume, 'input', () => radio.setVolume(Number(volume.value) / 100));
-    listen(toggle, 'click', wake);
+    toggles.forEach((toggle) => listen(toggle, 'click', wake));
     removers.push(radio.subscribe(() => { render(); wake(); }));
     radio.hold();
     render();

@@ -4,25 +4,9 @@
 
 ## 艾玛主题
 
-`public/themes/ema/ASSETS.json` 是四张图片的来源清单，包含来源页面、原图 URL、署名、原始及输出 SHA-256、尺寸、处理方式和核对日期。文件位于 `public/themes/ema/assets/`：
+艾玛主题目前不发布第三方图片。此前位于 `public/themes/ema/assets/` 的十二个文件已于 2026-11-13 移出 `public/`：《魔法少女ノ魔女裁判》的四张樱羽艾玛立绘和一张论破演出图（Acacia）、三张《葬送的芙莉莲》官方试读摘图、《Summer Pockets》主视觉（鳴瀬しろは）、TYPE-MOON 的久远寺有珠插画，以及樱羽艾玛、月代雪两张头像裁图。它们仍保留在公开的 Git 历史中。
 
-| 文件 | 内容与来源 |
-| --- | --- |
-| `ema.webp` | 《魔法少女ノ魔女裁判》樱羽艾玛立绘，来源副本由 Bilibili BWIKI 收录；作品归属 Acacia。 |
-| `shiroha.webp` | TV 动画《Summer Pockets》官方画廊「メインビジュアル（鳴瀬しろは編）」；©VISUAL ARTS/Key/鳥白島観光協会。 |
-| `alice.webp` | TYPE-MOON《魔法使いの夜》官网久远寺有珠角色插画；©TYPE-MOON。 |
-| `shiki.webp` | 星海社・最前線公开试读《空の境界 the Garden of sinners》第1回第008页；漫画天空すふぃあ，原作奈須きのこ，角色设计原案武内崇。 |
-
-这四个文件未使用生成式 AI 制作、重绘、扩图或补画。转换仅包含等比例 LANCZOS 缩放、RGB / RGBA 模式转换及无损 WebP 编码；资产文件没有裁切、调色或更改漫画文字。页面可能通过 CSS 容器显示局部或应用显示滤镜，这不改变原始文件，也不产生新的素材授权。
-
-当前没有确认这四张图获得装饰性网站公开使用或再分发的许可。适用说明需要与实际使用方式逐项核对：
-
-- [Acacia 官方指南](https://manosaba.com/guidelines)第7节说明官方立绘、背景等素材的使用和转载限制。
-- [TYPE-MOON 官方版权说明](https://typemoon.com/copyright)说明作品图片使用规则以及作品介绍、感想引用的例外。
-- [最前線使用条款](https://sai-zen-sen.jp/rule.html)及[下载 FAQ](https://sai-zen-sen.jp/faq.html)区分私人下载与内容转载。
-- [Summer Pockets 动画官方画廊](https://summerpockets-anime.jp/visualgallery/)提供来源和版权署名；本站未确认面向装饰性网站使用的许可。
-
-这些链接用于核实来源和规则，不表示权利人赞助、认可或授权本站。公开仓库分发图片与网站部署一样，需要考虑对应素材的使用范围。
+首页的艾玛在立绘确定前是代码绘制、明确标注的临时占位；站长头像是一个「旭」字。今后的艾玛立绘须满足 [docs/ART-DIRECTION.md](docs/ART-DIRECTION.md) 列出的条件（画师的书面授权、未使用生成式 AI、遵守 [Acacia 二次创作指南](https://manosaba.com/guidelines)），并先在 `public/themes/ema/ASSETS.json` 登记来源与授权，才进入 `public/`。
 
 ## 喜欢的角色头像
 
@@ -32,7 +16,7 @@
 
 2026-11-05 新增的 10 位《东方Project》角色采用《东方弹幕神乐》手游官方档案中的角色立绘。每张头像的画师署名均取自对应角色页，清单还记录原图和 320 × 320 WebP 头像的 SHA-256。[官方角色档案](https://danmaku.jp/archive/character/) · [游戏二次创作指南](https://danmaku.jp/archive/news/637Qdiel8W3Kx5mFbTDQAz/)
 
-仅进行矩形裁切、LANCZOS 缩放和 WebP 编码，未使用生成式 AI。角色与插图版权归原权利人所有，仓库 MIT 许可不覆盖头像；来源及署名记录不构成转载授权。原有两位角色的头像来源仍见 `public/themes/ema/ASSETS.json`。
+仅进行矩形裁切、LANCZOS 缩放和 WebP 编码，未使用生成式 AI。角色与插图版权归原权利人所有，仓库 MIT 许可不覆盖头像；来源及署名记录不构成转载授权。樱羽艾玛、月代雪两项没有经确认的头像，各主题的关于页以代码绘制的空白头像框代替。
 
 ## 游戏页卡片图
 

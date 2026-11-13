@@ -10,18 +10,18 @@
 
 ## 截图与美术
 
-画廊图片由浏览器拍摄本站的本地生产构建，未使用生成式 AI 制作或重绘。它们记录整页界面，包含第三方角色、美术和漫画；截图不能作为可自由提取、再利用这些素材的授权。
+画廊图片由浏览器拍摄本站的本地生产构建，未使用生成式 AI 制作或重绘。它们记录整页界面；截图不能作为可自由提取、再利用其中任何素材的授权。樱色档案的三张截图含有第三方角色、美术和漫画，已于 2026-11-13 移出画廊。
 
 | 内容 | 来源记录 |
 | --- | --- |
-| 艾玛角色图、漫画与头像 | [`public/themes/ema/ASSETS.json`](../public/themes/ema/ASSETS.json) |
+| 樱色档案美术（目前没有第三方图片） | [`public/themes/ema/ASSETS.json`](../public/themes/ema/ASSETS.json) |
 | 游戏图片 | [`public/games/ASSETS.json`](../public/games/ASSETS.json) |
 | 动画图片 | [`public/animes/ASSETS.json`](../public/animes/ASSETS.json) |
 | 角色头像 | [`public/characters/ASSETS.json`](../public/characters/ASSETS.json) |
 | 字体和整体许可边界 | [`THIRD_PARTY_ASSETS.md`](../THIRD_PARTY_ASSETS.md) |
 | 非生成式 AI 的 `B.` 文字图标 | [`assets/branding/README.md`](../assets/branding/README.md) |
 
-画廊保留 2026-10-31 的截图，其中的芙莉莲 Live2D 模型由 kyokiStudio 发布，来源与当时的渲染库许可见[快照版本的第三方素材说明](https://github.com/laozhej/laozhej.github.io/blob/de9b413e6944d27f3c105c53f85ddf9a160d7deb/THIRD_PARTY_ASSETS.md)。该模型及其专属控件和渲染依赖已于 2026-11-06 从网站移除，旧截图中的素材仍由原权利人持有。
+画廊保留 2026-10-31 的其余截图。移出的樱色档案截图中有 kyokiStudio 发布的芙莉莲 Live2D 模型，其来源与当时的渲染库许可见[快照版本的第三方素材说明](https://github.com/laozhej/laozhej.github.io/blob/de9b413e6944d27f3c105c53f85ddf9a160d7deb/THIRD_PARTY_ASSETS.md)。该模型及其专属控件和渲染依赖已于 2026-11-06 从网站移除，素材仍由原权利人持有。
 
 来源记录用于追溯，不能替代许可。第三方图片、角色、字体、模型及其运行库各按原有条款处理。本文沿用仓库已有许可边界，不重新判断权利人的授权状态。
 

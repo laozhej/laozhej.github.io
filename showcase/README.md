@@ -4,7 +4,7 @@
 
 [访问网站](https://laozhej.github.io/) · [截图画廊](gallery/README.md) · [架构](docs/01-architecture.md) · [验证记录](docs/04-validation.md) · [完整源码](../)
 
-![樱色档案桌面首页，实际浏览器截图](gallery/ema-desktop.png)
+![Blank 桌面首页，实际浏览器截图](gallery/blank-desktop.png)
 
 ## 项目概况
 

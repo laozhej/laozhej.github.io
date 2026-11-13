@@ -49,15 +49,17 @@ test('failed images preserve the current scene and allow the same action to retr
   p.api.cleanup();
 });
 
-test('placeholder plates switch at once with the site labels: hint first, then next, and restart on the last pose', async () => {
+test('all five image poses load on demand and preserve the hint, next, restart, previous and accessible labels', async () => {
   const node = (dataset = {}) => Object.assign(new EventTarget(), {
     dataset, attributes: {}, hidden: true,
     setAttribute(k, v) { this.attributes[k] = v; },
-    getAttribute(k) { return this.attributes[k]; },
+    getAttribute(k) { return k === 'src' ? this.src : this.attributes[k]; },
     removeAttribute(k) { delete this.attributes[k]; },
   });
-  // Plates are plain elements: no decode(), no src, no alt.
-  const plates = Array.from({ length: 5 }, (_, i) => node({ label: `pose-${i}`, active: String(i === 0) }));
+  const plates = Array.from({ length: 5 }, (_, i) => Object.assign(node({
+    src: `/themes/ema/assets/ema-pose-0${i + 1}.webp`, label: `pose-${i}`, active: String(i === 0),
+  }), { alt: i === 0 ? 'Ema' : '', decode: async () => {} }));
+  plates[0].src = plates[0].dataset.src;
   const hit = node(), prev = node(), next = node(), label = node();
   hit.attributes['aria-label'] = 'Click Ema for the next scene';
   const number = node(), pose = node();
@@ -68,9 +70,14 @@ test('placeholder plates switch at once with the site labels: hint first, then n
   const root = { querySelector: s => ({ '[data-ema-frames]': art, '[data-frame-controls]': controls, '[data-frame-hit]': hit })[s] };
   const api = mountEmaFrames(root, {}, { canAnimate: () => true });
   assert.equal(hit.hidden, false); assert.equal(controls.hidden, false);
+  assert.equal(plates.filter((plate) => plate.src).length, 1, 'only the initial image loads before a request');
   assert.equal(hit.attributes['aria-label'], 'Click Ema for the next scene', 'the hint stays until the first change');
   hit.dispatchEvent(Object.assign(new Event('click'), { detail: 1 })); await flush();
   assert.equal(plates[1].dataset.active, 'true');
+  assert.equal(plates[1].src, plates[1].dataset.src);
+  assert.equal(plates[1].alt, 'Ema · pose-1');
+  assert.equal(plates[0].alt, '');
+  assert.equal(plates[2].src, undefined, 'later poses are not prefetched');
   assert.equal(plates[0].attributes['aria-hidden'], 'true');
   assert.equal(number.textContent, '02 / 05'); assert.equal(pose.textContent, ' · pose-1');
   assert.equal(label.textContent, 'Next scene'); assert.equal(hit.attributes['aria-label'], 'Next scene');
@@ -81,7 +88,8 @@ test('placeholder plates switch at once with the site labels: hint first, then n
   assert.equal(plates[0].dataset.active, 'true', 'restart returns to the first pose');
   prev.dispatchEvent(Object.assign(new Event('click'), { detail: 1 })); await flush();
   assert.equal(plates[4].dataset.active, 'true', 'previous from the first pose wraps to the last');
-  assert.equal(plates.some((plate) => 'src' in plate || 'alt' in plate), false, 'plates never get image attributes');
+  assert.equal(plates.filter((plate) => plate.src).length, 5, 'all visited images remain loaded');
+  assert.equal(plates.filter((plate) => plate.alt).length, 1, 'only the active image is described');
   api.cleanup();
 });
 

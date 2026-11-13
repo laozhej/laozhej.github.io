@@ -7,8 +7,8 @@
 //    touch screens and whenever motion is off);
 // 3. a sticky chapter rail that walks sideways as the page scrolls;
 // 4. a signal scene (local clock, today's Sakura note, falling tags) and recent writing.
-// Everything shown comes from the shared sources. Ema is a labelled placeholder until licensed or
-// original artwork exists; no character art is loaded.
+// Ema's five images are restored unchanged from 76c9da5 at the owner's request (2026-11-14).
+// Historical source records and unconfirmed permission status are in public/themes/ema/ASSETS.json.
 import { Icon } from "astro-icon/components";
 import { getSiteContent } from "@/core/i18n/content";
 import { getI18n, localizePath } from "@/core/i18n";
@@ -20,7 +20,7 @@ import { getThemePath } from "@/core/themes/registry";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 import EmaLayout from "../layouts/EmaLayout.astro";
 import Storyboard from "../components/Storyboard.astro";
-import EmaFigure from "../components/EmaFigure.astro";
+import emaAssets from "../../../../public/themes/ema/ASSETS.json";
 import { AVATAR_MONOGRAM, avatarAttributes } from "../lib/avatar.mjs";
 import "../styles/stage.css";
 
@@ -37,9 +37,11 @@ const brandParts = brand.split(/(\.)/);
 
 // Ema's five poses keep their order and labels from ema-messages.
 const poseKeys = ["smile", "wave", "together", "talk", "refute"] as const;
-const poses = poseKeys.map((key) => ({ key, label: t(`ema.frames.${key}`) }));
+const poses = poseKeys.map((key) => {
+  const asset = emaAssets.assets.find((asset) => asset.pose_key === `ema.frames.${key}`)!;
+  return { key, label: t(`ema.frames.${key}`), src: `/themes/ema/${asset.file}`, dimensions: asset.dimensions };
+});
 const ema = xpFavorites.find((item) => item.key === "emma")?.title ?? "";
-const placeholder = t("ema.frames.placeholder");
 // The owner's avatar: the monogram 旭 in every locale, an image named after the owner.
 const avatar = avatarAttributes(profileIdentity.displayName);
 
@@ -78,13 +80,14 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
         <div class="k-veil" aria-hidden="true"></div>
 
         <figure class="k-ema" data-k-front aria-labelledby="ema-scene-label">
-          <figcaption class="blank-sr-only" id="ema-scene-label">{t("ema.frames.label")} · {placeholder}</figcaption>
+          <figcaption class="blank-sr-only" id="ema-scene-label">{t("ema.frames.label")}</figcaption>
           <div class="k-frames" data-ema-frames>
             {poses.map((pose, index) => (
-              <div class="k-frame" data-ema-frame data-label={pose.label} data-active={String(index === 0)} aria-hidden={index === 0 ? undefined : "true"}>
-                <EmaFigure pose={pose.key} />
-                <p class="k-slate"><b>{pad(index + 1)}</b><span>{ema} · {pose.label}</span><small>{placeholder}</small></p>
-              </div>
+              <img class="k-frame" data-ema-frame data-label={pose.label} data-active={String(index === 0)}
+                src={index === 0 ? pose.src : undefined} data-src={pose.src}
+                width={pose.dimensions[0]} height={pose.dimensions[1]}
+                alt={index === 0 ? ema : ""} aria-hidden={index === 0 ? undefined : "true"}
+                decoding="async" fetchpriority={index === 0 ? "high" : undefined} />
             ))}
             <button class="k-ema-hit" type="button" data-frame-hit aria-label={t("ema.frames.hint")} hidden></button>
           </div>

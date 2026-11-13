@@ -2,11 +2,11 @@
 
 This file directs the art of Ema / 樱色档案: what is drawn, painted or typeset inside the layouts that [REFERENCE.md](REFERENCE.md) maps from the reference's `fuyukawa-kagari` theme. It covers the artwork, palette, light, paper and texture, typography, Ema's five poses, sources and licensing, the material still needed, and the completed cleanup of uncleared files. Layout geometry, navigation, motion and interaction belong to REFERENCE.md.
 
-Status: revised on 2026-11-13 (rounds 5 and 6) on `claude/reference-redesign`, uncommitted. That day the owner confirmed composition B, approved the light direction, canvas, export size, safe regions and removal of the slate once the art arrives, and approved cleanup groups A, B and C with the credits rewording. The cleanup is complete (section 10). Round 6 was a finishing pass the owner asked for: the 月代雪 subtitle, the small-screen layout and the Japanese and English hints (sections 2.3 and 8.7). Nothing here is approved unless it is labelled **Approved**.
+Status: revised on 2026-11-14 on `claude/reference-redesign` for the owner-requested restoration and mobile occlusion fix (section 13), prepared for the existing PR 12. The following rounds 5 and 6 decisions describe the 2026-11-13 baseline. That day the owner confirmed composition B, approved the light direction, canvas, export size, safe regions and removal of the slate once the art arrives, and approved cleanup groups A, B and C with the credits rewording. The cleanup is complete (section 10). Round 6 was a finishing pass the owner asked for: the 月代雪 subtitle, the small-screen layout and the Japanese and English hints (sections 2.3 and 8.7). Nothing here is approved unless it is labelled **Approved**. The 2026-11-14 request supersedes the earlier placeholder-only restriction for exactly five historical images; it does not confirm their source or permission. Future commissioned-art specifications below do not require altering these restored files.
 
 ## How to read this file
 
-Every statement carries one of four labels.
+Every statement carries one of four labels. Dated sections preserve earlier review history; section 13 is the current restoration scope.
 
 | Label | Meaning |
 | --- | --- |
@@ -17,7 +17,7 @@ Every statement carries one of four labels.
 
 ## 1. Authority
 
-- **Approved.** AGENTS.md sets the repository rules, approvals and licences.
+- **Approved.** AGENTS.md sets the repository rules, approvals and licences. The owner’s 2026-11-14 request explicitly overrides its earlier placeholder-only restriction for the five images in section 13.
 - **Approved.** The reference site (Yuimi-chaya, `fuyukawa-kagari`) is the authority for layout and interaction. REFERENCE.md records the mapping and every deviation. The reference's artwork is not ours and is not a study reference.
 - **Approved.** This file controls the artwork: what is drawn inside that layout.
 - **Proposed.** This file never moves, resizes or re-times anything REFERENCE.md specifies. Where it quotes geometry (the figure frame, the mask, overlaps), the numbers brief the artwork and the stylesheets stay the source. An art idea that needs a layout change goes to REFERENCE.md as a proposed deviation.
@@ -99,7 +99,7 @@ Every statement carries one of four labels.
   - Frontal or ambient light instead: no conflict with the page at all, but flatter modelling. This is the safest choice if the artist's style is flat.
   - Whatever is chosen, all five poses share it.
 - **Proposed.** The artwork has a transparent background and brings no painted background. Its alpha edges are clean on both paper colours (`#fbf7ef` and `#201f28`), with no white matte or halo.
-- **Proposed.** The glow behind the figure is currently part of the placeholder SVG (`EmaFigure.astro`). When images replace the placeholders, the glow moves into CSS behind the image, so the page keeps its light whatever the artwork brings.
+- **Prototype** (2026-11-14). The former placeholder’s soft glow is now a CSS radial gradient behind the images (`.k-frames::before`). The storyboard and paper veil are unchanged; no pixels in the restored files are altered.
 
 ## 6. Paper and texture
 
@@ -145,9 +145,9 @@ Every statement carries one of four labels.
 
 - **Approved.** Five poses, switched in place, as one structure with the theatre labels.
 - **Prototype.** The keys and labels below were copied from `src/core/i18n/ema-messages.ts` on 2026-11-13 and follow the order in `HomePage.astro` (`smile`, `wave`, `together`, `talk`, `refute`). If they differ, the code is right.
-- **Proposed.** Runtime filenames `ema-pose-01.webp` to `ema-pose-05.webp`. The names stay neutral; the pose names live in the i18n keys.
+- **Approved** (2026-11-14). Runtime filenames `ema-pose-01.webp` to `ema-pose-05.webp` under `public/themes/ema/assets/`. The pose names and order remain in the i18n keys.
 
-| Proposed runtime file | Key | zh-CN | zh-TW | ja | en |
+| Runtime file | Key | zh-CN | zh-TW | ja | en |
 | --- | --- | --- | --- | --- | --- |
 | `ema-pose-01.webp` | `ema.frames.smile` | 微笑 | 微笑 | 微笑み | A smile |
 | `ema-pose-02.webp` | `ema.frames.wave` | 挥手 | 揮手 | 手を振って | A little wave |
@@ -170,20 +170,23 @@ The gestures are those the placeholder blocks out (**Prototype**, `EmaFigure.ast
 - **Proposed.** One character, outfit, scale and canvas across all five, so switching changes only the pose. Her design (hair, eyes, outfit) stays as designed. No speech, lettering, sound effects or props in the art: the pose names are page text, and the site never invents dialogue (AGENTS.md). No late-story outfits, states or props (section 9.2, §1).
 - **Proposed.** Pose 05 is an original composition. It does not recreate the game's refutation cut-in or any official sprite's pose (section 9.2, §7).
 
-### 8.3 Status
+### 8.3 Current status
 
-| Pose | Placeholder | Final artwork | Permission | Old official file for this pose (removed) |
+**Approved** (2026-11-14): restore exactly the five historical images from `76c9da5`, replacing the rendered wireframes and placeholder slates. Source and permission status remain unconfirmed; the owner’s request is not a rights-holder licence.
+
+| Pose | Restored runtime file | Historical file | Dimensions | Source / permission |
 | --- | --- | --- | --- | --- |
-| 01 | Exists: drawn in code, labelled, full scale | Missing: no file in the repository | Pending: no artist's licence on record | `ema.webp` |
-| 02 | Exists | Missing | Pending | `ema-frame-wave.webp` |
-| 03 | Exists | Missing | Pending | `ema-frame-together.webp` |
-| 04 | Exists | Missing | Pending | `ema-frame-talk.webp` |
-| 05 | Exists | Missing | Pending | `ema-frame-refute.webp` (a cut-in) |
+| 01 | `ema-pose-01.webp` | `ema.webp` | 905 × 2400 | Unconfirmed |
+| 02 | `ema-pose-02.webp` | `ema-frame-wave.webp` | 1030 × 2400 | Unconfirmed |
+| 03 | `ema-pose-03.webp` | `ema-frame-together.webp` | 1030 × 2400 | Unconfirmed |
+| 04 | `ema-pose-04.webp` | `ema-frame-talk.webp` | 1030 × 2400 | Unconfirmed |
+| 05 | `ema-pose-05.webp` | `ema-frame-refute.webp` | 1472 × 2048 | Unconfirmed |
 
-- **Prototype.** The mapping in the last column comes from the original five-pose commit (`de9b413`). Those files are © Acacia; round 5 removed them from `public/` (section 10, group A). They remain in the Git history.
-- **Approved.** Official Ema sprites stay out of the site until the owner has written permission. They are not candidates for the final art.
+All five preserve their historical bytes and alpha. Original source URLs, attribution and import processing are retained as historical records in the manifest, alongside the restoration commit, old path and SHA-256. The remaining production plan concerns possible future artwork, not reprocessing these five files.
 
 ### 8.4 Common canvas, scale and safe regions
+
+The 2026-11-14 restoration preserves the existing `520 : 760` stage frame but displays each historical image at its own aspect ratio with `object-fit: contain`, bottom-centred and with the existing bottom fade. It does not resize files to the proposed 1642 × 2400 export, crop, redraw or upscale them. The measurements below are the earlier commissioned-art brief.
 
 **Approved** (2026-11-13): the canvas, export size and safe regions in this section, and removing the placeholder slate once the art arrives. The acceptance checks at the end remain **Proposed**. The measurements were taken in Chrome 157 on 2026-11-13 on the round-4 build; the "If another choice is made" column records what a later change would involve.
 
@@ -237,14 +240,14 @@ Not needed:
 - **Approved.** A new personal portrait or a full-background illustration, as long as the 旭 monogram and the code-drawn storyboard suffice, which they do in the current prototype.
 - **Proposed.** A paper texture (section 6) or a web font (section 7).
 
-### 8.7 Until the art is cleared
+### 8.7 Earlier placeholder plan and retained avatars
 
-- **Approved.** Labelled placeholders stay at full hero scale until cleared art exists. Missing art never shrinks the composition, and nothing third-party fills the gap.
-- **Prototype.** `src/themes/ema/components/EmaFigure.astro` draws five blocking figures in code, at the final scale and anchor, each with its pose's gesture. They are marked as stand-ins in the code and are not drawings of the character. Each pose shows a slate with its number, 艾玛 · the pose name and `ema.frames.placeholder` (临时占位 · 立绘待定 / 臨時佔位 · 立繪待定 / 仮置き · 立ち絵は未定 / Temporary placeholder · artwork pending). On phones 480 px wide or narrower the slate keeps its number and the note, since the theatre card just below names the pose (round 6). The figure caption gives screen readers the same note.
+- **Approved, superseded for the five restored files on 2026-11-14.** The earlier requirement for labelled full-scale placeholders no longer applies to the five homepage images in section 13. The composition must still retain Ema’s prominent scale.
+- **Historical prototype (2026-11-13; no longer rendered).** `src/themes/ema/components/EmaFigure.astro` draws five blocking figures in code, at the final scale and anchor, each with its pose's gesture. They are marked as stand-ins in the code and are not drawings of the character. Each pose shows a slate with its number, 艾玛 · the pose name and `ema.frames.placeholder` (临时占位 · 立绘待定 / 臨時佔位 · 立繪待定 / 仮置き · 立ち絵は未定 / Temporary placeholder · artwork pending). On phones 480 px wide or narrower the slate keeps its number and the note, since the theatre card just below names the pose (round 6). The figure caption gives screen readers the same note.
 - **Prototype.** The owner's avatar is the monogram 旭 in all four locales: on the homepage identity card, on the Profile leaf of the chapter rail (round 4 fixed the English page, which showed "i", the last letter of "Arataki Asahi") and, since round 5, on the About page, where it replaced the 月代ユキ crop. It is exposed as an image named after the owner in each locale (荒泷旭, 荒瀧旭, 荒滝 旭, Arataki Asahi). Round 5 dropped the homepage tooltip 头像占位 · 素材待定, because the monogram is now the avatar rather than a stand-in. `tests/ema-avatar.test.mjs` covers all four locales.
 - **Prototype.** On the About pages of all three themes, the favourite characters 樱羽艾玛 and 月代雪 keep their entries but have no portrait; each theme draws an empty frame in its own style (Ema: the blossom on the card's tone; Blank: a hairline circle; Endfield: its hatching). 月代雪's frame stays empty: 旭 is the owner's avatar monogram, not a portrait of her.
 - **Approved** (round 6). 月代雪's subtitle no longer calls her the current avatar character. It now reads 以前的头像角色 / 以前的頭像角色 / 以前のアイコンのキャラクター / Former avatar character (it was 现在的头像角色 / 現在的頭像角色 / いまのアイコンのキャラクター / The character on my avatar). Only Ema's About page shows these subtitles; Blank's and Endfield's About pages list the names alone.
-- **Proposed.** The five poses are replaced together, and only when the whole set is cleared; partial sets stay in review.
+- **Approved** (2026-11-14). All five historical images are restored together; no other removed media is included. This does not establish a cleared set for publication.
 
 ## 9. Sources and licensing
 
@@ -282,7 +285,7 @@ Source: <https://manosaba.com/guidelines>, 「魔法少女ノ魔女裁判」配�
 
 | Material | Status | Basis |
 | --- | --- | --- |
-| Official 魔法少女ノ魔女裁判 art (the five old sprites and cut-in) | Removed from `public/` in round 5; stays out | **Approved** (AGENTS.md: official sprites stay out without written permission). The manifest recorded them as in-game sprites copied from community wikis; §7's wording covers official standing sprites and extracted game data |
+| Five historical Ema images (recorded as sprites and a cut-in) | Restored unchanged under new names on 2026-11-14 | **Approved restoration only.** The owner explicitly overrode the placeholder-only restriction for these five files. Historical attribution is retained; source and permission remain unconfirmed |
 | `ema-avatar.webp`, `yuki.webp` (crops of 桜羽エマ and 月代ユキ) | Removed in round 5 (group C) | Their source was never recorded ("unverified, supplied by the owner"). Had they been crops of official art, §7 would apply; had they been fan art, the artist's permission would be needed |
 | Frieren panels (`manga-memory.webp`, `manga-writing.webp`, `manga-about.webp`) | Removed in round 5 (groups A and B) | The manifest recorded the 2020 official public sample as the source, and no permission for decorative republication |
 | `shiroha.webp` (Summer Pockets key visual), the theme's copy of `alice.webp` (久遠寺有珠, TYPE-MOON) | Removed in round 5 (groups B and A) | Recorded with sources; no permission recorded |
@@ -294,11 +297,11 @@ Source: <https://manosaba.com/guidelines>, 「魔法少女ノ魔女裁判」配�
 
 | Asset | Licence | Status |
 | --- | --- | --- |
-| Art drawn in code in this repository: the storyboard, placeholder figures, header blossom, stamps, scroll track, washes, the 旭 monogram | Ours; part of the site's code | In use |
+| Art drawn in code in this repository: the storyboard, header blossom, stamps, scroll track, washes, the 旭 monogram | Ours; part of the site's code | In use |
 | Gloock | SIL OFL 1.1 | In use |
 | Tabler Icons | MIT | In use |
 
-### 9.5 Before the Ema artwork deploys
+### 9.5 Proposed conditions for future commissioned artwork
 
 **Proposed.** All of the following hold, each recorded in writing:
 
@@ -339,13 +342,15 @@ Source: <https://manosaba.com/guidelines>, 「魔法少女ノ魔女裁判」配�
 
 - **Proposed.** A folder `public/themes/ema/art/` holds only cleared files, so cleared and uncleared art never share a folder. It does not exist yet.
 - **Prototype.** `npm run image:import` is the general importer: it creates `public/images/imported/` on first use and records imports in `src/core/data/imported-images.json` ([IMAGE_IMPORT.md](IMAGE_IMPORT.md)). Theme art stays in the theme folder and its manifest.
-- **Prototype.** The record gaps found in round 3 were closed in round 5 with the cleanup: the Ema section of `THIRD_PARTY_ASSETS.md` now says the theme ships no third-party images (the misplaced `shiki.webp` row and the four-image claim are gone), and `public/themes/ema/ASSETS.json` keeps its fields with no entries, so the retired placements went with them.
-- **Prototype.** `tests/assets.test.mjs` fails if any raster image in `public/` is missing from a manifest, if a manifest entry or an image path in the source points at a missing file, or if an Ema theme entry lacks `generative_ai_used: false` and a permission record. The three `B.` site icons are the only exception (typeset, documented in `assets/branding/README.md`).
+- **Prototype** (2026-11-14). `THIRD_PARTY_ASSETS.md` and `public/themes/ema/ASSETS.json` now record exactly the five restored images, preserving historical attribution and explicitly unconfirmed source/permission status. The other retired placements remain absent.
+- **Prototype** (2026-11-14). `tests/assets.test.mjs` also checks the exact five filenames, fixed SHA-256 values from `76c9da5`, original dimensions, alpha, restoration paths and unconfirmed source/permission records. It continues to fail if any raster image in `public/` lacks a manifest entry or if an entry/source path points at a missing file. The three `B.` site icons are the only exception (typeset, documented in `assets/branding/README.md`).
 
 ## 10. Cleanup (approved and done in round 5)
 
+This section records the 2026-11-13 cleanup. Only its five Ema pose removals and placeholder credit wording are superseded by the 2026-11-14 restoration (section 13); every other removal remains in effect.
+
 - **Approved** (2026-11-13). Cleanup groups A, B and C as proposed in round 4, and the credits rewording. Git history is never purged or force-pushed: the removed files stop deploying but stay in the public history.
-- **Prototype.** Done on `claude/reference-redesign`, uncommitted: 17 files removed, 14 from `public/` and 3 from `showcase/`, 10.5 MB in all. Before removal each file was confirmed byte-identical to `HEAD` and unreferenced by the source, so any of them can be restored from Git. `public/themes/ema/assets/` no longer exists.
+- **Prototype.** At the round-5 review on `claude/reference-redesign`, 17 files were removed, 14 from `public/` and 3 from `showcase/`, 10.5 MB in all. Before removal each file was confirmed byte-identical to `HEAD` and unreferenced by the source, so any of them can be restored from Git. At that point `public/themes/ema/assets/` no longer existed; section 13 restores only its five pose files.
 
 ### A. Unreferenced public files (no page changed)
 
@@ -356,7 +361,7 @@ Source: <https://manosaba.com/guidelines>, 「魔法少女ノ魔女裁判」配�
 | `public/themes/ema/assets/alice.webp` | 久遠寺有珠 (TYPE-MOON); the character list uses a different file, `public/characters/alice.webp` |
 
 - Their manifest entries went with them.
-- Credits (12 pages, in all three themes): `media.sources` now says the Ema theme uses no official sprites, manga panels or other third-party character images, that Ema on the homepage is a labelled placeholder drawn in code until her artwork is settled, and that the avatar is the monogram 旭. `media.alice` was deleted.
+- At round 5, credits (12 pages, in all three themes): `media.sources` said the Ema theme uses no official sprites, manga panels or other third-party character images, that Ema on the homepage is a labelled placeholder drawn in code until her artwork is settled, and that the avatar is the monogram 旭. `media.alice` was deleted.
 
 ### B. Ema-only inner-page artwork and showcase screenshots
 
@@ -377,7 +382,7 @@ Source: <https://manosaba.com/guidelines>, 「魔法少女ノ魔女裁判」配�
 | `public/projects/personal-site-preview.jpg`, `personal-site-preview-dark.jpg` (the old Ema homepage with the official sprite and Frieren panels) | `public/projects/gallery/blank-desktop.png` and `blank-dark.png`; the alt text reuses those captures' existing descriptions in each locale |
 
 - Pages changed: the About pages (two empty frames instead of portraits) and Projects pages (the thumbnail) of all three themes, four locales each.
-- Credits: `media.rights` now names the remaining favourite-character portraits and anime covers and sits before their manifest links. The link to the Ema manifest was removed, because that manifest has no entries.
+- Credits: `media.rights` now names the remaining favourite-character portraits and anime covers and sits before their manifest links. The link to the Ema manifest was removed at round 5, when that manifest had no entries.
 - **Open.** Recapture the project screenshot and the showcase's Ema shots from the redesign once the art is settled.
 
 ## 11. Blank and Endfield
@@ -396,8 +401,8 @@ Source: <https://manosaba.com/guidelines>, 「魔法少女ノ魔女裁判」配�
 - 向下浏览 separate from pose switching; tap versus drag; a recognisable motion control; the quieter storyboard; no new visual style.
 - The reference site governs layout and interaction; this file governs the artwork.
 - Cream and sakura palette; WCAG AA in both modes; Chinese navigation in the site's Song serif.
-- No generative-AI images; no reference media; no official Ema sprites without written permission; sources and licences recorded before any illustration is used.
-- Labelled full-scale placeholders until the art is cleared.
+- No generative-AI images or reference media; sources and licences recorded before any illustration is used.
+- Approved on 2026-11-14: restore only the five Ema images from `76c9da5` unchanged, overriding the earlier official-sprite and placeholder-only restrictions for this set. Sources and permissions remain unconfirmed. Preserve B composition, background, four-locale theatre copy and interactions.
 - The 旭 monogram is the owner's avatar in every locale, and the avatar's accessible name identifies the owner. No new portrait or background illustration is required while the monogram and the code-drawn backdrop suffice.
 - Study references for composition, lighting, typography and panel rhythm only.
 - Optional fonts must cover zh-CN and zh-TW; textures without established no-AI provenance stay unused.
@@ -409,7 +414,7 @@ Source: <https://manosaba.com/guidelines>, 「魔法少女ノ魔女裁判」配�
 
 **Proposed** (awaiting the owner's review):
 
-- Runtime filenames, derived sizes and the optional sources (sections 8.1 and 8.5).
+- Derived sizes and optional sources for future commissioned artwork (section 8.5); no derived files are made for this restoration.
 - The brief for each pose (section 8.2), the acceptance checks (section 8.4) and the supply checklist (section 8.6).
 - Texture drawn in code; the conditions for a CJK web serif (sections 6 and 7).
 - The `art/` folder and the manifest template (section 9.6).
@@ -420,3 +425,17 @@ Source: <https://manosaba.com/guidelines>, 「魔法少女ノ魔女裁判」配�
 - The artist, the five drawings and the artist's licence.
 - The uncertainties in Acacia's guidelines (section 9.2).
 - Recapturing the project screenshot and the showcase's Ema shots once the art is settled (section 10).
+
+## 13. Owner-requested restoration (2026-11-14)
+
+- **Approved.** Use the existing `worktrees/reference-redesign` checkout, restoring only the five blobs from `76c9da5690e89a7816bb4b44eefacbcc87521446` listed in section 8.3. The initial restoration was kept uncommitted. The subsequent owner request authorises committing this restoration and its mobile occlusion fix, normal pushing to `claude/reference-redesign`, and updating existing PR 12; no new PR, merge or deployment. The original `website/` checkout and its 15 uncommitted files remain untouched.
+- **Approved.** The original bytes, dimensions and alpha remain unchanged. No re-encoding, redrawing, upscaling or generative AI. This overrides the earlier placeholder-only constraints for exactly these files; source and permission remain unconfirmed, and no permission is inferred from the owner’s request or matching hashes.
+- **Prototype.** The homepage reads each image’s path and intrinsic dimensions from the manifest. The existing B frame and background remain; each image is contained at its own aspect ratio, bottom-centred, with the existing bottom fade. The wireframes and placeholder slates are no longer rendered. The first pose loads immediately; other poses load on request and switch only after decoding. The existing generation guard, failed-load retry, tap/drag distinction, keyboard controls, reduced motion and pause behaviour are retained.
+- **Prototype.** Shared `media.sources` corrects only the Ema provenance paragraph in all four languages. Because credits are shared, that factual paragraph also changes on Blank and Endfield credits pages; their theme components, layouts and interactions are not modified. The theatre’s four-language wording is unchanged.
+- **Approved.** The removed manga, key visual, other character art, avatar crops, old project previews and old showcase captures stay removed. New review screenshots are taken from the local production build outside tracked source; they are not the removed gallery files.
+- **Verification.** Compare every restored file directly with its historical Git blob and the fixed hash in the manifest; check dimensions and alpha; run Node 24 tests, build and `showcase:check`; exercise all five images across desktop/phone, four languages, light/dark, reduced motion, keyboard and touch. Hash the original checkout’s 15 modified files before and after. Save actual browser captures and detailed results in the workspace review output.
+
+### Mobile occlusion follow-up
+
+- **Approved** (2026-11-14). Fix the legs reappearing below the theatre card in the stacked mobile layout, checking all five poses in light and dark mode before the authorised commit and push to PR 12.
+- **Prototype.** The image box, scale, intrinsic dimensions and original bytes remain unchanged. When the visible theatre crosses Ema, a mask on `.k-frames` fades the entire figure layer behind the card and a clip excludes the invisible tap area. Its endpoint shares the theatre’s bottom offset (64px on phones, 76px on portrait tablets), with 16px reserved for parallax. The storyboard is not painted over. Short layouts with the card beside Ema, desktop composition and no-JavaScript rendering retain their existing appearance.

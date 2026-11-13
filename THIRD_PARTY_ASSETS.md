@@ -4,9 +4,19 @@
 
 ## 艾玛主题
 
-艾玛主题目前不发布第三方图片。此前位于 `public/themes/ema/assets/` 的十二个文件已于 2026-11-13 移出 `public/`：《魔法少女ノ魔女裁判》的四张樱羽艾玛立绘和一张论破演出图（Acacia）、三张《葬送的芙莉莲》官方试读摘图、《Summer Pockets》主视觉（鳴瀬しろは）、TYPE-MOON 的久远寺有珠插画，以及樱羽艾玛、月代雪两张头像裁图。它们仍保留在公开的 Git 历史中。
+2026-11-14，站主明确要求从提交 `76c9da5690e89a7816bb4b44eefacbcc87521446` 恢复首页五张艾玛图片，覆盖此前仅允许占位图的限制。本次只恢复以下五个 Git blob 并更改文件名，字节、透明通道和尺寸不变，没有重新编码、缩放、裁切、重绘或生成式 AI 处理：
 
-首页的艾玛在立绘确定前是代码绘制、明确标注的临时占位；站长头像是一个「旭」字。今后的艾玛立绘须满足 [docs/ART-DIRECTION.md](docs/ART-DIRECTION.md) 列出的条件（画师的书面授权、未使用生成式 AI、遵守 [Acacia 二次创作指南](https://manosaba.com/guidelines)），并先在 `public/themes/ema/ASSETS.json` 登记来源与授权，才进入 `public/`。
+| 历史文件 | 当前文件（`public/themes/ema/assets/`） | 尺寸 |
+| --- | --- | --- |
+| `ema.webp` | `ema-pose-01.webp` | 905 × 2400 |
+| `ema-frame-wave.webp` | `ema-pose-02.webp` | 1030 × 2400 |
+| `ema-frame-together.webp` | `ema-pose-03.webp` | 1030 × 2400 |
+| `ema-frame-talk.webp` | `ema-pose-04.webp` | 1030 × 2400 |
+| `ema-frame-refute.webp` | `ema-pose-05.webp` | 1472 × 2048 |
+
+[素材清单](public/themes/ema/ASSETS.json) 保留历史来源 URL、署名、导入处理记录、原图哈希，并新增恢复提交、旧路径与文件校验信息。历史记录将这些文件记为《魔法少女ノ魔女裁判》／Acacia 的四张立绘和一张论破演出图；本次只确认与 Git 历史文件一致，**来源、具体创作信息与公开使用授权仍未确认**。站主的恢复指令不等于权利人的授权，文件校验一致也不构成授权或来源认证。
+
+其余 2026-11-13 清理的素材仍未恢复，包括三张《葬送的芙莉莲》摘图、《Summer Pockets》主视觉、久远寺有珠插画、艾玛和月代雪头像裁图、旧项目缩略图与旧 showcase 截图。站长头像仍是「旭」字。五张图片沿用当前 B 构图和切换交互；后续新画稿计划及本次恢复的范围见 [docs/ART-DIRECTION.md](docs/ART-DIRECTION.md#13-owner-requested-restoration-2026-11-14)。
 
 ## 喜欢的角色头像
 

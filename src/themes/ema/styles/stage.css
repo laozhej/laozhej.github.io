@@ -29,11 +29,6 @@
   --sb-bloom-core: rgba(199, 107, 146, .3);
   --sb-petal: rgba(232, 160, 188, .45);
   --sb-spark: rgba(170, 140, 170, .3);
-  --ef-fill: #fffdfb;
-  --ef-hatch: rgba(214, 138, 168, .24);
-  --ef-line: #b8648a;
-  --ef-floor: rgba(156, 72, 114, .13);
-  --ef-fx: rgba(229, 154, 183, .75);
   --ef-glow: #fde8ef;
   position: relative;
   color: var(--blank-ink);
@@ -64,11 +59,6 @@ html[data-color-mode="dark"] #ema-stage {
   --sb-bloom-core: rgba(242, 174, 200, .5);
   --sb-petal: rgba(242, 174, 200, .4);
   --sb-spark: rgba(242, 174, 200, .36);
-  --ef-fill: #34303f;
-  --ef-hatch: rgba(242, 174, 200, .2);
-  --ef-line: #e7a2bf;
-  --ef-floor: rgba(242, 174, 200, .12);
-  --ef-fx: rgba(242, 174, 200, .6);
   --ef-glow: #4a3445;
 }
 
@@ -122,43 +112,21 @@ html[data-color-mode="dark"] #ema-stage {
   margin: 0; translate: -45% 0;
 }
 #ema-stage .k-frames { position: relative; width: 100%; height: 100%; }
+/* Preserve the old figure's soft light independently of the original image pixels. */
+#ema-stage .k-frames::before {
+  content: ""; position: absolute; inset: 0 -5%; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 44%, var(--ef-glow), transparent 70%);
+}
 #ema-stage .k-frame {
   position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom;
+  -webkit-mask-image: linear-gradient(to bottom, #000 76%, #000c 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 76%, #000c 86%, transparent 100%);
   transform: translate3d(22px, 0, 0) scale(.985); transform-origin: 50% 100%;
   transition: opacity 260ms ease, transform 460ms var(--blank-ease);
 }
 #ema-stage .k-frame[data-active="true"] { opacity: 1; transform: none; }
 #ema-stage .k-frames[data-instant="true"] .k-frame { transition: none; }
-#ema-stage .ef {
-  display: block; width: 100%; height: 100%; overflow: visible;
-  -webkit-mask-image: linear-gradient(to bottom, #000 76%, #000c 86%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 76%, #000c 86%, transparent 100%);
-}
-#ema-stage .ef .ef-base { fill: var(--ef-fill); }
-#ema-stage .ef .ef-hatch { stroke: var(--ef-hatch); stroke-width: 2.4; }
-#ema-stage .ef .ef-body > * { stroke: var(--ef-line); stroke-width: 3.4; stroke-linejoin: round; }
-#ema-stage .ef .ef-body .ef-detail { stroke-width: 2.4; }
-#ema-stage .ef .ef-arm-line { fill: none; stroke: var(--ef-line); stroke-width: 48; stroke-linecap: round; stroke-linejoin: round; }
-#ema-stage .ef .ef-arm { fill: none; stroke-width: 42; stroke-linecap: round; stroke-linejoin: round; }
-#ema-stage .ef .ef-hand { stroke: var(--ef-line); stroke-width: 3; }
-#ema-stage .ef .ef-floor { fill: var(--ef-floor); }
-#ema-stage .ef .ef-fx path { fill: var(--ef-fx); }
-#ema-stage .ef .ef-fx-line path { fill: none; stroke: var(--ef-line); stroke-width: 3.2; stroke-linecap: round; }
-#ema-stage .ef .ef-glow-in { stop-color: var(--ef-glow); stop-opacity: .95; }
-#ema-stage .ef .ef-glow-out { stop-color: var(--ef-glow); stop-opacity: 0; }
-/* The slate names the pose and says plainly that this is a placeholder. */
-#ema-stage .k-slate {
-  position: absolute; z-index: 2; left: 63%; top: 46%;
-  display: grid; gap: 3px; min-width: 150px; max-width: 228px; margin: 0; padding: 12px 15px 12px;
-  background: var(--k-card); color: var(--blank-ink);
-  border: 1px solid var(--ema-line-strong); border-radius: 4px;
-  box-shadow: 5px 6px 0 var(--k-tint-pink); transform: rotate(-3deg);
-  transition: transform 220ms var(--blank-ease);
-}
-#ema-stage .k-slate::before { content: ""; position: absolute; top: -9px; left: 50%; width: 56px; height: 17px; translate: -50% 0; rotate: 4deg; background: color-mix(in srgb, var(--ema-pink-soft) 78%, transparent); }
-#ema-stage .k-slate b { font: 400 28px/1 var(--ema-title-font); color: var(--ema-pink); }
-#ema-stage .k-slate span { font: 600 14px/1.5 var(--blank-serif); }
-#ema-stage .k-slate small { font-size: 12px; line-height: 1.5; color: var(--blank-muted); }
 #ema-stage .k-ema-hit {
   position: absolute; z-index: 3; inset: 5% 12% 10%; padding: 0; border: 0;
   border-radius: 46% 46% 14% 14%; background: transparent; cursor: pointer;
@@ -496,7 +464,6 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
 
 @media (hover: hover) and (pointer: fine) {
   #ema-stage .k-ema:has(.k-ema-hit:hover) .k-frame[data-active="true"] { filter: drop-shadow(0 0 22px color-mix(in srgb, var(--ema-pink-soft) 70%, transparent)); }
-  #ema-stage .k-ema:has(.k-ema-hit:hover) .k-slate { transform: rotate(-1deg) translateY(-3px); }
   #ema-stage :is(.k-theatre-buttons button, .x):hover { border-color: var(--ema-pink); background: var(--ema-blush); }
   #ema-stage .k-note-open:hover { transform: translateY(-2px) rotate(1deg); box-shadow: 5px 6px 0 var(--k-tint-pink); }
   #ema-stage .k-leaf:hover .k-leaf-arrow { color: var(--ema-lav); }
@@ -509,13 +476,12 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-title { font-size: 56px; }
   #ema-stage { --k-name-size: 62px; }
   #ema-stage .k-theatre { width: 196px; padding: 16px; }
-  #ema-stage .k-slate { left: 56%; top: 54%; }
 }
 
 /* Phones and portrait tablets: the reference's narrow stage. The title sits above Ema, who fills the
    rest of the first screen; the theatre controls ride along her lower edge. */
 @media (max-width: 760px), (max-width: 1100px) and (orientation: portrait) {
-  #ema-stage .k-hero { min-height: 560px; padding: 118px 24px 96px; align-items: flex-start; }
+  #ema-stage .k-hero { --k-theatre-bottom: 64px; min-height: 560px; padding: 118px 24px 96px; align-items: flex-start; }
   #ema-stage .k-copy {
     position: absolute; top: 128px; left: 24px; right: 24px; width: auto; max-width: none;
     justify-items: center; text-align: center; transform: none;
@@ -525,13 +491,9 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-diary { margin-top: 6px; font-size: 14px; }
   #ema-stage .k-terminal { display: none; }
   #ema-stage .k-ema { top: auto; bottom: 0; height: min(calc(100% - 256px), calc(100vw * 1.5)); translate: -50% 0; }
-  #ema-stage .k-slate { left: 60%; top: 40%; min-width: 0; max-width: 160px; padding: 9px 11px; }
-  #ema-stage .k-slate b { font-size: 22px; }
-  #ema-stage .k-slate span { font-size: 12px; }
-  #ema-stage .k-slate small { font-size: 11px; }
   /* The theatre card keeps its title and its tap hint on phones; its arrows switch poses, the cue below scrolls. */
   #ema-stage .k-theatre {
-    top: auto; right: auto; left: 50%; bottom: 64px; translate: -50% 0;
+    top: auto; right: auto; left: 50%; bottom: var(--k-theatre-bottom); translate: -50% 0;
     grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "kicker buttons" "status buttons" "hint hint";
     align-items: center; width: min(360px, calc(100% - 32px)); gap: 0 10px; padding: 10px 10px 8px 14px;
     border-radius: 16px; box-shadow: 4px 5px 0 var(--k-tint-lav);
@@ -585,7 +547,17 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage { --k-name-size: 64px; }
   #ema-stage .k-terminal { display: flex; }
   #ema-stage .k-ema { height: min(calc(100% - 330px), calc(100vw * 1.1)); }
-  #ema-stage .k-theatre { bottom: 76px; }
+  #ema-stage .k-hero { --k-theatre-bottom: 76px; }
+}
+/* When the theatre crosses the figure, end the whole figure layer behind the card so her legs
+   cannot reappear below it. Keep the original image box/scale; 16px covers the maximum parallax.
+   Hidden controls (no JS) and the short layout with the card beside Ema need no occlusion. */
+@media (max-width: 760px) and (min-height: 621px), (min-width: 761px) and (max-width: 1100px) and (orientation: portrait) {
+  #ema-stage .k-hero:has(.k-theatre:not([hidden])) .k-frames {
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--k-theatre-bottom) - 48px), transparent calc(100% - var(--k-theatre-bottom) - 16px));
+    mask-image: linear-gradient(to bottom, #000 calc(100% - var(--k-theatre-bottom) - 48px), transparent calc(100% - var(--k-theatre-bottom) - 16px));
+    clip-path: inset(0 0 calc(var(--k-theatre-bottom) + 16px));
+  }
 }
 /* Short landscape phones: text on the left half, Ema on the right. */
 @media (max-width: 760px) and (max-height: 620px) {
@@ -598,25 +570,16 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
 /* Short screens held sideways (phones in landscape, very short windows). Ema keeps her size, so the
    stage is taller than the screen and the page scrolls naturally. The theatre card sits at the bottom
    of the first screen, so its label and hint are in view; the cue stays at the end of the stage, where
-   scrolling arrives; the placeholder slate keeps clear of the card. */
+   scrolling arrives. */
 @media (max-height: 500px) and (orientation: landscape) {
   #ema-stage .k-theatre { top: auto; bottom: calc(100% - 100svh + 16px); translate: none; }
-}
-@media (min-width: 761px) and (max-height: 500px) and (orientation: landscape) {
-  #ema-stage .k-slate { left: 44%; max-width: 170px; }
 }
 @media (max-width: 760px) and (max-height: 500px) and (orientation: landscape) {
   #ema-stage .k-theatre { left: 24px; right: auto; width: calc(48% - 24px); bottom: calc(100% - 100svh + 12px); }
 }
-/* Narrow phones: the theatre card right below already names the pose, so the slate keeps its number
-   and the placeholder note and sits just above the card, right of Ema's face. */
-@media (max-width: 480px) {
-  #ema-stage .k-slate { top: auto; bottom: 176px; left: auto; right: calc(50% - 50vw + 10px); max-width: 140px; }
-  #ema-stage .k-slate span { display: none; }
-}
 
 @media (prefers-reduced-motion: reduce) {
-  #ema-stage .k-frame, #ema-stage .k-plate, #ema-stage .k-stamp, #ema-stage .k-slate, #ema-stage .k-copy { transition: none; }
+  #ema-stage .k-frame, #ema-stage .k-plate, #ema-stage .k-stamp, #ema-stage .k-copy { transition: none; }
   #ema-stage .k-leaf[data-active] .k-plate, #ema-stage .k-leaf[data-active] .k-stamp { transform: rotate(-12deg); }
   #ema-stage .k-leaf[data-active] .k-plate { transform: none; }
   #ema-stage .k-caret, #ema-stage .k-cue-arrows i { animation: none; }

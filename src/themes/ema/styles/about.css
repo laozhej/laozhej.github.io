@@ -5,7 +5,9 @@
 /* The profile card stays beside the shelves while there is room for all of it. */
 .about-side {display:grid;gap:20px;}
 .about-avatar {position:relative;justify-self:start;width:152px;height:152px;margin:6px 0 0 6px;}
-.ema-about .about-avatar img {display:block;width:100%;height:100%;border:5px solid var(--card);border-radius:50%;object-fit:cover;box-shadow:0 14px 30px rgba(96,74,60,.2),0 0 0 1px var(--frame);}
+/* The owner's avatar is the monogram 旭, drawn like the homepage card's avatar. */
+.ema-about .about-avatar-mark {display:grid;place-items:center;width:100%;height:100%;border:5px solid var(--card);border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff,var(--ema-blush) 70%);box-shadow:0 14px 30px rgba(96,74,60,.2),0 0 0 1px var(--frame);font:400 64px/1 var(--blank-serif);color:var(--ema-pink);}
+html[data-color-mode="dark"] .ema-about .about-avatar-mark {background:radial-gradient(circle at 34% 30%,#4a3445,#2a2833 74%);}
 .about-blossom {position:absolute;top:-12px;right:-6px;width:40px;height:40px;background:var(--ema-blossom) center/contain no-repeat;rotate:14deg;}
 .about-tape {position:absolute;z-index:1;width:74px;height:22px;background:repeating-linear-gradient(90deg,#f8dbe6d9 0 6px,#fbe7eed9 6px 12px);box-shadow:0 1px 2px rgba(96,74,60,.18);}
 .about-avatar .about-tape {top:8px;left:-24px;rotate:-34deg;}
@@ -21,17 +23,13 @@
 .about-status li {display:grid;grid-template-columns:16px minmax(0,1fr);gap:8px;font-size:13px;line-height:1.6;}
 .about-status svg {margin-top:3px;color:var(--ema-pink);}
 
-/* A letter with a taped photo, then bookmarks into the shelves. */
+/* A letter, then bookmarks into the shelves. */
 .about-main {display:grid;gap:44px;min-width:0;}
-.about-letter {display:grid;grid-template-columns:minmax(0,1fr) 196px;gap:40px;align-items:center;padding:34px 36px 34px 46px;border:1px solid var(--blank-line);border-radius:16px;box-shadow:var(--card-shadow);background:linear-gradient(90deg,transparent 24px,#f2c4d4 24px 25px,transparent 25px),radial-gradient(var(--blank-line) .7px,transparent 1px) 0 0/14px 14px,var(--card);}
+.about-letter {display:grid;grid-template-columns:minmax(0,1fr);gap:40px;align-items:center;padding:34px 36px 34px 46px;border:1px solid var(--blank-line);border-radius:16px;box-shadow:var(--card-shadow);background:linear-gradient(90deg,transparent 24px,#f2c4d4 24px 25px,transparent 25px),radial-gradient(var(--blank-line) .7px,transparent 1px) 0 0/14px 14px,var(--card);}
 html[data-color-mode="dark"] .about-letter {background:linear-gradient(90deg,transparent 24px,#6d4c61 24px 25px,transparent 25px),radial-gradient(var(--blank-line) .7px,transparent 1px) 0 0/14px 14px,var(--card);}
 .about-letter h2 {margin-top:10px;font:500 clamp(1.45rem,2.4vw,1.95rem)/1.45 var(--blank-serif);color:var(--blank-ink);}
 .about-letter-copy>p:not(.shelf-kicker) {margin-top:14px;font-size:14.5px;line-height:2;color:var(--blank-muted);}
 .about-letter-copy>p.about-signature {text-align:right;font:italic 13px/1.6 var(--blank-serif);color:var(--ema-pink);}
-.about-photo {position:relative;padding:10px 10px 28px;border-radius:4px;background:#fff;box-shadow:0 14px 28px rgba(96,74,60,.2);rotate:3deg;}
-html[data-color-mode="dark"] .about-photo {background:#e4e7ee;box-shadow:0 14px 28px #00000080;}
-.about-photo img {display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:30% 50%;border-radius:2px;}
-.about-photo .about-tape {top:-11px;left:calc(50% - 37px);rotate:-5deg;}
 .about-marks {display:flex;flex-wrap:wrap;gap:10px;margin-top:-18px;}
 
 /* Shelves: a tinted heading chip, then cards in the homepage tag colours (shelf.css). */
@@ -65,8 +63,8 @@ img.about-portrait {display:block;object-fit:cover;}
 .ema-about .about-character-toggle {display:flex;width:fit-content;min-height:44px;margin:10px 0 0 auto;padding:6px 0 6px 12px;border:0;background:transparent;color:var(--ema-pink);font-family:inherit;cursor:pointer;}
 .about-character-toggle[aria-expanded="true"] svg {rotate:180deg;}
 .about-portrait {flex-shrink:0;width:66px;height:66px;border:3px solid var(--line);border-radius:50%;background-color:var(--fill);background-repeat:no-repeat;}
-.about-portrait-ema {background-image:url('/themes/ema/assets/ema-avatar.webp');background-size:cover;background-position:center;}
-.about-portrait-yuki {background-image:url('/themes/ema/assets/yuki.webp');background-size:cover;background-position:center;}
+/* A character without a cleared portrait keeps the frame, with the theme's blossom drawn in code. */
+.about-portrait-empty {background-image:var(--ema-blossom);background-size:30px;background-position:center;}
 .about-characters h3 {display:inline-block;padding:2px 12px;border:2px solid var(--line);border-radius:999px;background:var(--fill);color:var(--tone-ink);font-family:var(--round);font-size:14px;rotate:-2deg;}
 .about-characters li:nth-child(even) h3 {rotate:2deg;}
 .ema-about .about-characters p {margin-top:8px;}
@@ -105,8 +103,7 @@ img.about-portrait {display:block;object-fit:cover;}
 }
 @media(max-width:640px) {
   .about-side {grid-template-columns:minmax(0,1fr);}
-  .about-letter {grid-template-columns:minmax(0,1fr);gap:28px;padding:26px 22px 28px 38px;}
-  .about-photo {justify-self:center;width:min(210px,72%);}
+  .about-letter {gap:28px;padding:26px 22px 28px 38px;}
   .about-games {grid-template-columns:minmax(0,1fr);}
 }
 @media(max-width:520px) {

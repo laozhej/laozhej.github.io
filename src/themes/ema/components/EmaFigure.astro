@@ -1,0 +1,59 @@
+---
+// A blocking figure that stands in for one of Ema's five poses until licensed or original artwork
+// exists. It marks the intended scale, three-quarter framing (head to thigh, like a standing sprite) and the gesture of each pose, the way
+// a storyboard sketches a stand-in; it is not a drawing of the character. Labels sit in the HTML.
+interface Props { pose: "smile" | "wave" | "together" | "talk" | "refute"; }
+const { pose } = Astro.props;
+// Arms run from the shoulders (214,362 and 386,362); hands are drawn at the ends.
+const arms: Record<Props["pose"], { paths: string[]; hands: [number, number, number][]; extra?: string }> = {
+  smile: {
+    paths: ["M214 362 C194 440 196 520 238 586 L284 612", "M386 362 C406 440 404 520 362 586 L316 612"],
+    hands: [[300, 616, 27]],
+    extra: '<g class="ef-fx"><path d="M470 220 l8 -22 l8 22 l22 8 l-22 8 l-8 22 l-8 -22 l-22 -8 Z"/><path d="M132 300 l5 -14 l5 14 l14 5 l-14 5 l-5 14 l-5 -14 l-14 -5 Z"/></g>',
+  },
+  wave: {
+    paths: ["M214 362 C176 330 156 256 168 176", "M386 362 C410 450 412 530 398 600"],
+    hands: [[172, 152, 26], [396, 612, 22]],
+    extra: '<g class="ef-fx ef-fx-line"><path d="M118 112 C104 132 104 160 116 180"/><path d="M96 96 C76 126 76 168 94 196"/><path d="M226 112 C240 132 240 160 228 180"/></g>',
+  },
+  together: {
+    paths: ["M214 362 C186 428 210 474 270 452", "M386 362 C414 428 390 474 330 452"],
+    hands: [[300, 444, 28]],
+    extra: '<g class="ef-fx"><path d="M300 330 l6 -16 l6 16 l16 6 l-16 6 l-6 16 l-6 -16 l-16 -6 Z" transform="translate(-6 -250)"/><path d="M420 300 l5 -12 l5 12 l12 5 l-12 5 l-5 12 l-5 -12 l-12 -5 Z"/><path d="M150 380 l5 -12 l5 12 l12 5 l-12 5 l-5 12 l-5 -12 l-12 -5 Z"/></g>',
+  },
+  talk: {
+    paths: ["M386 362 C414 430 424 486 420 512 C440 476 458 452 474 432", "M214 362 C190 450 190 530 204 600"],
+    hands: [[480, 424, 24], [206, 612, 22]],
+    extra: '<g class="ef-fx ef-fx-line"><path d="M500 300 a54 40 0 1 1 30 36 l-26 22 l4 -30 a54 40 0 0 1 -8 -28 Z"/></g>',
+  },
+  refute: {
+    paths: ["M386 362 L470 300 L548 240", "M214 362 L158 468 L224 540"],
+    hands: [[556, 234, 22], [230, 546, 22]],
+    extra: '<g class="ef-fx ef-fx-line"><path d="M560 230 L598 202"/><path d="M590 160 L630 120"/><path d="M606 236 L660 232"/><path d="M584 292 L628 322"/><path d="M548 168 L560 112"/></g>',
+  },
+};
+const { paths, hands, extra = "" } = arms[pose];
+const id = `ef-${pose}`;
+---
+<svg class="ef" viewBox="40 60 520 760" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id={`${id}-hatch`} width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><rect width="14" height="14" class="ef-base" /><path d="M0 7 H14" class="ef-hatch" /></pattern>
+    <radialGradient id={`${id}-glow`} cx="50%" cy="46%" r="54%"><stop offset="0" class="ef-glow-in" /><stop offset="1" class="ef-glow-out" /></radialGradient>
+  </defs>
+  <ellipse cx="300" cy="470" rx="300" ry="470" fill={`url(#${id}-glow)`} />
+  <ellipse class="ef-floor" cx="300" cy="986" rx="190" ry="14" />
+  <Fragment set:html={extra} />
+  <g class="ef-body" fill={`url(#${id}-hatch)`}>
+    <path d="M190 250 C176 152 226 92 300 92 C374 92 424 152 410 250 L414 330 C402 346 386 350 372 344 L366 262 L234 262 L228 344 C214 350 198 346 186 330 Z" />
+    <rect x="280" y="300" width="40" height="46" rx="10" />
+    <path d="M226 606 L374 606 L432 822 C384 840 342 848 300 848 C258 848 216 840 168 822 Z" />
+    <path d="M252 840 h38 v162 h-38 Z M310 840 h38 v162 h-38 Z" />
+    <path d="M210 352 C238 336 268 330 300 330 C332 330 362 336 390 352 L404 470 C398 540 386 590 374 612 L226 612 C214 590 202 540 196 470 Z" />
+    <path class="ef-detail" d="M262 336 L300 388 L338 336" fill="none" />
+    <ellipse cx="300" cy="222" rx="78" ry="88" />
+    <path class="ef-detail" d="M222 206 C232 152 268 128 300 128 C332 128 368 152 378 206 C352 188 330 182 300 186 C270 182 248 188 222 206 Z" />
+  </g>
+  {paths.map((d) => <path class="ef-arm-line" d={d} />)}
+  {paths.map((d) => <path class="ef-arm" d={d} stroke={`url(#${id}-hatch)`} />)}
+  {hands.map(([cx, cy, r]) => <circle class="ef-hand" cx={cx} cy={cy} r={r} fill={`url(#${id}-hatch)`} />)}
+</svg>

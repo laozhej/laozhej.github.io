@@ -1,0 +1,81 @@
+---
+// The stage's back layer: a storyboard spread drawn in code (panel frames, screentones, hatching,
+// speed lines, blossoms and empty speech bubbles). It plays the part of the reference's manga
+// backdrop without using any of its artwork. No figures and no lettering: Ema stays the only
+// character on the stage. The column behind her carries only frames and quiet tones; the busier
+// motifs sit at the sides, and stage.css fades the layer further around her. Everything is computed
+// here, so every page renders identical markup.
+const W = 1600, H = 900;
+type Panel = { x: number; y: number; w: number; h: number; tone: string; motif?: string; skew?: number };
+const panels: Panel[] = [
+  { x: 14, y: 14, w: 286, h: 236, tone: "dots", motif: "bloom" },
+  { x: 314, y: 14, w: 246, h: 146, tone: "hatch" },
+  { x: 574, y: 14, w: 202, h: 146, tone: "plain" },
+  { x: 314, y: 174, w: 462, h: 156, tone: "dots", skew: -18 },
+  { x: 14, y: 264, w: 286, h: 296, tone: "fade", motif: "window" },
+  { x: 314, y: 344, w: 226, h: 216, tone: "plain", motif: "petals" },
+  { x: 554, y: 344, w: 222, h: 296, tone: "dots-lav" },
+  { x: 14, y: 574, w: 526, h: 312, tone: "hatch", motif: "bloom-big" },
+  { x: 554, y: 654, w: 222, h: 232, tone: "plain" },
+  { x: 824, y: 14, w: 276, h: 286, tone: "hatch" },
+  { x: 1114, y: 14, w: 472, h: 186, tone: "fade-lav", motif: "clouds" },
+  { x: 1114, y: 214, w: 236, h: 206, tone: "plain", motif: "bubble" },
+  { x: 1364, y: 214, w: 222, h: 306, tone: "dots", motif: "petals" },
+  { x: 824, y: 314, w: 276, h: 286, tone: "hatch" },
+  { x: 1114, y: 434, w: 236, h: 266, tone: "dots-lav", motif: "sparkle" },
+  { x: 824, y: 614, w: 276, h: 272, tone: "fade" },
+  { x: 1114, y: 714, w: 236, h: 172, tone: "plain", motif: "petals" },
+  { x: 1364, y: 534, w: 222, h: 352, tone: "speed", skew: 14 },
+];
+// A five-petal blossom with notched petal tips, centred on 0,0 at radius 1.
+const petal = "M0 0 C-0.42 -0.36 -0.5 -0.86 -0.2 -1 L0 -0.86 L0.2 -1 C0.5 -0.86 0.42 -0.36 0 0 Z";
+const blossom = (cx: number, cy: number, r: number, turn = 0) =>
+  Array.from({ length: 5 }, (_, i) => `<path d="${petal}" transform="translate(${cx} ${cy}) rotate(${turn + i * 72}) scale(${r})"/>`).join("") +
+  `<circle cx="${cx}" cy="${cy}" r="${(r * 0.14).toFixed(1)}" class="sb-core"/>`;
+const loose = (cx: number, cy: number, r: number, turn: number) => `<path d="${petal}" transform="translate(${cx} ${cy}) rotate(${turn}) scale(${r})"/>`;
+const rand = (seed: number) => { const x = Math.sin(seed * 9301 + 49297) * 233280; return x - Math.floor(x); };
+const clipId = (i: number) => `sb-clip-${i}`;
+const shape = (p: Panel) => p.skew
+  ? `M${p.x} ${p.y} L${p.x + p.w} ${p.y + (p.skew > 0 ? p.skew : 0)} L${p.x + p.w} ${p.y + p.h} L${p.x} ${p.y + p.h - (p.skew < 0 ? -p.skew : 0)} Z`
+  : `M${p.x} ${p.y} h${p.w} v${p.h} h${-p.w} Z`;
+function motif(p: Panel, i: number) {
+  const cx = p.x + p.w / 2, cy = p.y + p.h / 2;
+  switch (p.motif) {
+    case "bloom": return `<g class="sb-bloom">${blossom(cx + p.w * 0.12, cy - p.h * 0.05, Math.min(p.w, p.h) * 0.3, i * 11)}${blossom(cx - p.w * 0.26, cy + p.h * 0.22, Math.min(p.w, p.h) * 0.14, i * 23)}</g>`;
+    case "bloom-big": return `<g class="sb-bloom">${blossom(p.x + p.w * 0.72, p.y + p.h * 0.46, p.h * 0.36, 8)}${blossom(p.x + p.w * 0.3, p.y + p.h * 0.7, p.h * 0.16, 30)}${blossom(p.x + p.w * 0.16, p.y + p.h * 0.26, p.h * 0.1, 50)}</g>`;
+    case "petals": return `<g class="sb-petal">${Array.from({ length: 7 }, (_, k) => loose(p.x + p.w * (0.1 + 0.8 * rand(i * 13 + k)), p.y + p.h * (0.12 + 0.76 * rand(i * 7 + k * 3)), 9 + 9 * rand(i + k * 5), Math.round(360 * rand(i * 3 + k)))).join("")}</g>`;
+    case "sparkle": return `<g class="sb-spark">${[0.3, 0.68, 0.5].map((f, k) => { const sx = p.x + p.w * f, sy = p.y + p.h * (0.3 + k * 0.22), s = 10 + k * 7; return `<path d="M${sx} ${sy - s} Q${sx} ${sy} ${sx + s} ${sy} Q${sx} ${sy} ${sx} ${sy + s} Q${sx} ${sy} ${sx - s} ${sy} Q${sx} ${sy} ${sx} ${sy - s} Z"/>`; }).join("")}</g>`;
+    case "bubble": { // Kept small, faint and empty so it never competes with Ema.
+      const bw = p.w * 0.2, bh = p.h * 0.18;
+      return `<g class="sb-bubble"><path d="M${cx - bw} ${cy} a${bw} ${bh} 0 1 1 ${bw * 0.6} ${bh * 0.86} l-${bw * 0.46} ${bh * 0.5} l${bw * 0.08} -${bh * 0.6} a${bw} ${bh} 0 0 1 -${bw * 0.2} -${bh * 0.76} Z"/></g>`;
+    }
+    case "window": { const wx = p.x + p.w * 0.18, wy = p.y + p.h * 0.16, ww = p.w * 0.64, wh = p.h * 0.56; return `<g class="sb-line"><rect x="${wx}" y="${wy}" width="${ww}" height="${wh}"/><path d="M${wx + ww / 2} ${wy} v${wh} M${wx} ${wy + wh / 2} h${ww}"/><path d="M${wx - 16} ${wy - 8} C${wx + 10} ${wy + wh * 0.4} ${wx - 4} ${wy + wh * 0.8} ${wx + 12} ${wy + wh + 18} M${wx + ww + 16} ${wy - 8} C${wx + ww - 10} ${wy + wh * 0.4} ${wx + ww + 4} ${wy + wh * 0.8} ${wx + ww - 12} ${wy + wh + 18}"/></g>`; }
+    case "clouds": return `<g class="sb-line">${[0.22, 0.58, 0.86].map((f, k) => { const x = p.x + p.w * f, y = p.y + p.h * (0.36 + 0.2 * (k % 2)); return `<path d="M${x - 46} ${y} a18 18 0 0 1 22 -20 a26 26 0 0 1 48 6 a16 16 0 0 1 20 18 Z"/>`; }).join("")}</g>`;
+    default: return "";
+  }
+}
+function speed(p: Panel, i: number) {
+  const fx = p.x + p.w * (i % 2 ? 0.2 : 0.8), fy = p.y + p.h * 0.5;
+  return `<g class="sb-speed">${Array.from({ length: 34 }, (_, k) => {
+    const a = (k / 34) * Math.PI * 2 + rand(i + k) * 0.08, r1 = 40 + 30 * rand(k * 7 + i), r2 = Math.max(p.w, p.h) * 1.4;
+    return `<path d="M${(fx + Math.cos(a) * r1).toFixed(1)} ${(fy + Math.sin(a) * r1).toFixed(1)} L${(fx + Math.cos(a) * r2).toFixed(1)} ${(fy + Math.sin(a) * r2).toFixed(1)}"/>`;
+  }).join("")}</g>`;
+}
+const body = panels.map((p, i) => {
+  const fill = { dots: "url(#sb-dots)", "dots-lav": "url(#sb-dots-lav)", hatch: "url(#sb-hatch)", fade: "url(#sb-dots)", "fade-lav": "url(#sb-dots-lav)" }[p.tone];
+  const tone = fill ? `<rect x="${p.x}" y="${p.y}" width="${p.w}" height="${p.h}" fill="${fill}"${p.tone.startsWith("fade") ? ` mask="url(#sb-fade)"` : ""}/>` : "";
+  return `<g clip-path="url(#${clipId(i)})"><path class="sb-paper" d="${shape(p)}"/>${tone}${p.tone === "speed" ? speed(p, i) : ""}${motif(p, i)}</g><path class="sb-frame" d="${shape(p)}"/>`;
+}).join("");
+const clips = panels.map((p, i) => `<clipPath id="${clipId(i)}"><path d="${shape(p)}"/></clipPath>`).join("");
+---
+<svg class="sb" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="sb-dots" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><circle cx="4.5" cy="4.5" r="1.7" class="sb-dot" /></pattern>
+    <pattern id="sb-dots-lav" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><circle cx="4" cy="4" r="1.5" class="sb-dot-lav" /></pattern>
+    <pattern id="sb-hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)"><path d="M0 5 H10" class="sb-hatch" /></pattern>
+    <linearGradient id="sb-fade-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" /><stop offset="1" stop-color="#fff" stop-opacity="0" /></linearGradient>
+    <mask id="sb-fade" maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill="url(#sb-fade-g)" /></mask>
+    <Fragment set:html={clips} />
+  </defs>
+  <Fragment set:html={body} />
+</svg>

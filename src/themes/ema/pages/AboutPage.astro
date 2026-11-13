@@ -10,6 +10,7 @@ import { keepTails } from "@/core/i18n/wrap.mjs";
 import { site } from "@/lib/site";
 import PageLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "@/themes/blank/components/PageHead.astro";
+import { AVATAR_MONOGRAM, avatarAttributes } from "../lib/avatar.mjs";
 import "../styles/shelf.css";
 import "../styles/about.css";
 
@@ -23,8 +24,6 @@ const techIcons: Record<string, string> = {
   godot: "godot-engine", rpgmaker: "tabler:sword", vscode: "tabler:brand-vscode",
 };
 const techTones: Record<string, string> = { unity: "blue", blender: "orange", unreal: "slate", godot: "blue", rpgmaker: "pink", vscode: "green" };
-// Retain the two original portrait stickers; added portraits share their frame.
-const portraits: Record<string, string> = { emma: "ema", yuki: "yuki" };
 const marks = [
   { id: "tech", icon: "tabler:code" },
   { id: "games", icon: "tabler:device-gamepad" },
@@ -40,7 +39,7 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
     <aside class="about-side" aria-label={t("ema.about.profile")}>
       <div class="about-avatar">
         <span class="about-tape" aria-hidden="true"></span>
-        <img src="/themes/ema/assets/yuki.webp" alt={t("ema.about.avatar").replace("{name}", profileIdentity.displayName)} width="480" height="480" />
+        <span class="about-avatar-mark" {...avatarAttributes(profileIdentity.displayName)}>{AVATAR_MONOGRAM}</span>
         <span class="about-blossom" aria-hidden="true"></span>
       </div>
       <div class="about-id">
@@ -66,10 +65,6 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
           <p>{t("ema.about.letterBody")}</p>
           <p class="about-signature">— {profileIdentity.displayName}</p>
         </div>
-        <figure class="about-photo">
-          <span class="about-tape" aria-hidden="true"></span>
-          <img src="/themes/ema/assets/shiroha.webp" alt={t("ema.about.letterArt")} width="1138" height="1600" loading="lazy" />
-        </figure>
       </section>
 
       <nav class="about-marks" aria-label={t("ema.about.bookmarks")}>
@@ -106,9 +101,9 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
         <ul class="about-characters" id="ema-character-list">
           {xpFavorites.map((item, index) => (
             <li class={`shelf-card ${tone(index * 3)}`} data-site-disclosure-item>
-              {portraits[item.key]
-                ? <span class={`about-portrait about-portrait-${portraits[item.key]}`} aria-hidden="true"></span>
-                : <img class="about-portrait" src={item.portrait} alt="" width="66" height="66" loading="lazy" decoding="async" />}
+              {item.portrait
+                ? <img class="about-portrait" src={item.portrait} alt="" width="66" height="66" loading="lazy" decoding="async" />
+                : <span class="about-portrait about-portrait-empty" aria-hidden="true"></span>}
               <div><h3>{item.title}</h3><p>{item.subtitle}</p></div>
             </li>
           ))}

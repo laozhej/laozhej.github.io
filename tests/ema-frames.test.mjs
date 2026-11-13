@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mountEmaFrames } from '../src/themes/ema/lib/frames.mjs';
+import { messages } from '../src/core/i18n/messages.ts';
 
 function setup() {
   const node = (dataset = {}) => Object.assign(new EventTarget(), {
@@ -21,7 +22,7 @@ function setup() {
   const root = { querySelector: s => ({ '[data-ema-frames]': art, '[data-frame-controls]': controls, '[data-frame-hit]': hit })[s] };
   const api = mountEmaFrames(root, {}, { canAnimate: () => false });
   const click = () => next.dispatchEvent(Object.assign(new Event('click'), { detail: 1 }));
-  return { frames, pending, click, api, controls, status, label, art };
+  return { frames, pending, click, api, controls, status, label, art, hit };
 }
 const flush = () => new Promise(resolve => setImmediate(resolve));
 
@@ -82,4 +83,30 @@ test('placeholder plates switch at once with the site labels: hint first, then n
   assert.equal(plates[4].dataset.active, 'true', 'previous from the first pose wraps to the last');
   assert.equal(plates.some((plate) => 'src' in plate || 'alt' in plate), false, 'plates never get image attributes');
   api.cleanup();
+});
+
+test('a drag that starts on Ema does not switch the pose; a tap or a keyboard press does', async () => {
+  const p = setup();
+  const send = (type, init) => p.hit.dispatchEvent(Object.assign(new Event(type), init));
+  send('pointerdown', { clientX: 100, clientY: 100 });
+  send('pointermove', { clientX: 100, clientY: 160, buttons: 1 });
+  send('click', { detail: 1 });
+  assert.equal(p.pending.length, 0, 'the drag asked for no image');
+  send('pointerdown', { clientX: 100, clientY: 100 });
+  send('pointermove', { clientX: 103, clientY: 102, buttons: 1 });
+  send('click', { detail: 1 });
+  assert.equal(p.pending.length, 1, 'a tap with a little jitter still switches');
+  p.pending[0].resolve(); await flush();
+  assert.equal(p.frames[1].dataset.active, 'true');
+  send('click', { detail: 0 });
+  assert.equal(p.pending.length, 2, 'Enter or Space on the focused button switches');
+});
+
+test('the hint on Ema names a tap as well as a click, so it fits touch and mouse in every locale', () => {
+  // The hint is also the tap target's accessible name until the first switch (HomePage.astro).
+  const hint = (locale) => messages[locale]['ema.frames.hint'];
+  assert.equal(hint('zh-CN'), '点击艾玛，翻开下一幕');
+  assert.equal(hint('zh-TW'), '點一下艾瑪，翻開下一幕');
+  assert.equal(hint('ja'), 'エマをタップ・クリックして次のカットへ');
+  assert.equal(hint('en'), 'Tap or click Ema for the next scene');
 });

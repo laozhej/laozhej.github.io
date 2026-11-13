@@ -1,6 +1,7 @@
 ---
 import "@/core/styles/scale.css";
 import "../styles/theme.css";
+import "../styles/journal.css";
 import { Icon } from "astro-icon/components";
 import { site } from "@/lib/site";
 import { getI18n, localizePath, stripLocale, locales, type Locale } from "@/core/i18n";
@@ -64,14 +65,12 @@ const navItems = site.nav.map((item, index) => ({
           {navItems.map((item) => <a href={item.href} aria-current={item.active ? "page" : undefined}><span class="blank-nav-number" aria-hidden="true">{item.number}</span>{item.label}</a>)}
         </nav>
         <div class="blank-header-actions">
-          <ThemeSwitcher /><LanguageSwitcher />
+          <LanguageSwitcher />
           <button class="blank-icon-button blank-theme-trigger blank-mode-toggle" type="button" data-color-mode-toggle hidden aria-label={t("mode.label")} aria-pressed="false" title={t("mode.toDark")} data-label-dark={t("mode.toDark")} data-label-light={t("mode.toLight")}>
             <span class="blank-mode-moon" aria-hidden="true"><Icon name="tabler:moon" size={19} /></span>
             <span class="blank-mode-sun" aria-hidden="true"><Icon name="tabler:sun" size={19} /></span>
           </button>
-          <a class="blank-icon-button blank-theme-trigger" href={href("/blog/#blank-search")} aria-label={t("a11y.search")} title={t("a11y.search")}>
-            <Icon name="tabler:search" size={19} />
-          </a>
+          <ThemeSwitcher floating />
         </div>
       </div>
       {isArticlePage && <div class="blank-reading-track" aria-hidden="true"><span data-site-progress></span></div>}
@@ -80,15 +79,14 @@ const navItems = site.nav.map((item, index) => ({
     <footer class="blank-footer">
       <div class="blank-footer-top">
         <a class="blank-footer-brand" href={href("/")}>{site.name}<span aria-hidden="true">.</span></a>
-        <div class="blank-footer-links">
-          <a href={href("/blog/")}>{t("footer.journal")} <Icon name="tabler:arrow-right" size={15} /></a>
-          <a href={href("/projects/")}>{t("footer.projects")} <Icon name="tabler:arrow-right" size={15} /></a>
-          <a href={href("/about/")}>{t("footer.about")} <Icon name="tabler:arrow-right" size={15} /></a>
+        <div class="bj-footer-links">
+          <SocialLinks class="blank-footer-links" />
+          <a href={href("/about/")}>{t("common.about")} <Icon name="tabler:arrow-right" size={15} /></a>
         </div>
-        <SocialLinks class="blank-footer-links" />
       </div>
       <div class="blank-footer-bottom">
         <SiteAttribution />
+        <span>{t("home.statement2")}</span>
         <a href={href("/credits/")}>{t("footer.credits")}</a>
         <a href="#blank-main" class="blank-back-top">{t("footer.top")} <Icon name="tabler:arrow-up" size={14} /></a>
       </div>

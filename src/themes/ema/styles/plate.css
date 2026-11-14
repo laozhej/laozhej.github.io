@@ -1,0 +1,38 @@
+/* Ema inner-page plate: pilot for the owner's art plan, P2 (2026-11-14). A two-panel storyboard strip
+   between the page title and its count, on the side-by-side desktop layout only. It stands on the title
+   row's bottom edge and rises from there, so the introduction below never runs into it, however long
+   it is in any language. Its colours are mixed
+   from the theme's ink, card paper and soft pink, so dark mode follows; the still life uses the same
+   classes and formulas as the homepage storyboard (stage.css). */
+.ema-content .ema-plate { display: none; }
+@media (min-width: 1101px) {
+  .ema-content .ema-plate {
+    --plate-line: color-mix(in srgb, var(--blank-ink) 28%, transparent);
+    --plate-dot: color-mix(in srgb, var(--ema-pink-soft) 42%, transparent);
+    --plate-petal: color-mix(in srgb, var(--ema-pink-soft) 75%, transparent);
+    --sb-still-line: color-mix(in srgb, var(--blank-ink) 26%, transparent);
+    --sb-still-rule: color-mix(in srgb, var(--blank-ink) 15%, transparent);
+    --sb-still-paper: var(--ema-card);
+    --sb-still-cover: color-mix(in srgb, var(--blank-ink) 9%, var(--ema-card));
+    --sb-still-deep: color-mix(in srgb, var(--blank-ink) 20%, var(--ema-card));
+    --sb-still-tea: color-mix(in srgb, var(--blank-muted) 13%, var(--ema-card));
+    --sb-still-pink: color-mix(in srgb, var(--ema-pink-soft) 90%, var(--ema-card));
+    display: block; position: absolute; right: 170px; bottom: 0; width: clamp(280px, 23vw, 350px); pointer-events: none;
+  }
+  .ema-content .blank-page-heading:has(> .ema-plate) { position: relative; }
+}
+.ema-content .ema-plate svg { display: block; width: 100%; height: auto; overflow: visible; }
+/* The panel paper is half see-through, so the page's own dot grid shows and the strip reads as part of the page. */
+.ema-content .ema-plate .ema-plate-panel { fill: color-mix(in srgb, var(--ema-card) 55%, transparent); stroke: var(--plate-line); stroke-width: 1.5; stroke-linejoin: round; }
+.ema-content .ema-plate .ema-plate-tone { fill: url(#ema-plate-dots); }
+.ema-content .ema-plate .ema-plate-dot { fill: var(--plate-dot); }
+.ema-content .ema-plate .ema-plate-petals path { fill: var(--plate-petal); }
+.ema-content .ema-plate .sb-still :is(path, rect, ellipse) { stroke: var(--sb-still-line); stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
+.ema-content .ema-plate .sb-still .sb-still-paper { fill: var(--sb-still-paper); }
+.ema-content .ema-plate .sb-still .sb-still-cover { fill: var(--sb-still-cover); }
+.ema-content .ema-plate .sb-still .sb-still-deep { fill: var(--sb-still-deep); }
+.ema-content .ema-plate .sb-still .sb-still-tea { fill: var(--sb-still-tea); stroke: none; }
+.ema-content .ema-plate .sb-still .sb-still-pink { fill: var(--sb-still-pink); stroke: none; }
+.ema-content .ema-plate .sb-still :is(.sb-still-rule, .sb-still-rule *) { fill: none; stroke: var(--sb-still-rule); stroke-width: 1; }
+.ema-content .ema-plate .sb-still .sb-still-line { fill: none; }
+.ema-content .ema-plate .sb-still .sb-still-band { fill: none; stroke: var(--sb-still-deep); stroke-width: 2.4; }

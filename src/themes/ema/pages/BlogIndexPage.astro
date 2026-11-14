@@ -1,5 +1,7 @@
 ---
-// Shared page content and feature hooks, presented by the active theme layout.
+// Shared page content and feature hooks, presented by the active theme layout. The header plate is the
+// pilot for the owner's art plan, P2 (2026-11-14); Blank and Endfield pass nothing into that slot.
 import Page from "@/themes/blank/pages/BlogIndexPage.astro";
+import PagePlate from "../components/PagePlate.astro";
 ---
-<Page {...Astro.props}><slot /></Page>
+<Page {...Astro.props}><PagePlate slot="head-art" motif="notebook" /><slot /></Page>

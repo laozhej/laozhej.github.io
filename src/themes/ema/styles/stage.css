@@ -28,8 +28,21 @@
   --sb-bloom: rgba(246, 226, 233, .7);
   --sb-bloom-core: rgba(199, 107, 146, .3);
   --sb-petal: rgba(232, 160, 188, .45);
-  --sb-spark: rgba(170, 140, 170, .3);
+  /* Window light on the paper (owner's art plan, 2026-11-14). On cream paper the panes are a paper
+     wash that takes the screentone and hatching off where they fall, the way a manga page shows light,
+     and the bars a fainter cool shadow; on dark paper the panes lift a little and the bars stay unlit. */
+  --k-light-pane: rgba(255, 251, 240, .5);
+  --k-light-bar: rgba(67, 72, 97, .06);
   --ef-glow: #fde8ef;
+  /* The still life takes its colours from the theme: ink lines at low strength, paper and ink-tinted
+     fills, one small touch of the soft pink. Both modes use the same rules. */
+  --sb-still-line: color-mix(in srgb, var(--blank-ink) 26%, transparent);
+  --sb-still-rule: color-mix(in srgb, var(--blank-ink) 15%, transparent);
+  --sb-still-paper: var(--sb-paper);
+  --sb-still-cover: color-mix(in srgb, var(--blank-ink) 9%, var(--sb-paper));
+  --sb-still-deep: color-mix(in srgb, var(--blank-ink) 20%, var(--sb-paper));
+  --sb-still-tea: color-mix(in srgb, var(--blank-muted) 13%, var(--sb-paper));
+  --sb-still-pink: color-mix(in srgb, var(--ema-pink-soft) 90%, var(--sb-paper));
   position: relative;
   color: var(--blank-ink);
 }
@@ -58,7 +71,8 @@ html[data-color-mode="dark"] #ema-stage {
   --sb-bloom: rgba(122, 76, 99, .5);
   --sb-bloom-core: rgba(242, 174, 200, .5);
   --sb-petal: rgba(242, 174, 200, .4);
-  --sb-spark: rgba(242, 174, 200, .36);
+  --k-light-pane: rgba(255, 244, 250, .1);
+  --k-light-bar: transparent;
   --ef-glow: #4a3445;
 }
 
@@ -97,9 +111,39 @@ html[data-color-mode="dark"] #ema-stage {
 #ema-stage .sb .sb-bloom path { fill: var(--sb-bloom); stroke: var(--sb-ink-soft); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
 #ema-stage .sb .sb-core { fill: var(--sb-bloom-core); }
 #ema-stage .sb .sb-petal path { fill: var(--sb-petal); }
-#ema-stage .sb .sb-spark path { fill: var(--sb-spark); }
-#ema-stage .sb .sb-bubble { opacity: .5; }
-#ema-stage .sb .sb-bubble path { fill: var(--sb-paper); stroke: var(--sb-ink-soft); stroke-width: 1.5; }
+#ema-stage .sb .sb-still :is(path, rect, ellipse) { stroke: var(--sb-still-line); stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
+#ema-stage .sb .sb-still .sb-still-paper { fill: var(--sb-still-paper); }
+#ema-stage .sb .sb-still .sb-still-cover { fill: var(--sb-still-cover); }
+#ema-stage .sb .sb-still .sb-still-deep { fill: var(--sb-still-deep); }
+#ema-stage .sb .sb-still .sb-still-tea { fill: var(--sb-still-tea); stroke: none; }
+#ema-stage .sb .sb-still .sb-still-pink { fill: var(--sb-still-pink); stroke: none; }
+#ema-stage .sb .sb-still :is(.sb-still-rule, .sb-still-rule *) { fill: none; stroke: var(--sb-still-rule); stroke-width: 1; }
+#ema-stage .sb .sb-still .sb-still-line { fill: none; }
+#ema-stage .sb .sb-still .sb-still-band { fill: none; stroke: var(--sb-still-deep); stroke-width: 2.4; }
+/* The window light: one large slanted area from the viewer's upper left (the panes), and a fainter
+   cross of straight bars. Static; it stays put when the poses change. */
+#ema-stage .k-light {
+  --k-light-cross-x: linear-gradient(90deg, #000 44%, transparent 47.5% 52.5%, #000 56%);
+  --k-light-cross-y: linear-gradient(180deg, #000 47%, transparent 50.5% 54.5%, #000 58%);
+  position: absolute; z-index: 1; left: 19%; top: -8%; width: 29%; height: 34%;
+  transform: skewX(22deg); transform-origin: 0 0; pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10% 90%, transparent), linear-gradient(180deg, transparent, #000 8% 76%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, transparent, #000 10% 90%, transparent), linear-gradient(180deg, transparent, #000 8% 76%, transparent);
+  mask-composite: intersect;
+}
+#ema-stage .k-light::before,
+#ema-stage .k-light::after { content: ""; position: absolute; inset: 0; }
+#ema-stage .k-light::before {
+  background: var(--k-light-pane);
+  -webkit-mask-image: var(--k-light-cross-x), var(--k-light-cross-y); -webkit-mask-composite: source-in;
+  mask-image: var(--k-light-cross-x), var(--k-light-cross-y); mask-composite: intersect;
+}
+#ema-stage .k-light::after {
+  background:
+    linear-gradient(90deg, transparent 46%, var(--k-light-bar) 48.5% 51.5%, transparent 54%),
+    linear-gradient(180deg, transparent 49%, var(--k-light-bar) 51.5% 53.5%, transparent 56%);
+}
 #ema-stage .sb .sb-line :is(rect, path) { fill: none; stroke: var(--sb-ink-soft); stroke-width: 1.8; stroke-linecap: round; }
 /* A paper veil keeps the identity text readable and lets the stage fade into the page. */
 #ema-stage .k-veil {
@@ -182,7 +226,11 @@ html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); fo
 /* Ema's theatre: the five-pose controls on her right. */
 #ema-stage .k-theatre {
   position: absolute; z-index: 4; top: 50%; right: max(48px, calc((100% - 1240px) / 2));
-  display: grid; gap: 10px; width: 216px; padding: 18px 18px 16px; translate: 0 calc(-50% + 15px + var(--k-lift));
+  display: grid; gap: 10px; width: 216px; padding: 18px 18px 16px;
+  /* Anchored by its top edge (the simplified-Chinese card, 174px tall, keeps the shared centre with the
+     identity text): longer hints and pose names grow it downwards, so its top never jumps between poses
+     or locales and never reaches the notebook drawn above it. */
+  translate: 0 calc(var(--k-lift) - 72px);
   background: var(--k-card); border: 1px solid var(--ema-line-strong); border-radius: 4px;
   box-shadow: 6px 7px 0 var(--k-tint-lav);
   opacity: var(--copy-opacity, 1); transition: opacity 220ms ease;
@@ -320,8 +368,6 @@ html[data-color-mode="dark"] #ema-stage .k-avatar { background: radial-gradient(
   padding: 16px 18px 15px; border-width: 2px; opacity: 1; pointer-events: auto; transform: none;
 }
 #ema-stage[data-mode="stage"] .k-stage.is-docked .k-slate { opacity: 0; }
-#ema-stage[data-mode="stage"] .k-stage.is-pulling .k-ema,
-#ema-stage[data-mode="stage"] .k-stage.is-docked .k-ema { filter: saturate(.9) brightness(.98); }
 html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-behavior: auto; }
 .k-cover { position: fixed; z-index: 48; inset: 0; background: var(--blank-paper); pointer-events: none; }
 .k-cover[hidden] { display: none; }
@@ -484,7 +530,6 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
 @keyframes k-arrow { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
 
 @media (hover: hover) and (pointer: fine) {
-  #ema-stage .k-ema:has(.k-ema-hit:hover) .k-frame[data-active="true"] { filter: drop-shadow(0 0 22px color-mix(in srgb, var(--ema-pink-soft) 70%, transparent)); }
   #ema-stage :is(.k-theatre-buttons button, .x):hover { border-color: var(--ema-pink); background: var(--ema-blush); }
   #ema-stage .k-note-open:hover { transform: translateY(-2px) rotate(1deg); box-shadow: 5px 6px 0 var(--k-tint-pink); }
   #ema-stage .k-leaf:hover .k-leaf-arrow { color: var(--ema-lav); }
@@ -492,6 +537,10 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-entry:hover h3 { color: var(--ema-pink); }
 }
 
+/* Short windows: the identity text rises, so the light stays above it. */
+@media (max-height: 720px) {
+  #ema-stage .k-light { top: -10%; height: 30%; }
+}
 @media (max-width: 1100px) {
   #ema-stage .k-copy { width: 41%; }
   #ema-stage .k-title { font-size: 56px; }
@@ -526,6 +575,10 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-theatre-buttons { grid-area: buttons; }
   #ema-stage .k-hint { grid-area: hint; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--blank-line); }
   #ema-stage .k-back { --sb-focus: 50% 66%; --sb-reach: 48% 42%; }
+  /* Phones and portrait tablets add no decor (the plan allows none or one): the window light would
+     fall behind Ema's head and the title, and the still life belongs to the side-by-side stage. The
+     paper, screentone and blossoms stay as they are. */
+  #ema-stage :is(.sb-still, .k-light) { display: none; }
   #ema-stage { --k-name-size: 52px; }
   #ema-stage .k-note-open { top: 76px; right: 16px; min-height: 40px; padding: 8px 11px; font-size: 12px; }
   #ema-stage .k-cue { bottom: 16px; }

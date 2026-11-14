@@ -1,0 +1,25 @@
+---
+// Pilot for the owner's art plan, P2 (2026-11-14): a small storyboard strip in an Ema inner-page header,
+// in the homepage's paper language. One plain panel holds a single piece of the homepage still life;
+// a screentone panel beside it carries a few loose petals. Drawn in code, no text, decorative only.
+// plate.css, loaded with the theme's inner-page styles in EmaLayout, shows it on the side-by-side
+// desktop layout only (1101px and wider). Its selectors all sit under .ema-content, so the other themes,
+// which load the same layout stylesheet, are unaffected.
+import { notebook, petal, place, teacup } from "../lib/still-life.mjs";
+interface Props { motif: "notebook" | "teacup"; }
+const { motif } = Astro.props;
+// Each piece is centred in the plain panel (about 248 x 184 units).
+const art = motif === "notebook" ? place(notebook, 128 - 89 * 1.25, 100 - 44 * 1.25, 1.25) : place(teacup, 128 - 70 * 1.3, 100 - 75 * 1.3, 1.3);
+const petals = [[302, 48, 9, 20], [352, 98, 11, 130], [318, 150, 8, 250], [374, 168, 7, 60]]
+  .map(([x, y, r, turn]) => `<path d="${petal}" transform="translate(${x} ${y}) rotate(${turn}) scale(${r})"/>`).join("");
+---
+<div class="ema-plate" aria-hidden="true">
+  <svg viewBox="0 0 400 200" focusable="false">
+    <defs><pattern id="ema-plate-dots" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><circle cx="4.5" cy="4.5" r="1.7" class="ema-plate-dot" /></pattern></defs>
+    <path class="ema-plate-panel" d="M6 8 H262 L246 192 H6 Z" />
+    <Fragment set:html={art} />
+    <path class="ema-plate-panel" d="M276 8 H394 V192 H260 Z" />
+    <path class="ema-plate-tone" d="M276 8 H394 V192 H260 Z" />
+    <g class="ema-plate-petals"><Fragment set:html={petals} /></g>
+  </svg>
+</div>

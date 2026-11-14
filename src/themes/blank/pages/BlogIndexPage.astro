@@ -14,7 +14,7 @@ const categories = Object.entries(categoryLabel).filter(([key]) => posts.some((p
 const empty = posts.length === 0;
 ---
 <BlankLayout title={`Journal | ${site.name}`} description={t("blog.description")}>
-  <PageHead index="01" title="Journal" label={t("blog.label")} description={t("blog.intro")} count={String(posts.length).padStart(2, "0")} unit={unit("common.entries", posts.length)} />
+  <PageHead index="01" title="Journal" label={t("blog.label")} description={t("blog.intro")} count={String(posts.length).padStart(2, "0")} unit={unit("common.entries", posts.length)}><slot name="head-art" slot="art" /></PageHead>
   <section class="blank-archive" data-site-collection data-unit={t("common.articles")} data-unit-one={t("common.articlesOne")} aria-label={t("blog.archive")}>
     {empty ? (
       <p class="blank-empty-message" id="blank-search">{t("blog.empty")}</p>

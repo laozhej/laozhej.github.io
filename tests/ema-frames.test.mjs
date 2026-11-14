@@ -49,7 +49,7 @@ test('failed images preserve the current scene and allow the same action to retr
   p.api.cleanup();
 });
 
-test('all five image poses load on demand and preserve the hint, next, restart, previous and accessible labels', async () => {
+test('all five image poses load before they show and preserve the hint, next, restart, previous and accessible labels', async () => {
   const node = (dataset = {}) => Object.assign(new EventTarget(), {
     dataset, attributes: {}, hidden: true,
     setAttribute(k, v) { this.attributes[k] = v; },
@@ -77,7 +77,8 @@ test('all five image poses load on demand and preserve the hint, next, restart, 
   assert.equal(plates[1].src, plates[1].dataset.src);
   assert.equal(plates[1].alt, 'Ema · pose-1');
   assert.equal(plates[0].alt, '');
-  assert.equal(plates[2].src, undefined, 'later poses are not prefetched');
+  assert.equal(plates[2].src, plates[2].dataset.src, 'the pose after the shown one is fetched ahead');
+  assert.equal(plates[3].src, undefined, 'only one pose is fetched ahead');
   assert.equal(plates[0].attributes['aria-hidden'], 'true');
   assert.equal(number.textContent, '02 / 05'); assert.equal(pose.textContent, ' · pose-1');
   assert.equal(label.textContent, 'Next scene'); assert.equal(hit.attributes['aria-label'], 'Next scene');
@@ -117,4 +118,70 @@ test('the hint on Ema names a tap as well as a click, so it fits touch and mouse
   assert.equal(hint('zh-TW'), '點一下艾瑪，翻開下一幕');
   assert.equal(hint('ja'), 'エマをタップ・クリックして次のカットへ');
   assert.equal(hint('en'), 'Tap or click Ema for the next scene');
+});
+
+function prefetchSetup(window) {
+  const node = (dataset = {}) => Object.assign(new EventTarget(), {
+    dataset, attributes: {}, hidden: true,
+    setAttribute(k, v) { this.attributes[k] = v; },
+    getAttribute(k) { return k === 'src' ? this.src : this.attributes[k]; },
+    removeAttribute(k) { if (k === 'src') delete this.src; delete this.attributes[k]; },
+  });
+  const plates = Array.from({ length: 5 }, (_, i) => Object.assign(node({ src: `pose-${i}`, label: `pose-${i}`, active: String(i === 0) }), { alt: i === 0 ? 'Ema' : '', decode: async () => {} }));
+  plates[0].src = 'pose-0';
+  const hit = node(), prev = node(), next = node(), label = node(), status = node();
+  const controls = node({ next: 'Next', restart: 'Restart', error: 'Try again' });
+  controls.querySelector = s => ({ '[data-frame-prev]': prev, '[data-frame-next]': next, '[data-frame-next-label]': label, '[data-frame-status]': status })[s];
+  const art = node(); art.querySelectorAll = () => plates;
+  const root = { querySelector: s => ({ '[data-ema-frames]': art, '[data-frame-controls]': controls, '[data-frame-hit]': hit })[s] };
+  const api = mountEmaFrames(root, window, { canAnimate: () => true });
+  return { plates, hit, prev, controls, api };
+}
+const fetched = (plates) => plates.filter((plate) => plate.src).map((plate) => plate.dataset.src);
+
+test('once the page is idle the next pose is fetched ahead, and teardown cancels a pending fetch', () => {
+  const idle = [];
+  const win = { document: { readyState: 'complete' }, requestIdleCallback: (fn) => idle.push(fn), cancelIdleCallback: (id) => { idle[id - 1] = null; } };
+  const p = prefetchSetup(win);
+  assert.deepEqual(fetched(p.plates), ['pose-0'], 'nothing extra before the page is idle');
+  idle[0](); assert.deepEqual(fetched(p.plates), ['pose-0', 'pose-1']);
+  // A page torn down before idle time fetches nothing.
+  const later = []; let cancelled = 0;
+  const q = prefetchSetup({ document: { readyState: 'complete' }, requestIdleCallback: (fn) => later.push(fn), cancelIdleCallback: () => cancelled++ });
+  q.api.cleanup(); assert.equal(cancelled, 1);
+  later[0](); assert.deepEqual(fetched(q.plates), ['pose-0']);
+  p.api.cleanup();
+});
+
+test('a page still loading waits for the load event before fetching ahead', () => {
+  const win = Object.assign(new EventTarget(), { document: { readyState: 'interactive' }, setTimeout: (fn) => { fn(); return 1; }, clearTimeout() {} });
+  const p = prefetchSetup(win);
+  assert.deepEqual(fetched(p.plates), ['pose-0']);
+  win.dispatchEvent(new Event('load'));
+  assert.deepEqual(fetched(p.plates), ['pose-0', 'pose-1']);
+  p.api.cleanup();
+});
+
+test('with Save-Data nothing is fetched ahead until the visitor reaches for Ema or the theatre', async () => {
+  const win = { navigator: { connection: { saveData: true } }, document: { readyState: 'complete' }, requestIdleCallback: () => assert.fail('no idle fetch'), cancelIdleCallback() {} };
+  const p = prefetchSetup(win);
+  p.hit.dispatchEvent(Object.assign(new Event('click'), { detail: 1 })); await flush();
+  assert.deepEqual(fetched(p.plates), ['pose-0', 'pose-1'], 'a change alone does not fetch ahead');
+  p.hit.dispatchEvent(new Event('pointerenter'));
+  assert.deepEqual(fetched(p.plates), ['pose-0', 'pose-1', 'pose-2']);
+  p.controls.dispatchEvent(new Event('focusin'));
+  assert.deepEqual(fetched(p.plates), ['pose-0', 'pose-1', 'pose-2'], 'a pose already fetched is not requested again');
+  p.api.cleanup();
+});
+
+test('going backwards fetches the previous pose ahead, and a failed fetch can be retried', async () => {
+  const p = prefetchSetup({});
+  p.prev.dispatchEvent(Object.assign(new Event('click'), { detail: 1 })); await flush();
+  assert.equal(p.plates[4].dataset.active, 'true');
+  assert.deepEqual(fetched(p.plates), ['pose-0', 'pose-3', 'pose-4']);
+  p.plates[3].dispatchEvent(new Event('error'));
+  assert.equal(p.plates[3].src, undefined, 'a failed fetch leaves no broken source behind');
+  p.hit.dispatchEvent(new Event('pointerenter'));
+  assert.equal(p.plates[3].src, 'pose-3', 'reaching for Ema asks again');
+  p.api.cleanup();
 });

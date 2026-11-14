@@ -64,11 +64,15 @@ html[data-color-mode="dark"] #ema-stage {
 
 /* ---------- Stage ---------- */
 #ema-stage .k-stage { position: relative; }
+/* Side-by-side stage: Ema stands a little right of centre so the identity text on her left and the
+   open paper on her right weigh about the same; the text and the theatre share one optical centre,
+   a little above the middle, level with her shoulders. */
+#ema-stage .k-hero { --k-ema-x: 53.5%; --k-lift: calc(-20px - 6svh); }
 #ema-stage .k-hero {
   position: relative;
   display: flex;
   align-items: center;
-  height: calc(100svh - 82px);
+  height: 100svh;
   min-height: 600px;
   padding: 140px max(48px, calc((100% - 1240px) / 2)) 110px;
   overflow: hidden;
@@ -77,7 +81,7 @@ html[data-color-mode="dark"] #ema-stage {
 }
 #ema-stage .k-scene { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
 #ema-stage .k-camera { position: absolute; inset: -24px; }
-#ema-stage .k-back { position: absolute; inset: 0; backface-visibility: hidden; opacity: .9; --sb-focus: 51.5% 57%; --sb-reach: 23% 54%; }
+#ema-stage .k-back { position: absolute; inset: 0; backface-visibility: hidden; opacity: .9; --sb-focus: 54.5% 57%; --sb-reach: 23% 54%; }
 /* The panels thin out around Ema: lower contrast and density right behind her, full strength at the sides. */
 #ema-stage .sb {
   display: block; width: 100%; height: 100%;
@@ -101,15 +105,15 @@ html[data-color-mode="dark"] #ema-stage {
 #ema-stage .k-veil {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background:
-    radial-gradient(ellipse 34% 46% at 21% 50%, color-mix(in srgb, var(--blank-paper) 90%, transparent), color-mix(in srgb, var(--blank-paper) 46%, transparent) 62%, transparent 100%),
+    radial-gradient(ellipse 34% 46% at 21% 44%, color-mix(in srgb, var(--blank-paper) 90%, transparent), color-mix(in srgb, var(--blank-paper) 46%, transparent) 62%, transparent 100%),
     linear-gradient(180deg, transparent 64%, var(--blank-paper) 100%);
 }
 
 /* Ema: the full-height front layer, bottom-anchored at the centre of the stage. */
 #ema-stage .k-ema {
-  position: absolute; z-index: 2; left: 50%; bottom: 0; top: 74px;
+  position: absolute; z-index: 2; left: var(--k-ema-x); bottom: 0; top: 74px;
   aspect-ratio: 520 / 760; height: calc(100% - 74px);
-  margin: 0; translate: -45% 0;
+  margin: 0; translate: -50% 0;
 }
 #ema-stage .k-frames { position: relative; width: 100%; height: 100%; }
 /* Preserve the old figure's soft light independently of the original image pixels. */
@@ -141,7 +145,7 @@ html[data-color-mode="dark"] #ema-stage {
   position: relative; z-index: 4; display: grid; justify-items: start;
   width: 39%; max-width: 440px; min-width: 0;
   opacity: var(--copy-opacity, 1);
-  transform: translateY(calc(-20px + (1 - var(--copy-opacity, 1)) * -30px));
+  transform: translateY(calc(var(--k-lift) + (1 - var(--copy-opacity, 1)) * -30px));
   transition: opacity 220ms ease, transform 220ms ease;
   text-shadow: 0 1px 8px var(--k-glow), 0 0 16px var(--k-glow);
 }
@@ -178,7 +182,7 @@ html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); fo
 /* Ema's theatre: the five-pose controls on her right. */
 #ema-stage .k-theatre {
   position: absolute; z-index: 4; top: 50%; right: max(48px, calc((100% - 1240px) / 2));
-  display: grid; gap: 10px; width: 216px; padding: 18px 18px 16px; translate: 0 -24%;
+  display: grid; gap: 10px; width: 216px; padding: 18px 18px 16px; translate: 0 calc(-50% + 15px + var(--k-lift));
   background: var(--k-card); border: 1px solid var(--ema-line-strong); border-radius: 4px;
   box-shadow: 6px 7px 0 var(--k-tint-lav);
   opacity: var(--copy-opacity, 1); transition: opacity 220ms ease;
@@ -197,6 +201,23 @@ html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); fo
 #ema-stage .k-theatre-buttons button[aria-busy="true"] { opacity: .6; }
 #ema-stage .k-hint { display: flex; align-items: flex-start; gap: 6px; margin: 0; font-size: 12px; line-height: 1.6; color: var(--blank-muted); }
 #ema-stage .k-hint svg { flex: none; margin-top: 2px; color: var(--k-accent); }
+/* With a mouse, the theatre stays out of the picture until the pointer passes over Ema or over the
+   card's own place (owner request, 2026-11-14); keyboard focus on Ema or in the card shows it too.
+   It fades in at once and lingers briefly on the way out, so the pointer can cross from Ema to the
+   arrows. The card stays in the layout and in the accessibility tree while it is transparent. Touch
+   screens, and the stacked layout where it rides along Ema's lower edge, keep it visible. */
+@media (hover: hover) and (pointer: fine) and (min-width: 1101px), (hover: hover) and (pointer: fine) and (min-width: 761px) and (orientation: landscape) {
+  #ema-stage .k-theatre {
+    --k-reveal: 0;
+    opacity: calc(var(--copy-opacity, 1) * var(--k-reveal)); transform: translateX(var(--k-theatre-nudge, 10px));
+    transition: opacity 260ms ease 520ms, transform 320ms ease 520ms;
+  }
+  #ema-stage .k-hero:has(.k-ema-hit:hover, .k-ema-hit:focus-visible) .k-theatre,
+  #ema-stage .k-theatre:is(:hover, :has(:focus-visible)) {
+    --k-reveal: 1; transform: none;
+    transition: opacity 180ms ease, transform 260ms var(--blank-ease);
+  }
+}
 
 #ema-stage .k-note-open {
   position: absolute; z-index: 5; top: 92px; right: max(72px, calc((100% - 1240px) / 2));
@@ -208,7 +229,7 @@ html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); fo
 }
 #ema-stage .k-note-open[hidden] { display: none; }
 #ema-stage .k-cue {
-  position: absolute; z-index: 5; left: 50%; bottom: 20px; translate: -50% 0;
+  position: absolute; z-index: 5; left: var(--k-ema-x, 50%); bottom: 20px; translate: -50% 0;
   display: inline-flex; align-items: center; gap: 10px; min-height: 36px; padding: 6px 13px;
   border: 1px solid var(--blank-line); border-radius: 6px; background: var(--k-cue-bg); color: var(--k-accent);
   font: 700 12px/1 var(--blank-mono); white-space: nowrap; text-decoration: none;
@@ -272,7 +293,7 @@ html[data-color-mode="dark"] #ema-stage .k-avatar { background: radial-gradient(
 #ema-stage .k-card-links .k-card-about { background: transparent; color: var(--blank-ink); }
 
 /* Stage mode (wide fine pointers with motion on): the reference's pull-and-dock reveal. */
-#ema-stage[data-mode="stage"] .k-stage { height: calc(100svh - 82px); min-height: 600px; }
+#ema-stage[data-mode="stage"] .k-stage { height: 100svh; min-height: 600px; }
 #ema-stage[data-mode="stage"] .k-hero { position: sticky; top: 0; height: 100%; }
 #ema-stage[data-mode="stage"] .k-profile {
   position: absolute; left: 50%; top: 52%; margin: 0; padding: 0;
@@ -481,7 +502,7 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
 /* Phones and portrait tablets: the reference's narrow stage. The title sits above Ema, who fills the
    rest of the first screen; the theatre controls ride along her lower edge. */
 @media (max-width: 760px), (max-width: 1100px) and (orientation: portrait) {
-  #ema-stage .k-hero { --k-theatre-bottom: 64px; min-height: 560px; padding: 118px 24px 96px; align-items: flex-start; }
+  #ema-stage .k-hero { --k-theatre-bottom: 64px; --k-ema-x: 50%; min-height: 560px; padding: 118px 24px 96px; align-items: flex-start; }
   #ema-stage .k-copy {
     position: absolute; top: 128px; left: 24px; right: 24px; width: auto; max-width: none;
     justify-items: center; text-align: center; transform: none;
@@ -580,6 +601,7 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   #ema-stage .k-frame, #ema-stage .k-plate, #ema-stage .k-stamp, #ema-stage .k-copy { transition: none; }
+  #ema-stage { --k-theatre-nudge: 0px; }
   #ema-stage .k-leaf[data-active] .k-plate, #ema-stage .k-leaf[data-active] .k-stamp { transform: rotate(-12deg); }
   #ema-stage .k-leaf[data-active] .k-plate { transform: none; }
   #ema-stage .k-caret, #ema-stage .k-cue-arrows i { animation: none; }

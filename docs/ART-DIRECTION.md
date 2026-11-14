@@ -28,7 +28,8 @@ Every statement carries one of four labels. Dated sections preserve earlier revi
 ### 2.1 Settled
 
 - **Approved.** Ema is the dominant visual of the homepage: a full-height front layer in a viewport-high stage, with the identity text and controls arranged around her. Never a small portrait card, a reduced slot or a wall of cards. On phones she keeps a prominent place in the first screen.
-- **Approved.** The five poses switch in place. The theatre card's label 艾玛的小剧场 and hint 点击艾玛，翻开下一幕 stay visible on desktop and phone, with equivalent text in all four locales.
+- **Approved.** The five poses switch in place. The theatre card carries the label 艾玛的小剧场 and hint 点击艾玛，翻开下一幕, with equivalent text in all four locales. On touch screens and in the stacked layout it stays visible.
+- **Approved** (owner's request, 2026-11-14; supersedes "always visible on desktop"). With a mouse in the side-by-side layout, the card appears only while the pointer is over Ema or over the card's place, or while keyboard focus is on Ema or in the card.
 - **Approved.** The scroll cue 向下浏览 is a control separate from pose switching. A tap or click on Ema switches the pose, a swipe across her scrolls the page, and a mouse drag that starts on her is not a tap. The motion control stays recognisable: a pause or play icon, a short label, and the action shown on hover and focus.
 - **Approved.** The storyboard backdrop stays as quiet behind Ema as round 2 made it. No other visual style is introduced.
 
@@ -37,6 +38,7 @@ Every statement carries one of four labels. Dated sections preserve earlier revi
 - **Approved** (2026-11-13). Composition B: 荒泷旭 / Nero is the hero title (the owner's name in the CJK serif, the alias in Gloock), with Ema's hero scale and the quieter storyboard backdrop.
 - **Prototype.** The review switch and the wordmark title (variant A) were removed in round 5; the page has one hero title, also without JavaScript. At 1101 px and wider the header shows the "Arataki.br’s Base" wordmark beside the name; at 1100 px and narrower it hides the wordmark's text (and at 760 px and narrower the whole wordmark), so on tablets and phones the wordmark appears only in the browser tab title.
 - **Prototype.** Visual weight runs in this order: Ema, the identity title, the theatre card, the storyboard.
+- **Prototype** (2026-11-14, owner asked for a better balance against the reference). The stage fills the whole first screen. Ema stands at 53.5 % of the width, the cue centred under her; the identity text and the theatre card share one centre about 6svh above the middle, level with her shoulders.
 
 ### 2.3 Checked in rounds 4 and 6
 

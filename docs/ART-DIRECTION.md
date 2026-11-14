@@ -2,7 +2,7 @@
 
 This file directs the art of Ema / 樱色档案: what is drawn, painted or typeset inside the layouts that [REFERENCE.md](REFERENCE.md) maps from the reference's `fuyukawa-kagari` theme. It covers the artwork, palette, light, paper and texture, typography, Ema's five poses, sources and licensing, the material still needed, and the completed cleanup of uncleared files. Layout geometry, navigation, motion and interaction belong to REFERENCE.md.
 
-Status: revised on 2026-11-14 on `claude/reference-redesign` for the owner-requested restoration and mobile occlusion fix (section 13), prepared for the existing PR 12. The following rounds 5 and 6 decisions describe the 2026-11-13 baseline. That day the owner confirmed composition B, approved the light direction, canvas, export size, safe regions and removal of the slate once the art arrives, and approved cleanup groups A, B and C with the credits rewording. The cleanup is complete (section 10). Round 6 was a finishing pass the owner asked for: the 月代雪 subtitle, the small-screen layout and the Japanese and English hints (sections 2.3 and 8.7). Nothing here is approved unless it is labelled **Approved**. The 2026-11-14 request supersedes the earlier placeholder-only restriction for exactly five historical images; it does not confirm their source or permission. Future commissioned-art specifications below do not require altering these restored files.
+Status: revised on 2026-11-14 on `claude/ema-art-motifs` for the owner's art plan (section 14); the owner approved committing, merging and deploying it the same day. PR 12 (the redesign, the restoration and the mobile occlusion fix of section 13), PR 13 (full-screen stage, hover-only theatre card) and PR 14 (next pose fetched ahead) are merged into `main` and deployed. The earlier revision for section 13 was made on `claude/reference-redesign`. The following rounds 5 and 6 decisions describe the 2026-11-13 baseline. That day the owner confirmed composition B, approved the light direction, canvas, export size, safe regions and removal of the slate once the art arrives, and approved cleanup groups A, B and C with the credits rewording. The cleanup is complete (section 10). Round 6 was a finishing pass the owner asked for: the 月代雪 subtitle, the small-screen layout and the Japanese and English hints (sections 2.3 and 8.7). Nothing here is approved unless it is labelled **Approved**. The 2026-11-14 request supersedes the earlier placeholder-only restriction for exactly five historical images; it does not confirm their source or permission. Future commissioned-art specifications below do not require altering these restored files.
 
 ## How to read this file
 
@@ -14,6 +14,7 @@ Every statement carries one of four labels. Dated sections preserve earlier revi
 | **Prototype** | What the uncommitted prototype does today, checked against the code and the build on 2026-11-13. A fact, not a decision. |
 | **Proposed** | An art-production specification suggested here. Each one says why it is proposed and what changes if another choice is made. Not approved. |
 | **Open** | A decision or licensing check that has not been made. |
+| **Superseded** | An earlier statement replaced by a later owner decision. Kept for the record; no longer in force. |
 
 ## 1. Authority
 
@@ -39,6 +40,7 @@ Every statement carries one of four labels. Dated sections preserve earlier revi
 - **Prototype.** The review switch and the wordmark title (variant A) were removed in round 5; the page has one hero title, also without JavaScript. At 1101 px and wider the header shows the "Arataki.br’s Base" wordmark beside the name; at 1100 px and narrower it hides the wordmark's text (and at 760 px and narrower the whole wordmark), so on tablets and phones the wordmark appears only in the browser tab title.
 - **Prototype.** Visual weight runs in this order: Ema, the identity title, the theatre card, the storyboard.
 - **Prototype** (2026-11-14, owner asked for a better balance against the reference). The stage fills the whole first screen. Ema stands at 53.5 % of the width, the cue centred under her; the identity text and the theatre card share one centre about 6svh above the middle, level with her shoulders.
+- **Prototype** (2026-11-14, section 14). The theatre card is anchored by its top edge at the position the simplified-Chinese card had, so longer hints and pose names (Japanese, English, 小小的期待) make it grow downwards instead of moving its top towards the notebook, and its top no longer shifts between poses.
 
 ### 2.3 Checked in rounds 4 and 6
 
@@ -47,7 +49,7 @@ Every statement carries one of four labels. Dated sections preserve earlier revi
 - **Approved** (round 6). The small-screen issues found in round 4 are resolved without shrinking Ema: where the screen cannot hold everything, the page scrolls naturally.
 - **Prototype.** Round 6 fixes, recorded as deviations in REFERENCE.md:
   - Phones held sideways and other short landscape screens (500 px tall or less): Ema and the stage keep their size, so the page scrolls. The theatre card sits at the bottom of the first screen, with its label and hint in view: in the right column from 761 px wide, and under the identity text below that, where it also no longer hangs off the left edge at 667 px. The cue stays at the end of the stage, where scrolling arrives.
-  - Phones 480 px wide or narrower: the placeholder slate shows its number and the placeholder note (the theatre card just below already names the pose) and sits right above the card, beside Ema's face rather than over it.
+  - **Superseded** (2026-11-14: the slate is no longer rendered since the restoration, section 13). Phones 480 px wide or narrower: the placeholder slate shows its number and the placeholder note (the theatre card just below already names the pose) and sits right above the card, beside Ema's face rather than over it.
   - Measured in Chrome 157 at 667×375, 740×360, 844×390, 896×414, 932×430, 360×740, 375×667, 390×844, 412×915, 430×932, 1366×620 and 1440×900, all four locales: the label and hint are in the first screen, and the slate is uncovered, clear of the face and on screen. At 1366×620, 1440×900 and 390×844 and wider phones, the theatre card, cue and figure did not move.
 - **Approved** (round 6). The Japanese and English hints work for touch and mouse alike, with their meaning kept.
 - **Prototype.** The wording: ja エマをタップ・クリックして次のカットへ (was エマをクリックして次のカットへ), en "Tap or click Ema for the next scene" (was "Click Ema for the next scene"). zh-CN 点击艾玛，翻开下一幕 and zh-TW 點一下艾瑪，翻開下一幕 already fit both and are unchanged. The hint is also the accessible name of the tap target on Ema until the first switch, so the two stay identical.
@@ -89,6 +91,7 @@ Every statement carries one of four labels. Dated sections preserve earlier revi
 | Lavender wash | `--ema-lav-wash` | `#efebf8` | `#302d45` |
 
 - **Prototype.** Ink is plum-grey, never pure black. Deep rose marks text-size details; pale pinks are fills only. Gold and mint appear only as pale plate tints in the chapter rail. Dark mode uses the same palette in an evening light.
+- **Prototype** (2026-11-14, section 14). The still life has no colours of its own: its lines and fills are mixed from `--blank-ink`, `--blank-muted`, the panel paper and `--ema-pink-soft` (`--sb-still-*` in `stage.css`), so dark mode follows the same rules. It adds no gold or mint. `tests/ema-storyboard.test.mjs` fails if a literal colour is added to those tokens.
 - **Proposed.** The artwork files are the same in both colour modes. The palette reaches Ema through light and line colour (warm plum-brown lines rather than black), never by recolouring her design. Check text contrast again when the final art lands.
 
 ## 5. Light
@@ -102,12 +105,14 @@ Every statement carries one of four labels. Dated sections preserve earlier revi
   - Whatever is chosen, all five poses share it.
 - **Proposed.** The artwork has a transparent background and brings no painted background. Its alpha edges are clean on both paper colours (`#fbf7ef` and `#201f28`), with no white matte or halo.
 - **Prototype** (2026-11-14). The former placeholder’s soft glow is now a CSS radial gradient behind the images (`.k-frames::before`). The storyboard and paper veil are unchanged; no pixels in the restored files are altered.
+- **Prototype** (2026-11-14, section 14). The restored images are lit almost frontally (flat cel shading), so a page light from the viewer's upper left, as approved above, does not contradict them. The window light in section 14 falls from that direction.
 
 ## 6. Paper and texture
 
 - **Prototype.** The paper is colour: the cream page and the brighter panel paper. Every Ema page adds a sakura wash, a lavender wash and a faint 22 px dot grid (`theme.css`). `Storyboard.astro` draws the screentone dots, hatching and panel frames. No bitmap texture is loaded.
 - **Proposed.** Keep the texture drawn in code. If review asks for a fine grain, draw that in code too (procedural SVG noise).
 - **Proposed.** No aged, stained, torn or crumpled paper, no washi fibres and no scanned book pages.
+- **Prototype** (2026-11-14, section 14). No paper grain was added. The owner's plan makes it optional ("没有纸纹也不算缺项"); if it is wanted later, procedural noise in code is the route, since the one bitmap candidate below has no established no-AI provenance.
 - **Open, resolved as unused.** The one bitmap candidate so far is ambientCG Paper 001:
   - Source: <https://ambientcg.com/view?id=Paper001>, released 2018-01-20, "Technique: Approximation".
   - Licence: <https://docs.ambientcg.com/license/> says all ambientCG assets are under CC0 1.0 Universal, which "applies to the downloadable asset files and the material preview renders".
@@ -159,7 +164,7 @@ Every statement carries one of four labels. Dated sections preserve earlier revi
 
 ### 8.2 What each pose must show
 
-The gestures are those the placeholder blocks out (**Prototype**, `EmaFigure.astro`); carrying them into the final art, and the expressions, are **Proposed**. Positions are in percent of the canvas (section 8.4).
+**Superseded** (owner's art plan, 2026-11-14): no new pose art is planned; the five restored images are the main art (section 14). The briefs below are kept for the record. The gestures are those the placeholder blocked out (`EmaFigure.astro`, no longer rendered); positions are in percent of the canvas (section 8.4).
 
 | Pose | Gesture | Expression | Where the defining gesture sits |
 | --- | --- | --- | --- |
@@ -190,7 +195,9 @@ All five preserve their historical bytes and alpha. Original source URLs, attrib
 
 The 2026-11-14 restoration preserves the existing `520 : 760` stage frame but displays each historical image at its own aspect ratio with `object-fit: contain`, bottom-centred and with the existing bottom fade. It does not resize files to the proposed 1642 × 2400 export, crop, redraw or upscale them. The measurements below are the earlier commissioned-art brief.
 
-**Approved** (2026-11-13): the canvas, export size and safe regions in this section, and removing the placeholder slate once the art arrives. The acceptance checks at the end remain **Proposed**. The measurements were taken in Chrome 157 on 2026-11-13 on the round-4 build; the "If another choice is made" column records what a later change would involve.
+**Approved** (2026-11-13): the canvas, export size and safe regions in this section, and removing the placeholder slate once the art arrives. The acceptance checks at the end remain **Proposed**.
+
+**Superseded** (owner's art plan, 2026-11-14): the 1642 × 2400 canvas, the export size, the framing and landmark rules and the acceptance checks for a new set are no longer requirements. The restored images keep their own sizes (905 × 2400, 1030 × 2400 and 1472 × 2048) inside the 520 : 760 frame with `object-fit: contain`, and are never resampled. Any future commission would need the owner's fresh approval. The slate removal is done (section 13). The measurements were taken in Chrome 157 on 2026-11-13 on the round-4 build; the "If another choice is made" column records what a later change would involve.
 
 | Item | Specification | Why | If another choice is made |
 | --- | --- | --- | --- |
@@ -223,12 +230,14 @@ How the two layouts use the canvas:
 
 ### 8.5 Runtime exports and editable sources
 
+**Superseded** (owner's art plan, 2026-11-14: "主视觉：零件新图", no new main art). Kept for the record.
+
 - **Proposed.** Runtime exports (required): the five files in section 8.1, at the approved canvas (1642 × 2400 px, transparent, WebP or PNG with alpha; section 8.4). This is all the site needs. We may derive smaller copies (for example 1200 and 1800 px tall) for phones by plain resampling, recorded in the manifest; no generative step.
 - **Proposed.** Editable sources (optional): layered originals (PSD, CLIP, KRA or similar) at the artist's working size, possibly drawn past the thighs. Useful for later re-exports, for example if the frame ratio changes. Not needed to deploy. If supplied and the licence allows it, they stay outside `public/`, and outside the repository if they are heavy or the licence covers only the exports.
 
 ### 8.6 What the owner needs to supply
 
-**Proposed** checklist:
+**Superseded** (owner's art plan, 2026-11-14): nothing needs to be supplied for the main art; the still life is drawn in code (section 14). The earlier **Proposed** checklist:
 
 1. **The five final pose exports** (section 8.5).
 2. **Source and attribution:** the artist's name or handle exactly as it should be credited, an optional link, the completion date, the tools used, and the artist's statement that the drawings are original (not traced from, or painted over, official art or a study reference).
@@ -299,11 +308,13 @@ Source: <https://manosaba.com/guidelines>, 「魔法少女ノ魔女裁判」配�
 
 | Asset | Licence | Status |
 | --- | --- | --- |
-| Art drawn in code in this repository: the storyboard, header blossom, stamps, scroll track, washes, the 旭 monogram | Ours; part of the site's code | In use |
+| Art drawn in code in this repository: the storyboard (including the notebook and teacup still life since 2026-11-14), the window light, header blossom, stamps, scroll track, washes, the 旭 monogram | Ours; part of the site's code | In use |
 | Gloock | SIL OFL 1.1 | In use |
 | Tabler Icons | MIT | In use |
 
 ### 9.5 Proposed conditions for future commissioned artwork
+
+No commission is planned (owner's art plan, 2026-11-14, section 14). These conditions would matter only if one were ever made.
 
 **Proposed.** All of the following hold, each recorded in writing:
 
@@ -342,7 +353,7 @@ Source: <https://manosaba.com/guidelines>, 「魔法少女ノ魔女裁判」配�
   }
   ```
 
-- **Proposed.** A folder `public/themes/ema/art/` holds only cleared files, so cleared and uncleared art never share a folder. It does not exist yet.
+- **Proposed.** A folder `public/themes/ema/art/` holds only cleared files, so cleared and uncleared art never share a folder. It does not exist yet. The still life of section 14 is inline SVG in `Storyboard.astro`, not a file, so it needs neither the folder nor a manifest entry.
 - **Prototype.** `npm run image:import` is the general importer: it creates `public/images/imported/` on first use and records imports in `src/core/data/imported-images.json` ([IMAGE_IMPORT.md](IMAGE_IMPORT.md)). Theme art stays in the theme folder and its manifest.
 - **Prototype** (2026-11-14). `THIRD_PARTY_ASSETS.md` and `public/themes/ema/ASSETS.json` now record exactly the five restored images, preserving historical attribution and explicitly unconfirmed source/permission status. The other retired placements remain absent.
 - **Prototype** (2026-11-14). `tests/assets.test.mjs` also checks the exact five filenames, fixed SHA-256 values from `76c9da5`, original dimensions, alpha, restoration paths and unconfirmed source/permission records. It continues to fail if any raster image in `public/` lacks a manifest entry or if an entry/source path points at a missing file. The three `B.` site icons are the only exception (typeset, documented in `assets/branding/README.md`).
@@ -399,7 +410,7 @@ This section records the 2026-11-13 cleanup. Only its five Ema pose removals and
 **Approved** (owner requirements this file builds on):
 
 - Ema is the dominant homepage hero; never a card, slot or card wall; prominent on phones.
-- Five poses with 艾玛的小剧场 and 点击艾玛，翻开下一幕, visible on desktop and phone in all four locales.
+- Five poses with 艾玛的小剧场 and 点击艾玛，翻开下一幕 in all four locales: always visible on touch screens and in the stacked layout; with a mouse on the side-by-side stage, shown while the pointer is over Ema or the card's place, or while keyboard focus is there (owner's request, 2026-11-14).
 - 向下浏览 separate from pose switching; tap versus drag; a recognisable motion control; the quieter storyboard; no new visual style.
 - The reference site governs layout and interaction; this file governs the artwork.
 - Cream and sakura palette; WCAG AA in both modes; Chinese navigation in the site's Song serif.
@@ -410,21 +421,22 @@ This section records the 2026-11-13 cleanup. Only its five Ema pose removals and
 - Optional fonts must cover zh-CN and zh-TW; textures without established no-AI provenance stay unused.
 - Private links and personal records stay out of this public repository.
 - Cleanup only with explicit approval; no history purge or force-push.
+- Approved on 2026-11-14 (section 14): the homepage still life (notebook, teacup) and the window light as built, none in the stacked layout; no filter on Ema's images in any state; still-life lines at ink 26 %; committing, merging and deploying them.
 - Blank stays minimal; Endfield stays independent, changed only where an approved step requires it.
-- Approved on 2026-11-13: composition B (section 2.2); light from the viewer's left (section 5); the canvas (520 : 760, 1642 × 2400 px, transparent, head-to-thigh framing, the landmarks) and the safe regions (section 8.4); removing the slate when the art lands (section 8.4); cleanup groups A, B and C and the credits rewording (section 10, complete).
+- Approved on 2026-11-13: composition B (section 2.2); light from the viewer's left (section 5); the canvas (520 : 760, 1642 × 2400 px, transparent, head-to-thigh framing, the landmarks) and the safe regions (section 8.4), **superseded** on 2026-11-14 by the owner's art plan (section 14); removing the slate when the art lands (section 8.4, done); cleanup groups A, B and C and the credits rewording (section 10, complete).
 - Asked for in round 6 (done): 月代雪's subtitle as former avatar character, her frame left empty (section 8.7); the small-screen fixes, with natural scrolling instead of shrinking (section 2.3); Japanese and English hints that suit touch and mouse (section 2.3).
 
 **Proposed** (awaiting the owner's review):
 
-- Derived sizes and optional sources for future commissioned artwork (section 8.5); no derived files are made for this restoration.
-- The brief for each pose (section 8.2), the acceptance checks (section 8.4) and the supply checklist (section 8.6).
+- The rest of the owner's art plan of 2026-11-14: inner-page pilots (P2) and final captures (P3), not started (section 14).
+- **Superseded** on 2026-11-14 (section 14): derived sizes and optional sources for future commissioned artwork (section 8.5); the brief for each pose (section 8.2), the acceptance checks (section 8.4) and the supply checklist (section 8.6).
 - Texture drawn in code; the conditions for a CJK web serif (sections 6 and 7).
 - The `art/` folder and the manifest template (section 9.6).
 
 **Open:**
 
 - The desktop wheel takeover, pending a real-trackpad review.
-- The artist, the five drawings and the artist's licence.
+- **Superseded** on 2026-11-14 (section 14): the artist, the five drawings and the artist's licence. No new main art is planned.
 - The uncertainties in Acacia's guidelines (section 9.2).
 - Recapturing the project screenshot and the showcase's Ema shots once the art is settled (section 10).
 
@@ -432,7 +444,7 @@ This section records the 2026-11-13 cleanup. Only its five Ema pose removals and
 
 - **Approved.** Use the existing `worktrees/reference-redesign` checkout, restoring only the five blobs from `76c9da5690e89a7816bb4b44eefacbcc87521446` listed in section 8.3. The initial restoration was kept uncommitted. The subsequent owner request authorises committing this restoration and its mobile occlusion fix, normal pushing to `claude/reference-redesign`, and updating existing PR 12; no new PR, merge or deployment. The original `website/` checkout and its 15 uncommitted files remain untouched.
 - **Approved.** The original bytes, dimensions and alpha remain unchanged. No re-encoding, redrawing, upscaling or generative AI. This overrides the earlier placeholder-only constraints for exactly these files; source and permission remain unconfirmed, and no permission is inferred from the owner’s request or matching hashes.
-- **Prototype.** The homepage reads each image’s path and intrinsic dimensions from the manifest. The existing B frame and background remain; each image is contained at its own aspect ratio, bottom-centred, with the existing bottom fade. The wireframes and placeholder slates are no longer rendered. The first pose loads immediately; other poses load on request and switch only after decoding. The existing generation guard, failed-load retry, tap/drag distinction, keyboard controls, reduced motion and pause behaviour are retained.
+- **Prototype.** The homepage reads each image’s path and intrinsic dimensions from the manifest. The existing B frame and background remain; each image is contained at its own aspect ratio, bottom-centred, with the existing bottom fade. The wireframes and placeholder slates are no longer rendered. The first pose loads immediately and the others switch only after decoding. Since PR 14 (2026-11-14) the pose a click would show next is fetched ahead once the page is idle and after every change; with Save-Data or a 2G connection only when the pointer or keyboard focus reaches Ema or the theatre card. The existing generation guard, failed-load retry, tap/drag distinction, keyboard controls, reduced motion and pause behaviour are retained.
 - **Prototype.** Shared `media.sources` corrects only the Ema provenance paragraph in all four languages. Because credits are shared, that factual paragraph also changes on Blank and Endfield credits pages; their theme components, layouts and interactions are not modified. The theatre’s four-language wording is unchanged.
 - **Approved.** The removed manga, key visual, other character art, avatar crops, old project previews and old showcase captures stay removed. New review screenshots are taken from the local production build outside tracked source; they are not the removed gallery files.
 - **Verification.** Compare every restored file directly with its historical Git blob and the fixed hash in the manifest; check dimensions and alpha; run Node 24 tests, build and `showcase:check`; exercise all five images across desktop/phone, four languages, light/dark, reduced motion, keyboard and touch. Hash the original checkout’s 15 modified files before and after. Save actual browser captures and detailed results in the workspace review output.
@@ -441,3 +453,39 @@ This section records the 2026-11-13 cleanup. Only its five Ema pose removals and
 
 - **Approved** (2026-11-14). Fix the legs reappearing below the theatre card in the stacked mobile layout, checking all five poses in light and dark mode before the authorised commit and push to PR 12.
 - **Prototype.** The image box, scale, intrinsic dimensions and original bytes remain unchanged. When the visible theatre crosses Ema, a mask on `.k-frames` fades the entire figure layer behind the card and a clip excludes the invisible tap area. Its endpoint shares the theatre’s bottom offset (64px on phones, 76px on portrait tablets), with 16px reserved for parallax. The storyboard is not painted over. Short layouts with the card beside Ema, desktop composition and no-JavaScript rendering retain their existing appearance.
+
+## 14. Owner's art plan: homepage still life (2026-11-14)
+
+The owner's plan (`EMA-ART-PLAN.md`, kept outside the repository) is labelled by the owner a proposal: not a final approval, and not authority to commit, open or update a pull request, merge or deploy. It names P0 (keep the five images and audit) and P1 (homepage decor) as this round's work.
+
+- **Approved** (2026-11-14). After reviewing the captures, the owner approved the P1 prototype in section 14.3 for commit, pull request, merge and deployment, with both filters on Ema's images removed and the still-life lines kept at ink 26 % (section 14.4).
+
+### 14.1 What the plan asks
+
+- **Proposed** (owner). Keep the reference-led stage and the five restored images; do not rebuild the layout. Make the empty storyboard panels look finished with a small, restrained, original still life on the theme "everyday things put away", matching the diary line 把喜欢的日常，慢慢收进这里: a closed notebook with a ribbon and a pen, a cup of tea with ripples, and a window light on the paper. At most two or three pieces, at the edges, low contrast; leaving space empty is fine and there is no fourth piece.
+- **Proposed** (owner). Visual weight stays Ema, then 荒泷旭 / Nero and the diary line, then the theatre card, then the paper and decor. Nothing on Ema, under the identity text or inside the theatre card. Phones get none or one piece, preferably only light or paper colour.
+- **Proposed** (owner). No room background, manga wall, scenery, visual-novel set, fake handwriting, invented dialogue or quotes, copied icons or emblems, filters or recolouring on the main art, new gold or mint, or new CJK web font. Light in the paper only; poses change the image only, never the decor.
+- **Proposed** (owner). Scope: the homepage stage only. About, Notes, Works, Games and Credits unchanged; Blank stays typographic; Endfield unchanged. Inner-page pilots (P2) need a later explicit approval; final recaptures (P3) wait until the art settles.
+- **Superseded** (owner, 2026-11-14). Any requirement for placeholders, commissioned main art, a 1642 × 2400 canvas or removing the five images (sections 8.2 and 8.4 to 8.6 above).
+
+### 14.2 P0 audit (2026-11-14, `claude/ema-art-motifs` from `main` `cbf4fb1`)
+
+- **Prototype.** The five images are present, named `ema-pose-01.webp` to `ema-pose-05.webp`, and their Git blobs are identical to `76c9da5`'s `ema.webp`, `ema-frame-wave.webp`, `ema-frame-together.webp`, `ema-frame-talk.webp` and `ema-frame-refute.webp`. Their SHA-256 values match the manifest. Sizes: 905 × 2400, 1030 × 2400 (three) and 1472 × 2048; all have alpha. They are referenced only through `ASSETS.json` by the homepage, and by tests.
+- **Prototype.** The labels in section 8.1 match `ema-messages.ts`.
+- **Prototype.** The stacked-layout crop holds: at 390 × 844 and 360 × 740 (Chrome 157, touch), in all five poses and both modes, nothing of the figure shows below the theatre card.
+- **Prototype.** Dark mode applied no filter to the images, but two existing filters touched them in other states: pulling up or docking the identity card dimmed the figure with `saturate(.9) brightness(.98)` (stage mode only), and hovering Ema added a pink `drop-shadow` glow around her outline. The reference applies neither. Both were removed at the owner's request (section 14.4).
+- **Prototype.** AGENTS.md holds no outdated placeholder clause. The outdated statements in this file are marked **Superseded** above, and the stale notes on the theatre card and on loading (sections 12 and 13) are corrected.
+
+### 14.3 P1 prototype
+
+- **Prototype.** The empty speech bubble in the right-hand panel above the theatre card is gone. That panel holds the closed notebook with its ribbon and pen in its upper part, where the card, when it appears, does not reach it: at least 9 px apart at 1280 × 720 and more at every other size measured. The three sparkles in the panel below gave way to the teacup on its saucer, with one fallen petal and three ripples. Both are line drawings in `Storyboard.astro`, without text. Every other panel is unchanged.
+- **Prototype.** The window light is one element in the paper layer (`.k-light`): two pane-shaped areas slanting from the viewer's upper left above the identity text and behind Ema's head, split by a cross of straight bars. On cream paper the panes are a 50 % paper wash that takes the screentone and hatching off where they fall, and the bars a 6 % ink shadow; on dark paper the panes are a 10 % light lift and the bars stay unlit. It is static and does not change with the poses. On windows 720 px tall or less it is shorter, so it stays above the identity text.
+- **Prototype.** Phones and portrait tablets (the stacked layout) show none of the three; the paper, screentone and blossoms are unchanged there.
+- **Prototype.** The theatre card is anchored by its top edge (section 2.2), so it keeps clear of the notebook in all four locales.
+- **Prototype.** Checked in Chrome 157 on the production build: five poses × light and dark at 1440 × 900, 1366 × 620, 1280 × 720 and 1920 × 1080 (mouse, at rest and with the pointer on Ema) and 390 × 844 and 360 × 740 (touch). A geometry sweep over 1440 × 900, 1366 × 620, 1280 × 720, 1920 × 1080, 2560 × 1440, 1024 × 768, 1180 × 820 and 1101 × 760, in all four locales (all five poses in zh-CN), found no overlap between the notebook or teacup and the identity text, the theatre card (shown or not), the 樱色便笺 button, the cue, the navigation, the console tab, the palette button or Ema's visible figure, and both stay inside the first screen. With the window light switched on and off, no pixel inside the identity text changed. Built Blank and Endfield pages are byte-identical to `main`; Ema's inner pages differ only in the name of the shared stylesheet. Not checked: Safari, physical phones, real trackpads. The owner reports Safari scrolling works.
+
+### 14.4 Decisions
+
+- **Approved** (2026-11-14). No filter on Ema's images in any state or colour mode: the docked dimming and the hover glow are removed. Hover feedback remains the pointer cursor and the theatre card that appears; keyboard focus keeps its dashed outline. `tests/ema-storyboard.test.mjs` fails if a filter is added to the figure again.
+- **Approved** (2026-11-14). The still life's lines stay at `--blank-ink` 26 %. The plan aims at about 12–22 % in a blue-grey like `#6a7084`, close to `--blank-muted`, but at `--blank-muted` 22 % the teacup's outline almost disappears into its dotted panel on cream paper; 26 % ink is darker than the screentone and far lighter than text. The window light stays within the plan's 4–12 % (bars 6 %, panes a 50 % paper wash over print only).
+- **Open.** P2 inner-page pilots and P3 final captures, as the plan says; each needs the owner's separate approval.

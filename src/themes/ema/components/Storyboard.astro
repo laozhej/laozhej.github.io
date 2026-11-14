@@ -1,10 +1,15 @@
 ---
 // The stage's back layer: a storyboard spread drawn in code (panel frames, screentones, hatching,
-// speed lines, blossoms and empty speech bubbles). It plays the part of the reference's manga
-// backdrop without using any of its artwork. No figures and no lettering: Ema stays the only
-// character on the stage. The column behind her carries only frames and quiet tones; the busier
-// motifs sit at the sides, and stage.css fades the layer further around her. Everything is computed
-// here, so every page renders identical markup.
+// speed lines and blossoms). It plays the part of the reference's manga backdrop without using any of
+// its artwork. No figures and no lettering: Ema stays the only character on the stage. The column
+// behind her carries only frames and quiet tones; the busier motifs sit at the sides, and stage.css
+// fades the layer further around her. Everything is computed here, so every page renders identical
+// markup.
+// Two panels on the right hold a quiet still life, "everyday things put away" (owner's art plan,
+// 2026-11-14): a closed notebook with a ribbon and a pen, and a cup of tea with a fallen petal. They
+// are original line drawings in this file, with no text on them. Each sits where the theatre card,
+// when it appears, does not cover it; stage.css colours them from the theme's ink and hides them in
+// the stacked phone layout.
 const W = 1600, H = 900;
 type Panel = { x: number; y: number; w: number; h: number; tone: string; motif?: string; skew?: number };
 const panels: Panel[] = [
@@ -19,10 +24,10 @@ const panels: Panel[] = [
   { x: 554, y: 654, w: 222, h: 232, tone: "plain" },
   { x: 824, y: 14, w: 276, h: 286, tone: "hatch" },
   { x: 1114, y: 14, w: 472, h: 186, tone: "fade-lav", motif: "clouds" },
-  { x: 1114, y: 214, w: 236, h: 206, tone: "plain", motif: "bubble" },
+  { x: 1114, y: 214, w: 236, h: 206, tone: "plain", motif: "notebook" },
   { x: 1364, y: 214, w: 222, h: 306, tone: "dots", motif: "petals" },
   { x: 824, y: 314, w: 276, h: 286, tone: "hatch" },
-  { x: 1114, y: 434, w: 236, h: 266, tone: "dots-lav", motif: "sparkle" },
+  { x: 1114, y: 434, w: 236, h: 266, tone: "dots-lav", motif: "teacup" },
   { x: 824, y: 614, w: 276, h: 272, tone: "fade" },
   { x: 1114, y: 714, w: 236, h: 172, tone: "plain", motif: "petals" },
   { x: 1364, y: 534, w: 222, h: 352, tone: "speed", skew: 14 },
@@ -33,6 +38,35 @@ const blossom = (cx: number, cy: number, r: number, turn = 0) =>
   Array.from({ length: 5 }, (_, i) => `<path d="${petal}" transform="translate(${cx} ${cy}) rotate(${turn + i * 72}) scale(${r})"/>`).join("") +
   `<circle cx="${cx}" cy="${cy}" r="${(r * 0.14).toFixed(1)}" class="sb-core"/>`;
 const loose = (cx: number, cy: number, r: number, turn: number) => `<path d="${petal}" transform="translate(${cx} ${cy}) rotate(${turn}) scale(${r})"/>`;
+// The still life is drawn in its own small coordinates and placed with a scale; strokes scale with it.
+// Notebook: about 162 x 68 units, lying a little askew, its page block and ribbon at the front edge.
+const notebook = `<g class="sb-still sb-notebook">
+  <path class="sb-still-paper" d="M16 70 L144 58 L144 64.5 L16 76.5 Z"/>
+  <path class="sb-still-rule" d="M16 72.2 L144 60.2 M16 74.4 L144 62.4"/>
+  <path class="sb-still-cover" d="M10 22 L138 10 L144 58 L16 70 Z"/>
+  <path class="sb-still-deep" d="M10 22 L20 21.1 L26 69.1 L16 70 Z"/>
+  <path class="sb-still-band" d="M114 12.3 L120 60.3 L120.8 66.6"/>
+  <path class="sb-still-pink" d="M60 66.4 L65 65.9 L65.4 78 L62.8 75.8 L60.5 78.4 Z"/>
+  <g transform="translate(76 39) rotate(15.5)">
+    <rect class="sb-still-paper" x="16" y="-2.6" width="70" height="5.2" rx="2.6"/>
+    <rect class="sb-still-deep" x="0" y="-2.9" width="27" height="5.8" rx="2.9"/>
+    <path class="sb-still-band" d="M7 -4.4 H23"/>
+    <path class="sb-still-deep" d="M86 -2.3 L96 0 L86 2.3 Z"/>
+  </g>
+</g>`;
+// Teacup: about 112 x 76 units, seen a little from above; a petal on the tea and its ripples.
+const teacup = `<g class="sb-still sb-teacup">
+  <ellipse class="sb-still-paper" cx="70" cy="100" rx="56" ry="13"/>
+  <path class="sb-still-rule" d="M14 100 Q70 121 126 100"/>
+  <ellipse class="sb-still-rule" cx="70" cy="99" rx="31" ry="6.5"/>
+  <path class="sb-still-line" d="M103 56 C122 51 125 76 99 80 M102.5 62 C114 60 115 71 100.5 73.5"/>
+  <path class="sb-still-paper" d="M34 46 C34 72 48 93 70 93 C92 93 106 72 106 46 Z"/>
+  <ellipse class="sb-still-paper" cx="70" cy="46" rx="36" ry="10"/>
+  <ellipse class="sb-still-tea" cx="70" cy="47.6" rx="31" ry="7.4"/>
+  <g class="sb-still-rule"><ellipse cx="80" cy="47.6" rx="6" ry="1.5"/><ellipse cx="80" cy="47.6" rx="11.5" ry="2.8"/><ellipse cx="80" cy="47.6" rx="17" ry="4.1"/></g>
+  <path class="sb-still-pink" d="M0 0 C-0.42 -0.36 -0.5 -0.86 -0.2 -1 L0 -0.86 L0.2 -1 C0.5 -0.86 0.42 -0.36 0 0 Z" transform="translate(80 49.5) rotate(-24) scale(5.2)"/>
+</g>`;
+const place = (art: string, x: number, y: number, scale: number) => `<g transform="translate(${x} ${y}) scale(${scale})">${art}</g>`;
 const rand = (seed: number) => { const x = Math.sin(seed * 9301 + 49297) * 233280; return x - Math.floor(x); };
 const clipId = (i: number) => `sb-clip-${i}`;
 const shape = (p: Panel) => p.skew
@@ -44,11 +78,10 @@ function motif(p: Panel, i: number) {
     case "bloom": return `<g class="sb-bloom">${blossom(cx + p.w * 0.12, cy - p.h * 0.05, Math.min(p.w, p.h) * 0.3, i * 11)}${blossom(cx - p.w * 0.26, cy + p.h * 0.22, Math.min(p.w, p.h) * 0.14, i * 23)}</g>`;
     case "bloom-big": return `<g class="sb-bloom">${blossom(p.x + p.w * 0.72, p.y + p.h * 0.46, p.h * 0.36, 8)}${blossom(p.x + p.w * 0.3, p.y + p.h * 0.7, p.h * 0.16, 30)}${blossom(p.x + p.w * 0.16, p.y + p.h * 0.26, p.h * 0.1, 50)}</g>`;
     case "petals": return `<g class="sb-petal">${Array.from({ length: 7 }, (_, k) => loose(p.x + p.w * (0.1 + 0.8 * rand(i * 13 + k)), p.y + p.h * (0.12 + 0.76 * rand(i * 7 + k * 3)), 9 + 9 * rand(i + k * 5), Math.round(360 * rand(i * 3 + k)))).join("")}</g>`;
-    case "sparkle": return `<g class="sb-spark">${[0.3, 0.68, 0.5].map((f, k) => { const sx = p.x + p.w * f, sy = p.y + p.h * (0.3 + k * 0.22), s = 10 + k * 7; return `<path d="M${sx} ${sy - s} Q${sx} ${sy} ${sx + s} ${sy} Q${sx} ${sy} ${sx} ${sy + s} Q${sx} ${sy} ${sx - s} ${sy} Q${sx} ${sy} ${sx} ${sy - s} Z"/>`; }).join("")}</g>`;
-    case "bubble": { // Kept small, faint and empty so it never competes with Ema.
-      const bw = p.w * 0.2, bh = p.h * 0.18;
-      return `<g class="sb-bubble"><path d="M${cx - bw} ${cy} a${bw} ${bh} 0 1 1 ${bw * 0.6} ${bh * 0.86} l-${bw * 0.46} ${bh * 0.5} l${bw * 0.08} -${bh * 0.6} a${bw} ${bh} 0 0 1 -${bw * 0.2} -${bh * 0.76} Z"/></g>`;
-    }
+    // In the upper part of its panel: the theatre card, when shown, covers the lower part.
+    case "notebook": return place(notebook, cx - 89 * 0.84, p.y + 9 - 10 * 0.84, 0.84);
+    // In the lower part of its panel, clear of the theatre card above and of Ema's feet and the cue.
+    case "teacup": return place(teacup, cx - 70 * 0.9, p.y + p.h - 34 - 113 * 0.9, 0.9);
     case "window": { const wx = p.x + p.w * 0.18, wy = p.y + p.h * 0.16, ww = p.w * 0.64, wh = p.h * 0.56; return `<g class="sb-line"><rect x="${wx}" y="${wy}" width="${ww}" height="${wh}"/><path d="M${wx + ww / 2} ${wy} v${wh} M${wx} ${wy + wh / 2} h${ww}"/><path d="M${wx - 16} ${wy - 8} C${wx + 10} ${wy + wh * 0.4} ${wx - 4} ${wy + wh * 0.8} ${wx + 12} ${wy + wh + 18} M${wx + ww + 16} ${wy - 8} C${wx + ww - 10} ${wy + wh * 0.4} ${wx + ww + 4} ${wy + wh * 0.8} ${wx + ww - 12} ${wy + wh + 18}"/></g>`; }
     case "clouds": return `<g class="sb-line">${[0.22, 0.58, 0.86].map((f, k) => { const x = p.x + p.w * f, y = p.y + p.h * (0.36 + 0.2 * (k % 2)); return `<path d="M${x - 46} ${y} a18 18 0 0 1 22 -20 a26 26 0 0 1 48 6 a16 16 0 0 1 20 18 Z"/>`; }).join("")}</g>`;
     default: return "";

@@ -501,7 +501,7 @@ The owner's plan (`EMA-ART-PLAN.md`, kept outside the repository) is labelled by
 - **Prototype.** Checked in Chrome 157 on the production build, all four locales: geometry at 1101 × 760, 1180 × 820, 1280 × 720, 1366 × 620, 1440 × 900, 1920 × 1080 and 2560 × 1440 (shown; no overlap with the kicker, title, count, introduction or site header; at least 30 px above the introduction and 58 px from the count) and 1100 × 800, 1024 × 768, 820 × 1180 and 390 × 844 (hidden). Of the 84 built pages, only the four Journal pages changed in content; the other 80, Blank and Endfield included, differ from `main` only in the name of the shared layout stylesheet, which gained only the plate's `.ema-content` rules, and the stylesheet order is unchanged.
 - **Approved** (2026-11-14). After reviewing the captures, the owner kept the strip exactly as in review boards 01–04 as the final Journal header and froze its style: no further changes to its size or tone. It is not extended to About, Works or Games.
 - **Approved** (2026-11-15). The owner accepted the pilot and authorised committing, pushing and the pull request (PR 16); no further style changes and no other pages.
-- **Open.** Merging and deploying need the owner's separate approval.
+- **Open, resolved** (2026-11-15). Merging and deploying needed the owner's separate approval, which the owner then gave. PR 16 was merged into `main` as `0b44aec` (GitHub records 2026-11-14 17:26 UTC, 01:26 on 2026-11-15 in UTC+8), and the Pages workflow deployed that commit (run 43621161655: build and deploy jobs succeeded).
 
 
 ### 14.6 Article-page pilot (2026-11-15)

@@ -18,6 +18,7 @@ const dateLabel = formatDate(date);
     <h1>{frontmatter.title}</h1>
     <p>{frontmatter.description}</p>
     <div class="blank-tag-line">{frontmatter.tags.map((tag: string) => <a href={`${href("/blog/")}?q=${encodeURIComponent(tag)}`}>#{tag}</a>)}</div>
+    <slot name="header-art" />
   </header>
   <div class="blank-article-shell">
     {headings.length > 0 && (
@@ -31,6 +32,7 @@ const dateLabel = formatDate(date);
     <article class="blank-article-body">
       {frontmatter.locale !== locale && <p class="blank-translation-notice" role="note">{t("article.originalLanguage")}</p>}
       <div class="blank-prose" data-site-prose lang={frontmatter.locale}><slot /></div>
+      <slot name="end-art" />
       <footer class="blank-article-end">
         <span class="blank-end-mark" aria-hidden="true"></span><p class="blank-kicker">{t("article.end")}</p>
         <p>{t("article.thanks")}</p>

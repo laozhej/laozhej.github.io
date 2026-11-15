@@ -1,0 +1,93 @@
+/* Ema Works page: the Works pilot (owner's request, 2026-11-15). Each project is one numbered sheet: its type,
+   title and status, its text, and its own screenshots on plain paper mats. The lead capture stands whole beside
+   the text (from 1101px; above the text on narrower screens) and its dark-mode twin replaces it in dark mode;
+   the other captures follow uncropped at one height in a contact row, captioned from the shared data. The
+   pictures are shown exactly as recorded: no crop, filter, blend, opacity or recolouring, so the light captures
+   stay light in dark mode. Every selector sits under .ema-content: the layout stylesheet that carries this
+   file also reaches Blank and Endfield pages. */
+.ema-content .ema-works [hidden] { display: none !important; }
+/* The sheet keeps the Journal's rhythm: the number in a 72px column, the text beside it. The plate's row
+   takes up any extra height, so the text always follows the title directly. */
+.ema-content .ema-works-entry {
+  display: grid; grid-template-columns: 72px minmax(300px, 1fr) minmax(0, 624px); grid-template-rows: auto 1fr auto;
+  grid-template-areas: "no head plate" ". text plate" ". sheet sheet";
+  column-gap: 24px; align-items: start; padding: 56px 0 64px; border-bottom: 1px solid var(--blank-line);
+}
+.ema-content .ema-works-entry:not(.has-plate) { grid-template-columns: 72px minmax(0, 1fr); grid-template-rows: none; grid-template-areas: "no head" ". text" ". sheet"; }
+.ema-content .ema-works-no { grid-area: no; padding-top: 2px; }
+.ema-content .ema-works-head { grid-area: head; }
+.ema-content .ema-works-head h2 { margin-top: 10px; font-family: var(--blank-serif); font-size: 1.5rem; font-weight: 500; line-height: 1.5; }
+.ema-content .ema-works-status { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: .6875rem; color: var(--blank-muted); }
+.ema-content .ema-works-status::before { content: ""; flex: none; width: 4px; height: 4px; background: var(--ema-pink); }
+
+.ema-content .ema-works-text { grid-area: text; margin-top: 28px; }
+.ema-content .ema-works-summary { max-width: 62ch; color: var(--blank-muted); font-size: .875rem; line-height: 1.9; }
+.ema-content .ema-works-details { margin-top: 22px; padding-left: 20px; border-left: 1px solid var(--ema-pink); font-size: .75rem; line-height: 1.75; }
+.ema-content .ema-works-details li + li { margin-top: 6px; }
+.ema-content .ema-works-direction { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; margin-top: 22px; font-size: .75rem; line-height: 1.75; }
+.ema-content .ema-works-direction dt { font: 400 .6875rem/1.6 var(--blank-mono); color: var(--blank-muted); }
+.ema-content .ema-works-direction dd b { margin-right: 6px; font-weight: 600; }
+.ema-content .ema-works-link { min-height: 44px; margin-top: 16px; }
+
+/* The lead plate: the whole capture in a paper mat, 600px wide at 1440px. A hairline edges the picture itself,
+   so a white page stays distinct from the mat. */
+.ema-content .ema-works-plate { grid-area: plate; margin-left: 24px; }
+.ema-content .ema-works-lead.is-dark { display: none; }
+html[data-color-mode="dark"] .ema-content .ema-works-lead.is-light { display: none; }
+html[data-color-mode="dark"] .ema-content .ema-works-lead.is-dark { display: block; }
+.ema-content .ema-works-mat { padding: 10px; border: 1px solid var(--blank-line); background: var(--ema-card); }
+.ema-content .ema-works-mat img { display: block; border: 1px solid var(--blank-line); }
+.ema-content .ema-works-lead img { width: 100%; height: auto; }
+/* Captions break between words (at the spaces around the middle dots), and inside one only when it cannot fit. */
+.ema-content .ema-works figcaption { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; margin-top: 12px; font-size: .75rem; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; }
+.ema-content .ema-works figcaption b { grid-row: span 2; font: 400 .6875rem/1.75 var(--blank-mono); color: var(--ema-pink); }
+.ema-content .ema-works figcaption small { color: var(--blank-muted); font-size: .6875rem; }
+
+/* The contact row: every other capture uncropped at one height, in its recorded order. A caption is never
+   narrower than 168px, so a phone-width capture keeps a readable caption without its picture being cropped. */
+.ema-content .ema-works-sheet { grid-area: sheet; margin-top: 56px; }
+.ema-content .ema-works-sheet h3 { margin-bottom: 18px; }
+.ema-content .ema-works-sheet ol { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px 24px; }
+.ema-content .ema-works-sheet li { flex: none; min-width: 168px; }
+.ema-content .ema-works-sheet .ema-works-mat { width: fit-content; padding: 6px; }
+.ema-content .ema-works-sheet img { width: auto; height: 180px; }
+.ema-content .ema-works-sheet figcaption { width: 0; min-width: 100%; }
+
+@media (max-width: 1279px) {
+  .ema-content .ema-works-sheet img { height: 150px; }
+}
+/* Tablets: the plate moves above the text, and the contact row sits two to a line. */
+@media (max-width: 1100px) {
+  .ema-content .ema-works-entry, .ema-content .ema-works-entry:not(.has-plate) {
+    grid-template-columns: 72px minmax(0, 1fr); grid-template-rows: none; grid-template-areas: "no head" ". plate" ". text" ". sheet";
+  }
+  .ema-content .ema-works-plate { max-width: 640px; margin: 32px 0 0; }
+  .ema-content .ema-works-sheet ol { display: grid; grid-template-columns: repeat(2, max-content); gap: 32px 24px; }
+}
+/* Phones: the plate and the contact row take the full width; the contact row is a two-column grid in which
+   each capture fills its column at its own proportions. */
+@media (max-width: 760px) {
+  .ema-content .ema-works-entry, .ema-content .ema-works-entry:not(.has-plate) {
+    grid-template-columns: 28px minmax(0, 1fr); column-gap: 14px; grid-template-areas: "no head" "plate plate" ". text" "sheet sheet"; padding: 40px 0 48px;
+  }
+  .ema-content .ema-works-head h2 { font-size: 1.1875rem; }
+  .ema-content .ema-works-plate { max-width: none; margin-top: 24px; }
+  .ema-content .ema-works-lead .ema-works-mat { padding: 8px; }
+  .ema-content .ema-works-text { margin-top: 24px; }
+  .ema-content .ema-works-summary { font-size: .8125rem; }
+  .ema-content .ema-works-sheet { margin-top: 44px; }
+  .ema-content .ema-works-sheet ol { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; }
+  .ema-content .ema-works-sheet li { min-width: 0; }
+  .ema-content .ema-works-sheet .ema-works-mat { width: auto; }
+  .ema-content .ema-works-sheet img { width: 100%; height: auto; }
+}
+/* Small phones drop the sheet number, as the Journal's rows do. */
+@media (max-width: 480px) {
+  .ema-content .ema-works-entry, .ema-content .ema-works-entry:not(.has-plate) { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "plate" "text" "sheet"; }
+  .ema-content .ema-works-no { display: none; }
+}
+/* Paper is light whatever the screen was: print the light capture, as Blank does. */
+@media print {
+  html[data-color-mode="dark"] .ema-content .ema-works-lead.is-light { display: block; }
+  html[data-color-mode="dark"] .ema-content .ema-works-lead.is-dark { display: none; }
+}

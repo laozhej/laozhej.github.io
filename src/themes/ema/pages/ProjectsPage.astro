@@ -1,5 +1,95 @@
 ---
-// Shared page content and feature hooks, presented by the active theme layout.
-import Page from "@/themes/blank/pages/ProjectsPage.astro";
+// Sakura Archive's Works page (pilot, owner's request 2026-11-15): one numbered sheet per project, showing
+// the project's own screenshots on plain paper mats. The capture named by `project.image` stands whole
+// beside the text as the lead plate, and its dark twin (`image.darkSrc`) replaces it in dark mode; the rest
+// of `project.gallery` follows uncropped, at one height, as a contact row. Captions are the recorded label
+// and meta (mode, size, capture date) and the numbers follow the gallery's order. Everything comes from the
+// shared project data; the filter hooks are those of Blank's Works page and appear under the same condition.
+import { Icon } from "astro-icon/components";
+import { getSiteContent } from "@/core/i18n/content";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import { site } from "@/lib/site";
+import PageLayout from "@/core/themes/PageLayout.astro";
+import PageHead from "@/themes/blank/components/PageHead.astro";
+
+const { locale, t, unit } = getI18n(Astro.url.pathname);
+const { projectEntries, projectTechLines } = getSiteContent(locale);
+// One project, or one kind of project, leaves nothing to filter.
+const filterable = projectEntries.length > 1 && projectTechLines.length > 1;
+const pad = (value: number) => String(value).padStart(2, "0");
+// Captions never break inside a date or a size ("2026-10-31", "390×844") and never start a line with the middle dot:
+// joiners and a no-break space only, as keepTails uses; the recorded text is unchanged.
+const caption = (text?: string) => keepTails(text ?? "").replace(/(\d)([-×])(?=\d)/g, "$1\u2060$2\u2060").replace(/ ·/g, "\u00a0·");
+type Shot = { src: string; width: number; height: number; alt: string; label?: string; meta?: string; number?: string };
+const sheets = projectEntries.map((project, index) => {
+  const gallery: Shot[] = (project.gallery ?? []).map((shot, at) => ({ ...shot, number: pad(at + 1) }));
+  const image = project.image;
+  // A capture without a gallery entry has no recorded caption, so it is shown without one.
+  const pick = (src?: string): Shot | undefined => (src ? gallery.find((shot) => shot.src === src) ?? { ...image, src } : undefined);
+  const light = pick(image?.src);
+  const dark = pick(image?.darkSrc);
+  const contacts = gallery.filter((shot) => shot.src !== light?.src && shot.src !== dark?.src);
+  const direction = projectTechLines.find((line) => line.key === project.line);
+  return { project, number: pad(index + 1), leads: [light, dark].filter((shot): shot is Shot => Boolean(shot)), contacts, direction };
+});
 ---
-<Page {...Astro.props}><slot /></Page>
+<PageLayout title={`Works | ${site.name}`} description={t("projects.description")}>
+  <PageHead index="02" title="Works" label={t("projects.label")} description={t("projects.intro")} count={pad(projectEntries.length)} unit={unit("common.projects", projectEntries.length)} />
+  <section class="ema-works" data-site-collection data-unit={t("common.projects")} data-unit-one={t("common.projectsOne")} aria-label={t("projects.index")}>
+    {filterable && (
+      <form class="blank-filter-form" data-site-filter-form hidden>
+        <fieldset class="blank-filters">
+          <legend class="blank-sr-only">{t("projects.categories")}</legend>
+          <button type="button" data-site-category="all" aria-pressed="true">{t("projects.all")}</button>
+          {projectTechLines.map((line) => <button type="button" data-site-category={line.key} aria-pressed="false">{line.label}</button>)}
+        </fieldset>
+      </form>
+    )}
+    {filterable && <div class="blank-list-heading"><span class="blank-kicker">PROJECT INDEX</span><output data-site-count aria-live="polite" aria-atomic="true">{projectEntries.length} {unit("common.projects", projectEntries.length)}</output></div>}
+    <div class="ema-works-list" data-site-entries>
+      {sheets.map(({ project, number, leads, contacts, direction }) => (
+        <article id={project.id} class:list={["ema-works-entry", { "has-plate": leads.length > 0 }]} data-site-entry data-category={project.line}>
+          <span class="ema-works-no blank-row-number" aria-hidden="true">{number}</span>
+          <header class="ema-works-head">
+            <p class="blank-kicker">{project.type}</p>
+            <h2>{keepTails(project.title)}</h2>
+            <p class="ema-works-status">{project.status}</p>
+          </header>
+          {leads.length > 0 && (
+            <div class="ema-works-plate">
+              {leads.map((shot, at) => (
+                <figure class:list={["ema-works-lead", leads.length > 1 && (at === 0 ? "is-light" : "is-dark")]}>
+                  <div class="ema-works-mat"><img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading={at === 0 ? "eager" : "lazy"} decoding="async" /></div>
+                  {shot.meta && <figcaption><b>{shot.number}</b><span>{caption(shot.label)}</span><small>{caption(shot.meta)}</small></figcaption>}
+                </figure>
+              ))}
+            </div>
+          )}
+          <div class="ema-works-text">
+            <p class="ema-works-summary">{keepTails(project.summary)}</p>
+            <ul class="ema-works-details">{project.details.map((detail) => <li>{keepTails(detail)}</li>)}</ul>
+            {direction && <dl class="ema-works-direction"><dt>{t("projects.directions")}</dt><dd><b>{direction.label}</b> {keepTails(direction.note)}</dd></dl>}
+            <a class="blank-text-link ema-works-link" href={project.url}>{t("projects.caseStudy")} <Icon name="tabler:arrow-up-right" size={17} /></a>
+          </div>
+          {contacts.length > 0 && (
+            <div class="ema-works-sheet">
+              <h3 class="blank-kicker">{t("ema.gallery.title")}</h3>
+              <ol>
+                {contacts.map((shot) => (
+                  <li>
+                    <figure>
+                      <div class="ema-works-mat"><img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" decoding="async" /></div>
+                      {shot.meta && <figcaption><b>{shot.number}</b><span>{caption(shot.label)}</span><small>{caption(shot.meta)}</small></figcaption>}
+                    </figure>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+    {filterable && <div class="blank-empty-results" data-site-empty hidden><p>{t("projects.empty")}</p><button class="blank-text-link" type="button" data-site-reset>{t("projects.reset")} <Icon name="tabler:arrow-right" size={17} /></button></div>}
+  </section>
+</PageLayout>

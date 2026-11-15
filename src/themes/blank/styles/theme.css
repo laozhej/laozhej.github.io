@@ -305,12 +305,13 @@ details[open] > summary > .blank-disclosure-icon { transform: rotate(180deg); }
 .blank-article-header h1 { max-width: 25ch; font: 600 2.75rem/1.5 var(--blank-serif); margin: 24px 0; text-wrap: pretty; }
 .blank-article-header > p { max-width: 76ch; color: var(--blank-muted); font-size: .9375rem; line-height: 1.9; }
 .blank-article-header .blank-tag-line { margin-top: 24px; }
-.blank-article-shell { display: grid; grid-template-columns: 220px minmax(0, 760px); justify-content: space-between; gap: 64px; padding-top: 40px; }
+.blank-article-shell { display: grid; grid-template-columns: fit-content(200px) minmax(0, 760px); justify-content: start; gap: 96px; padding-top: 40px; }
+.blank-article-shell:not(:has(> .blank-toc)) { column-gap: 0; }
 .blank-article-body { min-width: 0; grid-column: 2; }
 .blank-toc { position: sticky; top: 112px; align-self: start; min-width: 0; max-height: calc(100dvh - 136px); overflow: auto; scrollbar-width: thin; scrollbar-color: var(--blank-scrollbar) var(--blank-paper); padding-right: 12px; }
 .blank-toc summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 0 16px; font: .625rem/1.6 var(--blank-mono); }
 .blank-toc nav { padding: 0 0 8px; border-left: 1px solid var(--blank-line); }
-.blank-toc a { display: block; padding: 7px 0 7px 16px; color: var(--blank-muted); font-size: .6875rem; line-height: 1.75; border-left: 2px solid transparent; margin-left: -1px; }
+.blank-toc a { display: block; padding: 7px 0 7px 16px; color: var(--blank-muted); font-size: .6875rem; line-height: 1.75; text-wrap: balance; word-break: auto-phrase; border-left: 2px solid transparent; margin-left: -1px; }
 .blank-toc a.depth-3 { padding-left: 28px; font-size: .625rem; }
 .blank-toc a[aria-current="location"] { border-color: var(--blank-ink); color: var(--blank-ink); font-weight: 700; }
 .blank-prose { font-size: 1rem; line-height: 2; }
@@ -322,7 +323,7 @@ details[open] > summary > .blank-disclosure-icon { transform: rotate(180deg); }
 .blank-prose h2 { font: 600 1.75rem/1.6 var(--blank-serif); padding-top: 24px; margin: 2.4em 0 .9em; border-top: 1px solid var(--blank-line); }
 .blank-prose h3 { font-size: 1.25rem; margin: 1.8em 0 .75em; }
 .blank-prose :where(h4, h5, h6) { font-size: 1rem; margin: 1.6em 0 .6em; }
-.blank-prose :where(ul, ol) { padding-left: 1.6em; margin: 1.25em 0; }
+.blank-prose :is(ul, ol) { padding-left: 1.6em; margin: 1.25em 0; }
 .blank-prose ul { list-style: disc; }
 .blank-prose ol { list-style: decimal; }
 .blank-prose li { padding-left: .2em; margin: .45em 0; }
@@ -464,7 +465,7 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-home-owner img { width: 80px; height: 80px; }
   .blank-page-heading h1 { font-size: 5.5rem; }
   .blank-profile, .blank-about-section { gap: 40px; }
-  .blank-article-shell { grid-template-columns: 180px minmax(0, 1fr); gap: 36px; }
+  .blank-article-shell { grid-template-columns: fit-content(168px) minmax(0, 1fr); gap: 48px; }
   .blank-project summary { grid-template-columns: 44px 144px minmax(0, 1fr) 100px 24px; gap: 20px; }
   .blank-project-body { margin-left: 228px; padding-right: 24px; gap: 32px; }
   .blank-game-row { grid-template-columns: 44px 144px minmax(0, 1fr) auto; gap: 6px 20px; }

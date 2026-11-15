@@ -5,7 +5,7 @@
 // plate.css, loaded with the theme's inner-page styles in EmaLayout, shows it on the side-by-side
 // desktop layout only (1101px and wider). Its selectors all sit under .ema-content, so the other themes,
 // which load the same layout stylesheet, are unaffected.
-import { notebook, petal, place, teacup } from "../lib/still-life.mjs";
+import { notebook, petal, place, screentone, teacup } from "../lib/still-life.mjs";
 interface Props { motif: "notebook" | "teacup"; }
 const { motif } = Astro.props;
 // Each piece is centred in the plain panel (about 248 x 184 units).
@@ -15,7 +15,7 @@ const petals = [[302, 48, 9, 20], [352, 98, 11, 130], [318, 150, 8, 250], [374, 
 ---
 <div class="ema-plate" aria-hidden="true">
   <svg viewBox="0 0 400 200" focusable="false">
-    <defs><pattern id="ema-plate-dots" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><circle cx="4.5" cy="4.5" r="1.7" class="ema-plate-dot" /></pattern></defs>
+    <defs><Fragment set:html={screentone("ema-plate-dots", "ema-plate-dot")} /></defs>
     <path class="ema-plate-panel" d="M6 8 H262 L246 192 H6 Z" />
     <Fragment set:html={art} />
     <path class="ema-plate-panel" d="M276 8 H394 V192 H260 Z" />

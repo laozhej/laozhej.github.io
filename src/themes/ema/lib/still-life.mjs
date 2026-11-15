@@ -1,8 +1,17 @@
 // Ema's still life (owner's art plan, 2026-11-14): original line drawings in code, with no text on them.
 // The homepage storyboard places them in two panels; the Journal page header shows the notebook as a
 // pilot (art plan P2). Their colours come from the .sb-still-* classes in stage.css and plate.css.
+// Article pages (pilot, 2026-11-15) take the ribbon, the petal and the screentone below for their
+// decorations (components/ArticleArt.astro, coloured in article.css).
 // A five-petal blossom's petal, notched at the tip, centred on 0,0 at radius 1.
 export const petal = "M0 0 C-0.42 -0.36 -0.5 -0.86 -0.2 -1 L0 -0.86 L0.2 -1 C0.5 -0.86 0.42 -0.36 0 0 Z";
+// The notebook's ribbon hanging straight: 12 units wide, its tail cut in a fishtail half as deep as the
+// ribbon is wide, like the one under the notebook. It is drawn 160 units long and shown through a viewport
+// aligned to its tail (preserveAspectRatio "xMidYMax slice"), so a page can show as much of it as it needs
+// without stretching the cut.
+export const ribbon = "M0 0 H12 V160 L6 154 L0 160 Z";
+// Screentone: round dots on a 9-unit grid turned 30 degrees, the storyboard's tone, as an SVG pattern.
+export const screentone = (id, dotClass) => `<pattern id="${id}" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(30)"><circle cx="4.5" cy="4.5" r="1.7" class="${dotClass}"></circle></pattern>`;
 // The still life is drawn in its own small coordinates and placed with a scale; strokes scale with it.
 // Notebook: about 162 x 68 units, lying a little askew, its page block and ribbon at the front edge.
 export const notebook = `<g class="sb-still sb-notebook">

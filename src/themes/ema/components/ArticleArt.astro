@@ -1,0 +1,25 @@
+---
+// Article-page pilot (owner's request, 2026-11-15): three quiet decorations on Ema's article pages, drawn
+// in code from the homepage still life (lib/still-life.mjs), with no text. Blank's shared ArticlePage offers
+// two empty slots and only Ema's ArticlePage fills them, so Blank and Endfield render nothing here.
+//   header: a short bookmark ribbon in the margin beside the title (the notebook's ribbon, hanging straight)
+//           and, on the side-by-side desktop layout, a screentone corner in the outer margin beside the header;
+//   end:    a fine rule with three fallen petals after the body, before the article's end note.
+// article.css places and colours them; every piece is hidden from assistive technology and ignores the pointer.
+import { petal, ribbon, screentone } from "../lib/still-life.mjs";
+interface Props { part: "header" | "end"; }
+const { part } = Astro.props;
+// Three petals of different sizes fallen across the middle of the rule (280 x 36 units).
+const petals = [[127, 22, 14, 248], [141, 16, 16, 132], [156, 24, 11, 34]]
+  .map(([x, y, r, turn]) => `<path class="ema-coda-petal" d="${petal}" transform="translate(${x} ${y}) rotate(${turn}) scale(${r})"/>`).join("");
+// The corner fades from its top right, at the paper's edge, towards the title.
+const corner = `<defs>${screentone("ema-corner-dots", "ema-corner-dot")}<radialGradient id="ema-corner-fade-g" cx="1" cy="0" r="1"><stop offset="0" stop-color="#fff"/><stop offset=".5" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><mask id="ema-corner-fade" maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill="url(#ema-corner-fade-g)"/></mask></defs><rect width="150" height="160" fill="url(#ema-corner-dots)" mask="url(#ema-corner-fade)"/>`;
+---
+{part === "header" ? (
+  <>
+    <div class="ema-ribbon" aria-hidden="true"><svg viewBox="0 0 12 160" preserveAspectRatio="xMidYMax slice" focusable="false"><path d={ribbon} /></svg></div>
+    <div class="ema-corner" aria-hidden="true"><svg viewBox="0 0 150 160" focusable="false"><Fragment set:html={corner} /></svg></div>
+  </>
+) : (
+  <div class="ema-coda" aria-hidden="true"><svg viewBox="0 0 280 36" focusable="false"><path class="ema-coda-rule" d="M0 20 H280" /><Fragment set:html={petals} /></svg></div>
+)}

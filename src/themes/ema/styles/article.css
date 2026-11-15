@@ -1,0 +1,47 @@
+/* Ema article pages: the article-page pilot (owner's request, 2026-11-15). Three quiet decorations drawn in
+   code (components/ArticleArt.astro): a short bookmark ribbon in the margin beside the title, a screentone
+   corner in the outer margin beside the header on the side-by-side desktop layout, and a fine rule with three
+   fallen petals between the body and the end note. They are positioned or added outside the text, so the
+   article's measure, type, line height, contents list and navigation stay as they are; they ignore the pointer
+   and selection, and print and forced colours leave them out. Colours are mixed from theme tokens with the
+   homepage still life's formulas (stage.css), so dark mode follows. Every selector sits under .ema-content:
+   the layout stylesheet that carries this file also reaches Blank and Endfield pages. */
+.ema-content :is(.ema-ribbon, .ema-corner, .ema-coda) {
+  --art-pink: color-mix(in srgb, var(--ema-pink-soft) 90%, var(--ema-card));
+  --art-dot: color-mix(in srgb, var(--ema-pink-soft) 62%, transparent);
+  pointer-events: none; -webkit-user-select: none; user-select: none;
+}
+.ema-content :is(.ema-ribbon, .ema-corner, .ema-coda) svg { display: block; width: 100%; height: 100%; }
+/* The ribbon hangs in the margin from just above the category line to the middle of the title's first line. */
+.ema-content .blank-article-header:has(> .ema-ribbon) { position: relative; }
+.ema-content .ema-ribbon { position: absolute; top: -12px; left: -31px; width: 11px; height: 88px; }
+.ema-content .ema-ribbon path { fill: var(--art-pink); }
+/* From 1260px the console's tab sits on the left edge (34px wide); in the narrowest of those windows the
+   ribbon moves in towards the title so that at least 12px stay between them. */
+@media (min-width: 1260px) {
+  .ema-content .ema-ribbon { left: max(-31px, 46px - (100vw - 100%) / 2); }
+}
+/* The corner is densest at the paper's right edge, level with the top of the header, and fades towards the
+   title, which never reaches it (its measure stops at 25ch). It shows only where the layout sits side by side. */
+.ema-content .ema-corner { display: none; }
+@media (min-width: 1101px) {
+  .ema-content .ema-corner { display: block; position: absolute; top: 0; right: calc((100% - 100vw) / 2); width: min(150px, (100vw - 100%) / 2 + 40px); aspect-ratio: 150 / 160; }
+}
+.ema-content .ema-corner-dot { fill: var(--art-dot); }
+/* The rule and its petals sit under the text, centred, with the end note's own spacing below them. */
+.ema-content .ema-coda { width: 280px; height: 36px; margin: 56px auto 0; }
+.ema-content .ema-coda-rule { fill: none; stroke: var(--ema-line-strong); stroke-width: 1; }
+.ema-content .ema-coda-petal { fill: var(--art-pink); }
+@media (max-width: 1100px) {
+  .ema-content .ema-ribbon { left: -24px; width: 9px; }
+}
+@media (max-width: 760px) {
+  .ema-content .ema-ribbon { top: -10px; left: -15px; width: 7px; height: 76px; }
+  .ema-content .ema-coda { width: 240px; height: 31px; margin-top: 44px; }
+}
+@media (max-width: 480px) {
+  .ema-content .ema-ribbon { height: 70px; }
+}
+@media print, (forced-colors: active) {
+  .ema-content :is(.ema-ribbon, .ema-corner, .ema-coda) { display: none; }
+}

@@ -13,7 +13,7 @@
 | 站名和全站导航定义 | `site`，来自 `src/lib/site.ts` |
 | UI、无障碍与 SEO 文案 | `getI18n(pathname)`，来自 `src/core/i18n` |
 | 避免尴尬换行 | `keepTails(text)`，来自 `src/core/i18n/wrap.mjs` |
-| 项目截图及其深色版本 | `project.image.src` 与 `project.image.darkSrc`，来源记录在 `public/projects/ASSETS.json` |
+| 项目截图及其深色版本 | `project.image.src` 与 `project.image.darkSrc`，来源记录在 `public/projects/ASSETS.json`；截图组 `project.gallery`，每张带 `label`、`meta`（模式、尺寸、截图日期）与 `alt` |
 
 所有主题都从这些接口读取，不在主题目录复制个人资料或文章。文章详细页继续通过 Astro 内容渲染接口显示同一篇 Markdown。更新内容并重新构建、部署后，所有接入的主题同步更新。不同语言的译文仍要分别维护，不能把内容共用理解为自动翻译。
 
@@ -22,6 +22,8 @@
 页面上显示的标题和短句用 `keepTails()` 包一层：它把结尾的数字和前一个词连在一起（「救赎 2」不会只剩「2」换到下一行），并让中日文句末的两个字留在同一行（不会出现「交／互。」）。只用于显示的文字，不要用于 `data-search`、`aria-label` 等属性。数据文件里照常书写，不要手动插入不换行字符。
 
 项目截图有浅色和深色两张，都是同一页面的真实截图。展示截图的页面同时输出两张 `<img>`，分别加上 `blank-shot-light` 和 `blank-shot-dark`，由 Blank 样式按 `html[data-color-mode]` 只显示其中一张，深色页面上不会出现一块亮白的图。更换截图时两张一起重新截取，并更新 `ASSETS.json`。
+
+艾玛的作品页（2026-11-15 试点）同样成对输出主图，但每张图和它的图注各放在一个 `<figure>` 里（`.ema-works-lead.is-light` / `.is-dark`），由 `styles/works.css` 按同一属性切换；`project.gallery` 中其余截图按记录顺序排在下方的截图行，原样显示，深色模式下也保持浅色原图。图注直接使用每张截图的 `label` 与 `meta`，替代文字使用 `alt`，所以更换截图时这三项要和 `ASSETS.json` 一起更新；`tests/ema-works.test.mjs` 核对四种语言图注中的模式、尺寸和日期与清单一致。
 
 喜欢的游戏（`favoriteGames`）每一项都带有 `url`：由 `getSiteContent` 按 `key` 从 `games.ts` 中同一款游戏取得，优先官方游戏页面，没有时用 Steam 商店页面。新主题展示喜欢的游戏时，游戏名必须链接到 `item.url`（新标签页打开，`rel="noopener noreferrer"`）；不要在主题里另写链接。新增喜欢的游戏时，先确认它在 `games.ts` 里，并填写 `url`（官方页面）或 `steam`。
 
@@ -140,7 +142,7 @@ URL 参数 `q`、`category`、`sort` 由公共核心读写，保留当前语言�
 
 新增主题仍需实现页面、样式和四种语言的路由；公共模块不会自动生成这些 UI。`src/core/themes/registry.ts` 导出 `routing.mjs` 中的主题登记与纯函数；在 `themes` 登记主题根路径，并用 `getThemePath(theme, path, locale)` 生成该主题内的导航和文章链接。传入已有主题路径也不会重复添加根路径；省略 locale 时保留输入路径中的语言。`getTheme(path)` 识别当前主题，`stripTheme(path)` 返回去除语言和主题前缀的内容路径。原始 `core/i18n` 的 `getI18n().href()` 只处理语言前缀，不会自动添加主题根路径。
 
-共用内页可使用 `core/themes/i18n.ts` 的 `getThemedI18n(pathname)`；它保留原翻译接口，并让 `href()` 根据当前 URL 自动选择主题。`core/themes/PageLayout.astro` 按当前主题选择完整布局，同时透传页面 props 和正文 slot。Ema 的非首页包装页复用现有内容与功能标记，避免维护另一套文章、搜索或收藏逻辑；Ema 首页独立实现。Blank 的 `PageHead` 在标题行内留有可选的具名插槽 `art`，`BlogIndexPage` 以 `head-art` 转发；目前只有 Ema 的文字页（美术方案 P2 试点）填入，Blank 与终末地不传入内容，输出不变。Blank 的 `ArticlePage` 另有两个空的具名插槽：文章头部标签行之后的 `header-art`，以及正文（`data-site-prose`）之后、文末说明之前的 `end-art`；目前只有 Ema 的文章页（2026-11-15 文章页试点，`components/ArticleArt.astro`）填入书签丝带、网点角饰和带花瓣的细分隔线，Blank 与终末地不传入内容，输出不变。装饰不放进正文容器，阅读进度、目录和正文排版不受影响。插槽内容的样式须限定在本主题的类名下（Ema 为 `.ema-content`），因为各主题布局的样式表会经 `PageLayout` 加载到所有主题的页面。`stripTheme("/ja/themes/ema/blog/")` 返回 `/blog/`，可直接用于导航当前栏目的判断。
+共用内页可使用 `core/themes/i18n.ts` 的 `getThemedI18n(pathname)`；它保留原翻译接口，并让 `href()` 根据当前 URL 自动选择主题。`core/themes/PageLayout.astro` 按当前主题选择完整布局，同时透传页面 props 和正文 slot。Ema 的非首页包装页复用现有内容与功能标记，避免维护另一套文章、搜索或收藏逻辑；Ema 首页独立实现。Ema 的作品页（2026-11-15 试点）也独立实现：读取同一份 `projectEntries` 与 `projectTechLines`，保留 Blank 作品页的 `data-site-*` 标记，在不止一个项目和方向时同样输出筛选；Blank 的 `ProjectsPage` 不变，Blank 与终末地照旧使用它。其样式 `styles/works.css` 随 Ema 布局的样式表在 `article.css` 之后加载，全部限定在 `.ema-content` 下。Blank 的 `PageHead` 在标题行内留有可选的具名插槽 `art`，`BlogIndexPage` 以 `head-art` 转发；目前只有 Ema 的文字页（美术方案 P2 试点）填入，Blank 与终末地不传入内容，输出不变。Blank 的 `ArticlePage` 另有两个空的具名插槽：文章头部标签行之后的 `header-art`，以及正文（`data-site-prose`）之后、文末说明之前的 `end-art`；目前只有 Ema 的文章页（2026-11-15 文章页试点，`components/ArticleArt.astro`）填入书签丝带、网点角饰和带花瓣的细分隔线，Blank 与终末地不传入内容，输出不变。装饰不放进正文容器，阅读进度、目录和正文排版不受影响。插槽内容的样式须限定在本主题的类名下（Ema 为 `.ema-content`），因为各主题布局的样式表会经 `PageLayout` 加载到所有主题的页面。`stripTheme("/ja/themes/ema/blog/")` 返回 `/blog/`，可直接用于导航当前栏目的判断。
 
 语言前缀位于主题路径之前，例如 `/ja/themes/ema/blog/`。`src/pages/themes/ema/[...page].astro` 生成中文页面，`src/pages/[lang]/themes/ema/[...page].astro` 生成繁中、日、英页面，统一调用 `getThemeStaticPaths` 读取公共文章和稳定 slug。主题内包含首页、文章列表与详情、作品、游戏、关于、致谢和 404。Blank 的中文错误页仍是 `/404.html`，艾玛对应 `/themes/ema/404/`；语言和主题切换均映射到实际生成路径。
 

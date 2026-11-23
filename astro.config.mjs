@@ -2,6 +2,7 @@ import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 import sitemap from "@astrojs/sitemap";
 import { fluidPx } from "./src/core/styles/fluid-px.mjs";
+import { isIndexedPath } from "./src/core/themes/routing.mjs";
 
 export default defineConfig({
   site: "https://laozhej.github.io",
@@ -9,10 +10,10 @@ export default defineConfig({
   trailingSlash: "always",
   integrations: [
     icon(),
-    // List only the Blank (root) copy of each page: theme routes repeat the same
-    // content in another look. 404 routes are excluded and marked noindex.
+    // List only the canonical theme's copy of each page (see canonicalTheme in
+    // src/core/themes/routing.mjs); 404 routes are left out and marked noindex.
     sitemap({
-      filter: (page) => !/\/themes\/|\/404(?:\.html|\/)$/.test(new URL(page).pathname),
+      filter: (page) => isIndexedPath(new URL(page).pathname),
       i18n: { defaultLocale: "zh-CN", locales: { "zh-CN": "zh-CN", "zh-TW": "zh-TW", ja: "ja", en: "en" } },
     }),
   ],

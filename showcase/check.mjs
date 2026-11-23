@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { canonicalTheme } from "../src/core/themes/routing.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const showcase = path.join(root, "showcase");
@@ -30,11 +31,19 @@ for (const locale of locales) {
       const html = await readFile(file, "utf8");
       assert(html.includes(`lang="${locale}"`), `${url}: wrong HTML language`);
       assert(html.includes(`data-theme="${theme}"`), `${url}: wrong theme`);
-      assert(html.includes(`rel="canonical" href="https://laozhej.github.io${url}"`), `${url}: wrong canonical`);
-      for (const other of locales) {
-        const target = route(other, theme, section);
-        assert(html.includes(`hreflang="${other}" href="https://laozhej.github.io${target}"`), `${url}: wrong ${other} alternate`);
+      if (section === "404") {
+        // 404 routes are served with status 200 by the theme roots: never indexed, no canonical.
+        assert(html.includes('<meta name="robots" content="noindex">'), `${url}: 404 must be noindex`);
+        assert(!html.includes('rel="canonical"') && !html.includes('<link rel="alternate" hreflang='), `${url}: 404 names no canonical or alternates`);
+      } else {
+        // Every theme's copy names the canonical theme's route, in each locale.
+        assert(html.includes(`rel="canonical" href="https://laozhej.github.io${route(locale, canonicalTheme, section)}"`), `${url}: wrong canonical`);
+        for (const other of [...locales, "x-default"]) {
+          const target = route(other === "x-default" ? "zh-CN" : other, canonicalTheme, section);
+          assert(html.includes(`hreflang="${other}" href="https://laozhej.github.io${target}"`), `${url}: wrong ${other} alternate`);
+        }
       }
+      assert(html.includes(`property="og:url" content="https://laozhej.github.io${url}"`), `${url}: og:url is the page itself`);
       if (section === "projects") {
         assert(html.includes(`href="${showcaseUrl}"`), `${url}: missing case-study link`);
         assert(html.includes(caseLabels[locale]), `${url}: missing localized label`);

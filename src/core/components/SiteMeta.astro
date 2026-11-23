@@ -1,10 +1,12 @@
 ---
 // Search and link-preview metadata shared by every theme layout.
-// Each page is canonical to itself and lists its own theme's copy in every locale
-// (showcase/check.mjs holds that contract). Theme 404 routes are served with
-// status 200, so every 404 page asks not to be indexed.
+// Every theme renders the same content, so canonical and hreflang URLs name the
+// canonical theme's copy (canonicalTheme in core/themes/routing.mjs) in each locale;
+// og:url stays on the page itself so shared links open the theme that was shared.
+// Theme 404 routes are served with status 200, so 404 pages ask not to be indexed
+// and name no canonical URL.
 import { getI18n, localizePath, locales, type Locale } from "@/core/i18n";
-import { stripTheme } from "@/core/themes/registry";
+import { canonicalTheme, getThemePath, stripTheme } from "@/core/themes/registry";
 import { site } from "@/lib/site";
 
 interface Props {
@@ -19,16 +21,18 @@ const { locale, t } = getI18n(Astro.url.pathname);
 const notFound = /^\/404(?:\.html|\/)?$/.test(stripTheme(Astro.url.pathname));
 const ogLocales: Record<Locale, string> = { "zh-CN": "zh_CN", "zh-TW": "zh_TW", ja: "ja_JP", en: "en_US" };
 const absolute = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path);
-const canonical = absolute(localizePath(Astro.url.pathname, locale));
+const indexed = (language: Locale) => absolute(getThemePath(canonicalTheme, Astro.url.pathname, language));
+const self = absolute(localizePath(Astro.url.pathname, locale));
 const image = article?.cover ? absolute(article.cover) : absolute(`/og/${locale}.png`);
 const feed = localizePath("/rss.xml", locale);
 ---
 <meta name="description" content={description} />
-{notFound && <meta name="robots" content="noindex" />}
-<link rel="canonical" href={canonical} />
-{locales.map((language: Locale) => <link rel="alternate" hreflang={language} href={absolute(localizePath(Astro.url.pathname, language))} />)}
-<link rel="alternate" hreflang="x-default" href={absolute(localizePath(Astro.url.pathname, "zh-CN"))} />
-<meta property="og:url" content={canonical} />
+{notFound ? <meta name="robots" content="noindex" /> : <>
+  <link rel="canonical" href={indexed(locale)} />
+  {locales.map((language: Locale) => <link rel="alternate" hreflang={language} href={indexed(language)} />)}
+  <link rel="alternate" hreflang="x-default" href={indexed("zh-CN")} />
+</>}
+<meta property="og:url" content={self} />
 <link rel="alternate" type="application/rss+xml" title={`${site.name} · ${t("nav.blog")}`} href={feed} />
 <meta property="og:site_name" content={siteName} />
 <meta property="og:title" content={title} />

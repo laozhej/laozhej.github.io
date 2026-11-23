@@ -7,6 +7,11 @@ export const themes = [
   { id: "endfield", root: "/themes/endfield", labelKey: "theme.endfield" },
 ];
 
+// The theme whose copy of each page search engines index. Every page names this
+// theme's route as its canonical URL and in its hreflang links, and only its routes
+// go in the sitemap. Changing it does not change which theme the root URL serves.
+export const canonicalTheme = "blank";
+
 export function isTheme(value) {
   return themes.some(({ id }) => id === value);
 }
@@ -43,4 +48,9 @@ export function getThemePath(theme, path = "/", locale = getLocale(path)) {
   // Blank uses GitHub Pages' root 404.html; named themes have ordinary 404 routes.
   if (theme !== "blank") content = content.replace(/^\/404(?:\.html|\/?)($|[?#])/, "/404/$1");
   return localizePath(`${entry.root}${content}`, locale);
+}
+
+// Routes listed in the sitemap: the canonical theme's pages, without 404 pages.
+export function isIndexedPath(path) {
+  return getTheme(path) === canonicalTheme && !/^\/404(?:\.html|\/)?$/.test(stripTheme(path));
 }

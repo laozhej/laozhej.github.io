@@ -1,0 +1,60 @@
+{
+  "assets": [
+    {
+      "path": "/og/zh-CN.png",
+      "kind": "typeset link-preview card",
+      "locale": "zh-CN",
+      "generator": "scripts/og-image.mjs (system Chrome 157 via playwright-core, macOS system fonts)",
+      "createdDate": "2026-11-23",
+      "description": "1200x630 card that repeats the Blank home hero (kicker, byline, site name, two-line statement) in this locale, typeset from site.ts and messages.ts. Text and rules only: no illustration, photograph or third-party artwork, and no image-generation model. Used as og:image for every page in this locale.",
+      "dimensions": [
+        1200,
+        630
+      ],
+      "bytes": 46942,
+      "sha256": "4dce81e1ff974319dac61a00e498fcecd2380e7b0fe8859a3f03f6c67d6c2f72"
+    },
+    {
+      "path": "/og/zh-TW.png",
+      "kind": "typeset link-preview card",
+      "locale": "zh-TW",
+      "generator": "scripts/og-image.mjs (system Chrome 157 via playwright-core, macOS system fonts)",
+      "createdDate": "2026-11-23",
+      "description": "1200x630 card that repeats the Blank home hero (kicker, byline, site name, two-line statement) in this locale, typeset from site.ts and messages.ts. Text and rules only: no illustration, photograph or third-party artwork, and no image-generation model. Used as og:image for every page in this locale.",
+      "dimensions": [
+        1200,
+        630
+      ],
+      "bytes": 48411,
+      "sha256": "ca65df59597dbe0da697b61792c13533fa19aa76d73186673312db3f1524cb3c"
+    },
+    {
+      "path": "/og/ja.png",
+      "kind": "typeset link-preview card",
+      "locale": "ja",
+      "generator": "scripts/og-image.mjs (system Chrome 157 via playwright-core, macOS system fonts)",
+      "createdDate": "2026-11-23",
+      "description": "1200x630 card that repeats the Blank home hero (kicker, byline, site name, two-line statement) in this locale, typeset from site.ts and messages.ts. Text and rules only: no illustration, photograph or third-party artwork, and no image-generation model. Used as og:image for every page in this locale.",
+      "dimensions": [
+        1200,
+        630
+      ],
+      "bytes": 49973,
+      "sha256": "2e2b77cdbef0bee3d614d2ee6cc076762d35ba1189916f2b06132f08f25abc1a"
+    },
+    {
+      "path": "/og/en.png",
+      "kind": "typeset link-preview card",
+      "locale": "en",
+      "generator": "scripts/og-image.mjs (system Chrome 157 via playwright-core, macOS system fonts)",
+      "createdDate": "2026-11-23",
+      "description": "1200x630 card that repeats the Blank home hero (kicker, byline, site name, two-line statement) in this locale, typeset from site.ts and messages.ts. Text and rules only: no illustration, photograph or third-party artwork, and no image-generation model. Used as og:image for every page in this locale.",
+      "dimensions": [
+        1200,
+        630
+      ],
+      "bytes": 46810,
+      "sha256": "58f6a2eca8267fa9245074e9f41f46c7eeafdd1a20022f019060e7b5870cedb2"
+    }
+  ]
+}

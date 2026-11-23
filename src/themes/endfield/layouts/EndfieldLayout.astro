@@ -5,7 +5,7 @@ import "@fontsource-variable/saira/wdth.css";
 import "../styles/theme.css";
 import { Icon } from "astro-icon/components";
 import { site } from "@/lib/site";
-import { getI18n, localizePath, locales, type Locale } from "@/core/i18n";
+import { getI18n } from "@/core/i18n";
 import { getThemePath, stripTheme } from "@/core/themes/registry";
 import ThemePreference from "@/core/themes/ThemePreference.astro";
 import ThemeSwitcher from "@/core/themes/ThemeSwitcher.astro";
@@ -13,6 +13,7 @@ import LanguagePreference from "@/core/i18n/LanguagePreference.astro";
 import LanguageSwitcher from "@/core/i18n/LanguageSwitcher.astro";
 import ColorModePreference from "@/core/preferences/ColorModePreference.astro";
 import SiteIcons from "@/core/components/SiteIcons.astro";
+import SiteMeta from "@/core/components/SiteMeta.astro";
 import SiteAttribution from "@/core/components/SiteAttribution.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
@@ -26,7 +27,6 @@ const title = pageTitle.replaceAll(site.name, brand);
 // The header mark matches the home nameplate: the name without its possessive, then the role on a cut tag.
 const [brandHead, ...brandTail] = brand.split(" ");
 const brandName = brandHead.replace(/[’']s$/i, "");
-const canonical = Astro.site ? new URL(localizePath(Astro.url.pathname, locale), Astro.site) : undefined;
 const navItems = site.nav.map((item, index) => ({
   ...item,
   label: t(`nav.${item.key}`),
@@ -41,13 +41,7 @@ const navItems = site.nav.map((item, index) => ({
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <LanguagePreference /><ThemePreference /><SiteIcons />
     <ColorModePreference lightColor="#f4f4f2" darkColor="#191919" />
-    <title>{title}</title><meta name="description" content={description} />
-    <meta property="og:title" content={title} /><meta property="og:description" content={description} />
-    <meta property="og:type" content={isArticlePage ? "article" : "website"} />
-    <meta property="og:locale" content={{ "zh-CN": "zh_CN", "zh-TW": "zh_TW", ja: "ja_JP", en: "en_US" }[locale]} />
-    {canonical && <><link rel="canonical" href={canonical} /><meta property="og:url" content={canonical} /></>}
-    {Astro.site && locales.map((language: Locale) => <link rel="alternate" hreflang={language} href={new URL(localizePath(Astro.url.pathname, language), Astro.site)} />)}
-    {article && <meta property="article:published_time" content={article.pubDate.toISOString()} />}
+    <title>{title}</title><SiteMeta title={title} description={description} siteName={brand} isArticlePage={isArticlePage} article={article} />
     <SiteNavigation />
   </head>
   <body data-blank data-endfield data-endfield-home={home ? "" : undefined}>

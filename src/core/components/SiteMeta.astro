@@ -1,0 +1,47 @@
+---
+// Search and link-preview metadata shared by every theme layout.
+// Each page is canonical to itself and lists its own theme's copy in every locale
+// (showcase/check.mjs holds that contract). Theme 404 routes are served with
+// status 200, so every 404 page asks not to be indexed.
+import { getI18n, localizePath, locales, type Locale } from "@/core/i18n";
+import { stripTheme } from "@/core/themes/registry";
+import { site } from "@/lib/site";
+
+interface Props {
+  title: string;
+  description: string;
+  siteName?: string;
+  isArticlePage?: boolean;
+  article?: { pubDate: Date; updatedDate?: Date; cover?: string };
+}
+const { title, description, siteName = site.name, isArticlePage = false, article } = Astro.props;
+const { locale, t } = getI18n(Astro.url.pathname);
+const notFound = /^\/404(?:\.html|\/)?$/.test(stripTheme(Astro.url.pathname));
+const ogLocales: Record<Locale, string> = { "zh-CN": "zh_CN", "zh-TW": "zh_TW", ja: "ja_JP", en: "en_US" };
+const absolute = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path);
+const canonical = absolute(localizePath(Astro.url.pathname, locale));
+const image = article?.cover ? absolute(article.cover) : absolute(`/og/${locale}.png`);
+const feed = localizePath("/rss.xml", locale);
+---
+<meta name="description" content={description} />
+{notFound && <meta name="robots" content="noindex" />}
+<link rel="canonical" href={canonical} />
+{locales.map((language: Locale) => <link rel="alternate" hreflang={language} href={absolute(localizePath(Astro.url.pathname, language))} />)}
+<link rel="alternate" hreflang="x-default" href={absolute(localizePath(Astro.url.pathname, "zh-CN"))} />
+<meta property="og:url" content={canonical} />
+<link rel="alternate" type="application/rss+xml" title={`${site.name} · ${t("nav.blog")}`} href={feed} />
+<meta property="og:site_name" content={siteName} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={isArticlePage ? "article" : "website"} />
+<meta property="og:locale" content={ogLocales[locale]} />
+{locales.filter((language: Locale) => language !== locale).map((language: Locale) => <meta property="og:locale:alternate" content={ogLocales[language]} />)}
+<meta property="og:image" content={image} />
+{!article?.cover && <>
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content={`${site.name} — ${t("site.description")}`} />
+</>}
+<meta name="twitter:card" content="summary_large_image" />
+{article && <meta property="article:published_time" content={article.pubDate.toISOString()} />}
+{article?.updatedDate && <meta property="article:modified_time" content={article.updatedDate.toISOString()} />}

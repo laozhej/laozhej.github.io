@@ -29,6 +29,8 @@
 
 各主题的 `<head>` 统一使用 `src/core/components/SiteIcons.astro`，共用非 AI 的 `B.` 排版网站图标和触屏图标；不要在主题内另外维护图标链接。
 
+搜索与链接预览元数据统一由 `src/core/components/SiteMeta.astro` 输出：描述、规范地址（每页指向自身，含主题路径）、四种语言及 `x-default` 的 hreflang、Open Graph 与 Twitter 卡片、文章发布时间和本语言 RSS 的 `alternate` 链接；404 页另加 `noindex`。主题布局只传入 `title`、`description`、`siteName`、`isArticlePage` 和 `article`，不要另写这些标签。分享图默认使用 `public/og/<locale>.png`（`scripts/og-image.mjs` 生成，站名、署名、`home.kicker` 或 `home.statement*` 改动后需重新生成）；文章填写 `cover` 时改用封面。站点地图由 `@astrojs/sitemap` 生成（`/sitemap-index.xml`），只列 Blank 根路径下四种语言的页面，不含主题路径与 404；`public/robots.txt` 指向它。RSS 位于 `/rss.xml` 与 `/<locale>/rss.xml`（`src/core/content/feed.ts`），条目与该语言的文章列表一致，未翻译的文章保留简体中文原文。
+
 各主题的页脚统一挂载 `src/core/components/SiteAttribution.astro`，同时保留站点版权行（所有主题统一为 `site.owner`，即「© 年份 Asahi Arataki」）、指向本站仓库 `site.repository` 的「本站源码」链接和指向 Yuimi-chaya 主仓库的多语言来源署名；不要在新主题中只复制版权行而遗漏作者署名。主题可自行安排其布局，详细素材来源仍在「致谢与许可」页展示。
 
 ## 语言与深浅色

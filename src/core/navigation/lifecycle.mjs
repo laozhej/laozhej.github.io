@@ -1,5 +1,6 @@
 import { motionIsPaused } from "../preferences/motion.mjs";
 import { versionNavigationRequest } from "./request-version.mjs";
+import { mountPrefetch } from "./prefetch.mjs";
 
 // Astro owns navigation, history, focus restoration, loading and cancellation.
 // This small adapter owns the lifetime of our imperative page enhancements.
@@ -74,9 +75,12 @@ export function installNavigationLifecycle(doc, win, mountPage) {
   doc.addEventListener("astro:before-swap", beforeSwap);
   doc.addEventListener("astro:after-swap", afterSwap);
   doc.addEventListener("astro:page-load", mount);
+  // Document-level listeners: they outlive page swaps, so mount once.
+  const unmountPrefetch = mountPrefetch(doc, win);
   mount();
   return () => {
     cleanup();
+    unmountPrefetch();
     doc.removeEventListener("click", click, true);
     doc.removeEventListener("astro:before-preparation", beforePreparation);
     doc.removeEventListener("astro:before-swap", beforeSwap);

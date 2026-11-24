@@ -24,8 +24,9 @@ export function mountEmaSettings(doc, win) {
   listen(toggle, 'click', () => setOpen(!isOpen(), { focus: !isOpen() }));
   listen(doc, 'keydown', (event) => {
     if (event.key !== 'Escape' || !isOpen()) return;
-    // A nested menu (language or palette) closes first; the next Escape closes the panel.
-    if (panel.querySelector('details[open]')) return;
+    // A nested menu (language or palette) closes first and marks the key as handled;
+    // the next Escape closes the panel.
+    if (event.defaultPrevented || panel.querySelector('details[open]')) return;
     setOpen(false, { focus: true });
   });
   listen(doc, 'pointerdown', (event) => {

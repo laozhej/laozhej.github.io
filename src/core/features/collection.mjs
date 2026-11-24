@@ -53,6 +53,10 @@ export function mountCollection(root, win) {
   let state;
   let urlTimer = 0;
   let disposed = false;
+  // With client-side navigation, Back/Forward to another page also fires popstate,
+  // before the router swaps the page. Only restore for history entries of this page.
+  const pathOf = () => new URL(win.location.href).pathname;
+  const pathname = pathOf();
 
   const syncUrl = () => {
     if (disposed) return;
@@ -116,7 +120,7 @@ export function mountCollection(root, win) {
     apply();
     (input ?? buttons[0])?.focus();
   });
-  on(win, "popstate", restore);
+  on(win, "popstate", () => { if (pathOf() === pathname) restore(); });
   on(win, "pagehide", syncUrl);
   restore();
   form.hidden = false;

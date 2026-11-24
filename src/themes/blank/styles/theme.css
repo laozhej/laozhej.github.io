@@ -600,6 +600,8 @@ body[data-blank] .expressive-code .header { border-radius: 0; }
   .blank-favorite-games { grid-template-columns: 1fr; }
 }
 
+/* The site's pause button stops smooth scrolling too, like the system setting below. */
+html[data-theme="blank"][data-motion-paused="true"] { scroll-behavior: auto; }
 @media (prefers-reduced-motion: reduce) {
   html[data-theme="blank"] { scroll-behavior: auto; }
   body[data-blank] *, body[data-blank] *::before, body[data-blank] *::after { transition: none !important; animation: none !important; }

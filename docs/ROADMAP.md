@@ -2,7 +2,7 @@
 
 给接手这个网站的人和 AI agent：开工前先读 [AGENTS.md](../AGENTS.md)，再读本文件。本文件记录现在做到哪里、接下来做什么、哪些事要等站主决定。规则以 AGENTS.md 为准，布局与交互以 [REFERENCE.md](REFERENCE.md) 为准，美术以 [ART-DIRECTION.md](ART-DIRECTION.md) 为准，技术约定见 [THEMES.md](THEMES.md)。本文件和它们冲突时，以它们为准，并顺手修正本文件。
 
-最后核对：2026-11-24，`main` 为 `68bfbf4`（PR #24 合并后）。文中的“§”编号都指 ART-DIRECTION.md 的章节。
+最后核对：2026-11-24，`main` 为 `bccc077`（PR #25 合并后），另加本次的 Ema Games 页。文中的“§”编号都指 ART-DIRECTION.md 的章节。
 
 ## 标签
 
@@ -18,7 +18,7 @@
 ## 0. 接手后先做什么
 
 1. 看真实状态，不要相信记忆或旧文档：`git fetch`，`gh pr list --repo laozhej/laozhej.github.io`（`origin` 是中转地址，`gh` 必须带 `--repo`），再看工作区里各个 worktree 的 `git status`。
-2. 问站主第 2 节的 Games 试点验收了没有。验收之前不要开始第 3.2 节的页头美术。
+2. 问站主页头插画研究得怎么样了（第 3.2 节）。站主定下来之前不要开始页头美术。
 3. 站主没有指定任务时，把第 8 节的问题列给站主，并推荐第 4.1、4.2 节这类低风险优化。AGENTS.md 规定“请求只授权它点名的事”，所以要等站主点头再做。
 
 ## 1. 现状
@@ -26,8 +26,8 @@
 - 网站：Blank、Ema（樱色档案）、Endfield（终末地）三套主题，各有 zh-CN、zh-TW、ja、en 四种语言，构建出 96 个页面。Astro 7.3.5，推送到 `main` 后由 GitHub Pages 自动部署。
 - 规范主题：`src/core/themes/routing.mjs` 的 `canonicalTheme = "blank"`。各主题的 canonical、hreflang 和 sitemap 都指向 Blank。改主界面时改这个常量，并重新生成 `public/og/` 的分享图（`scripts/og-image.mjs`）。
 - 文章：1 篇，`dev-log-01`，四种语言都有。
-- 检查基线（Node 24.19.0，`68bfbf4`）：`npm test` 165 项全部通过；`npm run build` 生成 96 页；`npm run showcase:check` 通过。
-- PR #1 到 #24 全部已合并，没有未关闭的 PR 或 issue。
+- 检查基线（Node 24.19.0，含 Ema Games 页）：`npm test` 168 项全部通过；`npm run build` 生成 96 页；`npm run showcase:check` 通过。
+- PR #1 到 #25 全部已合并（2026-11-24）。Ema Games 页随后单独提 PR。
 
 近期已完成的工作（都已部署）：
 
@@ -44,27 +44,24 @@
 | #23 | Ema About 页（§14.8） |
 | #24 | Ema 首页终端光标和首屏跳动修复 |
 
-## 2. 进行中：Ema Games 页试点（待验收）
+## 2. Ema Games 页
 
-- **已批准**（2026-11-24）：美术顺序是 About → Games → 页头美术 → 重拍截图（§14.8）。Games 是第 2 步。
-- **待验收**：已经做完，但没有提交，也没有推送，只在站主电脑上。位置：工作区 `worktrees/ema-about-pilot`，分支 `claude/ema-games-pilot`，基于 `68bfbf4`。改动包括 `GamesPage.astro`、`games.css`、`shelf.css`、`presentation.mjs`、新增的 `tests/ema-games.test.mjs`，以及 ART-DIRECTION §14.9 和 REFERENCE 的 Ema 内页一行。
-- 审阅截图在工作区的 `outputs/ema-games-pilot/`（参考站对照板、手机分屏、`shots/`）。备份补丁是同一目录下的 `uncommitted-2026-11-24.patch`，可以干净地应用到 `68bfbf4`。
-- 站主验收后：把 §14.9 的 **Open** 改写成授权的写法（合并之后仍然成立），用 Node 24 重新跑检查，然后提交、开 PR、合并，并确认部署成功。
-- 站主要求修改时：在同一个 worktree 里改，重新截图，再等验收。
-- 不要做的事：验收前提交；在别的 worktree 里重做这一页；修改 REFERENCE.md 里 Ema “Inner pages” 那一行（这个试点改了那一行，别处再改会冲突）。
+- **已完成**：站主 2026-11-24 验收，并授权提交、合并和部署。做法、检查和页面长度见 §14.9。
+- **待站主决定**：新页面比旧页面长（手机 390 宽 4087 → 5893 px，桌面 1440 宽 2863 → 4388 px）。验收前 agent 误报为“变短”，要不要做得更紧凑，由站主决定。
+- **待站主决定**：Ema About 页四个游戏名链接只有 18 px 高，不满足 44 px 规则（§14.8 的更正）。
 
 ## 3. 美术
 
 ### 3.1 顺序
 
 1. About：**已完成**（PR #23）。
-2. Games：**待验收**（见第 2 节）。
-3. 页头美术：**待站主决定**（见 3.2）。
+2. Games：**已完成**（见第 2 节）。
+3. 页头美术：**待站主决定**（见 3.2）。站主 2026-11-24 说插画这几天再研究。
 4. 重拍截图：**待站主决定**（见 3.3）。
 
 ### 3.2 第 3 步：Ema 内页页头美术
 
-参考站内页的页头是左边中文标题、拉丁副标题和说明，右边一张图。我们的 About 和 Games（试点）已经改成中文标题加斜体拉丁副标题；Journal 和 Works 仍然用 Blank 的拉丁大标题“Journal.”“Works.”。页头右侧目前只有 Journal 的分镜条，它已冻结，而且不扩展到 About、Works、Games（§14.5）。
+参考站内页的页头是左边中文标题、拉丁副标题和说明，右边一张图。我们的 About 和 Games 已经改成中文标题加斜体拉丁副标题；Journal 和 Works 仍然用 Blank 的拉丁大标题“Journal.”“Works.”。页头右侧目前只有 Journal 的分镜条，它已冻结，而且不扩展到 About、Works、Games（§14.5）。
 
 开工前要站主决定三件事：
 
@@ -93,7 +90,7 @@
 - 首页：构图 B、五幕切换、剧场文案。静物最多三件（笔记本、茶杯、窗光），不加第四件，手机布局一件都不显示，线条保持 ink 26%。Ema 的图片在任何状态下都不加滤镜（§14.4）。
 - Journal 页头分镜条（§14.5）。
 - Ema 文章页的书签丝带、花瓣分隔线、网点角（§14.6）。
-- Ema Works（§14.7）和 Ema About（§14.8）：已经验收；要扩展这些设计，需要新请求。
+- Ema Works（§14.7）、Ema About（§14.8）和 Ema Games（§14.9）：已经验收；要扩展这些设计，需要新请求。
 - Blank 保持黑白排版；Endfield 保持自己的工业风，不套用参考站的视觉。
 
 ## 4. 优化
@@ -119,7 +116,7 @@ PR #22（2026-11-24）留下的问题。第 1、2 项写在 PR #22 的说明里�
 - `src/themes/ema/lib/gallery.mjs`（86 行）：只有 `home.mjs` 引用它。
 - `src/themes/ema/styles/home.css`（294 行）：没有任何文件引入。
 - 测试：`tests/ema-gallery.test.mjs` 的 6 项都只测 `gallery.mjs`。`tests/ema-motion.test.mjs` 共 11 项，前 9 项测 `home.mjs`，最后 2 项测樱色电台（`radio.mjs`），电台这 2 项要保留。
-- 这些要保留：`lib/notice.mjs`（`stage.mjs` 在用）；存储键 `ema-home-motion-paused`（共享的动效偏好在用）；`data-ema-home` 和 `.ema-home-main`（`EmaLayout` 在用）；`styles/shelf.css`（About 在用）。
+- 这些要保留：`lib/notice.mjs`（`stage.mjs` 在用）；存储键 `ema-home-motion-paused`（共享的动效偏好在用）；`data-ema-home` 和 `.ema-home-main`（`EmaLayout` 在用）；`styles/shelf.css`（About 和 Games 在用）。
 - 验证：构建产物里只有 Ema 的脚本包应该变化；Endfield 的页面要前后比对。
 
 ### 4.3 性能
@@ -184,7 +181,7 @@ agent 可以先准备一份检查清单。
 
 ## 8. 待站主回答的问题
 
-1. Games 试点验收吗？（第 2 节）
+1. Games 页要不要做得更紧凑？About 页的四个游戏名链接要不要加大点按区域？（第 2 节）
 2. 页头美术：图从哪里来？Journal 分镜条要不要解冻？Journal 和 Works 要不要改成中文标题？（3.2）
 3. Blank 游戏页的缩略图和关于页的角色头像，保留还是去掉？（3.4）
 4. 樱羽艾玛和月代雪的空框怎么处理？（3.4）

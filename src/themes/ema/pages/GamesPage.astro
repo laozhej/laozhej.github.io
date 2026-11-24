@@ -1,7 +1,9 @@
 ---
-// Sakura Archive's Games page: the shared game shelf as cards framed in the homepage tag
-// colours, one colour per genre, filtered through the shared data-site-* hooks. Each card shows
-// the game's art (public/games/) or, without any, a screentone stand-in cover with its title.
+// Sakura Archive's Games page, laid out after the playroom of Yuimi-chaya's Fuyukawa Kagari theme
+// (MIT License): an opening with a CJK title and a Latin subtitle, a dashed ticket line, then one
+// "cabinet" per game: a numbered label strip, a screen with the game's art, the copy and one filled
+// action. The reference's manga art and its playable mini-games are not used; the cabinets hold the
+// shared game shelf, filtered through the shared data-site-* hooks. Every string already existed.
 import { Icon } from "astro-icon/components";
 import { getSiteContent } from "@/core/i18n/content";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
@@ -9,7 +11,6 @@ import { gameGenres } from "@/core/content/select-games.mjs";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 import { site } from "@/lib/site";
 import PageLayout from "@/core/themes/PageLayout.astro";
-import PageHead from "@/themes/blank/components/PageHead.astro";
 import "../styles/shelf.css";
 import "../styles/games.css";
 
@@ -25,11 +26,14 @@ const pad = (value: number) => String(value).padStart(2, "0");
 const linkLabel = (game: (typeof gameShelf)[number]) => (game.link?.steam ? "Steam" : t("games.official"));
 ---
 <PageLayout title={`Games | ${site.name}`} description={t("games.description")} cursorRing={true}>
-  <div class="games-head">
-    <div class="games-echo" aria-hidden="true"><span>03</span></div>
-    <div class="games-aura" aria-hidden="true"></div>
-    <PageHead index="03" title="Games" label={t("games.label")} description={t("games.intro")} count={pad(total)} unit={unit("common.games", total)} />
-  </div>
+  <header class="games-opening">
+    <div>
+      <p class="games-eyebrow">03 / {t("nav.games")}</p>
+      <h1>{t("games.label")}<span class="games-sub" lang="en">Games</span></h1>
+      <p class="games-intro">{keepTails(t("games.intro"))}</p>
+    </div>
+    <p class="games-total"><strong>{pad(total)}</strong><span>{unit("common.games", total)}</span></p>
+  </header>
   <section class="ema-games ema-shelf" data-site-collection data-unit={t("common.games")} data-unit-one={t("common.gamesOne")} aria-label={t("games.collection")}>
     <div class="games-tools">
       <form class="games-filters" data-site-filter-form hidden>
@@ -43,15 +47,16 @@ const linkLabel = (game: (typeof gameShelf)[number]) => (game.link?.steam ? "Ste
     </div>
     <ol class="games-grid" data-site-entries>
       {gameShelf.map((game) => (
-        <li class:list={["shelf-card game-card", `tone-${genreTone[game.genre]}`, { "is-favorite": favorites.has(game.key) }]} data-site-entry data-category={game.genre} data-search={`${game.name} ${game.title}`}>
-          <div class:list={["shelf-cover game-cover", { "has-art": game.art }]} aria-hidden="true">
-            {game.art && <img src={game.art.src} alt="" loading="lazy" decoding="async" style={`object-position:${game.art.focus}`} />}
-            <b>{pad(game.number)}</b>
-            {!game.art && <span>{game.title}</span>}
+        <li class:list={["game-cabinet", `tone-${genreTone[game.genre]}`, { "is-favorite": favorites.has(game.key) }]} data-site-entry data-category={game.genre} data-search={`${game.name} ${game.title}`}>
+          <p class="game-label" aria-hidden="true"><span>GAME / {pad(game.number)}</span><Icon name={genreIcon[game.genre]} size={18} /></p>
+          <div class:list={["game-screen", { "has-art": game.art }]} aria-hidden="true">
+            {game.art
+              ? <img src={game.art.src} alt="" loading="lazy" decoding="async" style={`object-position:${game.art.focus}`} />
+              : <span>{game.title}</span>}
           </div>
-          <div class="game-body">
+          <div class="game-copy">
             <p class="game-meta">
-              <span class="game-genre"><Icon name={genreIcon[game.genre]} size={12} aria-hidden="true" />{t(`games.genre.${game.genre}`)}</span>
+              <span class="game-genre">{t(`games.genre.${game.genre}`)}</span>
               {favorites.has(game.key) && <span class="game-favorite"><Icon name="tabler:heart-filled" size={11} aria-hidden="true" />{t("games.favorite")}</span>}
               {game.status && <span class="game-status">{t(`games.status.${game.status}`)}</span>}
             </p>
@@ -60,7 +65,7 @@ const linkLabel = (game: (typeof gameShelf)[number]) => (game.link?.steam ? "Ste
             {game.pick && <p class="game-pick" role="img" aria-label={t("games.pick").replace("{n}", String(game.pick))}>{[1, 2, 3].map((step) => <span class:list={{ "is-on": step <= (game.pick ?? 0) }}></span>)}</p>}
             {game.note && !game.note.translated && <p class="game-untranslated">{t("games.untranslated")}</p>}
             {game.note && <p class="game-note" lang={game.note.lang}>{keepTails(game.note.text)}</p>}
-            {game.link && <a class="game-link" href={game.link.href} target="_blank" rel="noopener noreferrer" aria-label={t("games.opens").replace("{name}", game.name).replace("{site}", linkLabel(game))}><Icon name={game.link.steam ? "tabler:brand-steam" : "tabler:world"} size={15} aria-hidden="true" />{linkLabel(game)}<Icon name="tabler:arrow-up-right" size={14} aria-hidden="true" /></a>}
+            {game.link && <p class="game-actions"><a class="game-play" href={game.link.href} target="_blank" rel="noopener noreferrer" aria-label={t("games.opens").replace("{name}", game.name).replace("{site}", linkLabel(game))}><Icon name={game.link.steam ? "tabler:brand-steam" : "tabler:world"} size={17} aria-hidden="true" />{linkLabel(game)}<Icon name="tabler:arrow-up-right" size={15} aria-hidden="true" /></a></p>}
           </div>
         </li>
       ))}

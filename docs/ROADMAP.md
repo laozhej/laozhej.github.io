@@ -1,0 +1,197 @@
+# 路线图与交接
+
+给接手这个网站的人和 AI agent：开工前先读 [AGENTS.md](../AGENTS.md)，再读本文件。本文件记录现在做到哪里、接下来做什么、哪些事要等站主决定。规则以 AGENTS.md 为准，布局与交互以 [REFERENCE.md](REFERENCE.md) 为准，美术以 [ART-DIRECTION.md](ART-DIRECTION.md) 为准，技术约定见 [THEMES.md](THEMES.md)。本文件和它们冲突时，以它们为准，并顺手修正本文件。
+
+最后核对：2026-11-24，`main` 为 `68bfbf4`（PR #24 合并后）。文中的“§”编号都指 ART-DIRECTION.md 的章节。
+
+## 标签
+
+| 标签 | 含义 |
+| --- | --- |
+| **已完成** | 已合并进 `main` 并部署 |
+| **已批准** | 站主明确同意过的方向或顺序。开工、提交、合并仍按 AGENTS.md 的流程 |
+| **待验收** | 已做出来，等站主看截图决定 |
+| **待站主决定** | 站主回答之前，agent 不自行决定，也不开工 |
+| **提议** | agent 的建议，没有批准。可以准备材料和数据，不能当成要求 |
+| **冻结** | 站主已定稿。没有新请求时不改尺寸、颜色、间距，也不扩展到其他页面 |
+
+## 0. 接手后先做什么
+
+1. 看真实状态，不要相信记忆或旧文档：`git fetch`，`gh pr list --repo laozhej/laozhej.github.io`（`origin` 是中转地址，`gh` 必须带 `--repo`），再看工作区里各个 worktree 的 `git status`。
+2. 问站主第 2 节的 Games 试点验收了没有。验收之前不要开始第 3.2 节的页头美术。
+3. 站主没有指定任务时，把第 8 节的问题列给站主，并推荐第 4.1、4.2 节这类低风险优化。AGENTS.md 规定“请求只授权它点名的事”，所以要等站主点头再做。
+
+## 1. 现状
+
+- 网站：Blank、Ema（樱色档案）、Endfield（终末地）三套主题，各有 zh-CN、zh-TW、ja、en 四种语言，构建出 96 个页面。Astro 7.3.5，推送到 `main` 后由 GitHub Pages 自动部署。
+- 规范主题：`src/core/themes/routing.mjs` 的 `canonicalTheme = "blank"`。各主题的 canonical、hreflang 和 sitemap 都指向 Blank。改主界面时改这个常量，并重新生成 `public/og/` 的分享图（`scripts/og-image.mjs`）。
+- 文章：1 篇，`dev-log-01`，四种语言都有。
+- 检查基线（Node 24.19.0，`68bfbf4`）：`npm test` 165 项全部通过；`npm run build` 生成 96 页；`npm run showcase:check` 通过。
+- PR #1 到 #24 全部已合并，没有未关闭的 PR 或 issue。
+
+近期已完成的工作（都已部署）：
+
+| PR | 内容 |
+| --- | --- |
+| #12–#14 | 按参考站重做 Ema 首页舞台和 Blank 首页；全屏舞台，剧场卡悬停时才显示；预取下一幕立绘 |
+| #15 | 首页静物：笔记本、茶杯、窗光（[ART-DIRECTION §14](ART-DIRECTION.md#14-owners-art-plan-homepage-still-life-2026-11-14)） |
+| #16 | Journal 页头分镜条（§14.5，冻结） |
+| #17 | 第一篇文章 dev-log-01，文章页目录和正文版式 |
+| #18 | Ema 文章页装饰（§14.6，冻结） |
+| #19 | Ema Works 页（§14.7） |
+| #20、#21 | SEO 基础：sitemap、RSS、robots.txt、分享图、canonical |
+| #22 | 前端交互问题修复：导航、菜单、动效、电台 |
+| #23 | Ema About 页（§14.8） |
+| #24 | Ema 首页终端光标和首屏跳动修复 |
+
+## 2. 进行中：Ema Games 页试点（待验收）
+
+- **已批准**（2026-11-24）：美术顺序是 About → Games → 页头美术 → 重拍截图（§14.8）。Games 是第 2 步。
+- **待验收**：已经做完，但没有提交，也没有推送，只在站主电脑上。位置：工作区 `worktrees/ema-about-pilot`，分支 `claude/ema-games-pilot`，基于 `68bfbf4`。改动包括 `GamesPage.astro`、`games.css`、`shelf.css`、`presentation.mjs`、新增的 `tests/ema-games.test.mjs`，以及 ART-DIRECTION §14.9 和 REFERENCE 的 Ema 内页一行。
+- 审阅截图在工作区的 `outputs/ema-games-pilot/`（参考站对照板、手机分屏、`shots/`）。备份补丁是同一目录下的 `uncommitted-2026-11-24.patch`，可以干净地应用到 `68bfbf4`。
+- 站主验收后：把 §14.9 的 **Open** 改写成授权的写法（合并之后仍然成立），用 Node 24 重新跑检查，然后提交、开 PR、合并，并确认部署成功。
+- 站主要求修改时：在同一个 worktree 里改，重新截图，再等验收。
+- 不要做的事：验收前提交；在别的 worktree 里重做这一页；修改 REFERENCE.md 里 Ema “Inner pages” 那一行（这个试点改了那一行，别处再改会冲突）。
+
+## 3. 美术
+
+### 3.1 顺序
+
+1. About：**已完成**（PR #23）。
+2. Games：**待验收**（见第 2 节）。
+3. 页头美术：**待站主决定**（见 3.2）。
+4. 重拍截图：**待站主决定**（见 3.3）。
+
+### 3.2 第 3 步：Ema 内页页头美术
+
+参考站内页的页头是左边中文标题、拉丁副标题和说明，右边一张图。我们的 About 和 Games（试点）已经改成中文标题加斜体拉丁副标题；Journal 和 Works 仍然用 Blank 的拉丁大标题“Journal.”“Works.”。页头右侧目前只有 Journal 的分镜条，它已冻结，而且不扩展到 About、Works、Games（§14.5）。
+
+开工前要站主决定三件事：
+
+1. 图从哪里来：代码绘制（与首页静物同一种画法，马上可以做）、站主自己的照片、委托画师（必须满足 ART-DIRECTION §9.5 的全部条件）、站主自己画。无论哪种，都不用生成式 AI，不用参考站或官方素材。
+2. Journal 分镜条是否解冻，成为整组页头美术的一员；还是保持原样，其他页面另做。
+3. Journal 和 Works 是否也改成中文标题。agent 先提四种语言的文案，站主批准后再改。
+
+**提议**：每次只做一个页面的试点，出桌面和手机截图，等验收后再做下一页。
+
+### 3.3 第 4 步：重拍截图
+
+- 范围：`public/projects/gallery/` 的六张项目截图（2026-10-31 拍摄）；`showcase/gallery/`（现在没有 Ema 的截图）；也可以新增一张 Ema 截图（§12、§14.7 记为 Open）。
+- 时机：美术定稿之后。站主说过可以用开发工具拍，不需要站主提供。
+- **提议**：同时更新 `showcase/`。它是 2026-10-31（`de9b413`）的快照，里面还写着“博客文章尚未发布”“艾玛看板娘使用 PixiJS / Live2D”，这些都已过时。
+- 改 `public/` 和 `showcase/` 之前，要站主批准截图清单。
+
+### 3.4 其他待站主决定的美术问题
+
+- Blank 和参考站还有两处不同：Blank 的游戏页有 23 张封面缩略图，关于页有 65 张角色小头像和 2 个空框，而参考站的 Blank 不放图片。保留还是去掉，2026-11-24 问过，还没有答复。Works 页的缩略图是 round 5 批准的清理结果（§10 C 组），不在这个问题里。
+- 樱羽艾玛和月代雪在三个主题的关于页上都是空框（§8.7），Ema 关于页的角色行因此以两个空框开头。是保留空框、去掉框，还是以后换成有授权的图？
+- 首页五张 Ema 立绘的来源和授权仍未确认（§8.3、§9）。站主要求恢复它们，这不等于权利人授权。不要重新编码、缩放或重绘这五张图。
+- 手绘贴纸、Q 版小人：只有站主委托或自己画的时候才做。
+
+### 3.5 冻结项（没有新请求不要动）
+
+- 首页：构图 B、五幕切换、剧场文案。静物最多三件（笔记本、茶杯、窗光），不加第四件，手机布局一件都不显示，线条保持 ink 26%。Ema 的图片在任何状态下都不加滤镜（§14.4）。
+- Journal 页头分镜条（§14.5）。
+- Ema 文章页的书签丝带、花瓣分隔线、网点角（§14.6）。
+- Ema Works（§14.7）和 Ema About（§14.8）：已经验收；要扩展这些设计，需要新请求。
+- Blank 保持黑白排版；Endfield 保持自己的工业风，不套用参考站的视觉。
+
+## 4. 优化
+
+以下都是 **提议**，站主同意后再做。
+
+### 4.1 前端已知问题
+
+PR #22（2026-11-24）留下的问题。第 1、2 项写在 PR #22 的说明里，第 3 项来自同一轮排查的记录，动手前都要先复现：
+
+1. 筛选之后点页内 `#` 链接，页面会重新加载。结果是对的，只是先淡出再显示，而不是直接跳过去。要修，就得绕过 Astro 路由的私有状态。
+2. 从首页第一屏舞台中间的位置后退回 Ema 首页，会停在舞台末端。这是舞台本来的吸附行为，要不要改，由站主决定。
+3. 不支持 View Transitions 的浏览器上，`fallback="animate"` 会在淡入动画之前就清理掉。
+4. 两个从参考站带过来、但没有任何代码设置的属性（2026-11-24 核实过）：`src/themes/blank/styles/theme.css` 第 611–613 行的 `html[data-yuimi-visibility="hidden"]`，以及 `src/themes/ema/lib/stage.mjs` 第 237 行的 `html.dataset.yuimiPerformance !== 'lite'`。
+
+另外，站主还没有说过自己遇到了哪些问题，开工前先问。
+
+### 4.2 删除 r3 首页残留代码
+
+2026-11-24 在 `68bfbf4` 上核实：
+
+- `src/themes/ema/lib/home.mjs`（216 行）：r3 首页的运行时 `mountEmaHome`。`lib/runtime.mjs` 在每个 Ema 页面都会调用它，但已经没有页面渲染 `#ema-home`，所以它一进入就返回。`runtime.mjs` 的注释写着重做确认之后连同测试一起删除；重做已经在 PR #12、#13 合并。
+- `src/themes/ema/lib/gallery.mjs`（86 行）：只有 `home.mjs` 引用它。
+- `src/themes/ema/styles/home.css`（294 行）：没有任何文件引入。
+- 测试：`tests/ema-gallery.test.mjs` 的 6 项都只测 `gallery.mjs`。`tests/ema-motion.test.mjs` 共 11 项，前 9 项测 `home.mjs`，最后 2 项测樱色电台（`radio.mjs`），电台这 2 项要保留。
+- 这些要保留：`lib/notice.mjs`（`stage.mjs` 在用）；存储键 `ema-home-motion-paused`（共享的动效偏好在用）；`data-ema-home` 和 `.ema-home-main`（`EmaLayout` 在用）；`styles/shelf.css`（About 在用）。
+- 验证：构建产物里只有 Ema 的脚本包应该变化；Endfield 的页面要前后比对。
+
+### 4.3 性能
+
+数据来自 `68bfbf4` 的本地构建：
+
+- CSS：每个页面都加载 `PageLayout` 样式表，147.6 KB，gzip 后 24.4 KB，里面有三套主题的样式（原因见 AGENTS.md：`PageLayout.astro` 引入了三个布局）。Ema 页面另外加载 71.6 KB，gzip 后 12.3 KB。按主题拆开，可以减少 Blank 和 Endfield 页面下载的 CSS。风险有两个：样式表顺序（见 6.2），以及 Endfield 的外观必须完全不变。先出方案和数据，再动代码。
+- 首屏大图：`ema-pose-01.webp` 752 KB（905×2400），是 Ema 首页的 LCP 图片；其余四张只在需要时加载（PR #14）。2026-11-24 用 Chrome 158 实测，立绘在屏幕上需要的高度是：1920×1080（1 倍屏）991 设备像素，1440×900（2 倍屏）1652，390×844（3 倍屏）1800，360×780（3 倍屏）1608。约 1800 px 高的副本就能覆盖这些屏幕，像素约为原图的 56%，1 倍屏还能用更小的。但 AGENTS.md 禁止重新编码这五张图，所以要 **待站主决定**。
+- JS：Ema 布局脚本 46 KB，gzip 后 16 KB。做完 4.2 会小一些。
+- HTML：Ema 首页约 64 KB，gzip 后 15 KB，其中约 32 KB 是代码绘制的分镜 SVG，暂时不用处理。
+
+### 4.4 CI
+
+- 现在只有推送到 `main` 时才跑 CI（`.github/workflows/deploy.yml`：`npm test && npm run build`）。PR 合并之前没有自动检查，`npm run showcase:check` 也不在 CI 里。**提议**加一个 `pull_request` 工作流，用 Node 24 跑 test、build 和 showcase:check。
+- GitHub 上还留着 22 个已经合并的分支，以及两个没有合并、已经弃用的 Frieren 分支（`codex/frieren-mascot`、`codex/frieren-pointer`；Live2D 已在 round 5 移除）。要不要删，**待站主决定**。
+
+### 4.5 真机验证
+
+到目前为止，所有检查都是 Playwright 驱动的桌面版 Chrome（157、158）和 WebKit 27.2。下面这些从来没做过，需要站主在真设备上检查：
+
+- 真正的 Safari（macOS 和 iOS）；
+- 实体手机；
+- 真实触控板：桌面上的滚轮接管（舞台上拉身份卡、场景之间的遮罩）仍在等站主验收（REFERENCE.md 的 “Open review items”）。
+
+agent 可以先准备一份检查清单。
+
+### 4.6 可访问性
+
+工作区 `outputs/frontend-qa/` 里的爬取脚本会检查控制台错误、失败的请求、横向滚动、坏图、重复 id 和没有名字的控件，但还没有跑过 axe 这类自动可访问性审计。**提议**补一轮。
+
+## 5. 内容
+
+- 文章：站主在对话里贴正文，agent 只整理 Markdown 结构，正文一字不改。中文原文放在 `src/content/blog/`，译文放在 `zh-TW/`、`ja/`、`en/`，用同一个 `translationKey`。以 dev-log-01 为样板。
+- 不编内容：角色台词、游戏评价、个人近况、项目信息都只能来自共享数据（AGENTS.md）。个人资料、游戏、动画、角色数据只按站主提供的改。
+
+## 6. 工作方式
+
+### 6.1 流程（细则见 AGENTS.md）
+
+1. 新工作从最新的 `origin/main` 开新分支，放在工作区的 `worktrees/<名字>`。不要在 `website/` 或别人的 worktree 里改。
+2. 用 Node 24 检查：`PATH=/usr/local/bin:/usr/bin:/bin npm test`，然后 `npm run build` 和 `npm run showcase:check`。其他 Node 版本的结果不算。
+3. 视觉改动要出截图：桌面 1440×900 和 1366×620，平板，手机 390×844 和 360 宽，浅色和深色，放到工作区的 `outputs/<名字>/`，然后等站主验收。
+4. 改了共享代码，要前后比对 Endfield 的构建产物；改了 Blank，要检查 Endfield 和 Ema。
+5. 报告时写明用了哪个引擎、哪个版本、哪些尺寸。自动化的 Chromium 或 WebKit 不等于真正的 Safari 或真手机。
+6. 提交、推送、PR、合并：AGENTS.md 规定每一步都要站主明确批准。站主 2026-11-15 对 Claude 说过“以后检查通过就直接提交合并”（合并就会部署），AGENTS.md 没有因此修改。其他 agent 是否也适用，先问站主。
+7. 分工：AGENTS.md 写明 Claude Code 是主要的设计者和实现者，不把主要工作交给别的编码 agent。接手的如果不是 Claude Code，先和站主确认分工。
+8. 收尾时更新本文件：现状、下一步、待决定事项。对应 docs 里的 **Open** 要改写成结果，而且要写成合并之后仍然成立的样子。
+
+### 6.2 踩过的坑
+
+- 在 Ema 的页面或组件里新引入一个 CSS 文件，会让所有 Ema 页面的样式表顺序翻转。新样式要放进 `EmaLayout` 已经引入的文件，或者在 `EmaLayout` 里引入；改完检查 `<link>` 的顺序。
+- Ema 的通用规则（图片高度、链接颜色）优先级高于普通类选择器，页面样式要加页面前缀，比如 `.ema-games`。
+- `astro preview` 会自己转到后台运行，用 `npx astro preview stop` 停止。静态服务用 `python3 -m http.server PORT --directory <dist 的绝对路径>`，因为 `astro build` 会删掉再重建 `dist`。
+- 截图脚本只等可见的图片，并且要设超时。Works 页的暗色备用图是 `display:none` 加懒加载，永远不会加载。
+- 比较线上和本地的 HTML 时，先统一 `<meta name="site-build">`。
+- 做重叠检查时要排除看不见的元素，因为收起的主题菜单仍然占着布局盒。
+- 有 mask 或 transform 的元素会形成隔离组，它的伪元素上的 `mix-blend-mode` 不起作用。`color-mix(in srgb …)` 里含有 “rgb”，写正则测试时要小心。
+
+## 7. 本机工作区
+
+站主电脑上的工作区（`worktrees/`、`outputs/` 等）不在仓库里。各目录的用途、哪些 worktree 可以清理、本机工具在哪里，见工作区根目录的 `README.md`。
+
+## 8. 待站主回答的问题
+
+1. Games 试点验收吗？（第 2 节）
+2. 页头美术：图从哪里来？Journal 分镜条要不要解冻？Journal 和 Works 要不要改成中文标题？（3.2）
+3. Blank 游戏页的缩略图和关于页的角色头像，保留还是去掉？（3.4）
+4. 樱羽艾玛和月代雪的空框怎么处理？（3.4）
+5. 能不能给五张立绘做手机用的小尺寸版本？（4.3）
+6. “检查通过就直接提交合并”是否对所有 agent 都适用？要不要写进 AGENTS.md？（6.1）
+7. 要不要加 PR 检查工作流？要不要删掉已经合并的远程分支？（4.4）
+8. 你自己遇到过哪些问题？（4.1）
+9. 什么时候做真机检查（Safari、手机、触控板）？（4.5）
+10. 接手的 agent 如果不是 Claude Code，AGENTS.md 里“Claude Code 是主要设计者和实现者”这一条怎么处理？（6.1）
+11. 要不要在仓库和工作区的 AGENTS.md 里各加一行，指向本文件？（改 AGENTS.md 需要站主明确同意，所以这次没有改。）

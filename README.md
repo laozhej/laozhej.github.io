@@ -58,7 +58,7 @@ npm run preview
 | 全主题共用的网站图标 | `src/core/components/SiteIcons.astro`、`assets/branding/` |
 | 正式网址 | `astro.config.mjs` 中的 `site` |
 
-`Blank Space` 是暂用站名。示例文章已删除，`src/content/blog/` 目前为空，各页面显示空状态，等待第一篇正式文章。GitHub 和 Steam 个人主页链接已配置；其他个人简介可继续完善，页面没有虚构经历。
+`Blank Space` 是暂用站名。示例文章已删除；第一篇正式文章 `dev-log-01` 于 2026-11-15 发布，四种语言齐全。GitHub 和 Steam 个人主页链接已配置；其他个人简介可继续完善，页面没有虚构经历。
 
 添加文章时，在 `src/content/blog/` 新建 Markdown 文件，文件名即文章地址（如 `first-post.md` → `/blog/first-post/`），顶部写：
 
@@ -114,6 +114,20 @@ tags: [标签一, 标签二]
 仓库的 **Settings → Pages → Build and deployment → Source** 使用 **GitHub Actions**。部署状态与日志见仓库 Actions 页面。
 
 这是用户名站点，正式地址位于域名根目录，因此 `astro.config.mjs` 只设置 `site: "https://laozhej.github.io"`，不设置仓库名 `base`。后续更新可直接修改此仓库的文章、数据和主题源码，无需 ChatGPT Sites。
+
+## 开发文档
+
+参与开发的人和 AI agent 先读 `AGENTS.md`，再读路线图。
+
+| 文件 | 内容 |
+| --- | --- |
+| [AGENTS.md](AGENTS.md) | 协作规则：审批、工作区、设计方向、素材许可、语言、验证（英文） |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | 当前进度、接下来的美术与优化工作、等站主决定的事项 |
+| [docs/REFERENCE.md](docs/REFERENCE.md) | 与参考站的布局和交互对照，以及每一处偏差（英文） |
+| [docs/ART-DIRECTION.md](docs/ART-DIRECTION.md) | 艾玛主题的美术方向、素材来源与授权状态（英文） |
+| [docs/THEMES.md](docs/THEMES.md) | 新主题接入的技术约定 |
+| [docs/IMAGE_IMPORT.md](docs/IMAGE_IMPORT.md) | 图片导入工具 |
+| [showcase/](showcase/README.md) | 工程案例（2026-10-31 的快照） |
 
 ## 贡献者
 

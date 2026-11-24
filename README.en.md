@@ -58,7 +58,7 @@ Run `npm run images` and open the local URL to drag in images, compress and name
 | Site icons shared by every theme | `src/core/components/SiteIcons.astro`, `assets/branding/` |
 | Production URL | `site` in `astro.config.mjs` |
 
-`Blank Space` is a temporary site name. The sample articles have been removed, and `src/content/blog/` is currently empty. Pages show an empty state until the first real article is published. GitHub and Steam profile links are configured; the remaining profile details can be filled in later. The site does not present a fabricated personal history.
+`Blank Space` is a temporary site name. The sample articles have been removed; the first real article, `dev-log-01`, was published on 2026-11-15 in all four languages. GitHub and Steam profile links are configured; the remaining profile details can be filled in later. The site does not present a fabricated personal history.
 
 To add a Chinese original article, create a Markdown file in `src/content/blog/`. Its filename determines the article URL (for example, `first-post.md` → `/blog/first-post/`). Add this frontmatter at the top:
 
@@ -114,6 +114,20 @@ The public repository is `laozhej/laozhej.github.io`. GitHub Actions builds and 
 Set the repository’s **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. Deployment status and logs are available on the repository’s Actions page.
 
 This is a user site served from the domain root, so `astro.config.mjs` sets only `site: "https://laozhej.github.io"`, without a repository-name `base`. Future updates can edit this repository’s articles, data, and theme source directly. ChatGPT Sites is not required.
+
+## Development docs
+
+People and AI agents working on the site read `AGENTS.md` first, then the roadmap.
+
+| File | Contents |
+| --- | --- |
+| [AGENTS.md](AGENTS.md) | Working rules: approvals, worktrees, design direction, asset licences, languages, verification |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | Current status, the next art and optimisation work, and decisions waiting for the owner (Simplified Chinese) |
+| [docs/REFERENCE.md](docs/REFERENCE.md) | Layout and interaction mapping to the reference site, with every deviation |
+| [docs/ART-DIRECTION.md](docs/ART-DIRECTION.md) | Ema's art direction, asset sources and licensing status |
+| [docs/THEMES.md](docs/THEMES.md) | Technical contract for adding a theme (Simplified Chinese) |
+| [docs/IMAGE_IMPORT.md](docs/IMAGE_IMPORT.md) | Image import tool (Simplified Chinese) |
+| [showcase/](showcase/README.md) | Engineering case study, a snapshot from 2026-10-31 (Simplified Chinese) |
 
 ## Contributors
 

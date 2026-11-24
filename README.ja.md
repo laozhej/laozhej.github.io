@@ -58,7 +58,7 @@ npm run preview
 | 全テーマ共通のサイトアイコン | `src/core/components/SiteIcons.astro`、`assets/branding/` |
 | 公開 URL | `astro.config.mjs` の `site` |
 
-`Blank Space` は仮のサイト名です。サンプル記事は削除済みで、現在 `src/content/blog/` は空です。各ページは最初の正式な記事が公開されるまで空の状態を表示します。GitHub と Steam のプロフィールリンクは設定済みです。プロフィールのほかの項目は今後追記できます。架空の経歴は掲載していません。
+`Blank Space` は仮のサイト名です。サンプル記事は削除済みです。最初の正式な記事 `dev-log-01` を 2026-11-15 に 4 言語で公開しました。GitHub と Steam のプロフィールリンクは設定済みです。プロフィールのほかの項目は今後追記できます。架空の経歴は掲載していません。
 
 中国語の原文記事を追加するには、`src/content/blog/` に Markdown ファイルを作成します。ファイル名が記事の URL になります（例：`first-post.md` → `/blog/first-post/`）。先頭に次のメタデータを記述します。
 
@@ -114,6 +114,20 @@ tags: [标签一, 标签二]
 リポジトリの **Settings → Pages → Build and deployment → Source** は **GitHub Actions** を使用します。デプロイ状況とログはリポジトリの Actions ページで確認できます。
 
 ユーザーサイトの公開 URL はドメイン直下にあるため、`astro.config.mjs` では `site: "https://laozhej.github.io"` のみを設定し、リポジトリ名の `base` は設定しません。今後の更新は、このリポジトリの記事、データ、テーマのソースを直接編集できます。ChatGPT Sites は不要です。
+
+## 開発ドキュメント
+
+開発に参加する人と AI エージェントは、まず `AGENTS.md`、次にロードマップを読んでください。
+
+| ファイル | 内容 |
+| --- | --- |
+| [AGENTS.md](AGENTS.md) | 作業ルール：承認、作業ツリー、デザイン方針、素材のライセンス、言語、検証（英語） |
+| [docs/ROADMAP.md](docs/ROADMAP.md) | 現在の進捗、次に行うアートと最適化の作業、サイト管理者の判断待ちの事項（簡体字中国語） |
+| [docs/REFERENCE.md](docs/REFERENCE.md) | 参考サイトとのレイアウト・操作の対応表と、すべての相違点（英語） |
+| [docs/ART-DIRECTION.md](docs/ART-DIRECTION.md) | エマテーマのアート方針、素材の出典とライセンスの状況（英語） |
+| [docs/THEMES.md](docs/THEMES.md) | 新しいテーマを追加するための技術的な取り決め（簡体字中国語） |
+| [docs/IMAGE_IMPORT.md](docs/IMAGE_IMPORT.md) | 画像取り込みツール（簡体字中国語） |
+| [showcase/](showcase/README.md) | 開発事例、2026-10-31 時点のスナップショット（簡体字中国語） |
 
 ## コントリビューター
 

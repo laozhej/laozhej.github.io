@@ -22,7 +22,13 @@ export function mountThemeRuntime(doc, win) {
   };
   // On a first visit to a theme, its layout script runs after the swap that
   // mounted the page, so the runtime arrives late and is mounted then.
-  const listener = (registered) => { if (registered === theme) start(); };
+  // The late mount can change the page's height: tell the lifecycle, which may be holding a
+  // scroll position to restore.
+  const listener = (registered) => {
+    if (registered !== theme || cleanup) return;
+    start();
+    doc.dispatchEvent?.(new Event("site:theme-runtime-mounted"));
+  };
   listeners.add(listener);
   start();
   return () => {

@@ -32,6 +32,8 @@ test("Ema About keeps 44px targets and quiets motion when asked", () => {
   assert.match(css, /\.about-links a \{[^}]*min-height:44px/);
   assert.match(css, /\.about-marks a \{[^}]*min-height:48px/);
   assert.match(css, /\.about-more \{[^}]*min-height:44px/);
+  assert.match(css, /\.about-games>li \{position:relative;/);
+  assert.match(css, /\.about-games h3 a::after \{content:"";position:absolute;inset:0;\}/, "a favourite game's link covers its whole row");
   assert.match(css, /html\[data-motion-paused="true"\] \.ema-about/);
   assert.match(css, /prefers-reduced-motion:reduce/);
 });

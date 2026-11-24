@@ -78,9 +78,29 @@ export function installNavigationLifecycle(doc, win, mountPage) {
   // Document-level listeners: they outlive page swaps, so mount once.
   const unmountPrefetch = mountPrefetch(doc, win);
   mount();
+  // Reload or full-page Back: the saved position was applied against the unmounted, often shorter
+  // layout (SiteNavigation.astro). Apply it again now that the layout has its final height.
+  // A theme's runtime can mount a moment later (themes/runtime.mjs) and change the height again, so
+  // the position is applied once more then. It is dropped as soon as the reader acts or navigates.
+  let restored = win.__siteRestoredScroll;
+  win.__siteRestoredScroll = null;
+  if (!restored || !(restored.top > 0 || restored.left > 0) || win.location.hash) restored = undefined;
+  const restore = () => { if (restored) win.scrollTo({ ...restored, behavior: "instant" }); };
+  const forget = () => { restored = undefined; };
+  const inputs = ["wheel", "touchstart", "pointerdown", "keydown"];
+  if (restored) {
+    restore();
+    doc.addEventListener("site:theme-runtime-mounted", restore);
+    doc.addEventListener("astro:before-preparation", forget);
+    for (const type of inputs) win.addEventListener(type, forget, { capture: true, passive: true });
+  }
   return () => {
     cleanup();
     unmountPrefetch();
+    forget();
+    doc.removeEventListener("site:theme-runtime-mounted", restore);
+    doc.removeEventListener("astro:before-preparation", forget);
+    for (const type of inputs) win.removeEventListener(type, forget, { capture: true });
     doc.removeEventListener("click", click, true);
     doc.removeEventListener("astro:before-preparation", beforePreparation);
     doc.removeEventListener("astro:before-swap", beforeSwap);

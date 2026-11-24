@@ -101,8 +101,12 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
           {signals.length > 0 && (
             <p class="k-terminal" data-k-terminal data-lines={JSON.stringify(signals)}>
               <Icon name="tabler:flower" size={18} aria-hidden="true" />
-              <span class="k-typing" data-k-typing aria-hidden="true">{signals[0]}</span>
-              <span class="k-caret" aria-hidden="true"></span>
+              {/* Every line sits invisibly in the same grid cell, so the box keeps the height of the
+                  longest line while one is typed; the caret is inline, right after the last character. */}
+              <span class="k-line" aria-hidden="true">
+                {signals.map((line) => <span class="k-ghost">{line}</span>)}
+                <span class="k-live"><span class="k-typing" data-k-typing>{signals[0]}</span><span class="k-caret"></span></span>
+              </span>
               <span class="blank-sr-only">{signals.join(" / ")}</span>
             </p>
           )}

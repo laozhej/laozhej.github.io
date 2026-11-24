@@ -53,7 +53,7 @@ function createRadio(win) {
   let ctx = null, master = null, input = null;
   let index = 0, volume = 0.6, playing = false;
   let origin = 0, nextTime = 0, step = 0, paused = 0;
-  let pump = 0, releaseTimer = 0, holds = 0;
+  let pump = 0, releaseTimer = 0, suspendTimer = 0, holds = 0;
   const track = () => TRACKS[index];
   const emit = () => listeners.forEach((listener) => listener());
 
@@ -70,6 +70,8 @@ function createRadio(win) {
     input.connect(master);
     input.connect(delay); delay.connect(feedback); feedback.connect(delay); delay.connect(wet); wet.connect(master);
     master.connect(ctx.destination);
+    // The system can interrupt audio (a call, another app on iOS): show it as paused.
+    ctx.addEventListener?.('statechange', () => { if (playing && ctx.state !== 'running') radio.pause(); });
     return true;
   }
   function tone(frequency, time, { peak, decay, type = 'sine' }) {
@@ -130,7 +132,10 @@ function createRadio(win) {
     async play() {
       if (!ensure()) return;
       win.clearTimeout(releaseTimer);
-      await ctx.resume();
+      // A quick pause → play must not let the pending suspend silence the new playback.
+      win.clearTimeout(suspendTimer);
+      suspendTimer = 0;
+      try { await ctx.resume(); } catch { return; }
       master.gain.cancelScheduledValues(ctx.currentTime);
       master.gain.setValueAtTime(volume * 0.5, ctx.currentTime);
       playing = true;
@@ -144,7 +149,11 @@ function createRadio(win) {
       stopPump();
       if (ctx) {
         master.gain.setTargetAtTime(0.0001, ctx.currentTime, 0.05);
-        win.setTimeout(() => { if (!playing) ctx.suspend(); }, 300);
+        win.clearTimeout(suspendTimer);
+        suspendTimer = win.setTimeout(() => {
+          suspendTimer = 0;
+          if (!playing) ctx.suspend().catch(() => {});
+        }, 300);
       }
       emit();
     },

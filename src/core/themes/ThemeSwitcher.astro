@@ -2,6 +2,9 @@
 import { Icon } from "astro-icon/components";
 import { getI18n } from "@/core/i18n";
 import { getTheme, getThemePath, themes } from "./registry";
+// Theme links load the destination as a new document (data-astro-reload), as upstream does:
+// another theme brings its own stylesheets, scripts and measured layouts, which the
+// client router would otherwise swap in before that theme's runtime is registered.
 // `floating` renders an icon-only button for a theme to pin in a corner; the list opens above it.
 const { floating = false } = Astro.props;
 const { locale, t } = getI18n(Astro.url.pathname);
@@ -17,7 +20,7 @@ const path = `${Astro.url.pathname}${Astro.url.search}`;
   <nav class="site-theme-options" aria-label={t("theme.switch")}>
     {floating && <p class="site-theme-title" aria-hidden="true">{t("theme.switch")}</p>}
     {themes.map((theme, index) => (
-      <a href={getThemePath(theme.id, path, locale)} data-site-theme-target={theme.id} aria-current={current === theme.id ? "true" : undefined} style={`--i:${index}`}>
+      <a href={getThemePath(theme.id, path, locale)} data-site-theme-target={theme.id} data-astro-reload aria-current={current === theme.id ? "true" : undefined} style={`--i:${index}`}>
         {floating && <span class="site-theme-no" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>}
         <span>{t(theme.labelKey)}</span><span aria-hidden="true">{current === theme.id ? "✓" : ""}</span>
       </a>

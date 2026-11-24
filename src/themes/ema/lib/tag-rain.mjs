@@ -86,7 +86,9 @@ export function mountTagRain(root, win, { canAnimate = () => true } = {}) {
     ctx.save();
     ctx.translate(body.x, body.y); ctx.rotate(body.angle);
     ctx.beginPath();
-    ctx.roundRect(-body.width / 2, -body.height / 2, body.width, body.height, body.height / 2);
+    // roundRect needs Safari 16+; older engines draw a plain tag instead of throwing every frame.
+    if (ctx.roundRect) ctx.roundRect(-body.width / 2, -body.height / 2, body.width, body.height, body.height / 2);
+    else ctx.rect(-body.width / 2, -body.height / 2, body.width, body.height);
     ctx.fillStyle = body.color.fill; ctx.strokeStyle = body.color.stroke; ctx.lineWidth = 2;
     ctx.shadowColor = 'rgba(120, 72, 96, .14)'; ctx.shadowBlur = 12; ctx.shadowOffsetY = 6;
     ctx.fill(); ctx.shadowColor = 'transparent'; ctx.stroke();

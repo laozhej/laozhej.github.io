@@ -8,6 +8,8 @@ export default defineConfig({
   site: "https://laozhej.github.io",
   output: "static",
   trailingSlash: "always",
+  // src/core/navigation/prefetch.mjs prefetches under the versioned URL the router fetches.
+  prefetch: false,
   integrations: [
     icon(),
     // List only the canonical theme's copy of each page (see canonicalTheme in

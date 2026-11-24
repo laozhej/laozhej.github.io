@@ -72,6 +72,8 @@ Ema 是例外：窗口宽度不足 1260px 时，页面两侧放不下浮动按�
 
 每个主题布局在 `<head>` 挂载一次 `src/core/navigation/SiteNavigation.astro`，由它提供 Astro `ClientRouter` 和统一的页面生命周期。不要再在布局或切换器中单独调用运行时入口。
 
+站内跳转的抓取地址带构建号（`request-version.mjs` 的 `__site_build`），避免部署后打开旧的缓存页面。Astro 自带的预取请求的是不带构建号的地址，点击时用不上，所以在 `astro.config.mjs` 关闭（`prefetch: false`），改由 `navigation/prefetch.mjs` 在悬停 80ms、聚焦或按下链接时，用同一个带构建号的地址预取；省流量或 2G 网络只在按下时预取，锚点、外站、新标签页和 `data-astro-reload` 链接不预取。主题切换链接带 `data-astro-reload`，以完整页面加载目标主题（与上游一致），不在路由内跨主题替换文档。颜色模式和暂停动效都由 `ColorModePreference.astro` 的内联脚本在首次绘制前写入 `html`。语言和主题菜单处理 Escape 时调用 `preventDefault()`，外层面板（Ema 的设置面板）跳过已处理的按键，所以一次 Escape 只关闭一层；焦点移出菜单时菜单收起。列表筛选只在同一页面的历史记录间恢复筛选状态，返回到其他页面时不重排即将离开的列表。
+
 ```astro
 ---
 import SiteNavigation from "@/core/navigation/SiteNavigation.astro";

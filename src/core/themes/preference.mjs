@@ -60,10 +60,18 @@ export function mountThemePreference(doc, win) {
     for (const menu of menus) if (!menu.contains(event.target)) menu.open = false;
   });
   on(doc, "keydown", (event) => {
-    if (event.key !== "Escape") return;
+    if (event.key !== "Escape" || event.defaultPrevented) return;
     for (const menu of menus) if (menu.open) {
+      // Mark the key as handled so an enclosing panel (Ema's settings) stays open.
+      event.preventDefault();
       menu.open = false;
       menu.querySelector("summary")?.focus();
+    }
+  });
+  // Tabbing out of an open menu closes it.
+  on(doc, "focusout", (event) => {
+    for (const menu of menus) {
+      if (menu.open && event.relatedTarget && menu.contains(event.target) && !menu.contains(event.relatedTarget)) menu.open = false;
     }
   });
   on(win, "pageshow", update);

@@ -220,8 +220,16 @@ html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); fo
   font: 13px/1.6 var(--blank-mono); color: var(--k-terminal-ink); text-shadow: none;
 }
 #ema-stage .k-terminal svg { flex: none; margin-top: 2px; color: var(--k-accent); }
-#ema-stage .k-typing { min-width: 0; overflow-wrap: anywhere; }
-#ema-stage .k-caret { display: inline-block; flex: none; width: 2px; height: 16px; margin: 3px 0 0 2px; background: #e59ab7; animation: k-blink 1.05s steps(1, end) infinite; }
+/* All lines share one grid cell: the invisible ones hold the height of the longest, so the copy above
+   never jumps while a line wraps or is erased. */
+#ema-stage .k-line { display: grid; flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+#ema-stage .k-line > * { grid-area: 1 / 1; }
+#ema-stage .k-ghost { visibility: hidden; }
+#ema-stage .k-caret { display: inline-block; width: 2px; height: 1.15em; margin-left: 2px; vertical-align: -.2em; background: #e59ab7; animation: k-blink 1.05s steps(1, end) infinite; }
+/* Like a real terminal: the caret stays solid while characters are written or erased, and blinks while it waits. */
+#ema-stage .is-typing .k-caret { animation: none; opacity: 1; }
+/* In the card's command line the caret follows the name as closely as in the terminal (the row's 6px gap minus 4). */
+#ema-stage .k-card-cmd .k-caret { margin-left: -4px; }
 
 /* Ema's theatre: the five-pose controls on her right. */
 #ema-stage .k-theatre {

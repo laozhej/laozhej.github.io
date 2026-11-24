@@ -194,22 +194,28 @@ export function mountEmaStage(doc, win) {
   const typingTimers = new Set();
   function typeLoop(target, lines, write = 58, erase = 32, hold = 1250) {
     if (!target || !lines.length) return;
+    // The line's box marks typing (solid caret) versus waiting (blinking caret).
+    const host = target.closest('[data-k-terminal], .k-card-cmd') ?? target;
     let line = 0, chars = 0, deleting = false;
     const tick = () => {
-      if (!canAnimate()) { target.textContent = lines[line]; return; }
+      if (!canAnimate()) { target.textContent = lines[line]; host.classList.remove('is-typing'); return; }
       const text = lines[line];
       target.textContent = text.slice(0, chars);
-      let delay;
+      let delay, typing = true;
       if (!deleting && chars < text.length) { chars += 1; delay = write; }
-      else if (!deleting) { deleting = true; delay = hold + text.length * 40; }
+      else if (!deleting) { deleting = true; delay = hold + text.length * 40; typing = false; }
       else if (chars > 0) { chars -= 1; delay = erase; }
-      else { deleting = false; line = (line + 1) % lines.length; delay = 360; }
+      else { deleting = false; line = (line + 1) % lines.length; delay = 360; typing = false; }
+      host.classList.toggle('is-typing', typing);
       const timer = win.setTimeout(() => { typingTimers.delete(timer); tick(); }, delay);
       typingTimers.add(timer);
     };
     tick();
   }
-  function stopTyping() { typingTimers.forEach((timer) => win.clearTimeout(timer)); typingTimers.clear(); }
+  function stopTyping() {
+    typingTimers.forEach((timer) => win.clearTimeout(timer)); typingTimers.clear();
+    root.querySelectorAll('.is-typing').forEach((node) => node.classList.remove('is-typing'));
+  }
   const typing = root.querySelector('[data-k-typing]');
   const nameTarget = root.querySelector('[data-k-name]');
   const parse = (value) => { try { return JSON.parse(value || '[]'); } catch (_) { return []; } };

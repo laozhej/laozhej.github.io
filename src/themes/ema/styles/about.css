@@ -88,12 +88,14 @@ html[data-color-mode="dark"] .about-tech .tone-slate {--tone-ink:#c9d6ee;}
 .about-characters p {margin-top:2px;color:var(--blank-muted);font:11.5px/1.5 var(--mono);overflow-wrap:anywhere;}
 .ema-about .about-character-toggle {display:flex;width:fit-content;margin:10px 0 0 auto;padding:6px 0 6px 12px;border:0;background:transparent;font-family:inherit;cursor:pointer;}
 .about-character-toggle[aria-expanded="true"] svg {rotate:180deg;}
-.about-games>li {display:grid;grid-template-columns:120px minmax(0,1fr);align-items:center;gap:18px;padding:14px 0;border-top:1px solid var(--blank-line);}
+.about-games>li {position:relative;display:grid;grid-template-columns:120px minmax(0,1fr);align-items:center;gap:18px;padding:14px 0;border-top:1px solid var(--blank-line);}
 .about-games>li:first-child {padding-top:0;border-top:0;}
 .about-games>li>div {min-width:0;}
 .ema-about .about-game-art {display:block;width:120px;height:68px;border-radius:3px;background:var(--ema-blush);object-fit:cover;}
 .about-game-icon {object-fit:contain;}
 .about-games h3 a {background:linear-gradient(var(--ema-pink),var(--ema-pink)) 0 100%/0 1px no-repeat;transition:background-size 200ms var(--blank-ease);}
+/* The title link stretches over its row, so the target is the whole row (picture and text), not an 18px line. */
+.about-games h3 a::after {content:"";position:absolute;inset:0;}
 .about-games h3 svg {margin-left:5px;vertical-align:-1px;color:var(--ema-pink);}
 .about-games p {margin-top:4px;color:var(--blank-muted);font-size:12.5px;line-height:1.6;}
 .about-games+.about-more {display:flex;width:fit-content;margin:6px 0 0 auto;}

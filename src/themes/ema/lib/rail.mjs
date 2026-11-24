@@ -113,7 +113,10 @@ export function mountSceneCovers(root, doc, win, { paused = () => false, stageMo
   const removers = [];
   let running = false, disposed = false, generation = 0, lockedY = 0;
   let direction = 1, reversePull = 0, reverse = null;
-  let previousY = win.scrollY, nativeNavigation = Boolean(win.location?.hash), heroReady = false;
+  // A position restored by Back, Forward or a reload is where the reader already was. Like an anchor
+  // arrival it is never covered: the first wheel hands scrolling back to the scene cuts.
+  const restored = win.scrollY > 2 || Number(win.history?.state?.scrollY) > 2;
+  let previousY = win.scrollY, nativeNavigation = Boolean(win.location?.hash) || restored, heroReady = false;
   const listen = (node, type, callback, options) => { node.addEventListener(type, callback, options); removers.push(() => node.removeEventListener(type, callback, options)); };
   const allowed = () => !disposed && !paused() && stageMode() && fine.matches && !doc.hidden
     && !root.querySelector('dialog[open]') && typeof screen.animate === 'function' && rail.dataset.mode === 'scroll';

@@ -11,6 +11,8 @@ Design reference: [Yuimi-chaya/Yuimi-chaya.github.io](https://github.com/Yuimi-c
 
 ### Homepage composition
 
+Ema keeps its desktop UI scale on wider screens. The hero artwork fills the viewport. The signal scene's title, clock and note share a centered column up to 1280px wide, with the clock inset 5% from its right edge and the note 6% from its left.
+
 | Reference | Ours | Status |
 | --- | --- | --- |
 | Stage `calc(100svh - 82px)`, min 600px; content inset `max(48px, (100% - 1240px) / 2)` | Stage `100svh`, min 600px, so the first screen ends at the stage edge with no empty band below it (owner’s request, 2026-11-14); same content inset | deviate (owner’s request) |

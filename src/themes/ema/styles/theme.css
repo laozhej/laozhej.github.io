@@ -1,6 +1,7 @@
 /* Sakura Archive palette (reviewed prototype r3): warm cream paper, plum-grey ink, sakura and lavender accents.
    The Blank tokens carry it to every Ema page; the --ema-* tokens add r3's card, strong line, soft pink and lavender. */
 html[data-theme="ema"] {
+  --site-px: 1px;
   color-scheme: light;
   --blank-paper:#fbf7ef; --blank-ink:#434861; --blank-muted:#62667e;
   --blank-line:#e7dece; --blank-soft:#f4ede0; --blank-header-bg:#fbf7ef;

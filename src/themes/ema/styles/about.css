@@ -113,3 +113,11 @@ html[data-motion-paused="true"] .ema-about :is(a,a svg) {transition:none;}
 @media(prefers-reduced-motion:reduce) {
   .ema-about :is(a,a svg) {transition:none;}
 }
+/* Touch targets, as on the Games page: transparent pseudo-elements extend the hit areas to at least 44px.
+   The pills are 38.8px tall with a 1px border, which takes 1px of the inset; the "more" links are 22.8px tall;
+   a game's or an anime's title link (18px a line) takes a band across its heading. The cards themselves are left
+   alone: positioning them made Chrome resample the tilted posters. */
+.about-links a,.about-marks a,a.about-more,.about-games h3,.about-animes h3 {position:relative;}
+.about-links a::after,.about-marks a::after {content:"";position:absolute;inset:-4px 0;}
+a.about-more::after {content:"";position:absolute;inset:-11px 0;}
+.about-games h3 a::after,.about-animes h3 a::after {content:"";position:absolute;inset:-13px 0;}

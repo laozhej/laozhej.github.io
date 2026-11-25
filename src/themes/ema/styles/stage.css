@@ -497,6 +497,11 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 #ema-stage .k-signal.is-raining .k-tags { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 #ema-stage .k-rain-again { position: absolute; z-index: 2; right: 5%; bottom: 24px; }
 
+@media (min-width: 761px) {
+  #ema-stage .k-signal { display: grid; grid-template-columns: 1fr min(100%, 1280px) 1fr; }
+  #ema-stage :is(.k-signal-word, .k-clock, .k-bubble) { grid-column: 2 / 3; }
+}
+
 /* ---------- Journal ---------- */
 #ema-stage .k-journal { max-width: 1200px; margin: 0 auto; padding: 48px 28px 88px; }
 #ema-stage .k-journal-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }

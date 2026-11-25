@@ -2,6 +2,8 @@
 
 This public repository is the source of <https://laozhej.github.io/>, a personal site with three themes (Blank, Ema / 樱色档案, Endfield / 终末地) in four languages. This guide replaced all earlier repository instructions on 2026-11-13, when the owner authorised a full rewrite. Change it only with the owner's explicit approval.
 
+Current status, next steps and the decisions waiting for the owner are in [`docs/ROADMAP.md`](docs/ROADMAP.md) (Simplified Chinese). Read it after this guide; it never overrides this guide. The owner approved adding this pointer on 2026-11-25.
+
 ## Roles and approvals
 
 - Claude Code is the primary designer and implementer. Do the design and code work yourself; do not hand the primary work to another coding agent. Subagents may run narrow lookups or independent reviews only.

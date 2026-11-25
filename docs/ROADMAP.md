@@ -2,7 +2,7 @@
 
 给接手这个网站的人和 AI agent：开工前先读 [AGENTS.md](../AGENTS.md)，再读本文件；AGENTS.md 开头有一行指向这里，站主 2026-11-25 同意添加。本文件记录现在做到哪里、接下来做什么、哪些事要等站主决定。规则以 AGENTS.md 为准，布局与交互以 [REFERENCE.md](REFERENCE.md) 为准，美术以 [ART-DIRECTION.md](ART-DIRECTION.md) 为准，技术约定见 [THEMES.md](THEMES.md)。本文件和它们冲突时，以它们为准，并顺手修正本文件。
 
-最后核对：2026-11-25，以 `f847056`（PR #29 合并后的 `main`）加上 PR #30 的内容为准。文中的“§”编号都指 ART-DIRECTION.md 的章节。
+最后核对：2026-11-25，以 `a026488`（PR #30 合并后的 `main`）加上 PR #31 的内容为准。文中的“§”编号都指 ART-DIRECTION.md 的章节。
 
 ## 标签
 
@@ -26,8 +26,8 @@
 - 网站：Blank、Ema（樱色档案）、Endfield（终末地）三套主题，各有 zh-CN、zh-TW、ja、en 四种语言，构建出 96 个页面。Astro 7.3.5，推送到 `main` 后由 GitHub Pages 自动部署。
 - 规范主题：`src/core/themes/routing.mjs` 的 `canonicalTheme = "blank"`。各主题的 canonical、hreflang 和 sitemap 都指向 Blank。改主界面时改这个常量，并重新生成 `public/og/` 的分享图（`scripts/og-image.mjs`）。
 - 文章：1 篇，`dev-log-01`，四种语言都有。
-- 检查基线（Node 24.19.0，PR #30 的内容）：`npm test` 165 项全部通过（PR #29 和 #30 一共去掉 7 项，是随 Games 页和 About 页的重做一起撤回的测试）；`npm run build` 生成 96 页；`npm run showcase:check` 通过。
-- PR #1 到 #30 全部已合并（#30 就是恢复 About 页的这一次）；没有未关闭的 PR 或 issue（2026-11-25 核对）。
+- 检查基线（Node 24.19.0，PR #31 的内容）：`npm test` 167 项全部通过（PR #29 和 #30 去掉了随 Games 页和 About 页的重做一起撤回的 7 项，PR #31 加了 2 项）；`npm run build` 生成 96 页；`npm run showcase:check` 通过。
+- PR #1 到 #31 全部已合并（#31 就是扩大点按区域的这一次）；没有未关闭的 PR 或 issue（2026-11-25 核对）。
 
 近期已完成的工作（都已部署）：
 
@@ -49,15 +49,16 @@
 | #28 | AGENTS.md 增加指向本路线图的一行 |
 | #29 | Ema Games 页恢复为 PR #26 之前的版式（第 2 节） |
 | #30 | Ema About 页恢复为 PR #23 之前的版式（第 2 节） |
+| #31 | Ema Games 页和 About 页的点按区域扩大到至少 44 px，外观不变（第 2 节） |
 
 ## 2. Ema Games 页和 About 页：恢复为改版前的版式
 
 - **已完成**（PR #29，站主 2026-11-25 的决定）：Games 页恢复为 PR #26 之前的版式，也就是 Blank 的 `PageHead` 拉丁大标题“Games.”加按类型着色的卡片网格。站主看过“改版前 / 线上 / 紧凑版”三个版本的整页对照后决定改回去，原话是“改版前的那些界面和文字挺不错的，新的就不好看”；PR #29 的说明里记的理由是新版式对齐参差、影响观感。`GamesPage.astro`、`games.css`、`shelf.css`、`presentation.mjs` 四个文件与 `bccc077`（PR #26 之前）逐字节相同，PR #26 加的 `tests/ema-games.test.mjs` 随之删除，PR #27、#28 的改动都保留。检查记录见 §14.9。
 - 按参考站 playroom 重做的版式（中文标题、每款游戏一个 cabinet）已经撤回。它不是现行规范，也没有冻结；站主没有新请求时不要再套用。
 - 没有提交的手机紧凑版随之作废（工作区 `worktrees/ema-games-compact`，分支 `claude/ema-games-compact`）。不要提交，不要合并。
-- **提议**：恢复后的页面和 PR #26 之前一样，有小于 44 px 的点按区域：每张卡片的 Steam / 官网链接高 27.9 px（23 个）；筛选按钮在 761 px 及更宽的窗口里高 38 px，手机上是 44 px。AGENTS.md 要求触控目标至少 44 px。可以像 PR #27 处理 About 页那样，只扩大可点区域，外观不变。站主同意后再做。
 - **已完成**（PR #30，站主 2026-11-25 的决定）：About 页恢复为 PR #23 之前的版式，也就是 Blank 的 `PageHead` 拉丁大标题“About.”、左侧的个人卡片、信笺和下面的卡片架。站主要求改回之前的设计时说的是“改版前的那些界面和文字”；agent 把 About 页“改版前 / 线上”的整页对照发给站主，问这一页要不要也改回去，站主的回答是“continue”，agent 据此恢复。`AboutPage.astro`、`about.css`、`presentation.mjs` 三个文件与 `ea0898b`（PR #23 之前）逐字节相同，PR #23 加的 `tests/ema-about.test.mjs` 随之删除；PR #27 给重做后的 About 加的整行游戏链接也随版式一起撤回，PR #27 的滚动位置恢复保留。检查记录见 §14.8。
 - 按参考站 About 页重做的版式不是现行规范，也没有冻结。如果站主其实想留着它，撤销 PR #30 的合并提交就能恢复。
+- **已完成**（PR #31，2026-11-25）：恢复后的两个页面和改版前一样，有不少小于 44 px 的点按区域，而 AGENTS.md 要求触控目标至少 44 px。Games：卡片上的 Steam / 官网链接高 27.9 px，筛选按钮在 761 px 及更宽的窗口里高 38 px。About：外链和书签高 38.8 px，游戏和动画的标题链接每行 18 px，两个“更多”链接高 22.8 px。agent 问过站主要不要只扩大可点区域、外观不变，站主回复“continue”，agent 据此动手；站主此前同意过对重做后的 About 页做同类处理（PR #27）。PR #31 给这些链接和按钮各加一个透明的伪元素，把可点范围扩大到至少 44 px：不画任何东西，也不移动任何东西。`tests/ema-targets.test.mjs` 守着这些规则。每个元素的版面盒都和改动前相同；Chrome 里个别圆角边缘和倾斜的动画海报内有零星像素不同，放大 4 倍也看不出来。做法和检查记录见 §14.10。
 
 ## 3. 美术
 
@@ -196,7 +197,7 @@ agent 可以先准备一份检查清单。
 
 ## 8. 待站主回答的问题
 
-1. Games 页卡片上的 Steam / 官网链接只有约 28 px 高，要不要只扩大可点区域、外观不变？（第 2 节）
+1. Ema 的 About 页是凭你回复的“continue”改回改版前的（PR #30）。如果你其实想留着参考站式的那一版，说一声，撤销 PR #30 的合并提交即可。（第 2 节）
 2. 页头美术：图从哪里来？Journal 分镜条要不要解冻？Journal 和 Works 要不要改成中文标题？（3.2）
 3. Blank 游戏页的缩略图和关于页的角色头像，保留还是去掉？（3.4）
 4. 樱羽艾玛和月代雪的空框怎么处理？（3.4）

@@ -93,3 +93,9 @@ html[data-color-mode="dark"] .games-head .blank-page-heading h1 {text-shadow:2.5
 @media(max-width:760px) {.games-echo {display:none;} .games-aura {top:-8px;right:-8px;bottom:auto;width:58%;height:86px;}}
 html[data-motion-paused="true"] .games-aura::before {animation:none;}
 @media(prefers-reduced-motion:reduce) {.games-aura::before {animation:none;}}
+/* Touch targets. The Steam / official-site link is 28px tall and, from 761px wide, the filter buttons are 38px.
+   A transparent pseudo-element extends each one's hit area to at least 44px; nothing is painted and nothing moves.
+   Its inset is measured from the padding box, so the buttons' 1px border takes 1px of it. */
+.game-link,.games-filters button {position:relative;}
+.game-link::after {content:"";position:absolute;inset:-9px 0;}
+.games-filters button::after {content:"";position:absolute;inset:-4px 0;}

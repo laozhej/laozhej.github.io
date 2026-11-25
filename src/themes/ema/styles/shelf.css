@@ -1,5 +1,5 @@
-/* Shared pieces of Sakura Archive's About and Games pages: paper and shadow tokens, the homepage
-   tag colours (one tone per genre or tech) and the mono kicker. */
+/* Shared pieces of Sakura Archive's card pages (About, Games): paper cards,
+   the homepage tag colours, mono kickers, tinted heading chips and screentone covers. */
 .ema-shelf {
   --card:var(--ema-card); --card-shadow:0 12px 30px rgba(96,74,60,.1); --frame:#ead6df;
   --round:"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Varela Round","Yu Gothic UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
@@ -23,3 +23,11 @@ html[data-color-mode="dark"] .ema-shelf .tone-green {--fill:#26332c;--line:#3f5a
 html[data-color-mode="dark"] .ema-shelf .tone-lavender {--fill:#302d45;--line:#524b76;--tone-ink:#d9ccfa;}
 html[data-color-mode="dark"] .ema-shelf .tone-yellow {--fill:#36301f;--line:#6a5c35;--tone-ink:#f5e3a0;}
 .shelf-kicker {font:600 10px/1.8 var(--mono);letter-spacing:.16em;color:var(--ema-pink);}
+.shelf-heading {display:flex;align-items:center;gap:14px;}
+.shelf-heading h2 {margin-top:2px;font:500 1.45rem/1.35 var(--blank-serif);color:var(--blank-ink);}
+.shelf-chip {display:grid;place-items:center;flex-shrink:0;width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:var(--fill);color:var(--tone-ink);}
+.shelf-card {min-width:0;border:1px solid var(--blank-line);border-radius:14px;background:var(--card);box-shadow:var(--card-shadow);}
+/* A stand-in cover: screentone dots in the card's tone, a number and a blossom. */
+.shelf-cover {position:relative;display:flex;align-items:flex-end;overflow:hidden;border:1px solid var(--line);border-radius:10px;background:radial-gradient(color-mix(in srgb,var(--line) 70%,transparent) 1.1px,transparent 1.5px) 0 0/7px 7px,var(--fill);color:var(--tone-ink);}
+.shelf-cover::after {content:"";position:absolute;top:8px;right:8px;width:22px;height:22px;background:var(--ema-blossom) center/contain no-repeat;}
+.shelf-cover b {font:400 2.3rem/1 var(--ema-title-font);}

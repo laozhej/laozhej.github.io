@@ -1,8 +1,8 @@
 # 路线图与交接
 
-给接手这个网站的人和 AI agent：开工前先读 [AGENTS.md](../AGENTS.md)，再读本文件。本文件记录现在做到哪里、接下来做什么、哪些事要等站主决定。规则以 AGENTS.md 为准，布局与交互以 [REFERENCE.md](REFERENCE.md) 为准，美术以 [ART-DIRECTION.md](ART-DIRECTION.md) 为准，技术约定见 [THEMES.md](THEMES.md)。本文件和它们冲突时，以它们为准，并顺手修正本文件。
+给接手这个网站的人和 AI agent：开工前先读 [AGENTS.md](../AGENTS.md)，再读本文件；AGENTS.md 开头有一行指向这里，站主 2026-11-25 同意添加。本文件记录现在做到哪里、接下来做什么、哪些事要等站主决定。规则以 AGENTS.md 为准，布局与交互以 [REFERENCE.md](REFERENCE.md) 为准，美术以 [ART-DIRECTION.md](ART-DIRECTION.md) 为准，技术约定见 [THEMES.md](THEMES.md)。本文件和它们冲突时，以它们为准，并顺手修正本文件。
 
-最后核对：2026-11-25，`main` 为 `34268e6`（PR #26 合并后），另加本次的滚动位置恢复和 About 点按区域修复。文中的“§”编号都指 ART-DIRECTION.md 的章节。
+最后核对：2026-11-25，`main` 为 `680cc23`（PR #27 合并后）。文中的“§”编号都指 ART-DIRECTION.md 的章节。
 
 ## 标签
 
@@ -17,7 +17,7 @@
 
 ## 0. 接手后先做什么
 
-1. 看真实状态，不要相信记忆或旧文档：`git fetch`，`gh pr list --repo laozhej/laozhej.github.io`（`origin` 是中转地址，`gh` 必须带 `--repo`），再看工作区里各个 worktree 的 `git status`。
+1. 看真实状态，不要相信记忆或旧文档：`git fetch`，`gh pr list --repo laozhej/laozhej.github.io`（`gh` 一律带 `--repo`：有的会话里 `origin` 显示为中转地址，`gh` 认不出仓库），再看工作区里各个 worktree 的 `git status`。
 2. 问站主页头插画研究得怎么样了（第 3.2 节）。站主定下来之前不要开始页头美术。
 3. 站主没有指定任务时，把第 8 节的问题列给站主，并推荐第 4.1、4.2 节这类低风险优化。AGENTS.md 规定“请求只授权它点名的事”，所以要等站主点头再做。
 
@@ -26,8 +26,8 @@
 - 网站：Blank、Ema（樱色档案）、Endfield（终末地）三套主题，各有 zh-CN、zh-TW、ja、en 四种语言，构建出 96 个页面。Astro 7.3.5，推送到 `main` 后由 GitHub Pages 自动部署。
 - 规范主题：`src/core/themes/routing.mjs` 的 `canonicalTheme = "blank"`。各主题的 canonical、hreflang 和 sitemap 都指向 Blank。改主界面时改这个常量，并重新生成 `public/og/` 的分享图（`scripts/og-image.mjs`）。
 - 文章：1 篇，`dev-log-01`，四种语言都有。
-- 检查基线（Node 24.19.0，含本次修复）：`npm test` 172 项全部通过；`npm run build` 生成 96 页；`npm run showcase:check` 通过。
-- PR #1 到 #26 全部已合并（2026-11-24）。本次修复随后单独提 PR。
+- 检查基线（Node 24.19.0，`680cc23`）：`npm test` 172 项全部通过；`npm run build` 生成 96 页；`npm run showcase:check` 通过。
+- PR #1 到 #27 全部已合并，没有未关闭的 PR 或 issue（2026-11-25 核对）。
 
 近期已完成的工作（都已部署）：
 
@@ -45,6 +45,7 @@
 | #24 | Ema 首页终端光标和首屏跳动修复 |
 | #25 | 本路线图和文档整理 |
 | #26 | Ema Games 页（§14.9） |
+| #27 | 后退、前进或刷新后回到原来的滚动位置；Ema About 游戏链接的点按区域 |
 
 ## 2. Ema Games 页
 
@@ -134,7 +135,7 @@ PR #22（2026-11-24）留下的问题。第 1、2 项写在 PR #22 的说明里�
 ### 4.4 CI
 
 - 现在只有推送到 `main` 时才跑 CI（`.github/workflows/deploy.yml`：`npm test && npm run build`）。PR 合并之前没有自动检查，`npm run showcase:check` 也不在 CI 里。**提议**加一个 `pull_request` 工作流，用 Node 24 跑 test、build 和 showcase:check。
-- GitHub 上还留着 22 个已经合并的分支，以及两个没有合并、已经弃用的 Frieren 分支（`codex/frieren-mascot`、`codex/frieren-pointer`；Live2D 已在 round 5 移除）。要不要删，**待站主决定**。
+- GitHub 上还留着 25 个已经合并的分支（PR #27 合并后的数字），以及两个没有合并、已经弃用的 Frieren 分支（`codex/frieren-mascot`、`codex/frieren-pointer`；Live2D 已在 round 5 移除）。要不要删，**待站主决定**。
 
 ### 4.5 真机验证
 
@@ -180,7 +181,7 @@ agent 可以先准备一份检查清单。
 
 ## 7. 本机工作区
 
-站主电脑上的工作区（`worktrees/`、`outputs/` 等）不在仓库里。各目录的用途、哪些 worktree 可以清理、本机工具在哪里，见工作区根目录的 `README.md`。
+站主电脑上的工作区（`worktrees/`、`outputs/` 等）不在仓库里。各目录的用途、哪些 worktree 可以清理、本机工具在哪里，见工作区根目录的 `README.md`。工作区根目录的 `AGENTS.md` 也有一行指向本文件（站主 2026-11-25 同意添加）。
 
 ## 8. 待站主回答的问题
 
@@ -194,4 +195,3 @@ agent 可以先准备一份检查清单。
 8. 你自己遇到过哪些问题？（4.1）
 9. 什么时候做真机检查（Safari、手机、触控板）？（4.5）
 10. 接手的 agent 如果不是 Claude Code，AGENTS.md 里“Claude Code 是主要设计者和实现者”这一条怎么处理？（6.1）
-11. 要不要在仓库和工作区的 AGENTS.md 里各加一行，指向本文件？（改 AGENTS.md 需要站主明确同意，所以这次没有改。）

@@ -2,6 +2,18 @@
 // Artwork provenance and crop records: public/characters/ASSETS.json.
 const characters = [
   {
+    key: "emma",
+    title: { "zh-CN": "樱羽艾玛", "zh-TW": "櫻羽艾瑪", ja: "桜羽エマ", en: "Ema Sakuraba" },
+    subtitle: { "zh-CN": "角色风格参考", "zh-TW": "角色風格參考", ja: "キャラクターデザインの参考", en: "Character design reference" },
+    path: "/characters/ema-sakuraba.webp",
+  },
+  {
+    key: "yuki",
+    title: { "zh-CN": "月代雪", "zh-TW": "月代雪", ja: "月代ユキ", en: "Yuki Tsukishiro" },
+    subtitle: { "zh-CN": "以前的头像角色", "zh-TW": "以前的頭像角色", ja: "以前のアイコンのキャラクター", en: "Former avatar character" },
+    path: "/characters/yuki-tsukishiro.webp",
+  },
+  {
     "key": "sakura-matou",
     "title": {
       "zh-CN": "间桐樱",
@@ -123,7 +135,7 @@ const characters = [
     },
     "work": {
       "zh-CN": "与你相恋到生命尽头",
-      "zh-TW": "與你相戀到生命盡頭",
+      "zh-TW": "與妳相戀到生命盡頭",
       "ja": "きみが死ぬまで恋をしたい",
       "en": "I Want to Love You Till Your Dying Day"
     },
@@ -139,7 +151,7 @@ const characters = [
     },
     "work": {
       "zh-CN": "与你相恋到生命尽头",
-      "zh-TW": "與你相戀到生命盡頭",
+      "zh-TW": "與妳相戀到生命盡頭",
       "ja": "きみが死ぬまで恋をしたい",
       "en": "I Want to Love You Till Your Dying Day"
     },
@@ -474,8 +486,8 @@ const characters = [
       "en": "Iroha Sakayori"
     },
     "work": {
-      "zh-CN": "超时空辉夜姬！",
-      "zh-TW": "超時空輝夜姬！",
+      "zh-CN": "超辉夜姬！",
+      "zh-TW": "超時空輝耀姬！",
       "ja": "超かぐや姫！",
       "en": "Cosmic Princess Kaguya!"
     },
@@ -484,14 +496,14 @@ const characters = [
   {
     "key": "kaguya",
     "title": {
-      "zh-CN": "辉夜姬",
-      "zh-TW": "輝夜姬",
+      "zh-CN": "辉夜",
+      "zh-TW": "輝耀姬",
       "ja": "かぐや",
       "en": "Kaguya"
     },
     "work": {
-      "zh-CN": "超时空辉夜姬！",
-      "zh-TW": "超時空輝夜姬！",
+      "zh-CN": "超辉夜姬！",
+      "zh-TW": "超時空輝耀姬！",
       "ja": "超かぐや姫！",
       "en": "Cosmic Princess Kaguya!"
     },
@@ -506,8 +518,8 @@ const characters = [
       "en": "Yachiyo Runami"
     },
     "work": {
-      "zh-CN": "超时空辉夜姬！",
-      "zh-TW": "超時空輝夜姬！",
+      "zh-CN": "超辉夜姬！",
+      "zh-TW": "超時空輝耀姬！",
       "ja": "超かぐや姫！",
       "en": "Cosmic Princess Kaguya!"
     },
@@ -555,7 +567,7 @@ const characters = [
     },
     "work": {
       "zh-CN": "邻家的天使大人",
-      "zh-TW": "鄰家的天使大人",
+      "zh-TW": "關於我在無意間被隔壁的天使變成廢柴這件事",
       "ja": "お隣の天使様にいつの間にか駄目人間にされていた件",
       "en": "The Angel Next Door Spoils Me Rotten"
     },
@@ -1045,6 +1057,9 @@ const characters = [
 
 export function getFavoriteCharacters(locale: "zh-CN" | "zh-TW" | "ja" | "en") {
   return characters.map((item) => ({
-    key: item.key, title: item.title[locale], subtitle: item.work[locale], portrait: item.path,
+    key: item.key,
+    title: item.title[locale],
+    subtitle: ("subtitle" in item ? item.subtitle : item.work)[locale],
+    portrait: item.path,
   }));
 }

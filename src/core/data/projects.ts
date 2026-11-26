@@ -25,7 +25,7 @@ export const projectEntries = [
   {
     id: "blank-personal-site",
     title: "个人网站 · 多主题与多语言",
-    type: "Personal Website",
+    type: "个人网站",
     line: "web",
     status: "持续更新",
     summary: "从 Blank 出发，让黑白阅读、樱色档案与工业风三套界面共用内容、语言和交互。项目案例记录设计取舍、共享架构与验证过程。",

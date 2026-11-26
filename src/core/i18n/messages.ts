@@ -165,7 +165,7 @@ export const messages = {
     "credits.fontsText": "樱色档案主题的标题字体是 Duarte Pinto 设计的 Gloock，通过 Fontsource 随站点自托管，只加载拉丁字母子集，采用 SIL Open Font License 1.1。其他文字使用访客设备的系统字体。",
     "credits.fontProject": "Gloock 项目",
     "credits.contentHeading": "文字与素材",
-    "credits.contentText": "当前三篇示例文章及其日英译文为本网站另行编写，没有转载原作者的博客文章。",
+    "credits.contentText": "本站文章由站主以简体中文撰写，另有繁体中文、日语和英语译文。",
     "credits.mediaText": "本站没有搬用原主题的漫画、角色立绘、音乐或其他媒体。上游的代码许可不包含这些素材的使用授权。",
     "credits.scopeText": "本页保留的是所使用主题、图标和字体的许可，不为本站所有内容统一指定新的许可。",
     "credits.back": "返回首页"
@@ -331,7 +331,7 @@ export const messages = {
     "credits.fontsText": "櫻色檔案主題的標題字型是 Duarte Pinto 設計的 Gloock，透過 Fontsource 隨網站自行託管，只載入拉丁字母子集，採用 SIL Open Font License 1.1。其他文字使用訪客裝置的系統字型。",
     "credits.fontProject": "Gloock 專案",
     "credits.contentHeading": "文字與素材",
-    "credits.contentText": "目前三篇範例文章及其日英譯文為本網站另行編寫，沒有轉載原作者的部落格文章。",
+    "credits.contentText": "本站文章由站主以簡體中文撰寫，另有繁體中文、日文和英文譯本。",
     "credits.mediaText": "本站沒有搬用原主題的漫畫、角色立繪、音樂或其他媒體。上游的程式碼授權不包含這些素材的使用授權。",
     "credits.scopeText": "本頁保留的是所使用主題、圖示和字型的授權，不為本站所有內容統一指定新的授權。",
     "credits.back": "返回首頁"
@@ -497,7 +497,7 @@ export const messages = {
     "credits.fontsText": "桜色の記録テーマのタイトルには、Duarte Pinto がデザインした Gloock を使用しています。Fontsource 経由でサイト内から配信し、ラテン文字のサブセットのみを読み込みます。ライセンスは SIL Open Font License 1.1 です。そのほかの文字は閲覧端末のシステムフォントで表示します。",
     "credits.fontProject": "Gloock プロジェクト",
     "credits.contentHeading": "文章と素材",
-    "credits.contentText": "現在のサンプル記事3本とその日本語・英語訳は、このサイトのために別途作成したものです。元の作者のブログ記事は転載していません。",
+    "credits.contentText": "記事はサイト運営者が簡体字中国語で執筆し、繁体字中国語・日本語・英語の訳文も掲載しています。",
     "credits.mediaText": "元のテーマにある漫画、キャラクターの立ち絵、音楽、その他のメディアは使用していません。上流のコードライセンスには、これらの素材の使用許諾は含まれません。",
     "credits.scopeText": "このページでは使用したテーマ、アイコン、フォントのライセンスを掲載しています。サイト内のすべてのコンテンツに、新しい共通ライセンスを指定するものではありません。",
     "credits.back": "ホームへ戻る"
@@ -624,7 +624,7 @@ export const messages = {
     "about.practice": "What I am working on",
     "about.favorites": "Favorite works",
     "about.gamesKicker": "GAMES / WORKS",
-    "about.characterKicker": "FAVORITE CHARACTER",
+    "about.characterKicker": "FAVORITE CHARACTERS",
     "about.animeKicker": "FAVORITE ANIME",
     "about.animesNotion": "Show more on Notion",
     "about.charactersMore": "Show more",
@@ -663,7 +663,7 @@ export const messages = {
     "credits.fontsText": "Sakura Archive titles use Gloock by Duarte Pinto, self-hosted through Fontsource with only the Latin subset loaded. It is licensed under the SIL Open Font License 1.1. All other text uses the visitor's system fonts.",
     "credits.fontProject": "Gloock project",
     "credits.contentHeading": "Writing and media",
-    "credits.contentText": "The three current sample articles and their Japanese and English versions were written separately for this website. The original author’s blog articles have not been republished here.",
+    "credits.contentText": "The site owner writes the articles in Simplified Chinese. Translations are available in Traditional Chinese, Japanese and English.",
     "credits.mediaText": "No manga, character artwork, music, or other media from the original theme has been reused. The upstream code license does not grant permission to use those assets.",
     "credits.scopeText": "This page preserves the licenses for the theme, icons, and fonts used here. It does not assign a new blanket license to all content on this website.",
     "credits.back": "Back to home"

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "verified_on": "2026-11-14",
   "verification_scope": "File identity against commit 76c9da5690e89a7816bb4b44eefacbcc87521446 only; source and permission status remain unconfirmed.",
-  "scope": "Only Ema’s five homepage poses were restored at the site owner’s explicit request on 2026-11-14, overriding the earlier placeholder-only constraint for these five files. All other media removed on 2026-11-13 remain removed. The owner’s avatar remains the monogram 旭. Historical source records are retained for traceability, not as confirmed provenance or a permission grant. Third-party media are excluded from the repository software license.",
+  "scope": "Only Ema’s five homepage poses were restored at the site owner’s explicit request on 2026-11-14, overriding the earlier placeholder-only constraint for these five files. The two portraits later restored for the About pages are recorded in /characters/ASSETS.json. The owner’s avatar remains the monogram 旭. Historical source records are retained for traceability, not as confirmed provenance or a permission grant. Third-party media are excluded from the repository software license.",
   "non_ai_processing": "Restoration and filename changes only. Original file bytes, dimensions and alpha are preserved. No generative AI, image synthesis, generative fill, redrawing, re-encoding or upscaling is used. Per-asset processing records describe the historical import, not new processing.",
   "assets": [
     {

@@ -77,6 +77,7 @@ export function mountEmaFrames(root, window, { canAnimate, onChange = () => {} }
       });
       setStatus(`${String(current + 1).padStart(2, '0')} / ${String(frames.length).padStart(2, '0')}`, ` · ${image.dataset.label}`);
       const action = current === frames.length - 1 ? controls.dataset.restart : controls.dataset.next;
+      next.title = action;
       nextLabel.textContent = action;
       hit.setAttribute('aria-label', action);
       if (!frugal()) prefetchAhead();

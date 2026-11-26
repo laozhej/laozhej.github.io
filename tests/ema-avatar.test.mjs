@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { registerHooks } from "node:module";
 import { locales } from "../src/core/i18n/routing.mjs";
@@ -47,22 +48,32 @@ test("the homepage and About page take the monogram from the constant, never fro
   assert.match(aboutPage, /<span class="about-avatar-mark" \{\.\.\.avatarAttributes\(profileIdentity\.displayName\)\}>\{AVATAR_MONOGRAM\}<\/span>/);
 });
 
-test("月代雪 is described as the former avatar character, and her frame stays empty", () => {
+test("月代雪 is described as the former avatar character in all four languages", () => {
   const expected = { "zh-CN": "以前的头像角色", "zh-TW": "以前的頭像角色", ja: "以前のアイコンのキャラクター", en: "Former avatar character" };
   for (const locale of locales) {
     const yuki = getSiteContent(locale).xpFavorites.find((item) => item.key === "yuki");
     assert.equal(yuki.subtitle, expected[locale], `${locale}: subtitle`);
-    assert.equal(yuki.portrait, null, `${locale}: no portrait; 旭 is the owner's monogram, not hers`);
   }
 });
 
-test("favourites without a cleared portrait get an empty frame on every About page", () => {
+test("every locale serves the same recorded portraits, including the two original crops", () => {
+  const publicDir = new URL("../public/", import.meta.url);
+  const manifest = JSON.parse(readFileSync(new URL("characters/ASSETS.json", publicDir), "utf8"));
+  const portraits = new Map(manifest.assets.map((asset) => [asset.key, asset.path]));
   for (const locale of locales) {
     const { xpFavorites } = getSiteContent(locale);
-    const empty = xpFavorites.filter((item) => !item.portrait).map((item) => item.key);
-    assert.deepEqual(empty, ["emma", "yuki"], `${locale}: only the two uncleared portraits are empty`);
+    assert.deepEqual(xpFavorites.slice(0, 2).map((item) => item.key), ["emma", "yuki"]);
+    assert.deepEqual(xpFavorites.map((item) => item.key).sort(), [...portraits.keys()].sort());
+    for (const { key, portrait } of xpFavorites) {
+      assert.equal(portrait, portraits.get(key), `${locale}: ${key}`);
+    }
   }
-  const blankAbout = readFileSync(new URL("../src/themes/blank/pages/AboutPage.astro", import.meta.url), "utf8");
-  assert.match(blankAbout, /item\.portrait \? <img src=\{item\.portrait\}[^>]*\/> : <span class="blank-portrait-empty" aria-hidden="true"><\/span>/);
-  assert.match(aboutPage, /item\.portrait\s*\?\s*<img class="about-portrait" src=\{item\.portrait\}[\s\S]*?:\s*<span class="about-portrait about-portrait-empty" aria-hidden="true"><\/span>/);
+  const originals = {
+    emma: "46ad6afdfc6dc3fb8c96034032e9ce9bf2cb4d0d59f27f4bea427158069cd298",
+    yuki: "4dfa4291fcdce46567611324b7ad7f406f59190c916db5dbfbe410d5437c6451",
+  };
+  for (const [key, expected] of Object.entries(originals)) {
+    const image = readFileSync(new URL("." + portraits.get(key), publicDir));
+    assert.equal(createHash("sha256").update(image).digest("hex"), expected, key);
+  }
 });

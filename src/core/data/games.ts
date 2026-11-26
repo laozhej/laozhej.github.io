@@ -54,5 +54,5 @@ export const games: GameEntry[] = [
   { key: "arcaea", title: "Arcaea", names: { "zh-CN": "韵律源点", "zh-TW": "韻律源點" }, genre: "rhythm", url: "https://arcaea.lowiro.com/", art: { file: "arcaea.webp", focus: "35% 40%" } },
   { key: "rdr2", icon: "rdr2-icon.webp", title: "Red Dead Redemption 2", names: { "zh-CN": "荒野大镖客：救赎 2", "zh-TW": "碧血狂殺 2", ja: "レッド・デッド・リデンプション2" }, genre: "action", steam: 1174180, url: "https://www.rockstargames.com/reddeadredemption2", art: { file: "rdr2.webp", focus: "72% 40%" } },
   { key: "yotei", icon: "yotei-icon.webp", title: "Ghost of Yōtei", names: { "zh-CN": "羊蹄山之魂", "zh-TW": "羊蹄山戰鬼", ja: "ゴースト・オブ・ヨウテイ" }, genre: "action", url: "https://www.playstation.com/en-us/games/ghost-of-yotei/", art: { file: "yotei.webp", focus: "50% 0%" } },
-  { key: "manosaba", icon: "manosaba-icon.webp", title: "魔法少女ノ魔女裁判", names: { "zh-CN": "魔法少女的魔女审判", "zh-TW": "魔法少女的魔女審判" }, genre: "story", steam: 3101040, url: "https://manosaba.com/", art: { file: "manosaba.webp", focus: "25% 50%" } },
+  { key: "manosaba", icon: "manosaba-icon.webp", title: "魔法少女ノ魔女裁判", names: { "zh-CN": "魔法少女的魔女审判", "zh-TW": "魔法少女的魔女審判", en: "Magical Girl Witch Trials" }, genre: "story", steam: 3101040, url: "https://manosaba.com/", art: { file: "manosaba.webp", focus: "25% 50%" } },
 ];

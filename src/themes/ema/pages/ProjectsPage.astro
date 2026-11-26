@@ -34,7 +34,7 @@ const sheets = projectEntries.map((project, index) => {
   return { project, number: pad(index + 1), leads: [light, dark].filter((shot): shot is Shot => Boolean(shot)), contacts, direction };
 });
 ---
-<PageLayout title={`Works | ${site.name}`} description={t("projects.description")}>
+<PageLayout title={`${t("nav.projects")} | ${site.name}`} description={t("projects.description")}>
   <PageHead index="02" title="Works" label={t("projects.label")} description={t("projects.intro")} count={pad(projectEntries.length)} unit={unit("common.projects", projectEntries.length)} />
   <section class="ema-works" data-site-collection data-unit={t("common.projects")} data-unit-one={t("common.projectsOne")} aria-label={t("projects.index")}>
     {filterable && (

@@ -1,6 +1,40 @@
 ---
 import { localePreferenceKey, locales } from "./routing.mjs";
+import { getThemePath, themes } from "../themes/routing.mjs";
+
+const root404 = /^\/404(?:\.html|\/?)$/.test(Astro.url.pathname);
+const fallbackRoutes = root404 ? themes.map(({ id, root }) => ({
+  root,
+  pages: Object.fromEntries(locales.map((locale) => [locale, getThemePath(id, "/404/", locale)])),
+})) : [];
 ---
+{root404 ? (
+<script is:inline define:vars={{ localePreferenceKey, locales, fallbackRoutes }}>
+  // GitHub Pages serves this single document for missing URLs in every language and theme.
+  (() => {
+    const path = location.pathname;
+    const prefix = path.split("/")[1];
+    const explicit = prefix !== "zh-CN" && locales.includes(prefix);
+    let locale = explicit ? prefix : "zh-CN";
+    if (!explicit) {
+      try {
+        const saved = localStorage.getItem(localePreferenceKey);
+        if (locales.includes(saved)) locale = saved;
+      } catch {}
+    }
+    const contentPath = explicit ? path.slice(prefix.length + 1) : path;
+    const theme = fallbackRoutes.find(({ root }) => root && (contentPath === root || contentPath.startsWith(root + "/")))
+      ?? fallbackRoutes.find(({ root }) => !root);
+    const target = theme.pages[locale];
+    if (target === "/404.html" || target === path) return;
+    const url = new URL(target, location.origin);
+    url.search = location.search;
+    if (!/^\/404(?:\.html|\/?)$/.test(path)) url.searchParams.set("from", path);
+    url.hash = location.hash;
+    location.replace(url.href);
+  })();
+</script>
+) : (
 <script is:inline define:vars={{ localePreferenceKey, locales }}>
   // Explicit /zh-TW/, /ja/ and /en/ URLs win over a saved preference. Unprefixed
   // entry links use the visitor's preference, before any page is painted.
@@ -9,9 +43,9 @@ import { localePreferenceKey, locales } from "./routing.mjs";
     try {
       const saved = localStorage.getItem(localePreferenceKey);
       if (locales.includes(saved) && saved !== "zh-CN") {
-        const path = location.pathname === "/404.html" ? "/404/" : location.pathname;
-        location.replace(`/${saved}${path}${location.search}${location.hash}`);
+        location.replace(`/${saved}${location.pathname}${location.search}${location.hash}`);
       }
     } catch {}
   })();
 </script>
+)}

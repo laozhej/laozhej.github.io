@@ -10,7 +10,7 @@ import { keepTails } from "@/core/i18n/wrap.mjs";
 const { locale, t } = getI18n(Astro.url.pathname);
 const { animeFavorites, animeListUrl, currentSignals, favoriteGames, profileIdentity, profileStatus, profileTech, xpFavorites } = getSiteContent(locale);
 ---
-<BlankLayout title={`About | ${site.name}`} description={t("about.description")}>
+<BlankLayout title={`${t("nav.about")} | ${site.name}`} description={t("about.description")}>
   <PageHead index="04" title="About" label={t("common.about")} description={t("about.intro")} />
   <section class="blank-profile">
     <div class="blank-profile-name"><p class="blank-kicker">{profileIdentity.handle}</p><h2>{profileIdentity.displayName}<span aria-hidden="true">{t("common.period")}</span></h2><p>PERSONAL PROFILE</p></div>

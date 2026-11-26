@@ -15,7 +15,7 @@ const total = gameShelf.length;
 const pad = (value: number) => String(value).padStart(2, "0");
 const linkLabel = (game: (typeof gameShelf)[number]) => (game.link?.steam ? "Steam" : t("games.official"));
 ---
-<BlankLayout title={`Games | ${site.name}`} description={t("games.description")}>
+<BlankLayout title={`${t("nav.games")} | ${site.name}`} description={t("games.description")}>
   <PageHead index="03" title="Games" label={t("games.label")} description={t("games.intro")} count={pad(total)} unit={unit("common.games", total)} />
   <section class="blank-archive" data-site-collection data-unit={t("common.games")} data-unit-one={t("common.gamesOne")} aria-label={t("games.collection")}>
     <form class="blank-filter-form" data-site-filter-form hidden>

@@ -1,9 +1,97 @@
 {
   "schema_version": 1,
-  "verified_on": "2026-11-05",
+  "verified_on": "2026-11-26",
   "scope": "Portraits for the owner-selected favorite characters. Third-party art is excluded from the repository software license. Source records do not grant republication rights.",
-  "processing": "Deterministic rectangular crops, LANCZOS resizing, and WebP encoding only. No generative AI, generative fill, redrawing, or synthetic upscaling.",
+  "processing": "The original 65 portraits use rectangular crops, LANCZOS resizing and WebP encoding. The Ema and Yuki entries describe two existing circular crops recovered byte-for-byte from Git.",
   "assets": [
+    {
+      "key": "emma",
+      "title": {
+        "zh-CN": "樱羽艾玛",
+        "zh-TW": "櫻羽艾瑪",
+        "ja": "桜羽エマ",
+        "en": "Ema Sakuraba"
+      },
+      "work": {
+        "zh-CN": "魔法少女的魔女审判",
+        "zh-TW": "魔法少女的魔女審判",
+        "ja": "魔法少女ノ魔女裁判",
+        "en": "Magical Girl Witch Trials"
+      },
+      "path": "/characters/ema-sakuraba.webp",
+      "sourcePage": null,
+      "sourceImage": "User-supplied screenshot shared in a Claude Code session on 2026-10-29; original artist and publication not yet recorded.",
+      "creator": "Unverified",
+      "permission_status": "No permission for publication or redistribution has been established. Attribution is not a license.",
+      "restoration": {
+        "commit": "5236eb4bddb192a0176ea69e67963283b2f70692",
+        "path": "public/themes/ema/assets/ema-avatar.webp",
+        "verified_on": "2026-11-26"
+      },
+      "original_dimensions": [
+        1130,
+        1600
+      ],
+      "crop_circle_center_radius": [
+        587.5,
+        617.5,
+        540
+      ],
+      "dimensions": [
+        480,
+        480
+      ],
+      "has_alpha": true,
+      "sha256": "46ad6afdfc6dc3fb8c96034032e9ce9bf2cb4d0d59f27f4bea427158069cd298",
+      "bytes": 48120,
+      "format": "image/webp",
+      "processing": "Square crop around the site owner's marked circle, LANCZOS resize to 480×480, antialiased circular alpha mask, lossy WebP (quality 90). No recoloring, retouching, or generated pixels.",
+      "generative_ai_used": false
+    },
+    {
+      "key": "yuki",
+      "title": {
+        "zh-CN": "月代雪",
+        "zh-TW": "月代雪",
+        "ja": "月代ユキ",
+        "en": "Yuki Tsukishiro"
+      },
+      "work": {
+        "zh-CN": "魔法少女的魔女审判",
+        "zh-TW": "魔法少女的魔女審判",
+        "ja": "魔法少女ノ魔女裁判",
+        "en": "Magical Girl Witch Trials"
+      },
+      "path": "/characters/yuki-tsukishiro.webp",
+      "sourcePage": null,
+      "sourceImage": "User-supplied screenshot shared in a Claude Code session on 2026-10-29; original artist and publication not yet recorded.",
+      "creator": "Unverified",
+      "permission_status": "No permission for publication or redistribution has been established. Attribution is not a license.",
+      "restoration": {
+        "commit": "5236eb4bddb192a0176ea69e67963283b2f70692",
+        "path": "public/themes/ema/assets/yuki.webp",
+        "verified_on": "2026-11-26"
+      },
+      "original_dimensions": [
+        1132,
+        1594
+      ],
+      "crop_circle_center_radius": [
+        546.5,
+        462.5,
+        375
+      ],
+      "dimensions": [
+        480,
+        480
+      ],
+      "has_alpha": true,
+      "sha256": "4dfa4291fcdce46567611324b7ad7f406f59190c916db5dbfbe410d5437c6451",
+      "bytes": 53316,
+      "format": "image/webp",
+      "processing": "Square crop around the site owner's marked circle, LANCZOS resize to 480×480, antialiased circular alpha mask, lossy WebP (quality 90). No recoloring, retouching, or generated pixels.",
+      "generative_ai_used": false
+    },
     {
       "key": "sakura-matou",
       "title": {
@@ -1287,7 +1375,7 @@
         "en": "Iroha Sakayori"
       },
       "work": {
-        "zh-CN": "超时空辉夜姬！",
+        "zh-CN": "超辉夜姬！",
         "ja": "超かぐや姫！",
         "en": "Cosmic Princess Kaguya!"
       },
@@ -1326,12 +1414,12 @@
     {
       "key": "kaguya",
       "title": {
-        "zh-CN": "辉夜姬",
+        "zh-CN": "辉夜",
         "ja": "かぐや",
         "en": "Kaguya"
       },
       "work": {
-        "zh-CN": "超时空辉夜姬！",
+        "zh-CN": "超辉夜姬！",
         "ja": "超かぐや姫！",
         "en": "Cosmic Princess Kaguya!"
       },
@@ -1375,7 +1463,7 @@
         "en": "Yachiyo Runami"
       },
       "work": {
-        "zh-CN": "超时空辉夜姬！",
+        "zh-CN": "超辉夜姬！",
         "ja": "超かぐや姫！",
         "en": "Cosmic Princess Kaguya!"
       },

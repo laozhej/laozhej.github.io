@@ -11,7 +11,7 @@ const { projectEntries, projectTechLines } = getSiteContent(locale);
 // One project, or one kind of project, leaves nothing to filter.
 const filterable = projectEntries.length > 1 && projectTechLines.length > 1;
 ---
-<BlankLayout title={`Works | ${site.name}`} description={t("projects.description")}>
+<BlankLayout title={`${t("nav.projects")} | ${site.name}`} description={t("projects.description")}>
   <PageHead index="02" title="Works" label={t("projects.label")} description={t("projects.intro")} count={String(projectEntries.length).padStart(2, "0")} unit={unit("common.projects", projectEntries.length)} />
   <section class="blank-projects" data-site-collection data-unit={t("common.projects")} data-unit-one={t("common.projectsOne")} aria-label={t("projects.index")}>
     {filterable && (

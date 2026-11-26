@@ -35,13 +35,7 @@ export const favoriteGames = [
   { key: "manosaba", title: "魔法少女的魔女审判", subtitle: "视觉小说 / 角色与视觉灵感" }
 ] as const;
 
-// `portrait: null`: no cleared portrait, so each theme's About page draws an empty frame instead
-// (the earlier crops were removed on 2026-11-13; see docs/ART-DIRECTION.md).
-export const xpFavorites = [
-  { key: "emma", title: "樱羽艾玛", subtitle: "角色风格参考", portrait: null },
-  { key: "yuki", title: "月代雪", subtitle: "以前的头像角色", portrait: null },
-  ...getFavoriteCharacters("zh-CN"),
-] as const;
+export const xpFavorites = getFavoriteCharacters("zh-CN");
 
 export const currentSignals = [
   { label: "正在做", text: "开始研究各种与 AI、软件开发和游戏制作相关的内容" },

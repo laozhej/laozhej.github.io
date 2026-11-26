@@ -38,11 +38,7 @@ const zhTW = linked({
     { key: "yotei", title: "羊蹄山戰鬼", subtitle: "Ghost of Yōtei" },
     { key: "manosaba", title: "魔法少女的魔女審判", subtitle: "視覺小說 / 角色與視覺靈感" },
   ],
-  xpFavorites: [
-    { key: "emma", title: "櫻羽艾瑪", subtitle: "角色風格參考", portrait: null },
-    { key: "yuki", title: "月代雪", subtitle: "以前的頭像角色", portrait: null },
-    ...getFavoriteCharacters("zh-TW"),
-  ],
+  xpFavorites: getFavoriteCharacters("zh-TW"),
   currentSignals: [
     { label: "正在做", text: "開始研究各種與 AI、軟體開發和遊戲製作相關的內容" },
     { label: "接下來", text: "將會慢慢記錄我的研究進度和日常" },
@@ -51,7 +47,7 @@ const zhTW = linked({
   projectTechLines: [{ key: "web", label: "Web", note: "個人網站 / 頁面與互動" }],
   projectEntries: [
     {
-      id: "blank-personal-site", title: "個人網站 · 多主題與多語言", type: "Personal Website", line: "web", status: "持續更新",
+      id: "blank-personal-site", title: "個人網站 · 多主題與多語言", type: "個人網站", line: "web", status: "持續更新",
       summary: "從 Blank 出發，讓黑白閱讀、櫻色檔案與工業風三套介面共用內容、語言和互動。專案案例記錄設計取捨、共用架構與驗證過程。",
       details: ["三套主題與四種語言", "共用內容、偏好與頁面生命週期", "實際截圖、原始碼導覽與驗證紀錄"],
       url: projects.personalSiteShowcaseUrl,
@@ -95,11 +91,7 @@ const ja = linked({
     { key: "yotei", title: "Ghost of Yōtei", subtitle: "ゴースト・オブ・ヨウテイ" },
     { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "ビジュアルノベル / キャラクターとデザインの着想" },
   ],
-  xpFavorites: [
-    { key: "emma", title: "桜羽エマ", subtitle: "キャラクターデザインの参考", portrait: null },
-    { key: "yuki", title: "月代ユキ", subtitle: "以前のアイコンのキャラクター", portrait: null },
-    ...getFavoriteCharacters("ja"),
-  ],
+  xpFavorites: getFavoriteCharacters("ja"),
   currentSignals: [
     { label: "いま", text: "AI、ソフトウェア開発、ゲーム制作に関するさまざまなことを研究し始めています" },
     { label: "次に", text: "研究の過程や日常を少しずつ記録していきます" },
@@ -108,8 +100,8 @@ const ja = linked({
   projectTechLines: [{ key: "web", label: "Web", note: "個人サイト / ページとインタラクション" }],
   projectEntries: [
     {
-      id: "blank-personal-site", title: "個人サイト · テーマと言語の切り替え", type: "Personal Website", line: "web", status: "継続更新中",
-      summary: "Blank を出発点に、モノクロ、桜色アーカイブ、工業風の3つのテーマでコンテンツ、言語、操作を共有。設計上の判断、共通アーキテクチャ、検証の過程を事例としてまとめています。",
+      id: "blank-personal-site", title: "個人サイト · テーマと言語の切り替え", type: "個人サイト", line: "web", status: "継続更新中",
+      summary: "Blank を出発点に、モノクロ、桜色の記録、工業風の3つのテーマでコンテンツ、言語、操作を共有。設計上の判断、共通アーキテクチャ、検証の過程を事例としてまとめています。",
       details: ["3つのテーマと4つの言語", "コンテンツ・設定・ページのライフサイクルを共有", "実際の画面、ソースコード案内、検証記録"],
       url: projects.personalSiteShowcaseUrl,
       image: { ...projects.personalSitePreview, alt: "Blank テーマのホーム画面：白地に黒の大きな見出し Blank Space、紹介文と記事への入口" },
@@ -150,13 +142,9 @@ const en = linked({
     { key: "rdr2", title: "Red Dead Redemption 2", subtitle: "A favorite game" },
     { key: "tsushima", title: "Ghost of Tsushima", subtitle: "A favorite game" },
     { key: "yotei", title: "Ghost of Yōtei", subtitle: "A favorite game" },
-    { key: "manosaba", title: "魔法少女ノ魔女裁判", subtitle: "Visual novel / Character and visual inspiration" },
+    { key: "manosaba", title: "Magical Girl Witch Trials", subtitle: "Visual novel / Character and visual inspiration" },
   ],
-  xpFavorites: [
-    { key: "emma", title: "Ema Sakuraba", subtitle: "Character design reference", portrait: null },
-    { key: "yuki", title: "Yuki Tsukishiro", subtitle: "Former avatar character", portrait: null },
-    ...getFavoriteCharacters("en"),
-  ],
+  xpFavorites: getFavoriteCharacters("en"),
   currentSignals: [
     { label: "Now", text: "Starting to research topics related to AI, software development, and game creation" },
     { label: "Next", text: "I'll gradually document my research progress and everyday life" },

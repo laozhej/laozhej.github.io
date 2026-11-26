@@ -84,9 +84,11 @@ test('all five image poses load before they show and preserve the hint, next, re
   assert.equal(label.textContent, 'Next scene'); assert.equal(hit.attributes['aria-label'], 'Next scene');
   for (let i = 0; i < 3; i++) { next.dispatchEvent(Object.assign(new Event('click'), { detail: 1 })); await flush(); }
   assert.equal(plates[4].dataset.active, 'true');
+  assert.equal(next.title, 'Start again');
   assert.equal(label.textContent, 'Start again'); assert.equal(hit.attributes['aria-label'], 'Start again');
   next.dispatchEvent(Object.assign(new Event('click'), { detail: 1 })); await flush();
   assert.equal(plates[0].dataset.active, 'true', 'restart returns to the first pose');
+  assert.equal(next.title, 'Next scene');
   prev.dispatchEvent(Object.assign(new Event('click'), { detail: 1 })); await flush();
   assert.equal(plates[4].dataset.active, 'true', 'previous from the first pose wraps to the last');
   assert.equal(plates.filter((plate) => plate.src).length, 5, 'all visited images remain loaded');

@@ -206,8 +206,10 @@ body[data-arknights] ::selection { background:var(--ak-signal); color:var(--ak-o
 .ak-panel-art img { display:block; width:100%; height:100%!important; object-fit:cover; filter:saturate(.3) brightness(.78); transition:filter .4s var(--ak-cut),transform .6s var(--ak-out); }
 .ak-panel::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(to top,#08090af2 0%,#08090ae0 30%,#08090a73 62%,#08090a26 100%); }
 .ak-panel::before { content:""; position:absolute; left:0; right:0; bottom:0; height:4px; background:var(--ak-signal); transform:scaleX(0); transform-origin:left; transition:transform .3s var(--ak-cut); }
-.ak-panel-no { position:absolute; top:18px; left:20px; font-size:12px; color:#c3c8cb; }
-.ak-panel-go { position:absolute; top:16px; right:16px; color:#c3c8cb; }
+/* The number and the link mark sit where the shade over the picture is lightest; a dark halo keeps them readable over bright
+   art (the number measured 1.8–2.5:1 without it, at the 10th percentile of the pixels under its line). */
+.ak-panel-no { position:absolute; top:18px; left:20px; font-size:12px; color:#eef0ec; text-shadow:0 0 1px #08090a,0 0 2px #08090a,0 0 3px #08090a,0 0 5px #08090a,0 0 8px #08090a,0 0 12px #08090a; }
+.ak-panel-go { position:absolute; top:16px; right:16px; color:#c3c8cb; filter:drop-shadow(0 0 2px #08090a) drop-shadow(0 0 5px #08090a); }
 .ak-panel-text { display:flex; flex-direction:column; gap:6px; }
 .ak-panel-text strong { font-size:clamp(1.1rem,1.6vw,1.4rem); font-weight:800; line-height:1.4; }
 .ak-panel-text span { padding-top:10px; border-top:1px solid #ffffff38; font:500 12px/1.5 var(--ak-mono); letter-spacing:.04em; color:#c3c8cb; }

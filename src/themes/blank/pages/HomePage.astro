@@ -33,7 +33,7 @@ const firstSection = posts.length > 0 ? "#blank-latest" : "#blank-writing";
       </div>
       <a class="bj-down" href={firstSection} aria-label={posts.length > 0 ? t("home.latestLink") : t("home.latest")} title={posts.length > 0 ? t("home.latestLink") : t("home.latest")}><Icon name="tabler:arrow-down" size={24} /></a>
     </div>
-    <nav class="bj-index" aria-label={t("a11y.navigation")}>
+    <nav class="bj-index" aria-label={t("home.index")}>
       <a href={href("/blog/")}><span>{t("home.writingIndex")}</span><strong>{count(posts.length, "common.entriesOne", "common.entries")}</strong></a>
       <a href={href("/projects/")}><span>{t("home.practiceIndex")}</span><strong>{count(projectEntries.length, "common.projectsOne", "common.projects")}</strong></a>
       <a href={href("/games/")}><span>{t("home.playIndex")}</span><strong>{gameShelf.length > 0 ? count(gameShelf.length, "common.gamesOne", "common.games") : t("home.playHint")}</strong></a>

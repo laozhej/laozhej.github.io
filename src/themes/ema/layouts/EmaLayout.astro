@@ -30,6 +30,8 @@ const { title: pageTitle = site.name, description = t("site.description"), isArt
 const brand = t("ema.brand");
 const title = pageTitle.replaceAll(site.name, brand);
 const [brandHead, ...brandTail] = brand.split(" ");
+// The edition stamp beside the name. The header link's name repeats what it shows (name, stamp), then says where it goes.
+const edition = "EMA / 02";
 // Deterministic petal paths so every page and locale renders the same markup.
 // The reference's navigation pairs an icon and a label with a small Latin hint (decorative, hidden from screen readers).
 const navIcons: Record<string, string> = { home: "tabler:home", blog: "tabler:notebook", projects: "tabler:code", games: "tabler:device-gamepad-2", about: "tabler:user-heart" };
@@ -49,7 +51,7 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
   <body data-blank data-ema data-ema-home={home ? "" : undefined}>
     <a class="blank-skip-link" href="#ema-main">{t("a11y.skip")}</a>
     <header class="ema-header" data-header data-site-header transition:name="site-header" transition:animate="none">
-      <a class="ema-wordmark" href={href("/")} aria-label={`${brand} ${t("a11y.home")}`}><span class="ema-mark" aria-hidden="true"><svg viewBox="-12 -12 24 24" width="30" height="30"><g>{[0, 72, 144, 216, 288].map((turn) => <path d="M0 0 C-4.2 -3.6 -5 -8.6 -2 -10 L0 -8.6 L2 -10 C5 -8.6 4.2 -3.6 0 0 Z" transform={`rotate(${turn})`} />)}</g><circle r="1.6" /></svg></span><strong><span>{brandHead.split(/(\.)/).map((part) => part === "." ? <i>.</i> : part)}</span> <span>{brandTail.join(" ")}</span></strong><small>EMA / 02</small></a>
+      <a class="ema-wordmark" href={href("/")} aria-label={`${brand} ${edition} ${t("a11y.home")}`}><span class="ema-mark" aria-hidden="true"><svg viewBox="-12 -12 24 24" width="30" height="30"><g>{[0, 72, 144, 216, 288].map((turn) => <path d="M0 0 C-4.2 -3.6 -5 -8.6 -2 -10 L0 -8.6 L2 -10 C5 -8.6 4.2 -3.6 0 0 Z" transform={`rotate(${turn})`} />)}</g><circle r="1.6" /></svg></span><strong><span>{brandHead.split(/(\.)/).map((part) => part === "." ? <i>.</i> : part)}</span> <span>{brandTail.join(" ")}</span></strong> <small>{edition}</small></a>
       <nav class="ema-nav" aria-label={t("a11y.navigation")}>{site.nav.map(item => <a href={href(item.href)} aria-current={(item.href === "/" ? path === "/" : path.startsWith(item.href)) ? "page" : undefined}><span class="ema-nav-icon" aria-hidden="true"><Icon name={navIcons[item.key]} size={17} /></span><span class="ema-nav-label">{t(`nav.${item.key}`)}</span><span class="ema-nav-hint" aria-hidden="true">{navHints[item.key]}</span></a>)}</nav>
       <div class="ema-header-actions">
         <button class="ema-settings-toggle" type="button" data-ema-settings-toggle aria-expanded="false" aria-controls="ema-controls" aria-label={t("ema.home.settings")} title={t("ema.home.settings")} hidden><Icon name="tabler:adjustments-horizontal" size={19} aria-hidden="true" /></button>
@@ -66,7 +68,7 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
     <footer class="ema-footer">
       <a class="ema-footer-brand" href={href("/")}>{brand.split(/(\.)/).map((part) => part === "." ? <span>.</span> : part)}</a>
       <p>{t("home.statement2")}</p>
-      <SocialLinks class="ema-social-links" />
+      <SocialLinks class="ema-social-links" label={t("social.footerHeading")} />
       <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><button class="ema-console-dock" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={14} aria-hidden="true" />{t("ema.console.tab")}</button><a href="#ema-main">{t("footer.top")} ↑</a></div>
     </footer>
     <div class="ema-theme-floating"><ThemeSwitcher floating /></div>

@@ -33,6 +33,8 @@ const [brandHead, ...brandTail] = brand.split(" ");
 const brandName = brandHead.replace(/[’']s$/i, "");
 // The theme's place in the theme list, as Endfield shows "EF / 03".
 const themeNumber = String(themes.findIndex(({ id }) => id === "arknights") + 1).padStart(2, "0");
+// The header link's name repeats what it shows (name, plate, stamp), then says where it goes.
+const edition = `AK / ${themeNumber}`;
 // Each section pairs a fixed English classification word with its name in the page's language. In English the name
 // is the word itself, so it is shown once.
 const navItems = site.nav.map((item, index) => {
@@ -64,11 +66,10 @@ const host = Astro.site?.host ?? "";
     <a class="blank-skip-link" href="#arknights-main">{t("a11y.skip")}</a>
     <header class="ak-header" data-site-header transition:name="site-header" transition:animate="none">
       <div class="ak-header-inner">
-        <a class="ak-mark" href={href("/")} aria-label={`${brand} ${t("a11y.home")}`}>
-          <span class="ak-mark-glyph" aria-hidden="true"></span>
-          <strong>{brandName}</strong>
-          <span class="ak-mark-plate" aria-hidden="true">{brandTail.join(" ")}</span>
-          <small aria-hidden="true">AK / {themeNumber}</small>
+        <a class="ak-mark" href={href("/")} aria-label={`${brandName} ${brandTail.join(" ")} ${edition} ${t("a11y.home")}`}>
+          {/* The spaces between the pieces are written inline: the HTML compressor drops line breaks between tags, and without
+              them the visible words would run together when read as one string. The flex row does not draw them. */}
+          <span class="ak-mark-glyph" aria-hidden="true"></span> <strong>{brandName}</strong> <span class="ak-mark-plate" aria-hidden="true">{brandTail.join(" ")}</span> <small aria-hidden="true">{edition}</small>
         </a>
         <nav class="ak-nav" aria-label={t("a11y.navigation")}>
           {navItems.map((item) => (
@@ -102,13 +103,13 @@ const host = Astro.site?.host ?? "";
     <main id="arknights-main" class:list={[{ "ak-content blank-main": !home, "ak-home-main": home, "blank-main--article": isArticlePage }]} tabindex="-1" transition:name="site-content" transition:animate={pageTransition}><slot /></main>
     <footer class="ak-footer">
       <div class="ak-footer-top">
-        <a class="ak-footer-brand" href={href("/")} aria-label={brand}><strong>{brandName}</strong><span class="ak-mark-plate" aria-hidden="true">{brandTail.join(" ")}</span></a>
-        <nav class="ak-footer-links ak-footer-sections">
+        <a class="ak-footer-brand" href={href("/")} aria-label={`${brandName} ${brandTail.join(" ")}`}><strong>{brandName}</strong> <span class="ak-mark-plate" aria-hidden="true">{brandTail.join(" ")}</span></a>
+        <nav class="ak-footer-links ak-footer-sections" aria-label={t("a11y.footerNavigation")}>
           <a href={href("/blog/")}>{t("footer.journal")}</a>
           <a href={href("/projects/")}>{t("footer.projects")}</a>
           <a href={href("/about/")}>{t("footer.about")}</a>
         </nav>
-        <SocialLinks class="ak-footer-links" />
+        <SocialLinks class="ak-footer-links" label={t("social.footerHeading")} />
       </div>
       <span class="ak-footer-ghost" data-ghost={brandName} aria-hidden="true"></span>
       <div class="ak-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#arknights-main">{t("footer.top")} ↑</a></div>

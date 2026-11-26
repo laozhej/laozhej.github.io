@@ -61,6 +61,8 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
 .ema-nav-icon {grid-row:1 / span 2;display:grid;place-items:center;width:22px;height:26px;}
 .ema-nav-label {font:600 13px/1 var(--blank-serif);}
 .ema-nav-hint {font:600 10px/1 var(--blank-sans);letter-spacing:.02em;opacity:.78;text-transform:lowercase;}
+/* On the current section's tinted pill the faded hint fell under 4.5:1 (measured 3.4:1 in light mode); it takes the label's full colour there. */
+.ema-nav a[aria-current="page"] .ema-nav-hint {opacity:1;}
 .ema-nav a[aria-current="page"] {color:var(--ema-pink);background:color-mix(in srgb,var(--ema-blush) 80%,transparent);box-shadow:inset 0 -2px 0 var(--ema-pink-soft);}
 .ema-nav a:nth-child(even)[aria-current="page"] {color:var(--ema-lav);background:color-mix(in srgb,var(--ema-lav-wash) 82%,transparent);box-shadow:inset 0 -2px 0 var(--ema-lav-soft);}
 .ema-header-actions {position:relative;display:flex;align-items:center;gap:6px;justify-self:end;}
@@ -169,6 +171,8 @@ body[data-ema-home] .ema-wordmark {text-shadow:0 1px 8px var(--blank-paper),0 0 
 .ema-content .blank-page-description {font-family:var(--blank-serif);font-size:1rem;letter-spacing:.025em;}
 .ema-content .blank-search {border-bottom-color:var(--blank-line);transition:border-color 180ms ease;}
 .ema-content .blank-search:focus-within {border-bottom-color:var(--ema-pink);}
+/* The browser's own placeholder grey measured 4.3:1 on the cream paper; the muted ink reads at AA (dark mode already uses it). */
+.ema-content .blank-search input::placeholder {color:var(--blank-muted);opacity:1;}
 .ema-content .blank-filters {gap:4px 24px;}
 .ema-content .blank-filters button {font-family:var(--blank-serif);transition:color 160ms ease;}
 .ema-content .blank-filters button[aria-pressed="true"] {color:var(--ema-pink);}

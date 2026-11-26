@@ -19,9 +19,9 @@ import { socialLinks } from "@/core/data/social";
 import { getThemePath } from "@/core/themes/registry";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 import EmaLayout from "../layouts/EmaLayout.astro";
+import EmaAvatar from "../components/EmaAvatar.astro";
 import Storyboard from "../components/Storyboard.astro";
 import emaAssets from "../../../../public/themes/ema/ASSETS.json";
-import { AVATAR_MONOGRAM, avatarAttributes } from "../lib/avatar.mjs";
 import "../styles/stage.css";
 
 const { locale, t, formatDate, categoryLabel } = getI18n(Astro.url.pathname);
@@ -43,8 +43,6 @@ const poses = poseKeys.map((key) => {
   return { key, label: t(`ema.frames.${key}`), src: `/themes/ema/${asset.file}`, dimensions: asset.dimensions };
 });
 const ema = xpFavorites.find((item) => item.key === "emma")?.title ?? "";
-// The owner's avatar: the monogram 旭 in every locale, an image named after the owner.
-const avatar = avatarAttributes(profileIdentity.displayName);
 
 // The terminal line types the owner's own current signals (shared data), one after another.
 const signals = currentSignals.map((item) => `${item.label} · ${item.text}`);
@@ -129,9 +127,9 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
       </section>
 
       <section class="k-profile" data-k-profile aria-labelledby="k-profile-name">
-        <div class="k-avatar" {...avatar}>
+        <div class="k-avatar">
+          <EmaAvatar class="k-avatar-face" alt={profileIdentity.displayName} />
           <span class="k-avatar-flower" data-k-flower aria-hidden="true"><i></i></span>
-          <span class="k-avatar-face" aria-hidden="true">{AVATAR_MONOGRAM}</span>
         </div>
         <div class="k-card">
           <div class="k-card-bar"><span class="k-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>{profileIdentity.handle}</span></div>
@@ -179,7 +177,7 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
                 )}
                 {chapter.plate === "about" && (
                   <div class="k-plate-about">
-                    <span class="k-plate-face">{AVATAR_MONOGRAM}</span>
+                    <EmaAvatar class="k-plate-face" alt="" />
                     <b>{profileIdentity.displayName}</b><small>{profileIdentity.alias}</small>
                     <ul>{profileTech.map((tool) => <li>{tool.name}</li>)}</ul>
                   </div>

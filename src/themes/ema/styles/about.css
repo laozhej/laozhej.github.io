@@ -5,8 +5,7 @@
 /* The profile card stays beside the shelves while there is room for all of it. */
 .about-side {display:grid;gap:20px;}
 .about-avatar {position:relative;justify-self:start;width:152px;height:152px;margin:6px 0 0 6px;}
-/* The owner's avatar is the monogram 旭, drawn like the homepage card's avatar. */
-.ema-about .about-avatar-mark {display:grid;place-items:center;width:100%;height:100%;border:5px solid var(--card);border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff,var(--ema-blush) 70%);box-shadow:0 14px 30px rgba(96,74,60,.2),0 0 0 1px var(--frame);font:400 64px/1 var(--blank-serif);color:var(--ema-pink);}
+.ema-about .about-avatar-mark {display:block;width:100%;height:100%;object-fit:cover;border:5px solid var(--card);border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff,var(--ema-blush) 70%);box-shadow:0 14px 30px rgba(96,74,60,.2),0 0 0 1px var(--frame);}
 html[data-color-mode="dark"] .ema-about .about-avatar-mark {background:radial-gradient(circle at 34% 30%,#4a3445,#2a2833 74%);}
 .about-blossom {position:absolute;top:-12px;right:-6px;width:40px;height:40px;background:var(--ema-blossom) center/contain no-repeat;rotate:14deg;}
 .about-tape {position:absolute;z-index:1;width:74px;height:22px;background:repeating-linear-gradient(90deg,#f8dbe6d9 0 6px,#fbe7eed9 6px 12px);box-shadow:0 1px 2px rgba(96,74,60,.18);}

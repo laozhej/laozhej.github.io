@@ -1,0 +1,13 @@
+---
+import assets from "../../../../public/themes/ema/ASSETS.json";
+
+interface Props {
+  class: string;
+  alt: string;
+  loading?: "lazy" | "eager";
+}
+
+const { class: className, alt, loading = "lazy" } = Astro.props;
+const { file, dimensions: [width, height] } = assets.assets.find(({ id }) => id === "profile-avatar")!;
+---
+<img class={className} src={`/themes/ema/${file}`} {alt} {width} {height} {loading} decoding="async" draggable="false" />

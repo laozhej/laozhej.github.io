@@ -2,17 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-// Ema's Games and About pages keep their earlier look, in which several links and buttons are under 44px tall.
+// Ema's About page keeps its earlier look, in which several links and buttons are under 44px tall. (The Games page went
+// back to its reference-style layout on 2026-11-27, whose controls are 44px by design; tests/ema-games.test.mjs covers it.)
 // Their hit areas are extended by pseudo-elements that paint nothing; these tests keep those rules in place.
 const read = (name) => readFileSync(new URL(`../src/themes/ema/styles/${name}`, import.meta.url), "utf8");
 const empty = (css, selector, inset) => new RegExp(`${selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")} \\{content:"";position:absolute;inset:${inset};\\}`).test(css);
-
-test("Ema Games: the card link and the filter buttons have hit areas of at least 44px that paint nothing", () => {
-  const css = read("games.css");
-  assert.match(css, /\.game-link,\.games-filters button \{position:relative;\}/);
-  assert.ok(empty(css, ".game-link::after", "-9px 0"), "27.9px + 2 × 9px");
-  assert.ok(empty(css, ".games-filters button::after", "-4px 0"), "38px + 2 × 3px beyond the 1px border");
-});
 
 test("Ema About: pills, 'more' links and title links have hit areas of at least 44px that paint nothing", () => {
   const css = read("about.css");

@@ -72,6 +72,16 @@ Every statement carries one of four labels. Dated sections preserve earlier revi
 - **Proposed.** Learn qualities (light, colour temperature, framing, line economy, panel rhythm), not pictures. Never trace, copy or paint over a frame, key visual, panel, character design, logo or piece of lettering. Characters from these works never appear in the theme's art.
 - **Prototype.** Separately from this file, the collection pages show official covers and avatars from some of these works (content with its own records). The Frieren panel that Ema's inner pages used as a faint side backdrop was removed in round 5 (section 10, group B).
 
+### 3.1 Manga cover references for Ema's backgrounds
+
+**Approved** (covers reviewed 2026-11-11, direction confirmed 2026-11-26). Koi’s early volumes of 《请问您今天要来点兔子吗？》 are the primary reference for the background. Draw the paper colour, screentone dots, pale sakura washes and soft glow in code. Use the covers to judge the balance of colour, fine lines and open space. Characters, ribbons, props and recognisable scenes stay on the covers.
+
+| Role | Manga | What to study | Official source |
+| --- | --- | --- | --- |
+| Primary | 《请问您今天要来点兔子吗？》 by Koi | The early covers leave cream-white paper visible around fine lines and small touches of pale pink and lavender. Use that balance for the light background. | [Official books page](https://www.gochiusa.com/books/) |
+| Supporting | 《向阳素描》 by 蒼樹うめ | Pale grounds and small cut-paper accents give the covers the feel of an everyday scrapbook. Use accents sparingly on project cards and in the journal, leaving text and links clear. | [Houbunsha manga page](https://houbunsha.co.jp/comics/detail.php?p=%A4%D2%A4%C0%A4%DE%A4%EA%A5%B9%A5%B1%A5%C3%A5%C1) |
+| Supporting | 《摇曳露营△》 | Notice how the lettering sits in open sky. Give headings the same breathing room. For dark mode, take the mood of dusk blues and night greys and draw the background separately. | [Official books page](https://yurucamp.jp/books) |
+
 ## 4. Palette
 
 - **Approved.** The palette is cream and sakura. Text, including text over artwork, meets WCAG AA in both colour modes.

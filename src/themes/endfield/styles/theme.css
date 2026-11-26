@@ -392,6 +392,46 @@ html[data-theme="endfield"].ef-moding::view-transition-old(root),html[data-theme
   html:not([data-motion-paused="true"]) .ef-hero[data-ef-live] .ef-solid::after { opacity:1; transform:translate(calc(var(--ef-mx) * 16px),calc(var(--ef-my) * 10px)); transition:transform .25s var(--ef-snap),opacity .1s; }
 }
 
+/* Tap targets. Whatever can be pressed answers over at least 44px wherever the layout leaves room, and looks exactly as it
+   did: the extra area is an empty ::before or ::after around the control. The header's icon buttons use both of their
+   pseudo-elements already (the accent and the motion hint), so each holds an empty element for it instead (.ef-hit, in the
+   layout). Links that sit closer together than 44px share the space between them; docs/THEMES.md lists the ones that
+   stay smaller and why. */
+.ef-wordmark,.ef-link,.ef-footer-brand,.ef-footer-links a,.ef-footer-bottom a,.ef-header .site-language-menu>summary,.ef-content :is(.blank-post-meta,.blank-tag-line) a { position:relative; }
+.ef-wordmark::after { content:""; position:absolute; inset:-14px 0; }
+.ef-header .site-language-menu>summary::after { content:""; position:absolute; inset:-2px; }
+/* 42px + 2 × 1px; on phones the block is 40px and the rim 2px. Nothing about the button itself changes: giving it padding or a
+   clipped background makes WebKit draw the header's grey blocks a shade differently from load to load. */
+.ef-hit { position:absolute; inset:-1px; }
+.ef-link::after { content:""; position:absolute; inset:-6px 0; }
+/* The footer is its own layer. Its links become positioned below, and on a page with a sticky element before the footer (the
+   article's contents list) the browser would otherwise draw positioned text in a separate see-through layer: the same
+   letters, blended a shade differently. As one layer with the footer's own solid background, they are drawn exactly as before. */
+.ef-footer { isolation:isolate; }
+/* In the one-column footer the name sits 24px above the first section link: it takes 5px of that and the link the other 19px. */
+.ef-footer-brand::after { content:""; position:absolute; inset:-14px 0 -5px; }
+/* The three section links are 29px apart: each takes half the gap to its neighbour, and the first and last the free space
+   beyond, which brings those two to 44px. The middle one stays at 29px; more would need more space between the lines. */
+.ef-footer-links a:not(.blank-text-link)::after { content:""; position:absolute; inset:-4px 0; }
+.ef-footer-links a:not(.blank-text-link):first-child::after { top:-19px; }
+.ef-footer-links a:not(.blank-text-link):last-child::after { bottom:-19px; }
+/* The last row wraps on narrow screens (its lines are 27px apart), so its extensions lie under the links themselves and a
+   link's own text always wins. They reach down into the footer's padding, and up as far as the row's top padding allows. */
+.ef-footer-bottom,.ef-content .blank-tag-line { position:relative; z-index:0; }
+.ef-footer-bottom a::after { content:""; position:absolute; inset:-12px 0 -17px; z-index:-1; }
+.ef-content .blank-filters button::before { content:""; position:absolute; inset:-2px 0; }
+.ef-content .blank-post-meta a::after { content:""; position:absolute; inset:-13px 0; }
+.ef-content .blank-tag-line a::after { content:""; position:absolute; inset:-12px -6px; z-index:-1; }
+/* Text links are 36px tall above 760px (44px below it). On the credits page a heading can follow a link directly, and two
+   links can wrap onto consecutive lines with no space between: there the extension goes upward only, into the space every
+   such link has above it, and lies under the links so that a stacked pair takes nothing from each other. */
+@media(min-width:761px) {
+  .ef-content .blank-text-link { position:relative; }
+  :is(.ef-content,.ef-footer) .blank-text-link::after { content:""; position:absolute; inset:-4px 0; }
+  .ef-content .blank-credits-body { position:relative; z-index:0; }
+  .ef-content .blank-credits-body>a.blank-text-link::after { inset:-8px 0 0; z-index:-1; }
+}
+
 /* narrow screens */
 @media(max-width:1099px) {
   .ef-wordmark small { display:none; }
@@ -409,6 +449,7 @@ html[data-theme="endfield"].ef-moding::view-transition-old(root),html[data-theme
   .ef-record-title { grid-column:1/-1; } .ef-record-kind { grid-column:1/-1; justify-self:start; }
   .ef-head { flex-wrap:wrap; } .ef-head::after { display:none; } .ef-head>div { flex:1 1 100%; }
   .ef-footer-top { grid-template-columns:1fr; }
+  .ef-footer-bottom a::after { top:-25px; }
   body[data-endfield]::before { -webkit-mask:url("/themes/endfield/contour-a.svg") right -12rem top -4rem/34rem auto no-repeat; mask:url("/themes/endfield/contour-a.svg") right -12rem top -4rem/34rem auto no-repeat; }
 }
 @media(max-width:559px) {
@@ -416,6 +457,7 @@ html[data-theme="endfield"].ef-moding::view-transition-old(root),html[data-theme
   .ef-wordmark strong { font-size:16px; }
   .ef-actions { gap:4px; }
   [data-endfield] .ef-button-icon { width:40px; height:40px; }
+  .ef-hit { inset:-2px; }
   .ef-header .site-language-menu>summary>:is(span:not(:first-child),svg:last-child) { display:none; }
 }
 @media(max-width:389px) { .ef-header .ef-wordmark-tag { display:none; } }

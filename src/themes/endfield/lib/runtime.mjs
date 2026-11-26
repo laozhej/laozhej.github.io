@@ -31,6 +31,14 @@ const ROW_FRAMES = [
 // and where the page's main region sat in the window.
 let leftNav = null;
 let leftMain = null;
+// The first page of a visit is mounted when the scripts arrive, which can be well after the page appeared.
+let firstPage = true;
+
+// Is the page still opening? `since` is how long ago it first appeared, in ms. Figures that start now run for up to
+// 0.9s more; past this point they would be a second burst after the stylesheet's opening has finished.
+export function stillOpening(since) {
+  return since <= 200;
+}
 
 export function navBox(item, nav) {
   const a = item.getBoundingClientRect();
@@ -91,7 +99,12 @@ export function mountEndfield(doc, win) {
   // The first rows of a list light up once when the page opens (in the stylesheet); mark the lists once that is over,
   // so rows shown again by a filter are handled here instead.
   const markOpened = () => later(() => doc.querySelectorAll(ROWS).forEach((list) => { list.dataset.efOpened = ""; }), 1100);
-  if (moving()) settleOpening();
+  // Coming from another page of the theme the mount is immediate. On the first page of a visit it depends on the network:
+  // if the page has been showing for a while, its figures are simply left as they are.
+  const appeared = win.performance.getEntriesByName?.("first-contentful-paint")[0]?.startTime ?? 0;
+  const opening = !firstPage || stillOpening(win.performance.now() - appeared);
+  firstPage = false;
+  if (moving() && opening) settleOpening();
   markOpened();
 
   // 2. Pointing at or focusing something that holds a figure settles it. Focus only moves figures hidden from

@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { createReadouts, hasDigits, settleFrame, staggerGap } from "../src/themes/endfield/lib/readout.mjs";
-import { mountEndfield, navShift, revealCircle } from "../src/themes/endfield/lib/runtime.mjs";
+import { mountEndfield, navShift, revealCircle, stillOpening } from "../src/themes/endfield/lib/runtime.mjs";
 
 const css = readFileSync(new URL("../src/themes/endfield/styles/theme.css", import.meta.url), "utf8");
 const layout = readFileSync(new URL("../src/themes/endfield/layouts/EndfieldLayout.astro", import.meta.url), "utf8");
@@ -205,6 +205,13 @@ test("Endfield motion: paused or reduced, the runtime schedules no figures to sp
     mountEndfield(still.doc, still.win);
     assert.equal(asked, 0);
   }
+});
+
+test("Endfield figures: on the first page of a visit they spin only while the page is still opening", () => {
+  assert.equal(stillOpening(0), true);
+  assert.equal(stillOpening(200), true);
+  assert.equal(stillOpening(201), false, "scripts that arrive later leave the figures alone: the opening is over");
+  assert.equal(stillOpening(540), false, "a cold load measured on the live site");
 });
 
 test("Endfield layout registers its runtime the way the other themes do", () => {

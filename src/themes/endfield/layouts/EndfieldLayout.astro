@@ -75,5 +75,10 @@ const navItems = site.nav.map((item, index) => ({
       <div class="ef-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#endfield-main">{t("footer.top")} ↑</a></div>
     </footer>
     <ThemeSwitcher floating />
+    <script>
+      import { registerThemeRuntime } from "@/core/themes/runtime.mjs";
+      import { mountEndfield } from "../lib/runtime.mjs";
+      registerThemeRuntime("endfield", mountEndfield);
+    </script>
   </body>
 </html>

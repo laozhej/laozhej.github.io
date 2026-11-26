@@ -29,7 +29,8 @@ const href = (path: string) => getThemePath("ema", path, locale);
 const { profileIdentity, profileTech, favoriteGames, gameShelf, xpFavorites, projectEntries, projectTechLines, currentSignals } = getSiteContent(locale);
 const project = projectEntries[0];
 const posts = (await getPublishedPosts(locale)).slice(0, 3);
-const notes = getNotes(locale);
+const sakuraNotesEnabled = false;
+const notes = sakuraNotesEnabled ? getNotes(locale) : [];
 const note = pickNote(notes, utcDay(new Date()));
 const brand = t("ema.brand");
 const pad = (value: number) => String(value).padStart(2, "0");
@@ -227,7 +228,7 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
       ) : (
         <div class="k-empty">
           <p>{keepTails(t("ema.empty.journalTitle"))}</p>
-          <small>{keepTails(t("ema.empty.journalBody"))}</small>
+          {note && <small>{keepTails(t("ema.empty.journalBody"))}</small>}
           <span class="k-empty-acts">
             <a class="k-pill" href={href("/projects/")}>{t("ema.home.seeWork")}<Icon name="tabler:arrow-right" size={15} aria-hidden="true" /></a>
             {note && <button class="k-pill is-quiet" type="button" data-notice-open aria-haspopup="dialog" aria-controls="ema-notice" hidden><Icon name="tabler:note" size={15} aria-hidden="true" />{t("ema.notice.open")}</button>}

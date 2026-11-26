@@ -6,11 +6,13 @@
 // fades the layer further around her. Everything is computed here, so every page renders identical
 // markup.
 // Two panels on the right hold a quiet still life, "everyday things put away" (owner's art plan,
-// 2026-11-14): a closed notebook with a ribbon and a pen, and a cup of tea with a fallen petal. They
-// are original line drawings in this file, with no text on them. Each sits where the theatre card,
-// when it appears, does not cover it; stage.css colours them from the theme's ink and hides them in
-// the stacked phone layout.
-import { notebook, petal, place, teacup } from "../lib/still-life.mjs";
+// 2026-11-14): a closed notebook with a pink bookmark and a pen lying on it, and a cup of tea on its
+// saucer. Since 2026-11-27 these are the drawings of Codex's earlier draft of the plan, which the owner
+// chose over PR 15's in answer to roadmap question 15. They are original line drawings in this file,
+// with no text on them. Each sits where the theatre card, when it appears, does not cover it; stage.css
+// colours them from the theme's ink and hides them in the stacked phone layout. (The Journal header and
+// the article pages keep their own pieces from lib/still-life.mjs.)
+import { petal } from "../lib/still-life.mjs";
 const W = 1600, H = 900;
 type Panel = { x: number; y: number; w: number; h: number; tone: string; motif?: string; skew?: number };
 const panels: Panel[] = [
@@ -48,9 +50,30 @@ function motif(p: Panel, i: number) {
     case "bloom-big": return `<g class="sb-bloom">${blossom(p.x + p.w * 0.72, p.y + p.h * 0.46, p.h * 0.36, 8)}${blossom(p.x + p.w * 0.3, p.y + p.h * 0.7, p.h * 0.16, 30)}${blossom(p.x + p.w * 0.16, p.y + p.h * 0.26, p.h * 0.1, 50)}</g>`;
     case "petals": return `<g class="sb-petal">${Array.from({ length: 7 }, (_, k) => loose(p.x + p.w * (0.1 + 0.8 * rand(i * 13 + k)), p.y + p.h * (0.12 + 0.76 * rand(i * 7 + k * 3)), 9 + 9 * rand(i + k * 5), Math.round(360 * rand(i * 3 + k)))).join("")}</g>`;
     // In the upper part of its panel: the theatre card, when shown, covers the lower part.
-    case "notebook": return place(notebook, cx - 89 * 0.84, p.y + 9 - 10 * 0.84, 0.84);
+    case "notebook": return `<g class="sb-still sb-notebook" transform="translate(${cx - 73} ${p.y + 8}) scale(.86)">
+      <path class="sb-still-paper" d="M12 42 L146 30 L147 36 L13 48 Z"/>
+      <path class="sb-still-rule" d="M13 45 L146 33"/>
+      <path class="sb-still-cover" d="M6 10 L140 -2 L146 30 L12 42 Z"/>
+      <path class="sb-still-spine" d="M6 10 L15 9.2 L21 41.2 L12 42 Z"/>
+      <path class="sb-still-rule" d="M125 -.7 L131 31.3"/>
+      <path class="sb-still-pink" d="M54 38.2 L60 37.7 L62 53 L58.5 50 L56 53.5 Z"/>
+      <g transform="translate(52 21) rotate(-5)">
+        <rect class="sb-still-paper" x="0" y="0" width="91" height="4" rx="2"/>
+        <path class="sb-still-spine" d="M0 0 H25 V4 H0 Z M91 0 L99 2 L91 4 Z"/>
+        <path class="sb-still-rule" d="M6 -1.8 H21"/>
+      </g>
+    </g>`;
     // In the lower part of its panel, clear of the theatre card above and of Ema's feet and the cue.
-    case "teacup": return place(teacup, cx - 70 * 0.9, p.y + p.h - 34 - 113 * 0.9, 0.9);
+    case "teacup": return `<g class="sb-still sb-teacup" transform="translate(${cx - 57} ${p.y + p.h - 105}) scale(.86)">
+      <ellipse class="sb-still-paper" cx="66" cy="86" rx="52" ry="11"/>
+      <ellipse class="sb-still-rule" cx="66" cy="85" rx="31" ry="5"/>
+      <path class="sb-still-line" d="M97 44 C119 39 119 65 96 68 M100 49 C110 48 110 59 99 62"/>
+      <path class="sb-still-paper" d="M33 36 C33 68 45 80 66 80 C87 80 99 68 99 36 Z"/>
+      <ellipse class="sb-still-paper" cx="66" cy="36" rx="33" ry="9"/>
+      <ellipse class="sb-still-tea" cx="66" cy="37" rx="28" ry="6"/>
+      <path class="sb-still-rule" d="M56 36 C60 33 72 33 76 36 M51 38 C57 42 76 42 82 38 M45 36 C51 29 80 29 87 36"/>
+      <path class="sb-still-pink" d="M37 36 C45 43 86 47 96 37 L96 39 C83 49 45 45 37 38 Z"/>
+    </g>`;
     case "window": { const wx = p.x + p.w * 0.18, wy = p.y + p.h * 0.16, ww = p.w * 0.64, wh = p.h * 0.56; return `<g class="sb-line"><rect x="${wx}" y="${wy}" width="${ww}" height="${wh}"/><path d="M${wx + ww / 2} ${wy} v${wh} M${wx} ${wy + wh / 2} h${ww}"/><path d="M${wx - 16} ${wy - 8} C${wx + 10} ${wy + wh * 0.4} ${wx - 4} ${wy + wh * 0.8} ${wx + 12} ${wy + wh + 18} M${wx + ww + 16} ${wy - 8} C${wx + ww - 10} ${wy + wh * 0.4} ${wx + ww + 4} ${wy + wh * 0.8} ${wx + ww - 12} ${wy + wh + 18}"/></g>`; }
     case "clouds": return `<g class="sb-line">${[0.22, 0.58, 0.86].map((f, k) => { const x = p.x + p.w * f, y = p.y + p.h * (0.36 + 0.2 * (k % 2)); return `<path d="M${x - 46} ${y} a18 18 0 0 1 22 -20 a26 26 0 0 1 48 6 a16 16 0 0 1 20 18 Z"/>`; }).join("")}</g>`;
     default: return "";

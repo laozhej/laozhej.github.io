@@ -22,14 +22,13 @@ test("only Ema's Journal page fills the shared page head's art slot", () => {
   assert.match(read("themes/ema/pages/BlogIndexPage.astro"), /<PagePlate slot="head-art" motif="notebook" \/>/);
 });
 
-test("the plate draws no lettering and reuses the homepage still life", () => {
+// Until 2026-11-27 the homepage storyboard drew the same pieces; since the owner's answer to roadmap question 15
+// it draws Codex's earlier draft of the still life itself, and the plate keeps the shared pieces.
+test("the plate draws no lettering and takes its still life from the shared module", () => {
   const plate = read("themes/ema/components/PagePlate.astro");
   assert.doesNotMatch(plate, /<text|<tspan|<foreignObject/);
   assert.match(plate, /from "\.\.\/lib\/still-life\.mjs"/);
-  assert.match(read("themes/ema/components/Storyboard.astro"), /from "\.\.\/lib\/still-life\.mjs"/);
-  for (const file of ["themes/ema/components/PagePlate.astro", "themes/ema/components/Storyboard.astro"]) {
-    assert.doesNotMatch(read(file), /sb-still sb-notebook|sb-still sb-teacup/, `${file} must not keep its own copy of the drawings`);
-  }
+  assert.doesNotMatch(plate, /sb-still sb-notebook|sb-still sb-teacup/, "the plate must not keep its own copy of the drawings");
 });
 
 test("every plate style stays inside Ema's pages and the plate is hidden below 1101px", () => {

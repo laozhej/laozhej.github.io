@@ -152,7 +152,7 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
           <div><p class="k-kicker">{t("article.contents")}</p><h2 id="k-rail-title">{keepTails(t("ema.home.railTitle"))}</h2></div>
           <div class="k-rail-status"><span data-k-rail-position aria-live="polite">01 / {pad(chapters.length)}</span><span class="k-rail-progress" data-k-rail-progress aria-hidden="true"></span></div>
         </header>
-        <div class="k-track" data-k-track tabindex="0" aria-label={t("ema.about.bookmarks")}>
+        <div class="k-track" data-k-track tabindex="0" role="region" aria-label={t("ema.about.bookmarks")}>
           {chapters.map((chapter, index) => (
             <a class="k-leaf" data-k-leaf data-plate={chapter.plate} data-active={index === 0 ? "true" : undefined} href={href(chapter.route)}>
               <span class="k-leaf-no">{pad(index + 1)} / {chapter.latin}</span>
@@ -237,7 +237,7 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
     </section>
 
     {note && (
-      <dialog class="ema-notice" id="ema-notice" data-notice aria-labelledby="ema-notice-title" data-title={t("ema.notice.title")} data-notes={JSON.stringify(notes)}>
+      <dialog class="ema-notice" id="ema-notice" data-notice closedby="any" aria-labelledby="ema-notice-title" data-title={t("ema.notice.title")} data-notes={JSON.stringify(notes)}>
         <div class="notice-in">
           <div class="notice-h">
             <h2 id="ema-notice-title" data-notice-title>{t("ema.notice.title").replace("{n}", noteNumber(note.number))}</h2>

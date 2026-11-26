@@ -50,7 +50,7 @@ import ColorModePreference from "@/core/preferences/ColorModePreference.astro";
 
 `ColorModePreference` 同时输出 `theme-color` meta，不要重复添加。新主题可以传入自己的浏览器顶栏颜色；页面 CSS 则使用 `html[data-color-mode="light"]` / `html[data-color-mode="dark"]` 设置自身配色。
 
-导航使用共享 `LanguageSwitcher`（由统一导航生命周期初始化语言偏好）。深浅色按钮保留 `data-color-mode-toggle`、`data-label-dark`、`data-label-light`、`aria-label` 和初始 `aria-pressed="false"`，并在 JS 初始化前设为 `hidden`；按钮外观由主题提供。标签均通过 `t()` 取得各语言译文。
+导航使用共享 `LanguageSwitcher`（由统一导航生命周期初始化语言偏好）。语言按钮的可访问名称是「切换语言」加上按钮上显示的语言代码（例如「切换语言 简中」），这样用语音操作的人说出看到的字也能点中它（WCAG 2.5.3）；悬停提示仍只写「切换语言」。深浅色按钮保留 `data-color-mode-toggle`、`data-label-dark`、`data-label-light`、`aria-label` 和初始 `aria-pressed="false"`，并在 JS 初始化前设为 `hidden`；按钮外观由主题提供。标签均通过 `t()` 取得各语言译文。
 
 全站使用 `site-locale`、`blank-color-mode` 和 `site-theme` 三个偏好键。深浅色沿用旧名字以保留访客设置，实际已经全主题共用。未手动选择时实时跟随系统；手动选择后优先使用该选择，不添加“自动”按钮。同源页面和标签页共用深浅色选择，不会同步到另一个设备。
 
@@ -106,7 +106,7 @@ Blank 首页（`src/themes/blank/pages/HomePage.astro`）以共享资料中的�
 
 Ema 首页（`src/themes/ema/pages/HomePage.astro`）保留 B 构图：站长姓名与 Nero 在左、艾玛在舞台前层、五姿态剧场在右（手机上在角色下缘）。`lib/stage.mjs` 管理舞台视差与资料卡拉起，`lib/rail.mjs` 管理章节导览；触屏、暂停动效、减少动态或关闭脚本时使用静态页面与原生滚动，具体行为见 `docs/REFERENCE.md`。2026-11-14 按站主要求从 `76c9da5` 原样恢复的 `ema-pose-01.webp` 至 `ema-pose-05.webp` 替换线框与占位说明，图片地址与原尺寸读取 `public/themes/ema/ASSETS.json`，在原舞台框内等比显示并沿用底部淡出。手机及竖屏平板中剧场卡横跨人物时，整个 `.k-frames` 在卡片后方完全淡出并裁去不可见点击区域，避免腿部在卡片下方重新显露；淡出终点与卡片底部共用偏移量，另留 16px 视差余量。图片框尺寸与原图文件不变，横向并排布局和无 JavaScript 时不启用此遮罩。首图直接加载；页面空闲后预取下一幕，之后每次切换再预取下一幕（开启省流量或处于 2G 网络时，只在指针或键盘焦点移到艾玛或剧场卡时预取），`lib/frames.mjs` 等待解码成功后切换；失败保留当前图并允许重试，快速切换只接受最后一次请求。提示、上一幕／下一幕、最后一幕的「重新翻阅」和四语姿态名称仍来自 `ema-messages`。素材来源及公开使用授权仍未确认，文件校验不代表授权。背景分镜（`components/Storyboard.astro`）在右侧两格画有代码绘制的静物（合上的笔记本与书签、笔，落了一片花瓣的茶杯），纸面上部另有一层自观者左上方斜落的窗光（`.k-light`）；三者都不随姿态切换，颜色取自主题现有的墨色、纸色与浅樱色变量，手机与竖屏平板的上下排布中不显示。剧场卡以上边缘定位，提示较长时向下延展。
 
-Ema 首页的「樱色便笺」使用原生 `<dialog>`（`lib/notice.mjs`），只在点击首屏或文章空状态里的入口后打开，不会自动弹出，也不在浏览器里保存任何状态；便笺按访客本地日期从共享便笺中选取，缺少译文时显示原文并说明。喜欢的标签只读取公共资料、收藏与社交链接，较长的分组先显示一部分；「让标签落下一次」只在动效开启时出现。
+Ema 首页的「樱色便笺」使用原生 `<dialog>`（`lib/notice.mjs`），只在点击首屏或文章空状态里的入口后打开，不会自动弹出，也不在浏览器里保存任何状态。关闭方式：关闭按钮、Esc，以及在遮罩上按下并松开（`closedby="any"`；不支持这个属性的浏览器由 `notice.mjs` 按同样的规则处理）。选中便笺文字时拖到遮罩上松开，或者从遮罩按下拖进便笺，都不会关闭它。便笺按访客本地日期从共享便笺中选取，缺少译文时显示原文并说明。喜欢的标签只读取公共资料、收藏与社交链接，较长的分组先显示一部分；「让标签落下一次」只在动效开启时出现。
 
 
 控制台（`lib/console.mjs`）在 1260px 及更宽的窗口里从左侧边缘的标签打开；更窄时标签收进页脚的「控制台」按钮，面板从窗口底部升起，两种位置都不遮挡页面内容。首页和游戏页给 `EmaLayout` 传入 `cursorRing`，控制台里多一个「光标光圈」开关（`lib/cursor-ring.mjs`）：细圈跟随鼠标或触控板指针，系统指针保持不变；默认开启，访客的选择保存在 localStorage 的 `ema-cursor-ring`；触屏、暂停动效或系统减少动态时不显示。控制台控制「樱色电台」（`lib/radio.mjs`）：曲目以音符数据写在代码中，用 Web Audio 合成；播放引擎挂在 `window.__emaRadio`，每个艾玛页面挂载时 `hold()`、清理时 `release()`，最后一个页面释放 1.5 秒后仍无新页面接手就停止，因此切换到其他主题会自动静音。
@@ -116,7 +116,7 @@ Ema 首页的「樱色便笺」使用原生 `<dialog>`（`lib/notice.mjs`），�
 | DOM 标记 | 用途 |
 | --- | --- |
 | `data-site-collection` | 集合根节点；用 `data-unit` 和 `data-unit-one` 提供本语言的数量单位 |
-| `data-site-filter-form` | 筛选表单，初始 `hidden`，初始化后显示 |
+| `data-site-filter-form` | 筛选表单，初始 `hidden`，初始化后显示。含搜索框时，把这个属性和 `hidden` 放在包住表单的 `<search>` 元素上，不写 `role="search"`（文字页如此）：没有 JavaScript 时不会留下空的搜索区域，表单的提交事件会冒泡到它 |
 | `data-site-entries` | 条目容器 |
 | `data-site-entry` | 条目；`data-category` 是分类键，`data-search` 是标题/摘要/标签文本，`data-date` 是时间戳 |
 | `data-site-query` | 可选搜索输入，建议 `maxlength="300"` |
@@ -126,7 +126,7 @@ Ema 首页的「樱色便笺」使用原生 `<dialog>`（`lib/notice.mjs`），�
 | `data-site-empty` | 可选空结果提示，初始 `hidden` |
 | `data-site-count` | 可选结果数量输出，建议 `aria-live="polite"` |
 
-要使用筛选时，表单和条目容器是必需的；搜索、排序和提示可以按页面需要省略。没有可选的条件时不输出表单：作品页只有一个项目时省略分类，文章页没有文章时只保留空状态（它保留 `#blank-search` 锚点，顶栏的搜索入口仍然落在这里）。没有表单时公共核心不做任何处理，条目照常显示。含筛选控件的主题应确保 `[hidden]` 元素不会被自己的 CSS 强制显示。无 JavaScript 时仍显示全部内容。
+要使用筛选时，表单和条目容器是必需的；搜索、排序和提示可以按页面需要省略。没有可选的条件时不输出表单：作品页只有一个项目时省略分类，文章页没有文章时只保留空状态（它保留 `#blank-search` 锚点，顶栏的搜索入口仍然落在这里）。没有表单时公共核心不做任何处理，条目照常显示。含筛选控件的主题应确保 `[hidden]` 元素不会被自己的 CSS 强制显示。窄屏要收起「排序」这类标签时，只在视觉上隐藏（Blank 在 760px 及以下如此），不要用 `display:none`：那样下拉框就没有名字了，读屏只念出当前选项。无 JavaScript 时仍显示全部内容。
 
 URL 参数 `q`、`category`、`sort` 由公共核心读写，保留当前语言、主题路径、无关参数和锚点。一个页面只放一组使用这些 URL 参数的集合，避免相互覆盖。Blank 继续保留原来的 `#blank-search` 输入锚点，其他主题可用自己的输入 id。
 

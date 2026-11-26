@@ -66,6 +66,8 @@ export function mountEmaPresentation(doc, win) {
     '.ema-content .blank-project',
     '.ema-content .about-side > *',
     '.ema-content .about-letter',
+    '.ema-content .games-opening',
+    '.ema-content .game-cabinet',
     '.ema-content .shelf-heading',
     '.ema-content .shelf-card',
     '.ema-content .blank-profile > div',

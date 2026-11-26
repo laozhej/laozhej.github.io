@@ -28,7 +28,7 @@ const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? pos
         <li>{posts.length} {unit("common.entries", posts.length)}</li>
         <li>{projectEntries.length} {unit("common.projects", projectEntries.length)}</li>
       </ul>
-      <h1 id="ef-home-title" class="ef-wordmark-hero"><span class="ef-solid">{brandName}<span class="ef-sr">{possessive}</span></span> <span class="ef-plate"><span>{brandTail.join(" ")}</span></span></h1>
+      <h1 id="ef-home-title" class="ef-wordmark-hero"><span class="ef-solid" data-ef-echo={brandName}>{brandName}<span class="ef-sr">{possessive}</span></span> <span class="ef-plate"><span>{brandTail.join(" ")}</span></span></h1>
     </div>
     <div class="ef-hero-copy">
       <p class="ef-statement"><span class="ef-marker">{t("home.statement1")}</span><br />{t("home.statement2")}</p>

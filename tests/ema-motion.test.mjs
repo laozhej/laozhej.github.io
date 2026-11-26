@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { mountEmaHome } from "../src/themes/ema/lib/home.mjs";
-import { getRadio, TRACKS, trackLength } from "../src/themes/ema/lib/radio.mjs";
+import { getRadio, TRACKS } from "../src/themes/ema/lib/radio.mjs";
 
 // Records every listener so a test can prove what the homepage never listens to.
 function element(extra = {}) {
@@ -201,46 +201,54 @@ test("the tag drop plays once per press for the visible chips, and is withdrawn 
 });
 
 function fakeAudio() {
-  const started = [];
-  const param = () => ({ value: 0, setValueAtTime() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {}, setTargetAtTime() {}, cancelScheduledValues() {} });
-  const node = (extra = {}) => ({ connect() {}, ...extra });
-  class Context {
-    constructor() { this.currentTime = 0; this.state = "running"; this.destination = node(); }
-    createGain() { return node({ gain: param() }); }
-    createDelay() { return node({ delayTime: param() }); }
-    createOscillator() { return node({ type: "sine", frequency: param(), start: (time) => started.push(time), stop() {} }); }
-    resume() { this.state = "running"; return Promise.resolve(); }
-    suspend() { this.state = "suspended"; }
+  let audio;
+  class Audio extends EventTarget {
+    paused = true;
+    ended = false;
+    currentTime = 0;
+    constructor() { super(); audio = this; }
+    hasAttribute(name) { return Object.hasOwn(this, name); }
+    removeAttribute(name) { delete this[name]; }
+    load() { this.currentTime = 0; this.ended = false; }
+    async play() { this.paused = false; }
+    pause() { this.paused = true; }
+    finish() {
+      this.ended = true;
+      this.paused = true;
+      this.dispatchEvent(new Event("pause"));
+      this.dispatchEvent(new Event("ended"));
+    }
   }
   const timers = new Map();
   let id = 1;
   const win = {
-    AudioContext: Context,
-    setInterval: (fn) => { timers.set(id, fn); return id++; }, clearInterval: (key) => timers.delete(key),
+    Audio,
     setTimeout: (fn) => { timers.set(id, fn); return id++; }, clearTimeout: (key) => timers.delete(key),
   };
-  return { win, started, timers };
+  const radio = getRadio(win);
+  return { win, radio, audio, timers };
 }
 
-test("every Sakura Radio tune is eight full bars with a chord per bar", () => {
-  for (const track of TRACKS) {
-    assert.equal(track.steps.length, 64);
-    assert.equal(track.chordNotes.length, 8);
-    assert.ok(track.steps.every((note) => note === null || (note >= 55 && note <= 90)), "melody stays in a music-box range");
-    assert.ok(trackLength(track) >= 20 && trackLength(track) <= 30, "each loop lasts 20–30 seconds");
-  }
+test("Sakura Radio starts with Omoide, followed by Hoshi and Shanghai Teahouse", () => {
+  const { radio, audio } = fakeAudio();
+  assert.deepEqual(TRACKS.map(({ id }) => id), ["omoide", "hoshi", "shanghai"]);
+  assert.equal(radio.index, 0);
+  assert.equal(radio.duration, TRACKS[0].duration);
+  assert.equal(audio.preload, "none");
+  radio.select(1);
+  assert.equal(audio.src, undefined, "selecting while paused does not fetch a track");
 });
 
-test("the radio plays, pauses, switches tunes and stops after the last Ema page lets go", async () => {
-  const { win, started, timers } = fakeAudio();
-  const radio = getRadio(win);
+test("the radio cycles through the tracks and pauses after the last Ema page lets go", async () => {
+  const { win, radio, audio, timers } = fakeAudio();
   assert.equal(getRadio(win), radio, "one engine per window survives page swaps");
   radio.hold();
   await radio.play();
   assert.equal(radio.playing, true);
-  assert.ok(started.length > 0, "notes are scheduled ahead of time");
+  assert.equal(audio.src, TRACKS[0].src);
   radio.select(radio.index + 1);
   assert.equal(radio.index, 1);
+  assert.equal(audio.src, TRACKS[1].src);
   radio.select(-1);
   assert.equal(radio.index, TRACKS.length - 1, "wraps around");
   radio.release();
@@ -248,8 +256,10 @@ test("the radio plays, pauses, switches tunes and stops after the last Ema page 
   [...timers.values()].forEach((fn) => fn());
   assert.equal(radio.playing, true, "a new Ema page mounting in time keeps the tune going");
   radio.release();
+  audio.finish();
+  assert.equal(radio.index, 0, "the last track automatically leads back to Omoide");
+  assert.equal(audio.src, TRACKS[0].src);
   const pending = [...timers.entries()];
   pending.forEach(([key, fn]) => { timers.delete(key); fn(); });
   assert.equal(radio.playing, false, "leaving Ema stops the radio");
-  delete win.__emaRadio;
 });

@@ -21,7 +21,9 @@ import SiteAttribution from "@/core/components/SiteAttribution.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
 import { pageTransition } from "@/core/navigation/animations.mjs";
+import { TRACKS } from "../lib/radio.mjs";
 const { locale, t } = getI18n(Astro.url.pathname);
+const trackNames = TRACKS.map(({ id }) => t(`ema.radio.${id}`));
 const href = (path: string) => getThemePath("ema", path, locale);
 const path = stripTheme(Astro.url.pathname);
 // `cursorRing` (Home and Games) adds the cursor ring's switch to the console; the ring runs only where it is rendered.
@@ -76,8 +78,8 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
       <button class="console-tab" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={16} aria-hidden="true" /><span>{t("ema.console.tab")}</span></button>
       <section class="console-panel" id="ema-console-panel" data-console-panel aria-label={t("ema.console.label")} hidden>
         <div class="console-head"><p>{t("ema.console.label")}</p><button type="button" data-console-close aria-label={t("ema.console.close")} title={t("ema.console.close")}><Icon name="tabler:x" size={15} /></button></div>
-        <div class="console-card radio" data-radio data-tracks={JSON.stringify([1, 2, 3].map((index) => t(`ema.radio.track${index}`)))}>
-          <div class="radio-head"><span class="radio-disc" aria-hidden="true"></span><div><p class="console-kicker">{t("ema.radio.label")}</p><strong data-radio-title>{t("ema.radio.track1")}</strong><small data-radio-count>1 / 3</small></div></div>
+        <div class="console-card radio" data-radio data-tracks={JSON.stringify(trackNames)}>
+          <div class="radio-head"><span class="radio-disc" aria-hidden="true"></span><div><p class="console-kicker">{t("ema.radio.label")}</p><strong data-radio-title>{trackNames[0]}</strong><small data-radio-count>1 / {trackNames.length}</small></div></div>
           <div class="radio-progress" aria-hidden="true"><span data-radio-progress></span></div>
           <div class="radio-time" aria-hidden="true"><span data-radio-elapsed>00:00</span><span data-radio-length>00:00</span></div>
           <div class="radio-controls">
@@ -86,8 +88,9 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
             <button type="button" data-radio-next aria-label={t("ema.radio.next")} title={t("ema.radio.next")}><Icon name="tabler:player-skip-forward" size={17} /></button>
           </div>
           <label class="radio-volume"><Icon name="tabler:volume" size={16} aria-hidden="true" /><span class="blank-sr-only">{t("ema.radio.volume")}</span><input type="range" min="0" max="100" value="60" data-radio-volume /></label>
-          <p class="radio-note">{t("ema.radio.note")}</p>
+          <p class="radio-note">{t("ema.radio.credit")}</p>
           <p class="radio-note" data-radio-unsupported hidden>{t("ema.radio.unsupported")}</p>
+          <p class="radio-note" data-radio-error role="status" hidden>{t("ema.radio.error")}</p>
         </div>
         {cursorRing && (
           <div class="console-card ring-card" data-ring-card hidden>

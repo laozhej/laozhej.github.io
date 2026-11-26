@@ -1,0 +1,40 @@
+{
+  "assets": [
+    {
+      "id": "omoide",
+      "title": "思い出はずっと-1(遅い)",
+      "file": "omoide-wa-zutto-slow.mp3",
+      "duration": 182.843447,
+      "bytes": 2723957,
+      "sha256": "807667f1b929d39d08d2923c66bd8b3805c95dcd066d3c95c39cf8dc5a424036",
+      "attribution": "OtoLogic",
+      "source_page": "https://otologic.jp/free/bgm/music-box01.html",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "id": "hoshi",
+      "title": "星をかぞえて-1(遅い)",
+      "file": "hoshi-o-kazoete-slow.mp3",
+      "duration": 171.024104,
+      "bytes": 1820452,
+      "sha256": "feb54e9f6a0379ed8e71484406e470ad07c84c3ff637a512c9ca237e45454eaa",
+      "attribution": "OtoLogic",
+      "source_page": "https://otologic.jp/free/bgm/music-box01.html",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "id": "shanghai",
+      "title": "上海红茶馆（管弦乐）",
+      "file": "shanghai-teahouse-orchestral.mp3",
+      "duration": 192.679184,
+      "bytes": 3083696,
+      "sha256": "7694c06ffd63d6e61d667f3b1170ae636d19ca0e6e0ccafa8de167867c2c621f",
+      "attribution": null,
+      "source_page": null,
+      "license": null,
+      "permission_status": "The site owner supplied the MP3. The arranger, publication and permission for public use are unconfirmed."
+    }
+  ]
+}

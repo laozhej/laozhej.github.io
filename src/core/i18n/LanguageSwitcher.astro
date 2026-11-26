@@ -7,7 +7,7 @@ const { locale, t } = getI18n(Astro.url.pathname);
 const path = Astro.url.pathname;
 ---
 <details class="site-language-menu" data-site-language-menu>
-  <summary aria-label={t("a11y.language")} title={t("a11y.language")}>
+  <summary aria-label={`${t("a11y.language")} ${localeCodes[locale]}`} title={t("a11y.language")}>
     <Icon name="tabler:language" size={18} />
     <span>{localeCodes[locale]}</span>
     <Icon name="tabler:chevron-down" size={12} />

@@ -76,7 +76,7 @@ export function mountCollection(root, win) {
     }
     if (sort) {
       const direction = state.sort === "oldest" ? 1 : -1;
-      const ordered = [...entries].sort((a, b) => direction * (Number(a.dataset.date) - Number(b.dataset.date)));
+      const ordered = entries.toSorted((a, b) => direction * (Number(a.dataset.date) - Number(b.dataset.date)));
       for (const entry of ordered) list.append(entry);
       sort.value = state.sort;
     }

@@ -27,8 +27,20 @@ export function mountNotice(root, doc) {
 
   const open = () => { if (!dialog.open) dialog.showModal(); };
   openers.forEach((button) => { button.hidden = false; listen(button, 'click', open); });
-  // Clicks on the dimmed backdrop land on the dialog element itself.
-  listen(dialog, 'click', (event) => { if (event.target === dialog) dialog.close(); });
+  // A press and release both on the dimmed backdrop close the note. The markup asks for this with
+  // closedby="any"; browsers without it get the same rule here. Both ends are checked because a
+  // drag (selecting the note's text and letting go outside it, or the reverse) also reports a click
+  // on the dialog element itself, and it must not close the note.
+  if (!('closedBy' in dialog)) {
+    let pressed = false;
+    let released = false;
+    listen(dialog, 'pointerdown', (event) => { pressed = event.target === dialog; released = false; });
+    listen(dialog, 'pointerup', (event) => { released = event.target === dialog; });
+    listen(dialog, 'click', (event) => {
+      if (event.target === dialog && pressed && released) dialog.close();
+      pressed = released = false;
+    });
+  }
 
   return () => {
     if (dialog.open) dialog.close();

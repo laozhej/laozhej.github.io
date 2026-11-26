@@ -20,7 +20,7 @@ const empty = posts.length === 0;
       <p class="blank-empty-message" id="blank-search">{t("blog.empty")}</p>
     ) : (
       <>
-        <form class="blank-filter-form" data-site-filter-form role="search" hidden>
+        <search data-site-filter-form hidden><form class="blank-filter-form">
           <div class="blank-archive-tools">
             <div class="blank-search">
               <Icon name="tabler:search" size={19} />
@@ -38,7 +38,7 @@ const empty = posts.length === 0;
             <button type="button" data-site-category="all" aria-pressed="true">{t("blog.all")} <span>{posts.length}</span></button>
             {categories.map(([key, label]) => <button type="button" data-site-category={key} aria-pressed="false">{label} <span>{posts.filter((post) => post.data.category === key).length}</span></button>)}
           </fieldset>
-        </form>
+        </form></search>
         <div class="blank-list-heading"><span class="blank-kicker">{t("blog.index")}</span><output data-site-count aria-live="polite" aria-atomic="true">{posts.length} {unit("common.articles", posts.length)}</output></div>
         <ol class="blank-post-list" data-site-entries>{posts.map((post, index) => <PostRow post={post} index={index + 1} />)}</ol>
         <div class="blank-empty-results" data-site-empty hidden><p>{t("blog.noResults")}</p><button class="blank-text-link" type="button" data-site-reset>{t("blog.reset")} <Icon name="tabler:arrow-back-up" size={17} /></button></div>

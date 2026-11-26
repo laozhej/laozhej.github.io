@@ -93,36 +93,37 @@ test("a saved pause applies before first paint, and theme links load a new docum
   assert.match(source("astro.config.mjs"), /prefetch: false/);
 });
 
-test("a quick pause and play never lets the pending suspend silence the radio", async () => {
-  const timers = new Map();
-  let next = 0;
-  let context;
-  const param = () => ({ value: 0, setValueAtTime() {}, setTargetAtTime() {}, cancelScheduledValues() {}, linearRampToValueAtTime() {}, exponentialRampToValueAtTime() {} });
-  const node = () => ({ gain: param(), delayTime: param(), frequency: param(), connect() {}, start() {}, stop() {} });
-  class FakeAudioContext extends EventTarget {
-    state = "suspended"; currentTime = 0; destination = {};
-    constructor() { super(); context = this; }
-    createGain() { return node(); }
-    createDelay() { return node(); }
-    createOscillator() { return node(); }
-    async resume() { this.state = "running"; }
-    async suspend() { this.state = "suspended"; }
+test("a stale playback rejection cannot interrupt a quick pause and play", async () => {
+  const requests = [];
+  let audio;
+  class FakeAudio extends EventTarget {
+    paused = true;
+    constructor() { super(); audio = this; }
+    hasAttribute(name) { return Object.hasOwn(this, name); }
+    play() {
+      this.paused = false;
+      return new Promise((resolve, reject) => requests.push({ resolve, reject }));
+    }
+    pause() {
+      this.paused = true;
+      this.dispatchEvent(new Event("pause"));
+    }
   }
-  const win = {
-    AudioContext: FakeAudioContext,
-    setTimeout: (fn) => { timers.set(++next, fn); return next; }, clearTimeout: (id) => timers.delete(id),
-    setInterval: () => 0, clearInterval() {},
-  };
-  const radio = getRadio(win);
-  await radio.play();
+  const radio = getRadio({ Audio: FakeAudio });
+  const first = radio.play();
   radio.pause();
-  await radio.play();
-  for (const fn of [...timers.values()]) fn();
-  await new Promise((resolve) => setImmediate(resolve));
+  const second = radio.play();
+  requests[1].resolve();
+  await second;
+  requests[0].reject(new DOMException("Playback interrupted", "AbortError"));
+  await first;
   assert.equal(radio.playing, true);
-  assert.equal(context.state, "running", "the suspend scheduled by pause() was cancelled by play()");
-  // A system interruption (iOS) shows as paused instead of a silent "playing".
-  context.state = "interrupted";
-  context.dispatchEvent(new Event("statechange"));
+  assert.equal(radio.failed, false);
+  audio.pause();
+  assert.equal(radio.playing, false);
+  const retry = radio.play();
+  requests[2].reject(new DOMException("No playable source", "NotSupportedError"));
+  await retry;
+  assert.equal(radio.failed, true);
   assert.equal(radio.playing, false);
 });

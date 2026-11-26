@@ -1,4 +1,4 @@
-import { getRadio, TRACKS, trackLength } from './radio.mjs';
+import { getRadio, TRACKS } from './radio.mjs';
 
 // The console holds the Sakura Radio controls (and, on Home and Games, the cursor ring's switch).
 // Wide windows open it from the tab on the left edge; narrower ones from the footer, where it is docked
@@ -47,11 +47,11 @@ export function mountEmaConsole(doc, win) {
   const title = $('[data-radio-title]'), count = $('[data-radio-count]');
   const play = $('[data-radio-play]'), progress = $('[data-radio-progress]');
   const elapsed = $('[data-radio-elapsed]'), length = $('[data-radio-length]');
-  const volume = $('[data-radio-volume]'), unsupported = $('[data-radio-unsupported]');
+  const volume = $('[data-radio-volume]'), unsupported = $('[data-radio-unsupported]'), error = $('[data-radio-error]');
   let frame = 0;
   function render() {
     if (!radioRoot) return;
-    const total = trackLength(TRACKS[radio.index]);
+    const total = radio.duration;
     const position = radio.position();
     if (title) title.textContent = names[radio.index] ?? '';
     if (count) count.textContent = `${radio.index + 1} / ${TRACKS.length}`;
@@ -59,6 +59,7 @@ export function mountEmaConsole(doc, win) {
     if (length) length.textContent = clock(total);
     if (progress) progress.style.transform = `scaleX(${(position / total).toFixed(4)})`;
     if (volume && doc.activeElement !== volume) volume.value = String(Math.round(radio.volume * 100));
+    if (error) error.hidden = !radio.failed;
     radioRoot.classList.toggle('is-playing', radio.playing);
     if (play) {
       play.setAttribute('aria-pressed', String(radio.playing));
@@ -76,6 +77,7 @@ export function mountEmaConsole(doc, win) {
   }
   const wake = () => { if (!frame) frame = win.requestAnimationFrame(loop); };
   if (radioRoot) {
+    if (volume) volume.disabled = !radio.volumeSupported;
     if (!radio.supported) {
       radioRoot.querySelectorAll('button, input').forEach((control) => { control.disabled = true; });
       if (unsupported) unsupported.hidden = false;

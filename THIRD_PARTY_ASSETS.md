@@ -28,6 +28,12 @@
 
 本站保留原作的三条矢量路径，去除两层矩形底色，裁取枝梢，为浅色和深色首页分别调整填色。处理全程未使用生成式 AI。原图和两个本站版本的 SHA-256 见[樱枝素材清单](public/themes/ema/cherry-blossom/ASSETS.json)。
 
+### 樱色电台
+
+《思い出はずっと》和《星をかぞえて》使用 OtoLogic 发布的慢版音源，许可为 CC BY 4.0。电台内已标注来源。[曲目原页](https://otologic.jp/free/bgm/music-box01.html) · [OtoLogic 使用条款](https://otologic.jp/free/license)
+
+《上海红茶馆》（管弦乐）来自站主提供的 MP3，编曲者、该版本的发布页和公开使用授权待核实。三个文件均按原始字节保存。[音频清单](public/themes/ema/audio/ASSETS.json)
+
 ## 喜欢的角色头像
 
 `public/characters/` 收录站主指定的 67 位角色头像。樱羽艾玛和月代雪排在前两位。`public/characters/ASSETS.json` 逐项记录名称、作品、原图与来源页面、制作／画师署名、裁切坐标、尺寸及文件校验。其余 65 张来自作品官网，或《明日方舟》官方客户端资源的可追溯镜像；该镜像的画师署名来自游戏 `skin_table` 数据。P3/P5 主角姓名采用用户指定的结城理、雨宫莲，游戏官网中的“主人公”称呼不构成这些姓名的出处。

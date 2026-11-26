@@ -8,6 +8,8 @@ import themeLicense from "../../../../public/licenses/yuimi-chaya-MIT.txt?raw";
 import iconLicense from "../../../../public/licenses/tabler-icons-MIT.txt?raw";
 import fontLicense from "../../../../public/licenses/gloock-OFL.txt?raw";
 import sairaLicense from "../../../../public/licenses/saira-OFL.txt?raw";
+import oswaldLicense from "../../../../public/licenses/oswald-OFL.txt?raw";
+import jetbrainsLicense from "../../../../public/licenses/jetbrains-mono-OFL.txt?raw";
 const { t, href } = getI18n(Astro.url.pathname);
 ---
 <BlankLayout title={`${t("credits.title")} | ${site.name}`} description={t("credits.description")}>
@@ -70,6 +72,22 @@ const { t, href } = getI18n(Astro.url.pathname);
         <pre lang="en">{sairaLicense}</pre>
       </details>
       <a class="blank-text-link" href="/licenses/saira-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+      <h3>Oswald</h3>
+      <p>{t("credits.oswaldText")}</p>
+      <a class="blank-text-link" href="https://github.com/googlefonts/OswaldFont" target="_blank" rel="noopener noreferrer">{t("credits.oswaldProject")} <Icon name="tabler:external-link" size={15} /></a>
+      <details class="blank-license">
+        <summary>{t("credits.licenseText")} · OFL-1.1</summary>
+        <pre lang="en">{oswaldLicense}</pre>
+      </details>
+      <a class="blank-text-link" href="/licenses/oswald-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+      <h3>JetBrains Mono</h3>
+      <p>{t("credits.jetbrainsText")}</p>
+      <a class="blank-text-link" href="https://github.com/JetBrains/JetBrainsMono" target="_blank" rel="noopener noreferrer">{t("credits.jetbrainsProject")} <Icon name="tabler:external-link" size={15} /></a>
+      <details class="blank-license">
+        <summary>{t("credits.licenseText")} · OFL-1.1</summary>
+        <pre lang="en">{jetbrainsLicense}</pre>
+      </details>
+      <a class="blank-text-link" href="/licenses/jetbrains-mono-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
     </div>
   </section>
   <section class="blank-section blank-about-section blank-credits-section">

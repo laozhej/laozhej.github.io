@@ -8,12 +8,13 @@ test("theme changes round-trip every locale, section and nested article without 
   for (const locale of ["zh-CN", "zh-TW", "ja", "en"]) {
     for (const path of ["/", "/blog/", "/blog/notes/first-post/", "/projects/", "/games/", "/about/", "/credits/"]) {
       const original = localizePath(`${path}?q=hello%20world&category=life&sort=oldest&ref=shared#section-two`, locale);
-      for (const theme of ["ema", "endfield"]) {
+      const named = ["ema", "endfield", "arknights"];
+      for (const [index, theme] of named.entries()) {
         const themed = getThemePath(theme, original);
         assert.equal(getTheme(themed), theme);
         assert.equal(getThemePath("blank", themed), original);
         assert.equal(getThemePath(theme, themed), themed, "never stack theme roots");
-        const other = getThemePath(theme === "ema" ? "endfield" : "ema", themed);
+        const other = getThemePath(named[(index + 1) % named.length], themed);
         assert.equal(getThemePath(theme, other), themed, "named themes switch between each other");
       }
     }

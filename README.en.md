@@ -1,8 +1,8 @@
-# Blank / Ema / Endfield Personal Website
+# Blank / Ema / Endfield / Arknights Personal Website
 
 [简体中文](README.md) | [日本語](README.ja.md) | **English**
 
-An Astro static site adapted into a standalone project from [Yuimi-chaya’s Blank theme](https://yuimi-chaya.github.io/themes/blank/). It keeps Blank’s monochrome reading interface and adds Ema’s “Sakura Archive” and “Endfield Industrial” themes. All three themes share articles, profile data, projects, collections, and common features.
+An Astro static site adapted into a standalone project from [Yuimi-chaya’s Blank theme](https://yuimi-chaya.github.io/themes/blank/). It keeps Blank’s monochrome reading interface and adds Ema’s “Sakura Archive”, “Endfield Industrial” and “Arknights” themes. All four themes share articles, profile data, projects, collections, and common features.
 
 Website: **[laozhej.github.io](https://laozhej.github.io/)** · Supports Simplified Chinese, Taiwanese Traditional Chinese, Japanese, and English, with light and dark modes.
 
@@ -53,6 +53,7 @@ Run `npm run images` and open the local URL to drag in images, compress and name
 | Page layout, navigation, and footer | `src/themes/blank/layouts/BlankLayout.astro` |
 | Ema pages, styles, and interactions | `src/themes/ema/` |
 | Endfield Industrial pages and styles | `src/themes/endfield/` |
+| Arknights pages, styles and interactions | `src/themes/arknights/` |
 | Theme registration, switching, and preferences | `src/core/themes/` |
 | Ema images and source records | `public/themes/ema/assets/`, `public/themes/ema/ASSETS.json` |
 | Site icons shared by every theme | `src/core/components/SiteIcons.astro`, `assets/branding/` |
@@ -81,13 +82,14 @@ Articles with `draft: true` are not published.
 - Article table of contents, active heading highlighting, reading progress, and back-to-top links.
 - A moon / sun button in the top right switches between light and dark modes. Until a manual choice is made, the site follows system changes. A manual choice is saved in the current browser and shared across pages, languages, and themes using the common modules.
 - Simplified Chinese / Traditional Chinese (Taiwan) / Japanese / English switching. Article translations live in the `zh-TW/`, `ja/`, and `en/` subdirectories. Language and color mode are independent preferences.
-- Blank / Ema / Endfield Industrial switching preserves the current language, section, article, query parameters, and anchor. Theme and color mode are independent preferences. Blank keeps its switcher in the top navigation; the other themes use a palette button in the bottom right (Ema moves it into the header in narrower windows).
+- Blank / Ema / Endfield Industrial / Arknights switching preserves the current language, section, article, query parameters, and anchor. Theme and color mode are independent preferences. Blank keeps its switcher in the top navigation; the other themes use a palette button in the bottom right (Ema moves it into the header in narrower windows).
 - GitHub / Steam links on the about page and in the footer, plus a credits and licenses page in every language (`/credits/`).
 - Internal navigation updates the content without reloading the whole page. The header stays in place while the content fades out and in. Language, theme, and color mode are preserved; browser back / forward navigation restores the scroll position.
 - Sakura Archive (the Ema theme) uses “Arataki.br’s Base” as its name and Gloock for its headings. Its homepage opens with the owner beside “A little scene with Ema”, a five-pose scene shown with labelled temporary placeholders until its artwork is decided, followed by featured work, favourite games, recent writing and favourite tags. The Sakura note opens only when asked, and the page scrolls normally. The homepage’s light parallax takes inspiration from Yuimi-chaya’s Fuyukawa Kagari theme.
 - Ema includes falling cherry blossom petals, a side scroll marker on wide screens, and Sakura Radio.
 - “Sakura Radio” in Ema’s console (on the left edge of wide windows, in the footer of narrower ones) offers three original music-box pieces synthesized in real time in the browser. It loads no audio files, keeps playing between Ema pages, and stops when another theme is opened. On the Home and Games pages the console also switches off the cursor ring that follows the mouse.
 - Endfield Industrial uses paper and ink colors, yellow accents, controls with cut corners, contour-line backgrounds, and the self-hosted Saira font. It draws on the game’s interface structure and uses no official game assets.
+- Arknights lays the site out as an archive terminal: dark mode is the running screen, light mode the printed archive sheet, with cyan as its one signal colour. English section words sit over their local names, a status rail counts where the reader is, the latest entry’s number is shown on a dot-matrix board, favourite games stand as four panels, and switching colour modes scans the new mode in from the top. It self-hosts Oswald and JetBrains Mono, borrows only the layout habits of the official site, and uses no official game assets.
 - Every Ema page has an animation pause / play button. Pausing skips page transitions across all themes. The system’s reduced-motion preference also skips transitions and disables the button.
 - Desktop and mobile layouts, keyboard focus indicators, a skip-to-content link, and reduced-motion support.
 
@@ -101,7 +103,7 @@ The language layer lives in `src/core/i18n/` and is independent of Blank. Future
 
 Profiles, projects, collections, and social links come from the same shared data, and articles use one shared set of Markdown sources. After an edit and redeployment, every theme using those sources reflects the update. Content is shared within each language; changes to Chinese content do not automatically translate into Japanese or English. Translations must be maintained separately.
 
-Search, category filtering, date sorting, reading progress, and color mode logic live in the shared core. Blank uses the root path, Ema uses `/themes/ema/`, and Endfield Industrial uses `/themes/endfield/`. Traditional Chinese, Japanese, and English add `/zh-TW/`, `/ja/`, and `/en/` before the theme path, for example `/ja/themes/endfield/`. The theme menu preserves the current section, article, language, and applicable query parameters and anchors. The choice is saved under the shared `site-theme` preference, while the URL determines the actual page theme. Saved preferences do not force changes to direct links or browser history.
+Search, category filtering, date sorting, reading progress, and color mode logic live in the shared core. Blank uses the root path, Ema uses `/themes/ema/`, Endfield Industrial uses `/themes/endfield/`, and Arknights uses `/themes/arknights/`. Traditional Chinese, Japanese, and English add `/zh-TW/`, `/ja/`, and `/en/` before the theme path, for example `/ja/themes/endfield/`. The theme menu preserves the current section, article, language, and applicable query parameters and anchors. The choice is saved under the shared `site-theme` preference, while the URL determines the actual page theme. Saved preferences do not force changes to direct links or browser history.
 
 Themes control layout, colors, and interaction presentation, connecting to the same features through shared hooks. When adding a theme, follow the [theme integration guide](docs/THEMES.md) for data, features, languages, and routing. Keep business logic in the shared core.
 
@@ -145,4 +147,4 @@ The Ema theme no longer ships third-party character or manga images: the earlier
 
 See the [third-party asset notice](THIRD_PARTY_ASSETS.md) for full sources, license files, and usage boundaries.
 
-See the [content license notice](CONTENT_LICENSE.md) for the scope of licensing for articles and their translations. Fonts are not loaded from external servers. Sakura Archive’s Gloock heading font and Endfield Industrial’s Saira Latin font are self-hosted under SIL OFL 1.1; other text uses system fonts.
+See the [content license notice](CONTENT_LICENSE.md) for the scope of licensing for articles and their translations. Fonts are not loaded from external servers. Sakura Archive’s Gloock heading font, Endfield Industrial’s Saira Latin font, and Arknights’ Oswald and JetBrains Mono are self-hosted under SIL OFL 1.1; other text uses system fonts.

@@ -112,7 +112,7 @@ const host = Astro.site?.host ?? "";
         <SocialLinks class="ak-footer-links" label={t("social.footerHeading")} />
       </div>
       <span class="ak-footer-ghost" data-ghost={brandName} aria-hidden="true"></span>
-      <div class="ak-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#arknights-main">{t("footer.top")} ↑</a></div>
+      <div class="ak-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#arknights-main" data-site-top>{t("footer.top")} ↑</a></div>
     </footer>
     <ThemeSwitcher floating />
     <script>

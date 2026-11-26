@@ -1,6 +1,7 @@
 import { mountCollection } from "./collection.mjs";
 import { mountReading } from "./reading.mjs";
 import { mountDisclosure } from "./disclosure.mjs";
+import { mountBackToTop } from "./back-to-top.mjs";
 import { mountColorMode } from "../preferences/color-mode.mjs";
 
 const mountedDocuments = new WeakMap();
@@ -13,6 +14,7 @@ export function mountSiteFeatures(doc, win) {
     ...[...doc.querySelectorAll("[data-site-collection]")].map((root) => mountCollection(root, win)),
     ...[...doc.querySelectorAll("[data-site-disclosure]")].map((root) => mountDisclosure(root, win)),
     mountReading(doc, win),
+    mountBackToTop(doc, win),
   ];
   let disposed = false;
   const cleanup = () => {

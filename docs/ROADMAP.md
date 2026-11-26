@@ -2,7 +2,7 @@
 
 给接手这个网站的人和 AI agent：开工前先读 [AGENTS.md](../AGENTS.md)，再读本文件；AGENTS.md 开头有一行指向这里，站主 2026-11-25 同意添加。本文件记录现在做到哪里、接下来做什么、哪些事要等站主决定。规则以 AGENTS.md 为准，布局与交互以 [REFERENCE.md](REFERENCE.md) 为准，美术以 [ART-DIRECTION.md](ART-DIRECTION.md) 为准，技术约定见 [THEMES.md](THEMES.md)。本文件和它们冲突时，以它们为准，并顺手修正本文件。
 
-最后核对：2026-11-25，以 `a026488`（PR #30 合并后的 `main`）加上 PR #31 的内容为准。2026-11-26 补记了 PR #35、#36（终末地交互动效）和 PR #37、#38（终末地点按范围），PR #39（网页平台检查和第一次 axe 检查，第 4.6 节）、PR #40（Blank 点按范围）、PR #41（Ema 点按范围）以及它们涉及的条目，当晚又补记了 PR #43（第四套主题「明日方舟」）、PR #44（AGENTS.md 与项目资料改为四套主题）、PR #45（站主验收明日方舟主题），2026-11-27 补记了 PR #46（第 14 问：读屏名称和颜色对比），其余内容没有重新核对。文中的“§”编号都指 ART-DIRECTION.md 的章节。
+最后核对：2026-11-25，以 `a026488`（PR #30 合并后的 `main`）加上 PR #31 的内容为准。2026-11-26 补记了 PR #35、#36（终末地交互动效）和 PR #37、#38（终末地点按范围），PR #39（网页平台检查和第一次 axe 检查，第 4.6 节）、PR #40（Blank 点按范围）、PR #41（Ema 点按范围）以及它们涉及的条目，当晚又补记了 PR #43（第四套主题「明日方舟」）、PR #44（AGENTS.md 与项目资料改为四套主题）、PR #45（站主验收明日方舟主题），2026-11-27 补记了 PR #46（第 14 问：读屏名称和颜色对比）和 PR #51（「回到顶部」的滚动），其余内容没有重新核对。文中的“§”编号都指 ART-DIRECTION.md 的章节。
 
 ## 标签
 
@@ -23,6 +23,7 @@
 
 ## 1. 现状
 
+- **已完成**（2026-11-27，PR #51）：站主要求给「回到顶部」按钮加上滚动的动效，原话是“For some "back to top" buttons, please add a motion of "scrolling". Otherwise the web looks so weird”。改之前只有 Blank 的会平滑滚上去，Ema、终末地和明日方舟都是一下子跳到顶部。现在这三套主题页脚的「回到顶部」也平滑滚动，快慢和 Blank 一样；落点、地址栏的 `#…-main`、后退回到页脚和焦点都和以前相同，系统减少动态或按了暂停按钮时照旧直接跳。页面外观没有变化：这三套主题的 96 个页面只多了一个 `data-site-top` 属性，Blank 的页面只有导航脚本的文件名变了。明日方舟已冻结（第 3.5 节），这次只改了它页脚这个链接的滚动方式，因为站主的请求点名了这些按钮。做法见 THEMES.md 的「回到顶部」。
 - **已完成**（2026-11-27，PR #50）：站主回答第 15 问（“yes, do question 15. you can also merge right now”）后，Ema 首页的静物（笔记本、茶杯、窗光）换成 Codex 的早期草稿（`codex/ema-art-p0-p1`，一直没有提交）。草稿的窗光比原来的淡得多，浅色纸面上几乎看不出来。草稿在 1180px 及更窄时隐藏笔记本，这一条没有沿用，因为现在剧场卡以上边缘定位，量出的间距至少 20px。Journal 页头和文章页的装饰不变。细节见 ART-DIRECTION §14.11。
 - **已批准**（2026-11-27，PR #48，站主同意合并）：樱色电台换成站主提供的三首 MP3，默认从《思い出はずっと》（慢版）开始，之后是《星をかぞえて》（慢版）和《上海红茶馆》（管弦乐）。
 - **已批准**（2026-11-27，PR #47，站主同意合并）：樱色档案的站主头像按站主圈出的范围裁切，替换首页资料卡、首页 Profile 书签和关于页的「旭」字。已核实画师为游亜，公开使用授权待核实。[原作](https://www.pixiv.net/artworks/136654991)
@@ -37,7 +38,7 @@
 - 网站：Blank、Ema（樱色档案）、Endfield（终末地）、Arknights（明日方舟，PR #43）四套主题，各有 zh-CN、zh-TW、ja、en 四种语言，构建出 128 个页面。Astro 7.3.5，推送到 `main` 后由 GitHub Pages 自动部署。
 - 规范主题：`src/core/themes/routing.mjs` 的 `canonicalTheme = "blank"`。各主题的 canonical、hreflang 和 sitemap 都指向 Blank。改主界面时改这个常量，并重新生成 `public/og/` 的分享图（`scripts/og-image.mjs`）。
 - 文章：1 篇，`dev-log-01`，四种语言都有。
-- 检查基线（Node 24.19.0，PR #50 的内容，基于 `9e04f1d`）：`npm test` 222 项全部通过（PR #50 改了 `tests/ema-plate.test.mjs` 和 `tests/ema-storyboard.test.mjs` 的断言，项数不变；PR #49 恢复 `tests/ema-games.test.mjs` 的 4 项、删去 `tests/ema-targets.test.mjs` 里旧 Games 页的 1 项；PR #46 加了 4 项，在 `tests/a11y-names.test.mjs`；PR #43 加了 9 项，在 `tests/arknights.test.mjs`，并把明日方舟加进 `tests/seo.test.mjs`、`tests/themes.test.mjs` 的主题列表；PR #35 加了 10 项、PR #36 加了 1 项，都在 `tests/endfield-motion.test.mjs`；PR #37 加了 5 项、PR #38 加了 1 项，在 `tests/endfield-targets.test.mjs`；PR #39 加了 8 项，在 `tests/web-platform.test.mjs`；PR #40 加了 7 项，在 `tests/blank-targets.test.mjs`；PR #41 加了 6 项，在 `tests/ema-tap-targets.test.mjs`）；`npm run build` 生成 128 页；`npm run showcase:check` 通过（四套主题 × 四种语言 × 七个栏目，共 112 页）。
+- 检查基线（Node 24.19.0，PR #51 的内容，基于 `0a89b92`）：`npm test` 227 项全部通过（PR #51 加了 5 项，在 `tests/back-to-top.test.mjs`；PR #50 改了 `tests/ema-plate.test.mjs` 和 `tests/ema-storyboard.test.mjs` 的断言，项数不变；PR #49 恢复 `tests/ema-games.test.mjs` 的 4 项、删去 `tests/ema-targets.test.mjs` 里旧 Games 页的 1 项；PR #46 加了 4 项，在 `tests/a11y-names.test.mjs`；PR #43 加了 9 项，在 `tests/arknights.test.mjs`，并把明日方舟加进 `tests/seo.test.mjs`、`tests/themes.test.mjs` 的主题列表；PR #35 加了 10 项、PR #36 加了 1 项，都在 `tests/endfield-motion.test.mjs`；PR #37 加了 5 项、PR #38 加了 1 项，在 `tests/endfield-targets.test.mjs`；PR #39 加了 8 项，在 `tests/web-platform.test.mjs`；PR #40 加了 7 项，在 `tests/blank-targets.test.mjs`；PR #41 加了 6 项，在 `tests/ema-tap-targets.test.mjs`）；`npm run build` 生成 128 页；`npm run showcase:check` 通过（四套主题 × 四种语言 × 七个栏目，共 112 页）。
 - 终末地主题在 2026-11-26 增加了一组交互动效（PR #35，站主的请求是“给终末地加更多交互动效，可以发挥创意”）：数字跳动后停在真实数值、首屏随指针错开、主题内换页的斜边和滑动的强调色块、深浅色从按钮处圆形揭开、筛选后逐行出现，以及按钮和链接的悬停、按下反馈。主题因此有了自己的运行时 `src/themes/endfield/lib/runtime.mjs`。每种动效的触发方式、时长和实现约定见 [THEMES.md](THEMES.md) 的「终末地工业风」一节。静止时页面和改动前相同，其他主题的页面没有变化；比对方法和结果写在 PR #35 的说明里。
 - 终末地的点按范围在 2026-11-26 扩大到至少 44 px，外观不变（PR #37，站主的要求是“扩大点按范围，外观保持不变”）：顶栏的站名、语言按钮和三个图标按钮，首页的文字链接，页脚的站名和各组链接，以及终末地里共用页面上的文字链接、筛选块、文章的分类和标签链接。只改了终末地的样式，Blank 和 Ema 的页面没有变化。当时还有四处因为彼此挨得太近而到不了 44 px；站主同一天同意为它们加大间距（PR #38）：页脚三个栏目链接、页脚最后一行折行时的行距、宽于 760 px 时的文章目录、致谢页上下紧贴的一对链接。这四处的外观有变化（手机上页脚高了 68 px，桌面 31 px），细节见 THEMES.md「终末地工业风」一节的“点按范围”。现在终末地页面上没有小于 44 px 的控件（Chrome 里量的）。
 - 2026-11-26 按站主的要求（“用 modern-web 技能检查网站并改进”），对照现行的网页平台指南（modern-web-guidance）检查了全站，并第一次跑了 axe-core 自动可访问性检查（第 4.6 节）。改了六处，页面外观都没有变化（PR #39）：
@@ -91,6 +92,7 @@
 | #48 | 樱色电台改放站主提供的三首 MP3，点击播放后才加载，在樱色档案内换页时保留曲目、进度和音量（其他会话，站主同意合并；第 1 节，THEMES.md） |
 | #49 | 站主回答第 15 问：Ema Games 页改回参考站式的游戏架（PR #26），并采用手机紧凑版；PR #31 为旧版式加的点按测试随之删去（第 2 节） |
 | #50 | 站主回答第 15 问：Ema 首页的静物（笔记本、茶杯、窗光）换成 Codex 的早期草稿；Journal 页头和文章页的装饰不变（第 1 节，ART-DIRECTION §14.11） |
+| #51 | Ema、终末地和明日方舟页脚的「回到顶部」改为平滑滚动，和 Blank 一样；外观、落点、地址和后退不变（第 1 节，THEMES.md「回到顶部」） |
 
 ## 2. Ema Games 页和 About 页：恢复为改版前的版式
 
@@ -150,7 +152,7 @@
 - Ema About：站主 2026-11-25 选定改版前的版式（拉丁大标题“About.”加个人卡片、信笺和卡片架）。站主没有新请求时，不要改成参考站的版式（§14.8）。
 - Ema Games：站主 2026-11-27 回答第 15 问后改回参考站式的游戏架（PR #26 的版式加手机紧凑版，PR #49，§14.9）。没有新请求时按现状保留。
 - Blank 保持黑白排版；Endfield 保持自己的工业风，不套用参考站的视觉。
-- 明日方舟主题（PR #43）：站主 2026-11-26 验收，原话是“keep the Arknights design as it is”。没有新请求时按现状保留：颜色、字体、版式、间距、动效和首页的五个区段都不改，也不套用参考站的视觉（AGENTS.md 的设计方向表）。验收后唯一的改动来自第 14 问（PR #46）：首页游戏面板上的编号改为更浅的灰并加深色光晕、链接图标加阴影，让它们压在亮色画面上时也达到 AA。
+- 明日方舟主题（PR #43）：站主 2026-11-26 验收，原话是“keep the Arknights design as it is”。没有新请求时按现状保留：颜色、字体、版式、间距、动效和首页的五个区段都不改，也不套用参考站的视觉（AGENTS.md 的设计方向表）。验收后有两处改动。一处来自第 14 问（PR #46）：首页游戏面板上的编号改为更浅的灰并加深色光晕、链接图标加阴影，让它们压在亮色画面上时也达到 AA。另一处来自站主 2026-11-27 的请求（PR #51）：页脚「回到顶部」改为平滑滚动，外观不变。
 
 ## 4. 优化
 

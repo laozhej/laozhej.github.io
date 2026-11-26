@@ -410,26 +410,31 @@ html[data-theme="endfield"].ef-moding::view-transition-old(root),html[data-theme
 .ef-footer { isolation:isolate; }
 /* In the one-column footer the name sits 24px above the first section link: it takes 5px of that and the link the other 19px. */
 .ef-footer-brand::after { content:""; position:absolute; inset:-14px 0 -5px; }
-/* The three section links are 29px apart: each takes half the gap to its neighbour, and the first and last the free space
-   beyond, which brings those two to 44px. The middle one stays at 29px; more would need more space between the lines. */
-.ef-footer-links a:not(.blank-text-link)::after { content:""; position:absolute; inset:-4px 0; }
-.ef-footer-links a:not(.blank-text-link):first-child::after { top:-19px; }
-.ef-footer-links a:not(.blank-text-link):last-child::after { bottom:-19px; }
-/* The last row wraps on narrow screens (its lines are 27px apart), so its extensions lie under the links themselves and a
-   link's own text always wins. They reach down into the footer's padding, and up as far as the row's top padding allows. */
+/* The three section links are 21px tall and 24px apart (they were 8px apart until the owner asked for the room, 2026-11-26):
+   each takes half the space to its neighbour, 45px in all. */
+.ef-footer-sections { gap:24px; }
+.ef-footer-links a:not(.blank-text-link)::after { content:""; position:absolute; inset:-12px 0; }
+/* The last row's links are 19px tall. When the row wraps, its lines are 26px apart (8px before), so each link has 13px
+   above and below it, 45px in all, on one line or several. The extensions lie under the links themselves. */
+.ef-footer-bottom { row-gap:26px; }
 .ef-footer-bottom,.ef-content .blank-tag-line { position:relative; z-index:0; }
-.ef-footer-bottom a::after { content:""; position:absolute; inset:-12px 0 -17px; z-index:-1; }
+.ef-footer-bottom a::after { content:""; position:absolute; inset:-13px 0; z-index:-1; }
 .ef-content .blank-filters button::before { content:""; position:absolute; inset:-2px 0; }
 .ef-content .blank-post-meta a::after { content:""; position:absolute; inset:-13px 0; }
 .ef-content .blank-tag-line a::after { content:""; position:absolute; inset:-12px -6px; z-index:-1; }
-/* Text links are 36px tall above 760px (44px below it). On the credits page a heading can follow a link directly, and two
-   links can wrap onto consecutive lines with no space between: there the extension goes upward only, into the space every
-   such link has above it, and lies under the links so that a stacked pair takes nothing from each other. */
+/* Text links are 36px tall above 760px (44px below it). On the credits page a heading can follow a link directly, so there
+   the extension goes upward only, into the space every such link has above it. Where one link directly follows another,
+   the second keeps 8px above it (added 2026-11-26 at the owner's request): when it wraps under the first, the two are 44px
+   apart and the 8px belong to the lower one. */
 @media(min-width:761px) {
   .ef-content .blank-text-link { position:relative; }
   :is(.ef-content,.ef-footer) .blank-text-link::after { content:""; position:absolute; inset:-4px 0; }
-  .ef-content .blank-credits-body { position:relative; z-index:0; }
-  .ef-content .blank-credits-body>a.blank-text-link::after { inset:-8px 0 0; z-index:-1; }
+  .ef-content .blank-credits-body>a.blank-text-link::after { inset:-8px 0 0; }
+  .ef-content .blank-credits-body>a.blank-text-link+a.blank-text-link { margin-top:8px; }
+  /* The article's contents list beside the text: its heading is 44px tall (40px before) and every entry at least 44px
+     (a one-line entry was 33px), the same sizes the list already has below 761px. */
+  .ef-content .blank-toc summary { min-height:44px; }
+  .ef-content .blank-toc a { min-height:44px; padding-block:12.5px; }
 }
 
 /* narrow screens */
@@ -449,7 +454,6 @@ html[data-theme="endfield"].ef-moding::view-transition-old(root),html[data-theme
   .ef-record-title { grid-column:1/-1; } .ef-record-kind { grid-column:1/-1; justify-self:start; }
   .ef-head { flex-wrap:wrap; } .ef-head::after { display:none; } .ef-head>div { flex:1 1 100%; }
   .ef-footer-top { grid-template-columns:1fr; }
-  .ef-footer-bottom a::after { top:-25px; }
   body[data-endfield]::before { -webkit-mask:url("/themes/endfield/contour-a.svg") right -12rem top -4rem/34rem auto no-repeat; mask:url("/themes/endfield/contour-a.svg") right -12rem top -4rem/34rem auto no-repeat; }
 }
 @media(max-width:559px) {

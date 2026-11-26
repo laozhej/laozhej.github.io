@@ -12,7 +12,7 @@ const has = (rule) => block.includes(rule);
 
 test("Endfield tap targets: each extension is an empty box around the control and paints nothing", () => {
   const extensions = [...block.matchAll(/([^{}\n]+::(?:before|after)) \{([^}]*)\}/g)].filter(([, selector]) => !selector.includes(".ef-button-icon"));
-  assert.ok(extensions.length >= 12, `found ${extensions.length}`);
+  assert.ok(extensions.length >= 11, `found ${extensions.length}`);
   for (const [, selector, body] of extensions) {
     const names = body.split(";").map((part) => part.trim().split(":")[0]).filter(Boolean);
     for (const name of names) assert.ok(["content", "position", "inset", "top", "bottom", "z-index"].includes(name), `${selector.trim()} sets ${name}: an extension only has a place and a size`);
@@ -42,12 +42,26 @@ test("Endfield tap targets: home and footer", () => {
   assert.ok(has(".ef-footer { isolation:isolate; }"), "the footer is drawn as one layer, so positioning its links changes no pixel");
   assert.ok(has('.ef-link::after { content:""; position:absolute; inset:-6px 0; }'), "32px, plus 2 × 6px");
   assert.ok(has('.ef-footer-brand::after { content:""; position:absolute; inset:-14px 0 -5px; }'));
-  assert.ok(has('.ef-footer-links a:not(.blank-text-link)::after { content:""; position:absolute; inset:-4px 0; }'), "half of the 8px between two links");
-  assert.ok(has(".ef-footer-links a:not(.blank-text-link):first-child::after { top:-19px; }") && has(".ef-footer-links a:not(.blank-text-link):last-child::after { bottom:-19px; }"), "21px + 19px + 4px");
+  assert.ok(has('.ef-footer-links a:not(.blank-text-link)::after { content:""; position:absolute; inset:-12px 0; }'), "half of the 24px between two section links: 21px + 2 × 12px");
+  assert.doesNotMatch(block, /\.ef-footer-links a:not\(\.blank-text-link\):(first|last)-child/, "every section link has the same room now");
   // The last row wraps: its extensions lie under the links, inside a stacking context of the row's own, so a link's text always wins.
   assert.ok(has(".ef-footer-bottom,.ef-content .blank-tag-line { position:relative; z-index:0; }"));
-  assert.ok(has('.ef-footer-bottom a::after { content:""; position:absolute; inset:-12px 0 -17px; z-index:-1; }'), "19px + 12px + 17px on one line");
-  assert.ok(narrow.includes(".ef-footer-bottom a::after { top:-25px; }"), "one-column footer: the first line reaches 44px by itself");
+  assert.ok(has('.ef-footer-bottom a::after { content:""; position:absolute; inset:-13px 0; z-index:-1; }'), "half of the 26px between two lines: 19px + 2 × 13px, within the row's 16px and 28px padding");
+  assert.doesNotMatch(narrow, /\.ef-footer-bottom a::after/, "one rule serves a single line and a wrapped row alike");
+});
+
+// The owner asked (2026-11-26) for the spacing that the last four groups needed to reach 44px. These are visible changes,
+// unlike everything above: remove one and its links are closer together than the areas that answer for them.
+test("Endfield tap targets: the spacing that lets the closest links reach 44px", () => {
+  assert.ok(has(".ef-footer-sections { gap:24px; }"), "the three section links: 21px tall, 45px from one to the next (29px before)");
+  assert.ok(layout.includes('<nav class="ef-footer-links ef-footer-sections"'), "only the section links get the wider gap; the social links beside them keep theirs");
+  assert.ok(has(".ef-footer-bottom { row-gap:26px; }"), "the last row when it wraps: 19px tall lines, 45px from one to the next (27px before)");
+  const wide = block.slice(block.indexOf("@media(min-width:761px) {"));
+  assert.ok(wide.includes(".ef-content .blank-credits-body>a.blank-text-link+a.blank-text-link { margin-top:8px; }"), "a link wrapped under another on the credits page: 36px + 8px");
+  assert.ok(wide.includes(".ef-content .blank-toc summary { min-height:44px; }"), "the contents list's heading (40px before)");
+  assert.ok(wide.includes(".ef-content .blank-toc a { min-height:44px; padding-block:12.5px; }"), "a one-line entry: 19.25px of text + 2 × 12.5px (33px before); the floor covers smaller sub-entries");
+  // Below 761px the shared stylesheet already gives the contents list 48px and 44px, and text links 44px.
+  assert.doesNotMatch(block.slice(0, block.indexOf("@media(min-width:761px) {")), /blank-toc|blank-credits-body/, "the phone layout needs none of this");
 });
 
 test("Endfield tap targets: the shared pages as Endfield shows them", () => {
@@ -56,7 +70,8 @@ test("Endfield tap targets: the shared pages as Endfield shows them", () => {
   assert.ok(has('.ef-content .blank-tag-line a::after { content:""; position:absolute; inset:-12px -6px; z-index:-1; }'), "tags are about 35 × 21px and at least 12px apart");
   const wide = block.slice(block.indexOf("@media(min-width:761px) {"));
   assert.ok(wide.includes(':is(.ef-content,.ef-footer) .blank-text-link::after { content:""; position:absolute; inset:-4px 0; }'), "text links are 36px above 760px and 44px below it, so only the wide layout extends them");
-  assert.ok(wide.includes(".ef-content .blank-credits-body>a.blank-text-link::after { inset:-8px 0 0; z-index:-1; }"), "credits: upward only, and under a link stacked directly above");
+  assert.ok(wide.includes(".ef-content .blank-credits-body>a.blank-text-link::after { inset:-8px 0 0; }"), "credits: upward only, because a heading can follow a link directly; a link stacked above is 8px away");
+  assert.doesNotMatch(block, /\.blank-credits-body[^{]*\{[^}]*z-index/, "an extension laid under the links does not answer inside a line of text, which is where the pair's 8px now are");
   assert.doesNotMatch(block.slice(0, block.indexOf("@media(min-width:761px) {")), /\.blank-text-link::after/, "extending the 44px phone links would overlap the ones stacked below them");
 });
 

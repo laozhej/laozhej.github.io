@@ -51,6 +51,7 @@ test("every raster image in public/ is recorded in a manifest", () => {
 
 test("only the five owner-requested Ema images are restored, with historical bytes, dimensions and alpha", async () => {
   const ema = JSON.parse(readFileSync(join(publicDir, "themes/ema/ASSETS.json"), "utf8"));
+  const restored = ema.assets.filter((entry) => entry.restoration);
   // Fixed hashes from 76c9da5: this also works in shallow CI checkouts without that Git object.
   const originals = [
     ["ema.webp", "smile", 905, 2400, "65eb570bcc3b40a06e5d90b661592990434311a09435a044d1363c68aa15b576"],
@@ -59,8 +60,8 @@ test("only the five owner-requested Ema images are restored, with historical byt
     ["ema-frame-talk.webp", "talk", 1030, 2400, "b8ec25271b5a17c5dc0d6d00694891697e1909ead97093db4bfd207f96058d8d"],
     ["ema-frame-refute.webp", "refute", 1472, 2048, "0405f914f4150e9672e93addbb1d2b57fc2169549f4fc0513093eb4b4f1e9716"],
   ];
-  assert.deepEqual(ema.assets.map((entry) => entry.file), originals.map((_, i) => `assets/ema-pose-0${i + 1}.webp`));
-  for (const [index, entry] of ema.assets.entries()) {
+  assert.deepEqual(restored.map((entry) => entry.file), originals.map((_, i) => `assets/ema-pose-0${i + 1}.webp`));
+  for (const [index, entry] of restored.entries()) {
     const [original, key, width, height, sha256] = originals[index];
     const buffer = readFileSync(join(publicDir, "themes/ema", entry.file));
     const metadata = await sharp(buffer).metadata();

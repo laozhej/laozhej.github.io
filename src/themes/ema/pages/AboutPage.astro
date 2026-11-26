@@ -10,7 +10,7 @@ import { keepTails } from "@/core/i18n/wrap.mjs";
 import { site } from "@/lib/site";
 import PageLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "@/themes/blank/components/PageHead.astro";
-import { AVATAR_MONOGRAM, avatarAttributes } from "../lib/avatar.mjs";
+import EmaAvatar from "../components/EmaAvatar.astro";
 import "../styles/shelf.css";
 import "../styles/about.css";
 
@@ -39,7 +39,7 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
     <aside class="about-side" aria-label={t("ema.about.profile")}>
       <div class="about-avatar">
         <span class="about-tape" aria-hidden="true"></span>
-        <span class="about-avatar-mark" {...avatarAttributes(profileIdentity.displayName)}>{AVATAR_MONOGRAM}</span>
+        <EmaAvatar class="about-avatar-mark" alt={profileIdentity.displayName} loading="eager" />
         <span class="about-blossom" aria-hidden="true"></span>
       </div>
       <div class="about-id">

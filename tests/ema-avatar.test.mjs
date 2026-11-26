@@ -3,8 +3,8 @@ import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { registerHooks } from "node:module";
+import sharp from "sharp";
 import { locales } from "../src/core/i18n/routing.mjs";
-import { AVATAR_MONOGRAM, avatarAttributes } from "../src/themes/ema/lib/avatar.mjs";
 
 // content.ts imports through the "@/" alias that Astro resolves at build time. Map it to src/ here so
 // the test reads the real localized profiles rather than copies of them.
@@ -24,28 +24,35 @@ const read = (path) => readFileSync(new URL(`../src/themes/ema/pages/${path}`, i
 const homePage = read("HomePage.astro");
 const aboutPage = read("AboutPage.astro");
 
-test("the Ema avatar is 旭 in all four locales and is an image named after the owner", () => {
+test("the Ema avatar has recorded dimensions and takes its name from the localized profile", async () => {
+  const assets = new URL("../public/themes/ema/", import.meta.url);
+  const manifest = JSON.parse(readFileSync(new URL("ASSETS.json", assets), "utf8"));
+  const avatar = manifest.assets.find((entry) => entry.id === "profile-avatar");
+  assert.ok(avatar, "profile avatar is recorded");
+  const bytes = readFileSync(new URL(avatar.file, assets));
+  const { width, height, format, hasAlpha } = await sharp(bytes).metadata();
+  assert.deepEqual([width, height], avatar.dimensions);
+  assert.equal(width, height, "the crop is square");
+  assert.equal(format, "webp");
+  assert.equal(hasAlpha, true);
+  assert.equal(createHash("sha256").update(bytes).digest("hex"), avatar.sha256);
   assert.deepEqual(locales, ["zh-CN", "zh-TW", "ja", "en"]);
   const names = new Set();
   for (const locale of locales) {
     const { displayName } = getSiteContent(locale).profileIdentity;
     assert.ok(displayName, `${locale} has a display name`);
-    assert.equal(AVATAR_MONOGRAM, "旭", `${locale} shows 旭`);
-    assert.deepEqual(avatarAttributes(displayName), { role: "img", "aria-label": displayName }, `${locale}: named after the owner`);
     names.add(displayName);
   }
   assert.equal(names.size, 4, "each locale reads the owner's name in its own spelling");
 });
 
-test("the homepage and About page take the monogram from the constant, never from the localized name", () => {
-  // The English name "Arataki Asahi" ends in "i": slicing the display name was the round-4 defect.
-  for (const page of [homePage, aboutPage]) {
-    assert.doesNotMatch(page, /displayName\s*(?:\.\s*(?:slice|at|charAt|substring|substr)\s*\(|\[)/);
-  }
-  assert.equal(homePage.match(/\{AVATAR_MONOGRAM\}/g)?.length, 2, "identity card and Profile leaf");
-  assert.match(homePage, /<div class="k-avatar" \{\.\.\.avatar\}>/);
-  assert.match(homePage, /const avatar = avatarAttributes\(profileIdentity\.displayName\);/);
-  assert.match(aboutPage, /<span class="about-avatar-mark" \{\.\.\.avatarAttributes\(profileIdentity\.displayName\)\}>\{AVATAR_MONOGRAM\}<\/span>/);
+test("the identity card, Profile leaf and About page share the same avatar component", () => {
+  assert.match(homePage, /<EmaAvatar class="k-avatar-face" alt=\{profileIdentity\.displayName\}/);
+  assert.match(homePage, /<EmaAvatar class="k-plate-face" alt=""/);
+  assert.match(aboutPage, /<EmaAvatar class="about-avatar-mark" alt=\{profileIdentity\.displayName\}/);
+  const component = readFileSync(new URL("../src/themes/ema/components/EmaAvatar.astro", import.meta.url), "utf8");
+  assert.match(component, /id === "profile-avatar"/);
+  assert.match(component, /<img [^\n]*\{alt\} \{width\} \{height\}/);
 });
 
 test("月代雪 is described as the former avatar character in all four languages", () => {

@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "verified_on": "2026-11-14",
-  "verification_scope": "File identity against commit 76c9da5690e89a7816bb4b44eefacbcc87521446 only; source and permission status remain unconfirmed.",
-  "scope": "Only Ema’s five homepage poses were restored at the site owner’s explicit request on 2026-11-14, overriding the earlier placeholder-only constraint for these five files. The two portraits later restored for the About pages are recorded in /characters/ASSETS.json. The owner’s avatar remains the monogram 旭. Historical source records are retained for traceability, not as confirmed provenance or a permission grant. Third-party media are excluded from the repository software license.",
-  "non_ai_processing": "Restoration and filename changes only. Original file bytes, dimensions and alpha are preserved. No generative AI, image synthesis, generative fill, redrawing, re-encoding or upscaling is used. Per-asset processing records describe the historical import, not new processing.",
+  "verified_on": "2026-11-27",
+  "verification_scope": "Homepage poses checked against commit 76c9da5690e89a7816bb4b44eefacbcc87521446. The avatar illustration matches the artist's Pixiv publication. Permission status is recorded per asset.",
+  "scope": "Only Ema’s five homepage poses were restored at the site owner’s explicit request on 2026-11-14. The two portraits later restored for the About pages are recorded in /characters/ASSETS.json. The owner avatar is a separate crop following the circle marked by the owner on 2026-11-27. Third-party media are excluded from the repository software license.",
+  "non_ai_processing": "The five restored poses retain their original bytes, dimensions and alpha. The avatar uses the crop, resize and encoding recorded below. No generative AI was used to process these files.",
   "assets": [
     {
       "id": "ema-pose-01",
@@ -185,6 +185,31 @@
         "sha256": "0405f914f4150e9672e93addbb1d2b57fc2169549f4fc0513093eb4b4f1e9716",
         "processing": "Byte-for-byte Git blob restoration and filename change only. No decoding/re-encoding, resampling, cropping, alpha changes, redrawing, upscaling or generative AI."
       }
+    },
+    {
+      "id": "profile-avatar",
+      "title": "わんこエマちゃん (Sakura Archive owner avatar crop)",
+      "file": "assets/profile-avatar.webp",
+      "placement": "owner-avatar",
+      "source_page": "https://www.pixiv.net/artworks/136654991",
+      "source_image": "https://i.pximg.net/img-master/img/2025/10/24/23/22/33/136654991_p0_master1200.jpg",
+      "source_status": "Matched the owner's marked attachment against the illustrator's original Pixiv post, dated 2025-10-24. The crop uses the unmarked 865 × 1200 px Pixiv rendition.",
+      "attribution": "Illustration by 游亜 (Pixiv user 4971177).",
+      "rights_notice": "Artwork rights belong to 游亜. Character rights belong to Acacia.",
+      "rights_reference": "https://manosaba.com/guidelines",
+      "permission_status": "Permission for use as a public website avatar is unconfirmed.",
+      "original_dimensions": [865, 1200],
+      "original_sha256": "9fddb9e6f95f7b232c51762b0aba4b5f4431f5e483d36065d6601755be8e1dcb",
+      "attachment_sha256": "90cd779ce822ba528be22ae86a78e76709fa38ac001f51f73365faf5bec21613",
+      "crop": { "left": 41, "top": 69, "width": 780, "height": 780, "shape": "circle" },
+      "dimensions": [480, 480],
+      "has_alpha": true,
+      "format": "image/webp",
+      "processing": "Extract matching circle from the unmarked Pixiv rendition, Lanczos3 downscale, circular alpha mask, and WebP encoding (quality 88, alpha quality 100).",
+      "generative_ai_used": false,
+      "sha256": "1c9474c4e2ac5247453729cdd899dfa533fe1b606f1694a17fcc971f6bd2d65f",
+      "bytes": 36440,
+      "verified_on": "2026-11-27"
     }
   ]
 }

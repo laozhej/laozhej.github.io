@@ -327,7 +327,7 @@ html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); fo
   transition: transform 760ms cubic-bezier(.18, 1.18, .28, 1);
 }
 html[data-color-mode="dark"] #ema-stage .k-avatar { background: radial-gradient(circle at 34% 30%, #4a3445, #2a2833 74%); }
-#ema-stage .k-avatar-face { font: 400 clamp(40px, 5vw, 58px)/1 var(--blank-serif); color: var(--ema-pink); }
+#ema-stage .k-avatar-face { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 #ema-stage .k-avatar-flower { position: absolute; top: -26px; left: 50%; width: 34px; height: 44px; translate: -50% 0; transform-origin: 50% 100%; rotate: var(--flower-sway); transition: rotate 220ms ease; }
 #ema-stage .k-avatar-flower::before { content: ""; position: absolute; left: 50%; bottom: 0; width: 2px; height: 22px; translate: -50% 0; background: #8fb59c; border-radius: 2px; }
 #ema-stage .k-avatar-flower i {
@@ -450,7 +450,7 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 #ema-stage .k-plate-works li::before { content: "✿ "; color: var(--k-accent); }
 #ema-stage .k-plate-games ol li { display: flex; gap: 10px; align-items: baseline; padding: 6px 10px; border-radius: 4px; background: var(--k-card); border: 1px solid var(--blank-line); text-align: start; }
 #ema-stage .k-plate-games ol b { font: 12px var(--blank-mono); color: var(--ema-pink); }
-#ema-stage .k-plate-face { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 50%; background: var(--ema-blush); font: 400 40px/1 var(--blank-serif); color: var(--ema-pink); border: 2px solid var(--k-card); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ema-pink-soft) 40%, transparent); }
+#ema-stage .k-plate-face { display: block; width: 84px; height: 84px; object-fit: cover; border-radius: 50%; background: var(--ema-blush); border: 2px solid var(--k-card); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ema-pink-soft) 40%, transparent); }
 #ema-stage .k-plate-about b { font: 600 20px/1.3 var(--blank-serif); }
 #ema-stage .k-plate-about small { font: 13px var(--blank-mono); color: var(--blank-muted); }
 #ema-stage .k-plate-about ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }

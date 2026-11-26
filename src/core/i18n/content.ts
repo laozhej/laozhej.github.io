@@ -48,8 +48,8 @@ const zhTW = linked({
   projectEntries: [
     {
       id: "blank-personal-site", title: "個人網站 · 多主題與多語言", type: "個人網站", line: "web", status: "持續更新",
-      summary: "從 Blank 出發，讓黑白閱讀、櫻色檔案與工業風三套介面共用內容、語言和互動。專案案例記錄設計取捨、共用架構與驗證過程。",
-      details: ["三套主題與四種語言", "共用內容、偏好與頁面生命週期", "實際截圖、原始碼導覽與驗證紀錄"],
+      summary: "從 Blank 出發，讓黑白閱讀、櫻色檔案、工業風與明日方舟四套介面共用內容、語言和互動。專案案例記錄設計取捨、共用架構與驗證過程。",
+      details: ["四套主題與四種語言", "共用內容、偏好與頁面生命週期", "實際截圖、原始碼導覽與驗證紀錄"],
       url: projects.personalSiteShowcaseUrl,
       image: { ...projects.personalSitePreview, alt: "Blank 主題首頁截圖：白底黑字的大標題 Blank Space、簡介與文章入口" },
       gallery: [
@@ -101,8 +101,8 @@ const ja = linked({
   projectEntries: [
     {
       id: "blank-personal-site", title: "個人サイト · テーマと言語の切り替え", type: "個人サイト", line: "web", status: "継続更新中",
-      summary: "Blank を出発点に、モノクロ、桜色の記録、工業風の3つのテーマでコンテンツ、言語、操作を共有。設計上の判断、共通アーキテクチャ、検証の過程を事例としてまとめています。",
-      details: ["3つのテーマと4つの言語", "コンテンツ・設定・ページのライフサイクルを共有", "実際の画面、ソースコード案内、検証記録"],
+      summary: "Blank を出発点に、モノクロ、桜色の記録、工業風、アークナイツの4つのテーマでコンテンツ、言語、操作を共有。設計上の判断、共通アーキテクチャ、検証の過程を事例としてまとめています。",
+      details: ["4つのテーマと4つの言語", "コンテンツ・設定・ページのライフサイクルを共有", "実際の画面、ソースコード案内、検証記録"],
       url: projects.personalSiteShowcaseUrl,
       image: { ...projects.personalSitePreview, alt: "Blank テーマのホーム画面：白地に黒の大きな見出し Blank Space、紹介文と記事への入口" },
       gallery: [
@@ -154,8 +154,8 @@ const en = linked({
   projectEntries: [
     {
       id: "blank-personal-site", title: "Personal website · Themes and languages", type: "Personal Website", line: "web", status: "Ongoing",
-      summary: "Built from Blank, with monochrome, Sakura Archive, and industrial interfaces sharing content, languages, and behavior. The case study documents design decisions, the shared architecture, and validation.",
-      details: ["Three themes and four languages", "Shared content, preferences, and page lifecycle", "Real screenshots, source tour, and validation records"],
+      summary: "Built from Blank, with monochrome, Sakura Archive, industrial, and Arknights interfaces sharing content, languages, and behavior. The case study documents design decisions, the shared architecture, and validation.",
+      details: ["Four themes and four languages", "Shared content, preferences, and page lifecycle", "Real screenshots, source tour, and validation records"],
       url: projects.personalSiteShowcaseUrl,
       image: { ...projects.personalSitePreview, alt: "Blank theme home page: the large black-on-white title Blank Space, a short intro and the way into the journal" },
       gallery: [

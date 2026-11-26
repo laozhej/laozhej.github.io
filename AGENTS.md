@@ -1,6 +1,6 @@
 # Working guide for laozhej.github.io
 
-This public repository is the source of <https://laozhej.github.io/>, a personal site with three themes (Blank, Ema / 樱色档案, Endfield / 终末地) in four languages. This guide replaced all earlier repository instructions on 2026-11-13, when the owner authorised a full rewrite. Change it only with the owner's explicit approval.
+This public repository is the source of <https://laozhej.github.io/>, a personal site with four themes (Blank, Ema / 樱色档案, Endfield / 终末地, Arknights / 明日方舟) in four languages. This guide replaced all earlier repository instructions on 2026-11-13, when the owner authorised a full rewrite. Change it only with the owner's explicit approval.
 
 Current status, next steps and the decisions waiting for the owner are in [`docs/ROADMAP.md`](docs/ROADMAP.md) (Simplified Chinese). Read it after this guide; it never overrides this guide. The owner approved adding this pointer on 2026-11-25.
 
@@ -27,6 +27,7 @@ The design reference is <https://github.com/Yuimi-chaya/Yuimi-chaya.github.io> a
 | Ema / 樱色档案 (`src/themes/ema`) | `src/themes/fuyukawa-kagari` | Rebuild its layout and interactions; keep our cream and sakura palette, typography and Ema-led art direction. |
 | Blank (`src/themes/blank`) | `src/themes/blank` | Rebuild its typographic journal layout, navigation, spacing and interactions; keep our content and Blank's minimal identity. |
 | Endfield / 终末地 (`src/themes/endfield`) | none | Keep its independent industrial design. Do not apply the reference's visual language to it. |
+| Arknights / 明日方舟 (`src/themes/arknights`) | none | Keep its independent archive-terminal design. Do not apply the reference's visual language to it. |
 
 Ema:
 
@@ -37,6 +38,8 @@ Ema:
 Blank follows the reference's redesigned Blank: achromatic, typography-led, numbered navigation and sections, rules and whitespace, no decorative imagery.
 
 Endfield: shared infrastructure changes must not change its appearance or behaviour. Compare its built output before and after any shared change.
+
+Arknights: the same rule as Endfield. Shared infrastructure changes must not change its appearance or behaviour; compare its built output before and after any shared change.
 
 ## Artwork, licences and content
 
@@ -57,7 +60,7 @@ Endfield: shared infrastructure changes must not change its appearance or behavi
 
 - Personal data, social links, projects, collections, notes and articles live in `src/core/data`, `src/core/i18n/content.ts` and `src/content/blog`. Themes read them through `getSiteContent(locale)`, `socialLinks`, `getNotes(locale)` and `getPublishedPosts(locale)` and never keep copies.
 - Every theme layout mounts `SiteIcons.astro`, `ColorModePreference.astro`, `LanguagePreference.astro`, `ThemePreference.astro` and `SiteNavigation.astro` in its head, renders `LanguageSwitcher.astro`, a colour-mode button and the theme switcher, and sets the HTML `lang`. `SiteNavigation` mounts `mountSiteFeatures` once per page; theme scripts register through `registerThemeRuntime()`.
-- Shared code in `src/core` never imports from `src/themes`, except `src/core/themes/PageLayout.astro`. Because that file imports all three layouts, every layout's CSS reaches every page that uses it, Endfield's inner pages included: scope theme CSS under `html[data-theme="…"]` or theme-only classes. Endfield's inner pages and several Ema pages render Blank's page components, so Blank changes need an Endfield and Ema check.
+- Shared code in `src/core` never imports from `src/themes`, except `src/core/themes/PageLayout.astro`. Because that file imports all four layouts, every layout's CSS reaches every page that uses it, Endfield's and Arknights' inner pages included: scope theme CSS under `html[data-theme="…"]` or theme-only classes. Endfield's and Arknights' inner pages and several Ema pages render Blank's page components, so Blank changes need an Endfield, Arknights and Ema check.
 - Light and dark mode use the shared `blank-color-mode` key, follow the system until the visitor chooses, have no Auto option, and persist across themes, languages and pages. Motion uses the shared pause preference (`html[data-motion-paused]`, `site:motion-change`).
 - Reusable features and service clients go in `src/core`; each theme renders its own controls. The search, filter, sort, table-of-contents and reading-progress hooks are the shared `data-site-*` attributes. `docs/THEMES.md` is the technical contract.
 
@@ -71,6 +74,6 @@ Endfield: shared infrastructure changes must not change its appearance or behavi
 ## Verification
 
 - Run `npm test` and `npm run build` with Node 24, the deploy's version: `PATH=/usr/local/bin:/usr/bin:/bin npm test` (the default PATH gives Node 22). Results on another Node version do not count.
-- Check all four locales, light and dark, reduced motion, keyboard and touch, at the sizes above. Fingerprint Endfield's built pages before and after shared changes.
+- Check all four locales, light and dark, reduced motion, keyboard and touch, at the sizes above. Fingerprint Endfield's and Arknights' built pages before and after shared changes.
 - Report exactly which engine, version and sizes were checked. Automated Chromium or WebKit runs are not real Safari or physical-phone tests; never report those as done unless they were.
 - Deployment: GitHub Pages through `.github/workflows/deploy.yml` on pushes to `main`, root URL, no repository `base` prefix. Keep credentials, environment files and host-specific configuration out of the repository, and keep upstream copyright notices and licences.

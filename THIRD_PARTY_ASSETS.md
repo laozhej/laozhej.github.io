@@ -18,6 +18,12 @@
 
 其余 2026-11-13 清理的素材仍未恢复，包括三张《葬送的芙莉莲》摘图、《Summer Pockets》主视觉、久远寺有珠插画、旧项目缩略图与旧 showcase 截图。站长头像仍是「旭」字。五张图片沿用当前 B 构图和切换交互；后续新画稿计划及本次恢复的范围见 [docs/ART-DIRECTION.md](docs/ART-DIRECTION.md#13-owner-requested-restoration-2026-11-14)。
 
+### 首页樱枝
+
+《Cherry blossom》由 kenjirou yamamoto（yamachem）于 2015-03-18 发布。作者注明使用 Inkscape 绘制，Openclipart 以 CC0 1.0 提供这件作品。[原作](https://openclipart.org/detail/216154/cherry%20blossom) · [作者](https://openclipart.org/artist/yamachem) · [平台授权](https://openclipart.org/share)
+
+本站保留原作的三条矢量路径，去除两层矩形底色，裁取枝梢，为浅色和深色首页分别调整填色。处理全程未使用生成式 AI。原图和两个本站版本的 SHA-256 见[樱枝素材清单](public/themes/ema/cherry-blossom/ASSETS.json)。
+
 ## 喜欢的角色头像
 
 `public/characters/` 收录站主指定的 67 位角色头像。樱羽艾玛和月代雪排在前两位。`public/characters/ASSETS.json` 逐项记录名称、作品、原图与来源页面、制作／画师署名、裁切坐标、尺寸及文件校验。其余 65 张来自作品官网，或《明日方舟》官方客户端资源的可追溯镜像；该镜像的画师署名来自游戏 `skin_table` 数据。P3/P5 主角姓名采用用户指定的结城理、雨宫莲，游戏官网中的“主人公”称呼不构成这些姓名的出处。

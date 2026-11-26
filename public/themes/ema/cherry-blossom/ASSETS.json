@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "title": "Cherry blossom",
+  "creator": "kenjirou yamamoto (yamachem)",
+  "creator_page": "https://openclipart.org/artist/yamachem",
+  "published_on": "2015-03-18",
+  "source_page": "https://openclipart.org/detail/216154/cherry%20blossom",
+  "source_image": "https://openclipart.org/download/216154",
+  "original_sha256": "2978ea6a6e9cf75822a6a0f1cd5f5dd128e077ca5e846abf80a9e46716139428",
+  "original_dimensions": [
+    600,
+    400
+  ],
+  "license": "CC0-1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "rights_reference": "https://openclipart.org/share",
+  "verified_on": "2026-11-26",
+  "creation": "The artist describes drawing the original in Inkscape. The SVG identifies Inkscape 0.48.2.",
+  "generative_ai_used": false,
+  "processing": "Removed the two background rectangles and editor metadata. Retained the three original paths, their order and group transform. Cropped the viewBox and replaced the three fill colours for each mode.",
+  "placement": "Left edge of the Ema homepage stage.",
+  "assets": [
+    {
+      "file": "light.svg",
+      "color_mode": "light",
+      "sha256": "60054b0e8210a6f54f14588a4169022e06f1a7777557c7af50d2bd99c88b9e63",
+      "bytes": 13032
+    },
+    {
+      "file": "dark.svg",
+      "color_mode": "dark",
+      "sha256": "3cb689bd62ad0ac04af54b7a7d6cd829e4dbd13416edf41d989942aaffad79f9",
+      "bytes": 13032
+    }
+  ]
+}

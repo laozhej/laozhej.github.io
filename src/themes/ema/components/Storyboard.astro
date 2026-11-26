@@ -14,7 +14,7 @@ import { notebook, petal, place, teacup } from "../lib/still-life.mjs";
 const W = 1600, H = 900;
 type Panel = { x: number; y: number; w: number; h: number; tone: string; motif?: string; skew?: number };
 const panels: Panel[] = [
-  { x: 14, y: 14, w: 286, h: 236, tone: "dots", motif: "bloom" },
+  { x: 14, y: 14, w: 286, h: 236, tone: "dots" },
   { x: 314, y: 14, w: 246, h: 146, tone: "hatch" },
   { x: 574, y: 14, w: 202, h: 146, tone: "plain" },
   { x: 314, y: 174, w: 462, h: 156, tone: "dots", skew: -18 },
@@ -45,7 +45,6 @@ const shape = (p: Panel) => p.skew
 function motif(p: Panel, i: number) {
   const cx = p.x + p.w / 2, cy = p.y + p.h / 2;
   switch (p.motif) {
-    case "bloom": return `<g class="sb-bloom">${blossom(cx + p.w * 0.12, cy - p.h * 0.05, Math.min(p.w, p.h) * 0.3, i * 11)}${blossom(cx - p.w * 0.26, cy + p.h * 0.22, Math.min(p.w, p.h) * 0.14, i * 23)}</g>`;
     case "bloom-big": return `<g class="sb-bloom">${blossom(p.x + p.w * 0.72, p.y + p.h * 0.46, p.h * 0.36, 8)}${blossom(p.x + p.w * 0.3, p.y + p.h * 0.7, p.h * 0.16, 30)}${blossom(p.x + p.w * 0.16, p.y + p.h * 0.26, p.h * 0.1, 50)}</g>`;
     case "petals": return `<g class="sb-petal">${Array.from({ length: 7 }, (_, k) => loose(p.x + p.w * (0.1 + 0.8 * rand(i * 13 + k)), p.y + p.h * (0.12 + 0.76 * rand(i * 7 + k * 3)), 9 + 9 * rand(i + k * 5), Math.round(360 * rand(i * 3 + k)))).join("")}</g>`;
     // In the upper part of its panel: the theatre card, when shown, covers the lower part.

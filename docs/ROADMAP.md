@@ -24,6 +24,7 @@
 ## 1. 现状
 
 - 站主已于 2026-11-26 验收 Ema 宽屏布局。界面采用常规桌面尺寸，首页立绘舞台铺满视口，时钟和便笺按居中的 1280px 内容栏对齐。
+- **待验收**（2026-11-26）：Ema 首页左缘试放 yamachem 的 CC0 樱枝。先看桌面、平板和手机的浅深色对照，再决定是否上线。原作和试作范围见[美术指引 §3.1](ART-DIRECTION.md#31-manga-cover-references-for-emas-backgrounds)。
 
 - 网站：Blank、Ema（樱色档案）、Endfield（终末地）三套主题，各有 zh-CN、zh-TW、ja、en 四种语言，构建出 96 个页面。Astro 7.3.5，推送到 `main` 后由 GitHub Pages 自动部署。
 - 规范主题：`src/core/themes/routing.mjs` 的 `canonicalTheme = "blank"`。各主题的 canonical、hreflang 和 sitemap 都指向 Blank。改主界面时改这个常量，并重新生成 `public/og/` 的分享图（`scripts/og-image.mjs`）。

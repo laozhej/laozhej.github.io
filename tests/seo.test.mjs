@@ -9,7 +9,7 @@ const locales = ["zh-CN", "zh-TW", "ja", "en"];
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url));
 
 test("every theme layout takes its search and preview metadata from SiteMeta", () => {
-  for (const layout of ["blank/layouts/BlankLayout", "ema/layouts/EmaLayout", "endfield/layouts/EndfieldLayout"]) {
+  for (const layout of ["blank/layouts/BlankLayout", "ema/layouts/EmaLayout", "endfield/layouts/EndfieldLayout", "arknights/layouts/ArknightsLayout"]) {
     const source = read(`src/themes/${layout}.astro`).toString();
     assert.match(source, /<SiteMeta title=\{title\} description=\{description\}/, layout);
     assert.doesNotMatch(source, /property="og:|rel="canonical"|hreflang=/, `${layout} must not keep its own copy`);
@@ -22,13 +22,13 @@ test("only the canonical theme's pages are indexed, and every theme's copy maps 
     for (const path of ["/", "/blog/", "/blog/dev-log-01/", "/projects/", "/games/", "/about/", "/credits/"]) {
       const target = getThemePath(canonicalTheme, localizePath(path, locale));
       assert.equal(isIndexedPath(target), true, target);
-      for (const theme of ["blank", "ema", "endfield"]) {
+      for (const theme of ["blank", "ema", "endfield", "arknights"]) {
         const themed = getThemePath(theme, target);
         assert.equal(getThemePath(canonicalTheme, themed), target, themed);
         assert.equal(isIndexedPath(themed), theme === canonicalTheme, themed);
       }
     }
-    for (const theme of ["blank", "ema", "endfield"]) assert.equal(isIndexedPath(getThemePath(theme, localizePath("/404/", locale))), false);
+    for (const theme of ["blank", "ema", "endfield", "arknights"]) assert.equal(isIndexedPath(getThemePath(theme, localizePath("/404/", locale))), false);
   }
 });
 

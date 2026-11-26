@@ -56,6 +56,8 @@
 - 樱色档案主题的标题（“Arataki.br’s Base”）使用 Duarte Pinto 设计的 Gloock（Copyright 2022 The Gloock Project Authors），通过 npm 包 `@fontsource/gloock` 随站点自托管，只引入拉丁字母子集；许可为 SIL Open Font License 1.1，全文保存在 `public/licenses/gloock-OFL.txt`。
 - 终末地工业风主题的英文标签、编号和标题使用 Saira（Copyright 2020 The Saira Project Authors），通过 npm 包 `@fontsource-variable/saira` 随站点自托管，浏览器只按需下载用到的拉丁字母子集；许可为 SIL Open Font License 1.1，全文保存在 `public/licenses/saira-OFL.txt`。
 - 终末地工业风主题背景的等高线 `public/themes/endfield/contour-a.svg`、`contour-b.svg` 由 endfield-ui 设计套件的生成脚本绘制，不含任何游戏官方素材；该主题只借鉴界面结构习惯，不使用《明日方舟：终末地》的字体、标志、图标、立绘或截图。
+- 明日方舟主题的英文栏目名、标题和大号编号使用 Oswald（Copyright 2016 The Oswald Project Authors），日期、编号和技术标注使用 JetBrains Mono（Copyright 2020 The JetBrains Mono Project Authors），分别通过 npm 包 `@fontsource-variable/oswald`、`@fontsource-variable/jetbrains-mono` 随站点自托管，浏览器只按需下载用到的拉丁字母子集；许可均为 SIL Open Font License 1.1，全文保存在 `public/licenses/oswald-OFL.txt`、`public/licenses/jetbrains-mono-OFL.txt`。
+- 明日方舟主题的三角网格 `public/themes/arknights/lattice.svg` 是手写的 SVG 路径；顶栏的方块菱形图标、点阵数字（`src/themes/arknights/lib/matrix.mjs`）和扫描线都由代码绘制，不含任何游戏官方素材，未使用图像生成模型。该主题只借鉴《明日方舟》官网的版式习惯，不使用游戏的字体、标志、图标、角色、立绘、截图或世界观用语。首页“喜欢的游戏”面板里的图片是 `public/games/` 中已登记的游戏图，来源见 `public/games/ASSETS.json`，没有新增图片。
 - 页面不从外部服务器加载字体；除上述字体外，文字使用访客设备的系统字体。
 
 ## 不发布的历史文件

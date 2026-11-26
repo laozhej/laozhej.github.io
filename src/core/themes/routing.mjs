@@ -5,6 +5,7 @@ export const themes = [
   { id: "blank", root: "", labelKey: "theme.blank" },
   { id: "ema", root: "/themes/ema", labelKey: "theme.ema" },
   { id: "endfield", root: "/themes/endfield", labelKey: "theme.endfield" },
+  { id: "arknights", root: "/themes/arknights", labelKey: "theme.arknights" },
 ];
 
 // The theme whose copy of each page search engines index. Every page names this

@@ -1,0 +1,123 @@
+---
+// Arknights theme: the site as a field archive terminal. Built on the same skeleton as the other themes (shared head
+// components, five-section header, floating theme dock, shared footer credits); its look is its own and uses no game assets.
+import "@/core/styles/scale.css";
+import "@/themes/blank/styles/theme.css";
+import "@fontsource-variable/oswald/wght.css";
+import "@fontsource-variable/jetbrains-mono/wght.css";
+import "../styles/theme.css";
+import { Icon } from "astro-icon/components";
+import { site } from "@/lib/site";
+import { getI18n } from "@/core/i18n";
+import { getThemePath, stripTheme, themes } from "@/core/themes/registry";
+import ThemePreference from "@/core/themes/ThemePreference.astro";
+import ThemeSwitcher from "@/core/themes/ThemeSwitcher.astro";
+import LanguagePreference from "@/core/i18n/LanguagePreference.astro";
+import LanguageSwitcher from "@/core/i18n/LanguageSwitcher.astro";
+import ColorModePreference from "@/core/preferences/ColorModePreference.astro";
+import SiteIcons from "@/core/components/SiteIcons.astro";
+import SiteMeta from "@/core/components/SiteMeta.astro";
+import SiteAttribution from "@/core/components/SiteAttribution.astro";
+import SocialLinks from "@/core/components/SocialLinks.astro";
+import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
+import { pageTransition } from "@/core/navigation/animations.mjs";
+import { sectionWords } from "../lib/sections.mjs";
+const { locale, t } = getI18n(Astro.url.pathname);
+const href = (path: string) => getThemePath("arknights", path, locale);
+const path = stripTheme(Astro.url.pathname);
+const { title: pageTitle = site.name, description = t("site.description"), isArticlePage = false, article, home = false } = Astro.props;
+const brand = t("ema.brand");
+const title = pageTitle.replaceAll(site.name, brand);
+// The mark drops the possessive visually ("Arataki.br"); its role ("Base") sits on a signal plate.
+const [brandHead, ...brandTail] = brand.split(" ");
+const brandName = brandHead.replace(/[’']s$/i, "");
+// The theme's place in the theme list, as Endfield shows "EF / 03".
+const themeNumber = String(themes.findIndex(({ id }) => id === "arknights") + 1).padStart(2, "0");
+// Each section pairs a fixed English classification word with its name in the page's language. In English the name
+// is the word itself, so it is shown once.
+const navItems = site.nav.map((item, index) => {
+  const label = t(`nav.${item.key}`);
+  return {
+    ...item,
+    word: locale === "en" ? label : sectionWords[item.key as keyof typeof sectionWords],
+    label: locale === "en" ? "" : label,
+    number: String(index).padStart(2, "0"),
+    active: item.href === "/" ? path === "/" : path.startsWith(item.href),
+  };
+});
+const last = String(navItems.length - 1).padStart(2, "0");
+const current = navItems.find((item) => item.active);
+// The address the site is served from (astro.config.mjs `site`), shown on the rail as a real field.
+const host = Astro.site?.host ?? "";
+---
+<!doctype html>
+<html lang={locale} data-theme="arknights" transition:animate="none">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <LanguagePreference /><ThemePreference /><SiteIcons />
+    <ColorModePreference lightColor="#eceae4" darkColor="#0d0f11" />
+    <title>{title}</title><SiteMeta title={title} description={description} siteName={brand} isArticlePage={isArticlePage} article={article} />
+    <SiteNavigation />
+  </head>
+  <body data-blank data-arknights data-arknights-home={home ? "" : undefined}>
+    <a class="blank-skip-link" href="#arknights-main">{t("a11y.skip")}</a>
+    <header class="ak-header" data-site-header transition:name="site-header" transition:animate="none">
+      <div class="ak-header-inner">
+        <a class="ak-mark" href={href("/")} aria-label={`${brand} ${t("a11y.home")}`}>
+          <span class="ak-mark-glyph" aria-hidden="true"></span>
+          <strong>{brandName}</strong>
+          <span class="ak-mark-plate" aria-hidden="true">{brandTail.join(" ")}</span>
+          <small aria-hidden="true">AK / {themeNumber}</small>
+        </a>
+        <nav class="ak-nav" aria-label={t("a11y.navigation")}>
+          {navItems.map((item) => (
+            <a href={href(item.href)} aria-current={item.active ? "page" : undefined}>
+              <span class="ak-nav-word" lang={locale === "en" ? undefined : "en"}>{item.word}</span>{item.label && " "}
+              {item.label && <span class="ak-nav-label">{item.label}</span>}
+            </a>
+          ))}
+        </nav>
+        <div class="ak-actions">
+          <LanguageSwitcher />
+          <button class="ak-icon" type="button" data-color-mode-toggle hidden aria-label={t("mode.label")} aria-pressed="false" title={t("mode.toDark")} data-label-dark={t("mode.toDark")} data-label-light={t("mode.toLight")}><span class="blank-mode-moon" aria-hidden="true"><Icon name="tabler:moon" size={18} /></span><span class="blank-mode-sun" aria-hidden="true"><Icon name="tabler:sun" size={18} /></span><span class="ak-hit" aria-hidden="true"></span></button>
+          <a class="ak-icon" href={href("/blog/#blank-search")} aria-label={t("a11y.search")} title={t("a11y.search")}><Icon name="tabler:search" size={18} /><span class="ak-hit" aria-hidden="true"></span></a>
+          <button class="ak-icon ak-motion-toggle" type="button" data-motion-toggle data-motion-pause={t("ema.motion.pause")} data-motion-resume={t("ema.motion.resume")} data-motion-reduced={t("ema.motion.reduced")} hidden aria-pressed="false" aria-label={t("ema.motion.pause")} title={t("ema.motion.pause")}><Icon name="tabler:player-pause" size={18} data-motion-pause-icon aria-hidden="true" /><Icon name="tabler:player-play" size={18} data-motion-play-icon aria-hidden="true" hidden /><span class="ak-hit" aria-hidden="true"></span></button>
+        </div>
+      </div>
+      {isArticlePage && <div class="blank-reading-track" aria-hidden="true"><span data-site-progress></span></div>}
+    </header>
+    {/* The status rail repeats what the header already says (where you are), so it is hidden from assistive technology. */}
+    <div class="ak-rail" aria-hidden="true" data-ak-rail>
+      {current && (
+        <p class="ak-counter" data-ak-counter>
+          <span class="ak-counter-no" data-ak-counter-no>{current.number}</span>
+          <span class="ak-counter-of">// <span data-ak-counter-at>{current.number}</span> / {last}</span>
+          <span class="ak-counter-word" data-ak-counter-word>{sectionWords[current.key as keyof typeof sectionWords]}</span>
+        </p>
+      )}
+      <span class="ak-rail-track"><span class="ak-rail-fill"></span></span>
+      {host && <span class="ak-rail-host">{host}</span>}
+    </div>
+    <main id="arknights-main" class:list={[{ "ak-content blank-main": !home, "ak-home-main": home, "blank-main--article": isArticlePage }]} tabindex="-1" transition:name="site-content" transition:animate={pageTransition}><slot /></main>
+    <footer class="ak-footer">
+      <div class="ak-footer-top">
+        <a class="ak-footer-brand" href={href("/")} aria-label={brand}><strong>{brandName}</strong><span class="ak-mark-plate" aria-hidden="true">{brandTail.join(" ")}</span></a>
+        <nav class="ak-footer-links ak-footer-sections">
+          <a href={href("/blog/")}>{t("footer.journal")}</a>
+          <a href={href("/projects/")}>{t("footer.projects")}</a>
+          <a href={href("/about/")}>{t("footer.about")}</a>
+        </nav>
+        <SocialLinks class="ak-footer-links" />
+      </div>
+      <span class="ak-footer-ghost" data-ghost={brandName} aria-hidden="true"></span>
+      <div class="ak-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#arknights-main">{t("footer.top")} ↑</a></div>
+    </footer>
+    <ThemeSwitcher floating />
+    <script>
+      import { registerThemeRuntime } from "@/core/themes/runtime.mjs";
+      import { mountArknights } from "../lib/runtime.mjs";
+      registerThemeRuntime("arknights", mountArknights);
+    </script>
+  </body>
+</html>

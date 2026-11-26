@@ -2,8 +2,9 @@
 import BlankLayout from "@/themes/blank/layouts/BlankLayout.astro";
 import EmaLayout from "@/themes/ema/layouts/EmaLayout.astro";
 import EndfieldLayout from "@/themes/endfield/layouts/EndfieldLayout.astro";
+import ArknightsLayout from "@/themes/arknights/layouts/ArknightsLayout.astro";
 import { getTheme } from "./registry";
-const layouts = { blank: BlankLayout, ema: EmaLayout, endfield: EndfieldLayout };
+const layouts = { blank: BlankLayout, ema: EmaLayout, endfield: EndfieldLayout, arknights: ArknightsLayout };
 const Layout = layouts[getTheme(Astro.url.pathname)];
 ---
 <Layout {...Astro.props}><slot /></Layout>

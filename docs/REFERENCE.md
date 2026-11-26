@@ -90,3 +90,7 @@ The reference's Blank is an achromatic, typography-led journal: white paper, bla
 ## Endfield / 终末地
 
 No reference counterpart. It keeps its own industrial design; its appearance is compared before and after every shared change.
+
+## Arknights / 明日方舟
+
+No reference counterpart (added 2026-11-26, PR #43). It has its own archive-terminal design, built on the same skeleton as Endfield; nothing in this mapping applies to it. `docs/THEMES.md` describes it.

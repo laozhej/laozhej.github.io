@@ -7,7 +7,7 @@ import { canonicalTheme } from "../src/core/themes/routing.mjs";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const showcase = path.join(root, "showcase");
 const locales = ["zh-CN", "zh-TW", "ja", "en"];
-const themes = ["blank", "ema", "endfield"];
+const themes = ["blank", "ema", "endfield", "arknights"];
 const sections = ["", "blog", "projects", "games", "about", "credits", "404"];
 const showcaseUrl = "https://github.com/laozhej/laozhej.github.io/tree/main/showcase";
 const caseLabels = {

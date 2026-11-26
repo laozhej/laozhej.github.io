@@ -1,0 +1,489 @@
+/* Arknights: the site as a field archive terminal.
+   Dark mode is the live screen (a black field, one cyan signal); light mode is the printed archive sheet (warm paper, ink,
+   the cyan only as a fill under ink). Three type roles: condensed Oswald for section words, titles and large numbers;
+   JetBrains Mono for dates, serials and annotations; the system sans for Chinese, Japanese and reading text. Both fonts
+   are SIL OFL 1.1 and self-hosted through Fontsource. No game fonts, logos, icons, characters or screenshots are used.
+   Everything is scoped to html[data-theme="arknights"] or to the theme's own ak- classes: through PageLayout this
+   stylesheet reaches every theme's pages. */
+html[data-theme="arknights"] {
+  color-scheme:light;
+  --ak-field:#eceae4; --ak-panel:#f7f6f2; --ak-ink:#121416; --ak-ink-2:#4e5358; --ak-rule:#cbc9c2;
+  --ak-signal:#19cff2; --ak-on-signal:#0b0d0e;
+  /* Marks of the current place: ink on paper, the signal on the dark screen. */
+  --ak-trace:var(--ak-ink); --ak-number:var(--ak-ink);
+  --ak-faint:color-mix(in srgb,var(--ak-ink) 9%,transparent); --ak-ghost:color-mix(in srgb,var(--ak-ink) 5.5%,transparent);
+  --ak-display:"Oswald Variable","Oswald","Arial Narrow","PingFang SC","Hiragino Sans","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --ak-mono:"JetBrains Mono Variable","JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --ak-text:"PingFang SC","Hiragino Sans","Noto Sans SC","Noto Sans JP","Microsoft YaHei",system-ui,sans-serif;
+  --ak-head:72px; --ak-rail:0px; --ak-pad:clamp(16px,4.4vw,64px);
+  --ak-cut:cubic-bezier(.65,0,.35,1); --ak-out:cubic-bezier(.16,1,.3,1);
+  --blank-paper:var(--ak-field); --blank-ink:var(--ak-ink); --blank-muted:var(--ak-ink-2); --blank-line:var(--ak-rule);
+  --blank-soft:color-mix(in srgb,var(--ak-ink) 6%,var(--ak-field)); --blank-header-bg:var(--ak-field); --blank-control-line:#8b8f93; --blank-anchor-muted:var(--ak-ink-2);
+  --blank-quote:var(--ak-ink-2); --blank-inline-code:color-mix(in srgb,var(--ak-ink) 7%,var(--ak-field)); --blank-foldout-line:#b4b6b3; --blank-scrollbar:#a2a5a6;
+  --blank-panel-bg:var(--ak-panel); --blank-panel-ink:var(--ak-ink); --blank-panel-muted:var(--ak-ink-2);
+  --blank-footer-bg:#08090a; --blank-footer-ink:#e9eae6; --blank-footer-line:#26292d; --blank-footer-muted:#a9aeb2;
+  --blank-width:1180px; --blank-sans:var(--ak-text); --blank-serif:var(--ak-text); --blank-mono:var(--ak-mono);
+  --site-menu-background:var(--ak-panel); --site-menu-color:var(--ak-ink);
+  min-width:320px; background:var(--ak-field); scroll-padding-top:calc(var(--ak-head) + 40px); accent-color:var(--ak-ink);
+}
+html[data-theme="arknights"]:lang(zh-TW) {
+  --ak-display:"Oswald Variable","Oswald","Arial Narrow","PingFang TC","Hiragino Sans","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  --ak-text:"PingFang TC","Hiragino Sans","Noto Sans TC","Noto Sans JP","Microsoft JhengHei",system-ui,sans-serif;
+}
+html[data-theme="arknights"][data-color-mode="dark"] {
+  color-scheme:dark;
+  --ak-field:#0d0f11; --ak-panel:#15181b; --ak-ink:#e9eae6; --ak-ink-2:#a0a6ab; --ak-rule:#2a2e32;
+  --ak-trace:var(--ak-signal); --ak-number:var(--ak-signal);
+  --ak-faint:color-mix(in srgb,var(--ak-ink) 7%,transparent); --ak-ghost:color-mix(in srgb,var(--ak-ink) 5%,transparent);
+  --blank-control-line:#5d6266; --blank-foldout-line:#43474b; --blank-scrollbar:#555a5e; accent-color:var(--ak-signal);
+}
+body[data-arknights] { font:15.5px/1.75 var(--ak-text); background:var(--ak-field); color:var(--ak-ink); overflow-x:clip; }
+body[data-arknights] img { height:auto; }
+body[data-arknights] :where(a,button,summary,select,input):focus-visible { outline:2px solid var(--ak-trace); outline-offset:3px; }
+body[data-arknights] ::selection { background:var(--ak-signal); color:var(--ak-on-signal); }
+
+/* shared pieces */
+.ak-sr { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+.ak-annot,.ak-eyebrow,.ak-record-head,.ak-record-meta,.ak-log time,.ak-log-no,.ak-terms-no,.ak-signals-no,.ak-panel-no,.ak-counter-of,.ak-rail-host,.ak-mark small { font-family:var(--ak-mono); font-variant-numeric:tabular-nums; letter-spacing:.06em; }
+.ak-annot { display:flex; flex-wrap:wrap; gap:4px 18px; margin:0 0 22px; font-size:11.5px; color:var(--ak-ink-2); text-transform:uppercase; }
+.ak-annot>span+span::before { content:""; display:inline-block; width:5px; height:5px; margin-right:18px; background:var(--ak-rule); vertical-align:.12em; }
+.ak-eyebrow { margin:0 0 6px; font-size:12px; font-weight:500; color:var(--ak-ink-2); text-transform:uppercase; letter-spacing:.14em; }
+/* The giant section words: cropped by the sector's lower edge, below everything, too faint to read as text. They are
+   generated content with empty alternative text, so they are decoration and not part of the page's text. */
+.ak-ghost::before,.ak-footer-ghost::before { content:attr(data-ghost); content:attr(data-ghost) / ""; }
+.ak-ghost { position:absolute; z-index:-1; left:calc(var(--ak-pad) - .06em); bottom:-.2em; font:700 clamp(6rem,17vw,15rem)/1 var(--ak-display); text-transform:uppercase; letter-spacing:-.01em; white-space:nowrap; color:var(--ak-ghost); pointer-events:none; user-select:none; }
+/* A triangular lattice: the survey grid behind the first and last sectors, fading out towards the content. */
+.ak-lattice { position:absolute; inset:0; z-index:-2; pointer-events:none; background:var(--ak-faint);
+  -webkit-mask:url("/themes/arknights/lattice.svg") 0 0/160px 277.128px,linear-gradient(100deg,transparent 18%,#000 62%); -webkit-mask-composite:source-in;
+  mask:url("/themes/arknights/lattice.svg") 0 0/160px 277.128px,linear-gradient(100deg,transparent 18%,#000 62%); mask-composite:intersect; }
+[data-arknights] .ak-button { position:relative; isolation:isolate; display:inline-flex; align-items:center; justify-content:space-between; gap:18px; min-width:11.5rem; min-height:50px; padding:0 14px 0 20px; border:1px solid var(--ak-ink); color:var(--ak-ink); font-size:15px; font-weight:700; letter-spacing:.02em; transition:color .22s var(--ak-cut); }
+[data-arknights] .ak-button::before { content:""; position:absolute; inset:-1px; z-index:-1; background:var(--ak-ink); clip-path:inset(0 100% 0 0); transition:clip-path .26s var(--ak-cut); }
+[data-arknights] .ak-button svg { transition:transform .22s var(--ak-out); }
+[data-arknights] .ak-button--signal { border-color:var(--ak-signal); background:var(--ak-signal); color:var(--ak-on-signal); }
+[data-arknights] .ak-button--signal::before { background:var(--ak-on-signal); }
+[data-arknights] .ak-button:focus-visible { color:var(--ak-field); }
+[data-arknights] .ak-button--signal:focus-visible { color:var(--ak-signal); }
+[data-arknights] .ak-button:focus-visible::before { clip-path:inset(0); }
+.ak-link { position:relative; display:inline-flex; align-items:center; gap:6px; min-height:32px; font-size:13.5px; font-weight:700; white-space:nowrap;
+  background:linear-gradient(var(--ak-trace),var(--ak-trace)) 0 calc(100% - 3px)/100% 1px no-repeat; }
+.ak-link svg { transition:transform .2s var(--ak-out); }
+@media(hover:hover) and (pointer:fine) {
+  [data-arknights] .ak-button:hover { color:var(--ak-field); }
+  [data-arknights] .ak-button--signal:hover { color:var(--ak-signal); }
+  [data-arknights] .ak-button:hover::before { clip-path:inset(0); }
+  [data-arknights] .ak-button:hover svg,.ak-link:hover svg { transform:translateX(4px); }
+}
+
+/* header: one rule along the bottom, the five sections centred on the page whatever sits on either side */
+.ak-header { position:fixed; top:0; left:0; z-index:50; width:100%; height:var(--ak-head); background:var(--ak-field); border-bottom:1px solid var(--ak-rule); }
+.ak-header-inner { height:100%; padding:0 24px; display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:16px; }
+.ak-mark { position:relative; display:flex; align-items:center; gap:10px; justify-self:start; min-width:0; white-space:nowrap; }
+/* The theme's pictogram: a square module holding a diamond, drawn in CSS. */
+.ak-mark-glyph { position:relative; width:30px; height:30px; flex-shrink:0; background:var(--ak-ink); }
+.ak-mark-glyph::before { content:""; position:absolute; inset:8px; border:2px solid var(--ak-field); transform:rotate(45deg); }
+.ak-mark-glyph::after { content:""; position:absolute; right:0; bottom:0; width:8px; height:8px; background:var(--ak-signal); }
+.ak-mark strong { font:600 21px/1 var(--ak-display); letter-spacing:.01em; text-transform:uppercase; overflow:hidden; text-overflow:ellipsis; }
+.ak-mark-plate { padding:4px 7px 3px; background:var(--ak-signal); color:var(--ak-on-signal); font:500 10px/1 var(--ak-display); letter-spacing:.24em; text-transform:uppercase; }
+.ak-mark small { font-size:10px; color:var(--ak-ink-2); }
+.ak-nav { display:flex; justify-content:center; gap:4px; }
+.ak-nav a { position:relative; display:flex; flex-direction:column; justify-content:center; min-height:var(--ak-head); padding:0 14px; line-height:1.15; white-space:nowrap; }
+.ak-nav-word { font:500 17px/1.1 var(--ak-display); letter-spacing:.02em; text-transform:uppercase; }
+.ak-nav-label { margin-top:3px; font-size:11px; font-weight:600; color:var(--ak-ink-2); }
+/* The current section: in the signal on screen, in ink on paper; a bar along the header's lower rule either way. */
+.ak-nav a::after { content:""; position:absolute; left:14px; right:14px; bottom:-1px; height:3px; background:var(--ak-signal); transform:scaleX(0); transform-origin:left; transition:transform .24s var(--ak-cut); }
+.ak-nav a[aria-current="page"] .ak-nav-word,.ak-nav a[aria-current="page"] .ak-nav-label { color:var(--ak-number); }
+.ak-nav a[aria-current="page"]::after { transform:none; }
+@media(hover:hover) and (pointer:fine) { .ak-nav a:hover::after { transform:none; } }
+.ak-nav a:focus-visible::after { transform:none; }
+.ak-actions { display:flex; align-items:center; justify-content:flex-end; gap:6px; }
+[data-arknights] .ak-icon { position:relative; display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; flex-shrink:0; padding:0; border:1px solid var(--ak-rule); background:transparent; color:var(--ak-ink); cursor:pointer; transition:border-color .2s,background-color .2s,color .2s; }
+@media(hover:hover) and (pointer:fine) { [data-arknights] .ak-icon:hover { border-color:var(--ak-ink); background:var(--ak-ink); color:var(--ak-field); } }
+.ak-header .site-language-menu>summary { min-height:40px; padding:0 10px; border:1px solid var(--ak-rule); border-radius:0; font:500 12px var(--ak-mono); }
+@media(hover:hover) and (pointer:fine) { .ak-header .site-language-menu>summary:hover { border-color:var(--ak-ink); background:transparent; } }
+.ak-header .site-language-options { border-radius:0; border:1px solid var(--ak-ink); box-shadow:none; background:var(--ak-panel); padding:0; }
+.ak-header .site-language-options a { border-radius:0; }
+.ak-header .site-language-options a+a { border-top:1px solid var(--ak-rule); }
+.ak-header .site-language-options a[aria-current] { background:var(--ak-signal); color:var(--ak-on-signal); }
+.ak-motion-toggle::after { content:attr(aria-label); position:absolute; top:calc(100% + 10px); right:-1px; z-index:2; width:max-content; max-width:min(240px,calc(100vw - 32px)); padding:6px 10px; border-left:3px solid var(--ak-signal); background:var(--ak-ink); color:var(--ak-field); font:400 12px/1.6 var(--ak-text); white-space:normal; pointer-events:none; visibility:hidden; }
+.ak-motion-toggle:focus-visible::after { visibility:visible; }
+.ak-motion-toggle[aria-disabled="true"] { cursor:default; color:var(--ak-ink-2); }
+@media(hover:hover) and (pointer:fine) { .ak-motion-toggle:hover::after { visibility:visible; } }
+.ak-header .blank-reading-track { position:absolute; left:0; right:0; bottom:-1px; height:3px; background:transparent; }
+.ak-header .blank-reading-track span { display:block; height:100%; background:var(--ak-trace); transform:scaleX(0); transform-origin:left; }
+.ak-content { padding-top:calc(var(--ak-head) + 32px); }
+.ak-home-main { padding-top:var(--ak-head); }
+
+/* The status rail: a column at the right edge of wide windows, under one vertical rule. It counts where the reader is
+   (the homepage's sectors, or the section a page belongs to), shows how far down the page they are, and leaves its foot
+   to the theme button. It holds nothing that can be pressed. */
+.ak-rail { display:none; }
+
+/* homepage: first sector. A title block beside the latest entry, on a survey lattice, over a giant cropped word. */
+.ak-hero.ak-sector { position:relative; isolation:isolate; overflow:clip; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); grid-template-rows:1fr auto; column-gap:clamp(32px,5vw,96px); min-height:max(560px,calc(100svh - var(--ak-head))); padding:clamp(28px,6vh,72px) var(--ak-pad) 0; }
+.ak-hero-copy { align-self:center; padding-bottom:clamp(28px,5vh,56px); }
+.ak-ghost--hero { bottom:auto; top:clamp(-20px,-1vw,0px); left:auto; right:calc(var(--ak-pad) - .05em); font-size:clamp(9rem,30vw,26rem); line-height:.8; }
+.ak-title { margin:0; font:600 clamp(3.4rem,8.6vw,8.4rem)/.86 var(--ak-display); letter-spacing:-.005em; text-transform:uppercase; overflow-wrap:anywhere; }
+.ak-title>span { display:block; }
+.ak-title-name { position:relative; }
+.ak-title-plate { display:flex!important; align-items:center; gap:0; margin-top:clamp(14px,1.6vw,22px); font:500 clamp(15px,1.3vw,19px)/1 var(--ak-display); letter-spacing:.34em; }
+.ak-title-plate>span { padding:8px 18px 7px 14px; background:var(--ak-signal); color:var(--ak-on-signal); }
+.ak-title-plate::before { content:""; width:6px; align-self:stretch; background:var(--ak-trace); }
+.ak-title-plate::after { content:""; flex:1; height:1px; margin-left:12px; background:var(--ak-ink); }
+.ak-statement { margin:clamp(28px,3.4vw,40px) 0 18px; padding-left:16px; border-left:3px solid var(--ak-trace); font-size:clamp(1.3rem,2.3vw,1.8rem); font-weight:800; line-height:1.55; }
+.ak-intro { margin:0; max-width:34rem; color:var(--ak-ink-2); font-size:16px; }
+[data-arknights] .ak-cta { display:flex; flex-wrap:wrap; gap:12px; margin:28px 0 0; }
+
+/* The latest entry: its serial number on a dot-matrix board, on the one large field of signal colour. */
+[data-arknights] .ak-record { position:relative; isolation:isolate; align-self:center; display:flex; flex-direction:column; gap:14px; min-height:clamp(360px,54vh,560px); margin:12px 10px clamp(40px,6vh,64px); padding:22px 26px 14px; background:var(--ak-signal); color:var(--ak-on-signal); }
+/* Corner brackets just outside the board, drawn as eight short bars. */
+.ak-record::before { content:""; position:absolute; inset:-10px; pointer-events:none; --b:var(--ak-trace);
+  background:linear-gradient(var(--b),var(--b)) 0 0/16px 2px,linear-gradient(var(--b),var(--b)) 0 0/2px 16px,linear-gradient(var(--b),var(--b)) 100% 0/16px 2px,linear-gradient(var(--b),var(--b)) 100% 0/2px 16px,
+    linear-gradient(var(--b),var(--b)) 0 100%/16px 2px,linear-gradient(var(--b),var(--b)) 0 100%/2px 16px,linear-gradient(var(--b),var(--b)) 100% 100%/16px 2px,linear-gradient(var(--b),var(--b)) 100% 100%/2px 16px;
+  background-repeat:no-repeat; transition:inset .3s var(--ak-out); }
+.ak-record-head { display:flex; justify-content:space-between; gap:12px; font-size:11.5px; font-weight:600; text-transform:uppercase; letter-spacing:.14em; }
+.ak-matrix { display:block; width:100%; height:auto; margin:auto 0; overflow:visible; }
+.ak-dot { fill:var(--ak-on-signal); }
+.ak-dot-off { fill:color-mix(in srgb,var(--ak-on-signal) 13%,transparent); }
+.ak-record-meta { display:flex; flex-wrap:wrap; gap:4px 16px; font-size:12.5px; font-weight:600; }
+.ak-record-meta>span::after { content:" //"; margin-left:16px; opacity:.55; }
+.ak-record-title { font-size:clamp(1.15rem,1.7vw,1.45rem); font-weight:800; line-height:1.45; }
+.ak-record-plate { display:flex; align-items:center; justify-content:space-between; margin:6px -12px 0; padding:14px 14px 14px 14px; background:var(--ak-on-signal); color:var(--ak-signal); font-size:15px; font-weight:700; }
+.ak-record-plate svg { transition:transform .22s var(--ak-out); }
+.ak-record--empty { padding-bottom:26px; }
+.ak-record--empty .ak-record-title { font-size:clamp(1rem,1.4vw,1.2rem); }
+@media(hover:hover) and (pointer:fine) {
+  .ak-record:hover::before { inset:-4px; }
+  .ak-record:hover .ak-record-plate svg { transform:translateX(5px); }
+}
+.ak-record:focus-visible { outline-offset:4px; }
+
+/* Three counts along the foot of the first screen. */
+.ak-index { grid-column:1/-1; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid var(--ak-ink); }
+.ak-index a { position:relative; display:flex; flex-direction:column; gap:2px; padding:16px 18px 20px 0; }
+.ak-index a+a { padding-left:22px; border-left:1px solid var(--ak-rule); }
+.ak-index a::before { content:""; position:absolute; left:0; right:0; top:-1px; height:3px; background:var(--ak-signal); transform:scaleX(0); transform-origin:left; transition:transform .26s var(--ak-cut); }
+.ak-index small { font:500 11px var(--ak-mono); letter-spacing:.1em; color:var(--ak-ink-2); }
+.ak-index span { font-weight:700; }
+.ak-index b { margin-right:6px; font:500 2.1rem/1.15 var(--ak-display); font-variant-numeric:tabular-nums; }
+.ak-index i { display:inline-block; margin-left:12px; padding-left:12px; border-left:1px solid var(--ak-rule); font-style:normal; font-weight:400; font-size:13px; color:var(--ak-ink-2); }
+@media(hover:hover) and (pointer:fine) { .ak-index a:hover::before { transform:none; } }
+.ak-index a:focus-visible::before { transform:none; }
+
+/* homepage: the numbered sectors */
+.ak-sector { position:relative; isolation:isolate; overflow:clip; padding:clamp(72px,10vw,132px) var(--ak-pad) clamp(96px,13vw,190px); }
+.ak-sector+.ak-sector { border-top:1px solid var(--ak-rule); }
+.ak-head { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:end; gap:0 22px; margin-bottom:30px; padding-bottom:18px; border-bottom:1px solid var(--ak-ink); }
+.ak-head-no { font:600 clamp(3.6rem,7vw,5.6rem)/.78 var(--ak-display); font-variant-numeric:tabular-nums; color:var(--ak-number); }
+.ak-head h2 { margin:0; font-size:clamp(1.55rem,3vw,2.25rem); font-weight:800; line-height:1.25; }
+.ak-head .ak-eyebrow::before { content:""; display:inline-block; width:7px; height:7px; margin-right:8px; background:var(--ak-signal); vertical-align:.1em; }
+.ak-lede { margin:0 0 18px; color:var(--ak-ink-2); }
+.ak-empty { margin:0; padding:22px; border:1px dashed var(--ak-rule); color:var(--ak-ink-2); }
+
+/* Records: a log. Kind, stamp, title and summary; the serial at the far end. */
+.ak-log { list-style:none; margin:0; padding:0; }
+.ak-log a { position:relative; display:grid; grid-template-columns:8rem 10.5rem minmax(0,1fr) auto; align-items:baseline; gap:6px 24px; padding:22px 4px 22px 0; border-bottom:1px solid var(--ak-rule); transition:transform .2s var(--ak-out); }
+.ak-log a::before { content:""; position:absolute; left:-14px; top:-1px; bottom:-1px; width:4px; background:var(--ak-signal); transform:scaleY(0); transform-origin:top; transition:transform .18s var(--ak-cut); }
+.ak-log-kind { font-size:13px; font-weight:700; }
+.ak-log-kind::before { content:""; display:inline-block; width:7px; height:7px; margin-right:9px; background:var(--ak-trace); vertical-align:.08em; }
+.ak-log time { font-size:13px; color:var(--ak-ink-2); }
+.ak-log-title { grid-column:3; font-size:17px; font-weight:800; line-height:1.5; }
+.ak-log-text { grid-column:3; color:var(--ak-ink-2); font-size:14.5px; }
+.ak-log-no { grid-column:4; grid-row:1; font-size:12px; color:var(--ak-ink-2); }
+@media(hover:hover) and (pointer:fine) { .ak-log a:hover { transform:translateX(8px); } .ak-log a:hover::before { transform:none; } }
+.ak-log a:focus-visible::before { transform:none; }
+
+/* Practice: the tools, as a two-column term list with a rule under each. */
+.ak-terms { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 56px; }
+.ak-terms li { display:grid; grid-template-columns:2.4rem minmax(0,1fr); align-items:baseline; gap:2px 12px; padding:20px 0 16px; border-bottom:1px solid var(--ak-rule); }
+.ak-terms-no { grid-row:1/3; font-size:12px; color:var(--ak-ink-2); }
+.ak-terms strong { font:500 clamp(1.45rem,2.4vw,2rem)/1.15 var(--ak-display); letter-spacing:.01em; text-transform:uppercase; }
+.ak-terms li>span:last-child { color:var(--ak-ink-2); font-size:14.5px; }
+
+/* Play: the favourite games as four tall panels. The pictures stay muted until one is pointed at or focused. */
+.ak-panels { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+[data-arknights] .ak-panel { position:relative; isolation:isolate; display:flex; flex-direction:column; justify-content:flex-end; gap:6px; height:100%; min-height:clamp(300px,34vw,440px); padding:22px 20px 24px; overflow:hidden; background:#08090a; color:#eef0ec; }
+.ak-panel-art { position:absolute; inset:0; z-index:-2; }
+.ak-panel-art img { display:block; width:100%; height:100%!important; object-fit:cover; filter:saturate(.3) brightness(.78); transition:filter .4s var(--ak-cut),transform .6s var(--ak-out); }
+.ak-panel::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(to top,#08090af2 0%,#08090ae0 30%,#08090a73 62%,#08090a26 100%); }
+.ak-panel::before { content:""; position:absolute; left:0; right:0; bottom:0; height:4px; background:var(--ak-signal); transform:scaleX(0); transform-origin:left; transition:transform .3s var(--ak-cut); }
+.ak-panel-no { position:absolute; top:18px; left:20px; font-size:12px; color:#c3c8cb; }
+.ak-panel-go { position:absolute; top:16px; right:16px; color:#c3c8cb; }
+.ak-panel-text { display:flex; flex-direction:column; gap:6px; }
+.ak-panel-text strong { font-size:clamp(1.1rem,1.6vw,1.4rem); font-weight:800; line-height:1.4; }
+.ak-panel-text span { padding-top:10px; border-top:1px solid #ffffff38; font:500 12px/1.5 var(--ak-mono); letter-spacing:.04em; color:#c3c8cb; }
+@media(hover:hover) and (pointer:fine) {
+  a.ak-panel:hover img { filter:none; transform:scale(1.04); }
+  a.ak-panel:hover::before { transform:none; }
+}
+a.ak-panel:focus-visible img { filter:none; }
+a.ak-panel:focus-visible::before { transform:none; }
+a.ak-panel:focus-visible { outline-offset:4px; }
+
+/* Status: the three current signals as a board. */
+.ak-signals { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:0; border-top:1px solid var(--ak-ink); }
+.ak-signals>div { padding:20px 26px 26px 0; }
+.ak-signals>div+div { padding-left:26px; border-left:1px solid var(--ak-rule); }
+.ak-signals dt { display:flex; align-items:baseline; gap:10px; font-weight:800; }
+.ak-signals-no { font-size:12px; color:var(--ak-ink-2); }
+.ak-signals dd { margin:10px 0 0; font-size:17px; line-height:1.7; }
+.ak-status .ak-lattice { -webkit-mask:url("/themes/arknights/lattice.svg") 0 0/160px 277.128px,linear-gradient(80deg,#000 10%,transparent 55%); -webkit-mask-composite:source-in;
+  mask:url("/themes/arknights/lattice.svg") 0 0/160px 277.128px,linear-gradient(80deg,#000 10%,transparent 55%); mask-composite:intersect; }
+
+/* shared Blank pages, presented in the Arknights theme */
+.ak-content :is(.blank-kicker,.blank-row-number,.blank-post-meta,.blank-list-heading,.blank-tag-line,.blank-page-count>span,.blank-filters button>span,.blank-project-status) { font-family:var(--ak-mono); font-size:12px; font-variant-numeric:tabular-nums; letter-spacing:.05em; }
+.ak-content :is(.blank-kicker,.blank-list-heading) { font-weight:500; letter-spacing:.12em; text-transform:uppercase; }
+.ak-content .blank-page-head .blank-kicker::before { content:"// "; }
+.ak-content :is(.blank-page-head,.blank-article-header) { border-color:var(--ak-ink); }
+/* Page titles take the condensed display cut; a bar of signal colour runs under them in place of the full stop. */
+.ak-content .blank-page-heading h1 { position:relative; padding-bottom:22px; font:600 clamp(3.2rem,8vw,6rem)/.9 var(--ak-display); letter-spacing:-.005em; text-transform:uppercase; overflow-wrap:anywhere; }
+.ak-content .blank-page-heading h1>span { display:none; }
+.ak-content .blank-page-heading h1::after { content:""; position:absolute; left:0; bottom:0; width:min(2.2em,46%); height:6px; background:var(--ak-signal); }
+.ak-content .blank-page-count strong { font:500 clamp(2.4rem,5vw,3.4rem)/1 var(--ak-display); font-variant-numeric:tabular-nums; color:var(--ak-number); }
+.ak-content :is(.blank-article-header h1,.blank-section-heading h2,.blank-about-section>div>h2,.blank-project-name h2,.blank-game-row h2,.blank-profile-name h2) { font-family:var(--ak-text); font-weight:800; letter-spacing:0; }
+.ak-content .blank-article-header h1::after { content:""; display:block; width:min(220px,40%); height:4px; margin-top:20px; background:var(--ak-signal); }
+.ak-content .blank-post-row h2 { font-weight:800; }
+.ak-content .blank-preferences .blank-portrait-empty { border-color:var(--ak-rule); background:repeating-linear-gradient(-45deg,transparent 0 6px,var(--ak-faint) 6px 7px); }
+.ak-content :is(.blank-post-row,.blank-project summary)>.blank-row-number { justify-self:start; align-self:start; padding:1px 7px; border:1px solid var(--ak-ink); font-weight:600; }
+.ak-content .blank-post-row { position:relative; transition:transform .2s var(--ak-out); }
+.ak-content .blank-post-row::before { content:""; position:absolute; left:-14px; top:-1px; bottom:-1px; width:4px; background:var(--ak-signal); transform:scaleY(0); transform-origin:top; transition:transform .18s var(--ak-cut); }
+@media(hover:hover) and (pointer:fine) {
+  .ak-content .blank-post-row:hover { transform:translateX(8px); } .ak-content .blank-post-row:hover::before { transform:none; }
+  .ak-content :is(.blank-post-row,.blank-project summary):hover>.blank-row-number { border-color:var(--ak-signal); background:var(--ak-signal); color:var(--ak-on-signal); }
+}
+.ak-content .blank-post-row:focus-visible::before { transform:none; }
+.ak-content .blank-filters { gap:6px; padding-bottom:16px; }
+.ak-content .blank-filters button { min-height:40px; padding:8px 14px; align-items:center; border:1px solid var(--ak-rule); border-radius:0; background:transparent; color:var(--ak-ink); font-weight:600; transition:background-color .18s,border-color .18s,color .18s; }
+.ak-content .blank-filters button[aria-pressed="true"] { border-color:var(--ak-signal); background:var(--ak-signal); color:var(--ak-on-signal); font-weight:800; }
+.ak-content .blank-filters button[aria-pressed="true"]::after { display:none; }
+@media(hover:hover) and (pointer:fine) { .ak-content .blank-filters button:not([aria-pressed="true"]):hover { border-color:var(--ak-ink); } }
+.ak-content .blank-project-status { display:inline-flex; width:fit-content; padding:0 8px; border:1px solid currentColor; }
+.ak-content .blank-project-status::before { display:none; }
+.ak-content :is(.blank-featured,.blank-project,.blank-game-row,.blank-search,.blank-search input,.blank-sort select) { border-radius:0; }
+.ak-content .blank-sort select { background:var(--ak-panel); border:1px solid var(--ak-rule); }
+.ak-content .blank-button { border-radius:0; border:0; background:var(--ak-ink); color:var(--ak-field)!important; }
+.ak-content .blank-toc a[aria-current="location"] { box-shadow:inset 3px 0 0 var(--ak-trace); color:var(--ak-ink); font-weight:700; }
+.ak-content .blank-prose a { text-decoration-color:var(--ak-trace); text-underline-offset:3px; }
+.ak-content .blank-prose :is(h2,h3) { font-family:var(--ak-text); font-weight:800; }
+.ak-content .blank-prose h2::before { content:""; display:inline-block; width:.42em; height:.42em; margin-right:.45em; background:var(--ak-signal); vertical-align:.12em; }
+.ak-content .blank-prose :is(pre,code) { border-radius:0; }
+
+/* footer: dark in both colour modes, its name set large and cropped at the foot */
+.ak-footer { position:relative; isolation:isolate; overflow:clip; margin-top:0; margin-right:calc(-1 * var(--ak-rail)); background:var(--blank-footer-bg); color:var(--blank-footer-ink); }
+.ak-content+.ak-footer { margin-top:clamp(56px,8vw,96px); }
+.ak-footer a { text-underline-offset:4px; }
+.ak-footer a:hover { text-decoration:underline; text-decoration-color:var(--ak-signal); }
+.ak-footer :focus-visible { outline-color:var(--ak-signal)!important; }
+.ak-footer-top { max-width:var(--blank-width); margin:0 auto; padding:44px var(--ak-pad) 18px; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:24px; }
+.ak-footer-brand { display:flex; align-items:center; gap:12px; justify-self:start; }
+.ak-footer-brand strong { font:600 clamp(1.7rem,3.4vw,2.4rem)/1 var(--ak-display); text-transform:uppercase; letter-spacing:.01em; }
+.ak-footer-brand .ak-mark-plate { font-size:11px; }
+.ak-footer-links { display:flex; flex-direction:column; align-items:flex-start; gap:8px; font:500 13px/21px var(--ak-mono); color:var(--blank-footer-muted); }
+.ak-footer-ghost { position:absolute; z-index:-1; right:var(--ak-pad); bottom:-.24em; font:700 clamp(4.5rem,13vw,11rem)/1 var(--ak-display); text-transform:uppercase; white-space:nowrap; color:#ffffff0d; pointer-events:none; user-select:none; }
+.ak-footer-bottom { max-width:var(--blank-width); margin:0 auto; padding:16px var(--ak-pad) 30px; display:flex; flex-wrap:wrap; gap:8px 24px; border-top:1px solid var(--blank-footer-line); font:12px/19px var(--ak-mono); color:var(--blank-footer-muted); }
+
+/* Theme dock: a square module at the foot of the rail. The signal fills it when it is pointed at or open; the list is a
+   numbered sheet uncovered upward behind a scanning line. */
+[data-arknights] .site-theme-dock>summary { position:relative; isolation:isolate; border:1px solid var(--ak-ink); border-radius:0; background:var(--ak-field); color:var(--ak-ink); transition:color .2s var(--ak-cut),border-color .2s; }
+[data-arknights] .site-theme-dock>summary::before { content:""; position:absolute; inset:0; z-index:-1; background:var(--ak-signal); clip-path:inset(100% 0 0 0); transition:clip-path .24s var(--ak-cut); }
+[data-arknights] .site-theme-dock>summary::after { content:""; position:absolute; right:-1px; bottom:-1px; width:8px; height:8px; background:var(--ak-signal); }
+[data-arknights] .site-theme-dock:is([open],:has(>summary:focus-visible))>summary { border-color:var(--ak-signal); color:var(--ak-on-signal); }
+[data-arknights] .site-theme-dock:is([open],:has(>summary:focus-visible))>summary::before { clip-path:inset(0); }
+[data-arknights] .site-theme-dock .site-theme-options { min-width:15rem; padding:0; border:1px solid var(--ak-ink); border-radius:0; background:var(--ak-panel); color:var(--ak-ink); box-shadow:none; }
+[data-arknights] .site-theme-dock .site-theme-title { padding:10px 14px; border-bottom:1px solid var(--ak-ink); font:500 11px var(--ak-mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ak-ink-2); opacity:1; }
+[data-arknights] .site-theme-dock .site-theme-title::before { content:"// "; }
+[data-arknights] .site-theme-dock a { position:relative; gap:12px; padding:12px 14px; border-radius:0; font-size:14px; font-weight:700; }
+[data-arknights] .site-theme-dock a+a { border-top:1px solid var(--ak-rule); }
+[data-arknights] .site-theme-dock a[aria-current="true"] { background:var(--ak-signal); color:var(--ak-on-signal); }
+[data-arknights] .site-theme-dock .site-theme-no { font:600 12px var(--ak-mono); opacity:1; color:var(--ak-ink-2); }
+[data-arknights] .site-theme-dock a[aria-current="true"] .site-theme-no { color:inherit; }
+@media(hover:hover) and (pointer:fine) {
+  [data-arknights] .site-theme-dock>summary:hover { border-color:var(--ak-signal); color:var(--ak-on-signal); }
+  [data-arknights] .site-theme-dock>summary:hover::before { clip-path:inset(0); }
+  [data-arknights] .site-theme-dock a:not([aria-current]):hover { background:color-mix(in srgb,var(--ak-ink) 7%,transparent); box-shadow:inset 4px 0 0 var(--ak-trace); }
+}
+@media(prefers-reduced-motion:no-preference) {
+  /* Opening: the sheet is uncovered from the bottom up with a line of signal colour on its moving edge, then the rows
+     switch on one by one, each in a single step. Closing runs the sheet back down, faster. */
+  html:not([data-motion-paused="true"]) [data-arknights] .site-theme-dock::details-content { transition:content-visibility .3s allow-discrete; }
+  html:not([data-motion-paused="true"]) [data-arknights] .site-theme-dock .site-theme-options { clip-path:inset(-2px); transition:clip-path .3s var(--ak-cut); }
+  html:not([data-motion-paused="true"]) [data-arknights] .site-theme-dock .site-theme-options::before { content:""; position:absolute; left:-1px; right:-1px; top:-2px; height:2px; background:var(--ak-signal); opacity:0; transition:opacity .3s steps(1,jump-none); }
+  html:not([data-motion-paused="true"]) [data-arknights] .site-theme-dock a { transition:opacity .01s steps(1) calc(var(--i) * 55ms + 150ms),background-color .1s; }
+  html:not([data-motion-paused="true"]) [data-arknights] .site-theme-dock:not([open]) .site-theme-options { clip-path:inset(100% -2px -2px -2px); transition-duration:.2s; }
+  html:not([data-motion-paused="true"]) [data-arknights] .site-theme-dock:not([open]) a { opacity:0; transition-delay:0ms; }
+  @starting-style {
+    html:not([data-motion-paused="true"]) [data-arknights] .site-theme-dock[open] .site-theme-options { clip-path:inset(100% -2px -2px -2px); }
+    html:not([data-motion-paused="true"]) [data-arknights] .site-theme-dock[open] .site-theme-options::before { opacity:1; }
+    html:not([data-motion-paused="true"]) [data-arknights] .site-theme-dock[open] a { opacity:0; }
+  }
+}
+@media(prefers-reduced-motion:reduce) { [data-arknights] .site-theme-dock>summary::before { transition:none; } }
+
+/* wide windows: the status rail */
+@media(min-width:1200px) {
+  html[data-theme="arknights"] { --ak-rail:112px; }
+  body[data-arknights] { padding-right:var(--ak-rail); }
+  .ak-actions { margin-right:calc(var(--ak-rail) - 24px + 8px); }
+  .ak-rail { position:fixed; top:0; right:0; bottom:0; z-index:49; display:flex; flex-direction:column; align-items:center; width:var(--ak-rail); padding:calc(var(--ak-head) + 28vh) 0 96px; border-left:1px solid var(--ak-rule); pointer-events:none; }
+  .ak-counter { display:flex; flex-direction:column; align-items:flex-end; gap:2px; margin:0; width:76px; }
+  .ak-counter-no { display:block; font:600 64px/.8 var(--ak-display); font-variant-numeric:tabular-nums; color:var(--ak-number); }
+  .ak-counter-of { margin-top:6px; font-size:11px; color:var(--ak-ink-2); }
+  .ak-counter-word { font:500 13px/1.2 var(--ak-display); letter-spacing:.16em; text-transform:uppercase; }
+  /* How far down the page: a hairline with a filled part, driven by the scroll position where the browser can. */
+  .ak-rail-track { position:relative; flex:1; width:1px; margin:26px 0 18px; background:var(--ak-rule); }
+  .ak-rail-fill { position:absolute; left:-1px; top:0; width:3px; height:100%; background:var(--ak-trace); transform:scaleY(0); transform-origin:top; }
+  .ak-rail-host { writing-mode:vertical-rl; font-size:10px; color:var(--ak-ink-2); letter-spacing:.16em; text-transform:uppercase; }
+  [data-arknights] .site-theme-dock { right:calc((var(--ak-rail) - 48px) / 2); z-index:52; }
+  @supports (animation-timeline:scroll()) {
+    @keyframes ak-fill { to { transform:scaleY(1); } }
+    .ak-rail-fill { animation:ak-fill linear both; animation-timeline:scroll(root); }
+  }
+}
+
+/* Entrance: short and hard-edged, one sequence under a second. Without it everything is simply there. */
+@keyframes ak-wipe { from { clip-path:inset(-.25em 100% -.25em 0); } to { clip-path:inset(-.25em -4% -.25em 0); } }
+@keyframes ak-rise { from { opacity:0; transform:translateY(12px); } }
+@keyframes ak-board { from { clip-path:inset(0 0 100% 0); } to { clip-path:inset(-12px); } }
+@keyframes ak-on { from { opacity:0; } }
+@media(prefers-reduced-motion:no-preference) {
+  html:not([data-motion-paused="true"]) [data-ak-enter] :is(.ak-annot,.ak-title>span) { animation:ak-wipe .5s var(--ak-cut) backwards; }
+  html:not([data-motion-paused="true"]) [data-ak-enter] .ak-title-plate { animation-delay:120ms; }
+  html:not([data-motion-paused="true"]) [data-ak-enter] :is(.ak-statement,.ak-intro,.ak-cta,.ak-index) { animation:ak-rise .42s var(--ak-out) backwards; }
+  html:not([data-motion-paused="true"]) [data-ak-enter] .ak-statement { animation-delay:220ms; }
+  html:not([data-motion-paused="true"]) [data-ak-enter] .ak-intro { animation-delay:280ms; }
+  html:not([data-motion-paused="true"]) [data-ak-enter] .ak-cta { animation-delay:330ms; }
+  html:not([data-motion-paused="true"]) [data-ak-enter] .ak-index { animation-delay:420ms; }
+  /* The board is scanned in from the top, then its lit dots switch on row by row. */
+  html:not([data-motion-paused="true"]) [data-ak-enter] .ak-record { animation:ak-board .46s var(--ak-cut) 120ms backwards; }
+  html:not([data-motion-paused="true"]) [data-ak-enter] .ak-dot { animation:ak-on 1ms steps(1) backwards; animation-delay:calc(420ms + var(--r) * 45ms); }
+  /* Inner pages: the title is wiped in and its bar follows. */
+  html:not([data-motion-paused="true"]) .ak-content .blank-page-heading h1 { animation:ak-wipe .5s var(--ak-cut) backwards; }
+  html:not([data-motion-paused="true"]) .ak-content .blank-page-heading h1::after { transform-origin:left; animation:ak-bar .42s var(--ak-cut) .3s backwards; }
+  html:not([data-motion-paused="true"]) .ak-content :is(.blank-page-head>.blank-kicker,.blank-page-count,.blank-page-description) { animation:ak-rise .4s var(--ak-out) backwards; }
+  html:not([data-motion-paused="true"]) .ak-content .blank-page-count { animation-delay:120ms; }
+  html:not([data-motion-paused="true"]) .ak-content .blank-page-description { animation-delay:200ms; }
+  html:not([data-motion-paused="true"]) .ak-content .blank-article-header h1::after { transform-origin:left; animation:ak-bar .5s var(--ak-cut) .2s backwards; }
+  /* The language list opens the way the theme list does. */
+  html:not([data-motion-paused="true"]) .ak-header .site-language-menu::details-content { transition:content-visibility .26s allow-discrete; }
+  html:not([data-motion-paused="true"]) .ak-header .site-language-options { clip-path:inset(-2px); transition:clip-path .26s var(--ak-cut); }
+  html:not([data-motion-paused="true"]) .ak-header .site-language-menu:not([open]) .site-language-options { clip-path:inset(-2px -2px 100% -2px); transition-duration:.18s; }
+  @starting-style { html:not([data-motion-paused="true"]) .ak-header .site-language-menu[open] .site-language-options { clip-path:inset(-2px -2px 100% -2px); } }
+  /* The rail's number changes with a short vertical cut when the reader moves to another sector (lib/runtime.mjs). */
+  html:not([data-motion-paused="true"]) .ak-counter-no.is-turning { animation:ak-turn .32s var(--ak-cut); }
+}
+@keyframes ak-bar { from { transform:scaleX(0); } }
+@keyframes ak-turn { from { clip-path:inset(0 0 100% 0); transform:translateY(-10px); } to { clip-path:inset(0); transform:none; } }
+@media(prefers-reduced-motion:reduce) {
+  [data-ak-enter] *,[data-ak-enter] { animation:none!important; }
+  [data-arknights] :is(.ak-button,.ak-button::before,.ak-button svg,.ak-link svg,.ak-icon),.ak-nav a::after,.ak-index a::before,.ak-log a,.ak-log a::before,.ak-panel::before,.ak-panel-art img,.ak-record::before,.ak-record-plate svg,.ak-content .blank-post-row,.ak-content .blank-post-row::before,.ak-content .blank-filters button { transition:none; }
+}
+@media(forced-colors:active) { .ak-record,.ak-mark-plate,.ak-title-plate>span { forced-color-adjust:auto; } }
+
+/* Tap targets. Whatever can be pressed answers over at least 44px, and looks exactly as drawn: the extra area is an empty
+   pseudo-element or, on the header's icon buttons (both pseudo-elements in use for the hint), an empty .ak-hit. */
+.ak-mark::after { content:""; position:absolute; inset:-8px -4px; }
+.ak-header .site-language-menu>summary { position:relative; }
+.ak-header .site-language-menu>summary::after { content:""; position:absolute; inset:-3px -1px; }
+/* The icon buttons are 40px with a 1px border, and an absolute box is placed from inside the border: 38px + 2 × 3px. */
+.ak-hit { position:absolute; inset:-3px; }
+.ak-link::after { content:""; position:absolute; inset:-6px 0; }
+.ak-footer-brand,.ak-footer-links a,.ak-footer-bottom a,.ak-content :is(.blank-post-meta,.blank-tag-line) a { position:relative; }
+.ak-footer-brand::after { content:""; position:absolute; inset:-8px 0; }
+/* The footer's section links are 21px tall and 24px apart: each takes half the gap, 45px in all. */
+.ak-footer-sections { gap:24px; }
+.ak-footer-links a:not(.blank-text-link)::after { content:""; position:absolute; inset:-12px 0; }
+/* The last row's links are 19px tall; when the row wraps its lines are 26px apart, so each link answers over 45px. The
+   extensions lie under the links, so a link's own text always wins. */
+.ak-footer-bottom { row-gap:26px; position:relative; z-index:0; }
+.ak-footer-bottom a::after { content:""; position:absolute; inset:-13px 0; z-index:-1; }
+.ak-content .blank-tag-line { position:relative; z-index:0; }
+.ak-content .blank-filters button { position:relative; }
+.ak-content .blank-filters button::before { content:""; position:absolute; inset:-3px 0; }
+.ak-content .blank-post-meta a::after { content:""; position:absolute; inset:-13px 0; }
+.ak-content .blank-tag-line a::after { content:""; position:absolute; inset:-12px -6px; z-index:-1; }
+@media(min-width:761px) {
+  .ak-content .blank-text-link { position:relative; }
+  :is(.ak-content,.ak-footer) .blank-text-link::after { content:""; position:absolute; inset:-4px 0; }
+  .ak-content .blank-credits-body>a.blank-text-link::after { inset:-8px 0 0; }
+  .ak-content .blank-credits-body>a.blank-text-link+a.blank-text-link { margin-top:8px; }
+  .ak-content .blank-toc summary { min-height:44px; }
+  .ak-content .blank-toc a { min-height:44px; padding-block:12.5px; }
+}
+
+/* narrower windows */
+@media(max-width:1199px) {
+  .ak-mark small { display:none; }
+  /* Without the rail the theme button floats in the lower right corner: the footer's last row stops short of it, so at the
+     end of the page the button covers none of its links. */
+  .ak-footer-bottom { padding-right:max(var(--ak-pad),76px); }
+  .ak-nav a { padding:0 10px; }
+  .ak-nav a::after { left:10px; right:10px; }
+}
+@media(max-width:1023px) {
+  html[data-theme="arknights"] { --ak-head:64px; scroll-padding-top:150px; }
+  .ak-header { height:auto; }
+  .ak-header-inner { grid-template-columns:minmax(0,1fr) auto; gap:0 12px; padding:0 16px; }
+  .ak-mark { min-height:64px; }
+  .ak-nav { grid-column:1/-1; grid-row:2; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:0; margin:0 -16px; border-top:1px solid var(--ak-rule); }
+  .ak-nav a { min-height:52px; align-items:center; padding:6px 4px; }
+  .ak-nav a::after { left:8px; right:8px; }
+  .ak-nav-word { font-size:14px; }
+  .ak-nav-label { margin-top:2px; font-size:11px; }
+  .ak-content { padding-top:calc(64px + 53px + 28px); }
+  .ak-home-main { padding-top:calc(64px + 53px); }
+  .ak-hero.ak-sector { grid-template-columns:1fr; grid-template-rows:auto; min-height:0; padding-top:36px; }
+  [data-arknights] .ak-record { min-height:0; margin:8px 10px 48px; }
+  .ak-matrix { max-width:440px; margin:22px auto; }
+  .ak-log a { grid-template-columns:auto minmax(0,1fr) auto; gap:4px 16px; }
+  .ak-log-title,.ak-log-text { grid-column:1/-1; }
+  .ak-log-no { grid-column:3; }
+  .ak-terms { grid-template-columns:1fr; }
+  .ak-panels { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  [data-arknights] .ak-panel { min-height:300px; }
+  .ak-footer-top { grid-template-columns:1fr; }
+}
+@media(max-width:759px) {
+  .ak-annot>span:nth-child(3) { display:none; }
+  .ak-index { grid-template-columns:1fr; }
+  .ak-index a+a { padding-left:0; border-left:0; border-top:1px solid var(--ak-rule); }
+  .ak-head { grid-template-columns:auto minmax(0,1fr); }
+  .ak-head .ak-link { grid-column:1/-1; justify-self:start; margin-top:14px; }
+  .ak-signals { grid-template-columns:1fr; }
+  .ak-signals>div+div { padding-left:0; border-left:0; border-top:1px solid var(--ak-rule); }
+  [data-arknights] .ak-panel { min-height:220px; }
+}
+@media(max-width:559px) {
+  .ak-mark-plate,.ak-header .ak-mark .ak-mark-plate { display:none; }
+  .ak-mark strong { font-size:18px; }
+  .ak-actions { gap:4px; }
+  .ak-header .site-language-menu>summary>:is(span:not(:first-child),svg:last-child) { display:none; }
+  .ak-header .site-language-menu>summary::after { inset:-3px -4px; }
+  .ak-nav-word { font-size:12.5px; letter-spacing:.01em; }
+  .ak-nav-label { font-size:10.5px; }
+  .ak-panels { grid-template-columns:1fr; gap:8px; }
+  [data-arknights] .ak-panel { min-height:180px; }
+  [data-arknights] .ak-cta .ak-button { flex:1 1 100%; }
+}
+@media(max-width:389px) { .ak-mark-glyph { width:26px; height:26px; } .ak-mark-glyph::before { inset:7px; } }
+
+/* Switching light and dark: the page is captured whole and the new mode is uncovered from the top down, with a line of
+   signal colour riding the edge (lib/runtime.mjs). The line exists only during the switch: it is added with the new mode and
+   removed as its run ends. */
+html[data-theme="arknights"].ak-moding { view-transition-name:root!important; }
+html[data-theme="arknights"].ak-moding [data-astro-transition-scope] { view-transition-name:none!important; }
+html[data-theme="arknights"].ak-moding::view-transition-group(root) { animation:none; }
+html[data-theme="arknights"].ak-moding::view-transition-old(root),html[data-theme="arknights"].ak-moding::view-transition-new(root) { animation:none; mix-blend-mode:normal; }
+html[data-theme="arknights"].ak-moding::view-transition-group(ak-scan),html[data-theme="arknights"].ak-moding::view-transition-new(ak-scan) { animation:none; }
+.ak-scanline { position:fixed; left:0; bottom:0; z-index:200; width:100%; height:2px; background:#19cff2; box-shadow:0 0 16px 3px #19cff259; view-transition-name:ak-scan; pointer-events:none; }
+
+/* Pointing at the latest entry runs one scan down its board. */
+.ak-record::after { content:""; position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0;
+  background:linear-gradient(to bottom,transparent,color-mix(in srgb,var(--ak-on-signal) 14%,transparent) calc(100% - 2px),var(--ak-on-signal) calc(100% - 2px)) 0 -60%/100% 22% no-repeat; }
+@keyframes ak-sweep { from { opacity:1; background-position:0 -60%; } 90% { opacity:1; } to { opacity:0; background-position:0 150%; } }
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  html:not([data-motion-paused="true"]) .ak-record:hover::after { animation:ak-sweep .95s var(--ak-cut); }
+}
+
+/* The shared 404 page: the code in the display cut, its full stop a block of signal colour. */
+.ak-content .blank-404 { margin:24px 0 36px; font:600 clamp(7.5rem,20vw,14rem)/.9 var(--ak-display); letter-spacing:-.01em; font-variant-numeric:tabular-nums; }
+.ak-content .blank-404>span { display:inline-block; width:.16em; height:.16em; margin-left:.05em; overflow:hidden; background:var(--ak-signal); color:transparent; vertical-align:baseline; }
+.ak-content .blank-not-found h1 { font-weight:800; }

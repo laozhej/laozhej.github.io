@@ -399,3 +399,68 @@ html[data-theme="ema"] .ema-header .site-theme-dock .site-theme-options {top:cal
 .ema-ring b {opacity:0;border:1.5px solid var(--ema-pink);border-radius:50%;}
 .ema-ring b.is-pop {animation:ema-ring-pop 380ms ease-out;}
 @keyframes ema-ring-pop {from {opacity:.7;transform:translate3d(var(--x),var(--y),0) scale(.8);} to {opacity:0;transform:translate3d(var(--x),var(--y),0) scale(2.2);}}
+
+/* ---------- Tap targets (2026-11-26, at the owner's request, as on Endfield and Blank) ----------
+   Whatever can be pressed answers over at least 44px. Where the layout leaves room this is an empty ::before or ::after
+   around the control and nothing looks different; where controls sat too close together they were spaced out: the
+   section links on phones, the theme list's rows, the footer's last row when it wraps, the article's contents list above
+   760px, and a link that directly follows another on the credits page. Every rule is scoped to Ema: Blank and Endfield
+   pages load this stylesheet too, and Blank's pages share several of these class names. The Games and About pages had
+   theirs since PR 31 (games.css, about.css). */
+html[data-theme="ema"] :is(.ema-wordmark, .ema-header :is(.ema-icon-button, .ema-settings-toggle, .site-language-menu > summary), .ema-footer-brand, .ema-social-links a, .ema-footer-bottom a, #ema-stage :is(.k-text-button, .k-card-links a, .k-journal-head > a), .ema-content :is(.blank-post-meta, .blank-tag-line) a) { position: relative; }
+/* Header. The site name is 34px tall, and below 1101px only its 34px mark shows. The settings and control buttons and the
+   language button are 40px with a 1px outline: an absolute box starts inside the outline, so 3px reach 2px beyond it.
+   Two of them have a frosted background, and a box reaching out of them made Chrome draw a few of their edge pixels a
+   shade differently (up to 9/255): the language button, wide enough already, reaches only up and down, and the motion
+   button's box (::before, since ::after is its hint) is drawn on a layer of its own. */
+html[data-theme="ema"] .ema-wordmark::after { content: ""; position: absolute; inset: -5px; }
+html[data-theme="ema"] .ema-header :is(.ema-icon-button, .ema-settings-toggle)::after { content: ""; position: absolute; inset: -3px; }
+html[data-theme="ema"] .ema-header .site-language-menu > summary::after { content: ""; position: absolute; inset: -3px 0; }
+html[data-theme="ema"] .ema-header .ema-motion-toggle::before { content: ""; position: absolute; inset: -3px; will-change: transform; }
+/* The console's tab at the window's left edge is 34px wide: it reaches 11px into the margin beside it. */
+html[data-theme="ema"] .console-tab::after { content: ""; position: absolute; inset: 0 -11px 0 0; }
+/* The theme list's rows were 42.8px. */
+html[data-theme="ema"] .site-theme-dock a { min-height: 44px; }
+/* Home stage: the note button (40px on narrow screens), the arrow cue (36px), the card links (38px), the "drop the tags"
+   button (40px) and the Journal heading's link (24.5px). The note button, about 100px wide and with a shadow, reaches only
+   up and down: a box reaching out of it sideways changed a few of its edge pixels in Chrome and WebKit. */
+html[data-theme="ema"] #ema-stage .k-note-open::after { content: ""; position: absolute; inset: -3px 0; }
+html[data-theme="ema"] #ema-stage .k-cue::after { content: ""; position: absolute; inset: -5px 0; }
+html[data-theme="ema"] #ema-stage .k-card-links a::after { content: ""; position: absolute; inset: -4px 0; }
+html[data-theme="ema"] #ema-stage .k-text-button::after { content: ""; position: absolute; inset: -2px 0; }
+html[data-theme="ema"] #ema-stage .k-journal-head > a::after { content: ""; position: absolute; inset: -10px 0; }
+/* Footer. It is drawn as one layer so that positioning its links changes no pixel on pages with a sticky element before it
+   (the article's contents list). The name is 38px, the outward links 36px above 760px. The last row's links are 19px:
+   when the row wraps its lines are 25px apart (12px before), and their areas lie under the links so a link's own text
+   always answers for it. */
+html[data-theme="ema"] .ema-footer { isolation: isolate; }
+html[data-theme="ema"] .ema-footer-brand::after { content: ""; position: absolute; inset: -3px 0; }
+html[data-theme="ema"] .ema-social-links a::after { content: ""; position: absolute; inset: -4px 0; }
+html[data-theme="ema"] .ema-footer-bottom { position: relative; z-index: 0; row-gap: 25px; }
+html[data-theme="ema"] .ema-footer-bottom a::after { content: ""; position: absolute; inset: -12.5px 0; z-index: -1; }
+/* Shared pages as Ema shows them. Filters are tall but a short label is about 40px wide; ::after draws the chosen
+   filter's line, so ::before reaches 10px into the 24px beside it. An article's category (16-18px) and tags (17-19px):
+   tags can wrap, so their areas lie under the tags. */
+html[data-theme="ema"] .ema-content .blank-filters button::before { content: ""; position: absolute; inset: 0 -10px; }
+html[data-theme="ema"] .ema-content .blank-post-meta a::after { content: ""; position: absolute; inset: -14px -3px; }
+html[data-theme="ema"] .ema-content .blank-tag-line { position: relative; z-index: 0; }
+html[data-theme="ema"] .ema-content .blank-tag-line a::after { content: ""; position: absolute; inset: -14px -9px; z-index: -1; }
+@media (min-width: 761px) {
+  /* Text links are 36px tall here (44px below 761px). */
+  html[data-theme="ema"] .ema-content .blank-text-link { position: relative; }
+  html[data-theme="ema"] .ema-content .blank-text-link::after { content: ""; position: absolute; inset: -4px 0; }
+  /* On the credits page a heading can follow a link directly, so the extension goes upward only; a link that directly
+     follows another keeps 8px above it, so the two are 44px apart when the second wraps under the first. */
+  html[data-theme="ema"] .ema-content .blank-credits-body > a.blank-text-link::after { inset: -8px 0 0; }
+  html[data-theme="ema"] .ema-content .blank-credits-body > a.blank-text-link + a.blank-text-link { margin-top: 8px; }
+  /* The article's contents list beside the text: the sizes it already has below 761px. */
+  html[data-theme="ema"] .ema-content .blank-toc summary { min-height: 44px; }
+  html[data-theme="ema"] .ema-content .blank-toc a { min-height: 44px; padding-block: 12.5px; }
+}
+@media (min-width: 340px) and (max-width: 760px) {
+  /* The five sections on phones stack an icon over a short label, 2px apart: with two-character labels they were about
+     34px wide (30px below 360px). Each is now at least 44px wide, its icon and label centred; longer labels (English)
+     were wider already and do not change. Below 340px five 44px sections no longer fit between the window's edges and
+     the settings button while staying centred, so there they keep their size. */
+  html[data-theme="ema"] .ema-nav a { min-width: 44px; align-items: center; }
+}

@@ -82,7 +82,7 @@ Every statement carries one of four labels. Dated sections preserve earlier revi
 | Supporting | 《向阳素描》 by 蒼樹うめ | Pale grounds and small cut-paper accents give the covers the feel of an everyday scrapbook. Use accents sparingly on project cards and in the journal, leaving text and links clear. | [Houbunsha manga page](https://houbunsha.co.jp/comics/detail.php?p=%A4%D2%A4%C0%A4%DE%A4%EA%A5%B9%A5%B1%A5%C3%A5%C1) |
 | Supporting | 《摇曳露营△》 | Notice how the lettering sits in open sky. Give headings the same breathing room. For dark mode, take the mood of dusk blues and night greys and draw the background separately. | [Official books page](https://yurucamp.jp/books) |
 
-**Prototype** (2026-11-26, awaiting visual review). A branch from yamachem’s 2015 *Cherry blossom* enters the homepage stage from the left. It takes the place of the two geometric flowers in the upper-left panel. The light and dark versions keep the artist’s three paths and use separate palettes. On phones the branch extends past the left edge beneath the navigation. [Source and processing record](../public/themes/ema/cherry-blossom/ASSETS.json)
+**Approved** (2026-11-26, PR #42: the owner asked for the pilot to be merged). A branch from yamachem’s 2015 *Cherry blossom* enters the homepage stage from the left. It takes the place of the two geometric flowers in the upper-left panel. The light and dark versions keep the artist’s three paths and use separate palettes. On phones the branch extends past the left edge beneath the navigation. [Source and processing record](../public/themes/ema/cherry-blossom/ASSETS.json)
 
 ## 4. Palette
 

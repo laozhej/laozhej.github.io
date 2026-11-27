@@ -52,9 +52,19 @@ test("every layout loads the cut-down faces and links its own languages' fonts",
 });
 
 test("every font the site serves has its licence file", () => {
-  for (const file of ["noto-sans-cjk-OFL.txt", "noto-serif-cjk-OFL.txt", "lxgw-wenkai-OFL.txt", "lxgw-wenkai-tc-OFL.txt", "klee-one-OFL.txt", "jetbrains-mono-OFL.txt", "gloock-OFL.txt"]) {
+  for (const file of ["noto-sans-cjk-OFL.txt", "noto-serif-cjk-OFL.txt", "lxgw-wenkai-OFL.txt", "lxgw-wenkai-tc-OFL.txt", "klee-one-OFL.txt", "jetbrains-mono-OFL.txt", "gloock-OFL.txt", "nunito-OFL.txt"]) {
     assert.match(read(`public/licenses/${file}`), /SIL Open Font License/, file);
   }
   const credits = read("src/themes/blank/pages/CreditsPage.astro");
-  for (const name of ["Noto Sans SC / TC / JP", "Noto Serif SC / TC / JP", "LXGW WenKai / LXGW WenKai TC / Klee One", "JetBrains Mono"]) assert.ok(credits.includes(name), name);
+  for (const name of ["Noto Sans SC / TC / JP", "Noto Serif SC / TC / JP", "LXGW WenKai / LXGW WenKai TC / Klee One", "Nunito", "JetBrains Mono"]) assert.ok(credits.includes(name), name);
+});
+
+// 2026-11-28 (owner's pick from a four-way board): Ema's English pages set their letters in Nunito, whose
+// faces only cover Latin, so Chinese on those pages falls through to WenKai. Other languages keep WenKai.
+test("Ema's English text is in Nunito, preloaded on English pages only", () => {
+  const css = read("src/themes/ema/styles/theme.css");
+  assert.match(css, /html\[data-theme="ema"\]:lang\(en\) \{\s*--blank-sans:"Nunito Variable","Site Kai SC","LXGW WenKai",sans-serif;/);
+  const layout = read("src/themes/ema/layouts/EmaLayout.astro");
+  assert.match(layout, /import "@fontsource-variable\/nunito\/wght\.css";/);
+  assert.match(layout, /\{locale === "en" && <link rel="preload" href=\{nunitoLatin\} as="font" type="font\/woff2" crossorigin \/>\}/);
 });

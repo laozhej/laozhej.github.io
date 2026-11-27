@@ -12,7 +12,7 @@ html[data-theme="ema"] {
   --blank-width:1120px; /* Self-hosted fonts only (2026-11-27, owner's request for one Japanese-flavoured set on every system):
      LXGW WenKai (霞鹜文楷, from Fontworks' Klee One textbook hand) for text, Noto Serif CJK (源ノ明朝) for
      headings and the menu, Gloock for Latin titles, JetBrains Mono for labels. zh-TW and ja below take
-     their own glyph standards. The six text sizes are Blank's (see blank/styles/theme.css). */
+     their own glyph standards; English text is in Nunito (below). The six text sizes are Blank's (see blank/styles/theme.css). */
   --blank-sans:"Site Kai SC","LXGW WenKai",sans-serif;
   --blank-serif:"Site Serif SC","Noto Serif SC Variable",serif; --blank-mono:"JetBrains Mono Variable","Site Kai SC","LXGW WenKai",monospace;
   --blank-fs-xs:.75rem; --blank-fs-sm:.875rem; --blank-fs-md:1rem; --blank-fs-lg:1.25rem; --blank-fs-xl:1.5rem; --blank-fs-2xl:1.875rem;
@@ -26,6 +26,12 @@ html[data-theme="ema"] {
 html[data-theme="ema"]:lang(zh-TW) {
   --blank-sans:"Site Kai TC","LXGW WenKai TC",sans-serif;
   --blank-serif:"Site Serif TC","Noto Serif TC Variable",serif; --blank-mono:"JetBrains Mono Variable","Site Kai TC","LXGW WenKai TC",monospace;
+}
+/* English pages set their letters in Nunito (2026-11-28, owner's pick from a four-way board): WenKai's Latin,
+   from Klee One's textbook hand, read as dated. Nunito's faces only cover Latin, so Chinese names and terms
+   on these pages still fall through to WenKai. Chinese and Japanese pages are unchanged. */
+html[data-theme="ema"]:lang(en) {
+  --blank-sans:"Nunito Variable","Site Kai SC","LXGW WenKai",sans-serif;
 }
 html[data-theme="ema"]:lang(ja) {
   --blank-sans:"Site Klee","Klee One",sans-serif;

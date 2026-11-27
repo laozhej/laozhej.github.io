@@ -3,6 +3,8 @@ import "@/core/styles/scale.css";
 import "@/core/fonts/subsets.css";
 import "@/themes/blank/styles/theme.css";
 import "@fontsource/gloock/latin-400.css";
+import "@fontsource-variable/nunito/wght.css";
+import nunitoLatin from "@fontsource-variable/nunito/files/nunito-latin-wght-normal.woff2?url";
 import "../styles/theme.css";
 import "../styles/plate.css";
 import "../styles/article.css";
@@ -62,6 +64,7 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
     </script>}
     <title>{title}</title><SiteMeta title={title} description={description} siteName={brand} isArticlePage={isArticlePage} article={article} />
     <FontLinks families={["ema-text", "noto-serif"]} locale={locale} />
+    {locale === "en" && <link rel="preload" href={nunitoLatin} as="font" type="font/woff2" crossorigin />}
     <SiteNavigation />
   </head>
   <body data-blank data-ema data-ema-home={home ? "" : undefined}>

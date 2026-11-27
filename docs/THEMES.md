@@ -89,11 +89,12 @@ Ema 是例外：窗口宽度不足 1260px 时，页面两侧放不下浮动按�
 | 主题 | 正文与界面 | 标题与衬线 | 标签与编号 | 拉丁字母展示字 |
 | --- | --- | --- | --- | --- |
 | Blank | Noto Sans SC / TC / JP（思源黑体） | Noto Serif SC / TC / JP（思源宋体） | JetBrains Mono | 同正文 |
-| Ema | 霞鹜文楷（简中、英文）、霞鹜文楷 TC（繁中）、Klee One（日文） | Noto Serif SC / TC / JP | JetBrains Mono，中日文接正文字体 | Gloock |
+| Ema | 霞鹜文楷（简中）、霞鹜文楷 TC（繁中）、Klee One（日文）、Nunito（英文，2026-11-28 起） | Noto Serif SC / TC / JP | JetBrains Mono，中日文接正文字体 | Gloock |
 | 终末地 | Noto Sans SC / TC / JP | 同正文 | JetBrains Mono | Saira |
 | 明日方舟 | Noto Sans SC / TC / JP | 同正文 | JetBrains Mono | Oswald |
 
 - 每种语言用自己的字形：简中和英文用 SC，繁中用 TC（Ema 用台湾字形的霞鹜文楷 TC），日文用 JP（Ema 用日本 Fontworks 的 Klee One，霞鹜文楷就是由它衍生的）。
+- Ema 的英文页面（2026-11-28，站主从四款对照里选了 Nunito）：`html[data-theme="ema"]:lang(en)` 把正文字体栈换成 `"Nunito Variable","Site Kai SC","LXGW WenKai"`。Nunito 只有拉丁字母等西文字符，页面里的中文名字和术语照旧落到霞鹜文楷。Nunito 来自 Fontsource（`@fontsource-variable/nunito/wght.css`，和 Gloock 一样打进主题 CSS，五条 `@font-face` 约 1.5KB，没用到就不下载），不另做截字文件；`EmaLayout.astro` 只在英文页面预加载拉丁字母文件（约 39KB），有 ō、š 这类带变音符号字母的页面（英文首页、关于页）再取约 36KB 的扩展分片。没有加载斜体：Ema 英文正文里没有斜体文字。
 - 加载分两层。第一层是 `src/core/fonts/subsets.css` 声明的“Site …”字体：`public/fonts/site/` 里的 12 个文件，每个只含全站用这款字体显示的字（约 300–950 个，另加 ASCII、常用标点和日期用字），每个 180–430KB，同一种语言的所有页面共用，访客只下载一次。`src/core/fonts/FontLinks.astro` 在各布局的 `<head>` 里预加载本页主题和语言用到的这几个文件。第二层是同一款字体的 Fontsource 分片版：字体栈里紧跟在“Site …”之后，样式表等页面加载完、浏览器空闲时才取（`requestIdleCallback`，站内换页后同样处理；没有 JavaScript 时不取），首屏用不到它们，在慢速网络上也不再和 Ema 的立绘抢带宽；只有页面上出现第一层没有的字（之后新写的内容）时，浏览器才下载含这个字的分片，所以新字也是同一款字体。
 - 实测（Chrome 158，本地服务器，冷缓存）：Blank 简中页面的字体共约 455KB，Ema 简中约 700KB，繁中约 950KB，日文约 1.1MB（Klee One 字形较复杂）；终末地、明日方舟约 400KB。不截字、只用分片版时，同样的页面要 0.9–3.3MB。
 - 全站逐页检查（Chrome 158）时，关于页和致谢页（Blank、终末地、明日方舟，各语言）还会多下载一两个分片（约 50–100KB）。在页面文字、属性和伪元素里都没找到截取文件缺的字，原因还没查清；字体显示不受影响。

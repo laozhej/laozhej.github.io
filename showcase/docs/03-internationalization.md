@@ -4,7 +4,7 @@
 
 ## 界面、内容和路径分开处理
 
-全站支持 `zh-CN`、`zh-TW`、`ja`、`en` 四种语言。简体中文位于无前缀路径，其余三种语言使用语言前缀，且语言前缀始终位于主题前缀之前，例如 `/zh-TW/themes/arknights/about/`。
+全站支持 `zh-CN`、`zh-TW`、`ja`、`en` 四种语言。简体中文位于无前缀路径，其余三种语言使用语言前缀，且语言前缀始终位于主题前缀之前，例如 `/zh-TW/themes/blank/about/`。
 
 界面文案与无障碍名称集中在 [`messages.ts`](../../src/core/i18n/messages.ts) 及按主题拆分的几个消息模块；个人资料、项目、游戏、动画与角色由 [`getSiteContent(locale)`](../../src/core/i18n/content.ts) 统一返回。游戏、动画和角色用稳定 `key` 关联多语言名称与共享链接，四套主题不各自复制字典。
 
@@ -23,7 +23,7 @@
 公开地址：/blog/dev-log-01/
 繁中地址：/zh-TW/blog/dev-log-01/
 樱色日文：/ja/themes/ema/blog/dev-log-01/
-方舟英文：/en/themes/arknights/blog/dev-log-01/
+Blank 英文：/en/themes/blank/blog/dev-log-01/
 ```
 
 [`select-posts.mjs`](../../src/core/content/select-posts.mjs) 按 `translationKey` 分组后选取请求语言；若某语言尚未翻译，则保留简体中文原文并在页面上明确提示当前显示原文。草稿不会对外发布，重复译文或缺少中文源会在构建与测试时报错。

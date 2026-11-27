@@ -50,14 +50,22 @@ const splitList = (selector) => {
 const all = rules(css);
 const styleRules = all.filter(({ head }) => !head.startsWith("@keyframes"));
 
-test("the theme is registered fourth, with its own root, routes and layout", () => {
+test("the theme is registered fourth, serves the default root routes, and keeps legacy redirects", () => {
   assert.deepEqual(themes.map(({ id }) => id), ["blank", "ema", "endfield", "arknights"]);
-  assert.equal(themes[3].root, "/themes/arknights");
-  assert.equal(getTheme("/ja/themes/arknights/blog/"), "arknights");
-  assert.equal(getThemePath("arknights", "/en/themes/endfield/games/?q=x#top"), "/en/themes/arknights/games/?q=x#top");
-  assert.equal(getThemePath("arknights", "/404.html"), "/themes/arknights/404/");
-  for (const route of ["src/pages/themes/arknights/[...page].astro", "src/pages/[lang]/themes/arknights/[...page].astro"]) {
+  assert.equal(themes[3].root, "");
+  assert.equal(themes[0].root, "/themes/blank");
+  assert.equal(getTheme("/ja/blog/"), "arknights");
+  assert.equal(getThemePath("arknights", "/en/themes/endfield/games/?q=x#top"), "/en/games/?q=x#top");
+  assert.equal(getThemePath("arknights", "/404.html"), "/404.html");
+  assert.equal(getThemePath("blank", "/404.html"), "/themes/blank/404/");
+  for (const route of ["src/pages/index.astro", "src/pages/[lang]/[...page].astro"]) {
     assert.match(read(route), /import HomePage from "@\/themes\/arknights\/pages\/HomePage\.astro";/, route);
+  }
+  for (const route of ["src/pages/themes/blank/[...page].astro", "src/pages/[lang]/themes/blank/[...page].astro"]) {
+    assert.match(read(route), /import HomePage from "@\/themes\/blank\/pages\/HomePage\.astro";/, route);
+  }
+  for (const route of ["src/pages/themes/arknights/[...page].astro", "src/pages/[lang]/themes/arknights/[...page].astro"]) {
+    assert.match(read(route), /<ThemeRedirect theme="arknights"/, route);
   }
   assert.match(read("src/core/themes/PageLayout.astro"), /arknights: ArknightsLayout/);
   assert.match(read("src/core/themes/registry.ts"), /"arknights"/);

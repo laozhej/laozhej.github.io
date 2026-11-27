@@ -17,7 +17,7 @@ test("every theme layout takes its search and preview metadata from SiteMeta", (
 });
 
 test("only the canonical theme's pages are indexed, and every theme's copy maps back to them", () => {
-  assert.equal(canonicalTheme, "blank", "the owner may move this later; update the OG cards with it");
+  assert.equal(canonicalTheme, "arknights", "the owner may move this later; update the OG cards with it");
   for (const locale of locales) {
     for (const path of ["/", "/blog/", "/blog/dev-log-01/", "/projects/", "/games/", "/about/", "/credits/"]) {
       const target = getThemePath(canonicalTheme, localizePath(path, locale));
@@ -27,6 +27,8 @@ test("only the canonical theme's pages are indexed, and every theme's copy maps 
         assert.equal(getThemePath(canonicalTheme, themed), target, themed);
         assert.equal(isIndexedPath(themed), theme === canonicalTheme, themed);
       }
+      const legacy = localizePath(`/themes/arknights${path}`, locale);
+      assert.equal(isIndexedPath(legacy), false, `legacy redirect ${legacy} stays out of sitemap`);
     }
     for (const theme of ["blank", "ema", "endfield", "arknights"]) assert.equal(isIndexedPath(getThemePath(theme, localizePath("/404/", locale))), false);
   }

@@ -8,7 +8,7 @@
 
 ## Blank · 黑白阅读（2026-10-31 快照）
 
-[访问当前线上页面](https://neroarataki.com/)
+[访问当前线上页面](https://neroarataki.com/themes/blank/)
 
 ![Blank 桌面首页](blank-desktop.png)
 
@@ -26,7 +26,7 @@
 
 ## 明日方舟 · 档案终端
 
-[访问当前线上页面](https://neroarataki.com/themes/arknights/)
+[访问当前线上页面](https://neroarataki.com/)
 
 该主题于 2026-11-26 新增，晚于本画廊的 2026-10-31 截图快照，待下一轮统一重拍时补入画廊。
 

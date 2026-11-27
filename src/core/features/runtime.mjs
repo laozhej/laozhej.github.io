@@ -9,6 +9,14 @@ const mountedDocuments = new WeakMap();
 // Themes provide data-site-* hooks; this entry point owns the shared behavior.
 export function mountSiteFeatures(doc, win) {
   mountedDocuments.get(doc)?.();
+  const missingPath = doc.querySelector("[data-blank-missing-path]");
+  if (missingPath && win?.location?.href) {
+    const from = new URL(win.location.href).searchParams.get("from");
+    if (from) {
+      missingPath.textContent = from;
+      missingPath.hidden = false;
+    }
+  }
   const cleanups = [
     mountColorMode(doc, win),
     ...[...doc.querySelectorAll("[data-site-collection]")].map((root) => mountCollection(root, win)),

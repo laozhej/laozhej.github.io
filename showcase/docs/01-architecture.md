@@ -4,31 +4,32 @@
 
 ## 边界从哪里划分
 
-网站采用 Astro 的静态输出。`src/pages` 生成路径，`src/core` 提供数据、内容选择、国际化、偏好与公共功能，`src/themes` 负责布局、样式和主题专属交互。构建结果部署到用户名站点根目录，不需要服务端数据库或运行时 API。
+网站采用 Astro 7.3.5 的静态输出。`src/pages` 生成路由，`src/core` 提供数据、内容选择、国际化、字体预加载、偏好与公共功能，`src/themes` 负责四套主题的布局、样式与专属交互。构建产物直接部署到 GitHub Pages 根目录，不需要服务端数据库或运行时 API。
 
 | 层 | 实际位置 | 职责 |
 | --- | --- | --- |
-| 内容源 | [`src/core/data`](../../src/core/data)、[`src/content.config.ts`](../../src/content.config.ts) | 资料、项目、收藏、便笺与文章 schema |
-| 内容选择 | [`content.ts`](../../src/core/i18n/content.ts)、[`select-posts.mjs`](../../src/core/content/select-posts.mjs) | 按语言返回内容，保持条目与文章身份 |
-| 路径组合 | [`i18n/routing.mjs`](../../src/core/i18n/routing.mjs)、[`themes/routing.mjs`](../../src/core/themes/routing.mjs) | 组合语言、主题、栏目和文章路径 |
-| 页面呈现 | [`PageLayout.astro`](../../src/core/themes/PageLayout.astro)、[`src/themes`](../../src/themes) | 选择主题布局，渲染静态 HTML |
-| 公共交互 | [`features`](../../src/core/features)、[`preferences`](../../src/core/preferences) | 搜索筛选、阅读辅助与偏好 |
-| 客户端换页 | [`SiteNavigation.astro`](../../src/core/navigation/SiteNavigation.astro) | Astro ClientRouter 与统一挂载入口 |
+| 内容源 | [`src/core/data`](../../src/core/data)、[`src/content.config.ts`](../../src/content.config.ts)、[`src/content/blog`](../../src/content/blog) | 个人资料、联系方式、项目、游戏、动画、角色、便笺与文章集合 |
+| 内容选择 | [`content.ts`](../../src/core/i18n/content.ts)、[`select-posts.mjs`](../../src/core/content/select-posts.mjs)、[`select-games.mjs`](../../src/core/content/select-games.mjs) | 按语言返回本地化资料、游戏架与文章列表，保持条目与译文身份 |
+| 路径组合 | [`i18n/routing.mjs`](../../src/core/i18n/routing.mjs)、[`themes/routing.mjs`](../../src/core/themes/routing.mjs) | 组合语言、主题、栏目和文章路径，区分规范主题（canonical）与当前页 URL |
+| 自托管字体 | [`subsets.css`](../../src/core/fonts/subsets.css)、[`FontLinks.astro`](../../src/core/fonts/FontLinks.astro) | 预加载当前主题与语言所需的精简子集，并在页面加载后空闲时挂载补字分片 |
+| 页面呈现 | [`PageLayout.astro`](../../src/core/themes/PageLayout.astro)、[`src/themes`](../../src/themes) | 按路由选择 Blank、Ema、Endfield 或 Arknights 布局，渲染静态 HTML |
+| 公共交互 | [`features`](../../src/core/features)、[`preferences`](../../src/core/preferences) | 搜索筛选排序、目录与阅读进度、折叠展开、平滑回顶、深浅色与动效偏好 |
+| 客户端换页 | [`SiteNavigation.astro`](../../src/core/navigation/SiteNavigation.astro) | Astro ClientRouter、构建版本请求、悬停预取、统一生命周期与滚动恢复 |
 
-`PageLayout.astro` 是公共核心选择具体主题布局的显式入口。公共客户端模块不导入主题实现，这项约束由 `tests/theme-runtime.test.mjs` 检查。主题依赖核心接口，核心通过登记表调用当前主题的增强。
+`PageLayout.astro` 是公共核心引用主题布局的唯一显式入口。公共客户端模块不导入任何主题实现，这项边界由 [`tests/theme-runtime.test.mjs`](../../tests/theme-runtime.test.mjs) 守护。因为 `PageLayout.astro` 引入了四套布局，各主题 CSS 会随共享页到达其他主题，因此每个主题的规则必须严格限定在 `html[data-theme="…"]` 或主题专属类名之下。
 
-## 一个栏目如何生成多个外观
+## 一个栏目如何生成四套外观
 
-例如 `projects` 页面读取同一个 `getSiteContent(locale)`。Blank 路径使用根目录，艾玛路径带 `/themes/ema/`，工业风路径带 `/themes/endfield/`；非简体中文的语言前缀放在主题前面。
+以 `projects` 页面为例，四套主题都读取同一个 `getSiteContent(locale)`。Blank 使用根路径，另外三套主题分别挂载在 `/themes/ema/`、`/themes/endfield/` 和 `/themes/arknights/`；非简体中文的语言前缀排在主题前缀之前：
 
 ```text
 /projects/
 /themes/ema/projects/
-/ja/themes/ema/projects/
-/en/themes/endfield/projects/
+/ja/themes/endfield/projects/
+/en/themes/arknights/projects/
 ```
 
-共享作品页面提供语义结构和 `data-site-*` 功能标记。艾玛的作品页委托给它，工业风路由也直接使用它；当前主题的布局和样式改变呈现。各主题首页与部分页面可以独立编排，因此并没有把每个页面都强制变成同一套模板。
+Blank、终末地与明日方舟共用同一套内页组件（文字、作品、游戏、关于、致谢、404），依靠各自样式表与 `data-site-*` 钩子呈现不同外观；樱色档案的首页、作品页、游戏页与关于页则独立编排，只共享同一份数据源与筛选钩子。
 
 ## 换页时谁负责什么
 
@@ -39,28 +40,28 @@ sequenceDiagram
     participant C as 公共功能
     participant T as 当前主题运行时
     A->>L: before-preparation
-    L->>A: 为 HTML 请求附加构建版本
+    L->>A: 为站内请求附加构建号
     A->>L: before-swap
     L->>C: 清理旧监听与观察器
     L->>T: 清理旧主题实例
     A->>L: after-swap
-    L->>C: 挂载偏好与公共功能
+    L->>C: 挂载偏好、字体补片与公共功能
     L->>T: 挂载当前主题增强
-    L->>A: 恢复历史滚动或锚点
+    L->>A: 恢复历史滚动位置或跨页锚点
 ```
 
-Astro 负责获取页面、历史记录、请求取消和页面替换。项目自己的适配层负责命令式脚本的生命周期：同一个 body 不重复挂载；离开时清理；新主题脚本稍后登记时，登记表能补挂当前页面。
+Astro 负责抓取文档、管理历史记录与视图替换；公共生命周期负责命令式脚本的幂等挂载、离页清理、后退/刷新时的滚动位置二次校准，以及新主题脚本晚到时的立即补挂。
 
-深浅色选择在目标文档被捕获前同步，减少换页时的颜色闪烁。暂停动效和系统减少动态都会跳过过渡。浏览器返回时，先挂载可能改变高度的首页增强，再恢复滚动位置。
+主题切换链接带有 `data-astro-reload`，以整页加载切换到目标主题，避免旧主题的测量状态与新主题的样式表冲突；同一主题内的栏目切换则使用客户端过渡，减少闪烁。
 
 ## 关键取舍
 
 | 决策 | 得到什么 | 代价与边界 |
 | --- | --- | --- |
-| 主题进入 URL | 链接可分享，刷新和历史记录可还原当前界面 | 生成页面数增加；新增路由需照顾所有语言与主题 |
-| URL 优先于保存的主题 | 直接链接不会被偏好重定向到另一种外观 | 保存偏好与当前页面主题可能不同，二者需分开表达 |
-| 静态生成 + 客户端导航 | 页面可直接访问，站内导航可连续过渡 | 脚本必须处理挂载、清理、滚动和部署缓存 |
-| 内容和功能共用 | 一处修复可供各主题使用 | 主题必须渲染相应控件；共享逻辑不会自动产生界面 |
-| 主题专属电台 | 艾玛页面间保持 Web Audio 引擎 | 离开艾玛后延迟停止；不承诺完整刷新后继续播放 |
+| 主题进入 URL | 链接可分享，刷新与前进后退能还原当前界面 | 静态页面扩展到 128 页；规范地址（canonical）与 sitemap 统一指向 Blank |
+| URL 优先于保存的主题 | 显式链接不会被本地偏好重定向走 | 保存的偏好与当前查看主题可能不同，状态需分开维护 |
+| 静态生成 + 客户端导航 | 无 JS 仍完整可读，站内浏览过渡连续 | 脚本必须严格处理清理、滚动恢复、平滑回顶与部署缓存 |
+| 双层自托管字体 | 跨平台字形一致，首屏下载量远小于整包 CJK 字体 | 内容新增较多生僻字时需要重新截取第一层子集 |
+| 主题专属 MP3 电台 | 樱色档案页面间持续播放同一音频实例，点击后才下载 | 离开樱色档案后延迟暂停；整页刷新不续播 |
 
-新增主题的实际接入契约见[主题开发说明](../../docs/THEMES.md)。
+新主题与共享层的完整技术契约见[主题开发说明](../../docs/THEMES.md)。

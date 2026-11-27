@@ -2,63 +2,59 @@
 
 [返回案例首页](../README.md) · [截图清单](../gallery/README.md)
 
-## 快照与环境
+## 检查环境与基线
 
-本次案例整理日期为 **2026-10-31**。网站实现基线为 [`de9b413`](https://github.com/laozhej/laozhej.github.io/commit/de9b413e6944d27f3c105c53f85ddf9a160d7deb)，同次 showcase 更新补充作品介绍和案例链接。下述本地结果对应该版本及本次改动，不是对未来版本的长期保证。
+本验证记录更新于 **2026-11-28**（基于 `main` [`f80b3e3`](https://github.com/laozhej/laozhej.github.io/commit/f80b3e31fb491a083e17f00d2bf8b1428801680d) 及全站文案与字体同步）。画廊中的 6 张 PNG 仍保留 2026-10-31 历史快照（见 [`gallery/manifest.json`](../gallery/manifest.json)），待页头美术定稿后统一重拍。
 
-- 本地 Node.js：22.23.0；GitHub Actions 配置为 Node.js 24。
-- 使用现有依赖与锁文件，不为 showcase 添加前端运行依赖。
-- 截图来源：本机生产构建，由 Chromium 浏览器访问；尺寸与显示状态见[截图清单](../gallery/README.md)。
-
-2026-11-06 已移除 Live2D 看板娘及其专属测试。下方结果保留 2026-10-31 的历史记录；测试文件表仅链接当前仍保留的模块，画廊和截图清单未随此次移除重拍。
+- 本地 Node.js：`24.19.0`（与 GitHub Actions 部署版本一致；`PATH=/usr/local/bin:/usr/bin:/bin`）。
+- 浏览器检查环境：桌面端 Playwright 驱动的 Chrome `158.0.8127.38`（macOS），访问本地生产构建 `dist/`。
 
 ## 已执行的检查
 
 | 检查 | 结果及含义 |
 | --- | --- |
-| `npm test` | 94 项测试通过；验证公共模块及主题交互逻辑 |
-| `npm run build` | 成功生成 84 个页面，覆盖三主题、四语言及现有栏目 |
-| `npm run showcase:check` | 84 个语言／主题页面、12 个本地化作品入口、88 个案例本地文件链接通过检查 |
-| 浏览器检查 | 12 个作品页窄视口检查及主题／语言切换、深浅色、历史返回、减少动态检查通过；本次采样无页面脚本异常 |
+| `npm test` | 38 份测试文件共 **255 项**测试全部通过；覆盖公共层、四语、无障碍名称、触控目标、自托管字体与四套主题运行时 |
+| `npm run build` | 成功生成 **128 个静态页面**，覆盖四套主题、四种语言、全部栏目及四语文章 `dev-log-01` |
+| `npm run showcase:check` | 112 个主题／语言页面、16 个本地化作品页案例链接与案例文档内全部本地链接均通过校验 |
+| 浏览器窄视口与交互检查 | Chrome `158.0.8127.38` 检查全部 16 个作品页（390 × 844 均无横向溢出）与 6 项跨主题／跨语言交互，无页面脚本异常 |
 
-空文章目录会触发 Astro 的内容集合警告。目前没有正式博客文章，该警告与当前内容状态一致，不代表已验证真实文章在每个主题里的排版。
-
-## 测试覆盖什么
+## 测试覆盖范围
 
 | 范围 | 测试文件 |
 | --- | --- |
-| 语言与主题路径、偏好、404 映射 | [`i18n`](../../tests/i18n.test.mjs)、[`themes`](../../tests/themes.test.mjs)、[`preferences`](../../tests/preferences.test.mjs) |
-| 导航清理、换页、构建缓存与主题登记 | [`navigation`](../../tests/navigation.test.mjs)、[`navigation-cache`](../../tests/navigation-cache.test.mjs)、[`theme-runtime`](../../tests/theme-runtime.test.mjs) |
-| 搜索筛选、收藏、便笺与宽屏转换 | [`features`](../../tests/features.test.mjs)、[`games`](../../tests/games.test.mjs)、[`notes`](../../tests/notes.test.mjs)、[`fluid-px`](../../tests/fluid-px.test.mjs) |
-| 艾玛动效、场景、图片帧和电台 | [`ema-motion`](../../tests/ema-motion.test.mjs)、[`ema-scenes`](https://github.com/laozhej/laozhej.github.io/blob/de9b413e6944d27f3c105c53f85ddf9a160d7deb/tests/ema-scenes.test.mjs)（快照版本；该测试与它覆盖的场景切换脚本已于 2026-11-13 一并移除）、[`ema-frames`](../../tests/ema-frames.test.mjs) |
+| 语言路由、浏览器语言分流、译文选择与文案一致性 | [`i18n`](../../tests/i18n.test.mjs)、[`wrap`](../../tests/wrap.test.mjs)、[`seo`](../../tests/seo.test.mjs) |
+| 主题路径、运行时挂载与清理、导航缓存与滚动恢复 | [`themes`](../../tests/themes.test.mjs)、[`theme-runtime`](../../tests/theme-runtime.test.mjs)、[`navigation`](../../tests/navigation.test.mjs)、[`navigation-cache`](../../tests/navigation-cache.test.mjs)、[`scroll-restore`](../../tests/scroll-restore.test.mjs) |
+| 深浅色、动效暂停、搜索筛选、平滑回顶与宽屏缩放 | [`preferences`](../../tests/preferences.test.mjs)、[`features`](../../tests/features.test.mjs)、[`back-to-top`](../../tests/back-to-top.test.mjs)、[`fluid-px`](../../tests/fluid-px.test.mjs)、[`frontend-robustness`](../../tests/frontend-robustness.test.mjs) |
+| 无障碍名称、网页平台规范与四主题 44 px 点按范围 | [`a11y-names`](../../tests/a11y-names.test.mjs)、[`web-platform`](../../tests/web-platform.test.mjs)、[`blank-targets`](../../tests/blank-targets.test.mjs)、[`ema-targets`](../../tests/ema-targets.test.mjs)、[`ema-tap-targets`](../../tests/ema-tap-targets.test.mjs)、[`endfield-targets`](../../tests/endfield-targets.test.mjs) |
+| 字体自托管、图片资产清单与收藏数据 | [`self-hosted-fonts`](../../tests/self-hosted-fonts.test.mjs)、[`assets`](../../tests/assets.test.mjs)、[`games`](../../tests/games.test.mjs)、[`notes`](../../tests/notes.test.mjs)、[`image-import`](../../tests/image-import.test.mjs) |
+| 樱色档案、Blank、终末地与明日方舟主题专项 | [`blank-ema-motion`](../../tests/blank-ema-motion.test.mjs)、[`ema-stage`](../../tests/ema-stage.test.mjs)、[`ema-frames`](../../tests/ema-frames.test.mjs)、[`ema-avatar`](../../tests/ema-avatar.test.mjs)、[`ema-games`](../../tests/ema-games.test.mjs)、[`ema-works`](../../tests/ema-works.test.mjs)、[`ema-article-art`](../../tests/ema-article-art.test.mjs)、[`ema-plate`](../../tests/ema-plate.test.mjs)、[`ema-storyboard`](../../tests/ema-storyboard.test.mjs)、[`ema-ring`](../../tests/ema-ring.test.mjs)、[`ema-terminal`](../../tests/ema-terminal.test.mjs)、[`ema-motion`](../../tests/ema-motion.test.mjs)、[`endfield-motion`](../../tests/endfield-motion.test.mjs)、[`arknights`](../../tests/arknights.test.mjs) |
 
-部分测试使用受控 DOM、窗口或音频替身，适合检查状态与清理逻辑。它们不能替代真实浏览器渲染、实际声音质量或视觉审阅。
+注：单元测试验证逻辑、结构与约束，不能替代真实浏览器渲染、真机触控或视觉审阅。
 
-## 浏览器记录
+## 浏览器交互记录
 
-真实画面和检查的机器可读结果保存在 [`gallery/manifest.json`](../gallery/manifest.json) 与 [`browser-checks.json`](../browser-checks.json)。记录包含实际视口、语言、主题、颜色模式与检查结果。截图为单次取样，不能证明滚动和过渡全过程都正确。
+机器可读的浏览器检查结果保存在 [`browser-checks.json`](../browser-checks.json)。Chrome `158.0.8127.38` 在 390 × 844 下检查了全部 16 个作品页（4 套主题 × 4 种语言），横向溢出均为 `false`，无 `pageerror`；并在 1440 × 900 下验证了以下 6 项交互：
 
-本次使用 Chromium 156.0.8078.74，逐张查看了 9 张画面。作品入口在 390 × 844 下覆盖三套主题与四种语言，没有检测到页面横向溢出。实际点击验证了以下行为：
-
-- 英文作品页从 Blank 切到工业风，保留语言、查询参数与锚点，窗口未重新加载。
-- 工业风作品页切换日语，保留主题和查询，按设计清除可能随翻译变化的锚点。
-- 手动深色选择跨主题、跨语言保留；浏览器返回恢复原页面语言。
-- 启用系统减少动态后，艾玛页面进入暂停状态，动效按钮标记为不可用。
+- 英文作品页从 Blank 切换到终末地工业风，保留语言、查询参数与锚点。
+- 终末地作品页切换到日语，保留当前主题与查询参数。
+- 浏览器后退后恢复上一个语言版本。
+- 手动切换深色模式后，跨主题（Blank → 明日方舟）与跨语言（en → ja）保持深色。
+- 再次点击深浅色按钮切回系统当前浅色后，清除本地覆盖项，恢复跟随系统。
+- 开启系统 `prefers-reduced-motion: reduce` 后，樱色档案页面自动进入暂停动效状态。
 
 ## 复现
 
-在仓库根目录运行：
+在仓库根目录使用 Node 24 运行：
 
 ```sh
 npm ci
 npm test
 npm run build
 npm run showcase:check
-npm run preview
 ```
 
-打开终端打印的本机地址。按截图清单中的路径设置视口和颜色模式；对比时需注意系统中文字体、浏览器、动画时刻和本地时间可能造成差异。更新截图后同时更新 manifest 与验证记录。
+若要在浏览器中本地查看构建产物，建议用静态文件服务打开 `dist/`（例如 `python3 -m http.server 4321 --directory dist`）。
 
 ## 尚未覆盖
 
-本次未执行 Lighthouse 性能基准、完整 WCAG 审核、真实 iOS / Android 设备测试或 Firefox / Safari 的兼容矩阵。没有发布这些方面的评分或通过结论。当时的 Live2D 控制逻辑测试也不等于模型在所有 GPU 上的渲染验证。
+本机自动化运行仅覆盖桌面端 Playwright 驱动的 Chromium / WebKit；**真正的 macOS / iOS Safari、Firefox、实体手机触控、真实触控板滚轮舞台体验及完整 Lighthouse 基准**尚未在本轮执行，不据此宣称已完成跨设备真机验收。

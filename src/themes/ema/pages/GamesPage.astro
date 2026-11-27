@@ -29,7 +29,7 @@ const linkLabel = (game: (typeof gameShelf)[number]) => (game.link?.steam ? "Ste
   <header class="games-opening">
     <div>
       <p class="games-eyebrow">03 / {t("nav.games")}</p>
-      <h1>{t("games.label")}<span class="games-sub" lang="en">Games</span></h1>
+      <h1>{t("games.label")}{locale !== "en" && <span class="games-sub" lang="en">Games</span>}</h1>
       <p class="games-intro">{keepTails(t("games.intro"))}</p>
     </div>
     <p class="games-total"><strong>{pad(total)}</strong><span>{unit("common.games", total)}</span></p>

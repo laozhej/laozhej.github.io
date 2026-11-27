@@ -37,5 +37,5 @@ test("only invisible joins are added, so the words themselves never change", () 
 test("the reported awkward wraps are joined", () => {
   assert.ok(keepTails(games.find((game) => game.key === "rdr2").names["zh-CN"]).endsWith(`${NBSP}2`));
   assert.ok(keepTails(projectEntries[0].summary).includes(`交${JOINER}互。`));
-  assert.ok(keepTails(currentSignals[0].text).endsWith(`内${JOINER}容`));
+  assert.ok(keepTails(currentSignals[0].text).endsWith(`制${JOINER}作`));
 });

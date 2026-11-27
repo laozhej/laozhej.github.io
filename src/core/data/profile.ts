@@ -14,17 +14,17 @@ export const profileIdentity = {
 export const profileStatus = [
   "使用语言：中文普通话、日语、英语、西班牙语",
   "掌握多种编程语言",
-  "正在学习如何用AI协助开发",
-  "了解未来的游戏趋势"
+  "正在学习如何用 AI 协助开发",
+  "关注游戏行业的新趋势"
 ] as const;
 
 export const profileTech = [
-  { key: "unity", name: "Unity3D", note: "游戏制作/交互逻辑" },
-  { key: "blender", name: "Blender", note: "动画制作/场景建模" },
-  { key: "unreal", name: "UE5", note: "高阶游戏制作" },
+  { key: "unity", name: "Unity3D", note: "游戏制作 / 交互逻辑" },
+  { key: "blender", name: "Blender", note: "动画制作 / 场景建模" },
+  { key: "unreal", name: "UE5", note: "进阶游戏开发" },
   { key: "godot", name: "Godot", note: "小型游戏开发" },
-  { key: "rpgmaker", name: "RPG Maker MZ", note: "传统RPG游戏制作" },
-  { key: "vscode", name: "Visual Studio Code", note: "编程工具" }
+  { key: "rpgmaker", name: "RPG Maker MZ", note: "传统 RPG 游戏制作" },
+  { key: "vscode", name: "Visual Studio Code", note: "日常代码编辑器" }
 ] as const;
 
 // Each key matches a game in games.ts; getSiteContent adds its link (official page, else Steam).
@@ -38,7 +38,7 @@ export const favoriteGames = [
 export const xpFavorites = getFavoriteCharacters("zh-CN");
 
 export const currentSignals = [
-  { label: "正在做", text: "开始研究各种与 AI、软件开发和游戏制作相关的内容" },
-  { label: "接下来", text: "将会慢慢记录我的研究进程和日常" },
-  { label: "视觉方向", text: "此网站已做成多个主题，未来会慢慢打磨并增加新内容" }
+  { label: "正在做", text: "边学边折腾 AI、软件开发和游戏制作" },
+  { label: "接下来", text: "把学习笔记、项目进展和日常陆续写进网站" },
+  { label: "站点规划", text: "在现有四套主题的基础上继续打磨细节，补充文章与收藏" }
 ] as const;

@@ -76,8 +76,8 @@ const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? pos
     </dl>
   </section>
 
-  <section class="ef-section ef-now" aria-labelledby="ef-now-title">
-    <p class="ef-eyebrow" id="ef-now-title">// 03 {t("home.currently")}</p>
+  <section class="ef-section ef-now" aria-label={t("about.now")}>
+    <p class="ef-eyebrow" lang="en">// 03 Currently</p>
     <p class="ef-now-text">{keepTails(currentSignals[0].text)}</p>
     <a class="ef-link" href={href("/about/")}>{t("common.moreNow")}</a>
   </section>

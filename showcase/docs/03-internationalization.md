@@ -4,38 +4,44 @@
 
 ## 界面、内容和路径分开处理
 
-全站语言代码为 `zh-CN`、`zh-TW`、`ja`、`en`。简体中文位于根目录，其他语言使用前缀。语言路由放在主题路由之前，例如 `/zh-TW/themes/endfield/about/`。
+全站支持 `zh-CN`、`zh-TW`、`ja`、`en` 四种语言。简体中文位于无前缀路径，其余三种语言使用语言前缀，且语言前缀始终位于主题前缀之前，例如 `/zh-TW/themes/arknights/about/`。
 
-界面与无障碍文案由 [`messages.ts`](../../src/core/i18n/messages.ts) 及其导入的消息模块提供；个人资料和项目的语言版本由 [`getSiteContent(locale)`](../../src/core/i18n/content.ts) 返回。游戏、角色、动画等条目使用稳定键关联语言名称与同一来源，主题不用复制数据。
+界面文案与无障碍名称集中在 [`messages.ts`](../../src/core/i18n/messages.ts) 及按主题拆分的几个消息模块；个人资料、项目、游戏、动画与角色由 [`getSiteContent(locale)`](../../src/core/i18n/content.ts) 统一返回。游戏、动画和角色用稳定 `key` 关联多语言名称与共享链接，四套主题不各自复制字典。
 
-台湾繁体中文单独维护，采用台湾常用词和对应作品名称。它不是运行时对简体字做机械替换。维护多套文案有成本：源内容变化时，译文仍需更新。
+台湾繁体中文（`zh-TW`）独立维护，使用台湾惯用词与官方译名（例如「專案」「檢視」「本機載入」「碧血狂殺 2」「對馬戰鬼」「電馭叛客 2077」），而不是对简体中文做机械转码。四种语言还各自加载对应地区字形标准的自托管字体（SC / TC / JP）。
 
 ## 切换的是语言，不是内容身份
 
-以某篇文章的假设路径为例：
+博客文章通过 `translationKey` 关联同一篇文章的多语言版本。以已发布的 `dev-log-01` 为例：
 
 ```text
-中文原文：src/content/blog/my-note.md
-英文译文：src/content/blog/en/my-note.md
-共同身份：translationKey: my-note
+简体原文：src/content/blog/dev-log-01.md
+繁体译文：src/content/blog/zh-TW/dev-log-01.md
+日语译文：src/content/blog/ja/dev-log-01.md
+英语译文：src/content/blog/en/dev-log-01.md
 
-公开地址：/blog/my-note/
-英文地址：/en/blog/my-note/
-艾玛英文：/en/themes/ema/blog/my-note/
+公开地址：/blog/dev-log-01/
+繁中地址：/zh-TW/blog/dev-log-01/
+樱色日文：/ja/themes/ema/blog/dev-log-01/
+方舟英文：/en/themes/arknights/blog/dev-log-01/
 ```
 
-这是机制示例，不是已发布文章。`selectPosts` 先按身份分组，再选请求语言；没有译文就使用中文源，文章页明确提示当前显示中文原文。草稿不会替代已发布译文，也不会对外发布。重复译文或缺少中文源会报错，避免生成身份冲突的链接。
+[`select-posts.mjs`](../../src/core/content/select-posts.mjs) 按 `translationKey` 分组后选取请求语言；若某语言尚未翻译，则保留简体中文原文并在页面上明确提示当前显示原文。草稿不会对外发布，重复译文或缺少中文源会在构建与测试时报错。
 
-当前 `src/content/blog` 为空，文章列表显示空状态。译文选择和错误条件由现有测试覆盖，本案例不拿示例文章充当真实写作成果。
+同一套内容同时输出各语言的 RSS 订阅（`/rss.xml` 与 `/<locale>/rss.xml`，由 [`feed.ts`](../../src/core/content/feed.ts) 生成）以及指向规范主题的 `canonical` 与 `hreflang` 标记（[`SiteMeta.astro`](../../src/core/components/SiteMeta.astro)）。
 
-## 访问路径与偏好
+## 访问路径、自动语言与偏好
 
-`site-locale` 保存语言偏好，不同主题不另建存储。带语言前缀的链接直接打开指定版本。无前缀入口优先使用保存的选择，其次按浏览器偏好顺序匹配，全部不支持时使用英语。主题路径由 URL 确定，语言选择不会抹掉当前主题。
+`site-locale` 在四套主题间共享。语言决策规则由 [`LanguagePreference.astro`](../../src/core/i18n/LanguagePreference.astro) 在首次绘制前执行：
 
-例如从 `/ja/themes/ema/games/?category=story#top` 切换主题，应改变主题部分，同时保留日语、游戏栏目、查询参数与锚点。路由组合函数负责这一点，避免每个主题分别做字符串拼接。
+1. 带语言前缀的 URL 直接展示指定语言，不被本地偏好覆盖。
+2. 无语言前缀入口和根 `404.html` 优先读取已保存的 `site-locale`；未保存时按浏览器语言偏好列表匹配 `zh-CN`、`zh-TW`、`ja`、`en`，全不匹配时回退到英语（`en`）。
+3. 即使客户端脚本仍在下载，点击语言菜单也会立刻保存选择并跳转，避免早点失效。
+
+从任意带参数路径（例如 `/ja/themes/ema/games/?category=story#top`）切换主题时，公共路由组合函数会保留语言、栏目、查询参数与锚点。
 
 ## 维护约束
 
-新增界面文字必须补齐四种语言；新增文章译文使用相同 `translationKey`。主题从公共接口读取内容，不能自己维护另一份资料或词典。没有完成翻译的内容需要说明实际语言。
-
-本次作品页的案例链接也分别提供四种语言标签，并明确指出案例正文为简体中文。
+- 每条共享界面键都必须在四种语言中成套出现且非空，由 [`tests/i18n.test.mjs`](../../tests/i18n.test.mjs) 检查（同时守住站主英文名顺序 `Asahi Arataki` 与英文拼写一致性）。
+- 作品页指向本案例文档的链接按四种语言分别标注，非简体中文页面明确说明案例正文为简体中文。
+- 日文与中文断行使用 [`wrap.mjs`](../../src/core/i18n/wrap.mjs) 防止句末孤字或尾部序号被拆到下一行。

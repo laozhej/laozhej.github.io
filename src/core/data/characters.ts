@@ -370,7 +370,7 @@ const characters = [
     "title": {
       "zh-CN": "雨宫莲",
       "zh-TW": "雨宮蓮",
-      "ja": "雨宮 蓮",
+      "ja": "雨宮蓮",
       "en": "Ren Amamiya"
     },
     "work": {
@@ -386,7 +386,7 @@ const characters = [
     "title": {
       "zh-CN": "佐仓双叶",
       "zh-TW": "佐倉雙葉",
-      "ja": "佐倉 双葉",
+      "ja": "佐倉双葉",
       "en": "Futaba Sakura"
     },
     "work": {
@@ -402,7 +402,7 @@ const characters = [
     "title": {
       "zh-CN": "结城理",
       "zh-TW": "結城理",
-      "ja": "結城 理",
+      "ja": "結城理",
       "en": "Makoto Yuki"
     },
     "work": {

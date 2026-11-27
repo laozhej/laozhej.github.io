@@ -33,8 +33,8 @@ export type GameEntry = {
 
 export const games: GameEntry[] = [
   { key: "tsushima", icon: "tsushima-icon.webp", title: "Ghost of Tsushima", names: { "zh-CN": "对马岛之魂", "zh-TW": "對馬戰鬼", ja: "ゴースト・オブ・ツシマ" }, genre: "action", steam: 2215430, url: "https://www.playstation.com/en-us/games/ghost-of-tsushima/", art: { file: "tsushima.webp", focus: "40% 50%" } },
-  { key: "steins-gate-reboot", title: "STEINS;GATE RE:BOOT", names: { "zh-CN": "命运石之门 RE:BOOT", "zh-TW": "命運石之門 RE:BOOT" }, genre: "story", steam: 4012810, art: { file: "steins-gate-reboot.webp", focus: "78% 40%" } },
-  { key: "steins-gate", title: "STEINS;GATE", names: { "zh-CN": "命运石之门", "zh-TW": "命運石之門" }, genre: "story", steam: 412830, art: { file: "steins-gate.webp", focus: "55% 40%" } },
+  { key: "steins-gate-reboot", title: "STEINS;GATE RE:BOOT", names: { "zh-CN": "命运石之门 RE:BOOT", "zh-TW": "命運石之門 RE:BOOT", ja: "シュタインズ・ゲート RE:BOOT" }, genre: "story", steam: 4012810, art: { file: "steins-gate-reboot.webp", focus: "78% 40%" } },
+  { key: "steins-gate", title: "STEINS;GATE", names: { "zh-CN": "命运石之门", "zh-TW": "命運石之門", ja: "シュタインズ・ゲート" }, genre: "story", steam: 412830, art: { file: "steins-gate.webp", focus: "55% 40%" } },
   { key: "fate-extella", title: "Fate/EXTELLA", genre: "action", steam: 511680, art: { file: "fate-extella.webp", focus: "78% 40%" } },
   { key: "fate-extella-link", title: "Fate/EXTELLA LINK", genre: "action", steam: 622220, art: { file: "fate-extella-link.webp", focus: "62% 40%" } },
   { key: "fate-hollow-ataraxia", title: "Fate/hollow ataraxia REMASTERED", genre: "story", steam: 2396990, art: { file: "fate-hollow-ataraxia.webp", focus: "12% 40%" } },
@@ -44,8 +44,8 @@ export const games: GameEntry[] = [
   { key: "endfield", title: "Arknights: Endfield", names: { "zh-CN": "明日方舟：终末地", "zh-TW": "明日方舟：終末地", ja: "アークナイツ：エンドフィールド" }, genre: "strategy", steam: 4732690, art: { file: "endfield.webp", focus: "45% 40%" } },
   { key: "cyberpunk", title: "Cyberpunk 2077", names: { "zh-CN": "赛博朋克 2077", "zh-TW": "電馭叛客 2077", ja: "サイバーパンク2077" }, genre: "action", steam: 1091500, art: { file: "cyberpunk.webp", focus: "62% 50%" } },
   { key: "cs2", title: "Counter-Strike 2", names: { "zh-CN": "反恐精英 2", "zh-TW": "絕對武力 2" }, genre: "online", steam: 730, art: { file: "cs2.webp", focus: "82% 50%" } },
-  { key: "stellar-blade", title: "Stellar Blade", names: { "zh-CN": "剑星", "zh-TW": "劍星" }, genre: "action", steam: 3489700, art: { file: "stellar-blade.webp", focus: "65% 50%" } },
-  { key: "elden-ring", title: "ELDEN RING", names: { "zh-CN": "艾尔登法环", "zh-TW": "艾爾登法環" }, genre: "action", steam: 1245620, art: { file: "elden-ring.webp", focus: "50% 50%" } },
+  { key: "stellar-blade", title: "Stellar Blade", names: { "zh-CN": "剑星", "zh-TW": "劍星", ja: "ステラーブレイド" }, genre: "action", steam: 3489700, art: { file: "stellar-blade.webp", focus: "65% 50%" } },
+  { key: "elden-ring", title: "ELDEN RING", names: { "zh-CN": "艾尔登法环", "zh-TW": "艾爾登法環", ja: "エルデンリング" }, genre: "action", steam: 1245620, art: { file: "elden-ring.webp", focus: "50% 50%" } },
   { key: "blue-archive", title: "Blue Archive", names: { "zh-CN": "蔚蓝档案", "zh-TW": "蔚藍檔案", ja: "ブルーアーカイブ" }, genre: "strategy", steam: 3557620, art: { file: "blue-archive.webp", focus: "75% 50%" } },
   { key: "vrchat", title: "VRChat", genre: "online", steam: 438100, art: { file: "vrchat.webp", focus: "22% 60%" } },
   { key: "death-stranding", title: "DEATH STRANDING", names: { "zh-CN": "死亡搁浅", "zh-TW": "死亡擱淺", ja: "デス・ストランディング" }, genre: "action", steam: 1850570, art: { file: "death-stranding.webp", focus: "45% 40%" } },

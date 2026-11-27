@@ -132,6 +132,14 @@ test("every shared interface string is present in every language", () => {
     assert.deepEqual(Object.keys(messages[locale]).sort(), keys);
     for (const key of keys) assert.ok(messages[locale][key].trim(), `${locale}: ${key}`);
   }
+  for (const locale of locales) {
+    for (const [key, value] of Object.entries(messages[locale])) {
+      assert.doesNotMatch(value, /Arataki Asahi/, `${locale}: ${key} keeps owner name order as Asahi Arataki`);
+    }
+  }
+  for (const [key, value] of Object.entries(messages.en)) {
+    assert.doesNotMatch(value, /\bfavourite/i, `en: ${key} uses US spelling "favorite"`);
+  }
 });
 
 const article = (id, locale, extra = {}) => ({ id, data: { locale, pubDate: new Date("2026-10-26"), draft: false, ...extra } });

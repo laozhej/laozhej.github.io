@@ -23,6 +23,12 @@
 
 ## 1. 现状
 
+- **已完成**（2026-11-28，站主确认推送合并，分支 `copy-fixes`）：按站主选定的方案 A、B、C 完成全站四套主题、四种语言的文案校对与润色、`showcase/` 案例文档同步更新，并补截 12 个自托管字体子集文件（不改布局和样式）：
+  - **方案 A（错漏与一致性修正）**：Blank 关于页英文版不再重复两行 `PERSONAL PROFILE`（人名下改为 `Nero`，中日文为 `Asahi Arataki / Nero`）；樱色档案游戏页英文版省略重复副标题，显示 `Game shelf`；终末地首页第三节眉题统一为 `// 03 Currently`（`<section>` 保留本地化 `aria-label`）。全站英文名统一为 `Asahi Arataki`；关于页游戏小节标题由 `GAMES / 作品` 改为 `GAMES / 喜欢的游戏`（四语同步）；移除未使用的 `about.contact` 占位；简中项目案例按钮去掉多余的「（中文）」（同步更新 `showcase/check.mjs`）；更新致谢页 `02 / ADAPTATION`、`credits.fontHosting` 与 `06 / MEDIA`（补齐 OtoLogic CC BY 4.0 署名与音频清单）；修正终末地/明日方舟英文 `favourite` → `favorite`、英文喜欢的游戏副标题改用 `Action & RPG`、`NOW STATUS` → `CURRENT STATUS`、日文量词 `作` → `本` 与敬体/口语混用、电台曲名 `（スロー）`、首页 `03 / ゲーム`、4 条游戏日文名与角色/人名空格、繁中台湾用词及个人资料中英文空格。
+  - **方案 B（去模板腔与人称润色）**：精简全站泛滥的「慢慢……」与空泛元说明（仅保留 Blank 首页 `home.statement2` 以与 OG 分享图一致），Ema 页脚改为 theme 自己的 `ema.home.diary`；将致谢页素材说明从第三人称代理备注改为自然的第一人称/站主口吻（保留全部出处与未确认授权边界）；理顺个人状态、工具说明与近况（`视觉方向` → `站点规划`），不编造任何新事实，不动文章 `dev-log-01` 正文。
+  - **方案 C（`showcase/` 案例文档同步）**：更新 `showcase/README.md`、`docs/01`–`05`、`provenance.md`、`gallery/README.md` 至四主题、四语言、128 页、255 项测试、真实博文 `dev-log-01`、MP3 电台、自托管字体（含 PR #62 的 Ema 英文 Nunito）与无 Live2D 的现状；用 Chrome 158 重跑 16 个作品页与 6 项交互检查并更新 `showcase/browser-checks.json`。画廊 6 张 PNG 及 `manifest.json` 仍保留 2026-10-31 快照，等站主定稿页头美术与截图清单后再统一重拍（第 3.3 节）。
+  - **字体与验证**：Chrome 158 扫描全部 128 页并把全部新增字符补截进 `public/fonts/site/` 的 12 个 `.woff2` 文件；`tests/i18n.test.mjs` 与 `tests/ema-games.test.mjs` 同步更新。
+
 - **待验收**（2026-11-28）：站主觉得 Ema 的樱花“不够明显，只是一小部分花瓣飘落”，要求更多更明显。花瓣数量：桌面首页 16 → 42，桌面内页 8 → 27，手机首页 9 → 24，手机内页 8 → 18；分远、中、近三层（越近越大、越快、越不透明），横向错开分布，飘落中左右摆动，颜色加深一点以便在米色纸面上看清。动效暂停和“减少动态效果”时仍然不显示。对照图在工作区 `outputs/ema-more-petals/board.png`。
 - **已批准**（2026-11-28，站主确认合并发布）：新增邮件、Instagram 和 X。四套主题的关于页使用纯图标圆钮，樱色档案首页资料卡的五个圆钮采用主题樱粉色，名字旁保留「关于我」文字链接。各主题页脚同步显示新联系方式。桌面和手机截图在工作区 `outputs/sakura-social-circles/`。
   正式域名一度把「发邮件」改写成 Cloudflare 保护页的链接。公开联系方式现使用 Cloudflare 的 HTML 注释保留原生邮件链接，访客关闭 JavaScript 时也能使用。
@@ -155,7 +161,7 @@
 
 - 范围：`public/projects/gallery/` 的六张项目截图（2026-10-31 拍摄）；`showcase/gallery/`（现在没有 Ema 的截图）；也可以新增一张 Ema 截图（§12、§14.7 记为 Open）。
 - 时机：美术定稿之后。站主说过可以用开发工具拍，不需要站主提供。
-- **提议**：同时更新 `showcase/`。它是 2026-10-31（`de9b413`）的快照，里面还写着“博客文章尚未发布”“艾玛看板娘使用 PixiJS / Live2D”，这些都已过时。
+- **提议**：重拍截图时同步刷新 `showcase/gallery/` 的 PNG 与 `manifest.json`（`showcase/` 的文字说明与 `browser-checks.json` 已于 2026-11-28 在 `copy-fixes` 分支同步至四主题现状，但 6 张画廊 PNG 仍保留 2026-10-31 快照）。
 - 改 `public/` 和 `showcase/` 之前，要站主批准截图清单。
 
 ### 3.4 其他待站主决定的美术问题

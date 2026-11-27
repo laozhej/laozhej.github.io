@@ -1,6 +1,6 @@
 # Art direction
 
-This file directs the art of Ema / 樱色档案: what is drawn, painted or typeset inside the layouts that [REFERENCE.md](REFERENCE.md) maps from the reference's `fuyukawa-kagari` theme. It covers the artwork, palette, light, paper and texture, typography, Ema's five poses, sources and licensing, the material still needed, and the completed cleanup of uncleared files. Layout geometry, navigation, motion and interaction belong to REFERENCE.md.
+This file guides the artwork, palette, typography and five poses of Ema / 樱色档案. It records source and licensing decisions alongside the work still needed. [REFERENCE.md](REFERENCE.md) documents earlier layout and interaction choices. The current design direction is in [AGENTS.md](../AGENTS.md#design-direction).
 
 Status: revised on 2026-11-14 on `claude/ema-art-motifs` for the owner's art plan (section 14); the owner approved committing, merging and deploying it the same day. The P2 pilot (section 14.5) followed on `claude/ema-inner-pilot`; the owner kept it as final and froze it the same day, and accepted it on 2026-11-15. The article-page pilot (section 14.6) followed on 2026-11-15 on `claude/ema-article-pilot`; the owner approved its design the same day and authorised committing it, its pull request (PR 18) and the merge into `main`. The Works pilot (section 14.7) followed on 2026-11-15 on `claude/ema-works-pilot`; the owner visually accepted its layout the same day and approved committing it. PR 12 (the redesign, the restoration and the mobile occlusion fix of section 13), PR 13 (full-screen stage, hover-only theatre card) and PR 14 (next pose fetched ahead) are merged into `main` and deployed. The earlier revision for section 13 was made on `claude/reference-redesign`. The following rounds 5 and 6 decisions describe the 2026-11-13 baseline. That day the owner confirmed composition B, approved the light direction, canvas, export size, safe regions and removal of the slate once the art arrives, and approved cleanup groups A, B and C with the credits rewording. The cleanup is complete (section 10). Round 6 was a finishing pass the owner asked for: the 月代雪 subtitle, the small-screen layout and the Japanese and English hints (sections 2.3 and 8.7). Nothing here is approved unless it is labelled **Approved**. The 2026-11-14 request supersedes the earlier placeholder-only restriction for exactly five historical images; it does not confirm their source or permission. Future commissioned-art specifications below do not require altering these restored files.
 
@@ -19,9 +19,9 @@ Every statement carries one of four labels. Dated sections preserve earlier revi
 ## 1. Authority
 
 - **Approved.** AGENTS.md sets the repository rules, approvals and licences. The owner’s 2026-11-14 request explicitly overrides its earlier placeholder-only restriction for the five images in section 13.
-- **Approved.** The reference site (Yuimi-chaya, `fuyukawa-kagari`) is the authority for layout and interaction. REFERENCE.md records the mapping and every deviation. The reference's artwork is not ours and is not a study reference.
+- **Approved** (2026-11-27). Future layouts and interactions may be original. Yuimi-chaya is an optional reference for design patterns. Its artwork remains excluded from both use and art study.
 - **Approved.** This file controls the artwork: what is drawn inside that layout.
-- **Proposed.** This file never moves, resizes or re-times anything REFERENCE.md specifies. Where it quotes geometry (the figure frame, the mask, overlaps), the numbers brief the artwork and the stylesheets stay the source. An art idea that needs a layout change goes to REFERENCE.md as a proposed deviation.
+- The measurements here describe the approved compositions. If an art proposal would change a frozen composition, bring that specific change to the owner.
 - **Open.** The desktop wheel takeover (the identity card pulled up by the wheel, and the covers between scenes) is implemented as in the reference and is pending the owner's review on a real trackpad. It does not affect this brief.
 
 ## 2. Composition
@@ -426,7 +426,7 @@ This section records the 2026-11-13 cleanup. The owner subsequently restored fiv
 - Ema is the dominant homepage hero; never a card, slot or card wall; prominent on phones.
 - Five poses with 艾玛的小剧场 and 点击艾玛，翻开下一幕 in all four locales: always visible on touch screens and in the stacked layout; with a mouse on the side-by-side stage, shown while the pointer is over Ema or the card's place, or while keyboard focus is there (owner's request, 2026-11-14).
 - 向下浏览 separate from pose switching; tap versus drag; a recognisable motion control; the quieter storyboard; no new visual style.
-- The reference site governs layout and interaction; this file governs the artwork.
+- The owner sets the direction for layout, interaction and artwork. The current design policy is in AGENTS.md.
 - Cream and sakura palette; WCAG AA in both modes; Chinese navigation in the site's Song serif.
 - No generative-AI images or reference media; sources and licences recorded before any illustration is used.
 - Approved on 2026-11-14: restore only the five Ema images from `76c9da5` unchanged, overriding the earlier official-sprite and placeholder-only restrictions for this set. Sources and permissions remain unconfirmed. Preserve B composition, background, four-locale theatre copy and interactions.

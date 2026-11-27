@@ -5,6 +5,7 @@ import { Icon } from "astro-icon/components";
 import BlankLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "../components/PageHead.astro";
 import PostRow from "../components/PostRow.astro";
+import { getTheme } from "@/core/themes/registry";
 import { getPublishedPosts } from "@/core/content/blog";
 const { locale, t, unit, categoryLabel } = getI18n(Astro.url.pathname);
 const posts = await getPublishedPosts(locale);
@@ -12,10 +13,12 @@ const categories = Object.entries(categoryLabel).filter(([key]) => posts.some((p
 // With nothing published there is nothing to search, sort or filter, so only the empty state is shown.
 // It keeps the #blank-search anchor, so the header's search link still lands on it.
 const empty = posts.length === 0;
+const blank = getTheme(Astro.url.pathname) === "blank";
+const compact = blank && posts.length <= 1;
 ---
 <BlankLayout title={`${t("nav.blog")} | ${site.name}`} description={t("blog.description")}>
-  <PageHead index="01" title="Journal" label={t("blog.label")} description={t("blog.intro")} count={String(posts.length).padStart(2, "0")} unit={unit("common.entries", posts.length)}><slot name="head-art" slot="art" /></PageHead>
-  <section class="blank-archive" data-site-collection data-unit={t("common.articles")} data-unit-one={t("common.articlesOne")} aria-label={t("blog.archive")}>
+  <PageHead index="01" title="Journal" label={t("blog.label")} description={t("blog.intro")} count={String(posts.length).padStart(2, "0")} unit={unit("common.entries", posts.length)} class={compact ? "bj-journal-head" : undefined}><slot name="head-art" slot="art" /></PageHead>
+  <section class:list={["blank-archive", { "bj-short-archive": compact }]} data-site-collection data-unit={t("common.articles")} data-unit-one={t("common.articlesOne")} aria-label={t("blog.archive")}>
     {empty ? (
       <p class="blank-empty-message" id="blank-search">{t("blog.empty")}</p>
     ) : (
@@ -33,7 +36,7 @@ const empty = posts.length === 0;
               <select id="blank-sort" name="sort" data-site-sort><option value="newest">{t("blog.newest")}</option><option value="oldest">{t("blog.oldest")}</option></select>
             </div>
           </div>
-          <fieldset class="blank-filters">
+          <fieldset class:list={["blank-filters", { "bj-single-category": blank && categories.length < 2 }]}>
             <legend class="blank-sr-only">{t("blog.categories")}</legend>
             <button type="button" data-site-category="all" aria-pressed="true">{t("blog.all")} <span>{posts.length}</span></button>
             {categories.map(([key, label]) => <button type="button" data-site-category={key} aria-pressed="false">{label} <span>{posts.filter((post) => post.data.category === key).length}</span></button>)}

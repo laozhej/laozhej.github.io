@@ -20,14 +20,16 @@ Current status, next steps and the decisions waiting for the owner are in [`docs
 
 ## Design direction
 
-The design reference is <https://github.com/Yuimi-chaya/Yuimi-chaya.github.io> and its running site <https://yuimi-chaya.github.io/>, studied at commit `0056030` (2026-11-06). Its layouts and interactions are a strict specification for Ema and Blank; its artwork is not ours to use. `docs/REFERENCE.md` holds the element-by-element mapping and the list of deliberate deviations. When a reference pattern cannot hold our content, record the deviation there instead of quietly redesigning it. [`docs/ART-DIRECTION.md`](docs/ART-DIRECTION.md) holds our own art direction: artwork, composition, palette, textures, typography, Ema's five poses, asset sources and licensing status, and the art still needed. It works inside the reference mapping and never overrides it.
+On 2026-11-27 the owner approved designing original layouts, visual styles and motion for this site. Start with the owner's content, the reader's task and the identity of the active theme. Yuimi-chaya is an optional reference. A specific layout or interaction becomes a target when the owner chooses it for that task. Existing owner-approved and frozen designs keep their scope until the owner requests a change.
 
-| Our theme | Reference counterpart | Rule |
-| --- | --- | --- |
-| Ema / 樱色档案 (`src/themes/ema`) | `src/themes/fuyukawa-kagari` | Rebuild its layout and interactions; keep our cream and sakura palette, typography and Ema-led art direction. |
-| Blank (`src/themes/blank`) | `src/themes/blank` | Rebuild its typographic journal layout, navigation, spacing and interactions; keep our content and Blank's minimal identity. |
-| Endfield / 终末地 (`src/themes/endfield`) | none | Keep its independent industrial design. Do not apply the reference's visual language to it. |
-| Arknights / 明日方舟 (`src/themes/arknights`) | none | Keep its independent archive-terminal design. Do not apply the reference's visual language to it. |
+| Theme | Design direction |
+| --- | --- |
+| Ema / 樱色档案 (`src/themes/ema`) | A character-led sakura archive with the approved stage composition, cream and sakura palette and its own typography. |
+| Blank (`src/themes/blank`) | A monochrome journal built with type, numbered navigation, fine rules and whitespace. Let the amount of content determine the layout. |
+| Endfield / 终末地 (`src/themes/endfield`) | Its independent industrial design. |
+| Arknights / 明日方舟 (`src/themes/arknights`) | Its independent archive-terminal design. |
+
+[`docs/REFERENCE.md`](docs/REFERENCE.md) records the patterns and code adapted from Yuimi-chaya (commit `0056030`). [`docs/ART-DIRECTION.md`](docs/ART-DIRECTION.md) records our artwork decisions, sources and licensing status. Retain attribution on reused code and follow the media rules below.
 
 Ema:
 
@@ -35,7 +37,7 @@ Ema:
 - Keep the five-pose switching structure and the labels 艾玛的小剧场 and 点击艾玛，翻开下一幕 (translated in each locale).
 - On phones Ema keeps a deliberate, prominent place in the first screen; she is never pushed below cards.
 
-Blank follows the reference's redesigned Blank: achromatic, typography-led, numbered navigation and sections, rules and whitespace, no decorative imagery.
+Blank uses typography and whitespace for emphasis. Keep illustrative decoration out of this theme.
 
 Endfield: shared infrastructure changes must not change its appearance or behaviour. Compare its built output before and after any shared change.
 

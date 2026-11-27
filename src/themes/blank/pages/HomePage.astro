@@ -12,11 +12,12 @@ import BlankLayout from "@/core/themes/PageLayout.astro";
 import { getPublishedPosts } from "@/core/content/blog";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 const { locale, t, href, formatDate, categoryLabel } = getI18n(Astro.url.pathname);
-const { currentSignals, gameShelf, profileIdentity, profileTech, projectEntries } = getSiteContent(locale);
+const { currentSignals, favoriteGames, gameShelf, profileIdentity, profileTech, projectEntries } = getSiteContent(locale);
 const posts = await getPublishedPosts(locale);
 const [featured, ...remaining] = posts;
 const pad = (value: number) => String(value).padStart(2, "0");
-const count = (value: number, one: string, many: string) => `${pad(value)} ${t(value === 1 ? one : many)}`;
+const [project] = projectEntries;
+const game = gameShelf.find((entry) => favoriteGames.some((favorite) => favorite.key === entry.key)) ?? gameShelf[0];
 const featuredDate = featured && (featured.data.updatedDate ?? featured.data.pubDate);
 const firstSection = posts.length > 0 ? "#blank-latest" : "#blank-writing";
 ---
@@ -34,9 +35,18 @@ const firstSection = posts.length > 0 ? "#blank-latest" : "#blank-writing";
       <a class="bj-down" href={firstSection} aria-label={posts.length > 0 ? t("home.latestLink") : t("home.latest")} title={posts.length > 0 ? t("home.latestLink") : t("home.latest")}><Icon name="tabler:arrow-down" size={24} /></a>
     </div>
     <nav class="bj-index" aria-label={t("home.index")}>
-      <a href={href("/blog/")}><span>{t("home.writingIndex")}</span><strong>{count(posts.length, "common.entriesOne", "common.entries")}</strong></a>
-      <a href={href("/projects/")}><span>{t("home.practiceIndex")}</span><strong>{count(projectEntries.length, "common.projectsOne", "common.projects")}</strong></a>
-      <a href={href("/games/")}><span>{t("home.playIndex")}</span><strong>{gameShelf.length > 0 ? count(gameShelf.length, "common.gamesOne", "common.games") : t("home.playHint")}</strong></a>
+      <a href={href(featured ? `/blog/${featured.slug}/` : "/blog/")}>
+        <span>{t("home.writingIndex")}</span>
+        <strong lang={featured?.data.locale}>{keepTails(featured?.data.title ?? t("common.allArticles"))}</strong>
+      </a>
+      <a href={href(project ? `/projects/#${project.id}` : "/projects/")}>
+        <span>{t("home.practiceIndex")}</span>
+        <strong>{keepTails(project?.title ?? t("nav.projects"))}</strong>
+      </a>
+      <a href={href(game ? `/games/#game-${game.key}` : "/games/")}>
+        <span>{t("home.playIndex")}</span>
+        <strong>{keepTails(game?.name ?? t("home.playHint"))}</strong>
+      </a>
     </nav>
   </section>
 

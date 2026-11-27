@@ -1,5 +1,6 @@
 ---
 interface Props {
+  class?: string;
   index: string;
   title: string;
   label: string;
@@ -9,7 +10,7 @@ interface Props {
 }
 const { index, title, label, description, count, unit } = Astro.props;
 ---
-<header class="blank-page-head">
+<header class:list={["blank-page-head", Astro.props.class]}>
   <p class="blank-kicker"><span>{index}</span> / {label}</p>
   <div class="blank-page-heading">
     <h1>{title}<span aria-hidden="true">.</span></h1>

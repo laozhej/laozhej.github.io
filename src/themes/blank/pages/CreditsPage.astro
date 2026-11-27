@@ -14,6 +14,7 @@ import notoSerifLicense from "../../../../public/licenses/noto-serif-cjk-OFL.txt
 import notoSansLicense from "../../../../public/licenses/noto-sans-cjk-OFL.txt?raw";
 import wenkaiLicense from "../../../../public/licenses/lxgw-wenkai-OFL.txt?raw";
 import kleeLicense from "../../../../public/licenses/klee-one-OFL.txt?raw";
+import nunitoLicense from "../../../../public/licenses/nunito-OFL.txt?raw";
 const { t, href } = getI18n(Astro.url.pathname);
 ---
 <BlankLayout title={`${t("credits.title")} | ${site.name}`} description={t("credits.description")}>
@@ -101,6 +102,14 @@ const { t, href } = getI18n(Astro.url.pathname);
       <a class="blank-text-link" href="/licenses/lxgw-wenkai-tc-OFL.txt">LXGW WenKai TC · {t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
       <a class="blank-text-link" href="/licenses/klee-one-OFL.txt">Klee One · {t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
       <p>{t("credits.fontHosting")}</p>
+      <h3>Nunito</h3>
+      <p>{t("credits.nunitoText")}</p>
+      <a class="blank-text-link" href="https://github.com/googlefonts/nunito" target="_blank" rel="noopener noreferrer">{t("credits.nunitoProject")} <Icon name="tabler:external-link" size={15} /></a>
+      <details class="blank-license">
+        <summary>{t("credits.licenseText")} · OFL-1.1</summary>
+        <pre lang="en">{nunitoLicense}</pre>
+      </details>
+      <a class="blank-text-link" href="/licenses/nunito-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
       <h3>Saira</h3>
       <p>{t("credits.sairaText")}</p>
       <a class="blank-text-link" href="https://github.com/Omnibus-Type/Saira" target="_blank" rel="noopener noreferrer">{t("credits.sairaProject")} <Icon name="tabler:external-link" size={15} /></a>

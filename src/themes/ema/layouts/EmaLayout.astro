@@ -71,7 +71,7 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
       <a class="ema-footer-brand" href={href("/")}>{brand.split(/(\.)/).map((part) => part === "." ? <span>.</span> : part)}</a>
       <p>{t("home.statement2")}</p>
       <SocialLinks class="ema-social-links" label={t("social.footerHeading")} />
-      <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><button class="ema-console-dock" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={14} aria-hidden="true" />{t("ema.console.tab")}</button><a href="#ema-main">{t("footer.top")} ↑</a></div>
+      <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><button class="ema-console-dock" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={14} aria-hidden="true" />{t("ema.console.tab")}</button><a href="#ema-main" data-site-top>{t("footer.top")} ↑</a></div>
     </footer>
     <div class="ema-theme-floating"><ThemeSwitcher floating /></div>
     <div class="ema-console" data-ema-console>

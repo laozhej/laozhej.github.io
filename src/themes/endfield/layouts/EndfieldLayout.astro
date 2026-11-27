@@ -74,7 +74,7 @@ const navItems = site.nav.map((item, index) => ({
         </nav>
         <SocialLinks class="ef-footer-links" label={t("social.footerHeading")} />
       </div>
-      <div class="ef-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#endfield-main">{t("footer.top")} ↑</a></div>
+      <div class="ef-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><a href="#endfield-main" data-site-top>{t("footer.top")} ↑</a></div>
     </footer>
     <ThemeSwitcher floating />
     <script>

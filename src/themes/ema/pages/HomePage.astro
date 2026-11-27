@@ -206,9 +206,10 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
           <button class="k-text-button" type="button" data-notice-open aria-haspopup="dialog" aria-controls="ema-notice" hidden>{t("ema.notice.open")}<Icon name="tabler:arrow-right" size={15} aria-hidden="true" /></button>
         </figure>
       )}
-      <canvas class="k-rain" data-k-rain aria-hidden="true"></canvas>
-      <ul class="k-tags" data-k-tags aria-label={t("ema.signal.tags")}>{tags.map((tag) => <li>{tag}</li>)}</ul>
-      <button class="k-text-button k-rain-again" type="button" data-k-rain-again hidden><Icon name="tabler:sparkles" size={15} aria-hidden="true" />{t("ema.home.tagsAgain")}</button>
+      <div class="k-rain" data-k-rain>
+        <ul class="k-tags" data-k-tags aria-label={t("ema.signal.tags")}>{tags.map((tag) => <li>{tag}</li>)}</ul>
+      </div>
+      <button class="k-rain-again" type="button" data-k-rain-again hidden><Icon name="tabler:refresh" size={16} aria-hidden="true" />{t("ema.home.tagsAgain")}</button>
     </section>
 
     <section class="k-journal" id="journal" aria-labelledby="k-journal-title">

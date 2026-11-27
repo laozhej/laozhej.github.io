@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { stageProgress, springStep, layerOffsets, PULL_DISTANCE, DOCK_THRESHOLD } from "../src/themes/ema/lib/stage.mjs";
 import { nearestIndex } from "../src/themes/ema/lib/rail.mjs";
-import { stepBody } from "../src/themes/ema/lib/tag-rain.mjs";
+import { stepBody, stepPile } from "../src/themes/ema/lib/tag-rain-physics.mjs";
 import { mountEmaSettings } from "../src/themes/ema/lib/settings.mjs";
 
 test("the stage pull follows the reference curve: copy fades as the card rises, then the card docks", () => {
@@ -42,13 +42,37 @@ test("the chapter rail marks the leaf nearest the current travel", () => {
 });
 
 test("falling tags come to rest on the floor and bounce off the side walls", () => {
-  let body = { x: 50, y: 0, vx: 0, vy: 0, angle: 0, spin: 0.01, radius: 20 };
+  let body = { x: 50, y: 0, vx: 0, vy: 0, angle: 0, spin: 0.01, radius: 20, halfSpine: 0 };
   for (let i = 0; i < 400; i++) body = stepBody(body, 1, 400, 300);
   assert.equal(body.y, 280);
   assert.equal(body.vy, 0);
-  let wall = { x: 395, y: 100, vx: 5, vy: 0, angle: 0, spin: 0, radius: 20 };
+  let wall = { ...body, x: 395, y: 100, vx: 5, vy: 0 };
   wall = stepBody(wall, 1, 400, 300);
   assert.ok(wall.vx < 0 && wall.x <= 370);
+});
+
+test("a long rotating capsule has the same clearance at both walls, even after a pile collision", () => {
+  const width = 760, floor = 320;
+  const tag = { x: 0, y: 160, vx: -4, vy: 0, angle: 0.28, spin: 0.01, radius: 18, halfSpine: 105 };
+  for (const side of [1, -1]) {
+    const edge = side === 1 ? 0 : width;
+    const outer = { ...tag, x: edge, vx: tag.vx * side };
+    const inner = { ...tag, x: edge + 170 * side };
+    stepPile([outer, inner], 1, width, floor);
+    const reach = outer.radius + Math.abs(outer.halfSpine * Math.cos(outer.angle));
+    assert.ok(Math.abs(Math.abs(outer.x - edge) - reach - 10) < 1e-8);
+    assert.ok(outer.vx * side >= 0);
+  }
+});
+
+test("the top pill rests on the ends of two lower pills", () => {
+  const pill = { x: 160, y: 282, vx: 0, vy: 0, spin: 0, angle: 0, radius: 18, halfSpine: 70 };
+  const bodies = [{ ...pill }, { ...pill, x: 370 }, { ...pill, x: 265, y: 24 }];
+  for (let i = 0; i < 360; i++) stepPile(bodies, 1, 600, 300);
+  assert.ok(Math.abs(bodies[2].y - (282 - 36 - 2)) < 1);
+  assert.equal(bodies[2].x, 265);
+  assert.equal(bodies[0].y, 282);
+  assert.equal(bodies[1].y, 282);
 });
 
 function fakeSettings() {

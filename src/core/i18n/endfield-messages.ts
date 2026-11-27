@@ -6,7 +6,7 @@ export const endfieldMessages = {
     "endfield.index": "索引",
     "endfield.games": "款喜欢的游戏",
     "endfield.gamesOne": "款喜欢的游戏",
-    "credits.sairaText": "终末地工业风主题的英文标签、编号和标题使用 Omnibus-Type 设计的 Saira 可变字体，通过 Fontsource 随站点自托管，采用 SIL Open Font License 1.1。中文与日文使用访客设备上的黑体。",
+    "credits.sairaText": "终末地工业风主题的英文标签、编号和标题使用 Omnibus-Type 设计的 Saira 可变字体，通过 Fontsource 随站点自托管，采用 SIL Open Font License 1.1。中文与日文使用 Noto Sans。",
     "credits.sairaProject": "Saira 项目",
   },
   "zh-TW": {
@@ -15,7 +15,7 @@ export const endfieldMessages = {
     "endfield.index": "索引",
     "endfield.games": "款喜歡的遊戲",
     "endfield.gamesOne": "款喜歡的遊戲",
-    "credits.sairaText": "終末地工業風主題的英文標籤、編號和標題使用 Omnibus-Type 設計的 Saira 可變字型，透過 Fontsource 隨網站自行託管，採用 SIL Open Font License 1.1。中文與日文使用訪客裝置上的黑體。",
+    "credits.sairaText": "終末地工業風主題的英文標籤、編號和標題使用 Omnibus-Type 設計的 Saira 可變字型，透過 Fontsource 隨網站自行託管，採用 SIL Open Font License 1.1。中文與日文使用 Noto Sans。",
     "credits.sairaProject": "Saira 專案",
   },
   ja: {
@@ -24,7 +24,7 @@ export const endfieldMessages = {
     "endfield.index": "索引",
     "endfield.games": "作の好きなゲーム",
     "endfield.gamesOne": "作の好きなゲーム",
-    "credits.sairaText": "終末地インダストリアルテーマの英字ラベル、番号、見出しには、Omnibus-Type がデザインした可変フォント Saira を使用しています。Fontsource 経由でサイト内から配信し、SIL Open Font License 1.1 で提供されています。日本語と中国語は閲覧者の端末のゴシック体で表示します。",
+    "credits.sairaText": "終末地インダストリアルテーマの英字ラベル、番号、見出しには、Omnibus-Type がデザインした可変フォント Saira を使用しています。Fontsource 経由でサイト内から配信し、SIL Open Font License 1.1 で提供されています。日本語と中国語は Noto Sans で表示します。",
     "credits.sairaProject": "Saira プロジェクト",
   },
   en: {
@@ -33,7 +33,7 @@ export const endfieldMessages = {
     "endfield.index": "Index",
     "endfield.games": "favourite games",
     "endfield.gamesOne": "favourite game",
-    "credits.sairaText": "The Endfield Industrial theme sets Latin labels, numbers and headings in Saira, a variable typeface by Omnibus-Type, self-hosted through Fontsource under the SIL Open Font License 1.1. Chinese and Japanese text uses the visitor's system sans-serif.",
+    "credits.sairaText": "The Endfield Industrial theme sets Latin labels, numbers and headings in Saira, a variable typeface by Omnibus-Type, self-hosted through Fontsource under the SIL Open Font License 1.1. Chinese and Japanese text uses Noto Sans.",
     "credits.sairaProject": "Saira project",
   },
 } as const;

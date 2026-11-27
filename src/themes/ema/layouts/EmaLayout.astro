@@ -1,5 +1,6 @@
 ---
 import "@/core/styles/scale.css";
+import "@/core/fonts/subsets.css";
 import "@/themes/blank/styles/theme.css";
 import "@fontsource/gloock/latin-400.css";
 import "../styles/theme.css";
@@ -20,6 +21,7 @@ import SiteMeta from "@/core/components/SiteMeta.astro";
 import SiteAttribution from "@/core/components/SiteAttribution.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
+import FontLinks from "@/core/fonts/FontLinks.astro";
 import { pageTransition } from "@/core/navigation/animations.mjs";
 import { TRACKS } from "../lib/radio.mjs";
 const { locale, t } = getI18n(Astro.url.pathname);
@@ -59,6 +61,7 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
       })();
     </script>}
     <title>{title}</title><SiteMeta title={title} description={description} siteName={brand} isArticlePage={isArticlePage} article={article} />
+    <FontLinks families={["ema-text", "noto-serif"]} locale={locale} />
     <SiteNavigation />
   </head>
   <body data-blank data-ema data-ema-home={home ? "" : undefined}>

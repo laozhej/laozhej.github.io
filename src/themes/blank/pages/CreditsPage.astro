@@ -11,6 +11,9 @@ import sairaLicense from "../../../../public/licenses/saira-OFL.txt?raw";
 import oswaldLicense from "../../../../public/licenses/oswald-OFL.txt?raw";
 import jetbrainsLicense from "../../../../public/licenses/jetbrains-mono-OFL.txt?raw";
 import notoSerifLicense from "../../../../public/licenses/noto-serif-cjk-OFL.txt?raw";
+import notoSansLicense from "../../../../public/licenses/noto-sans-cjk-OFL.txt?raw";
+import wenkaiLicense from "../../../../public/licenses/lxgw-wenkai-OFL.txt?raw";
+import kleeLicense from "../../../../public/licenses/klee-one-OFL.txt?raw";
 const { t, href } = getI18n(Astro.url.pathname);
 ---
 <BlankLayout title={`${t("credits.title")} | ${site.name}`} description={t("credits.description")}>
@@ -73,6 +76,31 @@ const { t, href } = getI18n(Astro.url.pathname);
         <pre lang="en">{notoSerifLicense}</pre>
       </details>
       <a class="blank-text-link" href="/licenses/noto-serif-cjk-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+      <h3>Noto Sans SC / TC / JP</h3>
+      <p>{t("credits.notoSansText")}</p>
+      <a class="blank-text-link" href="https://github.com/notofonts/noto-cjk" target="_blank" rel="noopener noreferrer">{t("credits.notoSansProject")} <Icon name="tabler:external-link" size={15} /></a>
+      <details class="blank-license">
+        <summary>{t("credits.licenseText")} · OFL-1.1</summary>
+        <pre lang="en">{notoSansLicense}</pre>
+      </details>
+      <a class="blank-text-link" href="/licenses/noto-sans-cjk-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+      <h3>LXGW WenKai / LXGW WenKai TC / Klee One</h3>
+      <p>{t("credits.wenkaiText")}</p>
+      <a class="blank-text-link" href="https://github.com/lxgw/LxgwWenKai" target="_blank" rel="noopener noreferrer">{t("credits.wenkaiProject")} <Icon name="tabler:external-link" size={15} /></a>
+      <a class="blank-text-link" href="https://github.com/lxgw/LxgwWenkaiTC" target="_blank" rel="noopener noreferrer">{t("credits.wenkaiTcProject")} <Icon name="tabler:external-link" size={15} /></a>
+      <a class="blank-text-link" href="https://github.com/fontworks-fonts/Klee" target="_blank" rel="noopener noreferrer">{t("credits.kleeProject")} <Icon name="tabler:external-link" size={15} /></a>
+      <details class="blank-license">
+        <summary>{t("credits.licenseText")} · OFL-1.1 · LXGW WenKai</summary>
+        <pre lang="en">{wenkaiLicense}</pre>
+      </details>
+      <details class="blank-license">
+        <summary>{t("credits.licenseText")} · OFL-1.1 · Klee One</summary>
+        <pre lang="en">{kleeLicense}</pre>
+      </details>
+      <a class="blank-text-link" href="/licenses/lxgw-wenkai-OFL.txt">LXGW WenKai · {t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+      <a class="blank-text-link" href="/licenses/lxgw-wenkai-tc-OFL.txt">LXGW WenKai TC · {t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+      <a class="blank-text-link" href="/licenses/klee-one-OFL.txt">Klee One · {t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+      <p>{t("credits.fontHosting")}</p>
       <h3>Saira</h3>
       <p>{t("credits.sairaText")}</p>
       <a class="blank-text-link" href="https://github.com/Omnibus-Type/Saira" target="_blank" rel="noopener noreferrer">{t("credits.sairaProject")} <Icon name="tabler:external-link" size={15} /></a>

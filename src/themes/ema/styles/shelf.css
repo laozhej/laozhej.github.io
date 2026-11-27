@@ -2,12 +2,9 @@
    the homepage tag colours, mono kickers, tinted heading chips and screentone covers. */
 .ema-shelf {
   --card:var(--ema-card); --card-shadow:0 12px 30px rgba(96,74,60,.1); --frame:#ead6df;
-  --round:"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Varela Round","Yu Gothic UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --round:var(--blank-sans);
   --mono:var(--blank-mono);
   color:var(--blank-ink);
-}
-.ema-shelf:lang(zh-TW) {
-  --round:"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Varela Round","Yu Gothic UI","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
 }
 html[data-color-mode="dark"] .ema-shelf {--card-shadow:0 12px 30px #00000059;--frame:#6d4c61;}
 .ema-shelf :is(h2,h3,p,ul,ol,figure) {margin:0;}

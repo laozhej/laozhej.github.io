@@ -1,0 +1,20 @@
+/* The site's own fonts, cut down to the characters the built pages set in each (2026-11-27, owner's request:
+   self-hosted fonts on every system, Japanese in feel). One file per face and glyph standard holds every
+   character the site uses with it, so a visitor downloads it once for all pages. Characters added later fall
+   through to the same face from Fontsource, split into unicode-range pieces (FontLinks.astro), so they still
+   show in the right font. All SIL OFL 1.1; licences in public/licenses/, credits page lists them.
+   Sources: Noto Sans and Noto Serif CJK (variable, google/fonts), LXGW WenKai and LXGW WenKai TC (lxgw), Klee
+   One (Fontworks, google/fonts). How the files were cut: docs/THEMES.md, "字体与字号". */
+@font-face { font-family: "Site Sans SC"; src: url("/fonts/site/noto-sans-sc.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Site Sans TC"; src: url("/fonts/site/noto-sans-tc.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Site Sans JP"; src: url("/fonts/site/noto-sans-jp.woff2") format("woff2"); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: "Site Serif SC"; src: url("/fonts/site/noto-serif-sc.woff2") format("woff2"); font-weight: 200 900; font-display: swap; }
+@font-face { font-family: "Site Serif TC"; src: url("/fonts/site/noto-serif-tc.woff2") format("woff2"); font-weight: 200 900; font-display: swap; }
+@font-face { font-family: "Site Serif JP"; src: url("/fonts/site/noto-serif-jp.woff2") format("woff2"); font-weight: 200 900; font-display: swap; }
+/* Ema's text face. LXGW WenKai has no bold; its Medium stands in for the heavier weights, a softer emphasis. */
+@font-face { font-family: "Site Kai SC"; src: url("/fonts/site/lxgw-wenkai-regular.woff2") format("woff2"); font-weight: 100 450; font-display: swap; }
+@font-face { font-family: "Site Kai SC"; src: url("/fonts/site/lxgw-wenkai-medium.woff2") format("woff2"); font-weight: 451 900; font-display: swap; }
+@font-face { font-family: "Site Kai TC"; src: url("/fonts/site/lxgw-wenkai-tc-regular.woff2") format("woff2"); font-weight: 100 450; font-display: swap; }
+@font-face { font-family: "Site Kai TC"; src: url("/fonts/site/lxgw-wenkai-tc-bold.woff2") format("woff2"); font-weight: 451 900; font-display: swap; }
+@font-face { font-family: "Site Klee"; src: url("/fonts/site/klee-one-regular.woff2") format("woff2"); font-weight: 100 450; font-display: swap; }
+@font-face { font-family: "Site Klee"; src: url("/fonts/site/klee-one-semibold.woff2") format("woff2"); font-weight: 451 900; font-display: swap; }

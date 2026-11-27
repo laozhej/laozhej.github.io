@@ -1,0 +1,50 @@
+---
+// The site's fonts for one page (2026-11-27: self-hosted fonts on every theme, at the owner's request).
+// 1. Preloads the cut-down files (subsets.css) this theme and language set their text in, so the browser fetches
+//    them with the page instead of after the first layout.
+// 2. Links the same faces from Fontsource, split into unicode-range pieces, as a fallback for characters the
+//    cut-down files do not have yet (text added after they were cut). Those stylesheets load without blocking
+//    the first paint, and a piece is only downloaded when a page actually needs one of its characters. Kept out
+//    of the bundled theme CSS: through the shared page layout that CSS reaches every page, and every family's
+//    pieces together came to 1.5MB of @font-face rules.
+// Licences: public/licenses/ (all SIL OFL 1.1); listed on the credits page.
+import notoSansSc from "@fontsource-variable/noto-sans-sc/wght.css?url";
+import notoSansTc from "@fontsource-variable/noto-sans-tc/wght.css?url";
+import notoSansJp from "@fontsource-variable/noto-sans-jp/wght.css?url";
+import notoSerifSc from "@fontsource-variable/noto-serif-sc/wght.css?url";
+import notoSerifTc from "@fontsource-variable/noto-serif-tc/wght.css?url";
+import notoSerifJp from "@fontsource-variable/noto-serif-jp/wght.css?url";
+import wenkai from "lxgw-wenkai-webfont/lxgwwenkai-regular.css?url";
+import wenkaiBold from "lxgw-wenkai-webfont/lxgwwenkai-bold.css?url";
+import wenkaiTc from "@fontsource/lxgw-wenkai-tc/400.css?url";
+import wenkaiTcBold from "@fontsource/lxgw-wenkai-tc/700.css?url";
+import kleeOne from "@fontsource/klee-one/400.css?url";
+import kleeOneBold from "@fontsource/klee-one/600.css?url";
+
+const FONTS = {
+  "noto-sans": {
+    "zh-CN": { preload: ["noto-sans-sc"], pieces: [notoSansSc] },
+    "zh-TW": { preload: ["noto-sans-tc"], pieces: [notoSansTc] },
+    ja: { preload: ["noto-sans-jp"], pieces: [notoSansJp] },
+  },
+  "noto-serif": {
+    "zh-CN": { preload: ["noto-serif-sc"], pieces: [notoSerifSc] },
+    "zh-TW": { preload: ["noto-serif-tc"], pieces: [notoSerifTc] },
+    ja: { preload: ["noto-serif-jp"], pieces: [notoSerifJp] },
+  },
+  // Ema's text face: LXGW WenKai (Simplified), LXGW WenKai TC (Taiwanese standard), Klee One (Japanese).
+  "ema-text": {
+    "zh-CN": { preload: ["lxgw-wenkai-regular"], pieces: [wenkai, wenkaiBold] },
+    "zh-TW": { preload: ["lxgw-wenkai-tc-regular"], pieces: [wenkaiTc, wenkaiTcBold] },
+    ja: { preload: ["klee-one-regular"], pieces: [kleeOne, kleeOneBold] },
+  },
+};
+type Family = keyof typeof FONTS;
+interface Props { families: Family[]; locale: string }
+const { families, locale } = Astro.props;
+// English pages carry Simplified Chinese names and terms, so they take the zh-CN faces.
+const key = locale === "zh-TW" || locale === "ja" ? locale : "zh-CN";
+const picked = families.map((family) => FONTS[family][key]);
+---
+{picked.flatMap(({ preload }) => preload).map((name) => <link rel="preload" href={`/fonts/site/${name}.woff2`} as="font" type="font/woff2" crossorigin />)}
+{picked.flatMap(({ pieces }) => pieces).map((href) => <link rel="stylesheet" href={href} media="print" onload="this.media='all'" data-site-fonts />)}

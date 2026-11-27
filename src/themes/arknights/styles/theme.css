@@ -12,9 +12,10 @@ html[data-theme="arknights"] {
   /* Marks of the current place: ink on paper, the signal on the dark screen. */
   --ak-trace:var(--ak-ink); --ak-number:var(--ak-ink);
   --ak-faint:color-mix(in srgb,var(--ak-ink) 9%,transparent); --ak-ghost:color-mix(in srgb,var(--ak-ink) 5.5%,transparent);
-  --ak-display:"Oswald Variable","Oswald","Arial Narrow","PingFang SC","Hiragino Sans","Noto Sans SC","Microsoft YaHei",sans-serif;
-  --ak-mono:"JetBrains Mono Variable","JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
-  --ak-text:"PingFang SC","Hiragino Sans","Noto Sans SC","Noto Sans JP","Microsoft YaHei",system-ui,sans-serif;
+  /* Self-hosted only since 2026-11-27: Chinese and Japanese in Noto Sans for each locale's glyph standard. */
+  --ak-display:"Oswald Variable","Site Sans SC","Noto Sans SC Variable",sans-serif;
+  --ak-mono:"JetBrains Mono Variable","Site Sans SC","Noto Sans SC Variable",monospace;
+  --ak-text:"Site Sans SC","Noto Sans SC Variable",sans-serif;
   --ak-head:72px; --ak-rail:0px; --ak-pad:clamp(16px,4.4vw,64px);
   --ak-cut:cubic-bezier(.65,0,.35,1); --ak-out:cubic-bezier(.16,1,.3,1);
   --blank-paper:var(--ak-field); --blank-ink:var(--ak-ink); --blank-muted:var(--ak-ink-2); --blank-line:var(--ak-rule);
@@ -27,8 +28,14 @@ html[data-theme="arknights"] {
   min-width:320px; background:var(--ak-field); scroll-padding-top:calc(var(--ak-head) + 40px); accent-color:var(--ak-ink);
 }
 html[data-theme="arknights"]:lang(zh-TW) {
-  --ak-display:"Oswald Variable","Oswald","Arial Narrow","PingFang TC","Hiragino Sans","Noto Sans TC","Microsoft JhengHei",sans-serif;
-  --ak-text:"PingFang TC","Hiragino Sans","Noto Sans TC","Noto Sans JP","Microsoft JhengHei",system-ui,sans-serif;
+  --ak-display:"Oswald Variable","Site Sans TC","Noto Sans TC Variable",sans-serif;
+  --ak-mono:"JetBrains Mono Variable","Site Sans TC","Noto Sans TC Variable",monospace;
+  --ak-text:"Site Sans TC","Noto Sans TC Variable",sans-serif;
+}
+html[data-theme="arknights"]:lang(ja) {
+  --ak-display:"Oswald Variable","Site Sans JP","Noto Sans JP Variable",sans-serif;
+  --ak-mono:"JetBrains Mono Variable","Site Sans JP","Noto Sans JP Variable",monospace;
+  --ak-text:"Site Sans JP","Noto Sans JP Variable",sans-serif;
 }
 html[data-theme="arknights"][data-color-mode="dark"] {
   color-scheme:dark;

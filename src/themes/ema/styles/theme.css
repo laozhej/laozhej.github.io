@@ -251,7 +251,6 @@ html[data-motion-paused="true"] .ema-header .site-language-options {animation:no
 
 /* Sakura Archive: shared paper, glass and petals for every Ema page. */
 html[data-theme="ema"] {
-  --ema-petal:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 38C7 30 3 15 11 4L20 10L29 4C37 15 33 30 20 38Z' fill='%23f4b2c9' stroke='%23e48fb0' stroke-width='1.4'/><path d='M20 34V15' stroke='%23e48fb0' stroke-width='1' opacity='.55'/></svg>");
   --ema-blossom:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-50 -50 100 100'><defs><path id='p' d='M0-5C-15-15-19-33-8-45L0-38L8-45C19-33 15-15 0-5Z'/></defs><g fill='%23f8c3d5' stroke='%23e48fb0' stroke-width='2.4' stroke-linejoin='round'><use href='%23p'/><use href='%23p' transform='rotate(72)'/><use href='%23p' transform='rotate(144)'/><use href='%23p' transform='rotate(216)'/><use href='%23p' transform='rotate(288)'/></g><circle r='8' fill='%23fff3c9' stroke='%23eab35c' stroke-width='2'/></svg>");
   /* r3's paper: a sakura wash at the top right, a lavender one on the left, and a faint dot grid. */
   background:
@@ -271,22 +270,8 @@ html[data-theme="ema"] body[data-ema] {background:transparent;}
 }
 html[data-color-mode="dark"] .ema-nav {border-color:var(--blank-line);box-shadow:inset 0 1px 0 #ffffff14,0 8px 24px #0005;}
 
+/* Sakura.js puts its petals (.sakura) in this fixed layer; ../lib/sakura.mjs starts and stops it. */
 .ema-sakura {position:fixed;inset:0;z-index:45;overflow:hidden;pointer-events:none;}
-.ema-sakura span {position:absolute;top:-32px;left:var(--petal-left);width:var(--petal-size);height:var(--petal-size);opacity:0;animation:ema-petal-fall var(--petal-duration) linear var(--petal-delay) infinite;}
-.ema-sakura i {display:block;width:100%;height:100%;background:var(--ema-petal) center/contain no-repeat;transform-origin:50% 70%;animation:ema-petal-flutter var(--petal-flutter) ease-in-out var(--petal-delay) infinite alternate;}
-.ema-sakura span:nth-child(even) i {animation-direction:alternate-reverse;}
-/* The homepage keeps all of them; inner pages, where text sits under the fall, keep fewer. */
-body:not([data-ema-home]) .ema-sakura span:nth-child(n+28) {display:none;}
-@keyframes ema-petal-fall {
-  0% {opacity:0;transform:translate3d(0,0,0);}
-  6%,90% {opacity:var(--petal-opacity);}
-  100% {opacity:0;transform:translate3d(var(--petal-drift),calc(100vh + 64px),0);}
-}
-@keyframes ema-petal-flutter {
-  0% {transform:translateX(calc(var(--petal-sway) * -1)) rotate(-32deg) scaleX(.85);}
-  50% {transform:translateX(0) rotate(14deg) scaleX(1);}
-  100% {transform:translateX(var(--petal-sway)) rotate(64deg) scaleX(.65);}
-}
 
 .ema-scroll-track {display:none;}
 @media(min-width:1000px) and (hover:hover) and (pointer:fine) {
@@ -294,10 +279,6 @@ body:not([data-ema-home]) .ema-sakura span:nth-child(n+28) {display:none;}
   .ema-scroll-track::before {content:"";position:absolute;inset:0 0 auto;height:calc(var(--scroll-ratio,0) * 100%);border-radius:inherit;background:var(--ema-pink);opacity:.5;}
   .ema-scroll-thumb {position:absolute;left:50%;top:calc(var(--scroll-ratio,0) * 100%);width:26px;height:26px;margin:-13px 0 0 -13px;background:var(--ema-blossom) center/contain no-repeat;transform:rotate(calc(var(--scroll-ratio,0) * 540deg));filter:drop-shadow(0 3px 5px rgba(96,74,60,.25));}
   .ema-header .ema-page-progress {display:none;}
-}
-@media(max-width:760px) {
-  .ema-sakura span:nth-child(n+25) {display:none;}
-  body:not([data-ema-home]) .ema-sakura span:nth-child(n+19) {display:none;}
 }
 html[data-motion-paused="true"] .ema-sakura {display:none;}
 @media(prefers-reduced-motion:reduce) { .ema-sakura {display:none;} }

@@ -24,7 +24,7 @@ export const endfieldMessages = {
     "endfield.index": "索引",
     "endfield.games": "本の好きなゲーム",
     "endfield.gamesOne": "本の好きなゲーム",
-    "credits.sairaText": "終末地インダストリアルテーマの英字ラベル、番号、見出しには、Omnibus-Type がデザインした可変フォント Saira を使用しています。Fontsource 経由でサイト内から配信し、SIL Open Font License 1.1 で提供されています。日本語と中国語は Noto Sans で表示します。",
+    "credits.sairaText": "エンドフィールド・インダストリアルテーマの英字ラベル、番号、見出しには、Omnibus-Type がデザインした可変フォント Saira を使用しています。Fontsource 経由でサイト内から配信し、SIL Open Font License 1.1 で提供されています。日本語と中国語は Noto Sans で表示します。",
     "credits.sairaProject": "Saira プロジェクト",
   },
   en: {

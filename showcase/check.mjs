@@ -13,7 +13,7 @@ const showcaseUrl = "https://github.com/laozhej/laozhej.github.io/tree/main/show
 const caseLabels = {
   "zh-CN": "查看项目案例",
   "zh-TW": "檢視專案案例（簡體中文）",
-  ja: "制作事例を読む（中国語簡体字）",
+  ja: "制作事例を読む（簡体字中国語）",
   en: "Read the case study (Simplified Chinese)",
 };
 const emaAssets = JSON.parse(await readFile(path.join(root, "public/themes/ema/ASSETS.json"), "utf8")).assets;

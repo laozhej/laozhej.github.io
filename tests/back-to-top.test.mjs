@@ -1,14 +1,12 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { mountBackToTop } from "../src/core/features/back-to-top.mjs";
+import { BACK_TO_TOP_HOLD_MS, mountBackToTop } from "../src/core/features/back-to-top.mjs";
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 
 // The browser checks (Chrome and WebKit) live outside the repository; these cover the contract.
 function fixture({ reduced = false, paused = false, inline = "" } = {}) {
-  const frames = new Map();
-  let nextFrame = 1;
   const style = {
     scrollBehavior: inline,
     removeProperty(name) { if (name === "scroll-behavior") this.scrollBehavior = ""; },
@@ -27,45 +25,64 @@ function fixture({ reduced = false, paused = false, inline = "" } = {}) {
       for (const phase of [true, false]) for (const entry of [...listeners]) if (entry.type === event.type && entry.capture === phase) entry.callback(event);
     },
   };
+  const timers = new Map();
+  let nextTimer = 1;
+  const winListeners = new Map();
   const win = {
     localStorage: { getItem: (key) => (key === "ema-home-motion-paused" && paused ? "true" : null) },
     matchMedia: () => ({ matches: reduced }),
-    requestAnimationFrame(callback) { const id = nextFrame++; frames.set(id, callback); return id; },
-    cancelAnimationFrame(id) { frames.delete(id); },
+    setTimeout(callback, delay) { const id = nextTimer++; timers.set(id, { callback, delay }); return id; },
+    clearTimeout(id) { timers.delete(id); },
+    addEventListener(type, callback) { if (!winListeners.has(type)) winListeners.set(type, new Set()); winListeners.get(type).add(callback); },
+    removeEventListener(type, callback) { winListeners.get(type)?.delete(callback); },
   };
-  const runFrame = () => { const pending = [...frames.values()]; frames.clear(); pending.forEach((callback) => callback()); };
-  const link = (selector) => ({ closest: (query) => (query === selector ? {} : null) });
-  const topLink = link("a[data-site-top]");
+  const scrollend = () => [...(winListeners.get("scrollend") ?? [])].forEach((callback) => callback());
+  const scrollendListeners = () => winListeners.get("scrollend")?.size ?? 0;
+  const runTimers = () => { const pending = [...timers.values()]; timers.clear(); pending.forEach(({ callback }) => callback()); };
+  const topLink = { closest: (query) => (query === "a[data-site-top]" ? {} : null) };
   const otherLink = { closest: () => null };
   // The router's own click listener stands in for the jump it performs during the same click.
   const seen = [];
   doc.addEventListener("click", () => seen.push(style.scrollBehavior));
   const click = (target, init = {}) => {
-    const event = new Event("click", { cancelable: true });
-    Object.assign(event, { button: 0, metaKey: false, ctrlKey: false, shiftKey: false, altKey: false, ...init });
-    Object.defineProperty(event, "target", { value: target });
-    if (init.prevented) event.preventDefault();
+    const event = { type: "click", button: 0, metaKey: false, ctrlKey: false, shiftKey: false, altKey: false, defaultPrevented: false, target, ...init };
     doc.dispatchEvent(event);
   };
-  return { doc, win, style, frames, runFrame, topLink, otherLink, click, seen };
+  return { doc, win, style, timers, runTimers, scrollend, scrollendListeners, topLink, otherLink, click, seen };
 }
 
-test("a back-to-top link scrolls smoothly for that one jump, then hands the root back", () => {
+test("a back-to-top link keeps the root smooth until its scroll ends", () => {
   const f = fixture();
   const cleanup = mountBackToTop(f.doc, f.win);
   f.click(f.topLink);
   assert.deepEqual(f.seen, ["smooth"], "the router's jump runs while the root scrolls smoothly");
-  assert.equal(f.frames.size, 1);
-  f.runFrame();
-  assert.equal(f.style.scrollBehavior, "", "the next frame restores the theme's own scrolling");
+  assert.equal(f.style.scrollBehavior, "smooth", "still smooth afterwards: a loading page defers the jump to its next layout");
+  assert.equal(f.scrollendListeners(), 1);
+  assert.equal(f.timers.size, 1);
+  f.scrollend();
+  assert.equal(f.style.scrollBehavior, "", "scrollend hands the theme its own scrolling back");
+  assert.equal(f.scrollendListeners(), 0);
+  assert.equal(f.timers.size, 0);
   f.click(f.topLink);
   f.click(f.topLink);
-  assert.equal(f.frames.size, 1, "a second click reuses one release");
-  f.runFrame();
+  assert.equal(f.scrollendListeners(), 1, "a second click reuses one release");
+  assert.equal(f.timers.size, 1);
+  f.scrollend();
   assert.equal(f.style.scrollBehavior, "");
   cleanup();
   f.click(f.topLink);
   assert.equal(f.seen.at(-1), "", "cleanup removes the listener");
+});
+
+test("without a scrollend (already at the top, or no support) the hold ends after a fixed time", () => {
+  const f = fixture();
+  mountBackToTop(f.doc, f.win);
+  f.click(f.topLink);
+  assert.equal([...f.timers.values()][0].delay, BACK_TO_TOP_HOLD_MS);
+  assert.ok(BACK_TO_TOP_HOLD_MS >= 2000 && BACK_TO_TOP_HOLD_MS <= 5000, "long enough for the slowest measured glide, short enough to end soon");
+  f.runTimers();
+  assert.equal(f.style.scrollBehavior, "");
+  assert.equal(f.scrollendListeners(), 0);
 });
 
 test("an inline scroll-behavior already on the root is put back afterwards", () => {
@@ -73,7 +90,7 @@ test("an inline scroll-behavior already on the root is put back afterwards", () 
   mountBackToTop(f.doc, f.win);
   f.click(f.topLink);
   assert.equal(f.seen.at(-1), "smooth");
-  f.runFrame();
+  f.scrollend();
   assert.equal(f.style.scrollBehavior, "auto");
 });
 
@@ -83,7 +100,8 @@ test("cleanup in the middle of a jump restores the root at once", () => {
   f.click(f.topLink);
   cleanup();
   assert.equal(f.style.scrollBehavior, "");
-  assert.equal(f.frames.size, 0);
+  assert.equal(f.timers.size, 0);
+  assert.equal(f.scrollendListeners(), 0);
 });
 
 test("reduced motion, the pause button, other links and new-tab clicks keep the instant jump", () => {
@@ -92,7 +110,8 @@ test("reduced motion, the pause button, other links and new-tab clicks keep the 
     mountBackToTop(f.doc, f.win);
     f.click(f.topLink);
     assert.deepEqual(f.seen, [""], JSON.stringify(options));
-    assert.equal(f.frames.size, 0);
+    assert.equal(f.timers.size, 0);
+    assert.equal(f.scrollendListeners(), 0);
   }
   const f = fixture();
   mountBackToTop(f.doc, f.win);
@@ -102,9 +121,9 @@ test("reduced motion, the pause button, other links and new-tab clicks keep the 
   f.click(f.topLink, { shiftKey: true });
   f.click(f.topLink, { altKey: true });
   f.click(f.topLink, { button: 1 });
-  f.click(f.topLink, { prevented: true });
+  f.click(f.topLink, { defaultPrevented: true });
   assert.ok(f.seen.every((value) => value === ""), f.seen.join());
-  assert.equal(f.frames.size, 0);
+  assert.equal(f.timers.size, 0);
 });
 
 test("Ema, Endfield and Arknights mark their footer link; Blank keeps its own smooth root", () => {

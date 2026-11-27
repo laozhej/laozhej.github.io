@@ -205,10 +205,10 @@
       "dimensions": [480, 480],
       "has_alpha": true,
       "format": "image/webp",
-      "processing": "Reuse the approved crop from the unmarked Pixiv rendition. Mask the checkerboard by matching its repeating tiles, preserve the white outline and handwritten text, apply the circular crop, and downscale with Lanczos3. WebP quality 90, alpha quality 100.",
+      "processing": "Reuse the approved crop from the unmarked Pixiv rendition. Mask the repeating checkerboard, fill the background with white, and preserve the white outline and handwritten text. Downscale with Lanczos3 and reuse the original circular alpha mask. WebP quality 91, alpha quality 100.",
       "generative_ai_used": false,
-      "sha256": "5711c641193a324366e7c4de2726fecece209345eaa3d9b948da9bfb983ec56c",
-      "bytes": 33844,
+      "sha256": "3d288f833b5c928e66f1d7bf0a656f3db9b06829773ff4b0664e858de9a5d042",
+      "bytes": 38926,
       "verified_on": "2026-11-27"
     }
   ]

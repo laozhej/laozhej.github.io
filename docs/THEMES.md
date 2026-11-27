@@ -1,6 +1,6 @@
 # 新主题接入说明
 
-主题负责页面布局、颜色、字体、插画和动效。个人内容与可复用功能由 `src/core` 提供。Blank 保留原有根路由；艾玛「樱色档案」使用 `/themes/ema/`；「终末地工业风」使用 `/themes/endfield/`；「明日方舟」使用 `/themes/arknights/`。共享主题切换器在保留栏目、文章、语言及 URL 状态的同时切换外观。
+主题负责页面布局、颜色、字体、插画和动效。个人内容与可复用功能由 `src/core` 提供。2026-11-28 起「明日方舟」作为默认主题使用根路由（旧 `/themes/arknights/` 保留 `noindex` 跳转）；Blank 使用 `/themes/blank/`；艾玛「樱色档案」使用 `/themes/ema/`；「终末地工业风」使用 `/themes/endfield/`。共享主题切换器在保留栏目、文章、语言及 URL 状态的同时切换外观。
 
 ## 共用内容
 
@@ -29,7 +29,7 @@
 
 各主题的 `<head>` 统一使用 `src/core/components/SiteIcons.astro`，共用非 AI 的 `B.` 排版网站图标和触屏图标；不要在主题内另外维护图标链接。
 
-搜索与链接预览元数据统一由 `src/core/components/SiteMeta.astro` 输出：描述、规范地址、四种语言及 `x-default` 的 hreflang、Open Graph 与 Twitter 卡片、文章发布时间和本语言 RSS 的 `alternate` 链接。三个主题呈现同一份内容，因此规范地址与 hreflang 一律指向「规范主题」在相应语言下的同一页；规范主题由 `src/core/themes/routing.mjs` 的 `canonicalTheme` 决定（2026-11-23 起为 `blank`，站主之后可能改用其他主题作主界面，届时只改这一处，并同步更新分享图）。改动它不会改变根路径实际显示的主题。`og:url` 仍是页面自身地址，分享出去的链接会打开被分享的主题。404 页加 `noindex`，不输出规范地址与 hreflang。主题布局只传入 `title`、`description`、`siteName`、`isArticlePage` 和 `article`，不要另写这些标签。分享图默认使用 `public/og/<locale>.png`（`scripts/og-image.mjs` 生成，站名、署名、`home.kicker` 或 `home.statement*` 改动后需重新生成）；文章填写 `cover` 时改用封面。站点地图由 `@astrojs/sitemap` 生成（`/sitemap-index.xml`），按 `isIndexedPath` 只列规范主题下四种语言的页面，不含 404；`public/robots.txt` 指向它。RSS 位于 `/rss.xml` 与 `/<locale>/rss.xml`（`src/core/content/feed.ts`），条目与该语言的文章列表一致，未翻译的文章保留简体中文原文。
+搜索与链接预览元数据统一由 `src/core/components/SiteMeta.astro` 输出：描述、规范地址、四种语言及 `x-default` 的 hreflang、Open Graph 与 Twitter 卡片、文章发布时间和本语言 RSS 的 `alternate` 链接。四套主题呈现同一份内容，因此规范地址与 hreflang 一律指向「规范主题」在相应语言下的同一页；规范主题由 `src/core/themes/routing.mjs` 的 `canonicalTheme` 决定（2026-11-28 起随默认根路径改为 `arknights`，并同步更新为深色终端风分享图；原 `2026-11-23` 起为 `blank`）。`og:url` 仍是页面自身地址，分享出去的链接会打开被分享的主题。404 页和旧 `/themes/arknights/` 跳转页加 `noindex`，不进站点地图。主题布局只传入 `title`、`description`、`siteName`、`isArticlePage` 和 `article`，不要另写这些标签。分享图默认使用 `public/og/<locale>.png`（`scripts/og-image.mjs` 生成，域名、署名、`ema.brand`、`home.kicker` 或 `home.statement*` 改动后需重新生成）；文章填写 `cover` 时改用封面。站点地图由 `@astrojs/sitemap` 生成（`/sitemap-index.xml`），按 `isIndexedPath` 只列规范主题下四种语言的页面，不含 404 与跳转页；`public/robots.txt` 指向它。RSS 位于 `/rss.xml` 与 `/<locale>/rss.xml`（`src/core/content/feed.ts`），条目与该语言的文章列表一致，未翻译的文章保留简体中文原文。
 
 各主题的页脚统一挂载 `src/core/components/SiteAttribution.astro`，同时保留站点版权行（所有主题统一为 `site.owner`，即「© 年份 Asahi Arataki」）、指向本站仓库 `site.repository` 的「本站源码」链接和指向 Yuimi-chaya 主仓库的多语言来源署名；不要在新主题中只复制版权行而遗漏作者署名。主题可自行安排其布局，详细素材来源仍在「致谢与许可」页展示。
 

@@ -20,13 +20,13 @@
 
 ## 一个栏目如何生成四套外观
 
-以 `projects` 页面为例，四套主题都读取同一个 `getSiteContent(locale)`。Blank 使用根路径，另外三套主题分别挂载在 `/themes/ema/`、`/themes/endfield/` 和 `/themes/arknights/`；非简体中文的语言前缀排在主题前缀之前：
+以 `projects` 页面为例，四套主题都读取同一个 `getSiteContent(locale)`。明日方舟作为默认主题使用根路径，另外三套主题分别挂载在 `/themes/blank/`、`/themes/ema/` 和 `/themes/endfield/`（旧 `/themes/arknights/` 保留 `noindex` 跳转）；非简体中文的语言前缀排在主题前缀之前：
 
 ```text
 /projects/
+/themes/blank/projects/
 /themes/ema/projects/
 /ja/themes/endfield/projects/
-/en/themes/arknights/projects/
 ```
 
 Blank、终末地与明日方舟共用同一套内页组件（文字、作品、游戏、关于、致谢、404），依靠各自样式表与 `data-site-*` 钩子呈现不同外观；樱色档案的首页、作品页、游戏页与关于页则独立编排，只共享同一份数据源与筛选钩子。
@@ -58,7 +58,7 @@ Astro 负责抓取文档、管理历史记录与视图替换；公共生命周�
 
 | 决策 | 得到什么 | 代价与边界 |
 | --- | --- | --- |
-| 主题进入 URL | 链接可分享，刷新与前进后退能还原当前界面 | 静态页面扩展到 128 页；规范地址（canonical）与 sitemap 统一指向 Blank |
+| 主题进入 URL | 链接可分享，刷新与前进后退能还原当前界面 | 静态页面覆盖 128 个内容页（另含旧 `/themes/arknights/` 跳转页）；规范地址（canonical）与 sitemap 统一指向默认主题（明日方舟） |
 | URL 优先于保存的主题 | 显式链接不会被本地偏好重定向走 | 保存的偏好与当前查看主题可能不同，状态需分开维护 |
 | 静态生成 + 客户端导航 | 无 JS 仍完整可读，站内浏览过渡连续 | 脚本必须严格处理清理、滚动恢复、平滑回顶与部署缓存 |
 | 双层自托管字体 | 跨平台字形一致，首屏下载量远小于整包 CJK 字体 | 内容新增较多生僻字时需要重新截取第一层子集 |

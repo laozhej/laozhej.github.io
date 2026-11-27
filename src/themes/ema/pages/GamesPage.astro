@@ -46,12 +46,12 @@ const linkLabel = (game: (typeof gameShelf)[number]) => (game.link?.steam ? "Ste
       <output class="games-count" data-site-count aria-live="polite" aria-atomic="true">{total} {unit("common.games", total)}</output>
     </div>
     <ol class="games-grid" data-site-entries>
-      {gameShelf.map((game) => (
+      {gameShelf.map((game, index) => (
         <li class:list={["game-cabinet", `tone-${genreTone[game.genre]}`, { "is-favorite": favorites.has(game.key) }]} data-site-entry data-category={game.genre} data-search={`${game.name} ${game.title}`}>
           <p class="game-label" aria-hidden="true"><span>GAME / {pad(game.number)}</span><Icon name={genreIcon[game.genre]} size={18} /></p>
           <div class:list={["game-screen", { "has-art": game.art }]} aria-hidden="true">
             {game.art
-              ? <img src={game.art.src} alt="" loading="lazy" decoding="async" style={`object-position:${game.art.focus}`} />
+              ? <img src={game.art.src} alt="" loading={index < 3 ? undefined : "lazy"} fetchpriority={index === 0 ? "high" : undefined} decoding="async" style={`object-position:${game.art.focus}`} />
               : <span>{game.title}</span>}
           </div>
           <div class="game-copy">

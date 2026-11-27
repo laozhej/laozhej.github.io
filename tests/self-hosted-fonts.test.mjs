@@ -68,3 +68,19 @@ test("Ema's English text is in Nunito, preloaded on English pages only", () => {
   assert.match(layout, /import "@fontsource-variable\/nunito\/wght\.css";/);
   assert.match(layout, /\{locale === "en" && <link rel="preload" href=\{nunitoLatin\} as="font" type="font\/woff2" crossorigin \/>\}/);
 });
+
+test("English pages on Blank, Endfield and Arknights set curly quotes in proportional Noto Latin", () => {
+  const quotesCss = read("src/core/fonts/latin-quotes.css");
+  for (const file of ["noto-sans-quotes.woff2", "noto-serif-quotes.woff2"]) {
+    assert.ok(quotesCss.includes(`/fonts/latin/${file}`), file);
+    const path = new URL(`../public/fonts/latin/${file}`, import.meta.url);
+    assert.ok(existsSync(path), file);
+    assert.ok(statSync(path).size > 500 && statSync(path).size < 10_000, `${file} should stay a tiny quotes subset`);
+  }
+  assert.match(read("public/licenses/noto-latin-OFL.txt"), /SIL Open Font License/);
+  assert.ok(read("src/themes/blank/pages/CreditsPage.astro").includes("/licenses/noto-latin-OFL.txt"));
+  for (const [theme, layout] of [["blank", "BlankLayout"], ["endfield", "EndfieldLayout"], ["arknights", "ArknightsLayout"]]) {
+    assert.match(read(`src/themes/${theme}/layouts/${layout}.astro`), /import "@\/core\/fonts\/latin-quotes\.css";/, theme);
+    assert.match(read(`src/themes/${theme}/styles/theme.css`), new RegExp(`html\\[data-theme="${theme}"\\]:lang\\(en\\)[\\s\\S]*?"Site Sans Quotes","Site Sans SC","Noto Sans SC Variable"`), theme);
+  }
+});

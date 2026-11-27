@@ -2,7 +2,7 @@
 
 **四套界面，一份内容。** 一个从 Blank 主题发展而来的 Astro 个人网站，记录多主题、多语言、自托管字体和持续交互如何在同一个静态站点里协作。
 
-[访问网站](https://laozhej.github.io/) · [截图画廊](gallery/README.md) · [架构](docs/01-architecture.md) · [验证记录](docs/04-validation.md) · [完整源码](../)
+[访问网站](https://neroarataki.com/) · [截图画廊](gallery/README.md) · [架构](docs/01-architecture.md) · [验证记录](docs/04-validation.md) · [完整源码](../)
 
 ![Blank 桌面首页，2026-10-31 历史截图](gallery/blank-desktop.png)
 
@@ -31,10 +31,10 @@
 
 | 主题 | 设计方向 | 体验入口 |
 | --- | --- | --- |
-| **Blank** | 黑白留白、思源黑体／思源宋体、编号行与细线，以阅读和归档为中心 | [打开 Blank](https://laozhej.github.io/) |
-| **樱色档案 / Ema** | 全屏立绘舞台、五幕姿态切换、手绘分镜静物、水平章节轨、标签雨与三首 MP3 樱色电台 | [打开樱色档案](https://laozhej.github.io/themes/ema/) |
-| **终末地工业风** | 纸色与墨色、单一亮黄强调、切角控件、等高线底纹与短促机械交互动效 | [打开工业风](https://laozhej.github.io/themes/endfield/) |
-| **明日方舟** | 深色终端与浅色档案纸、单一青色信号、右侧进度区段栏、点阵编号牌与竖条游戏面板 | [打开明日方舟](https://laozhej.github.io/themes/arknights/) |
+| **Blank** | 黑白留白、思源黑体／思源宋体、编号行与细线，以阅读和归档为中心 | [打开 Blank](https://neroarataki.com/) |
+| **樱色档案 / Ema** | 全屏立绘舞台、五幕姿态切换、手绘分镜静物、水平章节轨、标签雨与三首 MP3 樱色电台 | [打开樱色档案](https://neroarataki.com/themes/ema/) |
+| **终末地工业风** | 纸色与墨色、单一亮黄强调、切角控件、等高线底纹与短促机械交互动效 | [打开工业风](https://neroarataki.com/themes/endfield/) |
+| **明日方舟** | 深色终端与浅色档案纸、单一青色信号、右侧进度区段栏、点阵编号牌与竖条游戏面板 | [打开明日方舟](https://neroarataki.com/themes/arknights/) |
 
 各主题首页独立编排；樱色档案还有定制的作品页、游戏架和关于页，终末地与明日方舟的内页复用 Blank 页面组件并由各自样式表呈现。[设计与交互说明 →](docs/02-design-and-interaction.md)
 

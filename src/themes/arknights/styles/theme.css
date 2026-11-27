@@ -37,6 +37,9 @@ html[data-theme="arknights"]:lang(ja) {
   --ak-mono:"JetBrains Mono Variable","Site Sans JP","Noto Sans JP Variable",monospace;
   --ak-text:"Site Sans JP","Noto Sans JP Variable",sans-serif;
 }
+html[data-theme="arknights"]:lang(en) {
+  --ak-text:"Site Sans Quotes","Site Sans SC","Noto Sans SC Variable",sans-serif;
+}
 html[data-theme="arknights"][data-color-mode="dark"] {
   color-scheme:dark;
   --ak-field:#0d0f11; --ak-panel:#15181b; --ak-ink:#e9eae6; --ak-ink-2:#a0a6ab; --ak-rule:#2a2e32;

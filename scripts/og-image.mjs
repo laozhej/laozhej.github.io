@@ -14,7 +14,7 @@ import { site } from "../src/lib/site.ts";
 const require = createRequire(import.meta.url);
 const { chromium } = require(process.env.PLAYWRIGHT_CORE || "playwright-core");
 const outDir = fileURLToPath(new URL("../public/og/", import.meta.url));
-const host = "laozhej.github.io";
+const host = "neroarataki.com";
 
 const serif = {
   "zh-CN": '"Iowan Old Style", "Palatino Linotype", "Songti SC", serif',

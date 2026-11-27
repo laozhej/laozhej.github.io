@@ -37,13 +37,13 @@ for (const locale of locales) {
         assert(!html.includes('rel="canonical"') && !html.includes('<link rel="alternate" hreflang='), `${url}: 404 names no canonical or alternates`);
       } else {
         // Every theme's copy names the canonical theme's route, in each locale.
-        assert(html.includes(`rel="canonical" href="https://laozhej.github.io${route(locale, canonicalTheme, section)}"`), `${url}: wrong canonical`);
+        assert(html.includes(`rel="canonical" href="https://neroarataki.com${route(locale, canonicalTheme, section)}"`), `${url}: wrong canonical`);
         for (const other of [...locales, "x-default"]) {
           const target = route(other === "x-default" ? "zh-CN" : other, canonicalTheme, section);
-          assert(html.includes(`hreflang="${other}" href="https://laozhej.github.io${target}"`), `${url}: wrong ${other} alternate`);
+          assert(html.includes(`hreflang="${other}" href="https://neroarataki.com${target}"`), `${url}: wrong ${other} alternate`);
         }
       }
-      assert(html.includes(`property="og:url" content="https://laozhej.github.io${url}"`), `${url}: og:url is the page itself`);
+      assert(html.includes(`property="og:url" content="https://neroarataki.com${url}"`), `${url}: og:url is the page itself`);
       if (section === "projects") {
         assert(html.includes(`href="${showcaseUrl}"`), `${url}: missing case-study link`);
         assert(html.includes(caseLabels[locale]), `${url}: missing localized label`);

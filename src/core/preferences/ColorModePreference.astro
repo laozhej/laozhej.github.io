@@ -14,6 +14,7 @@ const {
 <script is:inline define:vars={{ storageKey: COLOR_MODE_STORAGE_KEY, motionKey: MOTION_STORAGE_KEY }}>
   // Apply before paint. Every theme shares these preferences, with its own browser colors.
   (() => {
+    document.documentElement.dataset.siteJs = "true";
     let saved;
     try { saved = localStorage.getItem(storageKey); } catch {}
     const mode = saved === "light" || saved === "dark"

@@ -136,7 +136,7 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
         </div>
         <div class="k-card">
           <div class="k-card-bar"><span class="k-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>{profileIdentity.handle}</span></div>
-          <p class="k-card-path" aria-hidden="true">laozhej.github.io{sitePath}</p>
+          <p class="k-card-path" aria-hidden="true">{Astro.site?.host ?? "neroarataki.com"}{sitePath}</p>
           <p class="k-card-cmd" aria-hidden="true"><span>profile@arataki:~$</span> <b data-k-name data-names={JSON.stringify([profileIdentity.displayName, profileIdentity.alias])}>{profileIdentity.displayName}</b><span class="k-caret"></span></p>
           <div class="k-card-heading">
             <h2 class="k-card-name" id="k-profile-name">{profileIdentity.displayName}<span> / {profileIdentity.alias}</span></h2>

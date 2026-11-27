@@ -5,9 +5,10 @@ interface Props {
   class: string;
   alt: string;
   loading?: "lazy" | "eager";
+  fetchpriority?: "high" | "low";
 }
 
-const { class: className, alt, loading = "lazy" } = Astro.props;
+const { class: className, alt, loading = "lazy", fetchpriority } = Astro.props;
 const { file, sha256, dimensions: [width, height] } = assets.assets.find(({ id }) => id === "profile-avatar")!;
 ---
-<img class={className} src={`/themes/ema/${file}?v=${sha256.slice(0, 12)}`} {alt} {width} {height} {loading} decoding="async" draggable="false" />
+<img class={className} src={`/themes/ema/${file}?v=${sha256.slice(0, 12)}`} {alt} {width} {height} {loading} {fetchpriority} decoding="async" draggable="false" />

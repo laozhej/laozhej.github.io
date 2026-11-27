@@ -15,7 +15,9 @@
 
 /* Ticket line: a dashed rule carrying the filters and the live count. */
 .ema-games {margin-top:28px;}
-.ema-games [hidden] {display:none !important;}
+.ema-games [hidden]:not([data-site-filter-form]) {display:none !important;}
+html:not([data-site-js="true"]) .ema-games [data-site-filter-form][hidden] {display:none !important;}
+html[data-site-js="true"] .ema-games [data-site-filter-form][hidden] {display:block;}
 .games-tools {display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 24px;margin-bottom:30px;padding-top:18px;border-top:1px dashed var(--ema-pink-soft);}
 .games-filters {min-width:0;}
 .games-filters fieldset {display:flex;flex-wrap:wrap;gap:10px;min-width:0;margin:0;padding:0;border:0;}

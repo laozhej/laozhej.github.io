@@ -67,28 +67,28 @@
       "locale": "ja",
       "theme": "blank",
       "horizontalOverflow": false,
-      "label": "制作事例を読む（中国語簡体字）"
+      "label": "制作事例を読む（簡体字中国語）"
     },
     {
       "route": "/ja/themes/ema/projects/",
       "locale": "ja",
       "theme": "ema",
       "horizontalOverflow": false,
-      "label": "制作事例を読む（中国語簡体字）"
+      "label": "制作事例を読む（簡体字中国語）"
     },
     {
       "route": "/ja/themes/endfield/projects/",
       "locale": "ja",
       "theme": "endfield",
       "horizontalOverflow": false,
-      "label": "制作事例を読む（中国語簡体字）"
+      "label": "制作事例を読む（簡体字中国語）"
     },
     {
       "route": "/ja/themes/arknights/projects/",
       "locale": "ja",
       "theme": "arknights",
       "horizontalOverflow": false,
-      "label": "制作事例を読む（中国語簡体字）"
+      "label": "制作事例を読む（簡体字中国語）"
     },
     {
       "route": "/en/projects/",

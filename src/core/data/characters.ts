@@ -467,7 +467,7 @@ const characters = [
       "zh-CN": "爱尔奎特",
       "zh-TW": "愛爾奎特",
       "ja": "アルクェイド",
-      "en": "Arcueid Brunestud"
+      "en": "Arcueid"
     },
     "work": {
       "zh-CN": "月姬",
@@ -486,7 +486,7 @@ const characters = [
       "en": "Iroha Sakayori"
     },
     "work": {
-      "zh-CN": "超辉夜姬！",
+      "zh-CN": "超时空辉夜姬！",
       "zh-TW": "超時空輝耀姬！",
       "ja": "超かぐや姫！",
       "en": "Cosmic Princess Kaguya!"
@@ -497,12 +497,12 @@ const characters = [
     "key": "kaguya",
     "title": {
       "zh-CN": "辉夜",
-      "zh-TW": "輝耀姬",
+      "zh-TW": "輝耀",
       "ja": "かぐや",
       "en": "Kaguya"
     },
     "work": {
-      "zh-CN": "超辉夜姬！",
+      "zh-CN": "超时空辉夜姬！",
       "zh-TW": "超時空輝耀姬！",
       "ja": "超かぐや姫！",
       "en": "Cosmic Princess Kaguya!"
@@ -518,7 +518,7 @@ const characters = [
       "en": "Yachiyo Runami"
     },
     "work": {
-      "zh-CN": "超辉夜姬！",
+      "zh-CN": "超时空辉夜姬！",
       "zh-TW": "超時空輝耀姬！",
       "ja": "超かぐや姫！",
       "en": "Cosmic Princess Kaguya!"
@@ -535,7 +535,7 @@ const characters = [
     },
     "work": {
       "zh-CN": "莉可丽丝",
-      "zh-TW": "莉可麗絲",
+      "zh-TW": "Lycoris Recoil 莉可麗絲",
       "ja": "リコリス・リコイル",
       "en": "Lycoris Recoil"
     },
@@ -551,7 +551,7 @@ const characters = [
     },
     "work": {
       "zh-CN": "莉可丽丝",
-      "zh-TW": "莉可麗絲",
+      "zh-TW": "Lycoris Recoil 莉可麗絲",
       "ja": "リコリス・リコイル",
       "en": "Lycoris Recoil"
     },
@@ -566,7 +566,7 @@ const characters = [
       "en": "Mahiru Shiina"
     },
     "work": {
-      "zh-CN": "邻家的天使大人",
+      "zh-CN": "关于我在无意间被隔壁的天使变成废柴这件事",
       "zh-TW": "關於我在無意間被隔壁的天使變成廢柴這件事",
       "ja": "お隣の天使様にいつの間にか駄目人間にされていた件",
       "en": "The Angel Next Door Spoils Me Rotten"
@@ -624,8 +624,8 @@ const characters = [
   {
     "key": "violet-evergarden",
     "title": {
-      "zh-CN": "薇尔莉特",
-      "zh-TW": "薇爾莉特",
+      "zh-CN": "薇尔莉特·伊芙加登",
+      "zh-TW": "薇爾莉特·伊芙加登",
       "ja": "ヴァイオレット・エヴァーガーデン",
       "en": "Violet Evergarden"
     },

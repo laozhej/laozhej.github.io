@@ -42,7 +42,7 @@ const zhTW = linked({
   currentSignals: [
     { label: "正在做", text: "邊學邊研究 AI、軟體開發和遊戲製作" },
     { label: "接下來", text: "把學習筆記、專案進度和日常陸續寫進網站" },
-    { label: "網站規劃", text: "在現有四套主題的基礎上持續打磨細節，補充文章與收藏" },
+    { label: "網站規劃", text: "在現有四套主題的基礎上持續精進細節，補充文章與收藏" },
   ],
   projectTechLines: [{ key: "web", label: "Web", note: "個人網站 / 頁面與互動" }],
   projectEntries: [
@@ -109,9 +109,9 @@ const ja = linked({
         { ...projects.personalSiteGallery[0], label: "Blank テーマ · ホーム", meta: "ライト · 1440×960 · 2026-10-31 撮影", alt: "Blank テーマのホーム画面：白地に黒の大きな見出し Blank Space、紹介文と記事への入口" },
         { ...projects.personalSiteGallery[1], label: "Blank テーマ · ホーム（ダーク）", meta: "ダーク · 1440×960 · 2026-10-31 撮影", alt: "Blank テーマのホーム画面（ダークモード）：黒地に白の大きな見出し Blank Space" },
         { ...projects.personalSiteGallery[2], label: "Blank テーマ · 制作ページ", meta: "ライト · 1440×960 · 2026-10-31 撮影", alt: "Blank テーマの制作ページ：見出し Works と個人サイトのプロジェクト項目" },
-        { ...projects.personalSiteGallery[3], label: "終末地インダストリアル · ホーム", meta: "ライト · 1440×960 · 2026-10-31 撮影", alt: "終末地インダストリアルテーマのホーム画面：ARATAKI.BR の見出し、黄色で強調したキャッチコピーと数字" },
+        { ...projects.personalSiteGallery[3], label: "エンドフィールド・インダストリアル · ホーム", meta: "ライト · 1440×960 · 2026-10-31 撮影", alt: "エンドフィールド・インダストリアルテーマのホーム画面：ARATAKI.BR の見出し、黄色で強調したキャッチコピーと数字" },
         { ...projects.personalSiteGallery[4], label: "Blank テーマ · スマートフォン幅", meta: "ライト · 390×844 · 2026-10-31 撮影", alt: "スマートフォン幅で表示した Blank テーマのホーム画面" },
-        { ...projects.personalSiteGallery[5], label: "終末地インダストリアル · スマートフォン幅", meta: "ライト · 390×844 · 2026-10-31 撮影", alt: "スマートフォン幅で表示した終末地インダストリアルテーマのホーム画面" },
+        { ...projects.personalSiteGallery[5], label: "エンドフィールド・インダストリアル · スマートフォン幅", meta: "ライト · 390×844 · 2026-10-31 撮影", alt: "スマートフォン幅で表示したエンドフィールド・インダストリアルテーマのホーム画面" },
       ],
     },
   ],

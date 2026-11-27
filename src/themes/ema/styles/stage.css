@@ -488,17 +488,50 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
   border: 0; background: none; color: var(--ema-pink); font: 600 13px/1 var(--blank-sans); cursor: pointer;
 }
 #ema-stage .k-text-button[hidden] { display: none; }
-#ema-stage .k-rain { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; }
-#ema-stage .k-tags { position: absolute; z-index: 1; left: 50%; bottom: 24px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: min(1040px, calc(100% - 48px)); margin: 0; padding: 0; list-style: none; translate: -50% 0; }
-#ema-stage .k-tags li { padding: 7px 14px; border-radius: 999px; border: 1.5px solid var(--ema-pink-soft); background: var(--k-card); font: 600 13px/1.4 var(--blank-sans); color: var(--blank-ink); }
-#ema-stage .k-tags li:nth-child(3n + 2) { border-color: var(--ema-lav-soft); }
-#ema-stage .k-tags li:nth-child(3n) { border-color: #d9cdb3; }
-#ema-stage .k-signal.is-raining .k-tags { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-#ema-stage .k-rain-again { position: absolute; z-index: 2; right: 5%; bottom: 24px; }
+#ema-stage .k-rain { position: relative; z-index: 1; min-width: 0; }
+#ema-stage .k-tags {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+  max-width: 1040px; margin: 0 auto; padding: 0; list-style: none;
+}
+#ema-stage .k-tags li {
+  padding: 7px 15px; border: 1px solid var(--ema-pink-soft); border-radius: 999px;
+  background: var(--ema-blush); color: var(--ema-pink); box-shadow: 0 2px 3px rgb(67 46 64 / .09);
+  max-width: 100%; overflow-wrap: anywhere; font: 600 14px/1.4 var(--blank-sans); text-align: center;
+}
+#ema-stage .k-tags li:nth-child(3n + 2) { background: var(--ema-lav-wash); border-color: var(--ema-lav-soft); color: var(--ema-lav); }
+#ema-stage .k-tags li:nth-child(3n) { background: var(--ema-card); border-color: var(--ema-line-strong); color: var(--blank-ink); }
+#ema-stage .k-rain-again {
+  grid-column: 2; grid-row: 2; justify-self: center; position: relative; z-index: 2;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px;
+  margin: 8px 0 20px; padding: 0 18px; border: 1px solid transparent; border-radius: 12px;
+  background: var(--ema-pink); color: var(--ema-on-pink); box-shadow: 0 2px 4px rgb(67 46 64 / .12);
+  font: 600 14px/1.35 var(--blank-sans); cursor: pointer;
+}
+#ema-stage .k-rain-again[hidden] { display: none; }
+#ema-stage .k-rain-again:focus-visible { outline: 2px solid var(--ema-pink); outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  #ema-stage .k-rain-again:hover { background: color-mix(in srgb, var(--ema-pink) 82%, var(--blank-ink)); }
+}
+#ema-stage .k-rain-again:active { background: var(--blank-ink); box-shadow: none; }
 
 @media (min-width: 761px) {
-  #ema-stage .k-signal { display: grid; grid-template-columns: 1fr min(100%, 1280px) 1fr; }
+  #ema-stage .k-signal { display: grid; grid-template-columns: 1fr min(100%, 1280px) 1fr; grid-template-rows: 1fr auto; }
   #ema-stage :is(.k-signal-word, .k-clock, .k-bubble) { grid-column: 2 / 3; }
+  #ema-stage .k-rain {
+    grid-column: 2; grid-row: 1; display: grid; align-items: end;
+    margin-inline: 12px; padding: 0 12px 24px; overflow: clip;
+  }
+  #ema-stage .is-raining .k-rain { padding: 0; }
+  #ema-stage .is-raining .k-rain::after {
+    content: ""; position: absolute; inset-inline: 10px; bottom: 7px; height: 1px; pointer-events: none;
+    background: linear-gradient(90deg, transparent, var(--blank-line) 8% 92%, transparent);
+  }
+  #ema-stage .is-raining .k-tags { position: absolute; inset: 0; display: block; max-width: none; }
+  #ema-stage .is-raining .k-tags li, #ema-stage .k-rain-blossom {
+    position: absolute; top: 0; left: 0; width: max-content; transform: translateY(-150%); pointer-events: none;
+  }
+  #ema-stage .is-raining .k-tags li { max-width: min(260px, calc(100% - 48px)); }
+  #ema-stage .k-rain-blossom { width: 28px; height: 28px; background: var(--ema-blossom) center / contain no-repeat; }
 }
 
 /* ---------- Journal ---------- */
@@ -611,13 +644,11 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-rail-head h2 { font-size: 22px; }
   #ema-stage .k-track { gap: 20px; }
   #ema-stage .k-leaf { min-height: 420px; }
-  #ema-stage .k-signal { display: grid; gap: 18px; min-height: 0; padding: 40px 24px 120px; }
+  #ema-stage .k-signal { display: grid; gap: 18px; min-height: 0; padding: 40px 24px; }
   #ema-stage :is(.k-signal-word, .k-clock, .k-bubble) { position: relative; inset: auto; translate: none; width: auto; max-width: none; }
   #ema-stage .k-signal-word { text-align: start; }
   #ema-stage .k-signal-word h2 { font-size: 40px; }
   #ema-stage .k-clock { min-height: 0; }
-  #ema-stage .k-tags { position: relative; left: auto; bottom: auto; translate: none; width: auto; justify-content: flex-start; }
-  #ema-stage .k-rain-again { right: 24px; }
   #ema-stage .k-journal { padding: 32px 24px 56px; }
   #ema-stage .k-journal-grid { grid-template-columns: minmax(0, 1fr); }
 }

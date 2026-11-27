@@ -1,201 +1,174 @@
 // Falling tags for the Sakura Archive homepage, adapted from the tag rain in
 // src/themes/fuyukawa-kagari/pages/HomePage.astro of Yuimi-chaya/Yuimi-chaya.github.io
 // (MIT License, Copyright (c) 2026 Yuimi-chaya; full text in LICENSE).
-// Changes here: the tags are this site's shared favourites (listed in the HTML, which stays the
-// accessible copy), small blossoms replace the reference's mascot, the pile stays instead of fading,
-// and it runs only on wide screens with motion on. Otherwise the plain list shows.
-const PALETTES = {
-  light: [
-    { fill: '#fff6f9', stroke: '#efbcd0', ink: '#8a4a69' },
-    { fill: '#f4f0fb', stroke: '#cfc4ee', ink: '#5b4f8f' },
-    { fill: '#fbf5e8', stroke: '#e2cfa6', ink: '#6f5a2f' },
-    { fill: '#eff7f2', stroke: '#b7dcc6', ink: '#3f6553' },
-  ],
-  dark: [
-    { fill: '#3b2c38', stroke: '#8a5a72', ink: '#f6cfe0' },
-    { fill: '#302d45', stroke: '#6a6196', ink: '#ddd5f8' },
-    { fill: '#38322a', stroke: '#7d6b48', ink: '#f0e2c2' },
-    { fill: '#2a3632', stroke: '#5a7d6c', ink: '#cfe9dc' },
-  ],
-};
-const random = (min, max) => min + Math.random() * (max - min);
-const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+// The HTML list supplies both the animated pieces and the static, accessible view.
+import { containBody, stepBody, stepPile } from './tag-rain-physics.mjs';
 
-export function stepBody(body, dt, width, floor) {
-  body.vy += 0.055 * dt;
-  body.x += body.vx * dt;
-  body.y += body.vy * dt;
-  body.angle += body.spin * dt;
-  if (body.x - body.radius < 10) { body.x = body.radius + 10; body.vx = Math.abs(body.vx) * 0.52; body.spin *= 0.35; }
-  if (body.x + body.radius > width - 10) { body.x = width - body.radius - 10; body.vx = -Math.abs(body.vx) * 0.52; body.spin *= 0.35; }
-  if (body.y + body.radius > floor) {
-    body.y = floor - body.radius;
-    body.vy *= -0.16; body.vx *= 0.62; body.spin *= 0.18;
-    if (Math.abs(body.vy) < 0.72) body.vy = 0;
-    if (Math.abs(body.vx) < 0.16) body.vx = 0;
-    if (Math.abs(body.spin) < 0.018) body.spin = 0;
+const random = (min, max) => min + Math.random() * (max - min);
+const FRAME_MS = 1000 / 60;
+const STEP_MS = FRAME_MS / 2;
+const FLOOR_INSET = 8;
+
+function shuffle(items) {
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
   }
-  if (Math.abs(body.vx) + Math.abs(body.vy) < 0.42) { body.spin *= 0.72; if (Math.abs(body.spin) < 0.02) body.spin = 0; }
-  return body;
+  return items;
+}
+
+function paint(body) {
+  const x = body.x - body.width / 2, y = body.y - body.height / 2;
+  body.element.style.transform = `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) rotate(${body.angle.toFixed(4)}rad)`;
+  body.paintedX = body.x; body.paintedY = body.y; body.paintedAngle = body.angle;
 }
 
 export function mountTagRain(root, win, { canAnimate = () => true } = {}) {
   const stage = root.querySelector('[data-k-signal]');
-  const canvas = stage?.querySelector('[data-k-rain]');
+  const field = stage?.querySelector('[data-k-rain]');
   const again = stage?.querySelector('[data-k-rain-again]');
-  const labels = stage ? [...stage.querySelectorAll('[data-k-tags] li')].map((item) => item.textContent.trim()).filter(Boolean) : [];
-  const ctx = canvas?.getContext?.('2d');
-  const idle = { refresh() {}, cleanup() {} };
-  if (!stage || !canvas || !ctx || !labels.length) return idle;
-  const wideEnough = win.matchMedia('(min-width: 761px)');
-  const state = { bodies: [], queue: [], started: false, dropping: false, raf: 0, last: 0, nextDrop: 0, lastDrop: 0, width: 1, height: 1, dpr: 1 };
-  let font = '600 15px sans-serif';
-  let palette = PALETTES.light;
-  let disposed = false;
-  const allowed = () => !disposed && canAnimate() && wideEnough.matches;
+  const tags = [...(field?.querySelectorAll('[data-k-tags] li') ?? [])];
+  if (!tags.length || !again) return { refresh() {}, cleanup() {} };
 
-  const resize = () => {
-    const rect = stage.getBoundingClientRect();
-    state.dpr = clamp(win.devicePixelRatio || 1, 1, 2);
-    state.width = Math.max(1, Math.floor(rect.width));
-    state.height = Math.max(1, Math.floor(rect.height));
-    canvas.width = Math.floor(state.width * state.dpr);
-    canvas.height = Math.floor(state.height * state.dpr);
-    ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
-  };
-  const measure = (label) => {
-    ctx.save(); ctx.font = font;
-    const width = clamp(ctx.measureText(label).width + 40, 84, Math.min(260, state.width * 0.76));
-    ctx.restore();
-    return { width, height: 40 };
-  };
-  const makeTag = (label, index) => {
-    const size = measure(label);
-    const radius = Math.max(size.width, size.height) * 0.34;
-    return { type: 'tag', label, color: palette[index % palette.length], ...size, radius,
-      x: random(radius + 12, state.width - radius - 12), y: -random(60, 260),
-      vx: random(-1.2, 1.2), vy: random(0.5, 1.8), angle: random(-0.3, 0.3), spin: random(-0.018, 0.018) };
-  };
-  const makeBlossom = () => {
-    const size = random(26, 36);
-    return { type: 'blossom', width: size, height: size, radius: size * 0.52, color: palette[0],
-      x: random(30, state.width - 30), y: -random(80, 320), vx: random(-1.5, 1.5), vy: random(0.4, 1.6),
-      angle: random(0, Math.PI), spin: random(-0.02, 0.02) };
-  };
-  const drawTag = (body) => {
-    ctx.save();
-    ctx.translate(body.x, body.y); ctx.rotate(body.angle);
-    ctx.beginPath();
-    // roundRect needs Safari 16+; older engines draw a plain tag instead of throwing every frame.
-    if (ctx.roundRect) ctx.roundRect(-body.width / 2, -body.height / 2, body.width, body.height, body.height / 2);
-    else ctx.rect(-body.width / 2, -body.height / 2, body.width, body.height);
-    ctx.fillStyle = body.color.fill; ctx.strokeStyle = body.color.stroke; ctx.lineWidth = 2;
-    ctx.shadowColor = 'rgba(120, 72, 96, .14)'; ctx.shadowBlur = 12; ctx.shadowOffsetY = 6;
-    ctx.fill(); ctx.shadowColor = 'transparent'; ctx.stroke();
-    ctx.fillStyle = body.color.ink; ctx.font = font; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText(body.label, 0, 1, body.width - 28);
-    ctx.restore();
-  };
-  const drawBlossom = (body) => {
-    ctx.save();
-    ctx.translate(body.x, body.y); ctx.rotate(body.angle);
-    const r = body.width / 2;
-    ctx.fillStyle = '#f4b6cc'; ctx.strokeStyle = '#d98aa9'; ctx.lineWidth = 1.2;
-    for (let i = 0; i < 5; i++) {
-      ctx.rotate((Math.PI * 2) / 5);
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.bezierCurveTo(-r * 0.42, -r * 0.36, -r * 0.5, -r * 0.86, -r * 0.2, -r);
-      ctx.lineTo(0, -r * 0.86); ctx.lineTo(r * 0.2, -r);
-      ctx.bezierCurveTo(r * 0.5, -r * 0.86, r * 0.42, -r * 0.36, 0, 0);
-      ctx.fill(); ctx.stroke();
+  const wide = win.matchMedia('(min-width: 761px)');
+  const blossoms = Array.from({ length: Math.min(5, Math.ceil(tags.length / 6)) }, () => {
+    const flower = win.document.createElement('span');
+    flower.className = 'k-rain-blossom';
+    flower.setAttribute('aria-hidden', 'true');
+    return flower;
+  });
+  let width = 0, floor = 0;
+  let bodies = [], pending = [], lanes = [];
+  let started = false, settled = false, inView = !('IntersectionObserver' in win);
+  let frame = 0, lastTime = 0, remainder = 0, dropIn = 0, quietTime = 0;
+
+  function spawn(body) {
+    // Mirror each pair of release points, then vary their order and drift.
+    // Fractions still fit when the field resizes between two drops.
+    if (!lanes.length) {
+      const perSide = Math.max(2, Math.round(width / 300));
+      const left = shuffle(Array.from({ length: perSide }, (_, i) => (i + random(0.25, 0.75)) / (2 * perSide)));
+      lanes = left.flatMap((x) => Math.random() < 0.5 ? [x, 1 - x] : [1 - x, x]);
     }
-    ctx.fillStyle = '#c76b92'; ctx.beginPath(); ctx.arc(0, 0, r * 0.16, 0, Math.PI * 2); ctx.fill();
-    ctx.restore();
-  };
-  const collide = () => {
-    const bodies = state.bodies;
-    for (let i = 0; i < bodies.length; i++) for (let j = i + 1; j < bodies.length; j++) {
-      const a = bodies[i], b = bodies[j];
-      const dx = b.x - a.x, dy = b.y - a.y;
-      const distance = Math.hypot(dx, dy) || 0.001, min = a.radius + b.radius;
-      if (distance >= min) continue;
-      const nx = dx / distance, ny = dy / distance, overlap = (min - distance) * 0.52;
-      a.x -= nx * overlap; a.y -= ny * overlap; b.x += nx * overlap; b.y += ny * overlap;
-      const impulse = ((b.vx - a.vx) * nx + (b.vy - a.vy) * ny) * 0.62;
-      if (impulse < 0) { a.vx += impulse * nx; a.vy += impulse * ny; b.vx -= impulse * nx; b.vy -= impulse * ny; a.spin *= 0.58; b.spin *= 0.58; }
+    body.x = width * lanes.pop();
+    body.y = -body.height - random(0, 20);
+    body.vx = random(-0.55, 0.55);
+    body.vy = random(1.4, 2.4);
+    body.angle = random(-0.22, 0.22);
+    body.spin = random(-0.008, 0.008);
+    stepBody(body, 0, width, floor);
+    bodies.push(body);
+  }
+
+  function tick(now) {
+    frame = 0;
+    const elapsed = Math.min(32, Math.max(0, now - lastTime));
+    lastTime = now;
+    dropIn -= elapsed;
+    if (pending.length && dropIn <= 0) {
+      spawn(pending.pop());
+      dropIn = random(105, 155);
     }
-  };
-  const draw = () => {
-    ctx.clearRect(0, 0, state.width, state.height);
-    state.bodies.forEach((body) => (body.type === 'blossom' ? drawBlossom(body) : drawTag(body)));
-  };
-  const stopFrame = () => { win.cancelAnimationFrame(state.raf); state.raf = 0; };
-  const tick = (now) => {
-    state.raf = 0;
-    if (!allowed() || win.document.hidden) return;
-    const dt = clamp((now - state.last) / 16.67, 0.4, 2.1);
-    state.last = now;
-    if (state.dropping && now >= state.nextDrop) {
-      const next = state.queue.shift();
-      if (next) { state.bodies.push(next); state.lastDrop = now; state.nextDrop = now + random(120, 220); }
-      else state.dropping = false;
+
+    remainder += elapsed;
+    while (remainder >= STEP_MS) {
+      stepPile(bodies, STEP_MS / FRAME_MS, width, floor);
+      remainder -= STEP_MS;
     }
-    const floor = state.height - 24;
-    state.bodies.forEach((body) => stepBody(body, dt, state.width, floor));
-    for (let i = 0; i < 3; i++) collide();
-    draw();
-    const calm = !state.dropping && state.bodies.every((body) => Math.abs(body.vx) + Math.abs(body.vy) < 0.2);
-    if (!calm || now - state.lastDrop < 600) state.raf = win.requestAnimationFrame(tick);
-  };
-  const start = () => {
-    if (!allowed()) return;
-    stopFrame();
-    const dark = win.document.documentElement.dataset.colorMode === 'dark';
-    palette = dark ? PALETTES.dark : PALETTES.light;
-    font = `600 15px ${win.getComputedStyle(stage).fontFamily || 'sans-serif'}`;
-    resize();
-    const blossoms = Math.max(3, Math.min(6, Math.round(labels.length / 6)));
-    state.queue = [...labels.map(makeTag), ...Array.from({ length: blossoms }, makeBlossom)].sort(() => Math.random() - 0.5);
-    state.bodies = []; state.started = true; state.dropping = true;
-    state.last = win.performance.now(); state.nextDrop = 0;
+    // Include the travel of the tips: a pill can still be rocking with its center at rest.
+    const moving = bodies.some((body) => {
+      if (body.paintedX === undefined) return true;
+      const travel = Math.hypot(body.x - body.paintedX, body.y - body.paintedY);
+      const rotation = body.width * Math.abs(body.angle - body.paintedAngle) / 2;
+      return travel + rotation > 0.32 * elapsed / FRAME_MS;
+    });
+    for (const body of bodies) paint(body);
+    quietTime = pending.length || moving ? 0 : quietTime + elapsed;
+    settled = quietTime >= 240;
+    if (!settled) frame = win.requestAnimationFrame(tick);
+  }
+
+  function wake() {
+    if (frame || settled || !inView || win.document.hidden) return;
+    lastTime = win.performance.now();
+    frame = win.requestAnimationFrame(tick);
+  }
+
+  function cancelFrame() {
+    win.cancelAnimationFrame(frame);
+    frame = 0;
+  }
+
+  function start() {
+    if (!wide.matches || !canAnimate()) return;
+    cancelFrame();
     stage.classList.add('is-raining');
-    state.raf = win.requestAnimationFrame(tick);
-  };
-  const stop = () => {
-    stopFrame();
-    state.bodies = []; state.queue = []; state.started = false; state.dropping = false;
+    again.hidden = false;
+    field.append(...blossoms);
+    const elements = [...tags, ...blossoms];
+    for (const element of elements) element.style.removeProperty('transform');
+    width = field.clientWidth;
+    floor = field.clientHeight - FLOOR_INSET;
+    pending = shuffle(elements.map((element) => {
+      const w = element.offsetWidth, h = element.offsetHeight;
+      return { element, width: w, height: h, radius: h / 2, halfSpine: (w - h) / 2 };
+    }));
+    bodies = []; lanes = [];
+    started = true; settled = false; remainder = 0; dropIn = 0; quietTime = 0;
+    wake();
+  }
+
+  function stop() {
+    cancelFrame();
+    if (!started) return;
+    started = false;
     stage.classList.remove('is-raining');
-    ctx.clearRect(0, 0, state.width, state.height);
-  };
-  const observer = 'IntersectionObserver' in win ? new win.IntersectionObserver((entries) => {
-    if (entries.some((entry) => entry.isIntersecting) && !state.started) start();
-  }, { rootMargin: '-34% 0px -42% 0px', threshold: 0.02 }) : null;
+    again.hidden = true;
+    for (const tag of tags) tag.style.removeProperty('transform');
+    for (const flower of blossoms) flower.remove();
+    bodies = []; pending = [];
+  }
+
+  function refresh() {
+    if (win.document.hidden) { cancelFrame(); return; }
+    if (!wide.matches || !canAnimate()) { stop(); return; }
+    if (!inView) { cancelFrame(); return; }
+    if (started) wake();
+    else start();
+  }
+
+  function resize() {
+    if (!started || !wide.matches) return;
+    const nextWidth = field.clientWidth, nextFloor = field.clientHeight - FLOOR_INSET;
+    if (nextWidth === width && nextFloor === floor) return;
+    for (const body of bodies) {
+      body.x *= nextWidth / width;
+      body.y *= nextFloor / floor;
+      containBody(body, nextWidth, nextFloor);
+      paint(body);
+    }
+    width = nextWidth; floor = nextFloor; settled = false; quietTime = 0;
+    wake();
+  }
+
+  const observer = 'IntersectionObserver' in win ? new win.IntersectionObserver(([entry]) => {
+    inView = entry.isIntersecting;
+    refresh();
+  }) : null;
   observer?.observe(stage);
-  const onResize = () => {
-    if (!state.started) return;
-    if (!allowed()) { stop(); return; }
-    resize();
-    state.bodies.forEach((body) => { body.x = clamp(body.x, body.radius + 10, state.width - body.radius - 10); body.y = Math.min(body.y, state.height - 24 - body.radius); });
-    if (!state.raf) { state.last = win.performance.now(); state.raf = win.requestAnimationFrame(tick); }
-  };
-  const replay = () => { stop(); start(); };
-  win.addEventListener('resize', onResize, { passive: true });
-  wideEnough.addEventListener('change', onResize);
-  again?.addEventListener('click', replay);
+  const sizeObserver = new win.ResizeObserver(resize);
+  sizeObserver.observe(field);
+  wide.addEventListener('change', refresh);
+  again.addEventListener('click', start);
+
   return {
-    refresh() {
-      if (again) again.hidden = !allowed();
-      if (!allowed()) stop();
-      else if (state.started && !state.raf) { state.last = win.performance.now(); state.raf = win.requestAnimationFrame(tick); }
-    },
+    refresh,
     cleanup() {
-      disposed = true;
-      stop();
       observer?.disconnect();
-      win.removeEventListener('resize', onResize);
-      wideEnough.removeEventListener('change', onResize);
-      again?.removeEventListener('click', replay);
+      sizeObserver.disconnect();
+      wide.removeEventListener('change', refresh);
+      again.removeEventListener('click', start);
+      stop();
     },
   };
 }

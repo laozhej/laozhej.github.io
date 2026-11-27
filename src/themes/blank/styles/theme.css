@@ -20,11 +20,12 @@ html[data-theme="blank"] {
   --blank-footer-line: #333;
   --blank-footer-muted: #d9d9d9;
   --blank-width: 1280px;
-  --blank-sans: Arial, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --blank-serif: "Iowan Old Style", "Palatino Linotype", "Songti SC", SimSun, serif;
-  /* System monospace first: Cascadia Code and Consolas are Windows fonts, and without a match macOS and iOS
-     fell back to Courier. Windows still gets Cascadia Code or Consolas. */
-  --blank-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "Cascadia Code", Consolas, "Roboto Mono", "Noto Sans Mono", "Liberation Mono", monospace;
+  /* Self-hosted fonts only (2026-11-27, owner's request): every system shows the same letters. Noto Sans and
+     Noto Serif CJK (源ノ角ゴシック / 源ノ明朝) per locale, JetBrains Mono for labels. Fontsource splits each font
+     into unicode-range pieces, so a page downloads only the pieces holding its characters. */
+  --blank-sans: "Site Sans SC","Noto Sans SC Variable", sans-serif;
+  --blank-serif: "Site Serif SC","Noto Serif SC Variable", serif;
+  --blank-mono: "JetBrains Mono Variable", "Site Sans SC","Noto Sans SC Variable", monospace;
   /* Six text sizes for reading and interface text. Larger display type keeps its own sizes. Endfield and
      Arknights do not set these, so the Blank components on their pages keep their earlier sizes. */
   --blank-fs-xs: .75rem; --blank-fs-sm: .875rem; --blank-fs-md: 1rem;
@@ -38,8 +39,15 @@ html[data-theme="blank"] {
 }
 /* Taiwanese Traditional Chinese uses its own glyph standard. */
 html[data-theme="blank"]:lang(zh-TW) {
-  --blank-sans: Arial, "Helvetica Neue", "PingFang TC", "Microsoft JhengHei", sans-serif;
-  --blank-serif: "Iowan Old Style", "Palatino Linotype", "Songti TC", PMingLiU, serif;
+  --blank-sans: "Site Sans TC","Noto Sans TC Variable", sans-serif;
+  --blank-serif: "Site Serif TC","Noto Serif TC Variable", serif;
+  --blank-mono: "JetBrains Mono Variable", "Site Sans TC","Noto Sans TC Variable", monospace;
+}
+/* Japanese takes the Japanese glyph standard. */
+html[data-theme="blank"]:lang(ja) {
+  --blank-sans: "Site Sans JP","Noto Sans JP Variable", sans-serif;
+  --blank-serif: "Site Serif JP","Noto Serif JP Variable", serif;
+  --blank-mono: "JetBrains Mono Variable", "Site Sans JP","Noto Sans JP Variable", monospace;
 }
 
 html[data-theme="blank"][data-color-mode="dark"] {

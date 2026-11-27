@@ -1,5 +1,6 @@
 ---
 import "@/core/styles/scale.css";
+import "@/core/fonts/subsets.css";
 import "@/themes/blank/styles/theme.css";
 import "@fontsource-variable/saira/wdth.css";
 import "../styles/theme.css";
@@ -17,6 +18,7 @@ import SiteMeta from "@/core/components/SiteMeta.astro";
 import SiteAttribution from "@/core/components/SiteAttribution.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
+import FontLinks from "@/core/fonts/FontLinks.astro";
 import { pageTransition } from "@/core/navigation/animations.mjs";
 const { locale, t } = getI18n(Astro.url.pathname);
 const href = (path: string) => getThemePath("endfield", path, locale);
@@ -44,6 +46,7 @@ const navItems = site.nav.map((item, index) => ({
     <LanguagePreference /><ThemePreference /><SiteIcons />
     <ColorModePreference lightColor="#f4f4f2" darkColor="#191919" />
     <title>{title}</title><SiteMeta title={title} description={description} siteName={brand} isArticlePage={isArticlePage} article={article} />
+    <FontLinks families={["noto-sans"]} locale={locale} />
     <SiteNavigation />
   </head>
   <body data-blank data-endfield data-endfield-home={home ? "" : undefined}>

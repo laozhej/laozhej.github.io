@@ -138,9 +138,9 @@ Every statement carries one of four labels. Dated sections preserve earlier revi
 | Use | Face | Notes |
 | --- | --- | --- |
 | Wordmark, Latin titles, pose numbers, the alias in title B (all of title B in English) | Gloock 400 | SIL OFL 1.1, self-hosted through `@fontsource/gloock`, Latin subset; licence in `public/licenses/gloock-OFL.txt` |
-| Headings, navigation labels, pose names, the name in title B (zh-CN, zh-TW, ja), the 旭 monogram | Approved 2026-11-27: self-hosted Noto Serif SC, TC or JP, subset to the characters Ema pages set in the serif, ahead of the system serif. System serif: Songti SC or SimSun (zh-CN and en), Songti TC or PMingLiU (zh-TW), Hiragino Mincho ProN or Yu Mincho (ja); Iowan Old Style first for Latin where installed | |
-| Body text and controls | System sans for each locale, 14 px base on Ema pages | |
-| Terminal line, small labels | System monospace: SF Mono in Safari, Menlo in Chrome and Firefox on macOS, Consolas on Windows (`--blank-mono`, 2026-11-27) | Before 2026-11-27 only `ui-monospace`, which Chrome and Firefox do not support, so macOS showed Courier |
+| Headings, navigation labels, pose names, the name in title B (zh-CN, zh-TW, ja), the 旭 monogram | Self-hosted Noto Serif SC, TC or JP (2026-11-27), no system serif | |
+| Body text and controls | Self-hosted LXGW WenKai (zh-CN, en), LXGW WenKai TC (zh-TW) or Klee One (ja), all from Fontworks' Klee One textbook hand; 14 px base on Ema pages (2026-11-27, owner's request for one Japanese-flavoured set on every system) | Replaced the system sans |
+| Terminal line, small labels | JetBrains Mono, with the text face for Chinese and Japanese (2026-11-27) | Earlier: system monospace, which fell back to Courier on macOS |
 | Text sizes | Six steps shared with Blank: 12, 14, 16, 20, 24 and 30px (`--blank-fs-*`, [THEMES.md](THEMES.md)) | Display type, wordmarks, pose numbers, stamps and the clock keep their own sizes |
 
 - **Approved.** Chinese navigation uses the site's Song (宋体) serif, consistent with the rest of the site.

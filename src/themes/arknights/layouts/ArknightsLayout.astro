@@ -2,6 +2,7 @@
 // Arknights theme: the site as a field archive terminal. Built on the same skeleton as the other themes (shared head
 // components, five-section header, floating theme dock, shared footer credits); its look is its own and uses no game assets.
 import "@/core/styles/scale.css";
+import "@/core/fonts/subsets.css";
 import "@/themes/blank/styles/theme.css";
 import "@fontsource-variable/oswald/wght.css";
 import "@fontsource-variable/jetbrains-mono/wght.css";
@@ -20,6 +21,7 @@ import SiteMeta from "@/core/components/SiteMeta.astro";
 import SiteAttribution from "@/core/components/SiteAttribution.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
+import FontLinks from "@/core/fonts/FontLinks.astro";
 import { pageTransition } from "@/core/navigation/animations.mjs";
 import { sectionWords } from "../lib/sections.mjs";
 const { locale, t } = getI18n(Astro.url.pathname);
@@ -60,6 +62,7 @@ const host = Astro.site?.host ?? "";
     <LanguagePreference /><ThemePreference /><SiteIcons />
     <ColorModePreference lightColor="#eceae4" darkColor="#0d0f11" />
     <title>{title}</title><SiteMeta title={title} description={description} siteName={brand} isArticlePage={isArticlePage} article={article} />
+    <FontLinks families={["noto-sans"]} locale={locale} />
     <SiteNavigation />
   </head>
   <body data-blank data-arknights data-arknights-home={home ? "" : undefined}>

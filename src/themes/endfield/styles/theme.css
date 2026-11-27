@@ -1,14 +1,15 @@
 /* Endfield Industrial: paper and ink, one accent, cut corners on what can be pressed.
    Variant: standard (yellow / neutral paper / standard cut / contours / standard density / full motion).
-   Saira (SIL OFL 1.1) is self-hosted through Fontsource; Chinese and Japanese use the system sans. */
+   Saira, Noto Sans CJK and JetBrains Mono (all SIL OFL 1.1) are self-hosted through Fontsource; since 2026-11-27
+   Chinese and Japanese use Noto Sans in each locale's glyph standard instead of the system sans. */
 html[data-theme="endfield"] {
   color-scheme:light;
   --ef-paper:#f4f4f2; --ef-panel:#fff; --ef-ink:#161616; --ef-ink-2:#5c5c5c; --ef-rule:#d9d9d6; --ef-chip:#e4e4e0;
   --ef-signal:#fffa00; --ef-on-signal:#161616; --ef-trace:var(--ef-ink); --ef-tag-bg:var(--ef-ink); --ef-tag-fg:#fff;
   --ef-tri-a:#ff00f0; --ef-tri-c:#00ffa2; --ef-contour:color-mix(in srgb,var(--ef-ink) 9%,transparent);
   --ef-hatch:repeating-linear-gradient(-45deg,transparent 0 5px,color-mix(in srgb,var(--ef-ink) 22%,transparent) 5px 6.5px);
-  --ef-ui:"Saira Variable","PingFang SC","Hiragino Sans","Noto Sans SC","Microsoft YaHei",sans-serif;
-  --ef-text:"PingFang SC","Hiragino Sans","Noto Sans SC","Noto Sans JP","Microsoft YaHei",sans-serif;
+  --ef-ui:"Saira Variable","Site Sans SC","Noto Sans SC Variable",sans-serif;
+  --ef-text:"Site Sans SC","Noto Sans SC Variable",sans-serif;
   /* A corner is cut off everything that can be pressed; the cut is painted with a gradient so focus rings and tooltips are never clipped. */
   --ef-cut:7px; --ef-cut-at:calc(var(--ef-cut) * .7071);
   --ef-snap:cubic-bezier(.16,1,.3,1); --ef-mech:cubic-bezier(.7,0,.2,1);
@@ -17,13 +18,17 @@ html[data-theme="endfield"] {
   --blank-quote:var(--ef-ink-2); --blank-inline-code:var(--ef-chip); --blank-foldout-line:#b8b8b4; --blank-scrollbar:#a8a8a4;
   --blank-panel-bg:var(--ef-panel); --blank-panel-ink:var(--ef-ink); --blank-panel-muted:var(--ef-ink-2);
   --blank-footer-bg:#161616; --blank-footer-ink:#ededed; --blank-footer-line:#353535; --blank-footer-muted:#cfcfcf;
-  --blank-width:1180px; --blank-sans:var(--ef-text); --blank-serif:var(--ef-text); --blank-mono:ui-monospace,"SFMono-Regular",Consolas,monospace;
+  --blank-width:1180px; --blank-sans:var(--ef-text); --blank-serif:var(--ef-text); --blank-mono:"JetBrains Mono Variable",var(--ef-text),monospace;
   --site-menu-background:var(--ef-panel); --site-menu-color:var(--ef-ink);
   min-width:320px; background:var(--ef-paper); scroll-padding-top:120px; accent-color:var(--ef-ink);
 }
 html[data-theme="endfield"]:lang(zh-TW) {
-  --ef-ui:"Saira Variable","PingFang TC","Hiragino Sans","Noto Sans TC","Microsoft JhengHei",sans-serif;
-  --ef-text:"PingFang TC","Hiragino Sans","Noto Sans TC","Noto Sans JP","Microsoft JhengHei",sans-serif;
+  --ef-ui:"Saira Variable","Site Sans TC","Noto Sans TC Variable",sans-serif;
+  --ef-text:"Site Sans TC","Noto Sans TC Variable",sans-serif;
+}
+html[data-theme="endfield"]:lang(ja) {
+  --ef-ui:"Saira Variable","Site Sans JP","Noto Sans JP Variable",sans-serif;
+  --ef-text:"Site Sans JP","Noto Sans JP Variable",sans-serif;
 }
 html[data-theme="endfield"][data-color-mode="dark"] {
   color-scheme:dark;

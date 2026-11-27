@@ -1,5 +1,6 @@
 ---
 import "@/core/styles/scale.css";
+import "@/core/fonts/subsets.css";
 import "../styles/theme.css";
 import "../styles/journal.css";
 import "../styles/motion.css";
@@ -16,6 +17,7 @@ import SiteIcons from "@/core/components/SiteIcons.astro";
 import SiteMeta from "@/core/components/SiteMeta.astro";
 import SiteAttribution from "@/core/components/SiteAttribution.astro";
 import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
+import FontLinks from "@/core/fonts/FontLinks.astro";
 import { pageTransition } from "@/core/navigation/animations.mjs";
 const { locale, t, href } = getI18n(Astro.url.pathname);
 const path = stripLocale(Astro.url.pathname);
@@ -58,6 +60,7 @@ const navItems = site.nav.map((item, index) => ({
     </script>}
     <SiteMeta title={title} description={description} siteName={site.name} isArticlePage={isArticlePage} article={article} />
     <SiteIcons />
+    <FontLinks families={["noto-sans", "noto-serif"]} locale={locale} />
     <SiteNavigation />
   </head>
   <body data-blank>

@@ -38,7 +38,7 @@ const marks = [
     <aside class="about-side" aria-label={t("ema.about.profile")}>
       <div class="about-avatar">
         <span class="about-tape" aria-hidden="true"></span>
-        <EmaAvatar class="about-avatar-mark" alt={profileIdentity.displayName} loading="eager" />
+        <EmaAvatar class="about-avatar-mark" alt={profileIdentity.displayName} loading="eager" fetchpriority="high" />
         <span class="about-blossom" aria-hidden="true"></span>
       </div>
       <div class="about-id">

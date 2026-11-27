@@ -94,3 +94,21 @@ test("on narrow screens the journal's sort label is hidden only visually, so the
   assert.match(narrow, /\.blank-sort label \{ position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset\(50%\); white-space: nowrap; \}/);
   assert.doesNotMatch(css, /\.blank-sort label \{[^}]*display: *none/, "a label with display:none names nothing");
 });
+
+test("pre-paint JS marker prevents filter-bar CLS and collapses extra portraits before lazy fetch", () => {
+  assert.match(read("core/preferences/ColorModePreference.astro"), /document\.documentElement\.dataset\.siteJs = "true";/);
+  const blankCss = read("themes/blank/styles/theme.css");
+  assert.match(blankCss, /html\[data-site-js="true"\] \[data-site-filter-form\]\[hidden\] \{ display: block; \}/);
+  assert.match(blankCss, /html\[data-site-js="true"\] \[data-site-disclosure\]:not\(\[data-disclosure-ready\]\) \[data-site-disclosure-item\]:nth-child\(n\+7\) \{ display: none; \}/);
+  const emaGamesCss = read("themes/ema/styles/games.css");
+  assert.match(emaGamesCss, /html\[data-site-js="true"\] \.ema-games \[data-site-filter-form\]\[hidden\] \{display:block;\}/);
+  assert.match(read("core/features/disclosure.mjs"), /root\.dataset\.disclosureReady = "true";/);
+});
+
+test("above-the-fold game covers are not lazy-loaded and the first promotes LCP priority", () => {
+  for (const path of ["themes/ema/pages/GamesPage.astro", "themes/blank/pages/GamesPage.astro"]) {
+    const source = read(path);
+    assert.match(source, /loading=\{index < 3 \? undefined : "lazy"\}/, path);
+    assert.match(source, /fetchpriority=\{index === 0 \? "high" : undefined\}/, path);
+  }
+});

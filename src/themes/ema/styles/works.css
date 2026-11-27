@@ -5,7 +5,7 @@
    pictures are shown exactly as recorded: no crop, filter, blend, opacity or recolouring, so the light captures
    stay light in dark mode. Every selector sits under .ema-content: the layout stylesheet that carries this
    file also reaches Blank and Endfield pages. */
-.ema-content .ema-works [hidden] { display: none !important; }
+.ema-content .ema-works [hidden]:not([data-site-filter-form]) { display: none !important; }
 /* The sheet keeps the Journal's rhythm: the number in a 72px column, the text beside it. The plate's row
    takes up any extra height, so the text always follows the title directly. */
 .ema-content .ema-works-entry {

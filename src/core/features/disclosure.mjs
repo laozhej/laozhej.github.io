@@ -25,6 +25,7 @@ export function mountDisclosure(root, win) {
     }
   };
   apply();
+  root.dataset.disclosureReady = "true";
   toggle.hidden = false;
   toggle.addEventListener("click", onClick);
   return () => toggle.removeEventListener("click", onClick);

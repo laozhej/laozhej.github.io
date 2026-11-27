@@ -8,25 +8,25 @@
 
 ## Blank · 黑白阅读（2026-10-31 快照）
 
-[访问当前线上页面](https://laozhej.github.io/)
+[访问当前线上页面](https://neroarataki.com/)
 
 ![Blank 桌面首页](blank-desktop.png)
 
 ## 樱色档案 · 场景首页
 
-[访问当前线上页面](https://laozhej.github.io/themes/ema/)
+[访问当前线上页面](https://neroarataki.com/themes/ema/)
 
 截图暂缺：旧快照截图已于 2026-11-13 移出；待页头美术与重拍清单定稿后补充当前版本截图。
 
 ## 终末地工业风 · 结构与编号（2026-10-31 快照）
 
-[访问当前线上页面](https://laozhej.github.io/themes/endfield/)
+[访问当前线上页面](https://neroarataki.com/themes/endfield/)
 
 ![工业风桌面首页](endfield-desktop.png)
 
 ## 明日方舟 · 档案终端
 
-[访问当前线上页面](https://laozhej.github.io/themes/arknights/)
+[访问当前线上页面](https://neroarataki.com/themes/arknights/)
 
 该主题于 2026-11-26 新增，晚于本画廊的 2026-10-31 截图快照，待下一轮统一重拍时补入画廊。
 
@@ -44,7 +44,7 @@
 
 ## 站内案例入口（2026-10-31 快照）
 
-[访问当前线上作品页](https://laozhej.github.io/projects/)
+[访问当前线上作品页](https://neroarataki.com/projects/)
 
 ![作品页及案例链接](projects-desktop.png)
 

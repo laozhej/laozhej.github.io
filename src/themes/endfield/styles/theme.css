@@ -30,6 +30,9 @@ html[data-theme="endfield"]:lang(ja) {
   --ef-ui:"Saira Variable","Site Sans JP","Noto Sans JP Variable",sans-serif;
   --ef-text:"Site Sans JP","Noto Sans JP Variable",sans-serif;
 }
+html[data-theme="endfield"]:lang(en) {
+  --ef-text:"Site Sans Quotes","Site Sans SC","Noto Sans SC Variable",sans-serif;
+}
 html[data-theme="endfield"][data-color-mode="dark"] {
   color-scheme:dark;
   --ef-paper:#191919; --ef-panel:#222; --ef-ink:#ededed; --ef-ink-2:#a3a3a3; --ef-rule:#353535; --ef-chip:#2e2e2e;

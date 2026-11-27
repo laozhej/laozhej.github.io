@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "verified_on": "2026-11-26",
+  "verified_on": "2026-11-28",
   "scope": "Portraits for the owner-selected favorite characters. Third-party art is excluded from the repository software license. Source records do not grant republication rights.",
-  "processing": "The original 65 portraits use rectangular crops, LANCZOS resizing and WebP encoding. The Ema and Yuki entries describe two existing circular crops recovered byte-for-byte from Git.",
+  "processing": "The 65 portraits use rectangular crops, LANCZOS resizing to 160×160 (2.4× the maximum 66px display size) and WebP encoding. The Ema and Yuki entries keep their two existing 480×480 circular crops recovered byte-for-byte from Git.",
   "assets": [
     {
       "key": "emma",
@@ -122,15 +122,15 @@
           298
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "f81d998700c3366e647df2b96a80dff3abd777d1829976175df5b0cf7a22207f",
-      "bytes": 14294,
+      "sha256": "a0e6e2379ca44efab30c2e9badf810f6125f4c773b05b0613a73872bca1b9b28",
+      "bytes": 4064,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -165,15 +165,15 @@
           298
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "9f5ec05b285acf29e2c38e324131caffabfca4fd09cb67f86b861e3e5061edc9",
-      "bytes": 16030,
+      "sha256": "c13a643e4e50766a0d6c6eb390c5e6618c732abdc1bd46d63043ab7fad846fbe",
+      "bytes": 4708,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -208,15 +208,15 @@
           298
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "648ef33fe9040b3ed0102929c70b095e9046b0ec1fc71f10e497e8a8f7481937",
-      "bytes": 11698,
+      "sha256": "39e1ef1f6757dfc2ffb1a7a6e42c0b4d1e77fbd658b1c5f19a84e6b24d9dd28d",
+      "bytes": 3356,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -251,15 +251,15 @@
           298
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "ca5ab9a60a6b645175863566ffbe89f6fce644a596f30f551b721faba5211359",
-      "bytes": 9652,
+      "sha256": "d6e728959b1867ea730c3d9addd6535e18829ced65655c1bf8fc0d4e777ada8d",
+      "bytes": 2808,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -294,15 +294,15 @@
           335
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "50f2c231ff7bbac64fc1acb51b03c680a3ac29f96c681c4cec84f9cf918bb192",
-      "bytes": 16738,
+      "sha256": "39a44c6866a1bd92ce9ab5fe3f8f40c979631747fc7d45ef20887a5cbead183a",
+      "bytes": 5116,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -337,15 +337,15 @@
           355
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "286f57d8f989d947e6ba964abf4f8957cba56599a4c96fadd435784da1ae0c92",
-      "bytes": 12300,
+      "sha256": "185c0807ccecf5d117dd0efd0bcd607f97b197b44554a94d38f7b44d8eaacb43",
+      "bytes": 3700,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -380,15 +380,15 @@
           330
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "0ecdb0c94460346e7edf0641948724cf73f30b671415fe9f4f735b1413ccab8c",
-      "bytes": 7542,
+      "sha256": "b82ce621b3529b7355e29aee45aa5c22d76371a85211df6e8ee17b21b00a8271",
+      "bytes": 2270,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -424,16 +424,20 @@
         "output": [
           320,
           320
+        ],
+        "outputSize": [
+          160,
+          160
         ]
       },
       "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
       "retrievedAt": "2026-10-29",
       "notes": "Official full name: カガリ・ミミ / Kagari Mimi.",
-      "sha256": "17038772256778299cbf2288d502af23ade8587df7f88cc0c40298736895415a",
-      "bytes": 28742,
+      "sha256": "ce87408db4a26d0c9e69598ad022dcd56a5ea0dc9db1a0fb97ef31a85d0eec2c",
+      "bytes": 8238,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -469,16 +473,20 @@
         "output": [
           320,
           320
+        ],
+        "outputSize": [
+          160,
+          160
         ]
       },
       "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
       "retrievedAt": "2026-10-29",
       "notes": "Official full name: トツキ・シーナ / Totsuki Sheena.",
-      "sha256": "2457d183d715b461e90fb39b4b26a1e82019f53bb3ae7ea1836f544ee7c51a6d",
-      "bytes": 24722,
+      "sha256": "5b38986eccb2d17bebc01824fbe9567b29441f9607b72e57629b56618f89baac",
+      "bytes": 7408,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -514,15 +522,19 @@
         "output": [
           320,
           320
+        ],
+        "outputSize": [
+          160,
+          160
         ]
       },
       "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
       "retrievedAt": "2026-10-29",
-      "sha256": "1bf9cc523c69fe14517cf9b286cd289d12f9bab881a927e2bdd295e78201c2d4",
-      "bytes": 27560,
+      "sha256": "b9d21a29c36c0dc5769124b596df7e1050992e4595dfc2ab3aed65485ac0a13f",
+      "bytes": 8574,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -558,15 +570,19 @@
         "output": [
           320,
           320
+        ],
+        "outputSize": [
+          160,
+          160
         ]
       },
       "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
       "retrievedAt": "2026-10-29",
-      "sha256": "898696740f99642ebe9424516ac4ce6537e2af17b5c554d132cb6d6da76f3257",
-      "bytes": 17624,
+      "sha256": "2672928836fee0910a000b5c5351442bfdf2b4fbe774349138e0739dc992a4ba",
+      "bytes": 5420,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -602,15 +618,15 @@
           180
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "792d5e16c57519f86445a6b5b70a6eadb414bca8a0c81b996155f41f3ba4e475",
-      "bytes": 40008,
+      "sha256": "67c0c4bb1c7b4e054c8d67e2f7df4adc8ac6f424d411fb90bc155c87e518335e",
+      "bytes": 11384,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -646,15 +662,15 @@
           180
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "16fe6ed4e8945026242e4f5ec9c17e20383f5e74b5f03ff07d8595c38c5e36de",
-      "bytes": 39580,
+      "sha256": "278f300dfc44a0a262691ac43036792e5562af7ad80434b77f22c45840197ade",
+      "bytes": 11908,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -690,15 +706,15 @@
           180
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "98ef9ddaa83b20217a510d47f4cc1a73e76e2d1b1d25c0672d97b3dd5a93bdbc",
-      "bytes": 42938,
+      "sha256": "269da34129c72995c6340a5d4a31924be6f15530b08c78ecfaea3d90739289ca",
+      "bytes": 12446,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -734,15 +750,15 @@
           180
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "6c35547a7793b94ba827f822dda8bb94ba929ef7089b5df14d39fb07b6b54901",
-      "bytes": 49110,
+      "sha256": "3d247a4fcc5641b9e93885482005a8ea078aaca639ecc4b5932dc35911d959ff",
+      "bytes": 13958,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -778,15 +794,15 @@
           180
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "9787d98745fbcdfda1552c3e3434a26e18e937fddb67f9f9641eea4ef6a930be",
-      "bytes": 28796,
+      "sha256": "cf26d4fadd507998382e274d9f5ba9d81f4791fb312966b14ec6172252af14a0",
+      "bytes": 8078,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -822,15 +838,15 @@
           180
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "71f323a809fad3509431655839b8d1893253453cdfcf30ec1cbebb96fa537e6d",
-      "bytes": 41066,
+      "sha256": "213bf8f2537c2c0e8ef77612c66f379d3302580a9e01ed58587025a348d09148",
+      "bytes": 11322,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -866,15 +882,15 @@
           180
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "f76f8aa6bcb777a16d1a9508090e322c6eead208ff72b7a96c831b8e7bbb5b5f",
-      "bytes": 38950,
+      "sha256": "84067c58fb898dd6aee5ef458e7c925145de0b39d0b5daa38d0ff6f4cd085ea7",
+      "bytes": 10982,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -910,15 +926,15 @@
           180
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "f8bc3ff1f74efa89c797a6538ea1c41caf6f03367c004c3d6696ac3ee127fc6c",
-      "bytes": 38012,
+      "sha256": "2a2deaac98c0ad73bf564ef9e17e0a6b2849f9aae0f9dfcd9ef2fcc0f76e910b",
+      "bytes": 10454,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -954,16 +970,16 @@
           180
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "inputAlias": "斩夜星熊",
-      "sha256": "43c85ebf8d04bf8476df49564a15baa207234a2e0c7f38ffb1289f5276297e92",
-      "bytes": 38614,
+      "sha256": "939c78a1a3e98b12bbe9936fff2dd602509487b4cb0a60159983c4c0aabb2c5c",
+      "bytes": 10804,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -999,15 +1015,15 @@
           180
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "54342e0b5c8d798666998b2a58810b2e14509b96cae46494e29810cff4f3a3d8",
-      "bytes": 49610,
+      "sha256": "86f5f45bfb0d53d9996061afb97d59646129de557324baedbb41040dca771390",
+      "bytes": 13980,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1043,16 +1059,16 @@
           180
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "inputAlias": "mon3r",
-      "sha256": "ab85b54c0793acc1b8f6f94f2745a5e9e872a804363c859fc16c5383c92a4172",
-      "bytes": 37674,
+      "sha256": "8335453c0bd86d85f6efc9058ce19f75e2a867ad33157e11838c7e8b0ca70f0e",
+      "bytes": 10592,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1088,16 +1104,20 @@
         "output": [
           320,
           320
+        ],
+        "outputSize": [
+          160,
+          160
         ]
       },
       "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
       "retrievedAt": "2026-10-29",
       "notes": "P5R official page labels the playable protagonist 主人公 / Hero; Ren Amamiya is the user-specified name.",
-      "sha256": "988cb08df1e1a887f0ed0e5e1a04774d3a8ea00fd434126c82f47b8af64df2b7",
-      "bytes": 30248,
+      "sha256": "3d2e3899c2e5ecc00e8244563946064dc16ba0768acb649163bdfa5b7e86a39a",
+      "bytes": 9188,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1133,15 +1153,19 @@
         "output": [
           320,
           320
+        ],
+        "outputSize": [
+          160,
+          160
         ]
       },
       "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
       "retrievedAt": "2026-10-29",
-      "sha256": "1501a2e5a6f061b67ae9060a89cf36f95188c6a28512ba53789ea25292df1061",
-      "bytes": 31894,
+      "sha256": "ba1808b595149f3e9d49f1caf20a23c3900bb6b4b5e2b3efae034a5e86d0eaea",
+      "bytes": 9576,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1177,16 +1201,20 @@
         "output": [
           320,
           320
+        ],
+        "outputSize": [
+          160,
+          160
         ]
       },
       "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
       "retrievedAt": "2026-10-29",
       "notes": "P3R official page labels the playable protagonist 主人公 / Hero; Makoto Yuki is the user-specified name.",
-      "sha256": "ac8c7a52b5a2f690be073cdec0874bff2ea0b6a7c2a4fda4293ce1f8a65e863d",
-      "bytes": 18492,
+      "sha256": "8666ee4f364c724a452052f31b758d4a3080098ae2d4c7a0417f20643b00ef79",
+      "bytes": 5664,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1222,15 +1250,15 @@
           320
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "e81fa7ffdc9b871a7294f62aa05148e942a24dd3a141bff38569f7d33a76bb61",
-      "bytes": 49482,
+      "sha256": "45701018e6ff97c7acfe327f2e23170174ebe505d4f5971e92764cd314a98367",
+      "bytes": 11766,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1266,15 +1294,15 @@
           320
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "91069dc1b7bd5a55a72cc13f795fa8999eda2d0dba72a856e15d5b43a22053a3",
-      "bytes": 55406,
+      "sha256": "f731e346459537f5dd15c50197013756aa86ea438534334ca3683128131db9fd",
+      "bytes": 13306,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1310,16 +1338,16 @@
           325
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "inputAlias": "洛西",
-      "sha256": "49394b6e62d6f832096e3445485893b4800085155d51e375c53c4d149a3b0c43",
-      "bytes": 44482,
+      "sha256": "3a0eb849371f9d1949a53b011c76c4b5cb0481df8e7e842c162f1fc9eb036473",
+      "bytes": 10478,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1354,15 +1382,15 @@
           330
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
-      "sha256": "748eb03eb7055c280e05431b12efd66fb87cd5c37503bd3790e9f91e02995ef3",
-      "bytes": 26858,
+      "sha256": "256cb64947e2c2323cdec913d6211d638d55a55600ed043b540dabaff23f6a3f",
+      "bytes": 7242,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1398,15 +1426,19 @@
         "output": [
           320,
           320
+        ],
+        "outputSize": [
+          160,
+          160
         ]
       },
       "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
       "retrievedAt": "2026-10-29",
-      "sha256": "5aaa81c8e3f567474dbc705803f61558be14b189ed480cca260cc0e49493954f",
-      "bytes": 24352,
+      "sha256": "10cec9a5f72c13bfe7c58277a01f079f7f3c2d50f55052257d50ffb7887e8e0a",
+      "bytes": 7480,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1442,15 +1474,19 @@
         "output": [
           320,
           320
+        ],
+        "outputSize": [
+          160,
+          160
         ]
       },
       "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
       "retrievedAt": "2026-10-29",
-      "sha256": "4aab2d85214d0db1835842f1f9a68aed6744772235c2b55eb2646c0c0bf95440",
-      "bytes": 30720,
+      "sha256": "92c5c4ed0261a9335757b99761b3af9a5ce6bcbc7b4020c4f992962e6d8a3438",
+      "bytes": 8864,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1486,16 +1522,20 @@
         "output": [
           320,
           320
+        ],
+        "outputSize": [
+          160,
+          160
         ]
       },
       "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
       "retrievedAt": "2026-10-29",
       "notes": "Official English surname is Runami; Japanese surname 月見 is pronounced Runami for this character, per official English name.",
-      "sha256": "e3d5f1fd98a383f9fda09f298f51a136fef48e9357ea0588dfaa6c7516ff821d",
-      "bytes": 30634,
+      "sha256": "4f14847e88ae73cc75cf0b26aacb48d5e428ee576def036955f6e2245fdfbda5",
+      "bytes": 8102,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1531,15 +1571,19 @@
         "output": [
           320,
           320
+        ],
+        "outputSize": [
+          160,
+          160
         ]
       },
       "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
       "retrievedAt": "2026-10-29",
-      "sha256": "63fb1e7a473c2b9e39ea59974de6ab92dc9567a14f58fa8db58758d7b75ea759",
-      "bytes": 24542,
+      "sha256": "6cf305c015e9a54d64ac899203fe26a85c222b1926e57780a96a65f5a6fc5601",
+      "bytes": 7432,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1575,15 +1619,19 @@
         "output": [
           320,
           320
+        ],
+        "outputSize": [
+          160,
+          160
         ]
       },
       "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
       "retrievedAt": "2026-10-29",
-      "sha256": "3652ede1a459f9ca45568841547f2b3e646911a0091956aa2007e4f87dfdb13c",
-      "bytes": 19774,
+      "sha256": "78e3dfd7c20de71a51f78c489e655b5e8cc58641ed052c3355d66f44f27ab119",
+      "bytes": 6174,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1619,15 +1667,19 @@
         "output": [
           320,
           320
+        ],
+        "outputSize": [
+          160,
+          160
         ]
       },
       "provenance": "Official character illustration from the work’s own website. Cropped and resized only; no generative AI tools used.",
       "retrievedAt": "2026-10-29",
-      "sha256": "61aae47feb0c4e21eb8cce2e03aaf910c116e95342a27551b7ab16811b7372e5",
-      "bytes": 28732,
+      "sha256": "940dc9ee2ee6f5adbc8a6d1cdc86376b09c9ad4cf3842cc15609b5f987f26ab4",
+      "bytes": 7968,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1665,16 +1717,16 @@
           275
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "36ffb6ebe26c4213eb5096b4cfdd9c0e7499287001b93fcb4396b1e5029178e5",
-      "sha256": "5be80ed39e5fa5ca49118b23b9bc6ea31a52df80ebef8b0a56a5827c06b47605",
-      "bytes": 31822,
+      "sha256": "3fd280da575c7dadb27f14b6e3b132c7b8b1dd00bd59fea78249355a6789cf64",
+      "bytes": 8694,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1712,16 +1764,16 @@
           275
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "896ed23f17b17465e8792f7640f138fd8759db4a38e26e4916cfc551a5a91926",
-      "sha256": "53b84d7c27102e823af36dc088c938f4d78692783ac61bdb23eb8acb3c7b3d0d",
-      "bytes": 19890,
+      "sha256": "3bc04df1084293ecf41b78b8d772f0907b6232d45d761aa308a5e43095548c78",
+      "bytes": 5762,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1759,16 +1811,16 @@
           275
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "0b7497834ed9650e804581ea4a997badbf450b466d02db98f3ba2c97763f4d71",
-      "sha256": "15da7f8b9e1b0d96c1e4e3145d249b44f0f3492654025bb4cbd47aa6ddc65f9c",
-      "bytes": 28092,
+      "sha256": "5a41f9417cab0eb6f043696d212e3bd21e1dfa94feeac0ade35b00736554d942",
+      "bytes": 7844,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1806,16 +1858,16 @@
           220
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "6093963b72d301805a9ff772ca3759fd0e8c587f10845d5b339f1eecdcf99fd2",
-      "sha256": "bbf3e3a1eaa3708f34a45d473f4d57dc013d3774dc18efa4a78bf947b5ac2371",
-      "bytes": 32702,
+      "sha256": "1130ed7683a62ee90512b9082a60a5b283cba79b70c26b5c9dc47c0ce59eb72b",
+      "bytes": 8756,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1853,16 +1905,16 @@
           235
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "b8f5cdf3ca1e7cd3f48aa1f3c6cff5ca2ac85689cccbc8598cdef9822fd0efc8",
-      "sha256": "666ccba4e4ebf18d6c5f02c99fc5cf060477687764776181ce81f086c93b2f8a",
-      "bytes": 26434,
+      "sha256": "89efcb0c9752e2797ce0cdda46056a208d56ce31cb3ccd4b965b2e1f388fa752",
+      "bytes": 5810,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1900,16 +1952,16 @@
           190
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "aad9d2eba0ae68f03c2ceb5c060bc38354b5d27f86c3841acd3d7058ce78ee6e",
-      "sha256": "02b6ff1a4843664835a7b495b10c5a5f4c26f2d73bf385f551047eef93feac51",
-      "bytes": 16966,
+      "sha256": "cdc403dd69c954094120214ca07ef8ec9a3a51cdfd6f76628edf679faf1e1816",
+      "bytes": 4010,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1947,16 +1999,16 @@
           135
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "dd5f48b737d30e33633033a0726d9393f15c414fbd3b2c56294cce05578006f9",
-      "sha256": "30ed4ba7e5c2eeb2ce174d0c14c758a78e2018174071125d671cc8e7f9b2cebb",
-      "bytes": 17872,
+      "sha256": "b05b208fa4f56c4ea91fd98e06dcf9fc5ead38b132e5c85b1de30c5c358ac604",
+      "bytes": 5340,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -1994,16 +2046,16 @@
           163
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "bec04f6c692b34dcce1095842f4ed8b36c32a97366d4d6594ac9ba121d68deee",
-      "sha256": "28c1a28fcc99cbcde5a5d0c00c600980352784aca5ba917f1e840f201234eb75",
-      "bytes": 21718,
+      "sha256": "822271403cc4395fa1b7a6fcded3a307715745d092c3f55a8e5d95df737c4afd",
+      "bytes": 6952,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2041,16 +2093,16 @@
           195
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "b1cbe7a6c93e08e88bce2cb3604ae3d5e62ba08ebb09d3dfc49ca45a3401138a",
-      "sha256": "f13a5be575f51dcc9f2ab5be5ee58cf5de1b45bfd8274a22d527c8d10c0a2661",
-      "bytes": 23950,
+      "sha256": "342095802db113f9542e26157d08851c3a22758d013f5ab4e83c2ce7be01702e",
+      "bytes": 7212,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2088,16 +2140,16 @@
           195
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "1a6374775d2072fd899b5746dd8f1e4178812d4cf27e9e2bdd291d76a06bda90",
-      "sha256": "a9f6176bd327a941288ee920be1ad57010ceb8d21e91911e1465c328980d7c7f",
-      "bytes": 24220,
+      "sha256": "f8e85c1d565d6e22ddcebd9e1a709af79d94433f3726a9a66f08156160e18175",
+      "bytes": 7210,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2135,16 +2187,16 @@
           365
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "576139b8d15b71cac805fb712fc097218bcb534e6d63f2a7aba201587f8b03f6",
-      "sha256": "9939375f48fb2fd058da76be2d08427b9b6a4adffc4196b4709b1175957226d4",
-      "bytes": 16336,
+      "sha256": "72caa3999d1a35370b476047b6d53c57e39a753a09f932c4840c102d23aa11cb",
+      "bytes": 4230,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2182,16 +2234,16 @@
           610
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "7a2e40e69a46434549a649184b2e76078319a32aec872be797d9ccd0eaf6ca15",
-      "sha256": "b35552c09237116d5a5de0a7768f4f9422bd797c6e49025d4bcf3888d10fa25a",
-      "bytes": 33238,
+      "sha256": "ba915187d6f8184122dd93ee57fb799c5e6de254a768daca3a97f0535611a768",
+      "bytes": 9196,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2229,16 +2281,16 @@
           540
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "44c46b1e43a998564204cbd2ddde9b48bd5c8c4d40d964019205644866add317",
-      "sha256": "c8ec2d943ab2519b07fb39b67ad43345078d05c85dcd8a3d0fc4af9cfda1c185",
-      "bytes": 43024,
+      "sha256": "360ef8faac2f2684270d785ca8e0b8872df0e7d1f59a13795b57ea91bc881789",
+      "bytes": 11640,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2276,16 +2328,16 @@
           570
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "b2bef69211232c0b0ce6d5ea4caebe2fe044c54c2befb1a289dbb2f2da5bb211",
-      "sha256": "6ff6b6a938b70e63ab997af37ae123003df5b254cf5a2b83302a5f872c92dc77",
-      "bytes": 25592,
+      "sha256": "cffc6f69cbe53dd212cec1e52c1a8fd0f91278633ba68227a79bec2cb50e3a5d",
+      "bytes": 6194,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2323,16 +2375,16 @@
           245
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "63744158d0812cf430c9612e48402851ae144603a6cb53fb6a9d6e629a3ab3eb",
-      "sha256": "0444f80eb5e7bcb2b9900b9f048e1ecc51991beb59f29e6a6c791469606be47d",
-      "bytes": 32142,
+      "sha256": "0bf33a97aba8dbdc4f697c39da7774fcf59da5668f21ba885334903b9c04bca6",
+      "bytes": 8352,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2370,16 +2422,16 @@
           260
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "d37ddc03556925a5b1ec59e8aa02a3f85591a0e3669c7272c8ae6b3917551476",
-      "sha256": "a0568618ab8de4ad105967eae42ac3bf4a64423b568547c5cb414436035dd3db",
-      "bytes": 29296,
+      "sha256": "c946746a3fe0b6eaf456a6702fd4db518ea6b434c82417ba2d1026b89e9303ea",
+      "bytes": 10038,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2417,16 +2469,16 @@
           235
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "e57d7f4b4eb93ce151a095bd0a7a125c6e4b87bbceb41f446a851e45be704f6d",
-      "sha256": "4acda1a08849cc9af26279f987fd440432b8b713f546855d0e685306a285e90b",
-      "bytes": 22464,
+      "sha256": "f3d4b12603bb6c22fcfeb2421bdbf4174dd181fb6fbba46c3135a2b942411d1e",
+      "bytes": 5734,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2464,16 +2516,16 @@
           610
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "036d28082e8dc0466f010d7a8e85a7c7d9a95eb95f6b8584d3039e8076004825",
-      "sha256": "2b391077abc3eec03e4b58085124e7cc68e41aeebc308e03abea751109806abc",
-      "bytes": 25592,
+      "sha256": "285bc6cef88241b687b747043a35dfda2747a7560173c5f5377228db39763322",
+      "bytes": 7030,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2511,16 +2563,16 @@
           175
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "74e44680222a9745f24b7356339b609b7ea23adf46865de00b3898b395fa2e07",
-      "sha256": "13b2ecce68ff76fadc76b300723c450cd3b29b599a50d4a178316190bdf3c7a9",
-      "bytes": 16494,
+      "sha256": "59abc88fecfe4213c628339f529046b4a26bfa151acc587efae6ce998887dc4e",
+      "bytes": 5042,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2558,16 +2610,16 @@
           290
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "64ca8f336e0ecf5f40473dc7410580c5fedaa7084436ea40cdf2198354b68410",
-      "sha256": "a99db2ac860f08ed61c95be66ab23da21de9393e460753c4c8d03fe1ebc7fc5d",
-      "bytes": 42686,
+      "sha256": "ae2efe547821d4afb492ead28549e75fd30d76db9e12127ea1304421eb467fbf",
+      "bytes": 10302,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2605,16 +2657,16 @@
           271
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "9a6c6e15ed738ca1014423577526fa10c6400b41e2c8db3c3038d39dbf375cff",
-      "sha256": "e8e145dca1b62650ee3b3e35747a6a8d9fc9965bda08275dee188df98bc92803",
-      "bytes": 61074,
+      "sha256": "bc866067f035960f488ef3bbe5147755c275957367f850b71caa5a2d6e46f5c3",
+      "bytes": 14396,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2652,16 +2704,16 @@
           227
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "afd4b4536081ba353f97a6a937d46de15f2f5ca3553682d2f9f94f855f05a8ed",
-      "sha256": "cb3799db53c9f662982f2ccec8723b6e9e9964fddfcd6736d3d62b6f6282e007",
-      "bytes": 51286,
+      "sha256": "903e751d150a5599ab005e417b21e71e5ebf4a91ed31b7a94c6afcf973a2082c",
+      "bytes": 12526,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2699,16 +2751,16 @@
           258
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "f74e4c49c0e3b0279c2f2f49beaa3b8fea943db8ff6030c2e503b17455757a9d",
-      "sha256": "ba052be8dc52280a5f04a72c4300e8b7138c8703a51980f0ef611221a9c11db4",
-      "bytes": 54630,
+      "sha256": "25a2afcfdaf3c27cde74af76d736ee86e59452b88146011e5005a01bc982ad1a",
+      "bytes": 12716,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2746,16 +2798,16 @@
           182
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "cc612bf7e5fa29cb2457016eae439eacd693c363f4bcf484ab4526d19f7b9ecf",
-      "sha256": "016d1b010957cbf12c916f86bbd1cd32fdcb40981e75f5f6a6fbced5f9a8ef44",
-      "bytes": 40930,
+      "sha256": "79231d5a83182127f45e276373b99570689fb3253dc919be8951e1fb57bc5755",
+      "bytes": 10620,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2793,16 +2845,16 @@
           246
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "17cd873d644c05ff53849c3a9ba77916155e755ade8b8504660b48d7756f61b8",
-      "sha256": "4d5b23ebcdf6ae2e46f91ec2aaacf5dcab53cc77019d56f084ced820e07b88e0",
-      "bytes": 54998,
+      "sha256": "ce4731098301e593e53b38c94da7300272dba892ad69e5b569af3a724e93c3dd",
+      "bytes": 13512,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2840,16 +2892,16 @@
           198
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "f26defe2ce1b93567ae58763672d7408d5f9b381df1506679934bca9fff11cd5",
-      "sha256": "f7e00d719c014a8aae9bcd4f9c6cee52edc6cd01c653e3a72d03aa165dcc07d9",
-      "bytes": 51010,
+      "sha256": "175797c8899cdebeb8815e0e63c6cbd10195c6469797a76d219816d6ea1051be",
+      "bytes": 12702,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2887,16 +2939,16 @@
           179
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "7f6e92d2e6c72795c53e074cbd0f682341b7fe55485d1370ce514e2d4b402773",
-      "sha256": "bf059d168eabfa92aa494305e0c03c1c1dca00397a1d7e753e8afaa2f6133422",
-      "bytes": 47336,
+      "sha256": "3036aa6b0586a737de92608595e6c35ecf714f1bf27141d1cfe1c8ce19bf3133",
+      "bytes": 12352,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2934,16 +2986,16 @@
           196
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "547c836e7d50c09c20f4f34a81759383aa29f0ada91e22142825d42a78b4abd0",
-      "sha256": "bc79109dc211e86cf57f466f0a36ee71ef1a60d011c42976af1e93b14263009a",
-      "bytes": 45438,
+      "sha256": "3b9b649e06ab9df46b1ef37cc6f144a7dd5814dcd99269c6d5bd2cc1798a6257",
+      "bytes": 12050,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -2981,16 +3033,16 @@
           212
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "0b230072d1b845f838379316fa5278fc2c6c9e18f0679ad3ab470cf972bc818c",
-      "sha256": "1bce1ce10f11f33aa6d2521cee27703a5cd0ba604a8ef088a2ee38937d6897fb",
-      "bytes": 43556,
+      "sha256": "34964aa6539e2d1da796f0c211ee7fcb374dc81ef702abdd358e88948094d11a",
+      "bytes": 10926,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false
@@ -3028,16 +3080,16 @@
           212
         ],
         "outputSize": [
-          320,
-          320
+          160,
+          160
         ]
       },
       "sourceSha256": "c19a09fdb0a6b951b7d2aa4fb054e69a9f7025122a43c964db791b69e4cf8790",
-      "sha256": "40c75cb5a3dbbc31a5cf21c33279c927dff4c69b57c55773e6a3b9c9205d369f",
-      "bytes": 40108,
+      "sha256": "70cf8d7e3af4ec123a27eefb97f54e3c48814aa3d033b1b034298046bce65ab5",
+      "bytes": 9750,
       "dimensions": [
-        320,
-        320
+        160,
+        160
       ],
       "format": "image/webp",
       "generative_ai_used": false

@@ -1,0 +1,19 @@
+/* Proportional Latin curly quotes and apostrophes (‘ ’ “ ”) from Google Noto Sans & Noto Serif
+   Variable (SIL OFL 1.1; license in public/licenses/noto-latin-OFL.txt). Noto Sans/Serif SC sets
+   U+2018–U+201D as full-width CJK punctuation, which left awkward gaps inside English contractions
+   such as "didn’t" on :lang(en) pages. Restricted via unicode-range so non-English pages and pages
+   without curly quotes never download these ~1.6 KB files. */
+@font-face {
+  font-family: "Site Sans Quotes";
+  src: url("/fonts/latin/noto-sans-quotes.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+2018-2019, U+201C-201D;
+}
+@font-face {
+  font-family: "Site Serif Quotes";
+  src: url("/fonts/latin/noto-serif-quotes.woff2") format("woff2");
+  font-weight: 200 900;
+  font-display: swap;
+  unicode-range: U+2018-2019, U+201C-201D;
+}

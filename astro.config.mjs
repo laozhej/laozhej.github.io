@@ -5,7 +5,7 @@ import { fluidPx } from "./src/core/styles/fluid-px.mjs";
 import { isIndexedPath } from "./src/core/themes/routing.mjs";
 
 export default defineConfig({
-  site: "https://laozhej.github.io",
+  site: "https://neroarataki.com",
   output: "static",
   trailingSlash: "always",
   // src/core/navigation/prefetch.mjs prefetches under the versioned URL the router fetches.

@@ -41,5 +41,6 @@ test("each locale has a 1200×630 PNG link-preview image", () => {
 });
 
 test("robots.txt points crawlers at the generated sitemap index", () => {
-  assert.match(read("public/robots.txt").toString(), /^Sitemap: https:\/\/laozhej\.github\.io\/sitemap-index\.xml$/m);
+  assert.match(read("public/robots.txt").toString(), /^Sitemap: https:\/\/neroarataki\.com\/sitemap-index\.xml$/m);
+  assert.match(read("astro.config.mjs").toString(), /site:\s*"https:\/\/neroarataki\.com"/);
 });

@@ -3,8 +3,10 @@
 // 1. Preloads the cut-down files (subsets.css) this theme and language set their text in, so the browser fetches
 //    them with the page instead of after the first layout.
 // 2. Links the same faces from Fontsource, split into unicode-range pieces, as a fallback for characters the
-//    cut-down files do not have yet (text added after they were cut). Those stylesheets load without blocking
-//    the first paint, and a piece is only downloaded when a page actually needs one of its characters. Kept out
+//    cut-down files do not have yet (text added after they were cut). A piece is only downloaded when a page
+//    actually needs one of its characters. The stylesheets themselves are only fetched once the page has
+//    loaded and the browser is idle: the first view never needs them, and on a slow connection they took
+//    bandwidth from Ema's picture (100–200KB). Without JavaScript they stay unfetched. Kept out
 //    of the bundled theme CSS: through the shared page layout that CSS reaches every page, and every family's
 //    pieces together came to 1.5MB of @font-face rules.
 // Licences: public/licenses/ (all SIL OFL 1.1); listed on the credits page.
@@ -47,4 +49,13 @@ const key = locale === "zh-TW" || locale === "ja" ? locale : "zh-CN";
 const picked = families.map((family) => FONTS[family][key]);
 ---
 {picked.flatMap(({ preload }) => preload).map((name) => <link rel="preload" href={`/fonts/site/${name}.woff2`} as="font" type="font/woff2" crossorigin />)}
-{picked.flatMap(({ pieces }) => pieces).map((href) => <link rel="stylesheet" href={href} media="print" onload="this.media='all'" data-site-fonts />)}
+{picked.flatMap(({ pieces }) => pieces).map((href) => <link rel="stylesheet" data-href={href} data-site-font-pieces />)}
+<script is:inline>
+  (() => {
+    const apply = () => document.querySelectorAll("link[data-site-font-pieces]:not([href])").forEach((link) => { link.href = link.dataset.href; });
+    const later = () => ("requestIdleCallback" in window ? requestIdleCallback(apply, { timeout: 3000 }) : setTimeout(apply, 1500));
+    if (document.readyState === "complete") later(); else addEventListener("load", later, { once: true });
+    // In-site navigation swaps the head without a new load event.
+    document.addEventListener("astro:page-load", later);
+  })();
+</script>

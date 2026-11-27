@@ -6,22 +6,43 @@ const root404 = /^\/404(?:\.html|\/?)$/.test(Astro.url.pathname);
 const fallbackRoutes = root404 ? themes.map(({ id, root }) => ({
   root,
   pages: Object.fromEntries(locales.map((locale) => [locale, getThemePath(id, "/404/", locale)])),
-})) : [];
+})) : null;
 ---
-{root404 ? (
 <script is:inline define:vars={{ localePreferenceKey, locales, fallbackRoutes }}>
-  // GitHub Pages serves this single document for missing URLs in every language and theme.
   (() => {
     const path = location.pathname;
     const prefix = path.split("/")[1];
     const explicit = prefix !== "zh-CN" && locales.includes(prefix);
-    let locale = explicit ? prefix : "zh-CN";
-    if (!explicit) {
+    if (explicit && !fallbackRoutes) return;
+
+    function preferredLocale() {
       try {
         const saved = localStorage.getItem(localePreferenceKey);
-        if (locales.includes(saved)) locale = saved;
+        if (locales.includes(saved)) return saved;
       } catch {}
+
+      const languages = navigator.languages?.length ? navigator.languages : [navigator.language];
+      for (const tag of languages) {
+        try {
+          const language = new Intl.Locale(tag);
+          if (language.language === "en" || language.language === "ja") return language.language;
+          if (language.language === "zh") {
+            const { script } = language.maximize();
+            if (script === "Hant") return "zh-TW";
+            if (script === "Hans") return "zh-CN";
+          }
+        } catch { /* Skip invalid language tags. */ }
+      }
+      return "en";
     }
+
+    const locale = explicit ? prefix : preferredLocale();
+    if (!fallbackRoutes) {
+      if (locale !== "zh-CN") location.replace(`/${locale}${path}${location.search}${location.hash}`);
+      return;
+    }
+
+    // GitHub Pages serves the same 404 document for missing URLs in every theme.
     const contentPath = explicit ? path.slice(prefix.length + 1) : path;
     const theme = fallbackRoutes.find(({ root }) => root && (contentPath === root || contentPath.startsWith(root + "/")))
       ?? fallbackRoutes.find(({ root }) => !root);
@@ -34,18 +55,3 @@ const fallbackRoutes = root404 ? themes.map(({ id, root }) => ({
     location.replace(url.href);
   })();
 </script>
-) : (
-<script is:inline define:vars={{ localePreferenceKey, locales }}>
-  // Explicit /zh-TW/, /ja/ and /en/ URLs win over a saved preference. Unprefixed
-  // entry links use the visitor's preference, before any page is painted.
-  (() => {
-    if (/^\/(zh-TW|ja|en)(\/|$)/.test(location.pathname)) return;
-    try {
-      const saved = localStorage.getItem(localePreferenceKey);
-      if (locales.includes(saved) && saved !== "zh-CN") {
-        location.replace(`/${saved}${location.pathname}${location.search}${location.hash}`);
-      }
-    } catch {}
-  })();
-</script>
-)}

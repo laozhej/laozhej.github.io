@@ -95,7 +95,7 @@ Articles with `draft: true` are not published.
 
 ## Site-wide languages and themes
 
-Simplified Chinese uses `/`, Taiwanese Traditional Chinese `/zh-TW/`, Japanese `/ja/`, and English `/en/`. The language switcher in the top right preserves the current section or article and saves the shared `site-locale` preference. Entry URLs without a language prefix use that preference; explicit `/zh-TW/`, `/ja/`, and `/en/` links take priority. Language links also work without JavaScript.
+Simplified Chinese uses `/`, Taiwanese Traditional Chinese `/zh-TW/`, Japanese `/ja/`, and English `/en/`. The language switcher in the top right preserves the current section or article and saves the shared `site-locale` preference. On entry URLs without a language prefix, a saved choice takes priority. On a first visit, the site uses the first supported language in the browser’s preference list and defaults to English if none match. Links with a language prefix open in the specified language. Language links also work without JavaScript.
 
 Chinese originals live in `src/content/blog/`; translations go in the `zh-TW/`, `ja/`, and `en/` subdirectories. Set `locale` and a `translationKey` matching the Chinese filename. Do not hard-code language prefixes in article links. If a translation is missing, the Chinese original is shown with an explicit notice. Translations are not generated automatically or presented as available when they are missing.
 

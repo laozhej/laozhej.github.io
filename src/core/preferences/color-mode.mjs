@@ -29,10 +29,16 @@ export function mountColorMode(doc, win) {
       button.title = mode === "dark" ? button.dataset.labelLight : button.dataset.labelDark;
     }
   };
+  // Every press still switches to the other mode. Switching to the mode the system is using drops the
+  // saved choice, so the page follows the system again, the way it did before the first press.
   const toggle = () => {
-    preference = doc.documentElement.dataset.colorMode === "dark" ? "light" : "dark";
+    const next = doc.documentElement.dataset.colorMode === "dark" ? "light" : "dark";
+    preference = next === (system.matches ? "dark" : "light") ? null : next;
     sessionPreferences.set(win, preference);
-    try { win.localStorage.setItem(COLOR_MODE_STORAGE_KEY, preference); } catch {}
+    try {
+      if (preference) win.localStorage.setItem(COLOR_MODE_STORAGE_KEY, preference);
+      else win.localStorage.removeItem(COLOR_MODE_STORAGE_KEY);
+    } catch {}
     apply();
   };
   const restore = () => {

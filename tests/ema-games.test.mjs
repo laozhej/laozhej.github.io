@@ -8,7 +8,7 @@ const css = readFileSync(new URL("../src/themes/ema/styles/games.css", import.me
 test("Ema Games opens like the reference playroom: CJK title, Latin subtitle, no Latin page head", () => {
   assert.doesNotMatch(page, /PageHead/);
   assert.equal(page.match(/<h1\b/g)?.length, 1);
-  assert.match(page, /<h1>\{t\("games\.label"\)\}<span class="games-sub" lang="en">Games<\/span><\/h1>/);
+  assert.match(page, /<h1>\{t\("games\.label"\)\}\{locale !== "en" && <span class="games-sub" lang="en">Games<\/span>\}<\/h1>/);
   assert.match(page, /<p class="games-eyebrow">03 \/ \{t\("nav\.games"\)\}<\/p>/);
   assert.doesNotMatch(css, /games-echo|games-aura/, "the rejected r3 echo numeral and aura are gone");
 });

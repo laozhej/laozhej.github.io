@@ -11,8 +11,8 @@ const themes = ["blank", "ema", "endfield", "arknights"];
 const sections = ["", "blog", "projects", "games", "about", "credits", "404"];
 const showcaseUrl = "https://github.com/laozhej/laozhej.github.io/tree/main/showcase";
 const caseLabels = {
-  "zh-CN": "查看项目案例（中文）",
-  "zh-TW": "查看專案案例（簡體中文）",
+  "zh-CN": "查看项目案例",
+  "zh-TW": "檢視專案案例（簡體中文）",
   ja: "制作事例を読む（中国語簡体字）",
   en: "Read the case study (Simplified Chinese)",
 };

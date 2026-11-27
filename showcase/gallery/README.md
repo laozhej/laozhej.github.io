@@ -1,52 +1,56 @@
-# 実際の画面 / 实际截图
+# 実際の画面 / 实际截图（历史快照）
 
 [返回案例首页](../README.md)
 
-2026-10-31 在本机以生产构建拍摄。桌面视口 1440 × 960，手机宽度视口 390 × 844，设备比例 1。手机图为桌面 Chromium 的窄视口模拟；没有据此宣称通过真实手机测试。
+本画廊目前保留的 6 张 PNG 均拍摄于 **2026-10-31**（本地生产构建，Chromium 156，桌面视口 1440 × 960，手机宽度视口 390 × 844，设备比例 1），早于 Blank 首页改版、樱色档案重做、明日方舟主题上线与自托管字体切换。手机图为桌面浏览器的窄视口模拟，不代表实体手机真机测试。
 
-截图是界面记录，不是独立素材授权。樱色档案的三张截图含有未获授权的第三方美术，已于 2026-11-13 移出画廊；该主题正在重新设计，美术定稿后再重新拍摄。具体路径、显示模式、尺寸和 SHA-256 见 [manifest.json](manifest.json)。
+按 [`docs/ROADMAP.md`](../../docs/ROADMAP.md) 第 3.3 节约定，截图清单将在页头美术定稿并经站主批准后统一重拍（届时一并补齐樱色档案与明日方舟主题截图）。当前图片的路径、模式、尺寸与 SHA-256 记录在 [manifest.json](manifest.json)。
 
-## Blank · 黑白阅读
+## Blank · 黑白阅读（2026-10-31 快照）
 
-[访问对应页面](https://laozhej.github.io/)
+[访问当前线上页面](https://laozhej.github.io/)
 
 ![Blank 桌面首页](blank-desktop.png)
 
 ## 樱色档案 · 场景首页
 
-[访问对应页面](https://laozhej.github.io/themes/ema/)
+[访问当前线上页面](https://laozhej.github.io/themes/ema/)
 
-截图暂缺：旧截图含有未获授权的美术，已移出；重新设计与美术定稿后补拍。
+截图暂缺：旧快照截图已于 2026-11-13 移出；待页头美术与重拍清单定稿后补充当前版本截图。
 
-## 终末地工业风 · 结构与编号
+## 终末地工业风 · 结构与编号（2026-10-31 快照）
 
-[访问对应页面](https://laozhej.github.io/themes/endfield/)
+[访问当前线上页面](https://laozhej.github.io/themes/endfield/)
 
 ![工业风桌面首页](endfield-desktop.png)
 
-## 浅色与深色
+## 明日方舟 · 档案终端
+
+[访问当前线上页面](https://laozhej.github.io/themes/arknights/)
+
+该主题于 2026-11-26 新增，晚于本画廊的 2026-10-31 截图快照，待下一轮统一重拍时补入画廊。
+
+## 浅色与深色（2026-10-31 快照）
 
 ![Blank 深色首页](blank-dark.png)
 
-## 窄视口
+## 窄视口（2026-10-31 快照）
 
-以下图保持各自的真实视口尺寸。画面展示响应式首屏；完整页面的滚动行为需要另行操作。
+以下图保持各自的真实视口尺寸，展示响应式首屏。
 
 | Blank | 工业风 |
 | --- | --- |
 | ![Blank 手机宽度首页](blank-mobile.png) | ![工业风手机宽度首页](endfield-mobile.png) |
 
-## 站内案例入口
+## 站内案例入口（2026-10-31 快照）
 
-[访问作品页](https://laozhej.github.io/projects/)
+[访问当前线上作品页](https://laozhej.github.io/projects/)
 
 ![作品页及案例链接](projects-desktop.png)
 
 ## 更新截图
 
-1. 在仓库根目录构建并预览网站。
-2. 按 manifest 中的路径、视口、语言与颜色模式打开页面，等待字体和图片加载。
-3. 以浏览器截图覆盖对应文件，确认内容没有被弹窗、加载状态或未完成的入场动画遮住。
-4. 更新 manifest 中的日期、尺寸和校验值，并重跑 `npm run showcase:check`。
-
-截图会受系统字体、访客本地时间及动画时刻影响；这里不把静态图作为动画流畅度的证据。
+1. 确定需要覆盖与新增的截图清单并取得站主确认。
+2. 在仓库根目录运行 `npm run build` 并通过本地静态服务器打开 `dist/`。
+3. 按 manifest 中的路径、视口、语言与颜色模式截屏，等待自托管字体与可见图片加载完成。
+4. 同步更新 `showcase/gallery/manifest.json`、`public/projects/ASSETS.json` 及四语图注，并重跑 `npm test`、`npm run build` 和 `npm run showcase:check`。

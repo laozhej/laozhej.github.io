@@ -4,41 +4,38 @@
 
 ## 谁做了什么
 
-Asahi Arataki 提供个人内容、视觉偏好和修改要求，并负责网站的维护与方向。Codex 与 Claude 作为辅助工具参与前端设计、代码实现、调试及文档整理。Blank 的基础代码与设计来源于 Yuimi-chaya，不能把继承的全部实现算作本站从零原创。
+Asahi Arataki 提供个人资料、原创文章、选定的游戏／动画／角色收藏、视觉方向与最终验收，并负责整个网站的长期维护。Claude 与 Codex 等 AI 工具辅助前端设计、组件实现、可访问性排查、自动化测试与文档整理。Blank 的代码起点与樱色档案的参考布局来自 Yuimi-chaya，仓库保留完整上游署名，不把继承部分算作从零原创。
 
-这份案例根据实际源码、已有文档、公开提交和本次运行结果整理。仓库没有证据表明整个开发过程采用了固定的 23 阶段流程，因此没有沿用参考 showcase 的流程数字或成果叙事。
+本案例完全基于真实源码、公开提交、路线图记录和本地验证结果编写，不虚构工时或开发效率数字。
 
-## 公开记录能说明的演进
+## 公开记录中的关键演进
 
-| 节点 | 可核对的实现 |
+| 阶段 | 可核对提交 |
 | --- | --- |
-| 全局导航与控件打磨 | [`06b2d21`](https://github.com/laozhej/laozhej.github.io/commit/06b2d21)：导航居中与动效控制 |
-| 主题增强与公共核心解耦 | [`0ee43a6`](https://github.com/laozhej/laozhej.github.io/commit/0ee43a6)：登记主题页面脚本 |
-| 艾玛首页重构 | [`c9101df`](https://github.com/laozhej/laozhej.github.io/commit/c9101df)：樱色档案的场景结构 |
-| 引入工业风 | [`7283b74`](https://github.com/laozhej/laozhej.github.io/commit/7283b74)：第三套主题 |
-| 补齐台湾繁体中文 | [`2a83ad8`](https://github.com/laozhej/laozhej.github.io/commit/2a83ad8)：所有主题的第四种语言 |
-| 处理部署后的旧页缓存 | [`405361b`](https://github.com/laozhej/laozhej.github.io/commit/405361b)：导航请求携带构建版本 |
-| 增加艾玛交互场景 | [`de9b413`](https://github.com/laozhej/laozhej.github.io/commit/de9b413)：场景与悬停控制 |
-
-这些是可追溯的节点，不等同于工时、个人独立完成比例或量化生产力。案例没有进行用户研究、对照实验，也没有据此推断 AI 提升了多少开发效率。
+| 早期多主题架构与四语基础 | [`de9b413`](https://github.com/laozhej/laozhej.github.io/commit/de9b413)：Blank、樱色档案、终末地与四语共享核心 |
+| 樱色档案与 Blank 首页重做、首篇博文上线 | PR #12–#19：立绘舞台、静物与分镜条、第一篇四语文章 `dev-log-01`、展板式作品页 |
+| SEO、交互修复与版式回退 | PR #20–#31：sitemap/RSS/OG 分享图、滚动位置恢复、按站主对照验收恢复并定稿内页版式 |
+| 终末地交互动效、现代 Web 与触控目标 | PR #35–#42：终末地交互动效、axe-core 首次扫描、三主题 44 px 点按范围、CC0 樱枝 |
+| 新增第四套主题「明日方舟」 | [`e5d3d72`](https://github.com/laozhej/laozhej.github.io/commit/e5d3d72)、[`9ef2bbb`](https://github.com/laozhej/laozhej.github.io/commit/9ef2bbb)：档案终端主题与四主题同步 |
+| 读屏名称、电台、头像与动效完善 | [`db563f9`](https://github.com/laozhej/laozhej.github.io/commit/db563f9)、[`89adf54`](https://github.com/laozhej/laozhej.github.io/commit/89adf54)、[`65d9a78`](https://github.com/laozhej/laozhej.github.io/commit/65d9a78)、[`06c37e3`](https://github.com/laozhej/laozhej.github.io/commit/06c37e3)：WCAG 2.5.3 与逐像素对比度、MP3 樱色电台、平滑回顶、Blank/Ema 动效 |
+| 自托管字体、跟随系统与浏览器语言 | [`10a7f14`](https://github.com/laozhej/laozhej.github.io/commit/10a7f14)、[`99821e7`](https://github.com/laozhej/laozhej.github.io/commit/99821e7)、[`d3e521c`](https://github.com/laozhej/laozhej.github.io/commit/d3e521c)、[`224b511`](https://github.com/laozhej/laozhej.github.io/commit/224b511)、[`f80b3e3`](https://github.com/laozhej/laozhej.github.io/commit/f80b3e3)：深浅色自动回退跟随系统、按浏览器语言分流、四主题自托管字库、延迟分片与 Ema 英文正文 Nunito |
+| 联系方式扩展与全站文案校对 | [`3b64f6c`](https://github.com/laozhej/laozhej.github.io/commit/3b64f6c)、[`6385d71`](https://github.com/laozhej/laozhej.github.io/commit/6385d71) 及当前分支：补齐邮箱／Instagram／X、全站四语文案修补与风格打磨 |
 
 ## 目前有效的做法
 
-**把重复修复收进公共层。** 路由、偏好、集合筛选和页面清理都由公共模块负责，减少在三套界面分别修同一个问题的机会。
+**把共享能力收进 `src/core`，把视觉隔离在 `src/themes`。** 路由、国际化、深浅色、动效暂停、平滑回顶、搜索筛选与自托管字体都在公共层一次修好，四套主题同步受益；样式前缀与测试守住边界，防止共享改动破坏已冻结的终末地和明日方舟主题。
 
-**用契约约束主题扩展。** `AGENTS.md` 与 `docs/THEMES.md` 记录语言、数据、图标、署名、运行时和部署要求。主题可以有自己的设计，但需要明确接入这些公共能力。
+**把规则写进可执行测试与文档契约。** [`AGENTS.md`](../../AGENTS.md)、[`docs/THEMES.md`](../../docs/THEMES.md) 和 [`docs/ROADMAP.md`](../../docs/ROADMAP.md) 明确分工、冻结项与验证口径；38 份测试文件在本地和部署前守住路由、可访问性名称、触控目标、资源清单与字体约定。
 
-**把视觉判断与代码检查分开。** 单元测试能验证路径和状态，构建能验证页面生成；截图和实际操作才涉及最终呈现。三者互相补充。
+**先出对照再定视觉方向。** 涉及布局与视觉的改动通过桌面与手机整页对照交给站主判断，避免“测试通过”被误当成视觉验收通过。
 
 ## 需要继续付出的成本
 
-三主题、四语言会放大每个新页面的验证范围。客户端过渡增加滚动恢复、动画取消、资源和监听器清理的复杂度。艾玛的大量场景和角色素材也带来性能、许可与可维护性方面的持续工作。
-
-文章为空意味着阅读系统尚缺少真实长文的展示证据；不能因为代码存在，就把内容建设说成已经完成。
+四主题 × 四语言让每次公共改动都要验证 128 个静态页与多种视口／配色组合。`PageLayout.astro` 目前把四套主题的样式打包进同一份公共样式表，按主题拆分仍是一项待做性能优化（见 `docs/ROADMAP.md` 第 4.3 节）。另外，第三方立绘与收藏配图的长期授权整理、以及新文章的持续写作，都需要站主后续推进。
 
 ## 下一步
 
-- 写入正式文章，用真实长文验证目录、代码块、图片与各语言回退。
-- 建立定期可复现的截图比较，避免新主题或新控件挤压窄屏布局。
-- 实测性能与无障碍，尤其关注艾玛场景、模型加载和减少动态模式。
-- 随站点迭代维护案例，只保留仍能从源码和证据支持的描述。
+- 定下樱色档案页头插画方向后，统一重拍 `public/projects/gallery/` 与 `showcase/gallery/` 截图并同步清单。
+- 在真实 Safari（macOS / iOS）、Firefox 与实体手机上补做真机检查（滚动恢复、View Transitions、滚轮舞台与原生下拉框高度）。
+- 评估清理 r3 首页残留文件与按主题拆分共享样式表，进一步减小页面加载体积。
+- 持续补充新的开发记录与项目，丰富真实文章与游戏短评内容。

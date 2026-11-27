@@ -55,3 +55,17 @@ const fallbackRoutes = root404 ? themes.map(({ id, root }) => ({
     location.replace(url.href);
   })();
 </script>
+<script is:inline define:vars={{ localePreferenceKey, locales }}>
+  // Install before the menu is painted. The document survives Astro page swaps.
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest?.("[data-site-language-menu] a[data-site-locale]");
+    if (!link || !locales.includes(link.dataset.siteLocale)) return;
+    try { localStorage.setItem(localePreferenceKey, link.dataset.siteLocale); } catch {}
+    const target = new URL(link.href);
+    target.search = location.search;
+    // Heading IDs can differ between translations.
+    target.hash = "";
+    link.href = target.href;
+    link.closest("[data-site-language-menu]").open = false;
+  }, true);
+</script>

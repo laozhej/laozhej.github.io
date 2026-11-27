@@ -75,7 +75,7 @@ test("one Escape closes only the nested language menu, not the panel around it",
   const summary = element();
   const menu = element({ open: true, querySelector: (s) => (s === "summary" ? summary : null), querySelectorAll: () => [], contains: () => false });
   const doc = element({ querySelector: (s) => (s === "[data-site-language-menu]" ? menu : null) });
-  const cleanup = mountLanguagePreference(doc, { localStorage: { setItem() {} }, location: { href: "https://example.com/" } });
+  const cleanup = mountLanguagePreference(doc);
   const escape = Object.assign(new Event("keydown", { cancelable: true }), { key: "Escape" });
   doc.dispatchEvent(escape);
   assert.equal(menu.open, false);

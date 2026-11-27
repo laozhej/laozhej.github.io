@@ -23,7 +23,7 @@ const build = process.env.GITHUB_SHA || "local-preview";
   installNavigationLifecycle(document, window, () => {
     const cleanups = [
       mountMotionPreference(document, window),
-      mountLanguagePreference(document, window),
+      mountLanguagePreference(document),
       mountThemePreference(document, window),
       mountSiteFeatures(document, window),
       // Theme-specific enhancements come from registerThemeRuntime() in each layout.

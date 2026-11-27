@@ -17,7 +17,7 @@ const { animeFavorites, animeListUrl, currentSignals, favoriteGames, profileIden
     <div class="blank-profile-bio">
       <p class="blank-profile-lead">{keepTails(profileIdentity.bio)}</p>
       <ul class="blank-status-list">{profileStatus.map((item) => <li>{keepTails(item)}</li>)}</ul>
-      <SocialLinks />
+      <SocialLinks iconsOnly />
     </div>
   </section>
   <section class="blank-section blank-about-section">

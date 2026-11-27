@@ -335,17 +335,20 @@ html[data-color-mode="dark"] #ema-stage .k-avatar { background: radial-gradient(
 #ema-stage .k-card-path { margin: 0; font: var(--blank-fs-xs, 11px)/1.5 var(--blank-mono); color: var(--blank-muted); overflow-wrap: anywhere; }
 #ema-stage .k-card-cmd { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 0; font: 700 var(--blank-fs-sm, 14px)/1.5 var(--blank-mono); color: var(--k-accent); }
 #ema-stage .k-card-cmd b { color: var(--ema-lav); }
-#ema-stage .k-card-name { margin: 2px 0 0; font: 600 var(--blank-fs-lg, 18px)/1.4 var(--blank-serif); color: var(--blank-ink); }
+#ema-stage .k-card-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 12px; }
+#ema-stage .k-card-name { margin: 0; font: 600 var(--blank-fs-lg, 18px)/1.4 var(--blank-serif); color: var(--blank-ink); }
 #ema-stage .k-card-name span { font-weight: 400; color: var(--blank-muted); }
+#ema-stage .k-card-about {
+  display: inline-flex; align-items: center; gap: 4px; min-height: 44px; min-width: 44px;
+  color: var(--ema-pink); font: 600 var(--blank-fs-sm, 13px)/1.4 var(--blank-sans); text-underline-offset: .2em;
+}
 #ema-stage .k-card-intro { margin: 0; font-size: var(--blank-fs-sm, 13px); line-height: 1.75; color: var(--blank-muted); }
 #ema-stage .k-card-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 0; }
-#ema-stage .k-card-links a {
-  display: inline-flex; align-items: center; gap: 6px; min-height: 38px; padding: 6px 11px;
-  border: 1px solid var(--blank-line); border-radius: 6px; background: var(--ema-lav-wash); color: var(--ema-lav);
-  font: 600 var(--blank-fs-sm, 13px)/1 var(--blank-sans); text-decoration: none;
+#ema-stage .k-card-links .social-circle {
+  background: color-mix(in srgb, var(--ema-pink-soft) 40%, var(--ema-blush));
+  border-color: var(--ema-pink-soft);
+  color: var(--ema-pink);
 }
-#ema-stage .k-card-links a:nth-child(2) { background: var(--ema-blush); color: var(--ema-pink); }
-#ema-stage .k-card-links .k-card-about { background: transparent; color: var(--blank-ink); }
 
 /* Stage mode (wide fine pointers with motion on): the reference's pull-and-dock reveal. */
 #ema-stage[data-mode="stage"] .k-stage { height: 100svh; min-height: 600px; }
@@ -579,7 +582,8 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage :is(.k-theatre-buttons button, .x):hover { border-color: var(--ema-pink); background: var(--ema-blush); }
   #ema-stage .k-note-open:hover { transform: translateY(-2px) rotate(1deg); box-shadow: 5px 6px 0 var(--k-tint-pink); }
   #ema-stage .k-leaf:hover .k-leaf-arrow { color: var(--ema-lav); }
-  #ema-stage .k-card-links a:hover { border-color: currentColor; }
+  #ema-stage .k-card-links .social-circle:hover { background: var(--ema-pink); border-color: var(--ema-pink); color: var(--ema-on-pink); }
+  #ema-stage .k-card-about:hover { text-decoration: underline; }
   #ema-stage .k-entry:hover h3 { color: var(--ema-pink); }
 }
 

@@ -4,14 +4,45 @@ import { socialLinks } from "@/core/data/social";
 import { getI18n } from "@/core/i18n";
 // `label` names the group for assistive technology. A footer passes its own, so the copy in the footer and the one on the
 // About page are not two navigation regions with the same name.
-interface Props { class?: string; label?: string; }
-const { class: className = "blank-contact-links", label } = Astro.props;
+interface Props {
+  class?: string;
+  label?: string;
+  iconsOnly?: boolean;
+}
+const { class: className = "blank-contact-links", label, iconsOnly = false } = Astro.props;
 const { t } = getI18n(Astro.url.pathname);
 ---
 <nav class={className} aria-label={label ?? t("social.heading")}>
-  {socialLinks.map((link) => (
-    <a class="blank-text-link" href={link.href} target="_blank" rel="me noopener noreferrer" aria-label={t(`social.${link.key}`)}>
-      {link.label} <Icon name="tabler:external-link" size={16} />
-    </a>
-  ))}
+  {socialLinks.map((link) => {
+    const name = t(`social.${link.key}`);
+    const isEmail = link.key === "email";
+    const caption = isEmail ? name : link.label;
+    return (
+      <a
+        class={iconsOnly ? "social-circle" : "blank-text-link"}
+        href={link.href}
+        target={isEmail ? undefined : "_blank"}
+        rel={isEmail ? undefined : "me noopener noreferrer"}
+        aria-label={name}
+        title={iconsOnly ? name : undefined}
+      >
+        {!iconsOnly && caption}
+        <Icon name={iconsOnly || isEmail ? link.icon : "tabler:external-link"} size={iconsOnly ? 20 : 16} aria-hidden="true" />
+      </a>
+    );
+  })}
 </nav>
+
+<style>
+  .social-circle {
+    display: inline-grid;
+    place-items: center;
+    flex: none;
+    inline-size: 44px;
+    block-size: 44px;
+    border: 1px solid var(--blank-line);
+    border-radius: 50%;
+  }
+  .social-circle:is(:hover, :focus-visible) { border-color: currentColor; }
+  .blank-text-link { min-inline-size: 44px; }
+</style>

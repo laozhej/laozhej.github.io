@@ -5,7 +5,7 @@
 import { Icon } from "astro-icon/components";
 import { getSiteContent } from "@/core/i18n/content";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
-import { socialLinks } from "@/core/data/social";
+import SocialLinks from "@/core/components/SocialLinks.astro";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 import { site } from "@/lib/site";
 import PageLayout from "@/core/themes/PageLayout.astro";
@@ -31,7 +31,6 @@ const marks = [
   { id: "animes", icon: "tabler:movie" },
   { id: "now", icon: "tabler:flower" },
 ];
-const socialIcons: Record<string, string> = { github: "tabler:brand-github", steam: "tabler:brand-steam" };
 ---
 <PageLayout title={`${t("nav.about")} | ${site.name}`} description={t("about.description")}>
   <PageHead index="04" title="About" label={t("common.about")} description={t("about.intro")} />
@@ -47,9 +46,7 @@ const socialIcons: Record<string, string> = { github: "tabler:brand-github", ste
         <h2>{profileIdentity.displayName}<span aria-hidden="true">.</span></h2>
         <p class="about-handle">{t("ema.brand")}</p>
         <p class="about-bio">{keepTails(profileIdentity.bio)}</p>
-        <ul class="about-links">
-          {socialLinks.map((social) => <li><a href={social.href} target="_blank" rel="me noopener noreferrer" aria-label={t(`social.${social.key}`)}><Icon name={socialIcons[social.key] ?? "tabler:link"} size={17} aria-hidden="true" />{social.label}</a></li>)}
-        </ul>
+        <SocialLinks class="about-links" iconsOnly />
       </div>
       <div class="about-status">
         <p class="shelf-kicker">{t("ema.about.status")}</p>

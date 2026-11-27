@@ -99,7 +99,7 @@ body[data-ema-home] .ema-wordmark {text-shadow:0 1px 8px var(--blank-paper),0 0 
 .ema-footer {text-align:center;padding:20px 24px 34px;margin:auto;max-width:1120px;color:var(--blank-muted);}
 .ema-footer-brand {font:400 32px/1.3 var(--ema-title-font);color:var(--blank-ink)!important;letter-spacing:0;}
 .ema-footer>p {font-size:var(--blank-fs-xs, 12px);margin:12px 0 18px;letter-spacing:.1em;}
-.ema-social-links {display:flex;justify-content:center;gap:22px;font-size:var(--blank-fs-xs, 12px);margin-bottom:22px;}
+.ema-social-links {display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;font-size:var(--blank-fs-xs, 12px);margin-bottom:22px;}
 .ema-footer-bottom {display:flex;justify-content:center;flex-wrap:wrap;gap:12px 24px;font-size:var(--blank-fs-xs, 11px);}
 @media(hover:hover) and (pointer:fine) { .ema-nav a:hover {background:var(--ema-blush);} .ema-footer a:hover {color:var(--ema-pink);} .ema-motion-toggle:hover::after {visibility:visible;} }
 @media(max-width:1180px) {
@@ -422,7 +422,7 @@ html[data-theme="ema"] .ema-header .site-theme-dock .site-theme-options {top:cal
    760px, and a link that directly follows another on the credits page. Every rule is scoped to Ema: Blank and Endfield
    pages load this stylesheet too, and Blank's pages share several of these class names. The Games and About pages had
    theirs since PR 31 (games.css, about.css). */
-html[data-theme="ema"] :is(.ema-wordmark, .ema-header :is(.ema-icon-button, .ema-settings-toggle, .site-language-menu > summary), .ema-footer-brand, .ema-social-links a, .ema-footer-bottom a, #ema-stage :is(.k-text-button, .k-card-links a, .k-journal-head > a), .ema-content :is(.blank-post-meta, .blank-tag-line) a) { position: relative; }
+html[data-theme="ema"] :is(.ema-wordmark, .ema-header :is(.ema-icon-button, .ema-settings-toggle, .site-language-menu > summary), .ema-footer-brand, .ema-social-links a, .ema-footer-bottom a, #ema-stage :is(.k-text-button, .k-journal-head > a), .ema-content :is(.blank-post-meta, .blank-tag-line) a) { position: relative; }
 /* Header. The site name is 34px tall, and below 1101px only its 34px mark shows. The settings and control buttons and the
    language button are 40px with a 1px outline: an absolute box starts inside the outline, so 3px reach 2px beyond it.
    Two of them have a frosted background, and a box reaching out of them made Chrome draw a few of their edge pixels a
@@ -436,12 +436,11 @@ html[data-theme="ema"] .ema-header .ema-motion-toggle::before { content: ""; pos
 html[data-theme="ema"] .console-tab::after { content: ""; position: absolute; inset: 0 -11px 0 0; }
 /* The theme list's rows were 42.8px. */
 html[data-theme="ema"] .site-theme-dock a { min-height: 44px; }
-/* Home stage: the note button (40px on narrow screens), the arrow cue (36px), the card links (38px), the "drop the tags"
+/* Home stage: the note button (40px on narrow screens), the arrow cue (36px), the "drop the tags"
    button (40px) and the Journal heading's link (24.5px). The note button, about 100px wide and with a shadow, reaches only
    up and down: a box reaching out of it sideways changed a few of its edge pixels in Chrome and WebKit. */
 html[data-theme="ema"] #ema-stage .k-note-open::after { content: ""; position: absolute; inset: -3px 0; }
 html[data-theme="ema"] #ema-stage .k-cue::after { content: ""; position: absolute; inset: -5px 0; }
-html[data-theme="ema"] #ema-stage .k-card-links a::after { content: ""; position: absolute; inset: -4px 0; }
 html[data-theme="ema"] #ema-stage .k-text-button::after { content: ""; position: absolute; inset: -2px 0; }
 html[data-theme="ema"] #ema-stage .k-journal-head > a::after { content: ""; position: absolute; inset: -10px 0; }
 /* Footer. It is drawn as one layer so that positioning its links changes no pixel on pages with a sticky element before it

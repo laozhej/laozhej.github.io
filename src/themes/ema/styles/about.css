@@ -15,7 +15,8 @@ html[data-color-mode="dark"] .ema-about .about-avatar-mark {background:radial-gr
 .ema-about .about-handle {margin-top:4px;font:var(--blank-fs-xs, 12px)/1.6 var(--mono);color:var(--blank-muted);}
 .ema-about .about-bio {margin-top:14px;font-size:var(--blank-fs-sm, 13.5px);line-height:1.9;color:var(--blank-muted);}
 .ema-about .about-links {display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
-.about-links a,.about-marks a {display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:7px 15px;border:1px solid var(--blank-line);border-radius:999px;background:var(--card);color:var(--blank-ink);font-size:var(--blank-fs-sm, 13px);font-weight:600;text-decoration:none;box-shadow:0 4px 12px rgba(96,74,60,.08);transition:transform 180ms var(--blank-ease),border-color 180ms ease,color 180ms ease;}
+.about-links a,.about-marks a {background:var(--card);color:var(--blank-ink);text-decoration:none;box-shadow:0 4px 12px rgba(96,74,60,.08);transition:transform 180ms var(--blank-ease),border-color 180ms ease,color 180ms ease;}
+.about-marks a {display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:7px 15px;border:1px solid var(--blank-line);border-radius:999px;font-size:var(--blank-fs-sm, 13px);font-weight:600;}
 .about-marks svg {color:var(--ema-pink);}
 .about-status {padding:16px 18px;border:1px solid var(--blank-line);border-radius:14px;background:var(--card);box-shadow:var(--card-shadow);}
 .about-status ul {display:grid;gap:10px;margin-top:10px;}
@@ -116,7 +117,7 @@ html[data-motion-paused="true"] .ema-about :is(a,a svg) {transition:none;}
    The pills are 38.8px tall with a 1px border, which takes 1px of the inset; the "more" links are 22.8px tall;
    a game's or an anime's title link (18px a line) takes a band across its heading. The cards themselves are left
    alone: positioning them made Chrome resample the tilted posters. */
-.about-links a,.about-marks a,a.about-more,.about-games h3,.about-animes h3 {position:relative;}
-.about-links a::after,.about-marks a::after {content:"";position:absolute;inset:-4px 0;}
+.about-marks a,a.about-more,.about-games h3,.about-animes h3 {position:relative;}
+.about-marks a::after {content:"";position:absolute;inset:-4px 0;}
 a.about-more::after {content:"";position:absolute;inset:-11px 0;}
 .about-games h3 a::after,.about-animes h3 a::after {content:"";position:absolute;inset:-13px 0;}

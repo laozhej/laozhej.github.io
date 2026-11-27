@@ -286,7 +286,7 @@ details[open] > summary > .blank-disclosure-icon { transform: rotate(180deg); }
 .blank-status-list { margin-top: 24px !important; }
 .blank-status-list li { display: flex; align-items: baseline; gap: 12px; margin-top: 8px; color: var(--blank-muted); font-size: var(--blank-fs-sm, .8125rem); }
 .blank-status-list li::before { content: "+"; color: var(--blank-ink); font: var(--blank-fs-sm, .875rem)/1 var(--blank-mono); }
-.blank-contact-links { display: flex; flex-wrap: wrap; gap: 32px; margin-top: 24px; }
+.blank-contact-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .blank-about-section { display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; }
 .blank-favorites { min-width: 0; }
 .blank-favorites-list { margin: 16px 0 36px !important; }

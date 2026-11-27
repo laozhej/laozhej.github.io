@@ -16,6 +16,7 @@ import { getPublishedPosts } from "@/core/content/blog";
 import { getNotes } from "@/core/content/notes";
 import { formatNoteDay, noteNumber, pickNote, utcDay } from "@/core/content/select-notes.mjs";
 import { socialLinks } from "@/core/data/social";
+import SocialLinks from "@/core/components/SocialLinks.astro";
 import { getThemePath } from "@/core/themes/registry";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 import EmaLayout from "../layouts/EmaLayout.astro";
@@ -64,7 +65,9 @@ const tags = [
   ...take(profileTech.map((item) => item.name)),
   ...take(favoriteGames.map((item) => item.title)),
   ...take(xpFavorites.slice(0, 8).map((item) => item.title)),
-  ...take([...projectTechLines.map((item) => item.label), ...Object.values(categoryLabel), ...socialLinks.map((item) => item.label)]),
+  ...take(projectTechLines.map((item) => item.label)),
+  ...take(Object.values(categoryLabel)),
+  ...take(socialLinks.filter((link) => link.key !== "email").map((link) => link.label)),
 ];
 const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || "/";
 ---
@@ -135,12 +138,12 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
           <div class="k-card-bar"><span class="k-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>{profileIdentity.handle}</span></div>
           <p class="k-card-path" aria-hidden="true">laozhej.github.io{sitePath}</p>
           <p class="k-card-cmd" aria-hidden="true"><span>profile@arataki:~$</span> <b data-k-name data-names={JSON.stringify([profileIdentity.displayName, profileIdentity.alias])}>{profileIdentity.displayName}</b><span class="k-caret"></span></p>
-          <h2 class="k-card-name" id="k-profile-name">{profileIdentity.displayName}<span> / {profileIdentity.alias}</span></h2>
-          <p class="k-card-intro">{keepTails(profileIdentity.intro)}</p>
-          <p class="k-card-links">
-            {socialLinks.map((social) => <a href={social.href} target="_blank" rel="me noopener noreferrer" aria-label={t(`social.${social.key}`)}><Icon name={`tabler:brand-${social.key}`} size={16} aria-hidden="true" />{social.label}</a>)}
+          <div class="k-card-heading">
+            <h2 class="k-card-name" id="k-profile-name">{profileIdentity.displayName}<span> / {profileIdentity.alias}</span></h2>
             <a class="k-card-about" href={href("/about/")}>{t("common.about")}<Icon name="tabler:arrow-right" size={15} aria-hidden="true" /></a>
-          </p>
+          </div>
+          <p class="k-card-intro">{keepTails(profileIdentity.intro)}</p>
+          <SocialLinks class="k-card-links" iconsOnly />
         </div>
       </section>
     </div>

@@ -44,7 +44,7 @@ test("Ema tap targets: header, console and theme list", () => {
 });
 
 test("Ema tap targets: home stage and footer", () => {
-  for (const [selector, inset] of [["k-note-open", "-3px 0"], ["k-cue", "-5px 0"], ["k-card-links a", "-4px 0"], ["k-text-button", "-2px 0"], ["k-journal-head > a", "-10px 0"]]) {
+  for (const [selector, inset] of [["k-note-open", "-3px 0"], ["k-cue", "-5px 0"], ["k-text-button", "-2px 0"], ["k-journal-head > a", "-10px 0"]]) {
     assert.ok(has(`html[data-theme="ema"] #ema-stage .${selector}::after { content: ""; position: absolute; inset: ${inset}; }`), selector);
   }
   assert.ok(has('html[data-theme="ema"] .ema-footer { isolation: isolate; }'), "positioning the footer's links must not change how their text is drawn after the sticky contents list");

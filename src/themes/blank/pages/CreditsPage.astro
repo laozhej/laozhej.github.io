@@ -10,6 +10,7 @@ import fontLicense from "../../../../public/licenses/gloock-OFL.txt?raw";
 import sairaLicense from "../../../../public/licenses/saira-OFL.txt?raw";
 import oswaldLicense from "../../../../public/licenses/oswald-OFL.txt?raw";
 import jetbrainsLicense from "../../../../public/licenses/jetbrains-mono-OFL.txt?raw";
+import notoSerifLicense from "../../../../public/licenses/noto-serif-cjk-OFL.txt?raw";
 const { t, href } = getI18n(Astro.url.pathname);
 ---
 <BlankLayout title={`${t("credits.title")} | ${site.name}`} description={t("credits.description")}>
@@ -64,6 +65,14 @@ const { t, href } = getI18n(Astro.url.pathname);
         <pre lang="en">{fontLicense}</pre>
       </details>
       <a class="blank-text-link" href="/licenses/gloock-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+      <h3>Noto Serif SC / TC / JP</h3>
+      <p>{t("credits.notoSerifText")}</p>
+      <a class="blank-text-link" href="https://github.com/notofonts/noto-cjk" target="_blank" rel="noopener noreferrer">{t("credits.notoSerifProject")} <Icon name="tabler:external-link" size={15} /></a>
+      <details class="blank-license">
+        <summary>{t("credits.licenseText")} · OFL-1.1</summary>
+        <pre lang="en">{notoSerifLicense}</pre>
+      </details>
+      <a class="blank-text-link" href="/licenses/noto-serif-cjk-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
       <h3>Saira</h3>
       <p>{t("credits.sairaText")}</p>
       <a class="blank-text-link" href="https://github.com/Omnibus-Type/Saira" target="_blank" rel="noopener noreferrer">{t("credits.sairaProject")} <Icon name="tabler:external-link" size={15} /></a>

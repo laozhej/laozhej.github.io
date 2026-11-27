@@ -1,3 +1,9 @@
+/* Chinese and Japanese serif text in Noto Serif SC, TC and JP (SIL OFL 1.1; public/licenses/noto-serif-cjk-OFL.txt).
+   Each file holds only the CJK characters that Ema pages in that language set in the serif, every weight; the
+   system Song or Mincho still covers any character a later edit adds. Latin keeps Iowan Old Style or Georgia. */
+@font-face {font-family:"Ema Noto Serif SC";src:url("/fonts/ema/noto-serif-sc-ema.woff2") format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+2E80-9FFF,U+F900-FAFF,U+FE30-FE4F,U+FF00-FFEF;}
+@font-face {font-family:"Ema Noto Serif TC";src:url("/fonts/ema/noto-serif-tc-ema.woff2") format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+2E80-9FFF,U+F900-FAFF,U+FE30-FE4F,U+FF00-FFEF;}
+@font-face {font-family:"Ema Noto Serif JP";src:url("/fonts/ema/noto-serif-jp-ema.woff2") format("woff2");font-weight:200 900;font-display:swap;unicode-range:U+2E80-9FFF,U+F900-FAFF,U+FE30-FE4F,U+FF00-FFEF;}
 /* Sakura Archive palette (reviewed prototype r3): warm cream paper, plum-grey ink, sakura and lavender accents.
    The Blank tokens carry it to every Ema page; the --ema-* tokens add r3's card, strong line, soft pink and lavender. */
 html[data-theme="ema"] {
@@ -10,7 +16,10 @@ html[data-theme="ema"] {
   --blank-panel-bg:#f4ede0; --blank-panel-ink:#434861; --blank-panel-muted:#62667e;
   --blank-footer-bg:#fbf7ef; --blank-footer-ink:#434861; --blank-footer-line:#e7dece; --blank-footer-muted:#62667e;
   --blank-width:1120px; --blank-sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
-  --blank-serif:"Iowan Old Style","Songti SC",SimSun,Georgia,serif; --blank-mono:ui-monospace,Consolas,monospace;
+  --blank-serif:"Iowan Old Style","Ema Noto Serif SC","Songti SC",SimSun,Georgia,serif; --blank-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Roboto Mono","Noto Sans Mono","Liberation Mono",monospace;
+  /* Chrome and Firefox do not know ui-monospace, so on macOS they fell back to Courier; Menlo comes next now.
+     The six text sizes are Blank's (see blank/styles/theme.css). */
+  --blank-fs-xs:.75rem; --blank-fs-sm:.875rem; --blank-fs-md:1rem; --blank-fs-lg:1.25rem; --blank-fs-xl:1.5rem; --blank-fs-2xl:1.875rem;
   --blank-ease:cubic-bezier(.23,1,.32,1); --ema-pink:#9c4872; --ema-blush:#fbe9ee;
   --ema-card:#fffdf9; --ema-line-strong:#d3c7b2; --ema-pink-soft:#efc5d3; --ema-on-pink:#fffdf9;
   --ema-lav:#62589a; --ema-lav-soft:#d6cdec; --ema-lav-wash:#efebf8;
@@ -20,11 +29,11 @@ html[data-theme="ema"] {
 }
 html[data-theme="ema"]:lang(zh-TW) {
   --blank-sans:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei",sans-serif;
-  --blank-serif:"Iowan Old Style","Songti TC",PMingLiU,Georgia,serif;
+  --blank-serif:"Iowan Old Style","Ema Noto Serif TC","Songti TC",PMingLiU,Georgia,serif;
 }
 html[data-theme="ema"]:lang(ja) {
   --blank-sans:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
-  --blank-serif:"Iowan Old Style","Hiragino Mincho ProN","Yu Mincho",Georgia,serif;
+  --blank-serif:"Iowan Old Style","Ema Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",Georgia,serif;
 }
 html[data-theme="ema"][data-color-mode="dark"] {
   color-scheme:dark;
@@ -39,7 +48,7 @@ html[data-theme="ema"][data-color-mode="dark"] {
   --ema-lav:#c3b9ec; --ema-lav-soft:#524b76; --ema-lav-wash:#302d45;
   --ema-wash-a:rgba(62,42,58,.7); --ema-wash-b:rgba(38,42,74,.72);
 }
-body[data-ema] { font-size:14px; overflow-x:clip; }
+body[data-ema] { font-size:var(--blank-fs-sm, 14px); overflow-x:clip; }
 body[data-ema] img { height:auto; }
 body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var(--ema-pink); }
 /* Header, after the reference: a band with the brand on the left, a centred glass pill whose items pair an
@@ -55,26 +64,26 @@ body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var
 .ema-wordmark strong {font:400 19px/1.15 var(--ema-title-font);letter-spacing:0;color:var(--blank-ink);}
 .ema-wordmark strong i {font-style:normal;color:var(--ema-pink);}
 .ema-footer-brand span {color:var(--ema-pink);}
-.ema-wordmark small {font:9px var(--blank-mono);color:var(--blank-muted);}
+.ema-wordmark small {font:var(--blank-fs-xs, 9px) var(--blank-mono);color:var(--blank-muted);}
 .ema-nav {display:flex;justify-content:center;align-items:center;gap:6px;padding:5px;border-radius:999px;}
 .ema-nav a {display:grid;grid-template-columns:auto auto;column-gap:7px;row-gap:1px;align-items:center;min-height:46px;padding:7px 13px;border-radius:999px;color:var(--blank-muted);white-space:nowrap;letter-spacing:.04em;}
 .ema-nav-icon {grid-row:1 / span 2;display:grid;place-items:center;width:22px;height:26px;}
-.ema-nav-label {font:600 13px/1 var(--blank-serif);}
-.ema-nav-hint {font:600 10px/1 var(--blank-sans);letter-spacing:.02em;opacity:.78;text-transform:lowercase;}
+.ema-nav-label {font:600 var(--blank-fs-sm, 13px)/1 var(--blank-serif);}
+.ema-nav-hint {font:600 var(--blank-fs-xs, 10px)/1 var(--blank-sans);letter-spacing:.02em;opacity:.78;text-transform:lowercase;}
 /* On the current section's tinted pill the faded hint fell under 4.5:1 (measured 3.4:1 in light mode); it takes the label's full colour there. */
 .ema-nav a[aria-current="page"] .ema-nav-hint {opacity:1;}
 .ema-nav a[aria-current="page"] {color:var(--ema-pink);background:color-mix(in srgb,var(--ema-blush) 80%,transparent);box-shadow:inset 0 -2px 0 var(--ema-pink-soft);}
 .ema-nav a:nth-child(even)[aria-current="page"] {color:var(--ema-lav);background:color-mix(in srgb,var(--ema-lav-wash) 82%,transparent);box-shadow:inset 0 -2px 0 var(--ema-lav-soft);}
 .ema-header-actions {position:relative;display:flex;align-items:center;gap:6px;justify-self:end;}
 .ema-controls {display:flex;align-items:center;gap:6px;}
-.ema-icon-button,.ema-motion-toggle,.ema-settings-toggle {display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:40px;min-height:40px;padding:7px 10px;border:1px solid var(--ema-glass-line);border-radius:999px;background:var(--ema-glass);color:var(--blank-ink);font-size:11px;-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);cursor:pointer;}
+.ema-icon-button,.ema-motion-toggle,.ema-settings-toggle {display:inline-flex;align-items:center;justify-content:center;gap:6px;min-width:40px;min-height:40px;padding:7px 10px;border:1px solid var(--ema-glass-line);border-radius:999px;background:var(--ema-glass);color:var(--blank-ink);font-size:var(--blank-fs-xs, 11px);-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);cursor:pointer;}
 /* The motion switch shows its pause/play icon with a short visible label (contained in its spoken name),
    so it reads as a control rather than an ornament; paused, it fills in. The action shows on hover and focus. */
 .ema-motion-toggle {position:relative;width:auto;height:40px;padding:0 13px 0 11px;gap:6px;flex-shrink:0;border-color:color-mix(in srgb,var(--ema-pink) 42%,var(--ema-glass-line));background:var(--ema-card);color:var(--ema-pink);}
-.ema-motion-label {font-size:12px;font-weight:600;line-height:1;white-space:nowrap;}
+.ema-motion-label {font-size:var(--blank-fs-xs, 12px);font-weight:600;line-height:1;white-space:nowrap;}
 .ema-motion-toggle[aria-pressed="true"] {background:var(--ema-blush);border-color:var(--ema-pink);}
 .ema-header .ema-settings-toggle {display:none;}
-.ema-motion-toggle::after {content:attr(aria-label);position:absolute;top:calc(100% + 9px);right:0;width:max-content;max-width:min(240px,calc(100vw - 32px));padding:6px 10px;border-radius:6px;background:var(--blank-ink);color:var(--blank-paper);font-size:12px;line-height:1.6;white-space:normal;pointer-events:none;visibility:hidden;}
+.ema-motion-toggle::after {content:attr(aria-label);position:absolute;top:calc(100% + 9px);right:0;width:max-content;max-width:min(240px,calc(100vw - 32px));padding:6px 10px;border-radius:6px;background:var(--blank-ink);color:var(--blank-paper);font-size:var(--blank-fs-xs, 12px);line-height:1.6;white-space:normal;pointer-events:none;visibility:hidden;}
 .ema-motion-toggle:focus-visible::after {visibility:visible;}
 .ema-motion-toggle[aria-disabled="true"] {cursor:default;color:var(--blank-muted);}
 .ema-header .site-language-menu>summary {min-height:40px;border:1px solid var(--ema-glass-line);border-radius:999px;background:var(--ema-glass);-webkit-backdrop-filter:blur(12px) saturate(1.2);backdrop-filter:blur(12px) saturate(1.2);}
@@ -93,15 +102,16 @@ body[data-ema-home] .ema-wordmark {text-shadow:0 1px 8px var(--blank-paper),0 0 
 .ema-content .blank-filter-button[aria-pressed="true"] {background:var(--ema-blush);color:var(--ema-pink);}
 .ema-footer {text-align:center;padding:20px 24px 34px;margin:auto;max-width:1120px;color:var(--blank-muted);}
 .ema-footer-brand {font:400 32px/1.3 var(--ema-title-font);color:var(--blank-ink)!important;letter-spacing:0;}
-.ema-footer>p {font-size:12px;margin:12px 0 18px;letter-spacing:.1em;}
-.ema-social-links {display:flex;justify-content:center;gap:22px;font-size:12px;margin-bottom:22px;}
-.ema-footer-bottom {display:flex;justify-content:center;flex-wrap:wrap;gap:12px 24px;font-size:11px;}
+.ema-footer>p {font-size:var(--blank-fs-xs, 12px);margin:12px 0 18px;letter-spacing:.1em;}
+.ema-social-links {display:flex;justify-content:center;gap:22px;font-size:var(--blank-fs-xs, 12px);margin-bottom:22px;}
+.ema-footer-bottom {display:flex;justify-content:center;flex-wrap:wrap;gap:12px 24px;font-size:var(--blank-fs-xs, 11px);}
 @media(hover:hover) and (pointer:fine) { .ema-nav a:hover {background:var(--ema-blush);} .ema-footer a:hover {color:var(--ema-pink);} .ema-motion-toggle:hover::after {visibility:visible;} }
 @media(max-width:1180px) {
   .ema-wordmark small {display:none;}
   .ema-nav-hint {display:none;}
   .ema-nav-icon {grid-row:auto;}
-  .ema-nav a {padding:7px 12px;}
+  /* 10px instead of 12px each side, so the menu keeps clear of the language button now that its labels are 14px. */
+  .ema-nav a {padding:7px 10px;}
 }
 @media(max-width:1100px) { .ema-wordmark strong {display:none;} }
 @media(max-width:999px) {
@@ -121,6 +131,8 @@ body[data-ema-home] .ema-wordmark {text-shadow:0 1px 8px var(--blank-paper),0 0 
   .ema-nav {grid-column:2;gap:2px;}
   .ema-nav a {display:flex;flex-direction:column;justify-content:center;gap:3px;min-height:44px;padding:4px 10px;}
   .ema-nav-icon {width:20px;height:21px;}
+  /* Captions under the tab icons stay below the six text sizes, as tab-bar captions do; at 12px the English menu
+     ran under the settings button on 360px phones. */
   .ema-nav-label {font-size:10px;letter-spacing:.02em;}
 }
 @media(max-width:480px) {
@@ -168,7 +180,7 @@ body[data-ema-home] .ema-wordmark {text-shadow:0 1px 8px var(--blank-paper),0 0 
 .ema-content .blank-page-heading h1 {font-size:clamp(3.75rem,8.5vw,7rem);font-style:italic;letter-spacing:-.045em;}
 .ema-content .blank-page-heading h1>span {color:var(--ema-pink);}
 .ema-content .blank-page-count {color:var(--ema-pink);}
-.ema-content .blank-page-description {font-family:var(--blank-serif);font-size:1rem;letter-spacing:.025em;}
+.ema-content .blank-page-description {font-family:var(--blank-serif);font-size:var(--blank-fs-md, 1rem);letter-spacing:.025em;}
 .ema-content .blank-search {border-bottom-color:var(--blank-line);transition:border-color 180ms ease;}
 .ema-content .blank-search:focus-within {border-bottom-color:var(--ema-pink);}
 /* The browser's own placeholder grey measured 4.3:1 on the cream paper; the muted ink reads at AA (dark mode already uses it). */
@@ -219,7 +231,7 @@ body[data-ema-home] .ema-wordmark {text-shadow:0 1px 8px var(--blank-paper),0 0 
 @media(max-width:760px) {
   .ema-content {padding-bottom:64px;}
   .ema-content .blank-page-head {padding-bottom:32px;}
-  .ema-content .blank-page-description {font-size:.875rem;}
+  .ema-content .blank-page-description {font-size:var(--blank-fs-sm, .875rem);}
   .ema-content .blank-post-row::before {inset:6px -10px;}
   .ema-content .blank-prose :is(h2,h3) {scroll-margin-top:160px;}
   .ema-content .blank-prose blockquote {padding:16px 20px;}
@@ -286,7 +298,7 @@ html[data-motion-paused="true"] .ema-sakura {display:none;}
    and the palette floats in the lower right. Narrower windows dock both so neither covers the page (reviewed
    prototype r3): the console opens from the footer and the palette joins the header's buttons. */
 /* r3's edge tab: a slim card with the icon above the vertical label, centred on the left edge. */
-.console-tab {position:fixed;left:0;top:50%;z-index:46;display:grid;justify-items:center;gap:6px;width:34px;padding:10px 0;border:1px solid var(--blank-line);border-left:0;border-radius:0 12px 12px 0;background:var(--ema-card);color:var(--blank-muted);font:12px/1.15 var(--blank-serif);cursor:pointer;box-shadow:0 8px 22px rgba(96,74,60,.12);transform:translateY(-50%);transition:color 180ms ease,background-color 180ms ease;}
+.console-tab {position:fixed;left:0;top:50%;z-index:46;display:grid;justify-items:center;gap:6px;width:34px;padding:10px 0;border:1px solid var(--blank-line);border-left:0;border-radius:0 12px 12px 0;background:var(--ema-card);color:var(--blank-muted);font:var(--blank-fs-xs, 12px)/1.15 var(--blank-serif);cursor:pointer;box-shadow:0 8px 22px rgba(96,74,60,.12);transform:translateY(-50%);transition:color 180ms ease,background-color 180ms ease;}
 .console-tab span {writing-mode:vertical-rl;letter-spacing:.2em;}
 .console-tab svg {color:var(--ema-pink);}
 .console-tab[hidden] {display:none;}
@@ -299,30 +311,30 @@ html[data-motion-paused="true"] .ema-sakura {display:none;}
 html[data-color-mode="dark"] .console-panel {border-color:var(--blank-line);box-shadow:0 22px 50px #00000073;}
 .console-panel[hidden] {display:none;}
 .console-head {display:flex;align-items:center;justify-content:space-between;gap:10px;}
-.console-head p {margin:0;font:400 15px/1.4 var(--ema-title-font);}
+.console-head p {margin:0;font:400 var(--blank-fs-md, 15px)/1.4 var(--ema-title-font);}
 .console-head button {display:grid;place-items:center;width:30px;height:30px;padding:0;border:1px solid var(--blank-line);border-radius:50%;background:transparent;color:var(--blank-muted);cursor:pointer;}
 .console-card {display:grid;gap:10px;padding:12px;border:1px solid var(--blank-line);border-radius:12px;background:color-mix(in srgb,var(--blank-paper) 70%,transparent);}
 .console-card[hidden] {display:none;}
-.console-kicker {margin:0;font:600 10px/1.6 var(--blank-mono);letter-spacing:.16em;color:var(--blank-muted);}
+.console-kicker {margin:0;font:600 var(--blank-fs-xs, 10px)/1.6 var(--blank-mono);letter-spacing:.16em;color:var(--blank-muted);}
 .radio-head {display:flex;align-items:center;gap:12px;}
-.radio-head strong {display:block;font-size:14px;font-weight:600;}
-.radio-head small {font:11px var(--blank-mono);color:var(--blank-muted);}
+.radio-head strong {display:block;font-size:var(--blank-fs-sm, 14px);font-weight:600;}
+.radio-head small {font:var(--blank-fs-xs, 11px) var(--blank-mono);color:var(--blank-muted);}
 .radio-disc {position:relative;flex-shrink:0;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle,var(--ema-pink) 0 5px,var(--blank-paper) 5.5px 8px,transparent 8.5px),repeating-radial-gradient(circle,#2b2f3a 0 2px,#3b4050 2.5px 3.5px);box-shadow:0 4px 12px #1b223640;animation:ema-disc-spin 4s linear infinite;animation-play-state:paused;}
 .radio-disc::after {content:"";position:absolute;inset:0;border-radius:50%;background:var(--ema-blossom) center/42% no-repeat;opacity:.9;}
 .radio.is-playing .radio-disc {animation-play-state:running;}
 .radio-progress {height:4px;border-radius:4px;background:var(--blank-line);overflow:hidden;}
 .radio-progress span {display:block;height:100%;background:var(--ema-pink);transform:scaleX(0);transform-origin:left;}
-.radio-time {display:flex;justify-content:space-between;font:10px var(--blank-mono);color:var(--blank-muted);}
+.radio-time {display:flex;justify-content:space-between;font:var(--blank-fs-xs, 10px) var(--blank-mono);color:var(--blank-muted);}
 .radio-controls {display:flex;align-items:center;justify-content:center;gap:14px;}
 .radio-controls button {display:grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid var(--blank-line);border-radius:50%;background:var(--ema-card);color:var(--blank-ink);cursor:pointer;}
 .radio-controls .radio-play {width:46px;height:46px;background:var(--ema-pink);border-color:var(--ema-pink);color:var(--ema-on-pink);}
 .radio-controls button:disabled,.radio-volume input:disabled {opacity:.4;cursor:default;}
 .radio-volume {display:flex;align-items:center;gap:8px;color:var(--blank-muted);}
 .radio-volume input {flex:1;accent-color:var(--ema-pink);}
-.radio-note {margin:0;font-size:11px;line-height:1.6;color:var(--blank-muted);}
+.radio-note {margin:0;font-size:var(--blank-fs-xs, 11px);line-height:1.6;color:var(--blank-muted);}
 /* The cursor ring's switch (Home and Games only): a labelled on/off control, its state also written out. */
-.ring-switch {display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:36px;padding:0;border:0;background:none;color:var(--blank-ink);font:600 13px/1.4 var(--blank-sans);text-align:start;cursor:pointer;}
-.ring-switch-state {display:inline-flex;align-items:center;gap:8px;font:500 11px/1 var(--blank-mono);letter-spacing:.06em;color:var(--blank-muted);}
+.ring-switch {display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:36px;padding:0;border:0;background:none;color:var(--blank-ink);font:600 var(--blank-fs-sm, 13px)/1.4 var(--blank-sans);text-align:start;cursor:pointer;}
+.ring-switch-state {display:inline-flex;align-items:center;gap:8px;font:500 var(--blank-fs-xs, 11px)/1 var(--blank-mono);letter-spacing:.06em;color:var(--blank-muted);}
 .ring-switch-track {position:relative;flex:none;width:38px;height:22px;border:1px solid var(--ema-line-strong);border-radius:999px;background:var(--blank-soft);transition:background-color 180ms ease,border-color 180ms ease;}
 .ring-switch-track::after {content:"";position:absolute;left:2px;top:2px;width:16px;height:16px;border-radius:50%;background:var(--ema-card);box-shadow:0 1px 3px rgba(60,44,36,.3);transition:transform 200ms var(--blank-ease);}
 .ring-switch[aria-checked="true"] .ring-switch-state {color:var(--ema-pink);}
@@ -349,10 +361,10 @@ html[data-motion-paused="true"] :is(.console-tab,.ring-switch-track,.ring-switch
 [data-ema] .site-theme-dock[open]>summary {background:var(--ema-pink);border-color:var(--ema-pink);color:var(--ema-on-pink);}
 [data-ema] .site-theme-dock[open]>summary svg {transform:rotate(-40deg);}
 [data-ema] .site-theme-dock .site-theme-options {padding:8px;border:1px solid var(--blank-line);border-radius:18px;background:var(--ema-card);color:var(--blank-ink);box-shadow:0 14px 40px rgba(60,44,36,.14);transform-origin:bottom right;}
-[data-ema] .site-theme-dock .site-theme-title {font:400 15px/1.4 var(--ema-title-font);color:var(--blank-muted);opacity:1;}
-[data-ema] .site-theme-dock a {gap:12px;padding:10px 12px;border-radius:12px;font-size:13px;}
+[data-ema] .site-theme-dock .site-theme-title {font:400 var(--blank-fs-md, 15px)/1.4 var(--ema-title-font);color:var(--blank-muted);opacity:1;}
+[data-ema] .site-theme-dock a {gap:12px;padding:10px 12px;border-radius:12px;font-size:var(--blank-fs-sm, 13px);}
 [data-ema] .site-theme-dock a[aria-current="true"] {background:var(--ema-blush);color:var(--ema-pink);}
-[data-ema] .site-theme-dock .site-theme-no {font:10px var(--blank-mono);color:var(--ema-pink);opacity:1;}
+[data-ema] .site-theme-dock .site-theme-no {font:var(--blank-fs-xs, 10px) var(--blank-mono);color:var(--ema-pink);opacity:1;}
 @media(hover:hover) and (pointer:fine) {
   [data-ema] .site-theme-dock>summary:hover {transform:translateY(-2px);background:var(--ema-blush);}
   [data-ema] .site-theme-dock[open]>summary:hover {background:var(--ema-pink);}

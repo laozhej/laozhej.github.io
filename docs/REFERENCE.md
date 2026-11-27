@@ -68,6 +68,7 @@ The falling tags use that same column, inset 12px on both sides. The replay butt
 | Light only | Light and dark from the same tokens | deviate (site requirement) |
 | Reduced motion: transitions off, rail native, petals hidden | Same, and the site's pause button counts as reduced motion | follow |
 | Light/dark switch changes at once; the stage shows all at once | The new mode opens in a circle from the button; on a first full visit to the homepage the paper fades up, Ema rises, then the words; contents leaves lift on hover; the scroll cue's arrows swell in a wave instead of blinking. Owner's request on 2026-11-27 ([THEMES.md](THEMES.md)) | deviate (owner request) |
+| Text sizes set element by element; monospace from `ui-monospace` | Six text sizes shared with Blank (12 to 30px); display type, stage numerals, stamps and the clock unchanged; menu labels 14px and hints 12px, menu items 10px apart each side from 1101 to 1180px; tab captions under the phone icons stay 10px. System monospace as in Blank. Owner's choice on 2026-11-27 ([THEMES.md](THEMES.md)) | deviate (owner request) |
 
 ### Open review items (not approved)
 
@@ -86,8 +87,9 @@ The reference's Blank is an achromatic, typography-led journal: white paper, bla
 | 02 / IN PRACTICE: serif statement and numbered tool list | `home.practice1/2` and the shared six tools | follow |
 | CURRENTLY / 近况: one signal and a link | Same | follow |
 | Black footer: wordmark, outward links, one quiet bottom line | Same; the bottom line keeps the required attribution (`SiteAttribution`), the credits link and back to top | follow + required attribution |
-| Navigation labels 11px uppercase Latin | 13px, because ours are CJK labels | adapt |
+| Navigation labels 11px uppercase Latin | 14px (the six text sizes below), because ours are CJK labels | adapt |
 | Light/dark switch changes at once; no scroll reveal; no homepage entrance | The new mode opens in a circle from the button; sections below the first screen rise in once; the homepage hero comes in line by line on a first full visit; title underlines draw in. None of it moves while motion is paused or reduced. Owner's request on 2026-11-27 to add and refine motion; the workspace note of the same day makes Yuimi an optional reference ([THEMES.md](THEMES.md)) | deviate (owner request) |
+| Monospace labels in Cascadia Code or Consolas; text sizes set element by element | System monospace first (SF Mono or Menlo on Apple devices, Cascadia Code or Consolas on Windows); reading and interface text on six sizes, 12 to 30px; display type unchanged. Owner's choice on 2026-11-27 after the soki.moe comparison ([THEMES.md](THEMES.md)) | deviate (owner request) |
 | Light only | Dark mode inverts paper and ink; the band uses the panel tokens | deviate (site requirement) |
 | Inner pages: Journal., Works., Play., About. headings with counts | Blank Journal retains its original desktop heading and archive controls. At widths up to 1100px a single article appears directly below the page title. The narrow layout offers search and sorting for multiple posts and category choices for multiple categories. Works., Games. (where the reference says Play.) and About. retain the counted heading. Images the reference's Blank does not show: Works has the project thumbnail (approved cleanup, [ART-DIRECTION.md](ART-DIRECTION.md) section 10 C); Games has a cover thumbnail on each of its 23 rows, and About shows favourite characters as small round portraits (65, plus two empty frames). Whether Games and About keep those images is the owner's open decision (asked 2026-11-24; [ROADMAP.md](ROADMAP.md) section 3.4) | adapt (open: Games thumbnails, About portraits) |
 

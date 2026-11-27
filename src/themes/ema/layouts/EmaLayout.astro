@@ -42,7 +42,22 @@ const edition = "EMA / 02";
 // The reference's navigation pairs an icon and a label with a small Latin hint (decorative, hidden from screen readers).
 const navIcons: Record<string, string> = { home: "tabler:home", blog: "tabler:notebook", projects: "tabler:code", games: "tabler:device-gamepad-2", about: "tabler:user-heart" };
 const navHints: Record<string, string> = { home: "front page", blog: "notes", projects: "works", games: "playroom", about: "profile" };
-const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + index * 6.2).toFixed(1)}%;--petal-size:${9 + (index * 5) % 7}px;--petal-duration:${17 + (index * 7) % 13}s;--petal-delay:${-2 - (index * 11) % 29}s;--petal-drift:${[-72, 96, 40][index % 3]}px`);
+// Three depths, interleaved so every cut-off below keeps a mix: far petals are small, faint and slow,
+// near ones large and quick. Golden-ratio steps spread them across the width without a visible column order,
+// and negative delays put the whole fall on screen from the first frame.
+const petalDepths = [
+  { size: 10, spread: 3, opacity: 0.6, duration: 19, drift: 50, sway: 10 },
+  { size: 14, spread: 4, opacity: 0.82, duration: 14, drift: 80, sway: 16 },
+  { size: 19, spread: 6, opacity: 0.95, duration: 10, drift: 120, sway: 24 },
+];
+const petals = Array.from({ length: 42 }, (_, index) => {
+  const depth = petalDepths[index % 3];
+  const step = (index * 0.618034) % 1;
+  const phase = (index * 0.381966 + 0.17) % 1;
+  const duration = depth.duration + (index * 7) % 5;
+  const drift = depth.drift * (index % 2 ? 1 : -0.7);
+  return `--petal-left:${(1 + step * 97).toFixed(1)}%;--petal-size:${depth.size + (index * 5) % depth.spread}px;--petal-opacity:${depth.opacity};--petal-duration:${duration}s;--petal-delay:${(-phase * duration).toFixed(1)}s;--petal-drift:${drift.toFixed(0)}px;--petal-sway:${depth.sway}px;--petal-flutter:${(4 + (index * 3) % 4).toFixed(1)}s`;
+});
 ---
 <!doctype html>
 <html lang={locale} data-theme="ema" transition:animate="none">

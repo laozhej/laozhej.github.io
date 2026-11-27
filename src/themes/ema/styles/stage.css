@@ -292,7 +292,7 @@ html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); fo
   opacity: var(--cue-opacity, 1); transition: opacity 220ms ease;
 }
 #ema-stage .k-cue-arrows { display: inline-flex; gap: 1px; font-size: 17px; font-weight: 900; }
-#ema-stage .k-cue-arrows i { display: inline-block; font-style: normal; transform: rotate(90deg); animation: k-arrow 1.05s steps(1, end) infinite; }
+#ema-stage .k-cue-arrows i { display: inline-block; font-style: normal; transform: rotate(90deg); animation: k-arrow 1.5s ease-in-out infinite; }
 #ema-stage .k-cue-arrows i:nth-child(1) { color: #e891b4; }
 #ema-stage .k-cue-arrows i:nth-child(2) { color: #b9a6e3; animation-delay: .15s; }
 #ema-stage .k-cue-arrows i:nth-child(3) { color: #9cc1df; animation-delay: .3s; }
@@ -572,7 +572,8 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
 #ema-stage .notice-text { margin: 0; font: 17px/1.9 var(--blank-serif); letter-spacing: .04em; white-space: pre-line; }
 
 @keyframes k-blink { 50% { opacity: 0; } }
-@keyframes k-arrow { 0%, 100% { opacity: 1; } 50% { opacity: .25; } }
+/* The three arrows (already staggered) now swell and fade in a slow wave instead of switching on and off. */
+@keyframes k-arrow { 0%, 100% { opacity: .3; } 35% { opacity: 1; } }
 
 @media (hover: hover) and (pointer: fine) {
   #ema-stage :is(.k-theatre-buttons button, .x):hover { border-color: var(--ema-pink); background: var(--ema-blush); }
@@ -712,3 +713,29 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-caret, #ema-stage .k-cue-arrows i { animation: none; }
 }
 html[data-motion-paused="true"] #ema-stage :is(.k-caret, .k-cue-arrows i) { animation: none; }
+
+/* Motion (2026-11-27, owner's request to add and refine motion).
+   First full visit: the paper fades up, Ema rises, then the words follow one line at a time. The attribute
+   comes from EmaLayout and is gone after two seconds; on in-site navigation the page transition does this. */
+@keyframes k-intro-fade { from { opacity: 0; } }
+@keyframes k-intro-figure { from { opacity: .35; translate: 0 26px; } }
+@keyframes k-intro-rise { from { opacity: 0; translate: 0 16px; } }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-intro]:not([data-motion-paused="true"]) #ema-stage .k-back { animation: k-intro-fade 900ms ease-out backwards; }
+  html[data-intro]:not([data-motion-paused="true"]) #ema-stage .k-frames { animation: k-intro-figure 1000ms cubic-bezier(.22, 1, .36, 1) 80ms backwards; }
+  html[data-intro]:not([data-motion-paused="true"]) #ema-stage :is(.k-copy > *, .k-theatre, .k-cue) { animation: k-intro-rise 700ms cubic-bezier(.22, 1, .36, 1) backwards; }
+  html[data-intro]:not([data-motion-paused="true"]) #ema-stage .k-copy > :nth-child(1) { animation-delay: 240ms; }
+  html[data-intro]:not([data-motion-paused="true"]) #ema-stage .k-copy > :nth-child(2) { animation-delay: 320ms; }
+  html[data-intro]:not([data-motion-paused="true"]) #ema-stage .k-copy > :nth-child(3) { animation-delay: 400ms; }
+  html[data-intro]:not([data-motion-paused="true"]) #ema-stage .k-copy > :nth-child(n+4) { animation-delay: 480ms; }
+  html[data-intro]:not([data-motion-paused="true"]) #ema-stage .k-theatre { animation-delay: 560ms; }
+  html[data-intro]:not([data-motion-paused="true"]) #ema-stage .k-cue { animation-delay: 720ms; }
+}
+
+/* Contents leaves lift towards the pointer and their coloured shadow deepens, as the game cabinets do. */
+@media (hover: hover) and (pointer: fine) {
+  #ema-stage .k-leaf { transition: translate 260ms cubic-bezier(.22, 1, .36, 1), box-shadow 260ms cubic-bezier(.22, 1, .36, 1), border-color 200ms ease; }
+  #ema-stage .k-leaf:hover { translate: 0 -4px; box-shadow: 9px 11px 0 var(--leaf-tint); border-color: color-mix(in srgb, var(--ema-pink) 46%, var(--ema-line-strong)); }
+  html[data-motion-paused="true"] #ema-stage .k-leaf:hover { translate: none; }
+}
+@media (prefers-reduced-motion: reduce) { #ema-stage .k-leaf:hover { translate: none; } }

@@ -468,3 +468,13 @@ html[data-theme="ema"] .ema-content .blank-tag-line a::after { content: ""; posi
      the settings button while staying centred, so there they keep their size. */
   html[data-theme="ema"] .ema-nav a { min-width: 44px; align-items: center; }
 }
+
+/* Light and dark: the new mode opens in a circle from the button (core/preferences/color-mode-reveal.mjs).
+   Only the root is captured, so the header and the page change together. */
+html[data-theme="ema"].site-mode-reveal { view-transition-name: root !important; }
+html[data-theme="ema"].site-mode-reveal [data-astro-transition-scope] { view-transition-name: none !important; }
+/* Inside the circle the new mode is already settled: colour transitions would show the old colours for a moment. */
+html[data-theme="ema"].site-mode-reveal :is(*, *::before, *::after) { transition: none !important; }
+html[data-theme="ema"].site-mode-reveal::view-transition-group(root) { animation: none; }
+html[data-theme="ema"].site-mode-reveal::view-transition-old(root),
+html[data-theme="ema"].site-mode-reveal::view-transition-new(root) { animation: none; mix-blend-mode: normal; }

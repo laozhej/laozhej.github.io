@@ -2,6 +2,7 @@
 import "@/core/styles/scale.css";
 import "../styles/theme.css";
 import "../styles/journal.css";
+import "../styles/motion.css";
 import { Icon } from "astro-icon/components";
 import { site } from "@/lib/site";
 import { getI18n, stripLocale } from "@/core/i18n";
@@ -43,6 +44,18 @@ const navItems = site.nav.map((item, index) => ({
     <LanguagePreference /><ThemePreference />
     <title>{title}</title>
     <ColorModePreference />
+    {/* First full visit to the homepage: lets motion.css bring the hero in line by line. Set before the
+        first paint so nothing shows and then hides; not set when motion is paused or reduced (the
+        preference script above has already decided that), nor on in-site navigation, where the page
+        transition introduces the page. Removed once the entrance is over. */}
+    {path === "/" && <script is:inline>
+      (() => {
+        const html = document.documentElement;
+        if (html.hasAttribute("data-astro-transition") || html.dataset.motionPaused === "true") return;
+        html.dataset.intro = "";
+        setTimeout(() => { delete html.dataset.intro; }, 1600);
+      })();
+    </script>}
     <SiteMeta title={title} description={description} siteName={site.name} isArticlePage={isArticlePage} article={article} />
     <SiteIcons />
     <SiteNavigation />

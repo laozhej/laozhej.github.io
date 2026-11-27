@@ -11,8 +11,10 @@ interface Props {
 }
 const { class: className = "blank-contact-links", label, iconsOnly = false } = Astro.props;
 const { t } = getI18n(Astro.url.pathname);
+// Cloudflare reads the paired HTML comments to preserve the public mailto link without JavaScript.
 ---
 <nav class={className} aria-label={label ?? t("social.heading")}>
+  <!--email_off-->
   {socialLinks.map((link) => {
     const name = t(`social.${link.key}`);
     const isEmail = link.key === "email";
@@ -31,6 +33,7 @@ const { t } = getI18n(Astro.url.pathname);
       </a>
     );
   })}
+  <!--/email_off-->
 </nav>
 
 <style>

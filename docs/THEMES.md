@@ -78,6 +78,16 @@ Ema 是例外：窗口宽度不足 1260px 时，页面两侧放不下浮动按�
 
 新主题布局要在主题样式之前 `import "@/core/styles/scale.css";`，样式照常写 px 即可。图标的尺寸来自 HTML 属性，`scale.css` 为 astro-icon 用到的 11–24 号尺寸补充了 CSS 尺寸；用到新尺寸时在那里加一行。脚本会解析、或者表示滚动距离而非视觉尺寸的 px 值，在声明前加 `/* px:fixed */` 注释即可保留原值。宽而矮的窗口里缩放受高度限制，横向排列的内容可以用 `max(设计宽度, 设计宽度 ÷ 1600 × 100vw)` 保持它在 1600px 窗口里所占的宽度比例。
 
+## 字体与字号（Blank 和 Ema）
+
+2026-11-27 站主看过与 soki.moe 的对照后，选了“先修字体”：修好等宽字体，字号收到六档左右。
+
+- 等宽字体是 `--blank-mono`，用在标签、编号和终端行上：`ui-monospace, "SF Mono", SFMono-Regular, Menlo`，后面接 Windows 字体（Blank 是 Cascadia Code、Consolas，Ema 是 Consolas），再接 Roboto Mono、Noto Sans Mono、Liberation Mono 和 `monospace`。原来 Blank 只写了 Windows 字体，Ema 写的 `ui-monospace` 只有 Safari 认识，所以 macOS 和 iOS 上都退成了 Courier。现在 Safari 用 SF Mono，macOS 上的 Chrome 和 Firefox 用 Menlo，Windows 和原来一样。Ema 卡片页的 `--mono` 直接引用 `--blank-mono`。
+- 阅读和界面文字只用六档：`--blank-fs-xs` 12px、`--blank-fs-sm` 14px、`--blank-fs-md` 16px、`--blank-fs-lg` 20px、`--blank-fs-xl` 24px、`--blank-fs-2xl` 30px。变量用 rem 写，随大屏幕缩放。Blank 和 Ema 在各自的 `html[data-theme]` 上定义这六个变量，样式里写成 `var(--blank-fs-sm, 原来的值)`。终末地和明日方舟不定义它们，所以这两个主题页面里复用的 Blank 组件会取括号里的原值，外观不变。
+- 不进六档的有：32px 及以上的大标题、站名、页数和编号大字，Ema 首屏的标题、幕号、印章、时钟这些画面里的字，还有 Ema 手机顶栏图标下的说明文字。最后这项是 10px，窄于 360px 时 9.5px，和手机标签栏一样；用 12px 时，英文菜单在 360px 宽的手机上会伸到设置按钮底下。
+- 新写样式时从六档里选。要用别的尺寸，先在这里写明理由。
+- Ema 的中日文宋体（2026-11-27 站主同意上线）：`--blank-serif` 在 Iowan Old Style 之后接自托管的 Noto Serif SC、TC、JP（`public/fonts/ema/`，SIL OFL 1.1，许可在 `public/licenses/noto-serif-cjk-OFL.txt`，致谢页有条目）。每个文件只有该语言的 Ema 页面里用宋体显示的中日文字符，约 200–250 个；可变字重 200–900；用 `unicode-range` 限定在中日文范围，拉丁字母仍用 Iowan Old Style 或 Georgia。文件大小：简中 88KB，繁中 100KB，日文 142KB。之后新增的字不在文件里，会由系统宋体显示，所以内容有变化时要重新截取。截取用的是 Google Fonts 仓库里的可变字体和 `subset-font`，脚本在工作区 `outputs/ema-serif/`，还没放进仓库。
+
 ## 功能入口
 
 每个主题布局在 `<head>` 挂载一次 `src/core/navigation/SiteNavigation.astro`，由它提供 Astro `ClientRouter` 和统一的页面生命周期。不要再在布局或切换器中单独调用运行时入口。

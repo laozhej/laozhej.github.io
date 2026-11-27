@@ -138,13 +138,14 @@ Every statement carries one of four labels. Dated sections preserve earlier revi
 | Use | Face | Notes |
 | --- | --- | --- |
 | Wordmark, Latin titles, pose numbers, the alias in title B (all of title B in English) | Gloock 400 | SIL OFL 1.1, self-hosted through `@fontsource/gloock`, Latin subset; licence in `public/licenses/gloock-OFL.txt` |
-| Headings, navigation labels, pose names, the name in title B (zh-CN, zh-TW, ja), the 旭 monogram | System serif: Songti SC or SimSun (zh-CN and en), Songti TC or PMingLiU (zh-TW), Hiragino Mincho ProN or Yu Mincho (ja); Iowan Old Style first for Latin where installed | |
+| Headings, navigation labels, pose names, the name in title B (zh-CN, zh-TW, ja), the 旭 monogram | Approved 2026-11-27: self-hosted Noto Serif SC, TC or JP, subset to the characters Ema pages set in the serif, ahead of the system serif. System serif: Songti SC or SimSun (zh-CN and en), Songti TC or PMingLiU (zh-TW), Hiragino Mincho ProN or Yu Mincho (ja); Iowan Old Style first for Latin where installed | |
 | Body text and controls | System sans for each locale, 14 px base on Ema pages | |
-| Terminal line, small labels | `ui-monospace` | |
+| Terminal line, small labels | System monospace: SF Mono in Safari, Menlo in Chrome and Firefox on macOS, Consolas on Windows (`--blank-mono`, 2026-11-27) | Before 2026-11-27 only `ui-monospace`, which Chrome and Firefox do not support, so macOS showed Courier |
+| Text sizes | Six steps shared with Blank: 12, 14, 16, 20, 24 and 30px (`--blank-fs-*`, [THEMES.md](THEMES.md)) | Display type, wordmarks, pose numbers, stamps and the clock keep their own sizes |
 
 - **Approved.** Chinese navigation uses the site's Song (宋体) serif, consistent with the rest of the site.
 - **Proposed.** A letter-like hierarchy, as studied in Violet Evergarden: serif headings, generous leading, quiet small labels, numerals such as 01 / 05 in Gloock. No lettering copied from, or imitating, an anime or manga logo.
-- **Open.** An optional CJK web serif is not approved and is not added without the owner's go-ahead. If review finds the system serifs too uneven across devices, each locale needs its own coverage:
+- **Approved** (2026-11-27, after a before/after review). Noto Serif SC, TC and JP, the candidates below, now set Ema's Chinese and Japanese serif text; see [THEMES.md](THEMES.md). The earlier note: an optional CJK web serif was not approved and was not to be added without the owner's go-ahead. If review finds the system serifs too uneven across devices, each locale needs its own coverage:
 
 | Locale | Candidate | Coverage | Licence |
 | --- | --- | --- | --- |

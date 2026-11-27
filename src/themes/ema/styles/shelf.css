@@ -3,7 +3,7 @@
 .ema-shelf {
   --card:var(--ema-card); --card-shadow:0 12px 30px rgba(96,74,60,.1); --frame:#ead6df;
   --round:"Hiragino Maru Gothic ProN","Arial Rounded MT Bold","Varela Round","Yu Gothic UI","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
-  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --mono:var(--blank-mono);
   color:var(--blank-ink);
 }
 .ema-shelf:lang(zh-TW) {
@@ -22,9 +22,9 @@ html[data-color-mode="dark"] .ema-shelf .tone-blue {--fill:#262f3f;--line:#3f556
 html[data-color-mode="dark"] .ema-shelf .tone-green {--fill:#26332c;--line:#3f5a49;--tone-ink:#bfe9d3;}
 html[data-color-mode="dark"] .ema-shelf .tone-lavender {--fill:#302d45;--line:#524b76;--tone-ink:#d9ccfa;}
 html[data-color-mode="dark"] .ema-shelf .tone-yellow {--fill:#36301f;--line:#6a5c35;--tone-ink:#f5e3a0;}
-.shelf-kicker {font:600 10px/1.8 var(--mono);letter-spacing:.16em;color:var(--ema-pink);}
+.shelf-kicker {font:600 var(--blank-fs-xs, 10px)/1.8 var(--mono);letter-spacing:.16em;color:var(--ema-pink);}
 .shelf-heading {display:flex;align-items:center;gap:14px;}
-.shelf-heading h2 {margin-top:2px;font:500 1.45rem/1.35 var(--blank-serif);color:var(--blank-ink);}
+.shelf-heading h2 {margin-top:2px;font:500 var(--blank-fs-xl, 1.45rem)/1.35 var(--blank-serif);color:var(--blank-ink);}
 .shelf-chip {display:grid;place-items:center;flex-shrink:0;width:42px;height:42px;border:1px solid var(--line);border-radius:12px;background:var(--fill);color:var(--tone-ink);}
 .shelf-card {min-width:0;border:1px solid var(--blank-line);border-radius:14px;background:var(--card);box-shadow:var(--card-shadow);}
 /* A stand-in cover: screentone dots in the card's tone, a number and a blossom. */

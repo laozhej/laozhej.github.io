@@ -16,16 +16,16 @@
 .ema-content .ema-works-entry:not(.has-plate) { grid-template-columns: 72px minmax(0, 1fr); grid-template-rows: none; grid-template-areas: "no head" ". text" ". sheet"; }
 .ema-content .ema-works-no { grid-area: no; padding-top: 2px; }
 .ema-content .ema-works-head { grid-area: head; }
-.ema-content .ema-works-head h2 { margin-top: 10px; font-family: var(--blank-serif); font-size: 1.5rem; font-weight: 500; line-height: 1.5; }
-.ema-content .ema-works-status { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: .6875rem; color: var(--blank-muted); }
+.ema-content .ema-works-head h2 { margin-top: 10px; font-family: var(--blank-serif); font-size: var(--blank-fs-xl, 1.5rem); font-weight: 500; line-height: 1.5; }
+.ema-content .ema-works-status { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: var(--blank-fs-xs, .6875rem); color: var(--blank-muted); }
 .ema-content .ema-works-status::before { content: ""; flex: none; width: 4px; height: 4px; background: var(--ema-pink); }
 
 .ema-content .ema-works-text { grid-area: text; margin-top: 28px; }
-.ema-content .ema-works-summary { max-width: 62ch; color: var(--blank-muted); font-size: .875rem; line-height: 1.9; }
-.ema-content .ema-works-details { margin-top: 22px; padding-left: 20px; border-left: 1px solid var(--ema-pink); font-size: .75rem; line-height: 1.75; }
+.ema-content .ema-works-summary { max-width: 62ch; color: var(--blank-muted); font-size: var(--blank-fs-sm, .875rem); line-height: 1.9; }
+.ema-content .ema-works-details { margin-top: 22px; padding-left: 20px; border-left: 1px solid var(--ema-pink); font-size: var(--blank-fs-xs, .75rem); line-height: 1.75; }
 .ema-content .ema-works-details li + li { margin-top: 6px; }
-.ema-content .ema-works-direction { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; margin-top: 22px; font-size: .75rem; line-height: 1.75; }
-.ema-content .ema-works-direction dt { font: 400 .6875rem/1.6 var(--blank-mono); color: var(--blank-muted); }
+.ema-content .ema-works-direction { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; margin-top: 22px; font-size: var(--blank-fs-xs, .75rem); line-height: 1.75; }
+.ema-content .ema-works-direction dt { font: 400 var(--blank-fs-xs, .6875rem)/1.6 var(--blank-mono); color: var(--blank-muted); }
 .ema-content .ema-works-direction dd b { margin-right: 6px; font-weight: 600; }
 .ema-content .ema-works-link { min-height: 44px; margin-top: 16px; }
 
@@ -39,9 +39,9 @@ html[data-color-mode="dark"] .ema-content .ema-works-lead.is-dark { display: blo
 .ema-content .ema-works-mat img { display: block; border: 1px solid var(--blank-line); }
 .ema-content .ema-works-lead img { width: 100%; height: auto; }
 /* Captions break between words (at the spaces around the middle dots), and inside one only when it cannot fit. */
-.ema-content .ema-works figcaption { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; margin-top: 12px; font-size: .75rem; line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; }
-.ema-content .ema-works figcaption b { grid-row: span 2; font: 400 .6875rem/1.75 var(--blank-mono); color: var(--ema-pink); }
-.ema-content .ema-works figcaption small { color: var(--blank-muted); font-size: .6875rem; }
+.ema-content .ema-works figcaption { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 10px; margin-top: 12px; font-size: var(--blank-fs-xs, .75rem); line-height: 1.6; word-break: keep-all; overflow-wrap: anywhere; }
+.ema-content .ema-works figcaption b { grid-row: span 2; font: 400 var(--blank-fs-xs, .6875rem)/1.75 var(--blank-mono); color: var(--ema-pink); }
+.ema-content .ema-works figcaption small { color: var(--blank-muted); font-size: var(--blank-fs-xs, .6875rem); }
 
 /* The contact row: every other capture uncropped at one height, in its recorded order. A caption is never
    narrower than 168px, so a phone-width capture keeps a readable caption without its picture being cropped. */
@@ -70,11 +70,11 @@ html[data-color-mode="dark"] .ema-content .ema-works-lead.is-dark { display: blo
   .ema-content .ema-works-entry, .ema-content .ema-works-entry:not(.has-plate) {
     grid-template-columns: 28px minmax(0, 1fr); column-gap: 14px; grid-template-areas: "no head" "plate plate" ". text" "sheet sheet"; padding: 40px 0 48px;
   }
-  .ema-content .ema-works-head h2 { font-size: 1.1875rem; }
+  .ema-content .ema-works-head h2 { font-size: var(--blank-fs-lg, 1.1875rem); }
   .ema-content .ema-works-plate { max-width: none; margin-top: 24px; }
   .ema-content .ema-works-lead .ema-works-mat { padding: 8px; }
   .ema-content .ema-works-text { margin-top: 24px; }
-  .ema-content .ema-works-summary { font-size: .8125rem; }
+  .ema-content .ema-works-summary { font-size: var(--blank-fs-sm, .8125rem); }
   .ema-content .ema-works-sheet { margin-top: 44px; }
   .ema-content .ema-works-sheet ol { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; }
   .ema-content .ema-works-sheet li { min-width: 0; }

@@ -12,14 +12,14 @@ html[data-color-mode="dark"] .ema-about .about-avatar-mark {background:radial-gr
 .about-avatar .about-tape {top:8px;left:-24px;rotate:-34deg;}
 .about-id h2 {margin-top:6px;font:400 2.25rem/1.2 var(--ema-title-font);letter-spacing:-.01em;color:var(--blank-ink);}
 .about-id h2 span {color:var(--ema-pink);}
-.ema-about .about-handle {margin-top:4px;font:12px/1.6 var(--mono);color:var(--blank-muted);}
-.ema-about .about-bio {margin-top:14px;font-size:13.5px;line-height:1.9;color:var(--blank-muted);}
+.ema-about .about-handle {margin-top:4px;font:var(--blank-fs-xs, 12px)/1.6 var(--mono);color:var(--blank-muted);}
+.ema-about .about-bio {margin-top:14px;font-size:var(--blank-fs-sm, 13.5px);line-height:1.9;color:var(--blank-muted);}
 .ema-about .about-links {display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
-.about-links a,.about-marks a {display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:7px 15px;border:1px solid var(--blank-line);border-radius:999px;background:var(--card);color:var(--blank-ink);font-size:13px;font-weight:600;text-decoration:none;box-shadow:0 4px 12px rgba(96,74,60,.08);transition:transform 180ms var(--blank-ease),border-color 180ms ease,color 180ms ease;}
+.about-links a,.about-marks a {display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:7px 15px;border:1px solid var(--blank-line);border-radius:999px;background:var(--card);color:var(--blank-ink);font-size:var(--blank-fs-sm, 13px);font-weight:600;text-decoration:none;box-shadow:0 4px 12px rgba(96,74,60,.08);transition:transform 180ms var(--blank-ease),border-color 180ms ease,color 180ms ease;}
 .about-marks svg {color:var(--ema-pink);}
 .about-status {padding:16px 18px;border:1px solid var(--blank-line);border-radius:14px;background:var(--card);box-shadow:var(--card-shadow);}
 .about-status ul {display:grid;gap:10px;margin-top:10px;}
-.about-status li {display:grid;grid-template-columns:16px minmax(0,1fr);gap:8px;font-size:13px;line-height:1.6;}
+.about-status li {display:grid;grid-template-columns:16px minmax(0,1fr);gap:8px;font-size:var(--blank-fs-sm, 13px);line-height:1.6;}
 .about-status svg {margin-top:3px;color:var(--ema-pink);}
 
 /* A letter, then bookmarks into the shelves. */
@@ -27,14 +27,14 @@ html[data-color-mode="dark"] .ema-about .about-avatar-mark {background:radial-gr
 .about-letter {display:grid;grid-template-columns:minmax(0,1fr);gap:40px;align-items:center;padding:34px 36px 34px 46px;border:1px solid var(--blank-line);border-radius:16px;box-shadow:var(--card-shadow);background:linear-gradient(90deg,transparent 24px,#f2c4d4 24px 25px,transparent 25px),radial-gradient(var(--blank-line) .7px,transparent 1px) 0 0/14px 14px,var(--card);}
 html[data-color-mode="dark"] .about-letter {background:linear-gradient(90deg,transparent 24px,#6d4c61 24px 25px,transparent 25px),radial-gradient(var(--blank-line) .7px,transparent 1px) 0 0/14px 14px,var(--card);}
 .about-letter h2 {margin-top:10px;font:500 clamp(1.45rem,2.4vw,1.95rem)/1.45 var(--blank-serif);color:var(--blank-ink);}
-.about-letter-copy>p:not(.shelf-kicker) {margin-top:14px;font-size:14.5px;line-height:2;color:var(--blank-muted);}
-.about-letter-copy>p.about-signature {text-align:right;font:italic 13px/1.6 var(--blank-serif);color:var(--ema-pink);}
+.about-letter-copy>p:not(.shelf-kicker) {margin-top:14px;font-size:var(--blank-fs-sm, 14.5px);line-height:2;color:var(--blank-muted);}
+.about-letter-copy>p.about-signature {text-align:right;font:italic var(--blank-fs-sm, 13px)/1.6 var(--blank-serif);color:var(--ema-pink);}
 .about-marks {display:flex;flex-wrap:wrap;gap:10px;margin-top:-18px;}
 
 /* Shelves: a tinted heading chip, then cards in the homepage tag colours (shelf.css). */
 .about-section {display:grid;gap:18px;}
-.ema-about li h3 {font-size:15px;font-weight:700;line-height:1.45;color:var(--blank-ink);}
-.ema-about li p {margin-top:4px;font-size:13px;line-height:1.75;color:var(--blank-muted);}
+.ema-about li h3 {font-size:var(--blank-fs-md, 15px);font-weight:700;line-height:1.45;color:var(--blank-ink);}
+.ema-about li p {margin-top:4px;font-size:var(--blank-fs-sm, 13px);line-height:1.75;color:var(--blank-muted);}
 .about-tech {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
 .about-tech>li {display:grid;grid-template-rows:auto 1fr;gap:18px;align-content:start;padding:20px;}
 .about-tech>li>div {min-width:0;overflow-wrap:anywhere;}
@@ -52,7 +52,7 @@ html[data-color-mode="dark"] .about-tech .tone-slate {--fill:#34435c;--line:#6b7
 .about-icon img {display:block;width:100%;height:100%;object-fit:cover;}
 .about-games a {color:inherit;text-decoration:none;background:linear-gradient(var(--ema-pink),var(--ema-pink)) 0 100%/0 1px no-repeat;transition:background-size 200ms var(--blank-ease);}
 .about-games a svg {margin-left:5px;vertical-align:-1px;color:var(--ema-pink);}
-.about-more {display:inline-flex;align-items:center;gap:6px;justify-self:end;color:var(--ema-pink);font-size:13px;font-weight:600;text-decoration:none;}
+.about-more {display:inline-flex;align-items:center;gap:6px;justify-self:end;color:var(--ema-pink);font-size:var(--blank-fs-sm, 13px);font-weight:600;text-decoration:none;}
 .about-more svg {transition:translate 180ms var(--blank-ease);}
 .about-characters {display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
 .about-characters>li {display:flex;align-items:center;gap:16px;padding:14px 16px;}
@@ -64,7 +64,7 @@ img.about-portrait {display:block;object-fit:cover;}
 .about-portrait {flex-shrink:0;width:66px;height:66px;border:3px solid var(--line);border-radius:50%;background-color:var(--fill);background-repeat:no-repeat;}
 /* A character without a cleared portrait keeps the frame, with the theme's blossom drawn in code. */
 .about-portrait-empty {background-image:var(--ema-blossom);background-size:30px;background-position:center;}
-.about-characters h3 {display:inline-block;padding:2px 12px;border:2px solid var(--line);border-radius:999px;background:var(--fill);color:var(--tone-ink);font-family:var(--round);font-size:14px;rotate:-2deg;}
+.about-characters h3 {display:inline-block;padding:2px 12px;border:2px solid var(--line);border-radius:999px;background:var(--fill);color:var(--tone-ink);font-family:var(--round);font-size:var(--blank-fs-sm, 14px);rotate:-2deg;}
 .about-characters li:nth-child(even) h3 {rotate:2deg;}
 .ema-about .about-characters p {margin-top:8px;}
 /* Anime: a taped-in poster beside the title, in the card's tone. */
@@ -77,7 +77,7 @@ img.about-portrait {display:block;object-fit:cover;}
 .about-animes a svg {margin-left:5px;vertical-align:-1px;color:var(--ema-pink);}
 .about-now {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
 .about-now>li {padding:18px;}
-.about-now span {display:inline-block;padding:3px 12px;border:1px solid var(--line);border-radius:999px;background:var(--fill);color:var(--tone-ink);font-size:12px;font-weight:700;}
+.about-now span {display:inline-block;padding:3px 12px;border:1px solid var(--line);border-radius:999px;background:var(--fill);color:var(--tone-ink);font-size:var(--blank-fs-xs, 12px);font-weight:700;}
 .ema-about .about-now p {margin-top:12px;}
 
 @media(hover:hover) and (pointer:fine) {

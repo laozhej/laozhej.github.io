@@ -194,7 +194,7 @@ html[data-color-mode="dark"] #ema-stage .k-scene::after {
 }
 #ema-stage :is(.k-eyebrow, .k-kicker) {
   display: inline-flex; align-items: center; gap: 8px; margin: 0;
-  font: 700 11px/1.4 var(--blank-sans); letter-spacing: .04em; text-transform: uppercase;
+  font: 700 var(--blank-fs-xs, 11px)/1.4 var(--blank-sans); letter-spacing: .04em; text-transform: uppercase;
 }
 #ema-stage .k-eyebrow { margin-bottom: 14px; color: var(--blank-ink); font-weight: 600; }
 #ema-stage .k-kicker { color: var(--ema-pink); }
@@ -211,12 +211,12 @@ html[data-color-mode="dark"] #ema-stage .k-scene::after {
 #ema-stage .k-title-alias { font: 400 .6em/1 var(--ema-title-font); letter-spacing: 0; color: var(--ema-pink); white-space: nowrap; }
 html:lang(en) #ema-stage { --k-name-scale: .8; }
 html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); font-weight: 400; line-height: 1.06; letter-spacing: 0; }
-#ema-stage .k-diary { margin: 16px 0 0; font: 500 16px/1.9 var(--blank-serif); letter-spacing: .04em; color: var(--blank-ink); }
+#ema-stage .k-diary { margin: 16px 0 0; font: 500 var(--blank-fs-md, 16px)/1.9 var(--blank-serif); letter-spacing: .04em; color: var(--blank-ink); }
 #ema-stage .k-terminal {
   display: flex; align-items: flex-start; gap: 10px; width: 380px; max-width: 100%; min-height: 44px;
   margin: 18px 0 0; padding: 10px 12px;
   background: var(--k-terminal-bg); border-bottom: 2px solid var(--ema-pink-soft);
-  font: 13px/1.6 var(--blank-mono); color: var(--k-terminal-ink); text-shadow: none;
+  font: var(--blank-fs-sm, 13px)/1.6 var(--blank-mono); color: var(--k-terminal-ink); text-shadow: none;
 }
 #ema-stage .k-terminal svg { flex: none; margin-top: 2px; color: var(--k-accent); }
 /* All lines share one grid cell: the invisible ones hold the height of the longest, so the copy above
@@ -245,7 +245,7 @@ html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); fo
 #ema-stage .k-theatre[hidden] { display: none; }
 #ema-stage .k-theatre-status { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 6px; color: var(--blank-ink); }
 #ema-stage .k-theatre-no { font: 400 26px/1.1 var(--ema-title-font); }
-#ema-stage .k-theatre-pose { font: 600 15px/1.5 var(--blank-serif); }
+#ema-stage .k-theatre-pose { font: 600 var(--blank-fs-md, 15px)/1.5 var(--blank-serif); }
 #ema-stage .k-theatre-buttons { display: flex; gap: 8px; }
 #ema-stage .k-theatre-buttons button,
 #ema-stage .x {
@@ -254,7 +254,7 @@ html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); fo
   background: var(--k-card); color: var(--blank-ink); cursor: pointer;
 }
 #ema-stage .k-theatre-buttons button[aria-busy="true"] { opacity: .6; }
-#ema-stage .k-hint { display: flex; align-items: flex-start; gap: 6px; margin: 0; font-size: 12px; line-height: 1.6; color: var(--blank-muted); }
+#ema-stage .k-hint { display: flex; align-items: flex-start; gap: 6px; margin: 0; font-size: var(--blank-fs-xs, 12px); line-height: 1.6; color: var(--blank-muted); }
 #ema-stage .k-hint svg { flex: none; margin-top: 2px; color: var(--k-accent); }
 /* With a mouse, the theatre stays out of the picture until the pointer passes over Ema or over the
    card's own place (owner request, 2026-11-14); keyboard focus on Ema or in the card shows it too.
@@ -279,7 +279,7 @@ html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); fo
   display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 9px 14px;
   border: 1px solid var(--ema-pink-soft); border-radius: 6px;
   background: var(--k-card); color: var(--ema-pink); box-shadow: 3px 3px 0 var(--k-tint-pink);
-  font: 600 13px/1 var(--blank-sans); cursor: pointer;
+  font: 600 var(--blank-fs-sm, 13px)/1 var(--blank-sans); cursor: pointer;
   opacity: var(--copy-opacity, 1); transition: transform 180ms ease, box-shadow 180ms ease, opacity 220ms ease;
 }
 #ema-stage .k-note-open[hidden] { display: none; }
@@ -287,7 +287,7 @@ html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); fo
   position: absolute; z-index: 5; left: var(--k-ema-x, 50%); bottom: 20px; translate: -50% 0;
   display: inline-flex; align-items: center; gap: 10px; min-height: 36px; padding: 6px 13px;
   border: 1px solid var(--blank-line); border-radius: 6px; background: var(--k-cue-bg); color: var(--k-accent);
-  font: 700 12px/1 var(--blank-mono); white-space: nowrap; text-decoration: none;
+  font: 700 var(--blank-fs-xs, 12px)/1 var(--blank-mono); white-space: nowrap; text-decoration: none;
   -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px);
   opacity: var(--cue-opacity, 1); transition: opacity 220ms ease;
 }
@@ -327,22 +327,22 @@ html[data-color-mode="dark"] #ema-stage .k-avatar { background: radial-gradient(
   background: color-mix(in srgb, var(--k-card) 98%, transparent); box-shadow: var(--k-shadow);
   -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
 }
-#ema-stage .k-card-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; font: 600 11px/1.4 var(--blank-mono); color: var(--blank-muted); }
+#ema-stage .k-card-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; font: 600 var(--blank-fs-xs, 11px)/1.4 var(--blank-mono); color: var(--blank-muted); }
 #ema-stage .k-dots { display: inline-flex; gap: 6px; }
 #ema-stage .k-dots i { width: 10px; height: 10px; border-radius: 50%; background: #f2a7c3; }
 #ema-stage .k-dots i:nth-child(2) { background: #f3d18c; }
 #ema-stage .k-dots i:nth-child(3) { background: #a7d8bf; }
-#ema-stage .k-card-path { margin: 0; font: 11px/1.5 var(--blank-mono); color: var(--blank-muted); overflow-wrap: anywhere; }
-#ema-stage .k-card-cmd { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 0; font: 700 14px/1.5 var(--blank-mono); color: var(--k-accent); }
+#ema-stage .k-card-path { margin: 0; font: var(--blank-fs-xs, 11px)/1.5 var(--blank-mono); color: var(--blank-muted); overflow-wrap: anywhere; }
+#ema-stage .k-card-cmd { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 0; font: 700 var(--blank-fs-sm, 14px)/1.5 var(--blank-mono); color: var(--k-accent); }
 #ema-stage .k-card-cmd b { color: var(--ema-lav); }
-#ema-stage .k-card-name { margin: 2px 0 0; font: 600 18px/1.4 var(--blank-serif); color: var(--blank-ink); }
+#ema-stage .k-card-name { margin: 2px 0 0; font: 600 var(--blank-fs-lg, 18px)/1.4 var(--blank-serif); color: var(--blank-ink); }
 #ema-stage .k-card-name span { font-weight: 400; color: var(--blank-muted); }
-#ema-stage .k-card-intro { margin: 0; font-size: 13px; line-height: 1.75; color: var(--blank-muted); }
+#ema-stage .k-card-intro { margin: 0; font-size: var(--blank-fs-sm, 13px); line-height: 1.75; color: var(--blank-muted); }
 #ema-stage .k-card-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 0; }
 #ema-stage .k-card-links a {
   display: inline-flex; align-items: center; gap: 6px; min-height: 38px; padding: 6px 11px;
   border: 1px solid var(--blank-line); border-radius: 6px; background: var(--ema-lav-wash); color: var(--ema-lav);
-  font: 600 13px/1 var(--blank-sans); text-decoration: none;
+  font: 600 var(--blank-fs-sm, 13px)/1 var(--blank-sans); text-decoration: none;
 }
 #ema-stage .k-card-links a:nth-child(2) { background: var(--ema-blush); color: var(--ema-pink); }
 #ema-stage .k-card-links .k-card-about { background: transparent; color: var(--blank-ink); }
@@ -388,8 +388,8 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 }
 #ema-stage .k-rail-stage { width: 100%; overflow: clip; }
 #ema-stage .k-rail-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin: 0 var(--rail-gutter) 20px; }
-#ema-stage .k-rail-head h2 { margin: 8px 0 0; font: 400 28px/1.45 var(--blank-serif); letter-spacing: .04em; color: var(--blank-ink); }
-#ema-stage .k-rail-status { position: relative; flex: none; min-width: 96px; padding-bottom: 12px; text-align: right; font: 12px/1.4 var(--blank-mono); color: var(--blank-muted); }
+#ema-stage .k-rail-head h2 { margin: 8px 0 0; font: 400 var(--blank-fs-2xl, 28px)/1.45 var(--blank-serif); letter-spacing: .04em; color: var(--blank-ink); }
+#ema-stage .k-rail-status { position: relative; flex: none; min-width: 96px; padding-bottom: 12px; text-align: right; font: var(--blank-fs-xs, 12px)/1.4 var(--blank-mono); color: var(--blank-muted); }
 #ema-stage .k-rail-status::before,
 #ema-stage .k-rail-progress { content: ""; position: absolute; inset: auto 0 0; height: 2px; background: var(--blank-line); }
 #ema-stage .k-rail-progress { background: var(--ema-pink); transform: scaleX(0); transform-origin: left; }
@@ -412,7 +412,7 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 #ema-stage .k-leaf:nth-child(4) { --leaf-tint: var(--k-tint-mint); }
 #ema-stage .k-leaf[data-active] { border-color: color-mix(in srgb, var(--ema-pink) 46%, var(--ema-line-strong)); }
 #ema-stage .k-leaf:focus-visible { outline: 2px solid var(--ema-pink); outline-offset: 4px; }
-#ema-stage .k-leaf-no { font: 12px/1.4 var(--blank-mono); color: var(--ema-pink); }
+#ema-stage .k-leaf-no { font: var(--blank-fs-xs, 12px)/1.4 var(--blank-mono); color: var(--ema-pink); }
 #ema-stage .k-plate {
   position: relative; flex: 1 1 0; min-height: 0; margin: 18px 20px 8px; display: grid; place-items: center;
   border: 1px dashed var(--blank-line); border-radius: 3px; overflow: hidden;
@@ -422,24 +422,24 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 #ema-stage .k-leaf[data-active] .k-plate { transform: scale(1.04); }
 #ema-stage .k-plate > div { display: grid; justify-items: center; gap: 8px; width: min(100%, 380px); padding: 20px 18px; text-align: center; }
 #ema-stage .k-plate strong { font: 400 64px/1 var(--ema-title-font); color: var(--ema-pink); }
-#ema-stage .k-plate > div > span { font: 600 13px/1.4 var(--blank-sans); letter-spacing: .08em; color: var(--blank-muted); }
-#ema-stage .k-plate p { margin: 6px 0 0; font: 15px/1.8 var(--blank-serif); color: var(--blank-ink); }
-#ema-stage .k-plate :is(ul, ol) { display: grid; gap: 6px; width: 100%; margin: 8px 0 0; padding: 0; list-style: none; font-size: 13px; line-height: 1.5; }
+#ema-stage .k-plate > div > span { font: 600 var(--blank-fs-sm, 13px)/1.4 var(--blank-sans); letter-spacing: .08em; color: var(--blank-muted); }
+#ema-stage .k-plate p { margin: 6px 0 0; font: var(--blank-fs-md, 15px)/1.8 var(--blank-serif); color: var(--blank-ink); }
+#ema-stage .k-plate :is(ul, ol) { display: grid; gap: 6px; width: 100%; margin: 8px 0 0; padding: 0; list-style: none; font-size: var(--blank-fs-sm, 13px); line-height: 1.5; }
 #ema-stage .k-plate-journal { background: repeating-linear-gradient(180deg, transparent 0 27px, color-mix(in srgb, var(--ema-pink-soft) 45%, transparent) 27px 28px); }
 #ema-stage .k-plate-works .k-plate-window { display: grid; justify-items: center; gap: 6px; width: 100%; padding: 12px 14px 16px; border: 1px solid var(--ema-line-strong); border-radius: 8px; background: var(--k-card); }
 #ema-stage .k-plate-works .k-plate-window .k-dots { justify-self: start; }
-#ema-stage .k-plate-works .k-plate-window b { font: 600 22px/1.4 var(--blank-serif); }
-#ema-stage .k-plate-works .k-plate-window small { font: 12px/1.4 var(--blank-mono); color: var(--blank-muted); }
-#ema-stage .k-plate-chip { display: inline-flex; margin: 0 4px; padding: 3px 10px; border-radius: 999px; background: var(--ema-blush); color: var(--ema-pink); font: 600 12px/1.6 var(--blank-sans); }
+#ema-stage .k-plate-works .k-plate-window b { font: 600 var(--blank-fs-lg, 22px)/1.4 var(--blank-serif); }
+#ema-stage .k-plate-works .k-plate-window small { font: var(--blank-fs-xs, 12px)/1.4 var(--blank-mono); color: var(--blank-muted); }
+#ema-stage .k-plate-chip { display: inline-flex; margin: 0 4px; padding: 3px 10px; border-radius: 999px; background: var(--ema-blush); color: var(--ema-pink); font: 600 var(--blank-fs-xs, 12px)/1.6 var(--blank-sans); }
 #ema-stage .k-plate-chip.is-line { background: var(--ema-lav-wash); color: var(--ema-lav); }
 #ema-stage .k-plate-works li::before { content: "✿ "; color: var(--k-accent); }
 #ema-stage .k-plate-games ol li { display: flex; gap: 10px; align-items: baseline; padding: 6px 10px; border-radius: 4px; background: var(--k-card); border: 1px solid var(--blank-line); text-align: start; }
-#ema-stage .k-plate-games ol b { font: 12px var(--blank-mono); color: var(--ema-pink); }
+#ema-stage .k-plate-games ol b { font: var(--blank-fs-xs, 12px) var(--blank-mono); color: var(--ema-pink); }
 #ema-stage .k-plate-face { display: block; width: 84px; height: 84px; object-fit: cover; border-radius: 50%; background: var(--ema-blush); border: 2px solid var(--k-card); box-shadow: 0 0 0 4px color-mix(in srgb, var(--ema-pink-soft) 40%, transparent); }
-#ema-stage .k-plate-about b { font: 600 20px/1.3 var(--blank-serif); }
-#ema-stage .k-plate-about small { font: 13px var(--blank-mono); color: var(--blank-muted); }
+#ema-stage .k-plate-about b { font: 600 var(--blank-fs-lg, 20px)/1.3 var(--blank-serif); }
+#ema-stage .k-plate-about small { font: var(--blank-fs-sm, 13px) var(--blank-mono); color: var(--blank-muted); }
 #ema-stage .k-plate-about ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
-#ema-stage .k-plate-about li { padding: 3px 10px; border-radius: 999px; background: var(--ema-lav-wash); color: var(--ema-lav); font-size: 12px; }
+#ema-stage .k-plate-about li { padding: 3px 10px; border-radius: 999px; background: var(--ema-lav-wash); color: var(--ema-lav); font-size: var(--blank-fs-xs, 12px); }
 #ema-stage .k-stamp {
   position: absolute; right: 22px; bottom: 84px; display: grid; place-items: center; align-content: center; gap: 2px;
   width: 104px; height: 104px; border-radius: 50%; border: 2px dashed color-mix(in srgb, var(--ema-pink) 55%, transparent);
@@ -450,8 +450,8 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 #ema-stage .k-stamp i { width: 22px; height: 22px; border-radius: 50%; background: conic-gradient(from 0deg, #f4b6cc 0 14%, transparent 0 20%, #f4b6cc 0 34%, transparent 0 40%, #f4b6cc 0 54%, transparent 0 60%, #f4b6cc 0 74%, transparent 0 80%, #f4b6cc 0 94%, transparent 0); }
 #ema-stage .k-leaf[data-active] .k-stamp { transform: rotate(-12deg) scale(1.3); }
 #ema-stage .k-leaf-caption { margin-top: auto; padding: 18px 136px 4px 8px; }
-#ema-stage .k-leaf-caption h3 { margin: 0 0 7px; font: 600 20px/1.5 var(--blank-serif); }
-#ema-stage .k-leaf-caption p { margin: 0; font-size: 13px; line-height: 1.7; color: var(--blank-muted); }
+#ema-stage .k-leaf-caption h3 { margin: 0 0 7px; font: 600 var(--blank-fs-lg, 20px)/1.5 var(--blank-serif); }
+#ema-stage .k-leaf-caption p { margin: 0; font-size: var(--blank-fs-sm, 13px); line-height: 1.7; color: var(--blank-muted); }
 #ema-stage .k-leaf-arrow { position: absolute; right: 22px; bottom: 22px; color: var(--ema-pink); }
 #ema-stage .k-rail[data-mode="scroll"] { height: var(--rail-runway); padding: 0; }
 #ema-stage .k-rail[data-mode="scroll"] .k-rail-stage { position: sticky; top: 0; display: flex; flex-direction: column; height: 100svh; padding: clamp(86px, 10svh, 118px) 0 clamp(22px, 4svh, 44px); }
@@ -470,22 +470,22 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 #ema-stage .k-signal-word { position: absolute; z-index: 2; left: 28%; top: 27%; width: 44%; translate: -50% -50%; text-align: center; }
 #ema-stage .k-signal-word h2 { margin: 0; font: 400 64px/1.1 var(--ema-title-font); color: var(--blank-ink); filter: drop-shadow(3px 4px 0 var(--k-title-shadow)); }
 #ema-stage .k-signal-word h2 i { font-style: normal; color: var(--ema-pink); }
-#ema-stage .k-signal-word small { display: block; margin-top: 8px; font: 12px/1.4 var(--blank-mono); letter-spacing: .1em; color: var(--blank-muted); }
+#ema-stage .k-signal-word small { display: block; margin-top: 8px; font: var(--blank-fs-xs, 12px)/1.4 var(--blank-mono); letter-spacing: .1em; color: var(--blank-muted); }
 #ema-stage .k-clock {
   position: absolute; z-index: 2; top: 64px; right: 5%; display: grid; gap: 4px; width: 300px; min-height: 160px; padding: 24px;
   background: var(--k-card); border: 1px solid var(--blank-line); border-radius: 6px; box-shadow: var(--k-shadow);
 }
-#ema-stage .k-clock p, #ema-stage .k-clock span { margin: 0; font-size: 13px; color: var(--blank-muted); }
+#ema-stage .k-clock p, #ema-stage .k-clock span { margin: 0; font-size: var(--blank-fs-sm, 13px); color: var(--blank-muted); }
 #ema-stage .k-clock strong { font: 400 46px/1.1 var(--ema-title-font); font-variant-numeric: tabular-nums; color: var(--ema-pink); text-shadow: 2px 2px 0 var(--k-tint-lav); }
 #ema-stage .k-bubble {
   position: absolute; z-index: 2; left: 6%; bottom: 168px; display: grid; gap: 8px; width: 460px; max-width: calc(100% - 48px);
   margin: 0; padding: 20px 24px; background: var(--k-card); border: 1px solid var(--blank-line); border-radius: 18px 18px 18px 4px; box-shadow: var(--k-shadow);
 }
-#ema-stage .k-bubble figcaption { font: 700 12px/1.4 var(--blank-sans); letter-spacing: .06em; color: var(--ema-pink); }
-#ema-stage .k-bubble p { margin: 0; font: 17px/1.85 var(--blank-serif); white-space: pre-line; color: var(--blank-ink); }
+#ema-stage .k-bubble figcaption { font: 700 var(--blank-fs-xs, 12px)/1.4 var(--blank-sans); letter-spacing: .06em; color: var(--ema-pink); }
+#ema-stage .k-bubble p { margin: 0; font: var(--blank-fs-md, 17px)/1.85 var(--blank-serif); white-space: pre-line; color: var(--blank-ink); }
 #ema-stage .k-text-button {
   display: inline-flex; align-items: center; gap: 6px; justify-self: start; min-height: 40px; padding: 0;
-  border: 0; background: none; color: var(--ema-pink); font: 600 13px/1 var(--blank-sans); cursor: pointer;
+  border: 0; background: none; color: var(--ema-pink); font: 600 var(--blank-fs-sm, 13px)/1 var(--blank-sans); cursor: pointer;
 }
 #ema-stage .k-text-button[hidden] { display: none; }
 #ema-stage .k-rain { position: relative; z-index: 1; min-width: 0; }
@@ -496,7 +496,7 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 #ema-stage .k-tags li {
   padding: 7px 15px; border: 1px solid var(--ema-pink-soft); border-radius: 999px;
   background: var(--ema-blush); color: var(--ema-pink); box-shadow: 0 2px 3px rgb(67 46 64 / .09);
-  max-width: 100%; overflow-wrap: anywhere; font: 600 14px/1.4 var(--blank-sans); text-align: center;
+  max-width: 100%; overflow-wrap: anywhere; font: 600 var(--blank-fs-sm, 14px)/1.4 var(--blank-sans); text-align: center;
 }
 #ema-stage .k-tags li:nth-child(3n + 2) { background: var(--ema-lav-wash); border-color: var(--ema-lav-soft); color: var(--ema-lav); }
 #ema-stage .k-tags li:nth-child(3n) { background: var(--ema-card); border-color: var(--ema-line-strong); color: var(--blank-ink); }
@@ -505,7 +505,7 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px;
   margin: 8px 0 20px; padding: 0 18px; border: 1px solid transparent; border-radius: 12px;
   background: var(--ema-pink); color: var(--ema-on-pink); box-shadow: 0 2px 4px rgb(67 46 64 / .12);
-  font: 600 14px/1.35 var(--blank-sans); cursor: pointer;
+  font: 600 var(--blank-fs-sm, 14px)/1.35 var(--blank-sans); cursor: pointer;
 }
 #ema-stage .k-rain-again[hidden] { display: none; }
 #ema-stage .k-rain-again:focus-visible { outline: 2px solid var(--ema-pink); outline-offset: 3px; }
@@ -537,24 +537,24 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 /* ---------- Journal ---------- */
 #ema-stage .k-journal { max-width: 1200px; margin: 0 auto; padding: 48px 28px 88px; }
 #ema-stage .k-journal-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
-#ema-stage .k-journal-head h2 { margin: 8px 0 0; font: 400 30px/1.4 var(--blank-serif); letter-spacing: .04em; }
-#ema-stage .k-journal-head > a { display: inline-flex; align-items: center; gap: 8px; color: var(--ema-pink); font-size: 14px; }
+#ema-stage .k-journal-head h2 { margin: 8px 0 0; font: 400 var(--blank-fs-2xl, 30px)/1.4 var(--blank-serif); letter-spacing: .04em; }
+#ema-stage .k-journal-head > a { display: inline-flex; align-items: center; gap: 8px; color: var(--ema-pink); font-size: var(--blank-fs-sm, 14px); }
 #ema-stage .k-journal-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
 #ema-stage .k-entry { position: relative; display: grid; gap: 8px; padding-bottom: 22px; border-bottom: 2px solid var(--k-tint-pink); color: var(--blank-ink); }
-#ema-stage .k-entry time { font: 12px var(--blank-mono); color: var(--ema-pink); }
-#ema-stage .k-entry h3 { margin: 0; font: 600 18px/1.6 var(--blank-serif); }
-#ema-stage .k-entry p { margin: 0; padding-right: 22px; font-size: 13px; color: var(--blank-muted); }
+#ema-stage .k-entry time { font: var(--blank-fs-xs, 12px) var(--blank-mono); color: var(--ema-pink); }
+#ema-stage .k-entry h3 { margin: 0; font: 600 var(--blank-fs-lg, 18px)/1.6 var(--blank-serif); }
+#ema-stage .k-entry p { margin: 0; padding-right: 22px; font-size: var(--blank-fs-sm, 13px); color: var(--blank-muted); }
 #ema-stage .k-entry-arrow { position: absolute; right: 0; bottom: 26px; color: var(--ema-pink); }
 #ema-stage .k-empty {
   display: grid; justify-items: center; gap: 10px; padding: 56px 24px; text-align: center;
   border: 1.5px dashed var(--ema-line-strong); border-radius: 6px; background: color-mix(in srgb, var(--k-card) 80%, transparent);
 }
-#ema-stage .k-empty p { margin: 0; font: 400 22px/1.6 var(--blank-serif); }
-#ema-stage .k-empty small { font-size: 14px; color: var(--blank-muted); }
+#ema-stage .k-empty p { margin: 0; font: 400 var(--blank-fs-lg, 22px)/1.6 var(--blank-serif); }
+#ema-stage .k-empty small { font-size: var(--blank-fs-sm, 14px); color: var(--blank-muted); }
 #ema-stage .k-empty-acts { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; }
 #ema-stage .k-pill {
   display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 18px; border-radius: 999px;
-  border: 1px solid var(--ema-pink); background: var(--ema-pink); color: var(--ema-on-pink); font: 600 14px/1 var(--blank-sans); cursor: pointer;
+  border: 1px solid var(--ema-pink); background: var(--ema-pink); color: var(--ema-on-pink); font: 600 var(--blank-fs-sm, 14px)/1 var(--blank-sans); cursor: pointer;
 }
 #ema-stage .k-pill.is-quiet { background: transparent; color: var(--ema-pink); }
 #ema-stage .k-pill[hidden] { display: none; }
@@ -565,11 +565,11 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
 #ema-stage .notice-in { display: grid; gap: 10px; padding: 18px 20px 22px; }
 #ema-stage .notice-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-#ema-stage .notice-h h2 { margin: 0; font: 400 20px/1.3 var(--blank-serif); letter-spacing: .08em; }
+#ema-stage .notice-h h2 { margin: 0; font: 400 var(--blank-fs-lg, 20px)/1.3 var(--blank-serif); letter-spacing: .08em; }
 #ema-stage .notice-h form { margin: 0; }
-#ema-stage .notice-date { margin: 0; font: 12px/1.4 var(--blank-mono); letter-spacing: .08em; color: var(--blank-muted); }
-#ema-stage .notice-fallback { margin: 0; font-size: 12px; line-height: 1.7; color: var(--blank-muted); }
-#ema-stage .notice-text { margin: 0; font: 17px/1.9 var(--blank-serif); letter-spacing: .04em; white-space: pre-line; }
+#ema-stage .notice-date { margin: 0; font: var(--blank-fs-xs, 12px)/1.4 var(--blank-mono); letter-spacing: .08em; color: var(--blank-muted); }
+#ema-stage .notice-fallback { margin: 0; font-size: var(--blank-fs-xs, 12px); line-height: 1.7; color: var(--blank-muted); }
+#ema-stage .notice-text { margin: 0; font: var(--blank-fs-md, 17px)/1.9 var(--blank-serif); letter-spacing: .04em; white-space: pre-line; }
 
 @keyframes k-blink { 50% { opacity: 0; } }
 /* The three arrows (already staggered) now swell and fade in a slow wave instead of switching on and off. */
@@ -607,7 +607,7 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   }
   #ema-stage .k-eyebrow { margin-bottom: 8px; }
   #ema-stage .k-title { font-size: 46px; }
-  #ema-stage .k-diary { margin-top: 6px; font-size: 14px; }
+  #ema-stage .k-diary { margin-top: 6px; font-size: var(--blank-fs-sm, 14px); }
   /* The English name wraps on phones, putting the diary line against Ema's beret. */
   html:lang(en) #ema-stage .k-diary {
     -webkit-text-stroke: 2.5px var(--k-glow); paint-order: stroke fill;
@@ -624,7 +624,7 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-theatre .k-kicker { grid-area: kicker; }
   #ema-stage .k-theatre-status { grid-area: status; }
   #ema-stage .k-theatre-no { font-size: 20px; }
-  #ema-stage .k-theatre-pose { font-size: 13px; }
+  #ema-stage .k-theatre-pose { font-size: var(--blank-fs-sm, 13px); }
   #ema-stage .k-theatre-buttons { grid-area: buttons; }
   #ema-stage .k-hint { grid-area: hint; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--blank-line); }
   #ema-stage .k-back { --sb-focus: 50% 66%; --sb-reach: 48% 42%; }
@@ -634,7 +634,7 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   /* In the stacked layout the window light would fall behind Ema's face and the title. */
   #ema-stage :is(.sb-still, .k-window-light) { display: none; }
   #ema-stage { --k-name-size: 52px; }
-  #ema-stage .k-note-open { top: 76px; right: 16px; min-height: 40px; padding: 8px 11px; font-size: 12px; }
+  #ema-stage .k-note-open { top: 76px; right: 16px; min-height: 40px; padding: 8px 11px; font-size: var(--blank-fs-xs, 12px); }
   #ema-stage .k-cue { bottom: 16px; }
 }
 @media (max-width: 760px) {
@@ -642,7 +642,7 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-card { max-width: 100%; }
   #ema-stage .k-rail { --leaf-w: min(82vw, 460px); --rail-gutter: 24px; padding: 28px 0 32px; }
   #ema-stage .k-rail-head { flex-wrap: wrap; gap: 16px; }
-  #ema-stage .k-rail-head h2 { font-size: 22px; }
+  #ema-stage .k-rail-head h2 { font-size: var(--blank-fs-lg, 22px); }
   #ema-stage .k-track { gap: 20px; }
   #ema-stage .k-leaf { min-height: 420px; }
   #ema-stage .k-signal { display: grid; gap: 18px; min-height: 0; padding: 40px 24px; }
@@ -661,10 +661,10 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-leaf { padding: 18px; }
   #ema-stage .k-plate { margin-inline: 0; }
   #ema-stage .k-leaf-caption { padding-right: 84px; }
-  #ema-stage .k-leaf-caption h3 { font-size: 17px; }
+  #ema-stage .k-leaf-caption h3 { font-size: var(--blank-fs-md, 17px); }
   #ema-stage .k-stamp { right: 12px; width: 78px; height: 78px; font-size: 12px; }
   #ema-stage .k-leaf[data-active] .k-stamp { transform: rotate(-12deg) scale(1.18); }
-  #ema-stage .k-journal-head h2 { font-size: 24px; }
+  #ema-stage .k-journal-head h2 { font-size: var(--blank-fs-xl, 24px); }
 }
 @media (min-width: 761px) and (max-width: 1100px) and (orientation: portrait) {
   #ema-stage .k-hero { padding-top: 140px; }

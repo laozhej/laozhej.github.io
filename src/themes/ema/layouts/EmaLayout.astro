@@ -47,6 +47,17 @@ const petals = Array.from({ length: 16 }, (_, index) => `--petal-left:${(3 + ind
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <LanguagePreference /><ThemePreference /><SiteIcons />
     <ColorModePreference lightColor="#fbf7ef" darkColor="#201f28" />
+    {/* First full visit to the homepage: lets stage.css bring the stage in (paper, Ema, then the words).
+        Set before the first paint; not when motion is paused or reduced, nor on in-site navigation, where
+        the page transition introduces the page. Removed once the entrance is over. */}
+    {home && <script is:inline>
+      (() => {
+        const html = document.documentElement;
+        if (html.hasAttribute("data-astro-transition") || html.dataset.motionPaused === "true") return;
+        html.dataset.intro = "";
+        setTimeout(() => { delete html.dataset.intro; }, 2000);
+      })();
+    </script>}
     <title>{title}</title><SiteMeta title={title} description={description} siteName={brand} isArticlePage={isArticlePage} article={article} />
     <SiteNavigation />
   </head>

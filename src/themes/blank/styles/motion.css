@@ -1,0 +1,36 @@
+/* Blank motion. Every selector is scoped to Blank: through the shared page layout this file also reaches
+   Ema, Endfield and Arknights pages, which carry data-blank too. */
+/* Motion (2026-11-27, owner's request to add and refine motion). The light/dark reveal grows from the
+   button (core/preferences/color-mode-reveal.mjs); the homepage's first full visit brings the hero in
+   line by line (the attribute is set in BlankLayout and removed after the entrance); titles draw their
+   underline instead of switching it on. Sections below the first screen rise in from lib/reveal.mjs.
+   None of it moves while motion is paused or reduced. */
+html[data-theme="blank"].site-mode-reveal { view-transition-name: root !important; }
+html[data-theme="blank"].site-mode-reveal [data-astro-transition-scope] { view-transition-name: none !important; }
+/* Inside the circle the new mode is already settled: colour transitions would show the old colours for a moment. */
+html[data-theme="blank"].site-mode-reveal :is(*, *::before, *::after) { transition: none !important; }
+html[data-theme="blank"].site-mode-reveal::view-transition-group(root) { animation: none; }
+html[data-theme="blank"].site-mode-reveal::view-transition-old(root),
+html[data-theme="blank"].site-mode-reveal::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
+@keyframes bj-intro { from { opacity: 0; translate: 0 14px; } }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-theme="blank"][data-intro]:not([data-motion-paused="true"]) :is(.bj-topline, .bj-hero > h1, .bj-bottom > *, .bj-index) { animation: bj-intro 560ms var(--blank-ease) backwards; }
+  html[data-theme="blank"][data-intro]:not([data-motion-paused="true"]) .bj-hero > h1 { animation-delay: 70ms; }
+  html[data-theme="blank"][data-intro]:not([data-motion-paused="true"]) .bj-statement { animation-delay: 170ms; }
+  html[data-theme="blank"][data-intro]:not([data-motion-paused="true"]) .bj-intro { animation-delay: 230ms; }
+  html[data-theme="blank"][data-intro]:not([data-motion-paused="true"]) .bj-down { animation-delay: 290ms; }
+  html[data-theme="blank"][data-intro]:not([data-motion-paused="true"]) .bj-index { animation-delay: 360ms; }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html[data-theme="blank"] :is(.blank-post-row h2, .bj-featured h2, .bj-index strong, .blank-home-sheet strong, .blank-home-posts span, .blank-project-name h2) {
+    text-decoration-line: underline; text-decoration-thickness: 1px; text-decoration-color: transparent; text-underline-offset: .45em;
+    transition: text-decoration-color 180ms ease, text-underline-offset 280ms var(--blank-ease);
+  }
+  html[data-theme="blank"] :is(.blank-post-row:hover h2, .bj-featured:hover h2, .bj-index a:hover strong, .blank-home-sheet a:hover strong, .blank-home-posts a:hover span, .blank-project summary:hover .blank-project-name h2) {
+    text-decoration-color: currentColor; text-underline-offset: .2em;
+  }
+  html[data-theme="blank"] :is(.blank-button, .bj-down, .blank-icon-button) { transition: background-color 180ms ease, color 180ms ease; }
+  html[data-theme="blank"][data-motion-paused="true"] :is(.blank-post-row h2, .bj-featured h2, .bj-index strong, .blank-home-sheet strong, .blank-home-posts span, .blank-project-name h2) { transition: text-decoration-color 180ms ease; }
+}

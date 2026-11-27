@@ -8,6 +8,12 @@ import { mountNotice } from "../src/themes/ema/lib/notice.mjs";
 // when the sakura note closes.
 const read = (path) => readFileSync(new URL(`../src/${path}`, import.meta.url), "utf8");
 
+test("Cloudflare's email opt-out encloses the public contact anchors", () => {
+  const source = read("core/components/SocialLinks.astro");
+  const region = source.match(/<!--email_off-->([\s\S]*?)<!--\/email_off-->/)?.[1] ?? "";
+  assert.match(region, /<a\s[^>]*\bhref=\{link\.href\}/);
+});
+
 test("the language button's name contains the language code it shows (WCAG 2.5.3 Label in Name)", () => {
   const source = read("core/i18n/LanguageSwitcher.astro");
   // Speech-input users say what they see ("简中", "EN"), so that text has to be part of the name.

@@ -32,25 +32,60 @@ test("root and localized 404 pages have valid published paths", () => {
   assert.equal(localizePath("/ja/404/", "zh-CN"), "/404.html");
   assert.equal(localizePath("/404.html", "zh-TW"), "/zh-TW/404/");
 });
-test("GitHub Pages' root 404 resolves the requested language and theme before paint", () => {
+function enterPage(pathname, { languages, language, saved, storageBlocked, fallbackRoutes = null } = {}) {
   const component = readFileSync(new URL("../src/core/i18n/LanguagePreference.astro", import.meta.url), "utf8");
-  const script = component.match(/<script[^>]*\bfallbackRoutes[^>]*>([\s\S]*?)<\/script>/)[1];
+  const script = component.match(/<script[^>]*>([\s\S]*?)<\/script>/)[1];
+  const location = { origin: "https://example.com", pathname, search: "?q=1", hash: "#top" };
+  let target = null;
+  location.replace = (href) => { target = new URL(href, location.origin); };
+  const localStorage = {
+    getItem(key) {
+      if (storageBlocked) throw new Error("Storage unavailable");
+      assert.equal(key, localePreferenceKey);
+      return saved ?? null;
+    },
+  };
+  runInNewContext(script, { URL, location, localStorage, navigator: { languages, language }, locales, localePreferenceKey, fallbackRoutes });
+  return target;
+}
+
+test("unprefixed entries use the first supported browser language and default to English", () => {
+  const path = "/themes/arknights/blog/dev-log-01/";
+  for (const [languages, expected] of [
+    [["zh"], "zh-CN"], [["zh-SG"], "zh-CN"], [["zh-Hans-HK"], "zh-CN"],
+    [["zh-TW"], "zh-TW"], [["zh-HK"], "zh-TW"], [["zh-MO"], "zh-TW"], [["zh-Hant-CN"], "zh-TW"],
+    [["fr-FR", "ja-JP", "en"], "ja"], [["en-GB", "ja"], "en"],
+    [["fr-FR", "de-DE"], "en"], [[], "en"], [["?", "JA-jp"], "ja"],
+  ]) {
+    assert.equal(enterPage(path, { languages })?.pathname ?? path, localizePath(path, expected), languages.join(","));
+  }
+  assert.equal(enterPage(path, { languages: [], language: "ja-JP", storageBlocked: true }).href,
+    `https://example.com/ja${path}?q=1#top`);
+});
+
+test("explicit links and saved choices take precedence over browser languages", () => {
+  assert.equal(enterPage("/en/about/", { saved: "ja", languages: ["zh-TW"] }), null);
+  assert.equal(enterPage("/about/", { saved: "zh-CN", languages: ["ja"] }), null);
+  assert.equal(enterPage("/about/", { saved: "ja", languages: ["en"] }).pathname, "/ja/about/");
+  assert.equal(enterPage("/about/", { saved: "invalid", languages: ["zh-HK"] }).pathname, "/zh-TW/about/");
+});
+
+test("GitHub Pages' root 404 resolves the requested language and theme before paint", () => {
   const fallbackRoutes = themes.map(({ id, root }) => ({
     root, pages: Object.fromEntries(locales.map((locale) => [locale, getThemePath(id, "/404/", locale)])),
   }));
-  for (const [pathname, saved, expected] of [
+  for (const [pathname, saved, expected, language = "de-DE"] of [
     ["/ja/themes/ema/missing/", "en", "/ja/themes/ema/404/"],
     ["/themes/endfield/missing/", "zh-TW", "/zh-TW/themes/endfield/404/"],
-    ["/themes/ema/missing/", null, "/themes/ema/404/"],
+    ["/themes/ema/missing/", null, "/themes/ema/404/", "zh-SG"],
+    ["/themes/ema/missing/", null, "/zh-TW/themes/ema/404/", "zh-HK"],
     ["/journal/missing/", "en", "/en/404/"],
-    ["/missing/", null, null],
+    ["/missing/", null, "/en/404/"],
+    ["/missing/", null, null, "zh-CN"],
     ["/404.html", "en", "/en/404/"],
     ["/ja/404/", "en", null],
   ]) {
-    const location = { origin: "https://example.com", pathname, search: "?q=1", hash: "#top" };
-    let target = null;
-    location.replace = (href) => { target = new URL(href); };
-    runInNewContext(script, { URL, location, localStorage: { getItem: () => saved }, locales, localePreferenceKey, fallbackRoutes });
+    const target = enterPage(pathname, { saved, language, fallbackRoutes });
     assert.equal(target?.pathname ?? null, expected, pathname);
     if (target) {
       assert.equal(target.searchParams.get("q"), "1");

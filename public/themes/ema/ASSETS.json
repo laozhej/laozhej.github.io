@@ -205,10 +205,10 @@
       "dimensions": [480, 480],
       "has_alpha": true,
       "format": "image/webp",
-      "processing": "Extract matching circle from the unmarked Pixiv rendition, Lanczos3 downscale, circular alpha mask, and WebP encoding (quality 88, alpha quality 100).",
+      "processing": "Reuse the approved crop from the unmarked Pixiv rendition. Mask the checkerboard by matching its repeating tiles, preserve the white outline and handwritten text, apply the circular crop, and downscale with Lanczos3. WebP quality 90, alpha quality 100.",
       "generative_ai_used": false,
-      "sha256": "1c9474c4e2ac5247453729cdd899dfa533fe1b606f1694a17fcc971f6bd2d65f",
-      "bytes": 36440,
+      "sha256": "5711c641193a324366e7c4de2726fecece209345eaa3d9b948da9bfb983ec56c",
+      "bytes": 33844,
       "verified_on": "2026-11-27"
     }
   ]

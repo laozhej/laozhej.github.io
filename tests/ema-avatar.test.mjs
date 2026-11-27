@@ -36,6 +36,12 @@ test("the Ema avatar has recorded dimensions and takes its name from the localiz
   assert.equal(format, "webp");
   assert.equal(hasAlpha, true);
   assert.equal(createHash("sha256").update(bytes).digest("hex"), avatar.sha256);
+  const pixels = await sharp(bytes).raw().toBuffer();
+  const alphaAt = (x, y) => pixels[(y * width + x) * 4 + 3];
+  for (const [x, y] of [[240, 8], [40, 290], [436, 125], [400, 365]]) {
+    assert.equal(alphaAt(x, y), 0, `checkerboard removed at (${x}, ${y})`);
+  }
+  assert.equal(alphaAt(240, 240), 255, "the face stays opaque");
   assert.deepEqual(locales, ["zh-CN", "zh-TW", "ja", "en"]);
   const names = new Set();
   for (const locale of locales) {

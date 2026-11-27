@@ -15,6 +15,7 @@ import notoSansLicense from "../../../../public/licenses/noto-sans-cjk-OFL.txt?r
 import wenkaiLicense from "../../../../public/licenses/lxgw-wenkai-OFL.txt?raw";
 import kleeLicense from "../../../../public/licenses/klee-one-OFL.txt?raw";
 import nunitoLicense from "../../../../public/licenses/nunito-OFL.txt?raw";
+import sakuraLicense from "../../../../public/licenses/sakura-js-MIT.txt?raw";
 const { t, href } = getI18n(Astro.url.pathname);
 ---
 <BlankLayout title={`${t("credits.title")} | ${site.name}`} description={t("credits.description")}>
@@ -150,6 +151,13 @@ const { t, href } = getI18n(Astro.url.pathname);
     <div class="blank-credits-body">
       <p>{t("media.motion")}</p>
       <a class="blank-text-link" href="https://yuimi-chaya.github.io/themes/fuyukawa-kagari/" target="_blank" rel="noopener noreferrer">{t("media.reference")} ↗</a>
+      <p>{t("media.sakura")}</p>
+      <a class="blank-text-link" href="https://github.com/jhammann/sakura" target="_blank" rel="noopener noreferrer">{t("media.sakuraProject")} ↗</a>
+      <details class="blank-license">
+        <summary>{t("credits.licenseText")} · MIT</summary>
+        <pre lang="en">{sakuraLicense}</pre>
+      </details>
+      <a class="blank-text-link" href="/licenses/sakura-js-MIT.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
       <p>{t("media.sources")}</p>
       <p>{t("media.audio")}</p>
       <a class="blank-text-link" href="https://otologic.jp/free/bgm/music-box01.html" target="_blank" rel="noopener noreferrer">{t("media.audioSource")} ↗</a>

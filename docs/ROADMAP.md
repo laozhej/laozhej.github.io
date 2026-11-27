@@ -29,7 +29,7 @@
   - **方案 C（`showcase/` 案例文档同步）**：更新 `showcase/README.md`、`docs/01`–`05`、`provenance.md`、`gallery/README.md` 至四主题、四语言、128 页、255 项测试、真实博文 `dev-log-01`、MP3 电台、自托管字体（含 PR #62 的 Ema 英文 Nunito）与无 Live2D 的现状；用 Chrome 158 重跑 16 个作品页与 6 项交互检查并更新 `showcase/browser-checks.json`。画廊 6 张 PNG 及 `manifest.json` 仍保留 2026-10-31 快照，等站主定稿页头美术与截图清单后再统一重拍（第 3.3 节）。
   - **字体与验证**：Chrome 158 扫描全部 128 页并把全部新增字符补截进 `public/fonts/site/` 的 12 个 `.woff2` 文件；`tests/i18n.test.mjs` 与 `tests/ema-games.test.mjs` 同步更新。
 
-- **待验收**（2026-11-28）：站主觉得 Ema 的樱花“不够明显，只是一小部分花瓣飘落”，要求更多更明显。花瓣数量：桌面首页 16 → 42，桌面内页 8 → 27，手机首页 9 → 24，手机内页 8 → 18；分远、中、近三层（越近越大、越快、越不透明），横向错开分布，飘落中左右摆动，颜色加深一点以便在米色纸面上看清。动效暂停和“减少动态效果”时仍然不显示。对照图在工作区 `outputs/ema-more-petals/board.png`。
+- **已批准**（2026-11-28）：站主觉得 Ema 的樱花“不够明显，只是一小部分花瓣飘落”，先在 PR #63 把自绘花瓣加到首页 42 片；站主又觉得那个花瓣形状“像 AI 生成的”，要现成的网页素材。agent 给了对比页（现在的、sakura.js、Noto/Twemoji/Fluent 的整朵 🌸、混合），站主选“直接使用 sakura.js”。现在 Ema 的花瓣由 npm 包 `sakura-js`（Jeroen Hammann，MIT，锁定 1.2.0）生成，样式用它自带的；本站只设了花瓣大小（11–17px）和落下的间隔（桌面首页 200ms、内页 280ms，手机 260ms / 360ms，同屏约 40 / 25 / 24 / 18 片），由 `src/themes/ema/lib/sakura.mjs` 在动效暂停、减少动态效果和站内跳页时停掉。致谢页第 06 节记了出处和许可。对比页和截图在工作区 `outputs/ema-petal-styles/`、`outputs/ema-sakura-js/`。
 - **已批准**（2026-11-28，站主确认合并发布）：新增邮件、Instagram 和 X。四套主题的关于页使用纯图标圆钮，樱色档案首页资料卡的五个圆钮采用主题樱粉色，名字旁保留「关于我」文字链接。各主题页脚同步显示新联系方式。桌面和手机截图在工作区 `outputs/sakura-social-circles/`。
   正式域名一度把「发邮件」改写成 Cloudflare 保护页的链接。公开联系方式现使用 Cloudflare 的 HTML 注释保留原生邮件链接，访客关闭 JavaScript 时也能使用。
 

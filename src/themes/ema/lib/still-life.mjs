@@ -1,6 +1,8 @@
 // Ema's still life (owner's art plan, 2026-11-14): original line drawings in code, with no text on them.
-// The homepage storyboard places them in two panels; the Journal page header shows the notebook as a
-// pilot (art plan P2). Their colours come from the .sb-still-* classes in stage.css and plate.css.
+// The homepage storyboard drew them in two panels until 2026-11-27, when the owner chose Codex's earlier
+// draft for the homepage instead (components/Storyboard.astro, roadmap question 15). The Journal page header
+// still shows the notebook as a pilot (art plan P2). Their colours come from the .sb-still-* classes in
+// stage.css and plate.css.
 // Article pages (pilot, 2026-11-15) take the ribbon, the petal and the screentone below for their
 // decorations (components/ArticleArt.astro, coloured in article.css).
 // A five-petal blossom's petal, notched at the tip, centred on 0,0 at radius 1.

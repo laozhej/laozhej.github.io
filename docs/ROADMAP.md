@@ -23,6 +23,7 @@
 
 ## 1. 现状
 
+- **已完成**（2026-11-27，PR #50）：站主回答第 15 问（“yes, do question 15. you can also merge right now”）后，Ema 首页的静物（笔记本、茶杯、窗光）换成 Codex 的早期草稿（`codex/ema-art-p0-p1`，一直没有提交）。草稿的窗光比原来的淡得多，浅色纸面上几乎看不出来。草稿在 1180px 及更窄时隐藏笔记本，这一条没有沿用，因为现在剧场卡以上边缘定位，量出的间距至少 20px。Journal 页头和文章页的装饰不变。细节见 ART-DIRECTION §14.11。
 - **已批准**（2026-11-27，PR #48，站主同意合并）：樱色电台换成站主提供的三首 MP3，默认从《思い出はずっと》（慢版）开始，之后是《星をかぞえて》（慢版）和《上海红茶馆》（管弦乐）。
 - **已批准**（2026-11-27，PR #47，站主同意合并）：樱色档案的站主头像按站主圈出的范围裁切，替换首页资料卡、首页 Profile 书签和关于页的「旭」字。已核实画师为游亜，公开使用授权待核实。[原作](https://www.pixiv.net/artworks/136654991)
 - **已完成**（2026-11-27，PR #46）：站主回答第 14 问“yes, do question 14 for all four themes”。四套主题的读屏名称和颜色对比按第 4.6 节的五项改完，axe 报的名称不一致和同名区域都降到 0，量出的对比度不足的文字都已改好（只是装饰的水印除外）。细节见第 4.6 节。
@@ -31,12 +32,12 @@
 - **已完成**（2026-11-26，PR #43）：新增第四套主题「明日方舟」（`/themes/arknights/`，四种语言共 32 页）。站主的请求是“设计一个新的明日方舟主题，参考 ak.hypergryph.com，用 hypergryph-graphic-design 技能和它的设计说明，发挥创意，结构和其他主题一样，用 Astro”。方向是 agent 按技能的设计语言自己定的：深色是运行中的终端，浅色是打印出来的档案纸，唯一的信号色是青色；英文分类词配本语言的栏目名，右侧有计数栏，首页把最新一篇的编号画成点阵牌，喜欢的游戏排成四个竖条面板，切换深浅色时新模式从上往下扫出。结构和终末地相同（一个布局、一个首页、一份样式表、一个运行时，其余栏目复用 Blank 的页面），内容都来自共享数据，没有新增图片。细节见 [THEMES.md](THEMES.md) 的「明日方舟」一节。其他三套主题的页面只有两处变化：主题菜单多了第四行；致谢页多了两种新字体（Oswald、JetBrains Mono）的说明和许可。桌面、平板、手机的浅深色截图在工作区 `outputs/arknights-theme/review/`。站主同一天验收，原话是“keep the Arknights design as it is”，设计按现状保留（第 3.5 节）。
 - **已完成**（2026-11-26，PR #44）：站主回答了原来的第 17、18 问（“yes, update AGENTS.md and the project text”）。AGENTS.md 开头改为四套主题，设计方向表加了明日方舟一行（保持独立的档案终端设计，不套用参考站的视觉），并照终末地的写法加了一段：共享改动不能改变它的外观和行为，改动前后比对它的构建产物。同一文件里“`PageLayout` 引入了三个布局”、复用 Blank 页面的主题和验证一节的指纹比对也相应写进了明日方舟。共享的项目资料在四种语言里都从三套主题改成四套（作品页上个人网站项目的简介和第一条要点）。
 - 站主已于 2026-11-26 验收 Ema 宽屏布局。界面采用常规桌面尺寸，首页立绘舞台铺满视口，时钟和便笺按居中的 1280px 内容栏对齐。
-- **已完成**（2026-11-26，PR #42）：Ema 首页左缘的 yamachem CC0 樱枝（Codex 做的试点）。站主要求把剩下的 worktree 都合并进 `main`（“merge all of them to the main”），agent 据此把这个试点原样放到最新的 `main` 上并合并；同一次还把首屏的眉题和日记行改为墨色，终端框和“向下浏览”的底色更不透明。桌面、平板和手机的浅深色前后对照在工作区 `outputs/merge-leftovers/review/`。同一请求里的另外两个 worktree 没有合并，原因见第 8 节第 15 问。原作和试作范围见[美术指引 §3.1](ART-DIRECTION.md#31-manga-cover-references-for-emas-backgrounds)。
+- **已完成**（2026-11-26，PR #42）：Ema 首页左缘的 yamachem CC0 樱枝（Codex 做的试点）。站主要求把剩下的 worktree 都合并进 `main`（“merge all of them to the main”），agent 据此把这个试点原样放到最新的 `main` 上并合并；同一次还把首屏的眉题和日记行改为墨色，终端框和“向下浏览”的底色更不透明。桌面、平板和手机的浅深色前后对照在工作区 `outputs/merge-leftovers/review/`。同一请求里的另外两个 worktree 当时没有合并（原因见第 8 节第 15 问）；站主 2026-11-27 回答第 15 问后也已合并（PR #49、#50）。原作和试作范围见[美术指引 §3.1](ART-DIRECTION.md#31-manga-cover-references-for-emas-backgrounds)。
 
 - 网站：Blank、Ema（樱色档案）、Endfield（终末地）、Arknights（明日方舟，PR #43）四套主题，各有 zh-CN、zh-TW、ja、en 四种语言，构建出 128 个页面。Astro 7.3.5，推送到 `main` 后由 GitHub Pages 自动部署。
 - 规范主题：`src/core/themes/routing.mjs` 的 `canonicalTheme = "blank"`。各主题的 canonical、hreflang 和 sitemap 都指向 Blank。改主界面时改这个常量，并重新生成 `public/og/` 的分享图（`scripts/og-image.mjs`）。
 - 文章：1 篇，`dev-log-01`，四种语言都有。
-- 检查基线（Node 24.19.0，PR #49 的内容，基于 `89adf54`）：`npm test` 222 项全部通过（PR #49 恢复 `tests/ema-games.test.mjs` 的 4 项、删去 `tests/ema-targets.test.mjs` 里旧 Games 页的 1 项；PR #46 加了 4 项，在 `tests/a11y-names.test.mjs`；PR #43 加了 9 项，在 `tests/arknights.test.mjs`，并把明日方舟加进 `tests/seo.test.mjs`、`tests/themes.test.mjs` 的主题列表；PR #35 加了 10 项、PR #36 加了 1 项，都在 `tests/endfield-motion.test.mjs`；PR #37 加了 5 项、PR #38 加了 1 项，在 `tests/endfield-targets.test.mjs`；PR #39 加了 8 项，在 `tests/web-platform.test.mjs`；PR #40 加了 7 项，在 `tests/blank-targets.test.mjs`；PR #41 加了 6 项，在 `tests/ema-tap-targets.test.mjs`）；`npm run build` 生成 128 页；`npm run showcase:check` 通过（四套主题 × 四种语言 × 七个栏目，共 112 页）。
+- 检查基线（Node 24.19.0，PR #50 的内容，基于 `9e04f1d`）：`npm test` 222 项全部通过（PR #50 改了 `tests/ema-plate.test.mjs` 和 `tests/ema-storyboard.test.mjs` 的断言，项数不变；PR #49 恢复 `tests/ema-games.test.mjs` 的 4 项、删去 `tests/ema-targets.test.mjs` 里旧 Games 页的 1 项；PR #46 加了 4 项，在 `tests/a11y-names.test.mjs`；PR #43 加了 9 项，在 `tests/arknights.test.mjs`，并把明日方舟加进 `tests/seo.test.mjs`、`tests/themes.test.mjs` 的主题列表；PR #35 加了 10 项、PR #36 加了 1 项，都在 `tests/endfield-motion.test.mjs`；PR #37 加了 5 项、PR #38 加了 1 项，在 `tests/endfield-targets.test.mjs`；PR #39 加了 8 项，在 `tests/web-platform.test.mjs`；PR #40 加了 7 项，在 `tests/blank-targets.test.mjs`；PR #41 加了 6 项，在 `tests/ema-tap-targets.test.mjs`）；`npm run build` 生成 128 页；`npm run showcase:check` 通过（四套主题 × 四种语言 × 七个栏目，共 112 页）。
 - 终末地主题在 2026-11-26 增加了一组交互动效（PR #35，站主的请求是“给终末地加更多交互动效，可以发挥创意”）：数字跳动后停在真实数值、首屏随指针错开、主题内换页的斜边和滑动的强调色块、深浅色从按钮处圆形揭开、筛选后逐行出现，以及按钮和链接的悬停、按下反馈。主题因此有了自己的运行时 `src/themes/endfield/lib/runtime.mjs`。每种动效的触发方式、时长和实现约定见 [THEMES.md](THEMES.md) 的「终末地工业风」一节。静止时页面和改动前相同，其他主题的页面没有变化；比对方法和结果写在 PR #35 的说明里。
 - 终末地的点按范围在 2026-11-26 扩大到至少 44 px，外观不变（PR #37，站主的要求是“扩大点按范围，外观保持不变”）：顶栏的站名、语言按钮和三个图标按钮，首页的文字链接，页脚的站名和各组链接，以及终末地里共用页面上的文字链接、筛选块、文章的分类和标签链接。只改了终末地的样式，Blank 和 Ema 的页面没有变化。当时还有四处因为彼此挨得太近而到不了 44 px；站主同一天同意为它们加大间距（PR #38）：页脚三个栏目链接、页脚最后一行折行时的行距、宽于 760 px 时的文章目录、致谢页上下紧贴的一对链接。这四处的外观有变化（手机上页脚高了 68 px，桌面 31 px），细节见 THEMES.md「终末地工业风」一节的“点按范围”。现在终末地页面上没有小于 44 px 的控件（Chrome 里量的）。
 - 2026-11-26 按站主的要求（“用 modern-web 技能检查网站并改进”），对照现行的网页平台指南（modern-web-guidance）检查了全站，并第一次跑了 axe-core 自动可访问性检查（第 4.6 节）。改了六处，页面外观都没有变化（PR #39）：
@@ -89,6 +90,7 @@
 | #47 | 樱色档案的站主头像：按站主圈出的范围裁切，替换首页资料卡、首页 Profile 书签和关于页的「旭」字（其他会话，站主同意合并；第 1 节） |
 | #48 | 樱色电台改放站主提供的三首 MP3，点击播放后才加载，在樱色档案内换页时保留曲目、进度和音量（其他会话，站主同意合并；第 1 节，THEMES.md） |
 | #49 | 站主回答第 15 问：Ema Games 页改回参考站式的游戏架（PR #26），并采用手机紧凑版；PR #31 为旧版式加的点按测试随之删去（第 2 节） |
+| #50 | 站主回答第 15 问：Ema 首页的静物（笔记本、茶杯、窗光）换成 Codex 的早期草稿；Journal 页头和文章页的装饰不变（第 1 节，ART-DIRECTION §14.11） |
 
 ## 2. Ema Games 页和 About 页：恢复为改版前的版式
 
@@ -141,7 +143,7 @@
 
 ### 3.5 冻结项（没有新请求不要动）
 
-- 首页：构图 B、五幕切换、剧场文案。静物最多三件（笔记本、茶杯、窗光），不加第四件，手机布局一件都不显示，线条保持 ink 26%。左缘的樱枝（PR #42）不算静物，所有尺寸都显示（手机横屏除外）。Ema 的图片在任何状态下都不加滤镜（§14.4）。
+- 首页：构图 B、五幕切换、剧场文案。静物最多三件（笔记本、茶杯、窗光），不加第四件，手机布局一件都不显示。2026-11-27 起这三件用 Codex 的草稿画法（PR #50），线条 ink 22%；Journal 页头仍是 26%。左缘的樱枝（PR #42）不算静物，所有尺寸都显示（手机横屏除外）。Ema 的图片在任何状态下都不加滤镜（§14.4）。
 - Journal 页头分镜条（§14.5）。
 - Ema 文章页的书签丝带、花瓣分隔线、网点角（§14.6）。
 - Ema Works（§14.7）：已经验收；要扩展这个设计，需要新请求。
@@ -271,4 +273,4 @@ agent 可以先准备一份检查清单。
 12. 360 px 宽的手机上，页面较短时右下角的主题按钮曾经盖住页脚最后一行里的一个链接的一部分。PR #38 加大那一行的行距之后，量到的各页都不再重叠，但这只是行距变化带来的结果，页脚并没有专门给这个按钮留位置；换一种语言或改了页脚文字，仍有可能重叠。要不要专门留出位置？
 13. Playwright 的 WebKit 27.2（macOS）里，文字页的“排序”下拉框只有 18–28 px 高（终末地 22–28 px，Blank 18–22 px；Chrome 里都是 44 px；PR #37 之前就是这样）。它是共用的原生 `<select>`，WebKit 不理会它的 `min-height`，不改外观就没法扩大可点范围；在真正的 iPhone Safari 上是多高也没有量过。要不要处理，等真机检查时一起看。
 14. **已完成**（2026-11-27，PR #46）：第 4.6 节的五项已在四套主题上做完（读屏名称和颜色对比）。
-15. 你 2026-11-26 要求把剩下的 worktree 都合并进 `main`。樱枝试点已合并（PR #42）；另外两个没有合并，因为合并会改掉你之前的决定：`ema-games-compact` 是参考站式 Games 页的手机样式，那个版式你在 2026-11-25 撤回了（PR #29），补丁里 8 个选择器有 7 个在现在的页面上找不到，单独合并不会有任何效果，要生效就得先把撤回的版式恢复；Codex 的 `ema-art-p0-p1` 是首页笔记本、茶杯、窗光的早期草稿，PR #15 已经按同一计划做好并冻结，合并它会用草稿替换现在的画法。两份补丁都保存在工作区 `outputs/merge-leftovers/`。要恢复参考站式的 Games 页，或者换用 Codex 的草稿吗？不要的话，这两个 worktree 可以删掉。（2026-11-27 站主回答“yes, do question 15. you can also merge right now”：Games 部分已在 PR #49 完成，静物草稿另开 PR。）
+15. **已完成**（2026-11-27，PR #49、#50）：剩下的两个 worktree 按站主的回答（“yes, do question 15. you can also merge right now”）都已合并：Games 页改回参考站式并用手机紧凑版（PR #49），首页静物换成 Codex 的草稿（PR #50）。两份内容都已进入 `main`，`worktrees/ema-games-compact` 和 Codex 的 `ema-art-p0-p1` 留着没删，删不删由站主决定。

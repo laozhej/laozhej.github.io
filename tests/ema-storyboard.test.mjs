@@ -20,14 +20,14 @@ test("the storyboard draws no lettering and no empty speech bubble", () => {
 test("the decor is at most three pieces: the notebook, the teacup and the window light", () => {
   const motifs = [...storyboard.matchAll(/motif: "(notebook|teacup)"/g)].map((match) => match[1]);
   assert.deepEqual(motifs, ["notebook", "teacup"]);
-  assert.equal(homePage.match(/class="k-light"/g)?.length, 1);
+  assert.equal(homePage.match(/class="k-window-light"/g)?.length, 1);
 });
 
 test("phones and portrait tablets show none of the decor", () => {
   const start = stage.indexOf("@media (max-width: 760px), (max-width: 1100px) and (orientation: portrait) {");
   assert.ok(start > 0, "the stacked layout block exists");
   const block = stage.slice(start, stage.indexOf("\n}\n", start));
-  assert.match(block, /#ema-stage :is\(\.sb-still, \.k-light\) \{ display: none; \}/);
+  assert.match(block, /#ema-stage :is\(\.sb-still, \.k-window-light\) \{ display: none; \}/);
 });
 
 test("the still life takes its colours from the theme's existing tokens", () => {

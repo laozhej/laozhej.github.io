@@ -28,21 +28,17 @@
   --sb-bloom: rgba(246, 226, 233, .7);
   --sb-bloom-core: rgba(199, 107, 146, .3);
   --sb-petal: rgba(232, 160, 188, .45);
-  /* Window light on the paper (owner's art plan, 2026-11-14). On cream paper the panes are a paper
-     wash that takes the screentone and hatching off where they fall, the way a manga page shows light,
-     and the bars a fainter cool shadow; on dark paper the panes lift a little and the bars stay unlit. */
-  --k-light-pane: rgba(255, 251, 240, .5);
-  --k-light-bar: rgba(67, 72, 97, .06);
   --ef-glow: #fde8ef;
-  /* The still life takes its colours from the theme: ink lines at low strength, paper and ink-tinted
-     fills, one small touch of the soft pink. Both modes use the same rules. */
-  --sb-still-line: color-mix(in srgb, var(--blank-ink) 26%, transparent);
-  --sb-still-rule: color-mix(in srgb, var(--blank-ink) 15%, transparent);
+  /* The still life (Codex's draft of the owner's art plan, chosen on 2026-11-27) takes its colours from
+     the theme: ink lines at low strength, paper and ink-tinted fills, one small touch of the soft pink.
+     Both modes use the same rules. */
+  --sb-still-line: color-mix(in srgb, var(--blank-ink) 22%, transparent);
+  --sb-still-rule: color-mix(in srgb, var(--blank-ink) 14%, transparent);
   --sb-still-paper: var(--sb-paper);
-  --sb-still-cover: color-mix(in srgb, var(--blank-ink) 9%, var(--sb-paper));
-  --sb-still-deep: color-mix(in srgb, var(--blank-ink) 20%, var(--sb-paper));
-  --sb-still-tea: color-mix(in srgb, var(--blank-muted) 13%, var(--sb-paper));
-  --sb-still-pink: color-mix(in srgb, var(--ema-pink-soft) 90%, var(--sb-paper));
+  --sb-still-cover: color-mix(in srgb, var(--blank-ink) 12%, var(--sb-paper));
+  --sb-still-spine: color-mix(in srgb, var(--blank-ink) 20%, var(--sb-paper));
+  --sb-still-tea: color-mix(in srgb, var(--blank-muted) 12%, var(--sb-paper));
+  --sb-still-pink: color-mix(in srgb, var(--ema-pink-soft) 65%, var(--sb-paper));
   position: relative;
   color: var(--blank-ink);
 }
@@ -71,8 +67,6 @@ html[data-color-mode="dark"] #ema-stage {
   --sb-bloom: rgba(122, 76, 99, .5);
   --sb-bloom-core: rgba(242, 174, 200, .5);
   --sb-petal: rgba(242, 174, 200, .4);
-  --k-light-pane: rgba(255, 244, 250, .1);
-  --k-light-bar: transparent;
   --ef-glow: #4a3445;
 }
 
@@ -128,35 +122,26 @@ html[data-color-mode="dark"] #ema-stage .k-scene::after {
 #ema-stage .sb .sb-still :is(path, rect, ellipse) { stroke: var(--sb-still-line); stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
 #ema-stage .sb .sb-still .sb-still-paper { fill: var(--sb-still-paper); }
 #ema-stage .sb .sb-still .sb-still-cover { fill: var(--sb-still-cover); }
-#ema-stage .sb .sb-still .sb-still-deep { fill: var(--sb-still-deep); }
+#ema-stage .sb .sb-still .sb-still-spine { fill: var(--sb-still-spine); }
 #ema-stage .sb .sb-still .sb-still-tea { fill: var(--sb-still-tea); stroke: none; }
 #ema-stage .sb .sb-still .sb-still-pink { fill: var(--sb-still-pink); stroke: none; }
 #ema-stage .sb .sb-still :is(.sb-still-rule, .sb-still-rule *) { fill: none; stroke: var(--sb-still-rule); stroke-width: 1; }
 #ema-stage .sb .sb-still .sb-still-line { fill: none; }
-#ema-stage .sb .sb-still .sb-still-band { fill: none; stroke: var(--sb-still-deep); stroke-width: 2.4; }
-/* The window light: one large slanted area from the viewer's upper left (the panes), and a fainter
-   cross of straight bars. Static; it stays put when the poses change. */
-#ema-stage .k-light {
-  --k-light-cross-x: linear-gradient(90deg, #000 44%, transparent 47.5% 52.5%, #000 56%);
-  --k-light-cross-y: linear-gradient(180deg, #000 47%, transparent 50.5% 54.5%, #000 58%);
-  position: absolute; z-index: 1; left: 19%; top: -8%; width: 29%; height: 34%;
-  transform: skewX(22deg); transform-origin: 0 0; pointer-events: none;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10% 90%, transparent), linear-gradient(180deg, transparent, #000 8% 76%, transparent);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(90deg, transparent, #000 10% 90%, transparent), linear-gradient(180deg, transparent, #000 8% 76%, transparent);
-  mask-composite: intersect;
+/* The window light (Codex's draft): one slanted patch of paper light from the viewer's upper left, with
+   the faint cross of a window's bars, fading out at its edges. Static; it stays put when the poses
+   change, and lies behind every content and character layer. */
+#ema-stage .k-window-light {
+  position: absolute; inset: 0; pointer-events: none;
 }
-#ema-stage .k-light::before,
-#ema-stage .k-light::after { content: ""; position: absolute; inset: 0; }
-#ema-stage .k-light::before {
-  background: var(--k-light-pane);
-  -webkit-mask-image: var(--k-light-cross-x), var(--k-light-cross-y); -webkit-mask-composite: source-in;
-  mask-image: var(--k-light-cross-x), var(--k-light-cross-y); mask-composite: intersect;
-}
-#ema-stage .k-light::after {
+#ema-stage .k-window-light::before {
+  content: ""; position: absolute; left: 19%; top: -8%; width: 29%; height: 34%;
+  transform: skewX(22deg); transform-origin: 0 0;
   background:
-    linear-gradient(90deg, transparent 46%, var(--k-light-bar) 48.5% 51.5%, transparent 54%),
-    linear-gradient(180deg, transparent 49%, var(--k-light-bar) 51.5% 53.5%, transparent 56%);
+    linear-gradient(90deg, transparent 46%, color-mix(in srgb, var(--blank-ink) 4%, transparent) 48% 51%, transparent 53%),
+    linear-gradient(180deg, transparent 48%, color-mix(in srgb, var(--blank-ink) 4%, transparent) 50% 53%, transparent 55%),
+    color-mix(in srgb, var(--sb-paper) 12%, transparent);
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 24%, transparent 72%);
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 24%, transparent 72%);
 }
 #ema-stage .sb .sb-line :is(rect, path) { fill: none; stroke: var(--sb-ink-soft); stroke-width: 1.8; stroke-linecap: round; }
 /* A paper veil keeps the identity text readable and lets the stage fade into the page. */
@@ -566,7 +551,7 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
 
 /* Short windows: the identity text rises, so the light stays above it. */
 @media (max-height: 720px) {
-  #ema-stage .k-light { top: -10%; height: 30%; }
+  #ema-stage .k-window-light::before { top: -10%; height: 30%; }
   #ema-stage .k-scene::after {
     top: 64px; width: min(18vw, 15svh); transform: translateX(-16%);
   }
@@ -613,7 +598,7 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
     top: 70px; width: clamp(102px, 27vw, 150px); transform: translateX(-32%);
   }
   /* In the stacked layout the window light would fall behind Ema's face and the title. */
-  #ema-stage :is(.sb-still, .k-light) { display: none; }
+  #ema-stage :is(.sb-still, .k-window-light) { display: none; }
   #ema-stage { --k-name-size: 52px; }
   #ema-stage .k-note-open { top: 76px; right: 16px; min-height: 40px; padding: 8px 11px; font-size: 12px; }
   #ema-stage .k-cue { bottom: 16px; }

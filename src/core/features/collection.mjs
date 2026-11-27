@@ -114,11 +114,12 @@ export function mountCollection(root, win) {
   for (const button of buttons) {
     on(button, "click", () => { state.category = button.dataset.siteCategory; apply(); });
   }
-  on(clear, "click", () => { state.query = ""; apply(); input?.focus(); });
+  on(clear, "click", () => { input?.focus(); state.query = ""; apply(); });
   on(reset, "click", () => {
     state = { query: "", category: "all", sort: "newest" };
-    apply();
+    // Clearing the last active query can collapse a compact archive search.
     (input ?? buttons[0])?.focus();
+    apply();
   });
   on(win, "popstate", () => { if (pathOf() === pathname) restore(); });
   on(win, "pagehide", syncUrl);

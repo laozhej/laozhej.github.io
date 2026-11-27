@@ -153,6 +153,20 @@ test("search normalizes multilingual text and rejects unknown URL state", () => 
   assert.equal(state.query.length, 300);
 });
 
+test("reset and clear focus the compact search before the empty query collapses it", () => {
+  for (const control of ["reset", "clear"]) {
+    const c = collection("blank");
+    const b = browser("https://example.com/blog/?q=unmatched");
+    // Without focus inside, the compact form is visible only for a non-empty query.
+    c.nodes.query.focus = function () { this.focused = this.value.length > 0; };
+    const cleanup = mountCollection(c.root, b.win);
+    c.nodes[control].dispatchEvent(new Event("click"));
+    assert.equal(c.nodes.query.focused, true, control);
+    assert.equal(c.nodes.query.value, "");
+    cleanup();
+  }
+});
+
 test("different theme markup gets the same search, ordering, history and reset behavior", () => {
   for (const theme of ["blank", "ema"]) {
     const c = collection(theme);

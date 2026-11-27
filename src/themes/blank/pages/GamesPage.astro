@@ -2,12 +2,14 @@
 import { getSiteContent } from "@/core/i18n/content";
 import { site } from "@/lib/site";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { getTheme } from "@/core/themes/registry";
 import { gameGenres } from "@/core/content/select-games.mjs";
 import { Icon } from "astro-icon/components";
 import BlankLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "../components/PageHead.astro";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 const { locale, t, unit } = getI18n(Astro.url.pathname);
+const blank = getTheme(Astro.url.pathname) === "blank";
 const { favoriteGames, gameShelf } = getSiteContent(locale);
 const favorites = new Set<string>(favoriteGames.map((game) => game.key));
 const genres = gameGenres.filter((genre) => gameShelf.some((game) => game.genre === genre));
@@ -28,7 +30,7 @@ const linkLabel = (game: (typeof gameShelf)[number]) => (game.link?.steam ? "Ste
     <div class="blank-list-heading"><span class="blank-kicker">{t("games.collection")}</span><output data-site-count aria-live="polite" aria-atomic="true">{total} {unit("common.games", total)}</output></div>
     <ol class="blank-game-list" data-site-entries>
       {gameShelf.map((game) => (
-        <li class="blank-game-row" data-site-entry data-category={game.genre} data-search={`${game.name} ${game.title}`}>
+        <li id={blank ? `game-${game.key}` : undefined} class="blank-game-row" data-site-entry data-category={game.genre} data-search={`${game.name} ${game.title}`}>
           <span class="blank-row-number">{pad(game.number)}</span>
           <span class="blank-game-art" aria-hidden="true">{game.art && <img src={game.art.src} alt="" width="352" height="198" loading="lazy" decoding="async" style={`object-position:${game.art.focus}`} />}</span>
           <div>

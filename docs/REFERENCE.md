@@ -1,6 +1,6 @@
 # Reference mapping
 
-Design reference: [Yuimi-chaya/Yuimi-chaya.github.io](https://github.com/Yuimi-chaya/Yuimi-chaya.github.io), commit `0056030` (2026-11-06), and its running site [yuimi-chaya.github.io](https://yuimi-chaya.github.io/). It has three themes: Kisara (its root), Fuyukawa Kagari (`/themes/fuyukawa-kagari/`) and Blank (`/themes/blank/`). This file maps the two we follow and lists every deliberate deviation; it covers layout and interaction only. Our own art (artwork, palette, light, paper, typography, Ema's five poses, asset sources and licensing) is in [ART-DIRECTION.md](ART-DIRECTION.md), which works inside this mapping and never overrides it. Status of each item: **follow**, **adapt** (same pattern, our content or art) or **deviate** (pattern changed, reason given).
+Blank and Ema drew on [Yuimi-chaya’s site](https://yuimi-chaya.github.io/) and its [source at `0056030`](https://github.com/Yuimi-chaya/Yuimi-chaya.github.io/tree/0056030). The tables record that work and its provenance. The labels **follow**, **adapt** and **deviate** describe implementation decisions. Under the [design direction approved on 2026-11-27](../AGENTS.md#design-direction), future layouts and motion can be designed independently. Our artwork decisions are in [ART-DIRECTION.md](ART-DIRECTION.md).
 
 ## Licence
 
@@ -80,14 +80,14 @@ The reference's Blank is an achromatic, typography-led journal: white paper, bla
 | Reference | Ours | Status |
 | --- | --- | --- |
 | Header: wordmark with edition label, centred numbered navigation with a 2px underline on the current item, one square outlined palette button opening a numbered theme menu | Same; the palette button is the shared theme switcher in icon form; language and colour mode join it as square outlined buttons; the search icon is gone | follow + deviate (four locales, dark mode) |
-| Home hero: kickers left and right, giant wordmark with a square dot, two-line serif statement, introduction with 关于我, square ↓ button, three-cell index strip | Same; `home.kicker`, "BY ASAHI ARATAKI", "Blank Space.", `home.statement1/2`, the shared bio, counts for writing, projects and games | follow |
+| Home hero: kickers left and right, giant wordmark with a square dot, two-line serif statement, introduction with 关于我, square ↓ button, three-cell index strip | Same; `home.kicker`, "BY ASAHI ARATAKI", "Blank Space.", `home.statement1/2`, the shared bio and a three-link index. The links name the latest article, the first project and a favourite game and open those entries | adapt |
 | 01 / WRITING: black band for the latest post, then numbered rows; with no posts, one empty line | Same: the band shows the latest post (dev-log-01 since 2026-11-15); with no posts, the empty line (`blog.empty`) | follow |
 | 02 / IN PRACTICE: serif statement and numbered tool list | `home.practice1/2` and the shared six tools | follow |
 | CURRENTLY / 近况: one signal and a link | Same | follow |
 | Black footer: wordmark, outward links, one quiet bottom line | Same; the bottom line keeps the required attribution (`SiteAttribution`), the credits link and back to top | follow + required attribution |
 | Navigation labels 11px uppercase Latin | 13px, because ours are CJK labels | adapt |
 | Light only | Dark mode inverts paper and ink; the band uses the panel tokens | deviate (site requirement) |
-| Inner pages: Journal., Works., Play., About. headings with counts | Built in the same layout: Journal., Works., Games. (where the reference says Play.) and About., each with its count. Images the reference's Blank does not show: Works has the project thumbnail (approved cleanup, [ART-DIRECTION.md](ART-DIRECTION.md) section 10 C); Games has a cover thumbnail on each of its 23 rows, and About shows favourite characters as small round portraits (65, plus two empty frames). Whether Games and About keep those images is the owner's open decision (asked 2026-11-24; [ROADMAP.md](ROADMAP.md) section 3.4) | adapt (open: Games thumbnails, About portraits) |
+| Inner pages: Journal., Works., Play., About. headings with counts | Blank Journal retains its original desktop heading and archive controls. At widths up to 1100px a single article appears directly below the page title. The narrow layout offers search and sorting for multiple posts and category choices for multiple categories. Works., Games. (where the reference says Play.) and About. retain the counted heading. Images the reference's Blank does not show: Works has the project thumbnail (approved cleanup, [ART-DIRECTION.md](ART-DIRECTION.md) section 10 C); Games has a cover thumbnail on each of its 23 rows, and About shows favourite characters as small round portraits (65, plus two empty frames). Whether Games and About keep those images is the owner's open decision (asked 2026-11-24; [ROADMAP.md](ROADMAP.md) section 3.4) | adapt (open: Games thumbnails, About portraits) |
 
 ## Endfield / 终末地
 

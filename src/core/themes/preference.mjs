@@ -1,9 +1,9 @@
-import { getTheme, getThemePath, isTheme, stripTheme, themePreferenceKey } from "./routing.mjs";
+import { defaultTheme, getTheme, getThemePath, isTheme, stripTheme, themePreferenceKey } from "./routing.mjs";
 import { getLocale } from "../i18n/routing.mjs";
 
 const mounted = new WeakMap();
 
-export function readThemePreference(storage, fallback = "blank") {
+export function readThemePreference(storage, fallback = defaultTheme) {
   try {
     const saved = storage.getItem(themePreferenceKey);
     if (isTheme(saved)) return saved;

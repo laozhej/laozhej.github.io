@@ -2,12 +2,13 @@ import assert from "node:assert/strict";
 import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { canonicalTheme } from "../src/core/themes/routing.mjs";
+import { canonicalTheme, themes as themeDefs } from "../src/core/themes/routing.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const showcase = path.join(root, "showcase");
 const locales = ["zh-CN", "zh-TW", "ja", "en"];
-const themes = ["blank", "ema", "endfield", "arknights"];
+const themes = themeDefs.map(({ id }) => id);
+const rootOf = Object.fromEntries(themeDefs.map(({ id, root: prefix }) => [id, prefix.replace(/^\//, "")]));
 const sections = ["", "blog", "projects", "games", "about", "credits", "404"];
 const showcaseUrl = "https://github.com/laozhej/laozhej.github.io/tree/main/showcase";
 const caseLabels = {
@@ -18,8 +19,10 @@ const caseLabels = {
 };
 const emaAssets = JSON.parse(await readFile(path.join(root, "public/themes/ema/ASSETS.json"), "utf8")).assets;
 const route = (locale, theme, section) => {
-  if (locale === "zh-CN" && theme === "blank" && section === "404") return "/404.html";
-  return "/" + [locale === "zh-CN" ? "" : locale, theme === "blank" ? "" : `themes/${theme}`, section].filter(Boolean).join("/") + (locale === "zh-CN" && theme === "blank" && !section ? "" : "/");
+  const prefix = rootOf[theme];
+  if (locale === "zh-CN" && !prefix && section === "404") return "/404.html";
+  const parts = [locale === "zh-CN" ? "" : locale, prefix, section].filter(Boolean);
+  return "/" + parts.join("/") + (parts.length ? "/" : "");
 };
 let pages = 0;
 let projects = 0;

@@ -103,6 +103,8 @@ test("GitHub Pages' root 404 resolves the requested language and theme before pa
   for (const [pathname, saved, expected, language = "de-DE"] of [
     ["/ja/themes/ema/missing/", "en", "/ja/themes/ema/404/"],
     ["/themes/endfield/missing/", "zh-TW", "/zh-TW/themes/endfield/404/"],
+    ["/themes/blank/missing/", "en", "/en/themes/blank/404/"],
+    ["/themes/blank/missing/", null, "/themes/blank/404/", "zh-CN"],
     ["/themes/ema/missing/", null, "/themes/ema/404/", "zh-SG"],
     ["/themes/ema/missing/", null, "/zh-TW/themes/ema/404/", "zh-HK"],
     ["/journal/missing/", "en", "/en/404/"],

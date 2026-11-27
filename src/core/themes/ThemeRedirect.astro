@@ -1,0 +1,32 @@
+---
+import { getLocale } from "@/core/i18n/routing.mjs";
+import { getThemePath, type ThemeId } from "@/core/themes/registry";
+
+interface Props {
+  theme: ThemeId;
+  page?: string;
+}
+
+const { theme, page } = Astro.props;
+const locale = getLocale(Astro.url.pathname);
+const content = page ? `/${page}/` : "/";
+const target = getThemePath(theme, content, locale);
+const isNotFound = page === "404";
+const canonical = !isNotFound && Astro.site ? new URL(target, Astro.site).href : null;
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <title>Redirecting…</title>
+    <script is:inline define:vars={{ target }}>
+      location.replace(`${target}${location.search}${location.hash}`);
+    </script>
+  </head>
+  <body>
+    <p><a href={target}>{target}</a></p>
+  </body>
+</html>

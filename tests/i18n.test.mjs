@@ -70,6 +70,32 @@ test("explicit links and saved choices take precedence over browser languages", 
   assert.equal(enterPage("/about/", { saved: "invalid", languages: ["zh-HK"] }).pathname, "/zh-TW/about/");
 });
 
+test("an early language click saves the choice and updates the destination before navigation", () => {
+  const component = readFileSync(new URL("../src/core/i18n/LanguagePreference.astro", import.meta.url), "utf8");
+  const menu = { open: true };
+  const link = { dataset: { siteLocale: "zh-CN" }, href: "https://example.com/blog/#old", closest: () => menu };
+  const saved = new Map();
+  let onClick;
+  const doc = {
+    addEventListener(type, handler, capture) {
+      assert.equal(type, "click");
+      assert.equal(capture, true);
+      onClick = handler;
+    },
+  };
+  // Only the head has executed. The navigation module may still be downloading.
+  for (const [, script] of component.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/g)) {
+    runInNewContext(script, {
+      URL, document: doc, location: { pathname: "/en/blog/", search: "?sort=oldest" },
+      localStorage: { setItem: (key, value) => saved.set(key, value) }, locales, localePreferenceKey, fallbackRoutes: null,
+    });
+  }
+  onClick({ target: { closest: () => link } });
+  assert.equal(saved.get(localePreferenceKey), "zh-CN");
+  assert.equal(link.href, "https://example.com/blog/?sort=oldest");
+  assert.equal(menu.open, false);
+});
+
 test("GitHub Pages' root 404 resolves the requested language and theme before paint", () => {
   const fallbackRoutes = themes.map(({ id, root }) => ({
     root, pages: Object.fromEntries(locales.map((locale) => [locale, getThemePath(id, "/404/", locale)])),

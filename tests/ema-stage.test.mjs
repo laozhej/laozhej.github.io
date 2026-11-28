@@ -1,8 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { stageProgress, springStep, layerOffsets, PULL_DISTANCE, DOCK_THRESHOLD } from "../src/themes/ema/lib/stage.mjs";
 import { nearestIndex } from "../src/themes/ema/lib/rail.mjs";
 import { stepBody, stepPile } from "../src/themes/ema/lib/tag-rain-physics.mjs";
+import { mountTagRain, RAIN_INTRO_MS } from "../src/themes/ema/lib/tag-rain.mjs";
 import { mountEmaSettings } from "../src/themes/ema/lib/settings.mjs";
 
 test("the stage pull follows the reference curve: copy fades as the card rises, then the card docks", () => {
@@ -110,4 +112,126 @@ test("narrow headers fold the controls behind one button that opens, closes on E
   cleanup();
   assert.equal(f.toggle.hidden, true);
   assert.ok(!("settingsReady" in f.header.dataset));
+});
+
+function fakeRainEnvironment() {
+  let nextTimer = 1;
+  const timers = new Map();
+  let ioCallback = null;
+  let ioOptions = null;
+  const classes = new Set();
+  const makeStyle = () => ({ transform: "", removeProperty(k) { if (k === "transform") this.transform = ""; } });
+  const tags = Array.from({ length: 3 }, () => ({ offsetWidth: 80, offsetHeight: 36, style: makeStyle() }));
+  const listeners = new Map();
+  const again = {
+    hidden: true,
+    dataset: {},
+    addEventListener(type, fn) { listeners.set(`again:${type}`, fn); },
+    removeEventListener(type) { listeners.delete(`again:${type}`); },
+  };
+  const field = {
+    clientWidth: 1000,
+    clientHeight: 640,
+    append() {},
+    querySelectorAll(sel) { return sel === "[data-k-tags] li" ? tags : []; },
+  };
+  const stage = {
+    classList: {
+      add: (c) => classes.add(c),
+      remove: (c) => classes.delete(c),
+      has: (c) => classes.has(c),
+    },
+    querySelector(sel) {
+      if (sel === "[data-k-rain]") return field;
+      if (sel === "[data-k-rain-again]") return again;
+      return null;
+    },
+  };
+  const root = { querySelector: (sel) => (sel === "[data-k-signal]" ? stage : null) };
+  const wide = {
+    matches: true,
+    addEventListener(type, fn) { listeners.set(`wide:${type}`, fn); },
+    removeEventListener(type) { listeners.delete(`wide:${type}`); },
+  };
+  const win = {
+    document: {
+      hidden: false,
+      createElement: () => ({ className: "", offsetWidth: 28, offsetHeight: 28, style: makeStyle(), setAttribute() {}, remove() {} }),
+    },
+    performance: { now: () => 0 },
+    matchMedia: () => wide,
+    requestAnimationFrame: () => 1,
+    cancelAnimationFrame() {},
+    setTimeout(fn, ms) {
+      const id = nextTimer++;
+      timers.set(id, { fn, ms });
+      return id;
+    },
+    clearTimeout(id) { timers.delete(id); },
+    IntersectionObserver: class {
+      constructor(cb, opts) { ioCallback = cb; ioOptions = opts; }
+      observe() {}
+      disconnect() {}
+    },
+    ResizeObserver: class {
+      observe() {}
+      disconnect() {}
+    },
+  };
+  return { root, win, again, classes, wide, timers, listeners, triggerInView: (v) => ioCallback?.([{ isIntersecting: v }]), getIoOptions: () => ioOptions };
+}
+
+test("the tag-rain replay button shows for 1s when capsules begin falling, hides afterwards, and restarts on click", () => {
+  assert.equal(RAIN_INTRO_MS, 1000);
+  const env = fakeRainEnvironment();
+  let animate = true;
+  const rain = mountTagRain(env.root, env.win, { canAnimate: () => animate });
+  assert.equal(env.again.hidden, true);
+  assert.equal(env.again.dataset.rainIntro, undefined);
+  assert.equal(env.getIoOptions()?.threshold, 0.15);
+
+  // Refresh while off-screen prepares the control in layout (hidden via CSS opacity until intro/hover).
+  rain.refresh();
+  assert.equal(env.again.hidden, false);
+  assert.equal(env.again.dataset.rainIntro, undefined);
+  assert.equal(env.timers.size, 0);
+
+  env.triggerInView(true);
+  assert.equal(env.again.hidden, false);
+  assert.equal(env.again.dataset.rainIntro, "true");
+  assert.equal(env.timers.size, 1);
+  const [firstId, firstTimer] = [...env.timers.entries()][0];
+  assert.equal(firstTimer.ms, 1000);
+
+  // After 1s elapses, the intro marker is cleared so CSS hides the button until hover/focus.
+  env.timers.delete(firstId);
+  firstTimer.fn();
+  assert.equal(env.again.hidden, false);
+  assert.equal(env.again.dataset.rainIntro, undefined);
+
+  // Clicking replay starts a fresh 1s reveal window and replaces any pending timer.
+  env.listeners.get("again:click")();
+  assert.equal(env.again.dataset.rainIntro, "true");
+  assert.equal(env.timers.size, 1);
+  const [secondId] = [...env.timers.entries()][0];
+  env.listeners.get("again:click")();
+  assert.ok(!env.timers.has(secondId), "earlier intro timer is cancelled on rapid replay");
+  assert.equal(env.timers.size, 1);
+
+  // Pausing motion hides the button and cancels the pending 1s timer.
+  animate = false;
+  rain.refresh();
+  assert.equal(env.again.hidden, true);
+  assert.equal(env.again.dataset.rainIntro, undefined);
+  assert.equal(env.timers.size, 0);
+
+  rain.cleanup();
+});
+
+test("stage.css keeps the replay pill tucked under the clock and hidden after the 1s intro unless hovered or focused", () => {
+  const css = readFileSync(new URL("../src/themes/ema/styles/stage.css", import.meta.url), "utf8");
+  const html = readFileSync(new URL("../src/themes/ema/pages/HomePage.astro", import.meta.url), "utf8");
+  assert.match(html, /class="k-signal-side"[\s\S]*class="k-clock"[\s\S]*class="k-rain-again"/);
+  assert.match(css, /@media \(hover: hover\) and \(pointer: fine\) \{\s*#ema-stage \.k-rain-again \{ opacity: 0;/);
+  assert.match(css, /#ema-stage \.k-rain-again:is\(\[data-rain-intro="true"\], :hover, :focus-visible\) \{\s*opacity: 1;/);
 });

@@ -22,6 +22,19 @@
 
 樱色档案的站主头像取自画师游亜于 2025-10-24 发布的《わんこエマちゃん》。按站主于 2026-11-27 在附件里圈出的范围裁切无标注的原图，缩小并转为圆形 WebP。2026-11-28 按站主要求把原图中的方格背景改为纯白，保留人物的白色描边和手写字。公开使用授权待核实。[Pixiv 原作](https://www.pixiv.net/artworks/136654991) · [裁切坐标与文件校验](public/themes/ema/ASSETS.json)
 
+### 首页漫画分镜与胶囊区背景
+
+2026-11-28，按站主要求，樱色档案首页舞台背景分镜（`public/themes/ema/storyboard/panel-01-*.webp` 至 `panel-10-*.webp`）与首页胶囊下落区背景（`signal-backdrop-ema.webp`）采用站主提供的 8 件 Pixiv 人类绘制同人漫画与插画（经逐一核对 Pixiv 元数据均为非生成式 AI 作品）。仅进行矩形分镜裁切、白底展平、等比例 Lanczos3 缩放与 WebP 编码，未使用生成式 AI；浅深色融纸色调由页面样式控制。原作品版权归各自画师与原角色权利人所有，**公开网站使用授权待核实**。详细裁切坐标、原始与输出 SHA-256 见 [艾玛主题素材清单](public/themes/ema/ASSETS.json)：
+
+- [Pixiv 139533184](https://www.pixiv.net/artworks/139533184)《まのさば漫画1》— 天然パーマ（2026-01-04，右上和服甘酒分镜）
+- [Pixiv 147394681](https://www.pixiv.net/artworks/147394681)《【まのさば】特技を披露するエマヒロ漫画》— poto（2026-07-19，右中鼓腮特写与中左上双人分镜）
+- [Pixiv 151609168](https://www.pixiv.net/artworks/151609168)《或る少女の残光録》— をめ（2026-11-02，最右侧上下艾玛／希罗樱粉瞳双联竖格）
+- [Pixiv 149583595](https://www.pixiv.net/artworks/149583595)《エマヒロ》— とるちゃ（2026-09-12，右下怀抱玩偶与中右上方玩偶分镜）
+- [Pixiv 128734763](https://www.pixiv.net/artworks/128734763)《チマメとお花見》— yuru master（2025-03-29，左下赏樱落花分镜）
+- [Pixiv 87288615](https://www.pixiv.net/artworks/87288615)《付き合っているココリゼ》— ごま油茶（2021-01-24，中左下挥手分镜）
+- [Pixiv 152481723](https://www.pixiv.net/artworks/152481723)《思いっきり》— カイリ。（2026-11-25，中右下柔光拥抱分镜）
+- [Pixiv 143145233](https://www.pixiv.net/artworks/143145233)《また会えるよね？》— ごや（2026-04-04，首页胶囊下落区横幅立绘背景）
+
 ### 首页樱枝
 
 《Cherry blossom》由 kenjirou yamamoto（yamachem）于 2015-03-18 发布。作者注明使用 Inkscape 绘制，Openclipart 以 CC0 1.0 提供这件作品。[原作](https://openclipart.org/detail/216154/cherry%20blossom) · [作者](https://openclipart.org/artist/yamachem) · [平台授权](https://openclipart.org/share)

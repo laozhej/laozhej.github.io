@@ -88,7 +88,7 @@ export function workEntries(works, shelf, locale, genreNames) {
       cover: work.cover ? { src: `/collection/${work.cover.file}`, focus: work.cover.focus ?? "50% 50%", shape: "tall" } : undefined,
       link: work.url ? { href: work.url, kind: "official" } : undefined,
       favorite: false,
-      search: [...Object.values(work.title), work.creator ?? ""].join(" ").trim(),
+      search: [...Object.values(work.title), work.creator, work.year].filter(Boolean).join(" "),
     };
   });
 }

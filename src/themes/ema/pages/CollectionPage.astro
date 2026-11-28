@@ -235,6 +235,7 @@ const lead = (entry: { shelf: string; key: string }) => { const index = firstKey
                       <div class="ema-work-copy">
                         {entry.details[0] && <p class="ema-work-genres">{entry.details[0]}</p>}
                         <h3 class="ema-work-name" lang={entry.lang}>{keepTails(entry.name)}</h3>
+                        {entry.details.slice(1).map((line: string) => <p class="ema-work-detail">{line}</p>)}
                         {entry.link && <p class="ema-work-actions"><a class="ema-work-link" href={entry.link.href} target="_blank" rel="noopener noreferrer" aria-label={opens(entry)}>{linkLabel(entry)}<Icon name="tabler:arrow-up-right" size={14} aria-hidden="true" /></a></p>}
                       </div>
                     </li>

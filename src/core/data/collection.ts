@@ -1,6 +1,6 @@
 // The Collection page (收藏 / 收藏 / コレクション / Collection), shared by every theme and language.
 // It has five shelves, shown in this order in each theme's sidebar: manga, anime, movies, TV series and games.
-// Games come from games.ts and anime from animes.ts (the owner's Notion list). Manga, movies and TV series are listed here.
+// Games come from games.ts, anime from animes.ts and movies from movies.ts. Manga and TV series are listed here.
 //
 // To add a work, add an entry to its shelf below, where you want it on the shelf:
 //   { key: "new-work", title: { "zh-CN": "简体中文名", "zh-TW": "台灣常用名", ja: "日本語のタイトル", en: "English title" },
@@ -30,6 +30,6 @@ export type CollectionWork = {
 
 export const manga: CollectionWork[] = [];
 
-export const movies: CollectionWork[] = [];
+export { movies } from "./movies.ts";
 
 export const tv: CollectionWork[] = [];

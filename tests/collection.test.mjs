@@ -73,6 +73,19 @@ test("every shelf gives the same entry shape: names fall back to Simplified Chin
   assert.match(anime.find((entry) => entry.key === "bocchi-the-rock").search, /孤独摇滚！.*Bocchi the Rock!/, "every language's title is searchable");
 });
 
+test("each imported film has a release year, localized titles and a local poster with provenance", () => {
+  const { assets } = JSON.parse(read("public/collection/ASSETS.json"));
+  const posters = new Map(assets.map((asset) => [asset.path, asset]));
+  assert.ok(movies.length > 0);
+  for (const film of movies) {
+    assert.ok(Number.isInteger(film.year), film.key);
+    for (const locale of ["zh-CN", "zh-TW", "ja", "en"]) assert.ok(film.title[locale]?.trim(), film.key);
+    const path = `/collection/${film.cover.file}`;
+    assert.ok(existsSync(new URL(`../public${path}`, import.meta.url)), path);
+    assert.match(posters.get(path)?.sourcePage ?? "", /^https:\/\//, path);
+  }
+});
+
 test("games are grouped under their genres in the filter order; anime with several genres stay one group", () => {
   const collection = build("zh-CN");
   const gamesShelf = collection.shelves.find((shelf) => shelf.key === "games");

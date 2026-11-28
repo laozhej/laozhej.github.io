@@ -356,8 +356,18 @@ html[data-color-mode="dark"] .console-panel {border-color:var(--blank-line);box-
 .radio-disc {position:relative;flex-shrink:0;width:54px;height:54px;border-radius:50%;background:radial-gradient(circle,var(--ema-pink) 0 5px,var(--blank-paper) 5.5px 8px,transparent 8.5px),repeating-radial-gradient(circle,#2b2f3a 0 2px,#3b4050 2.5px 3.5px);box-shadow:0 4px 12px #1b223640;animation:ema-disc-spin 4s linear infinite;animation-play-state:paused;}
 .radio-disc::after {content:"";position:absolute;inset:0;border-radius:50%;background:var(--ema-blossom) center/42% no-repeat;opacity:.9;}
 .radio.is-playing .radio-disc {animation-play-state:running;}
-.radio-progress {height:4px;border-radius:4px;background:var(--blank-line);overflow:hidden;}
-.radio-progress span {display:block;height:100%;background:var(--ema-pink);transform:scaleX(0);transform-origin:left;}
+/* The seek bar keeps the thin progress line; its 44px hit area overlaps the gaps above and below. */
+.radio-seek {--radio-seek:0;position:relative;z-index:1;display:block;width:100%;height:44px;margin:-20px 0;padding:0;border:0;background:transparent;-webkit-appearance:none;appearance:none;cursor:pointer;touch-action:pan-y;}
+.radio-seek::-webkit-slider-runnable-track {height:4px;border-radius:4px;background:linear-gradient(to right,var(--ema-pink) calc(var(--radio-seek) * 100%),var(--blank-line) 0);}
+.radio-seek::-moz-range-track {height:4px;border-radius:4px;background:linear-gradient(to right,var(--ema-pink) calc(var(--radio-seek) * 100%),var(--blank-line) 0);}
+.radio-seek::-webkit-slider-thumb {-webkit-appearance:none;appearance:none;box-sizing:border-box;width:12px;height:12px;margin-top:-4px;border:2px solid var(--ema-card);border-radius:50%;background:var(--ema-pink);box-shadow:0 1px 3px rgba(60,44,36,.3);transition:transform 160ms var(--blank-ease);}
+.radio-seek::-moz-range-thumb {box-sizing:border-box;width:12px;height:12px;border:2px solid var(--ema-card);border-radius:50%;background:var(--ema-pink);box-shadow:0 1px 3px rgba(60,44,36,.3);transition:transform 160ms var(--blank-ease);}
+.radio-seek:active::-webkit-slider-thumb {transform:scale(1.25);}
+.radio-seek:active::-moz-range-thumb {transform:scale(1.25);}
+.ema-console .radio-seek:focus-visible {outline:none;}
+.radio-seek:focus-visible::-webkit-slider-thumb {box-shadow:0 0 0 2px var(--ema-card),0 0 0 4px var(--ema-pink);}
+.radio-seek:focus-visible::-moz-range-thumb {box-shadow:0 0 0 2px var(--ema-card),0 0 0 4px var(--ema-pink);}
+.radio-seek:disabled {opacity:.4;cursor:default;}
 .radio-time {display:flex;justify-content:space-between;font:var(--blank-fs-xs, 10px) var(--blank-mono);color:var(--blank-muted);}
 .radio-controls {display:flex;align-items:center;justify-content:center;gap:14px;}
 .radio-controls button {display:grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid var(--blank-line);border-radius:50%;background:var(--ema-card);color:var(--blank-ink);cursor:pointer;}
@@ -376,6 +386,8 @@ html[data-color-mode="dark"] .console-panel {border-color:var(--blank-line);box-
 .ring-switch[aria-checked="true"] .ring-switch-track::after {transform:translateX(16px);}
 .ema-console :is(button,input):focus-visible {outline:2px solid var(--ema-pink);outline-offset:2px;}
 @media(hover:hover) and (pointer:fine) {
+  .radio-seek:not(:disabled):hover::-webkit-slider-thumb {transform:scale(1.25);}
+  .radio-seek:not(:disabled):hover::-moz-range-thumb {transform:scale(1.25);}
   .console-tab:hover {background:var(--ema-blush);color:var(--ema-pink);}
   .radio-controls button:not(.radio-play):not(:disabled):hover {border-color:var(--ema-pink);}
   .ring-switch:hover .ring-switch-track {border-color:var(--ema-pink);}

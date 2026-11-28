@@ -263,3 +263,24 @@ test("the radio cycles through the tracks and pauses after the last Ema page let
   pending.forEach(([key, fn]) => { timers.delete(key); fn(); });
   assert.equal(radio.playing, false, "leaving Ema stops the radio");
 });
+
+test("the radio seeks within the track, keeping a seek made before the track has loaded", async () => {
+  const { radio, audio } = fakeAudio();
+  radio.seek(42);
+  assert.equal(radio.position(), 42, "the chosen position shows before anything loads");
+  assert.equal(audio.src, undefined, "seeking while paused does not fetch the track");
+  await radio.play();
+  audio.readyState = 1;
+  audio.duration = TRACKS[0].duration;
+  audio.dispatchEvent(new Event("loadedmetadata"));
+  assert.equal(audio.currentTime, 42, "the kept position is applied once metadata arrives");
+  radio.seek(10);
+  assert.equal(audio.currentTime, 10, "a loaded track seeks at once");
+  radio.seek(-5);
+  assert.equal(audio.currentTime, 0);
+  radio.seek(1e6);
+  assert.equal(audio.currentTime, TRACKS[0].duration, "clamped to the track's length");
+  radio.seek(30);
+  radio.select(1);
+  assert.equal(radio.position(), 0, "a new track starts from the top");
+});

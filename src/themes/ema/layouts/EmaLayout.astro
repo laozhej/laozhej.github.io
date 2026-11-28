@@ -102,7 +102,7 @@ const navHints: Record<string, string> = { home: "front page", blog: "notes", pr
         <div class="console-head"><p>{t("ema.console.label")}</p><button type="button" data-console-close aria-label={t("ema.console.close")} title={t("ema.console.close")}><Icon name="tabler:x" size={15} /></button></div>
         <div class="console-card radio" data-radio data-tracks={JSON.stringify(trackNames)}>
           <div class="radio-head"><span class="radio-disc" aria-hidden="true"></span><div><p class="console-kicker">{t("ema.radio.label")}</p><strong data-radio-title>{trackNames[0]}</strong><small data-radio-count>1 / {trackNames.length}</small></div></div>
-          <div class="radio-progress" aria-hidden="true"><span data-radio-progress></span></div>
+          <input class="radio-seek" type="range" min="0" max={TRACKS[0].duration} step="1" value="0" aria-label={t("ema.radio.seek")} data-radio-seek />
           <div class="radio-time" aria-hidden="true"><span data-radio-elapsed>00:00</span><span data-radio-length>00:00</span></div>
           <div class="radio-controls">
             <button type="button" data-radio-prev aria-label={t("ema.radio.previous")} title={t("ema.radio.previous")}><Icon name="tabler:player-skip-back" size={17} /></button>

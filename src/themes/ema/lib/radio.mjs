@@ -15,7 +15,7 @@ function createRadio(win) {
   const AudioContext = win.AudioContext || win.webkitAudioContext;
   const listeners = new Set();
   let index = 0, volume = 0.6, releaseTimer = 0, holds = 0;
-  let request = 0, wantsPlayback = false, failed = false;
+  let request = 0, wantsPlayback = false, failed = false, pendingSeek = null;
   let nativeVolume = false, context, gain;
   if (audio) {
     audio.preload = 'none';
@@ -47,6 +47,7 @@ function createRadio(win) {
     request += 1;
     wantsPlayback = false;
     failed = false;
+    pendingSeek = null;
     index = ((next % TRACKS.length) + TRACKS.length) % TRACKS.length;
     if (audio?.hasAttribute('src')) {
       audio.pause();
@@ -65,7 +66,17 @@ function createRadio(win) {
     get failed() { return failed; },
     get volume() { return volume; },
     get duration() { return Number.isFinite(audio?.duration) ? audio.duration : currentTrack().duration; },
-    position() { return audio?.currentTime ?? 0; },
+    position() { return pendingSeek ?? audio?.currentTime ?? 0; },
+    // Before the track's metadata has loaded the position is kept and applied once it can be.
+    seek(seconds) {
+      if (!audio || !Number.isFinite(seconds)) return;
+      const target = Math.max(0, Math.min(radio.duration, seconds));
+      if (audio.hasAttribute('src') && audio.readyState >= 1) {
+        pendingSeek = null;
+        audio.currentTime = target;
+      } else pendingSeek = target;
+      emit();
+    },
     async play() {
       if (!audio) return;
       const attempt = ++request;
@@ -112,6 +123,13 @@ function createRadio(win) {
     },
   };
 
+  audio?.addEventListener('loadedmetadata', () => {
+    if (pendingSeek === null) return;
+    const target = Math.min(pendingSeek, audio.duration || pendingSeek);
+    pendingSeek = null;
+    audio.currentTime = target;
+    emit();
+  });
   audio?.addEventListener('playing', emit);
   audio?.addEventListener('durationchange', emit);
   audio?.addEventListener('pause', () => {

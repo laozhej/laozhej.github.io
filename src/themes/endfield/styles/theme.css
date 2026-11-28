@@ -613,3 +613,28 @@ html[data-theme="endfield"] .site-serendipity-action:hover { background:linear-g
 html[data-theme="endfield"] .site-heatmap { border:0; border-top:2px solid var(--ef-ink); background:var(--ef-panel); }
 html[data-theme="endfield"] .site-code-fold { border:0; border-top:1px solid var(--ef-rule); background:var(--ef-chip); color:var(--ef-ink); font-family:var(--ef-ui); font-weight:700; letter-spacing:.05em; }
 html[data-theme="endfield"] .site-code-fold:hover { background:var(--ef-signal); color:var(--ef-on-signal); }
+
+/* Endfield's touches on Blank's Friends page (2026-11-28): the row numbers as cut tags and the row hover of its journal
+   rows, square avatars with a hatched letter block, the status as a dashed record tag. Colours and fonts come
+   through the Blank tokens set in theme.css. */
+.ef-content .site-friend-avatar { border-color:var(--ef-rule); border-radius:0; background:var(--ef-hatch); font:700 15px/1 var(--ef-ui); font-stretch:112%; }
+.ef-content .blank-friend-text>strong,.ef-content .blank-site-card-preview strong { font-family:var(--ef-text); font-weight:700; }
+.ef-content .blank-friend>.blank-row-number { justify-self:start; align-self:start; margin-top:8px; padding:2px calc(8px + var(--ef-cut)) 2px 8px; background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-tag-bg) 0); color:var(--ef-tag-fg); font-weight:700; }
+.ef-content .blank-friend { grid-template-columns:48px 40px minmax(0,1fr) 18px; position:relative; transition:transform .2s var(--ef-snap); }
+.ef-content .blank-friend::before { content:""; position:absolute; left:-10px; top:-1px; bottom:-1px; width:4px; background:var(--ef-trace); transform:scaleY(0); transform-origin:top; transition:transform .15s var(--ef-snap); }
+.ef-content .blank-friend:focus-visible>.blank-row-number { --ef-tag-bg:var(--ef-signal); --ef-tag-fg:var(--ef-on-signal); }
+.ef-content :is(.blank-friend-list,.blank-friends-empty,.blank-site-card) { border-color:var(--ef-ink); }
+.ef-content .blank-friends-empty>p { font-family:var(--ef-text); font-weight:500; }
+.ef-content .blank-friends-empty { border-bottom-color:var(--ef-rule); }
+.ef-content .blank-friends-status { border:1px dashed var(--blank-control-line); font-family:var(--ef-ui); font-stretch:112%; font-weight:600; letter-spacing:.04em; }
+.ef-content .blank-special-address,.ef-content .blank-friend-meta { font-family:var(--ef-ui); font-stretch:112%; letter-spacing:.02em; }
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  html:not([data-motion-paused="true"]) .ef-content .blank-friend:hover { transform:translateX(6px); }
+  html:not([data-motion-paused="true"]) .ef-content .blank-friend:hover::before { transform:none; }
+}
+@media (hover:hover) and (pointer:fine) {
+  .ef-content .blank-friend:hover>.blank-row-number { --ef-tag-bg:var(--ef-signal); --ef-tag-fg:var(--ef-on-signal); }
+}
+@media (max-width:760px) {
+  .ef-content .blank-friend { grid-template-columns:40px 40px minmax(0,1fr) 16px; }
+}

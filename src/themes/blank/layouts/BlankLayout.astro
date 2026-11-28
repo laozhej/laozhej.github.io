@@ -103,6 +103,7 @@ const navItems = site.nav.map((item, index) => ({
         <span>{t("home.statement2")}</span>
         <button class="site-cmdk-trigger" type="button" data-site-cmdk-open hidden>{t("cmdk.trigger")} <kbd data-site-cmdk-kbd aria-hidden="true">⌘K</kbd></button>
         <a href={localizePath("/rss.xml", locale)} data-astro-reload>RSS</a>
+        <a href={href("/friends/")}>{t("footer.friends")}</a>
         <a href={href("/credits/")}>{t("footer.credits")}</a>
         <a href="#blank-main" class="blank-back-top">{t("footer.top")} <Icon name="tabler:arrow-up" size={14} /></a>
       </div>

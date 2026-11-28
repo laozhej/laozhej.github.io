@@ -65,6 +65,10 @@
 
 电影卡片使用站主 Notion 电影记录中已与单片版本匹配的海报。每张图的出处、影片资料和文件校验值列在 [电影海报清单](public/collection/ASSETS.json)。本站只做等比例缩小和 WebP 编码。制片公司资料用于识别作品，海报设计署名以原图为准。海报版权归相应权利人所有，转载许可未核实。
 
+## 友链头像
+
+友链页（`/friends/`）上的头像都由本站保存一份，不直接引用对方网站的图片地址。每张头像放在 `public/friends/`，使用前先在 [友链头像清单](public/friends/ASSETS.json) 记下所属站点、原始地址、作者、对方同意的方式和文件校验值；是否用了生成式 AI 以来源的说明为准，不凭画风判断。没有头像或加载失败时，页面显示站名的第一个字。2026-11-28 建页时还没有朋友站点，清单为空。本站在交换信息里提供的头像是 B. 网站图标（`public/apple-touch-icon.png`，见 `assets/branding/README.md`）。
+
 ## 软件、图标及字体
 
 - Blank 的软件版权声明和 MIT 文本保存在 `LICENSE` 与 `public/licenses/yuimi-chaya-MIT.txt`。

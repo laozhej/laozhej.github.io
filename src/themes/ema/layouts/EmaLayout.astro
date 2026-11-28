@@ -92,7 +92,7 @@ const navHints: Record<string, string> = { home: "front page", blog: "notes", pr
       <a class="ema-footer-brand" href={href("/")}>{brand.split(/(\.)/).map((part) => part === "." ? <span>.</span> : part)}</a>
       <p>{t("ema.home.diary")}</p>
       <SocialLinks class="ema-social-links" label={t("social.footerHeading")} />
-      <div class="ema-footer-bottom"><SiteAttribution /><button class="site-cmdk-trigger" type="button" data-site-cmdk-open hidden>{t("cmdk.trigger")} <kbd data-site-cmdk-kbd aria-hidden="true">⌘K</kbd></button><a href={localizePath("/rss.xml", locale)} data-astro-reload>RSS</a><a href={href("/credits/")}>{t("footer.credits")}</a><button class="ema-console-dock" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={14} aria-hidden="true" />{t("ema.console.tab")}</button><a href="#ema-main" data-site-top>{t("footer.top")} ↑</a></div>
+      <div class="ema-footer-bottom"><SiteAttribution /><button class="site-cmdk-trigger" type="button" data-site-cmdk-open hidden>{t("cmdk.trigger")} <kbd data-site-cmdk-kbd aria-hidden="true">⌘K</kbd></button><a href={localizePath("/rss.xml", locale)} data-astro-reload>RSS</a><a href={href("/friends/")}>{t("footer.friends")}</a><a href={href("/credits/")}>{t("footer.credits")}</a><button class="ema-console-dock" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={14} aria-hidden="true" />{t("ema.console.tab")}</button><a href="#ema-main" data-site-top>{t("footer.top")} ↑</a></div>
     </footer>
     <div class="ema-theme-floating"><ThemeSwitcher floating /></div>
     <div class="ema-console" data-ema-console>

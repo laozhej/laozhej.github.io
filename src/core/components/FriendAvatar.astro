@@ -1,0 +1,19 @@
+---
+// A site's avatar on the Friends page: the copy hosted in public/friends/ over a block holding the name's first
+// letter. Without an avatar, or when it fails to load, the letter shows: an image with empty alt text draws nothing
+// when broken, and src/core/features/friends.mjs also hides it. Each theme draws the block (`.site-friend-avatar`).
+import { initialOf } from "@/core/content/select-friends.mjs";
+
+interface Props {
+  name: string;
+  src?: string;
+  size?: number;
+  class?: string;
+  loading?: "lazy" | "eager";
+}
+const { name, src, size = 48, class: className, loading = "lazy" } = Astro.props;
+---
+<span class:list={["site-friend-avatar", className]} data-site-friend-avatar aria-hidden="true">
+  <span class="site-friend-initial">{initialOf(name)}</span>
+  {src && <img src={src} alt="" width={size} height={size} loading={loading} decoding="async" />}
+</span>

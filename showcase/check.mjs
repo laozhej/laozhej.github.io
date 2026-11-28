@@ -10,7 +10,7 @@ const locales = ["zh-CN", "zh-TW", "ja", "en"];
 const themes = themeDefs.map(({ id }) => id);
 const rootOf = Object.fromEntries(themeDefs.map(({ id, root: prefix }) => [id, prefix.replace(/^\//, "")]));
 const shelves = ["manga", "anime", "movies", "tv", "games"];
-const sections = ["", "blog", "projects", "collection", ...shelves.map((shelf) => `collection/${shelf}`), "about", "credits", "404"];
+const sections = ["", "blog", "projects", "collection", ...shelves.map((shelf) => `collection/${shelf}`), "about", "credits", "friends", "404"];
 const showcaseUrl = "https://github.com/laozhej/laozhej.github.io/tree/main/showcase";
 const caseLabels = {
   "zh-CN": "查看项目案例",

@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "verified_on": "2026-11-28",
+  "scope": "Avatars of friends' sites shown on the Friends page (/friends/). Each file is a copy hosted on this site, never a hotlink, listed here before it is used.",
+  "processing": "Cropped to a square only when the original is not square, resized to at most 128 × 128 without enlargement, then encoded as WebP.",
+  "rights": "Each avatar belongs to the site owner or artist named in its entry, and is shown here with that site owner's agreement as part of a link exchange. The site's software license does not cover these images.",
+  "fields": "path (file under public/), friend (id in src/core/data/friends.ts), site, sourceUrl (where the site owner published or sent the avatar), creator, permission (how the site owner agreed), generativeAiUsed (as stated by the source, never judged from style), sha256, dimensions, verifiedOn.",
+  "assets": []
+}

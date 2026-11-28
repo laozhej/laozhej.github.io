@@ -139,6 +139,7 @@ People and AI agents working on the site read `AGENTS.md` first, then the roadma
 - [Codex (@codex)](https://github.com/codex): assistance with site development and maintenance.
 - [Claude (@claude)](https://github.com/claude): assistance with frontend design, development, and maintenance.
 - [Gemini (@gemini-code-assist)](https://github.com/gemini-code-assist): assistance with site development and maintenance.
+- [Grok / Cursor Agent (@cursoragent)](https://github.com/cursoragent): assistance with site development and maintenance.
 
 ## Sources and licenses
 

@@ -481,25 +481,30 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 
 /* ---------- Signal scene ---------- */
 #ema-stage .k-signal {
-  position: relative; min-height: 640px; overflow: hidden;
+  position: relative; min-height: clamp(560px, 100svh, 640px); overflow: hidden;
   background:
     radial-gradient(ellipse 60% 70% at 18% 30%, var(--ema-wash-a), transparent 70%),
     radial-gradient(ellipse 60% 70% at 86% 72%, var(--ema-wash-b), transparent 70%),
     var(--blank-paper);
   border-top: 1px solid var(--blank-line);
 }
-#ema-stage .k-signal-word { position: absolute; z-index: 2; left: 28%; top: 27%; width: 44%; translate: -50% -50%; text-align: center; }
-#ema-stage .k-signal-word h2 { margin: 0; font: 400 64px/1.1 var(--ema-title-font); color: var(--blank-ink); filter: drop-shadow(3px 4px 0 var(--k-title-shadow)); }
-#ema-stage .k-signal-word h2 i { font-style: normal; color: var(--ema-pink); }
-#ema-stage .k-signal-word small { display: block; margin-top: 8px; font: var(--blank-fs-xs, 12px)/1.4 var(--blank-mono); letter-spacing: .1em; color: var(--blank-muted); }
-#ema-stage .k-clock {
-  position: absolute; z-index: 2; top: 64px; right: 5%; display: grid; gap: 4px; width: 300px; min-height: 160px; padding: 24px;
-  background: var(--k-card); border: 1px solid var(--blank-line); border-radius: 6px; box-shadow: var(--k-shadow);
+#ema-stage .k-signal-head { position: relative; z-index: 2; }
+#ema-stage .k-signal-word { position: relative; min-width: 0; text-align: start; }
+#ema-stage .k-signal-word h2 {
+  margin: 0; font: 400 clamp(38px, 4.4vw, 62px)/1.08 var(--ema-title-font); color: var(--blank-ink);
+  filter: drop-shadow(3px 4px 0 var(--k-title-shadow)); text-wrap: balance;
 }
-#ema-stage .k-clock p, #ema-stage .k-clock span { margin: 0; font-size: var(--blank-fs-sm, 13px); color: var(--blank-muted); }
-#ema-stage .k-clock strong { font: 400 46px/1.1 var(--ema-title-font); font-variant-numeric: tabular-nums; color: var(--ema-pink); text-shadow: 2px 2px 0 var(--k-tint-lav); }
+#ema-stage .k-signal-word h2 i { font-style: normal; color: var(--ema-pink); }
+#ema-stage .k-signal-word small { display: block; margin-top: 10px; font: var(--blank-fs-xs, 12px)/1.5 var(--blank-mono); letter-spacing: .1em; color: var(--blank-muted); }
+#ema-stage .k-signal-side { position: relative; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+#ema-stage .k-clock {
+  position: relative; display: grid; gap: 4px; width: clamp(232px, 24vw, 292px); padding: 18px 22px 17px;
+  background: var(--k-card); border: 1px solid var(--blank-line); border-radius: var(--ema-r-md, 14px); box-shadow: var(--ema-shadow-flat);
+}
+#ema-stage .k-clock p, #ema-stage .k-clock span { margin: 0; font-size: var(--blank-fs-xs, 12px); line-height: 1.5; color: var(--blank-muted); }
+#ema-stage .k-clock strong { font: 400 clamp(36px, 3.2vw, 44px)/1.1 var(--ema-title-font); font-variant-numeric: tabular-nums; color: var(--ema-pink); text-shadow: 2px 2px 0 var(--k-tint-lav); }
 #ema-stage .k-bubble {
-  position: absolute; z-index: 2; left: 6%; bottom: 168px; display: grid; gap: 8px; width: 460px; max-width: calc(100% - 48px);
+  position: absolute; z-index: 2; left: clamp(24px, 3.5vw, 48px); bottom: 168px; display: grid; gap: 8px; width: 460px; max-width: calc(100% - 48px);
   margin: 0; padding: 20px 24px; background: var(--k-card); border: 1px solid var(--blank-line); border-radius: 18px 18px 18px 4px; box-shadow: var(--k-shadow);
 }
 #ema-stage .k-bubble figcaption { font: 700 var(--blank-fs-xs, 12px)/1.4 var(--blank-sans); letter-spacing: .06em; color: var(--ema-pink); }
@@ -521,30 +526,65 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 }
 #ema-stage .k-tags li:nth-child(3n + 2) { background: var(--ema-lav-wash); border-color: var(--ema-lav-soft); color: var(--ema-lav); }
 #ema-stage .k-tags li:nth-child(3n) { background: var(--ema-card); border-color: var(--ema-line-strong); color: var(--blank-ink); }
+/* Replay pill: tucked cleanly under the clock instead of a separate strip below the floor. On fine
+   pointers it appears only during the first 1s of a drop ([data-rain-intro="true"]), then hides
+   until the pointer hovers over it or keyboard focus reaches it; touch tablets keep it available. */
 #ema-stage .k-rain-again {
-  grid-column: 2; grid-row: 2; justify-self: center; position: relative; z-index: 2;
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px;
-  margin: 8px 0 20px; padding: 0 18px; border: 1px solid transparent; border-radius: 12px;
-  background: var(--ema-pink); color: var(--ema-on-pink); box-shadow: 0 2px 4px rgb(67 46 64 / .12);
-  font: 600 var(--blank-fs-sm, 14px)/1.35 var(--blank-sans); cursor: pointer;
+  position: relative; z-index: 3;
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 40px;
+  margin: 0; padding: 0 15px; border: 1px solid var(--ema-pink-soft); border-radius: var(--ema-r-pill, 999px);
+  background: color-mix(in srgb, var(--k-card) 88%, transparent); color: var(--ema-pink);
+  box-shadow: var(--ema-shadow-flat);
+  -webkit-backdrop-filter: blur(10px) saturate(1.15); backdrop-filter: blur(10px) saturate(1.15);
+  font: 600 var(--blank-fs-xs, 12px)/1 var(--blank-sans); letter-spacing: .03em; white-space: nowrap; cursor: pointer;
+  transition:
+    opacity 180ms ease-out,
+    transform 200ms var(--blank-ease),
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
 }
+#ema-stage .k-rain-again::after { content: ""; position: absolute; inset: -6px; }
+#ema-stage .k-rain-again svg { flex: none; transition: transform 260ms var(--blank-ease); }
 #ema-stage .k-rain-again[hidden] { display: none; }
 #ema-stage .k-rain-again:focus-visible { outline: 2px solid var(--ema-pink); outline-offset: 3px; }
+#ema-stage .k-rain-again:active { background: var(--ema-blush); border-color: var(--ema-pink); transform: scale(.97); box-shadow: none; }
 @media (hover: hover) and (pointer: fine) {
-  #ema-stage .k-rain-again:hover { background: color-mix(in srgb, var(--ema-pink) 82%, var(--blank-ink)); }
+  #ema-stage .k-rain-again { opacity: 0; transform: translateY(-4px) scale(.96); }
+  #ema-stage .k-rain-again:is([data-rain-intro="true"], :hover, :focus-visible) {
+    opacity: 1; transform: none;
+    transition:
+      opacity 160ms var(--blank-ease),
+      transform 200ms var(--blank-ease),
+      background-color 180ms ease,
+      border-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+  #ema-stage .k-rain-again:hover { background: var(--ema-blush); border-color: var(--ema-pink); box-shadow: var(--ema-shadow-lift); }
+  #ema-stage .k-rain-again:hover svg { transform: rotate(-45deg); }
+  #ema-stage .k-rain-again:active { transform: scale(.97); }
 }
-#ema-stage .k-rain-again:active { background: var(--blank-ink); box-shadow: none; }
+@media (pointer: coarse) {
+  #ema-stage .k-rain-again { min-height: 44px; }
+}
 
 @media (min-width: 761px) {
-  #ema-stage .k-signal { display: grid; grid-template-columns: 1fr min(100%, 1280px) 1fr; grid-template-rows: 1fr auto; }
-  #ema-stage :is(.k-signal-word, .k-clock, .k-bubble) { grid-column: 2 / 3; }
-  #ema-stage .k-rain {
-    grid-column: 2; grid-row: 1; display: grid; align-items: end;
-    margin-inline: 12px; padding: 0 12px 24px; overflow: clip;
+  #ema-stage .k-signal { display: grid; grid-template-columns: 1fr min(100%, 1240px) 1fr; grid-template-rows: auto 1fr; }
+  #ema-stage .k-signal-head {
+    grid-column: 2; grid-row: 1; display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 24px 36px; padding: clamp(88px, 11svh, 110px) clamp(24px, 3.5vw, 48px) 20px; pointer-events: none;
   }
-  #ema-stage .is-raining .k-rain { padding: 0; }
+  #ema-stage .k-signal-word { flex: 1 1 auto; padding-top: 14px; pointer-events: auto; }
+  #ema-stage .k-signal-side { flex: none; pointer-events: none; }
+  #ema-stage .k-signal-side > * { pointer-events: auto; }
+  #ema-stage .k-bubble { grid-column: 2 / 3; }
+  #ema-stage .k-rain {
+    grid-column: 2; grid-row: 2; display: grid; align-items: end;
+    padding: 16px clamp(24px, 3.5vw, 48px) 44px; overflow: clip;
+  }
+  #ema-stage .is-raining .k-rain { grid-row: 1 / -1; margin-inline: clamp(14px, 2.5vw, 36px); padding: 0; }
   #ema-stage .is-raining .k-rain::after {
-    content: ""; position: absolute; inset-inline: 10px; bottom: 7px; height: 1px; pointer-events: none;
+    content: ""; position: absolute; inset-inline: 10px; bottom: 23px; height: 1px; pointer-events: none;
     background: linear-gradient(90deg, transparent, var(--blank-line) 8% 92%, transparent);
   }
   #ema-stage .is-raining .k-tags { position: absolute; inset: 0; display: block; max-width: none; }
@@ -669,9 +709,10 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-track { gap: 20px; }
   #ema-stage .k-leaf { min-height: 420px; }
   #ema-stage .k-signal { display: grid; gap: 18px; min-height: 0; padding: 40px 24px; }
+  #ema-stage .k-signal-head, #ema-stage .k-signal-side { display: grid; gap: 18px; align-items: stretch; }
   #ema-stage :is(.k-signal-word, .k-clock, .k-bubble) { position: relative; inset: auto; translate: none; width: auto; max-width: none; }
   #ema-stage .k-signal-word { text-align: start; }
-  #ema-stage .k-signal-word h2 { font-size: 40px; }
+  #ema-stage .k-signal-word h2 { font-size: clamp(32px, 9.5vw, 40px); }
   #ema-stage .k-clock { min-height: 0; }
   #ema-stage .k-journal { padding: 32px 24px 56px; }
   #ema-stage .k-journal-grid { grid-template-columns: minmax(0, 1fr); }
@@ -729,13 +770,17 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #ema-stage .k-frame, #ema-stage .k-plate, #ema-stage .k-stamp, #ema-stage .k-copy { transition: none; }
+  #ema-stage .k-frame, #ema-stage .k-plate, #ema-stage .k-stamp, #ema-stage .k-copy,
+  #ema-stage .k-rain-again, #ema-stage .k-rain-again svg { transition: none; }
+  #ema-stage .k-rain-again:active { transform: none; }
   #ema-stage { --k-theatre-nudge: 0px; }
   #ema-stage .k-leaf[data-active] .k-plate, #ema-stage .k-leaf[data-active] .k-stamp { transform: rotate(-12deg); }
   #ema-stage .k-leaf[data-active] .k-plate { transform: none; }
   #ema-stage .k-caret, #ema-stage .k-cue-arrows i { animation: none; }
 }
 html[data-motion-paused="true"] #ema-stage :is(.k-caret, .k-cue-arrows i) { animation: none; }
+html[data-motion-paused="true"] #ema-stage :is(.k-rain-again, .k-rain-again svg) { transition: none; }
+html[data-motion-paused="true"] #ema-stage .k-rain-again:active { transform: none; }
 
 /* Motion (2026-11-27, owner's request to add and refine motion).
    First full visit: the paper fades up, Ema rises, then the words follow one line at a time. The attribute

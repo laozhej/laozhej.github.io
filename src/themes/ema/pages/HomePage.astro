@@ -209,11 +209,16 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
     </section>
 
     <section class="k-signal" data-k-signal aria-labelledby="k-signal-title">
-      <div class="k-signal-word"><h2 id="k-signal-title">{brandParts.map((part) => part === "." ? <i>.</i> : part)}</h2><small aria-hidden="true">notes / works / collection / profile</small></div>
-      <div class="k-clock" data-k-clock>
-        <p data-k-date>{formatDate(new Date())}</p>
-        <strong data-k-time>--:--:--</strong>
-        <span>{t("ema.home.localTime")}</span>
+      <div class="k-signal-head">
+        <div class="k-signal-word"><h2 id="k-signal-title">{brandParts.map((part) => part === "." ? <i>.</i> : part)}</h2><small aria-hidden="true">notes / works / collection / profile</small></div>
+        <div class="k-signal-side">
+          <div class="k-clock" data-k-clock>
+            <p data-k-date>{formatDate(new Date())}</p>
+            <strong data-k-time>--:--:--</strong>
+            <span>{t("ema.home.localTime")}</span>
+          </div>
+          <button class="k-rain-again" type="button" data-k-rain-again hidden><Icon name="tabler:refresh" size={15} aria-hidden="true" /><span>{t("ema.home.tagsAgain")}</span></button>
+        </div>
       </div>
       {note && (
         <figure class="k-bubble" data-k-bubble>
@@ -225,7 +230,6 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
       <div class="k-rain" data-k-rain>
         <ul class="k-tags" data-k-tags aria-label={t("ema.signal.tags")}>{tags.map((tag) => <li>{tag}</li>)}</ul>
       </div>
-      <button class="k-rain-again" type="button" data-k-rain-again hidden><Icon name="tabler:refresh" size={16} aria-hidden="true" />{t("ema.home.tagsAgain")}</button>
     </section>
 
     <section class="k-journal" id="journal" aria-labelledby="k-journal-title">

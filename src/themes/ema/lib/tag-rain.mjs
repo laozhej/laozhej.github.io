@@ -7,7 +7,8 @@ import { containBody, stepBody, stepPile } from './tag-rain-physics.mjs';
 const random = (min, max) => min + Math.random() * (max - min);
 const FRAME_MS = 1000 / 60;
 const STEP_MS = FRAME_MS / 2;
-const FLOOR_INSET = 8;
+const FLOOR_INSET = 24;
+export const RAIN_INTRO_MS = 1000;
 
 function shuffle(items) {
   for (let i = items.length - 1; i > 0; i--) {
@@ -23,7 +24,7 @@ function paint(body) {
   body.paintedX = body.x; body.paintedY = body.y; body.paintedAngle = body.angle;
 }
 
-export function mountTagRain(root, win, { canAnimate = () => true } = {}) {
+export function mountTagRain(root, win, { canAnimate = () => true, introDuration = RAIN_INTRO_MS } = {}) {
   const stage = root.querySelector('[data-k-signal]');
   const field = stage?.querySelector('[data-k-rain]');
   const again = stage?.querySelector('[data-k-rain-again]');
@@ -40,7 +41,24 @@ export function mountTagRain(root, win, { canAnimate = () => true } = {}) {
   let width = 0, floor = 0;
   let bodies = [], pending = [], lanes = [];
   let started = false, settled = false, inView = !('IntersectionObserver' in win);
-  let frame = 0, lastTime = 0, remainder = 0, dropIn = 0, quietTime = 0;
+  let frame = 0, lastTime = 0, remainder = 0, dropIn = 0, quietTime = 0, introTimer = 0;
+
+  function clearIntro() {
+    if (introTimer) {
+      win.clearTimeout(introTimer);
+      introTimer = 0;
+    }
+    delete again.dataset.rainIntro;
+  }
+
+  function showIntro() {
+    clearIntro();
+    again.dataset.rainIntro = 'true';
+    introTimer = win.setTimeout(() => {
+      introTimer = 0;
+      delete again.dataset.rainIntro;
+    }, introDuration);
+  }
 
   function spawn(body) {
     // Mirror each pair of release points, then vary their order and drift.
@@ -104,6 +122,7 @@ export function mountTagRain(root, win, { canAnimate = () => true } = {}) {
     cancelFrame();
     stage.classList.add('is-raining');
     again.hidden = false;
+    showIntro();
     field.append(...blossoms);
     const elements = [...tags, ...blossoms];
     for (const element of elements) element.style.removeProperty('transform');
@@ -120,10 +139,11 @@ export function mountTagRain(root, win, { canAnimate = () => true } = {}) {
 
   function stop() {
     cancelFrame();
+    clearIntro();
+    again.hidden = true;
     if (!started) return;
     started = false;
     stage.classList.remove('is-raining');
-    again.hidden = true;
     for (const tag of tags) tag.style.removeProperty('transform');
     for (const flower of blossoms) flower.remove();
     bodies = []; pending = [];
@@ -132,6 +152,7 @@ export function mountTagRain(root, win, { canAnimate = () => true } = {}) {
   function refresh() {
     if (win.document.hidden) { cancelFrame(); return; }
     if (!wide.matches || !canAnimate()) { stop(); return; }
+    again.hidden = false;
     if (!inView) { cancelFrame(); return; }
     if (started) wake();
     else start();
@@ -154,7 +175,7 @@ export function mountTagRain(root, win, { canAnimate = () => true } = {}) {
   const observer = 'IntersectionObserver' in win ? new win.IntersectionObserver(([entry]) => {
     inView = entry.isIntersecting;
     refresh();
-  }) : null;
+  }, { threshold: 0.15 }) : null;
   observer?.observe(stage);
   const sizeObserver = new win.ResizeObserver(resize);
   sizeObserver.observe(field);

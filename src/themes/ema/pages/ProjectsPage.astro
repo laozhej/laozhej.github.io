@@ -36,7 +36,11 @@ const sheets = projectEntries.map((project, index) => {
 ---
 <PageLayout title={`${t("nav.projects")} | ${site.name}`} description={t("projects.description")}>
   <PageHead index="02" title="Works" label={t("projects.label")} description={t("projects.intro")} count={pad(projectEntries.length)} unit={unit("common.projects", projectEntries.length)} />
-  <section class="ema-works" data-site-collection data-unit={t("common.projects")} data-unit-one={t("common.projectsOne")} aria-label={t("projects.index")}>
+  <section class="ema-works" data-site-collection data-site-lightbox
+    data-lightbox-open={t("article.lightboxOpen")}
+    data-lightbox-label={t("article.lightboxLabel")}
+    data-lightbox-close={t("article.lightboxClose")}
+    data-unit={t("common.projects")} data-unit-one={t("common.projectsOne")} aria-label={t("projects.index")}>
     {filterable && (
       <form class="blank-filter-form" data-site-filter-form hidden>
         <fieldset class="blank-filters">

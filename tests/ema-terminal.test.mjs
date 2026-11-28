@@ -27,3 +27,13 @@ test("the caret is solid while typing and blinks only while waiting; motion off 
   assert.match(stage, /if \(!canAnimate\(\)\) \{ target\.textContent = lines\[line\]; host\.classList\.remove\('is-typing'\); return; \}/);
   assert.match(css, /html\[data-motion-paused="true"\] #ema-stage :is\(\.k-caret, \.k-cue-arrows i\) \{ animation: none; \}/);
 });
+
+test("the floating terminal renders creative CLI commands grounded in shared data with motion-gated float", () => {
+  assert.match(home, /class="k-terminal-dots"/);
+  assert.match(home, /~\/sakura\.sh/);
+  assert.match(home, /pin --dev-notes --game-dev --ai/);
+  assert.match(home, /shelf --games \$\{gameShelf\.length\} --anime \$\{animeFavorites\.length\}/);
+  assert.match(css, /@keyframes k-terminal-float/);
+  assert.match(css, /html:not\(\[data-intro\]\):not\(\[data-motion-paused="true"\]\) #ema-stage \.k-terminal \{ animation: k-terminal-float/);
+  assert.match(css, /html\[data-motion-paused="true"\] #ema-stage \.k-terminal \{ animation: none; transition: none; \}/);
+});

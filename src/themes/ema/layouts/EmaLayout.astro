@@ -14,7 +14,7 @@ import "../styles/article.css";
 import "../styles/works.css";
 import { Icon } from "astro-icon/components";
 import { site } from "@/lib/site";
-import { getI18n } from "@/core/i18n";
+import { getI18n, localizePath } from "@/core/i18n";
 import { getThemePath, stripTheme } from "@/core/themes/registry";
 import ThemePreference from "@/core/themes/ThemePreference.astro";
 import ThemeSwitcher from "@/core/themes/ThemeSwitcher.astro";
@@ -90,7 +90,7 @@ const navHints: Record<string, string> = { home: "front page", blog: "notes", pr
       <a class="ema-footer-brand" href={href("/")}>{brand.split(/(\.)/).map((part) => part === "." ? <span>.</span> : part)}</a>
       <p>{t("ema.home.diary")}</p>
       <SocialLinks class="ema-social-links" label={t("social.footerHeading")} />
-      <div class="ema-footer-bottom"><SiteAttribution /><a href={href("/credits/")}>{t("footer.credits")}</a><button class="ema-console-dock" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={14} aria-hidden="true" />{t("ema.console.tab")}</button><a href="#ema-main" data-site-top>{t("footer.top")} ↑</a></div>
+      <div class="ema-footer-bottom"><SiteAttribution /><a href={localizePath("/rss.xml", locale)} data-astro-reload>RSS</a><a href={href("/credits/")}>{t("footer.credits")}</a><button class="ema-console-dock" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={14} aria-hidden="true" />{t("ema.console.tab")}</button><a href="#ema-main" data-site-top>{t("footer.top")} ↑</a></div>
     </footer>
     <div class="ema-theme-floating"><ThemeSwitcher floating /></div>
     <div class="ema-console" data-ema-console>

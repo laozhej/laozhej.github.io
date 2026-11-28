@@ -6,4 +6,4 @@ export const getStaticPaths = getPublishedPostPaths;
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
 ---
-<ArticlePage frontmatter={post.data} headings={headings}><Content /></ArticlePage>
+<ArticlePage frontmatter={post.data} headings={headings} body={post.body}><Content /></ArticlePage>

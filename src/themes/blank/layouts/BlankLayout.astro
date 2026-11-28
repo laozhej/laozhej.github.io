@@ -7,7 +7,7 @@ import "../styles/journal.css";
 import "../styles/motion.css";
 import { Icon } from "astro-icon/components";
 import { site } from "@/lib/site";
-import { getI18n } from "@/core/i18n";
+import { getI18n, localizePath } from "@/core/i18n";
 import { getThemePath, stripTheme } from "@/core/themes/registry";
 import LanguagePreference from "@/core/i18n/LanguagePreference.astro";
 import LanguageSwitcher from "@/core/i18n/LanguageSwitcher.astro";
@@ -99,6 +99,7 @@ const navItems = site.nav.map((item, index) => ({
       <div class="blank-footer-bottom">
         <SiteAttribution />
         <span>{t("home.statement2")}</span>
+        <a href={localizePath("/rss.xml", locale)} data-astro-reload>RSS</a>
         <a href={href("/credits/")}>{t("footer.credits")}</a>
         <a href="#blank-main" class="blank-back-top">{t("footer.top")} <Icon name="tabler:arrow-up" size={14} /></a>
       </div>

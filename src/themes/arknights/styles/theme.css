@@ -340,6 +340,8 @@ a.ak-panel:focus-visible { outline-offset:4px; }
   .ak-counter-no { display:block; font:600 64px/.8 var(--ak-display); font-variant-numeric:tabular-nums; color:var(--ak-number); }
   .ak-counter-of { margin-top:6px; font-size:11px; color:var(--ak-ink-2); }
   .ak-counter-word { font:500 13px/1.2 var(--ak-display); letter-spacing:.16em; text-transform:uppercase; }
+  /* A long section word (Collection) stays on one line in the 112px rail. */
+  .ak-counter-word.is-long { letter-spacing:.04em; white-space:nowrap; }
   /* How far down the page: a hairline with a filled part, driven by the scroll position where the browser can. */
   .ak-rail-track { position:relative; flex:1; width:1px; margin:26px 0 18px; background:var(--ak-rule); }
   .ak-rail-fill { position:absolute; left:-1px; top:0; width:3px; height:100%; background:var(--ak-trace); transform:scaleY(0); transform-origin:top; }
@@ -499,3 +501,87 @@ html[data-theme="arknights"].ak-moding::view-transition-group(ak-scan),html[data
 .ak-content .blank-404 { margin:24px 0 36px; font:600 clamp(7.5rem,20vw,14rem)/.9 var(--ak-display); letter-spacing:-.01em; font-variant-numeric:tabular-nums; }
 .ak-content .blank-404>span { display:inline-block; width:.16em; height:.16em; margin-left:.05em; overflow:hidden; background:var(--ak-signal); color:transparent; vertical-align:baseline; }
 .ak-content .blank-not-found h1 { font-weight:800; }
+
+/* Collection (收藏, 2026-11-28). The shared component (blank/pages/CollectionPage.astro) as an archive index: each category
+   pairs its fixed English word with its name, as the header does; the current one carries a signal bar and a faint fill that
+   travel between rows (core/navigation/shelf-swap.mjs). Works are filed as plates whose pictures stay desaturated until
+   pointed at, like the homepage's game panels; a ghost English word sits behind each shelf head. Moving between shelves,
+   the new shelf is scanned in from the top behind a signal line (lib/runtime.mjs), like the colour-mode sweep. */
+.ak-content .blank-collection { --blank-collection-top:calc(var(--ak-head) + 28px); }
+.ak-content :is(.blank-collection-label,.blank-shelf-head .blank-kicker,.blank-shelf-filter-label) { font:500 12px/1.6 var(--ak-mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ak-ink-2); }
+.ak-content :is(.blank-collection-label,.blank-shelf-head .blank-kicker)::before { content:"// "; }
+.ak-content .blank-collection-index { border-top:1px solid var(--ak-ink); }
+.ak-content .blank-collection-index>li { border-bottom-color:var(--ak-rule); }
+.ak-content .blank-collection-index a { grid-template-columns:28px minmax(0,1fr) auto; grid-template-rows:auto auto; column-gap:10px; row-gap:0; align-items:center; min-height:56px; padding:8px 12px 8px 14px; color:var(--ak-ink); font:600 13px/1.4 var(--ak-text); }
+.ak-content .blank-collection-index .blank-row-number { grid-row:1/3; color:var(--ak-ink-2); }
+.ak-content .blank-collection-latin { display:block; grid-column:2; grid-row:1; font:600 17px/1.15 var(--ak-display); letter-spacing:.02em; text-transform:uppercase; }
+.ak-content .blank-collection-name { grid-column:2; grid-row:2; color:var(--ak-ink-2); font-weight:500; }
+.ak-content .blank-collection-count { grid-column:3; grid-row:1/3; font:500 22px/1 var(--ak-display); font-variant-numeric:tabular-nums; }
+.ak-content .blank-collection-index a[data-empty] .blank-collection-count { opacity:1; color:var(--ak-ink-2); }
+.ak-content .blank-collection-index a[aria-current="page"] { font-weight:700; }
+.ak-content .blank-collection-index a[aria-current="page"] :is(.blank-collection-latin,.blank-collection-count) { color:var(--ak-number); }
+.ak-content .blank-collection-index a[aria-current="page"] .blank-collection-name { color:var(--ak-ink); }
+.ak-content .blank-collection-marker { inset:0; width:auto; border-left:4px solid var(--ak-signal); background:var(--ak-faint); --shelf-marker-duration:360ms; --shelf-marker-ease:cubic-bezier(.65,0,.35,1); }
+html[data-theme="arknights"]:lang(en) .ak-content .blank-collection-latin { display:none; }
+html[data-theme="arknights"]:lang(en) .ak-content .blank-collection-name { grid-row:1/3; color:var(--ak-ink); font:600 17px/1.15 var(--ak-display); text-transform:uppercase; }
+html[data-theme="arknights"]:lang(en) .ak-content .blank-collection-index a[aria-current="page"] .blank-collection-name { color:var(--ak-number); }
+.ak-content .blank-collection-main { position:relative; }
+.ak-content .blank-shelf-head { position:relative; isolation:isolate; overflow:clip; }
+.ak-content .blank-shelf-head::after { content:attr(data-latin) / ""; position:absolute; z-index:-1; right:-.04em; bottom:-.22em; font:600 clamp(4.5rem,9vw,7.5rem)/1 var(--ak-display); letter-spacing:-.01em; text-transform:uppercase; white-space:nowrap; color:var(--ak-ghost); pointer-events:none; }
+.ak-content .blank-shelf-head h2 { font:700 2.5rem/1.15 var(--ak-text); }
+.ak-content .blank-shelf-stats { gap:0; font:500 12px/1.6 var(--ak-mono); letter-spacing:.06em; color:var(--ak-ink-2); }
+.ak-content .blank-shelf-stats>span+span::before { content:"//"; margin:0 10px; color:var(--ak-rule); }
+.ak-content .blank-shelf-stats strong { margin-right:6px; font:500 22px/1 var(--ak-display); color:var(--ak-number); }
+.ak-content .blank-shelf-tools { gap:0 24px; border-bottom-color:var(--ak-rule); }
+.ak-content .blank-shelf-filter-label { margin-right:6px; }
+.ak-content .blank-shelf-tools .blank-search { align-self:center; flex:0 1 280px; margin-bottom:16px; padding:0 10px; border:1px solid var(--ak-rule); background:var(--ak-panel); }
+.ak-content .blank-shelf-tools .blank-search input { height:44px; }
+.ak-content .blank-shelf-tools .blank-search:focus-within { border-color:var(--ak-ink); }
+.ak-content .blank-shelf-tools .blank-search:focus-within::after { bottom:-1px; left:-1px; right:-1px; height:3px; background:var(--ak-signal); }
+.ak-content .blank-shelf-group-title { gap:12px; font:700 15px/1.4 var(--ak-text); }
+.ak-content .blank-shelf-group-title .blank-row-number { padding:1px 6px; border:1px solid var(--ak-rule); color:var(--ak-ink-2); }
+.ak-content .blank-shelf-group-title::after { background:linear-gradient(90deg,var(--ak-ink) 0 14px,var(--ak-rule) 14px); }
+.ak-content .blank-work-card { isolation:isolate; gap:3px; padding:0 0 14px; border:1px solid var(--ak-rule); background:var(--ak-panel); transition:border-color .2s var(--ak-cut); }
+.ak-content .blank-work-card::after { content:""; position:absolute; top:-1px; right:-1px; width:8px; height:8px; background:var(--ak-signal); }
+.ak-content .blank-work-card>:not(.blank-work-cover) { margin-inline:12px; }
+.ak-content .blank-work-cover { margin-bottom:9px; filter:saturate(.3) brightness(.86); transition:filter .4s var(--ak-cut); }
+html[data-theme="arknights"][data-color-mode="dark"] .ak-content .blank-work-cover { filter:saturate(.3) brightness(.78); }
+.ak-content .blank-work-plain { border:0; border-bottom:1px solid var(--ak-rule); }
+.ak-content .blank-work-meta { gap:0 8px; font:500 11px/1.7 var(--ak-mono); letter-spacing:.06em; color:var(--ak-ink-2); }
+.ak-content .blank-work-meta .blank-row-number { font:inherit; color:var(--ak-number); }
+.ak-content .blank-work-meta .blank-row-number::before { content:"NO."; }
+.ak-content .blank-work-title { font:700 16px/1.45 var(--ak-text); }
+.ak-content .blank-work-card:has(.blank-work-link:focus-visible) { outline:2px solid var(--ak-trace); outline-offset:3px; }
+.ak-content .blank-work-card:has(.blank-work-link:focus-visible) .blank-work-cover { filter:none; }
+.ak-content .blank-work-site { margin-top:8px; font:500 11px/1.5 var(--ak-mono); letter-spacing:.08em; text-transform:uppercase; }
+.ak-content .blank-shelf-empty { padding:64px 24px; border:1px solid var(--ak-rule); background:var(--ak-panel); }
+.ak-content .blank-shelf-empty::before { content:"// NO RECORDS" / ""; display:block; margin-bottom:14px; font:500 12px/1.6 var(--ak-mono); letter-spacing:.12em; color:var(--ak-ink-2); }
+.ak-content .blank-shelf-empty>p:first-child { font:700 1.5rem/1.5 var(--ak-text); }
+.ak-content .blank-shelf-preview-head { border-bottom-color:var(--ak-ink); }
+.ak-content .blank-shelf-preview-head h2 { gap:12px; font:700 1.9rem/1.2 var(--ak-text); }
+.ak-content .blank-shelf-preview-head h2 .blank-row-number { color:var(--ak-number); }
+.ak-content .blank-shelf-preview-count { font:500 12px/1.6 var(--ak-mono); letter-spacing:.06em; color:var(--ak-ink-2); }
+.ak-content .blank-shelf-preview-count strong { font:500 22px/1 var(--ak-display); color:var(--ak-number); }
+.ak-content .blank-collection-note { font:500 12px/1.8 var(--ak-mono); letter-spacing:.04em; color:var(--ak-ink-2); }
+.ak-content .blank-collection-note::before { content:"// " / ""; }
+.ak-shelf-scan { position:absolute; left:0; top:0; z-index:5; width:100%; height:2px; background:#19cff2; box-shadow:0 0 16px 3px #19cff259; view-transition-name:ak-shelf-scan; pointer-events:none; }
+html[data-theme="arknights"][data-shelf-swap]::view-transition-old(collection-shelf),html[data-theme="arknights"][data-shelf-swap]::view-transition-new(collection-shelf) { animation:none; mix-blend-mode:normal; }
+html[data-theme="arknights"][data-shelf-swap]::view-transition-group(ak-shelf-scan),html[data-theme="arknights"][data-shelf-swap]::view-transition-new(ak-shelf-scan) { animation:none; }
+@media(hover:hover) and (pointer:fine) {
+  .ak-content .blank-collection-index a:not([aria-current="page"]):hover { background:var(--ak-ghost); }
+  .ak-content .blank-work-card:has(.blank-work-link:hover) { border-color:var(--ak-ink); }
+  .ak-content .blank-work-card:has(.blank-work-link:hover) .blank-work-cover { filter:none; }
+}
+@media(max-width:900px) {
+  .ak-content .blank-collection-index { border-top:0; }
+  .ak-content .blank-collection-index a { grid-template-columns:minmax(0,1fr) auto; padding:8px 8px 8px 10px; }
+  .ak-content .blank-collection-latin,.ak-content .blank-collection-name { grid-column:1; }
+  .ak-content .blank-collection-count { grid-column:2; font-size:19px; }
+  .ak-content .blank-collection-latin { font-size:15px; }
+  .ak-content .blank-collection-marker { inset:0; height:auto; border-left:0; border-bottom:3px solid var(--ak-signal); }
+  .ak-content .blank-shelf-tools .blank-search { flex:none; width:100%; margin-top:12px; }
+  .ak-content .blank-shelf-head h2 { font-size:2rem; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .ak-content :is(.blank-work-card,.blank-work-cover) { transition:none; }
+}

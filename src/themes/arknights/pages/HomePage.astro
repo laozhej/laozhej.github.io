@@ -85,7 +85,7 @@ const games = favoriteGames.map((item) => ({ ...item, art: gameShelf.find((game)
     <nav class="ak-index" aria-label={t("arknights.index")}>
       <a href={href("/blog/")}><small>{t("home.writingIndex")}</small><span><b>{pad(posts.length)}</b> {unit("common.entries", posts.length)}</span></a>
       <a href={href("/projects/")}><small>{t("home.practiceIndex")}</small><span><b>{pad(projectEntries.length)}</b> {unit("common.projects", projectEntries.length)}</span></a>
-      <a href={href("/games/")}><small>{t("home.playIndex")}</small><span><b>{pad(favoriteGames.length)}</b> {unit("arknights.games", favoriteGames.length)}<i>{t("ema.about.gamesAll").replace("{n}", String(gameShelf.length))}</i></span></a>
+      <a href={href("/collection/games/")}><small>{t("home.playIndex")}</small><span><b>{pad(favoriteGames.length)}</b> {unit("arknights.games", favoriteGames.length)}<i>{t("ema.about.gamesAll").replace("{n}", String(gameShelf.length))}</i></span></a>
     </nav>
   </section>
 
@@ -129,7 +129,7 @@ const games = favoriteGames.map((item) => ({ ...item, art: gameShelf.find((game)
       <header class="ak-head">
         <span class="ak-head-no" aria-hidden="true">{sector["ak-play"].number}</span>
         <div><p class="ak-eyebrow" lang="en">// {sector["ak-play"].word}</p><h2 id="ak-play-title">{t("ema.about.gamesTitle")}</h2></div>
-        <a class="ak-link" href={href("/games/")}>{t("ema.about.gamesAll").replace("{n}", String(gameShelf.length))}<Icon name="tabler:chevron-right" size={16} aria-hidden="true" /></a>
+        <a class="ak-link" href={href("/collection/games/")}>{t("ema.about.gamesAll").replace("{n}", String(gameShelf.length))}<Icon name="tabler:chevron-right" size={16} aria-hidden="true" /></a>
       </header>
       <ol class="ak-panels">
         {games.map((game, index) => {

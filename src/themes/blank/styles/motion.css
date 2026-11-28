@@ -34,3 +34,25 @@ html[data-theme="blank"].site-mode-reveal::view-transition-new(root) { animation
   html[data-theme="blank"] :is(.blank-button, .bj-down, .blank-icon-button) { transition: background-color 180ms ease, color 180ms ease; }
   html[data-theme="blank"][data-motion-paused="true"] :is(.blank-post-row h2, .bj-featured h2, .bj-index strong, .blank-home-sheet strong, .blank-home-posts span, .blank-project-name h2) { transition: text-decoration-color 180ms ease; }
 }
+
+/* Collection (2026-11-28): moving between the overview and the shelves, the page head and the sidebar stay still
+   (core/navigation/shelf-swap.mjs), the ink bar glides to the new category and the shelf rises in from the side the
+   reader moves towards. Quiet, like the rest of Blank. */
+@keyframes bj-shelf-out { to { opacity: 0; } }
+@keyframes bj-shelf-in-next { from { opacity: 0; translate: 0 16px; } }
+@keyframes bj-shelf-in-prev { from { opacity: 0; translate: 0 -16px; } }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-theme="blank"][data-shelf-swap]::view-transition-old(collection-shelf) { animation: bj-shelf-out 160ms ease both; }
+  html[data-theme="blank"][data-shelf-swap="next"]::view-transition-new(collection-shelf) { animation: bj-shelf-in-next 420ms var(--blank-ease) 60ms both; }
+  html[data-theme="blank"][data-shelf-swap="prev"]::view-transition-new(collection-shelf) { animation: bj-shelf-in-prev 420ms var(--blank-ease) 60ms both; }
+}
+@media (hover: hover) and (pointer: fine) {
+  html[data-theme="blank"] :is(.blank-collection-name, .blank-work-title) {
+    text-decoration-line: underline; text-decoration-thickness: 1px; text-decoration-color: transparent; text-underline-offset: .45em;
+    transition: text-decoration-color 180ms ease, text-underline-offset 280ms var(--blank-ease);
+  }
+  html[data-theme="blank"] :is(.blank-collection-index a:hover .blank-collection-name, .blank-work-card:has(.blank-work-link:hover) .blank-work-title) { text-decoration-color: currentColor; text-underline-offset: .2em; }
+  html[data-theme="blank"] .blank-collection-index a:not([aria-current="page"]):hover { color: var(--blank-ink); }
+}
+html[data-theme="blank"][data-motion-paused="true"] :is(.blank-collection-name, .blank-work-title) { transition: none; }
+@media (prefers-reduced-motion: reduce) { html[data-theme="blank"] :is(.blank-collection-name, .blank-work-title) { transition: none; } }

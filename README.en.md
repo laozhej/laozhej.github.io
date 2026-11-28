@@ -39,7 +39,8 @@ Run `npm run images` and open the local URL to drag in images, compress and name
 | Traditional Chinese, Japanese, and English profile and collection data | `src/core/i18n/content.ts` |
 | Biography, updates, and interests | `src/core/data/profile.ts` |
 | Project list | `src/core/data/projects.ts` |
-| Game shelf (every language's names in each entry) | `src/core/data/games.ts` |
+| The Collection's five shelves and their order (manga, anime, movies, TV series, games), and the manga, movie and TV entries | `src/core/data/collection.ts` (how to add one is at the top of the file) |
+| Game shelf (every language's names in each entry), the Collection's games shelf | `src/core/data/games.ts` |
 | Game card images and their source manifest | `public/games/`, `public/games/ASSETS.json` |
 | Favorite anime (synced from Notion rows ticked 允许网站展示) | `src/core/data/animes.ts`, `public/animes/ASSETS.json` |
 | Daily notes on the Sakura Archive homepage | `src/core/data/notes.ts` |
@@ -87,7 +88,7 @@ Articles with `draft: true` are not published.
 - Internal navigation updates the content without reloading the whole page. The header stays in place while the content fades out and in. Language, theme, and color mode are preserved; browser back / forward navigation restores the scroll position.
 - Sakura Archive (the Ema theme) uses “Arataki.br’s Base” as its name and Gloock for its headings. Its homepage opens with the owner beside “A little scene with Ema”, a five-pose scene shown with labelled temporary placeholders until its artwork is decided, followed by featured work, favourite games, recent writing and favourite tags. The Sakura note opens only when asked, and the page scrolls normally. The homepage’s light parallax takes inspiration from Yuimi-chaya’s Fuyukawa Kagari theme.
 - Ema includes falling cherry blossom petals, a side scroll marker on wide screens, and Sakura Radio.
-- “Sakura Radio” in Ema’s console (on the left edge of wide windows, in the footer of narrower ones) offers three original music-box pieces synthesized in real time in the browser. It loads no audio files, keeps playing between Ema pages, and stops when another theme is opened. On the Home and Games pages the console also switches off the cursor ring that follows the mouse.
+- “Sakura Radio” in Ema’s console (on the left edge of wide windows, in the footer of narrower ones) offers three original music-box pieces synthesized in real time in the browser. It loads no audio files, keeps playing between Ema pages, and stops when another theme is opened. On the Home and Collection pages the console also switches off the cursor ring that follows the mouse.
 - Endfield Industrial uses paper and ink colors, yellow accents, controls with cut corners, contour-line backgrounds, and the self-hosted Saira font. It draws on the game’s interface structure and uses no official game assets.
 - Arknights lays the site out as an archive terminal: dark mode is the running screen, light mode the printed archive sheet, with cyan as its one signal colour. English section words sit over their local names, a status rail counts where the reader is, the latest entry’s number is shown on a dot-matrix board, favourite games stand as four panels, and switching colour modes scans the new mode in from the top. It self-hosts Oswald and JetBrains Mono, borrows only the layout habits of the official site, and uses no official game assets.
 - Every Ema page has an animation pause / play button. Pausing skips page transitions across all themes. The system’s reduced-motion preference also skips transitions and disables the button.

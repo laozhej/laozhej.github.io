@@ -11,7 +11,7 @@ export const site = {
     { key: "home", href: "/" },
     { key: "blog", href: "/blog/" },
     { key: "projects", href: "/projects/" },
-    { key: "games", href: "/games/" },
+    { key: "collection", href: "/collection/" },
     { key: "about", href: "/about/" },
   ],
 };

@@ -1,0 +1,251 @@
+---
+// Sakura Archive's Collection page (收藏). Structure after soki.moe's 品鉴 page (the owner's reference, 2026-11-28): a
+// category sidebar with counts beside the shelf; on a shelf, genre filters, a search box and works grouped under genre
+// headings. The opening keeps Ema's CJK title with a Latin subtitle, and the games shelf keeps the game cabinets the owner
+// chose on 2026-11-27 (roadmap Q15; first laid out after the playroom of Yuimi-chaya's Fuyukawa Kagari theme, MIT License).
+// Anime and the other shelves use poster cards in the same family. Everything comes from the shared collection
+// (select-collection.mjs) through the shared data-site-* hooks; data-collection-* lets shelf-swap.mjs keep the head and
+// sidebar still between shelves.
+import { Icon } from "astro-icon/components";
+import { getSiteContent } from "@/core/i18n/content";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { collectionPath, previewEntries } from "@/core/content/select-collection.mjs";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import { site } from "@/lib/site";
+import PageLayout from "@/core/themes/PageLayout.astro";
+import "../styles/shelf.css";
+import "../styles/collection.css";
+
+interface Props { shelf?: string }
+const { locale, t, href } = getI18n(Astro.url.pathname);
+const { collection } = getSiteContent(locale);
+const { shelves, total, favoriteKeys } = collection;
+const current = shelves.find((shelf) => shelf.key === Astro.props.shelf);
+const pad = (value: number) => String(value).padStart(2, "0");
+const name = (key: string) => t(`collection.shelf.${key}`);
+const unitOf = (key: string, count: number) => t(`collection.unit.${key}${count === 1 ? "One" : ""}`);
+const latin: Record<string, string> = { manga: "Manga", anime: "Anime", movies: "Movies", tv: "TV Series", games: "Games" };
+const shelfIcon: Record<string, string> = { manga: "tabler:book", anime: "tabler:sparkles", movies: "tabler:movie", tv: "tabler:device-tv", games: "tabler:device-gamepad-2" };
+const shelfTone: Record<string, string> = { manga: "lavender", anime: "pink", movies: "yellow", tv: "blue", games: "green" };
+// Game genres keep the tones and icons of the cabinets; the other shelves' genres (animes.ts) get their own.
+const genreTone: Record<string, string> = {
+  story: "lavender", action: "blue", strategy: "green", rhythm: "pink", online: "yellow",
+  "coming-of-age": "green", music: "pink", "sci-fi": "blue", fantasy: "lavender", mystery: "yellow", romance: "pink", road: "green", life: "yellow",
+};
+const genreIcon: Record<string, string> = {
+  story: "tabler:book-2", action: "tabler:sword", strategy: "tabler:chess", rhythm: "tabler:music", online: "tabler:world",
+  "coming-of-age": "tabler:school", music: "tabler:music", "sci-fi": "tabler:rocket", fantasy: "tabler:wand", mystery: "tabler:eye",
+  romance: "tabler:heart", road: "tabler:route", life: "tabler:plant-2",
+};
+const genreOf = (shelf: (typeof shelves)[number]) => (key: string) => shelf.key === "games" ? t(`games.genre.${key}`) : shelf.labels?.[key] ?? key;
+const linkLabel = (entry: { link?: { kind: string } }) => (entry.link?.kind === "steam" ? "Steam" : t("games.official"));
+const opens = (entry: { name: string; link?: { kind: string } }) => t("games.opens").replace("{name}", entry.name).replace("{site}", linkLabel(entry));
+// The overview previews one row of each shelf on a desktop: three cabinets or five posters.
+const previewCount = (key: string) => key === "games" ? 3 : 5;
+const filled = shelves.filter((shelf) => shelf.entries.length > 0);
+const empty = shelves.filter((shelf) => shelf.entries.length === 0);
+const list = new Intl.ListFormat(locale, { type: "conjunction" }).format(empty.map((shelf) => name(shelf.key)));
+const currentIndex = current ? shelves.indexOf(current) + 1 : 0;
+const title = current ? `${name(current.key)} · ${t("nav.collection")} | ${site.name}` : `${t("nav.collection")} | ${site.name}`;
+const description = current?.key === "games" ? t("games.description") : t("collection.description");
+const genre = current ? genreOf(current) : (key: string) => key;
+const sideKicker = locale === "en" ? "CATEGORIES" : `CATEGORIES / ${t("collection.sideLabel")}`;
+// The first three covers on the page load at once; the first is fetched first (it is the largest paint).
+const firstKeys = (current ? current.groups.flatMap((group) => group.entries) : previewEntries(filled[0]?.entries ?? [], previewCount(filled[0]?.key ?? ""), filled[0]?.key === "games" ? favoriteKeys : [])).slice(0, 3).map((entry) => `${entry.shelf}:${entry.key}`);
+const lead = (entry: { shelf: string; key: string }) => { const index = firstKeys.indexOf(`${entry.shelf}:${entry.key}`); return index < 0 ? undefined : index; };
+---
+<PageLayout title={title} description={description} cursorRing={true}>
+  <header class="collection-opening" data-collection-head>
+    <div>
+      <p class="collection-eyebrow">03 / {t("nav.collection")}</p>
+      <h1>{t("nav.collection")}{locale !== "en" && <span class="collection-sub" lang="en">Collection</span>}</h1>
+      <p class="collection-intro">{keepTails(t("collection.intro"))}</p>
+    </div>
+    <p class="collection-total"><strong>{pad(total)}</strong><span>{unitOf("total", total)}</span></p>
+  </header>
+
+  <div class:list={["ema-collection", "ema-shelf", { "is-overview": !current }]} data-shelf={current?.key ?? "all"}>
+    <aside class="collection-side" data-collection-side>
+      <p class="shelf-kicker collection-side-kicker" aria-hidden="true">{sideKicker}</p>
+      <nav aria-label={t("collection.categories")}>
+        <ol class="collection-index">
+          <li>
+            <a class="tone-pink" href={href(collectionPath())} aria-current={!current ? "page" : undefined}>
+              {!current && <span class="collection-marker" data-collection-marker aria-hidden="true"></span>}
+              <span class="shelf-chip" aria-hidden="true"><Icon name="tabler:layout-grid" size={18} /></span>
+              <span class="collection-index-name">{t("games.all")}</span>
+              <span class="collection-index-count" aria-hidden="true">{total}</span>
+              <span class="blank-sr-only">{`${total} ${unitOf("total", total)}`}</span>
+            </a>
+          </li>
+          {shelves.map((shelf) => (
+            <li>
+              <a class={`tone-${shelfTone[shelf.key]}`} href={href(collectionPath(shelf.key))} aria-current={current === shelf ? "page" : undefined} data-empty={shelf.entries.length === 0 ? "" : undefined}>
+                {current === shelf && <span class="collection-marker" data-collection-marker aria-hidden="true"></span>}
+                <span class="shelf-chip" aria-hidden="true"><Icon name={shelfIcon[shelf.key]} size={18} /></span>
+                <span class="collection-index-name">{name(shelf.key)}</span>
+                <span class="collection-index-count" aria-hidden="true">{shelf.entries.length}</span>
+                <span class="blank-sr-only">{`${shelf.entries.length} ${unitOf(shelf.key, shelf.entries.length)}`}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </aside>
+
+    <div class="collection-main" data-collection-shelf>
+      {current ? (
+        <section class="collection-shelf" data-site-collection data-unit={unitOf(current.key, 2)} data-unit-one={unitOf(current.key, 1)} aria-labelledby="collection-shelf-title">
+          <header class="collection-shelf-head">
+            <span class={`shelf-chip tone-${shelfTone[current.key]}`} aria-hidden="true"><Icon name={shelfIcon[current.key]} size={22} /></span>
+            <div>
+              <p class="shelf-kicker">COLLECTION · {pad(currentIndex)}</p>
+              <h2 id="collection-shelf-title">{name(current.key)}{locale !== "en" && <span class="collection-sub" lang="en">{latin[current.key]}</span>}</h2>
+            </div>
+            <p class="collection-stats">
+              <span><strong>{current.entries.length}</strong>{unitOf(current.key, current.entries.length)}</span>
+              {current.genres.length > 0 && <span><strong>{current.genres.length}</strong>{t(current.genres.length === 1 ? "collection.unit.genresOne" : "collection.unit.genres")}</span>}
+            </p>
+          </header>
+          {current.entries.length > 0 ? (
+            <>
+              <div class="collection-tools">
+                <search class="collection-filters" data-site-filter-form hidden><form>
+                  {current.genres.length > 1 && (
+                    <fieldset>
+                      <legend class="blank-sr-only">{t("collection.filterLegend")}</legend>
+                      <button type="button" data-site-category="all" aria-pressed="true"><Icon class="games-check" name="tabler:check" size={15} aria-hidden="true" /><Icon class="games-genre-icon" name="tabler:layout-grid" size={15} aria-hidden="true" />{t("games.all")}<span>{current.entries.length}</span></button>
+                      {current.genres.map((key) => <button class={`tone-${genreTone[key]}`} type="button" data-site-category={key} aria-pressed="false"><Icon class="games-check" name="tabler:check" size={15} aria-hidden="true" /><Icon class="games-genre-icon" name={genreIcon[key]} size={15} aria-hidden="true" />{genre(key)}<span>{current.entries.filter((entry) => entry.tags.includes(key)).length}</span></button>)}
+                    </fieldset>
+                  )}
+                  <div class="collection-search">
+                    <Icon name="tabler:search" size={17} aria-hidden="true" />
+                    <label class="blank-sr-only" for="collection-search">{t(`collection.search.${current.key}`).replace(/…$/, "")}</label>
+                    <input id="collection-search" type="search" name="q" maxlength="300" autocomplete="off" placeholder={t(`collection.search.${current.key}`)} data-site-query />
+                    <button type="button" data-site-clear aria-label={t("blog.clearSearch")} title={t("blog.clearSearch")} hidden><Icon name="tabler:x" size={15} aria-hidden="true" /></button>
+                  </div>
+                </form></search>
+                <output class="blank-sr-only" data-site-count aria-live="polite" aria-atomic="true">{`${current.entries.length} ${unitOf(current.key, current.entries.length)}`}</output>
+              </div>
+              <div class="collection-groups" data-site-entries>
+                {current.groups.map((group) => (
+                  <section class="collection-group" data-site-group aria-labelledby={group.key ? `collection-group-${group.key}` : undefined}>
+                    {group.key && <h3 class={`collection-group-title tone-${genreTone[group.key]}`} id={`collection-group-${group.key}`}><Icon name={genreIcon[group.key]} size={17} aria-hidden="true" /><span>{genre(group.key)}</span><span class="collection-group-count" data-site-group-count="2">{pad(group.entries.length)}</span></h3>}
+                    {current.key === "games" ? (
+                      <ol class="games-grid">
+                        {group.entries.map((entry) => {
+                          const Title = group.key ? "h4" : "h3";
+                          return (
+                            <li id={`game-${entry.key}`} class:list={["game-cabinet", `tone-${genreTone[entry.tags[0]]}`, { "is-favorite": entry.favorite }]} data-site-entry data-category={entry.tags.join(" ")} data-search={entry.search}>
+                              <p class="game-label" aria-hidden="true"><span>GAME / {pad(entry.number)}</span><Icon name={genreIcon[entry.tags[0]]} size={18} /></p>
+                              <div class:list={["game-screen", { "has-art": entry.cover }]} aria-hidden="true">
+                                {entry.cover ? <img src={entry.cover.src} alt="" loading={lead(entry) === undefined ? "lazy" : undefined} fetchpriority={lead(entry) === 0 ? "high" : undefined} decoding="async" style={`object-position:${entry.cover.focus}`} /> : <span>{entry.original ?? entry.name}</span>}
+                              </div>
+                              <div class="game-copy">
+                                <p class="game-meta">
+                                  <span class="game-genre">{genre(entry.tags[0])}</span>
+                                  {entry.favorite && <span class="game-favorite"><Icon name="tabler:heart-filled" size={11} aria-hidden="true" />{t("games.favorite")}</span>}
+                                  {entry.status && <span class="game-status">{t(`games.status.${entry.status}`)}</span>}
+                                </p>
+                                <Title class="game-name">{keepTails(entry.name)}</Title>
+                                {entry.original && <p class="game-title">{entry.original}</p>}
+                                {entry.pick && <p class="game-pick" role="img" aria-label={t("games.pick").replace("{n}", String(entry.pick))}>{[1, 2, 3].map((step) => <span class:list={{ "is-on": step <= (entry.pick ?? 0) }}></span>)}</p>}
+                                {entry.note && !entry.note.translated && <p class="game-untranslated">{t("games.untranslated")}</p>}
+                                {entry.note && <p class="game-note" lang={entry.note.lang}>{keepTails(entry.note.text)}</p>}
+                                {entry.link && <p class="game-actions"><a class="game-play" href={entry.link.href} target="_blank" rel="noopener noreferrer" aria-label={opens(entry)}><Icon name={entry.link.kind === "steam" ? "tabler:brand-steam" : "tabler:world"} size={17} aria-hidden="true" />{linkLabel(entry)}<Icon name="tabler:arrow-up-right" size={15} aria-hidden="true" /></a></p>}
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ol>
+                    ) : (
+                      <ol class="collection-posters">
+                        {group.entries.map((entry) => {
+                          const Title = group.key ? "h4" : "h3";
+                          return (
+                            <li id={`${entry.shelf}-${entry.key}`} class={`ema-work tone-${genreTone[entry.tags[0]] ?? "pink"}`} data-site-entry data-category={entry.tags.join(" ")} data-search={entry.search}>
+                              <p class="game-label" aria-hidden="true"><span>{latin[entry.shelf].toUpperCase()} / {pad(entry.number)}</span><Icon name={genreIcon[entry.tags[0]] ?? shelfIcon[entry.shelf]} size={16} /></p>
+                              <div class="ema-work-cover" aria-hidden="true">
+                                {entry.cover ? <img src={entry.cover.src} alt="" width="300" height="450" loading={lead(entry) === undefined ? "lazy" : undefined} fetchpriority={lead(entry) === 0 ? "high" : undefined} decoding="async" style={`object-position:${entry.cover.focus}`} /> : <span>{entry.name}</span>}
+                              </div>
+                              <div class="ema-work-copy">
+                                {entry.details[0] && <p class="ema-work-genres">{entry.details[0]}</p>}
+                                <Title class="ema-work-name" lang={entry.lang}>{keepTails(entry.name)}</Title>
+                                {entry.details.slice(1).map((line: string) => <p class="ema-work-detail">{line}</p>)}
+                                {entry.link && <p class="ema-work-actions"><a class="ema-work-link" href={entry.link.href} target="_blank" rel="noopener noreferrer" aria-label={opens(entry)}>{linkLabel(entry)}<Icon name="tabler:arrow-up-right" size={14} aria-hidden="true" /></a></p>}
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ol>
+                    )}
+                  </section>
+                ))}
+              </div>
+              <div class="collection-no-results" data-site-empty hidden><p>{t("collection.noResults")}</p><button type="button" data-site-reset><Icon name="tabler:arrow-back-up" size={16} aria-hidden="true" />{t("blog.reset")}</button></div>
+            </>
+          ) : (
+            <div class={`collection-empty tone-${shelfTone[current.key]}`}>
+              <span class="collection-empty-art" aria-hidden="true"><Icon name={shelfIcon[current.key]} size={30} /></span>
+              <p>{t("collection.emptyTitle")}</p>
+              <p>{t("collection.emptyBody")}</p>
+            </div>
+          )}
+        </section>
+      ) : (
+        <div class="collection-overview">
+          {filled.map((shelf) => (
+            <section class="collection-preview" aria-labelledby={`collection-preview-${shelf.key}`}>
+              <header class="collection-preview-head">
+                <span class={`shelf-chip tone-${shelfTone[shelf.key]}`} aria-hidden="true"><Icon name={shelfIcon[shelf.key]} size={20} /></span>
+                <div>
+                  <p class="shelf-kicker">COLLECTION · {pad(shelves.indexOf(shelf) + 1)}</p>
+                  <h2 id={`collection-preview-${shelf.key}`}>{name(shelf.key)}</h2>
+                </div>
+                <a class="collection-see-all" href={href(collectionPath(shelf.key))}>{t("collection.seeAll").replace("{n}", String(shelf.entries.length)).replace("{unit}", unitOf(shelf.key, shelf.entries.length))}<Icon name="tabler:arrow-right" size={16} aria-hidden="true" /></a>
+              </header>
+              {shelf.key === "games" ? (
+                <ol class="games-grid is-preview">
+                  {previewEntries(shelf.entries, previewCount(shelf.key), favoriteKeys).map((entry) => (
+                    <li class:list={["game-cabinet", `tone-${genreTone[entry.tags[0]]}`, { "is-favorite": entry.favorite }]}>
+                      <p class="game-label" aria-hidden="true"><span>GAME / {pad(entry.number)}</span><Icon name={genreIcon[entry.tags[0]]} size={18} /></p>
+                      <div class:list={["game-screen", { "has-art": entry.cover }]} aria-hidden="true">
+                        {entry.cover ? <img src={entry.cover.src} alt="" loading={lead(entry) === undefined ? "lazy" : undefined} fetchpriority={lead(entry) === 0 ? "high" : undefined} decoding="async" style={`object-position:${entry.cover.focus}`} /> : <span>{entry.original ?? entry.name}</span>}
+                      </div>
+                      <div class="game-copy">
+                        <p class="game-meta">
+                          <span class="game-genre">{t(`games.genre.${entry.tags[0]}`)}</span>
+                          {entry.favorite && <span class="game-favorite"><Icon name="tabler:heart-filled" size={11} aria-hidden="true" />{t("games.favorite")}</span>}
+                        </p>
+                        <h3 class="game-name">{keepTails(entry.name)}</h3>
+                        {entry.original && <p class="game-title">{entry.original}</p>}
+                        {entry.link && <p class="game-actions"><a class="game-play" href={entry.link.href} target="_blank" rel="noopener noreferrer" aria-label={opens(entry)}><Icon name={entry.link.kind === "steam" ? "tabler:brand-steam" : "tabler:world"} size={17} aria-hidden="true" />{linkLabel(entry)}<Icon name="tabler:arrow-up-right" size={15} aria-hidden="true" /></a></p>}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <ol class="collection-posters is-preview">
+                  {previewEntries(shelf.entries, previewCount(shelf.key)).map((entry) => (
+                    <li class={`ema-work tone-${genreTone[entry.tags[0]] ?? "pink"}`}>
+                      <p class="game-label" aria-hidden="true"><span>{latin[entry.shelf].toUpperCase()} / {pad(entry.number)}</span><Icon name={genreIcon[entry.tags[0]] ?? shelfIcon[entry.shelf]} size={16} /></p>
+                      <div class="ema-work-cover" aria-hidden="true">
+                        {entry.cover ? <img src={entry.cover.src} alt="" width="300" height="450" loading={lead(entry) === undefined ? "lazy" : undefined} fetchpriority={lead(entry) === 0 ? "high" : undefined} decoding="async" style={`object-position:${entry.cover.focus}`} /> : <span>{entry.name}</span>}
+                      </div>
+                      <div class="ema-work-copy">
+                        {entry.details[0] && <p class="ema-work-genres">{entry.details[0]}</p>}
+                        <h3 class="ema-work-name" lang={entry.lang}>{keepTails(entry.name)}</h3>
+                        {entry.link && <p class="ema-work-actions"><a class="ema-work-link" href={entry.link.href} target="_blank" rel="noopener noreferrer" aria-label={opens(entry)}>{linkLabel(entry)}<Icon name="tabler:arrow-up-right" size={14} aria-hidden="true" /></a></p>}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              )}
+            </section>
+          ))}
+          {empty.length > 0 && <p class="collection-note"><Icon name="tabler:flower" size={16} aria-hidden="true" />{t("collection.emptyShelves").replace("{list}", list)}</p>}
+        </div>
+      )}
+    </div>
+  </div>
+</PageLayout>

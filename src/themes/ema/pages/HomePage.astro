@@ -27,7 +27,7 @@ import "../styles/stage.css";
 
 const { locale, t, formatDate, categoryLabel } = getI18n(Astro.url.pathname);
 const href = (path: string) => getThemePath("ema", path, locale);
-const { profileIdentity, profileTech, favoriteGames, gameShelf, xpFavorites, projectEntries, projectTechLines, currentSignals } = getSiteContent(locale);
+const { profileIdentity, profileTech, favoriteGames, collection, xpFavorites, projectEntries, projectTechLines, currentSignals } = getSiteContent(locale);
 const project = projectEntries[0];
 const posts = (await getPublishedPosts(locale)).slice(0, 3);
 const sakuraNotesEnabled = false;
@@ -48,13 +48,14 @@ const ema = xpFavorites.find((item) => item.key === "emma")?.title ?? "";
 // The terminal line types the owner's own current signals (shared data), one after another.
 const signals = currentSignals.map((item) => `${item.label} · ${item.text}`);
 
-// The chapter rail: four pages of the archive, each previewed with shared data only.
+// The chapter rail: four pages of the archive, each previewed with shared data only. The collection's plate shows how
+// many works its shelves hold and the favorite games, which lead the games shelf.
 const shortTitle = project ? project.title.split(" · ")[0] : "";
 const projectLine = project ? projectTechLines.find((line) => line.key === project.line)?.label ?? "" : "";
 const chapters = [
   { route: "/blog/", latin: "Journal", title: t("blog.label"), note: t("blog.intro"), plate: "journal" },
   { route: "/projects/", latin: "Works", title: t("projects.label"), note: t("projects.intro"), plate: "works" },
-  { route: "/games/", latin: "Playroom", title: t("games.label"), note: t("games.intro"), plate: "games" },
+  { route: "/collection/", latin: "Collection", title: t("nav.collection"), note: t("collection.intro"), plate: "games" },
   { route: "/about/", latin: "Profile", title: t("footer.about"), note: t("about.intro"), plate: "about" },
 ];
 
@@ -174,7 +175,7 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
                 )}
                 {chapter.plate === "games" && (
                   <div class="k-plate-games">
-                    <strong>{pad(gameShelf.length)}</strong><span>{t(gameShelf.length === 1 ? "common.gamesOne" : "common.games")}</span>
+                    <strong>{pad(collection.total)}</strong><span>{t(collection.total === 1 ? "collection.unit.totalOne" : "collection.unit.total")}</span>
                     <ol>{favoriteGames.map((game, i) => <li><b>{pad(i + 1)}</b>{game.title}</li>)}</ol>
                   </div>
                 )}
@@ -196,7 +197,7 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
     </section>
 
     <section class="k-signal" data-k-signal aria-labelledby="k-signal-title">
-      <div class="k-signal-word"><h2 id="k-signal-title">{brandParts.map((part) => part === "." ? <i>.</i> : part)}</h2><small aria-hidden="true">notes / works / playroom / profile</small></div>
+      <div class="k-signal-word"><h2 id="k-signal-title">{brandParts.map((part) => part === "." ? <i>.</i> : part)}</h2><small aria-hidden="true">notes / works / collection / profile</small></div>
       <div class="k-clock" data-k-clock>
         <p data-k-date>{formatDate(new Date())}</p>
         <strong data-k-time>--:--:--</strong>

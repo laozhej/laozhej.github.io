@@ -1,4 +1,5 @@
 ---
-import GamesPage from "@/themes/blank/pages/GamesPage.astro";
+import MovedPage from "@/core/components/MovedPage.astro";
+import { movedPages } from "@/core/themes/static-paths";
 ---
-<GamesPage />
+<MovedPage to={movedPages.games} />

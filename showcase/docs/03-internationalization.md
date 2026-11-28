@@ -38,7 +38,7 @@ Blank 英文：/en/themes/blank/blog/dev-log-01/
 2. 无语言前缀入口和根 `404.html` 优先读取已保存的 `site-locale`；未保存时按浏览器语言偏好列表匹配 `zh-CN`、`zh-TW`、`ja`、`en`，全不匹配时回退到英语（`en`）。
 3. 即使客户端脚本仍在下载，点击语言菜单也会立刻保存选择并跳转，避免早点失效。
 
-从任意带参数路径（例如 `/ja/themes/ema/games/?category=story#top`）切换主题时，公共路由组合函数会保留语言、栏目、查询参数与锚点。
+从任意带参数路径（例如 `/ja/themes/ema/collection/games/?category=story#top`）切换主题时，公共路由组合函数会保留语言、栏目、查询参数与锚点。
 
 ## 维护约束
 

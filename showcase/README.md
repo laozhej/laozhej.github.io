@@ -13,10 +13,10 @@
 | 作者 | Asahi Arataki（[@laozhej](https://github.com/laozhej)） |
 | 形态 | Astro 7.3.5 静态网站，GitHub Actions（Node 24）构建并部署到 GitHub Pages |
 | 界面 | Blank 黑白阅读、艾玛「樱色档案」、终末地工业风、明日方舟 |
-| 语言 | 简体中文、台湾繁体中文、日语、英语（4 主题 × 4 语言，共 128 个静态页面） |
+| 语言 | 简体中文、台湾繁体中文、日语、英语（4 主题 × 4 语言，共 280 个静态页面，含旧地址的跳转页） |
 | 技术 | Astro、TypeScript、原生 JavaScript / CSS、HTML5 Audio、View Transitions、自托管中英日字体子集 |
 | 核心结构 | 公共内容、国际化与交互在 `src/core`，四套主题呈现在 `src/themes` |
-| 当前内容 | 个人资料、联系方式、项目记录、23 款游戏架、6 部动画与 67 位角色收藏、1 篇四语博客文章（`dev-log-01`）；樱色便笺暂下架（实现保留） |
+| 当前内容 | 个人资料、联系方式、项目记录、收藏页的 23 款游戏与 6 部动画（另有漫画、电影、电视剧三个分类待补充）、67 位角色收藏、1 篇四语博客文章（`dev-log-01`）；樱色便笺暂下架（实现保留） |
 | 案例更新 | 2026-11-28（基于 `main` [`f80b3e3`](https://github.com/laozhej/laozhej.github.io/commit/f80b3e31fb491a083e17f00d2bf8b1428801680d) 及文案与字体同步）；画廊 PNG 仍保留 2026-10-31 历史快照，待页头美术定稿后统一重拍 |
 
 本目录是网站源码仓库中的工程案例。读者可以沿链接查看完整实现并在仓库根目录运行项目；案例正文以简体中文维护。
@@ -36,7 +36,7 @@
 | **终末地工业风** | 纸色与墨色、单一亮黄强调、切角控件、等高线底纹与短促机械交互动效 | [打开工业风](https://neroarataki.com/themes/endfield/) |
 | **明日方舟** | 深色终端与浅色档案纸、单一青色信号、右侧进度区段栏、点阵编号牌与竖条游戏面板 | [打开明日方舟](https://neroarataki.com/) |
 
-各主题首页独立编排；樱色档案还有定制的作品页、游戏架和关于页，终末地与明日方舟的内页复用 Blank 页面组件并由各自样式表呈现。[设计与交互说明 →](docs/02-design-and-interaction.md)
+各主题首页独立编排；樱色档案还有定制的作品页、收藏页（游戏分类沿用游戏柜）和关于页，终末地与明日方舟的内页复用 Blank 页面组件并由各自样式表呈现。[设计与交互说明 →](docs/02-design-and-interaction.md)
 
 ## 架构一览
 
@@ -47,7 +47,7 @@ flowchart TB
     Content --> Routes["语言 × 主题 × 内容路径"]
     Posts --> Routes
     Routes --> Layout["PageLayout / 四套主题布局"]
-    Layout --> HTML["128 个静态 HTML / GitHub Pages"]
+    Layout --> HTML["280 个静态 HTML / GitHub Pages"]
     HTML --> Navigation["Astro ClientRouter / 共享生命周期"]
     Navigation --> Features["偏好 / 搜索筛选 / 阅读辅助 / 回到顶部"]
     Navigation --> Runtime["当前主题登记的运行时"]
@@ -73,7 +73,7 @@ flowchart TB
 
 ## 如何判断做成了
 
-本次案例同步在 Node 24.19.0 下运行了完整测试、生产构建与展示校验：**255 项单元测试全部通过，构建生成 128 个静态页面**，覆盖路由、多语言、偏好、页面生命周期、集合筛选、平滑回顶、自托管字体、无障碍名称、触控目标以及四套主题各自的运行时与样式隔离；Chrome 158 的窄视口与交互检查记录在[验证说明](docs/04-validation.md)和 [`browser-checks.json`](browser-checks.json) 中。
+本次案例同步在 Node 24.19.0 下运行了完整测试、生产构建与展示校验：**272 项单元测试全部通过，构建生成 280 个静态页面**，覆盖路由、多语言、偏好、页面生命周期、集合筛选、平滑回顶、自托管字体、无障碍名称、触控目标以及四套主题各自的运行时与样式隔离；Chrome 158 的窄视口与交互检查记录在[验证说明](docs/04-validation.md)和 [`browser-checks.json`](browser-checks.json) 中。
 
 这些结果仅代表当前检查范围通过。真实 Safari、Firefox 与实体手机测试尚未覆盖，不据此宣称已完成跨设备兼容验证。
 
@@ -93,7 +93,7 @@ flowchart TB
 
 ## English overview
 
-This engineering case study documents an Astro personal website with four visual themes (Blank, Sakura Archive / Ema, Endfield Industrial, and Arknights) and four locales (`zh-CN`, `zh-TW`, `ja`, `en`), generating 128 static pages. Shared content, route composition, preferences, self-hosted font subsets, and page lifecycle code let all four interfaces evolve together. The detailed case study is written in Simplified Chinese; the six gallery PNGs remain a 2026-10-31 snapshot pending updated artwork, while the architecture notes and automated browser checks reflect the current site.
+This engineering case study documents an Astro personal website with four visual themes (Blank, Sakura Archive / Ema, Endfield Industrial, and Arknights) and four locales (`zh-CN`, `zh-TW`, `ja`, `en`), generating 280 static pages (including redirects from old addresses). Shared content, route composition, preferences, self-hosted font subsets, and page lifecycle code let all four interfaces evolve together. The detailed case study is written in Simplified Chinese; the six gallery PNGs remain a 2026-10-31 snapshot pending updated artwork, while the architecture notes and automated browser checks reflect the current site.
 
 ## 来源与许可
 

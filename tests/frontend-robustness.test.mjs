@@ -22,7 +22,7 @@ const element = (extra = {}) => Object.assign(new EventTarget(), {
 test("Back from a filtered list to another page does not re-filter the page being left", () => {
   const entries = ["notes", "code"].map((category, i) => element({ id: String(i), dataset: { category, date: String(i), search: category } }));
   const buttons = ["all", "notes", "code"].map((siteCategory) => element({ dataset: { siteCategory } }));
-  const nodes = { "filter-form": element(), entries: element({ querySelectorAll: () => entries, append() {} }) };
+  const nodes = { "filter-form": element(), entries: element({ querySelectorAll: (s) => (s === "[data-site-entry]" ? entries : []), append() {} }) };
   const root = element({ dataset: { unit: "games" }, querySelector: (s) => nodes[s.slice("[data-site-".length, -1)] ?? null, querySelectorAll: (s) => (s === "[data-site-category]" ? buttons : []) });
   const win = element({ location: { href: "https://example.com/games/?category=code" }, setTimeout: () => 1, clearTimeout() {}, history: { state: {}, replaceState() {} } });
   const cleanup = mountCollection(root, win);

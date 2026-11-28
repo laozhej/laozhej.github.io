@@ -55,7 +55,7 @@ const entryDate = (post: (typeof posts)[number]) => post.data.updatedDate ?? pos
   <nav class="ef-index" aria-label={t("endfield.index")}>
     <a href={href("/blog/")}><small>{t("home.writingIndex")}</small><span><b>{count(posts.length)}</b> {unit("common.entries", posts.length)}</span></a>
     <a href={href("/projects/")}><small>{t("home.practiceIndex")}</small><span><b>{count(projectEntries.length)}</b> {unit("common.projects", projectEntries.length)}</span></a>
-    <a href={href("/games/")}><small>{t("home.playIndex")}</small><span><b>{count(favoriteGames.length)}</b> {unit("endfield.games", favoriteGames.length)}<i>{t("ema.about.gamesAll").replace("{n}", String(gameShelf.length))}</i></span></a>
+    <a href={href("/collection/games/")}><small>{t("home.playIndex")}</small><span><b>{count(favoriteGames.length)}</b> {unit("endfield.games", favoriteGames.length)}<i>{t("ema.about.gamesAll").replace("{n}", String(gameShelf.length))}</i></span></a>
   </nav>
 
   <section class="ef-section" aria-labelledby="ef-records-title">

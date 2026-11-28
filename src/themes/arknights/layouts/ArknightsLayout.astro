@@ -98,7 +98,7 @@ const host = Astro.site?.host ?? "";
         <p class="ak-counter" data-ak-counter>
           <span class="ak-counter-no" data-ak-counter-no>{current.number}</span>
           <span class="ak-counter-of">// <span data-ak-counter-at>{current.number}</span> / {last}</span>
-          <span class="ak-counter-word" data-ak-counter-word>{sectionWords[current.key as keyof typeof sectionWords]}</span>
+          <span class:list={["ak-counter-word", { "is-long": sectionWords[current.key as keyof typeof sectionWords].length > 8 }]} data-ak-counter-word>{sectionWords[current.key as keyof typeof sectionWords]}</span>
         </p>
       )}
       <span class="ak-rail-track"><span class="ak-rail-fill"></span></span>

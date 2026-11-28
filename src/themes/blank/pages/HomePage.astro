@@ -8,7 +8,7 @@ import { Icon } from "astro-icon/components";
 import { getSiteContent } from "@/core/i18n/content";
 import { site } from "@/lib/site";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
-import BlankLayout from "@/core/themes/PageLayout.astro";
+import BlankLayout from "../layouts/BlankLayout.astro";
 import { getPublishedPosts } from "@/core/content/blog";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 const { locale, t, href, formatDate, categoryLabel } = getI18n(Astro.url.pathname);

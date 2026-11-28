@@ -3,10 +3,10 @@ import { getSiteContent } from "@/core/i18n/content";
 import { site } from "@/lib/site";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import { Icon } from "astro-icon/components";
-import BlankLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "../components/PageHead.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 import { keepTails } from "@/core/i18n/wrap.mjs";
+const { layout: BlankLayout } = Astro.props;
 const { locale, t, href } = getI18n(Astro.url.pathname);
 const { animeFavorites, animeListUrl, currentSignals, favoriteGames, profileIdentity, profileStatus, profileTech, xpFavorites } = getSiteContent(locale);
 ---

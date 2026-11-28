@@ -4,10 +4,9 @@ import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import { getSiteContent } from "@/core/i18n/content";
 import { readingStats } from "@/core/content/reading-time.mjs";
 import { Icon } from "astro-icon/components";
-import BlankLayout from "@/core/themes/PageLayout.astro";
 const { locale, t, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
 const { profileIdentity } = getSiteContent(locale);
-const { frontmatter, body = "" } = Astro.props;
+const { layout: BlankLayout, frontmatter, body = "" } = Astro.props;
 const headings = (Astro.props.headings ?? []).filter((heading) => heading.depth >= 2 && heading.depth <= 3);
 const title = `${frontmatter.seoTitle ?? frontmatter.title} | ${site.name}`;
 const description = frontmatter.seoDescription ?? frontmatter.description;
@@ -44,7 +43,9 @@ const readTimeLabel = t("article.readingTime").replace("{n}", String(stats.minut
       data-copy-heading={t("article.copyHeading")}
       data-lightbox-open={t("article.lightboxOpen")}
       data-lightbox-label={t("article.lightboxLabel")}
-      data-lightbox-close={t("article.lightboxClose")}>
+      data-lightbox-close={t("article.lightboxClose")}
+      data-code-expand={t("article.codeExpand")}
+      data-code-collapse={t("article.codeCollapse")}>
       {frontmatter.locale !== locale && <p class="blank-translation-notice" role="note">{t("article.originalLanguage")}</p>}
       <div class="blank-prose" data-site-prose lang={frontmatter.locale}><slot /></div>
       <slot name="end-art" />

@@ -65,5 +65,5 @@ export function isIndexedPath(path) {
   const canonical = stripLocale(localPath(path));
   if (legacyThemeRoots.some((root) => canonical === root || canonical.startsWith(`${root}/`))) return false;
   const content = stripTheme(path).replace(/[?#].*$/, "");
-  return getTheme(path) === canonicalTheme && !/^\/404(?:\.html|\/)?$/.test(content) && !(content in movedPaths);
+  return getTheme(path) === canonicalTheme && !/^\/404(?:\.html|\/)?$/.test(content) && !/\.json$/i.test(content) && !(content in movedPaths);
 }

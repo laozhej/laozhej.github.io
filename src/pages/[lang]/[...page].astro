@@ -1,6 +1,7 @@
 ---
 import { render } from "astro:content";
 import { getThemeStaticPaths } from "@/core/themes/static-paths";
+import ArknightsLayout from "@/themes/arknights/layouts/ArknightsLayout.astro";
 import HomePage from "@/themes/arknights/pages/HomePage.astro";
 import BlogIndexPage from "@/themes/blank/pages/BlogIndexPage.astro";
 import ArticlePage from "@/themes/blank/pages/ArticlePage.astro";
@@ -18,4 +19,4 @@ const Page = pages[kind as keyof typeof pages];
 const rendered = post ? await render(post) : undefined;
 const Content = rendered?.Content;
 ---
-{Content ? <ArticlePage frontmatter={post.data} headings={rendered.headings} body={post.body}><Content /></ArticlePage> : <Page shelf={shelf} to={to} />}
+{Content ? <ArticlePage layout={ArknightsLayout} frontmatter={post.data} headings={rendered.headings} body={post.body}><Content /></ArticlePage> : <Page layout={ArknightsLayout} shelf={shelf} to={to} />}

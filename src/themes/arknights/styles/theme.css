@@ -25,6 +25,7 @@ html[data-theme="arknights"] {
   --blank-footer-bg:#08090a; --blank-footer-ink:#e9eae6; --blank-footer-line:#26292d; --blank-footer-muted:#a9aeb2;
   --blank-width:1180px; --blank-sans:var(--ak-text); --blank-serif:var(--ak-text); --blank-mono:var(--ak-mono);
   --site-menu-background:var(--ak-panel); --site-menu-color:var(--ak-ink);
+  --site-heat-0:#e0ded8; --site-heat-1:#a9dce8; --site-heat-2:#5ec2d8; --site-heat-3:#1995b2; --site-heat-4:#0f5c70;
   min-width:320px; background:var(--ak-field); scroll-padding-top:calc(var(--ak-head) + 40px); accent-color:var(--ak-ink);
 }
 html[data-theme="arknights"]:lang(zh-TW) {
@@ -45,7 +46,9 @@ html[data-theme="arknights"][data-color-mode="dark"] {
   --ak-field:#0d0f11; --ak-panel:#15181b; --ak-ink:#e9eae6; --ak-ink-2:#a0a6ab; --ak-rule:#2a2e32;
   --ak-trace:var(--ak-signal); --ak-number:var(--ak-signal);
   --ak-faint:color-mix(in srgb,var(--ak-ink) 7%,transparent); --ak-ghost:color-mix(in srgb,var(--ak-ink) 5%,transparent);
-  --blank-control-line:#5d6266; --blank-foldout-line:#43474b; --blank-scrollbar:#555a5e; accent-color:var(--ak-signal);
+  --blank-control-line:#5d6266; --blank-foldout-line:#43474b; --blank-scrollbar:#555a5e;
+  --site-heat-0:#1d2226; --site-heat-1:#14404d; --site-heat-2:#146c82; --site-heat-3:#179dbb; --site-heat-4:#19cff2;
+  accent-color:var(--ak-signal);
 }
 body[data-arknights] { font:15.5px/1.75 var(--ak-text); background:var(--ak-field); color:var(--ak-ink); overflow-x:clip; }
 body[data-arknights] img { height:auto; }
@@ -712,3 +715,23 @@ html[data-theme="arknights"].ak-paging::view-transition-group(ak-page-scan),html
 @media(prefers-reduced-motion:reduce) {
   .ak-log a::after { translate:0 -50%; transition:opacity .2s ease; }
 }
+
+html[data-theme="arknights"] dialog.site-cmdk { border:1px solid var(--ak-ink); background:var(--ak-panel); color:var(--ak-ink); box-shadow:0 24px 64px rgb(0 0 0 / .42); }
+html[data-theme="arknights"] dialog.site-cmdk .site-cmdk-head { border-bottom-color:var(--ak-rule); }
+html[data-theme="arknights"] dialog.site-cmdk .site-cmdk-head:focus-within { border-bottom-color:var(--ak-signal); }
+html[data-theme="arknights"] dialog.site-cmdk .site-cmdk-close:hover kbd { background:var(--ak-signal); border-color:var(--ak-signal); color:var(--ak-on-signal); }
+html[data-theme="arknights"] dialog.site-cmdk .site-cmdk-group+.site-cmdk-group { border-top-color:var(--ak-rule); }
+html[data-theme="arknights"] dialog.site-cmdk .site-cmdk-item.is-active,
+html[data-theme="arknights"] dialog.site-cmdk .site-cmdk-item[aria-selected="true"] { background:var(--ak-signal); color:var(--ak-on-signal); }
+html[data-theme="arknights"] dialog.site-cmdk .site-cmdk-item.is-active :is(.site-cmdk-item-sub,.site-cmdk-item-badge),
+html[data-theme="arknights"] dialog.site-cmdk .site-cmdk-item[aria-selected="true"] :is(.site-cmdk-item-sub,.site-cmdk-item-badge) { color:var(--ak-on-signal); opacity:.86; }
+html[data-theme="arknights"] dialog.site-cmdk .site-cmdk-foot { background:var(--ak-field); border-top-color:var(--ak-rule); }
+html[data-theme="arknights"] .is-cmdk-target { outline:2px solid var(--ak-signal); outline-offset:6px; }
+html[data-theme="arknights"] .site-serendipity-btn { border-color:var(--ak-ink); background:var(--ak-panel); color:var(--ak-ink); font-family:var(--ak-mono); letter-spacing:.04em; }
+html[data-theme="arknights"] .site-serendipity-btn:hover { background:var(--ak-signal); border-color:var(--ak-signal); color:var(--ak-on-signal); }
+html[data-theme="arknights"] .site-serendipity-card { border-color:var(--ak-rule); background:var(--ak-panel); }
+html[data-theme="arknights"] .site-serendipity-action.is-primary { border-color:var(--ak-signal); background:var(--ak-signal); color:var(--ak-on-signal); }
+html[data-theme="arknights"] .site-serendipity-action:hover { border-color:var(--ak-signal); background:var(--ak-signal); color:var(--ak-on-signal); }
+html[data-theme="arknights"] .site-heatmap { border-color:var(--ak-rule); background:var(--ak-panel); }
+html[data-theme="arknights"] .site-code-fold { border-color:var(--ak-rule); background:var(--ak-panel); color:var(--ak-ink); }
+html[data-theme="arknights"] .site-code-fold:hover { background:var(--ak-signal); border-color:var(--ak-signal); color:var(--ak-on-signal); }

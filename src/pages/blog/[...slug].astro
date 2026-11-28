@@ -1,9 +1,10 @@
 ---
 import { render } from "astro:content";
 import { getPublishedPostPaths } from "@/core/content/blog";
+import ArknightsLayout from "@/themes/arknights/layouts/ArknightsLayout.astro";
 import ArticlePage from "@/themes/blank/pages/ArticlePage.astro";
 export const getStaticPaths = getPublishedPostPaths;
 const { post } = Astro.props;
 const { Content, headings } = await render(post);
 ---
-<ArticlePage frontmatter={post.data} headings={headings} body={post.body}><Content /></ArticlePage>
+<ArticlePage layout={ArknightsLayout} frontmatter={post.data} headings={headings} body={post.body}><Content /></ArticlePage>

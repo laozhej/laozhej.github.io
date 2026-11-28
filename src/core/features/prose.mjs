@@ -62,7 +62,7 @@ async function writeClipboard(doc, win, text) {
 const displayTransitionSupport = new WeakMap();
 export function canTransitionDisplay(doc = document, win = window) {
   if (displayTransitionSupport.has(win)) return displayTransitionSupport.get(win);
-  if (!win.CSS?.supports?.("transition-behavior", "allow-discrete") || !doc.body) {
+  if (!win.CSS?.supports?.("transition-behavior", "allow-discrete") || !doc.body || typeof win.getComputedStyle !== "function") {
     return false;
   }
   const probe = doc.createElement("div");
@@ -78,6 +78,22 @@ export function canTransitionDisplay(doc = document, win = window) {
 
 export function supportsTopLayerExit(doc = document, win = window) {
   return Boolean(win.CSS?.supports?.("overlay", "auto") && canTransitionDisplay(doc, win));
+}
+
+export const CODE_COLLAPSE_THRESHOLD = 18;
+export const CODE_PREVIEW_LINES = 12;
+
+export function countCodeLines(pre) {
+  const lineNodes = pre?.querySelectorAll?.(".line");
+  if (lineNodes && lineNodes.length > 0) {
+    let count = lineNodes.length;
+    const last = lineNodes[count - 1];
+    if (count > 1 && !(last.textContent || "").length) count--;
+    return count;
+  }
+  const code = pre?.querySelector?.("code") ?? pre;
+  const raw = (code?.textContent ?? "").replace(/\r?\n$/, "");
+  return raw ? raw.split(/\r?\n/).length : 0;
 }
 
 export function mountProse(doc, win) {
@@ -103,6 +119,8 @@ export function mountProse(doc, win) {
     lightboxOpen: dataset.lightboxOpen || "Zoom image: {alt}",
     lightboxLabel: dataset.lightboxLabel || "Image preview",
     lightboxClose: dataset.lightboxClose || "Close preview",
+    codeExpand: dataset.codeExpand || "Expand remaining {n} lines",
+    codeCollapse: dataset.codeCollapse || "Collapse code block",
   };
 
   const cleanups = [];
@@ -177,8 +195,34 @@ export function mountProse(doc, win) {
       wrapper.append(copyHost, pre);
       if (!pre.hasAttribute("tabindex")) pre.setAttribute("tabindex", "0");
 
+      const totalLines = countCodeLines(pre);
+      let foldBtn = null;
+      let onFoldClick = null;
+      if (totalLines >= CODE_COLLAPSE_THRESHOLD) {
+        const hiddenLines = Math.max(1, totalLines - CODE_PREVIEW_LINES);
+        wrapper.classList.add("is-collapsible");
+        wrapper.dataset.collapsed = "true";
+        foldBtn = doc.createElement("button");
+        foldBtn.type = "button";
+        foldBtn.className = "site-code-fold";
+        foldBtn.setAttribute("aria-expanded", "false");
+        foldBtn.setAttribute("aria-controls", code.id);
+        foldBtn.textContent = labels.codeExpand.replace("{n}", String(hiddenLines));
+        onFoldClick = () => {
+          const nextOpen = wrapper.dataset.collapsed === "true";
+          wrapper.dataset.collapsed = nextOpen ? "false" : "true";
+          foldBtn.setAttribute("aria-expanded", String(nextOpen));
+          foldBtn.textContent = nextOpen
+            ? labels.codeCollapse
+            : labels.codeExpand.replace("{n}", String(hiddenLines));
+        };
+        foldBtn.addEventListener("click", onFoldClick);
+        wrapper.append(foldBtn);
+      }
+
       cleanups.push(() => {
         win.clearTimeout(timers.get(button));
+        if (foldBtn && onFoldClick) foldBtn.removeEventListener("click", onFoldClick);
         wrapper.before(pre);
         wrapper.remove();
       });

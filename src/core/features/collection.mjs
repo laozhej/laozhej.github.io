@@ -122,20 +122,39 @@ export function mountCollection(root, win) {
     !html.classList?.contains("site-filtering") &&
     !html.hasAttribute?.("data-shelf-swap")
   );
+  const MAX_VT_ITEMS = 24;
+  const inView = (entry) => {
+    if (typeof entry.getBoundingClientRect !== "function" || typeof win?.innerHeight !== "number") return true;
+    const rect = entry.getBoundingClientRect();
+    return rect.height > 0 && rect.bottom >= -200 && rect.top <= win.innerHeight + 200;
+  };
   const applyAnimated = (writeUrl = true, immediate = true) => {
     if (!canTransition()) {
       apply(writeUrl, immediate);
       return;
     }
     html.classList.add("site-filtering");
-    entries.forEach((entry, index) => {
-      if (!entry.style) return;
+    const nameAll = entries.length <= MAX_VT_ITEMS;
+    let named = 0;
+    const nameEntry = (entry, index) => {
+      if (!entry.style || entry.style.viewTransitionName || named >= MAX_VT_ITEMS) return;
       entry.style.viewTransitionName = `site-col-${index}`;
       entry.style.viewTransitionClass = "site-collection-item";
+      named++;
+    };
+    entries.forEach((entry, index) => {
+      if (nameAll || (!entry.hidden && inView(entry))) nameEntry(entry, index);
     });
     let transition;
     try {
-      transition = doc.startViewTransition(() => apply(writeUrl, immediate));
+      transition = doc.startViewTransition(() => {
+        apply(writeUrl, immediate);
+        if (!nameAll && named < MAX_VT_ITEMS) {
+          entries.forEach((entry, index) => {
+            if (!entry.hidden) nameEntry(entry, index);
+          });
+        }
+      });
     } catch {
       clearTransition();
       apply(writeUrl, immediate);

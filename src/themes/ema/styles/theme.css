@@ -25,6 +25,7 @@ html[data-theme="ema"] {
   --ema-shadow-lift:0 12px 26px rgba(156,72,114,.14),0 2px 6px rgba(96,74,60,.06);
   --ema-shadow-panel:0 16px 38px rgba(60,44,36,.14);
   --ema-title-font:"Gloock",var(--blank-serif);
+  --site-heat-0:#f0e6d8; --site-heat-1:#f3cfdc; --site-heat-2:#e29bb6; --site-heat-3:#c26a8f; --site-heat-4:#9c4872;
   min-width:320px; background:var(--blank-paper); scroll-padding-top:110px; accent-color:var(--ema-pink);
 }
 html[data-theme="ema"]:lang(zh-TW) {
@@ -56,6 +57,7 @@ html[data-theme="ema"][data-color-mode="dark"] {
   --ema-shadow-flat:0 2px 10px rgba(0,0,0,.28);
   --ema-shadow-lift:0 12px 28px rgba(0,0,0,.48);
   --ema-shadow-panel:0 18px 42px rgba(0,0,0,.45);
+  --site-heat-0:#2f2d3c; --site-heat-1:#4e3447; --site-heat-2:#7b4462; --site-heat-3:#b5688f; --site-heat-4:#f2aec8;
 }
 body[data-ema] { font-size:var(--blank-fs-sm, 14px); overflow-x:clip; }
 body[data-ema] img { height:auto; }
@@ -439,6 +441,38 @@ html[data-theme="ema"] .ema-header .site-theme-dock .site-theme-options {top:cal
 @keyframes ema-ring-pop {from {opacity:.7;transform:translate3d(var(--x),var(--y),0) scale(.8);} to {opacity:0;transform:translate3d(var(--x),var(--y),0) scale(2.2);}}
 @keyframes ema-filter-in {from {opacity:0;scale:.96;}}
 @keyframes ema-filter-out {to {opacity:0;scale:.96;}}
+
+html[data-theme="ema"] dialog.site-cmdk { border:1px solid var(--ema-pink-soft); border-radius:var(--ema-r-md); background:var(--ema-card); color:var(--blank-ink); box-shadow:var(--ema-shadow-panel); }
+html[data-theme="ema"] dialog.site-cmdk .site-cmdk-head { border-bottom:1px dashed var(--ema-pink-soft); }
+html[data-theme="ema"] dialog.site-cmdk .site-cmdk-head:focus-within { border-bottom-color:var(--ema-pink); }
+html[data-theme="ema"] dialog.site-cmdk .site-cmdk-close kbd { border-radius:6px; border-color:var(--ema-pink-soft); background:var(--ema-blush); color:var(--ema-pink); }
+html[data-theme="ema"] dialog.site-cmdk .site-cmdk-close:hover kbd { background:var(--ema-pink); border-color:var(--ema-pink); color:var(--ema-on-pink); }
+html[data-theme="ema"] dialog.site-cmdk .site-cmdk-icon { color:var(--ema-pink); }
+html[data-theme="ema"] dialog.site-cmdk .site-cmdk-group+.site-cmdk-group { border-top:1px dashed var(--blank-line); }
+html[data-theme="ema"] dialog.site-cmdk .site-cmdk-item { border-radius:var(--ema-r-sm); }
+html[data-theme="ema"] dialog.site-cmdk .site-cmdk-item.is-active,
+html[data-theme="ema"] dialog.site-cmdk .site-cmdk-item[aria-selected="true"] { background:var(--ema-blush); color:var(--blank-ink); box-shadow:inset 3px 0 0 var(--ema-pink); }
+html[data-theme="ema"] dialog.site-cmdk .site-cmdk-item.is-active :is(.site-cmdk-item-sub,.site-cmdk-item-badge),
+html[data-theme="ema"] dialog.site-cmdk .site-cmdk-item[aria-selected="true"] :is(.site-cmdk-item-sub,.site-cmdk-item-badge) { color:var(--ema-pink); opacity:1; }
+html[data-theme="ema"] dialog.site-cmdk .site-cmdk-foot { background:var(--blank-soft); border-top:1px dashed var(--blank-line); }
+html[data-theme="ema"] .ema-cmdk-card { padding:8px; }
+html[data-theme="ema"] .ema-console-search { display:flex; align-items:center; gap:8px; width:100%; min-height:44px; padding:8px 12px; border:1px solid var(--ema-pink-soft); border-radius:var(--ema-r-sm); background:var(--ema-blush); color:var(--blank-ink); font:600 var(--blank-fs-xs,12px)/1.3 var(--blank-sans); cursor:pointer; }
+html[data-theme="ema"] .ema-console-search[hidden] { display:none; }
+html[data-theme="ema"] .ema-console-search kbd { margin-left:auto; padding:1px 6px; border:1px solid var(--ema-pink-soft); border-radius:4px; background:var(--ema-card); color:var(--ema-pink); font:600 11px/1.4 var(--blank-mono); }
+html[data-theme="ema"] .is-cmdk-target { outline:2px solid var(--ema-pink); outline-offset:6px; border-radius:var(--ema-r-sm); }
+html[data-theme="ema"] .site-serendipity-btn { border:1px solid var(--ema-pink-soft); border-radius:var(--ema-r-pill); background:var(--ema-card); color:var(--blank-ink); box-shadow:var(--ema-shadow-flat); }
+html[data-theme="ema"] .site-serendipity-btn svg { color:var(--ema-pink); }
+html[data-theme="ema"] .site-serendipity-btn:hover { background:var(--ema-blush); border-color:var(--ema-pink); color:var(--blank-ink); }
+html[data-theme="ema"] .site-serendipity-pool { border-radius:var(--ema-r-pill); border-color:var(--ema-pink-soft); background:var(--ema-blush); color:var(--ema-pink); }
+html[data-theme="ema"] .site-serendipity-card { border:1px solid var(--ema-pink-soft); border-radius:var(--ema-r-md); background:var(--ema-card); box-shadow:var(--ema-shadow-flat); }
+html[data-theme="ema"] .site-serendipity-media { border-radius:var(--ema-r-sm); }
+html[data-theme="ema"] .site-serendipity-kicker { color:var(--ema-pink); }
+html[data-theme="ema"] .site-serendipity-action { border-radius:var(--ema-r-pill); border-color:var(--blank-line); background:var(--ema-card); color:var(--blank-ink); }
+html[data-theme="ema"] .site-serendipity-action.is-primary { border-color:var(--ema-pink); background:var(--ema-pink); color:var(--ema-on-pink); }
+html[data-theme="ema"] .site-serendipity-action:hover { border-color:var(--ema-pink); background:var(--ema-pink); color:var(--ema-on-pink); }
+html[data-theme="ema"] .site-heatmap { border:1px solid var(--blank-line); border-radius:var(--ema-r-md); background:var(--ema-card); box-shadow:var(--ema-shadow-flat); }
+html[data-theme="ema"] .site-code-fold { border-color:var(--blank-line); border-radius:0 0 var(--ema-r-sm) var(--ema-r-sm); background:var(--ema-card); color:var(--ema-pink); }
+html[data-theme="ema"] .site-code-fold:hover { background:var(--ema-pink); border-color:var(--ema-pink); color:var(--ema-on-pink); }
 
 /* ---------- Tap targets (2026-11-26, at the owner's request, as on Endfield and Blank) ----------
    Whatever can be pressed answers over at least 44px. Where the layout leaves room this is an empty ::before or ::after

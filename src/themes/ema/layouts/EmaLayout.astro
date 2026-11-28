@@ -4,6 +4,7 @@ import "@/core/fonts/subsets.css";
 import "@/themes/blank/styles/theme.css";
 import "@fontsource/gloock/latin-400.css";
 import "@fontsource-variable/nunito/wght.css";
+import "@fontsource-variable/jetbrains-mono/wght.css";
 import nunitoLatin from "@fontsource-variable/nunito/files/nunito-latin-wght-normal.woff2?url";
 // Falling petals: Sakura.js (MIT), started by ../lib/sakura.mjs.
 import "sakura-js/dist/sakura.min.css";
@@ -27,6 +28,7 @@ import SiteAttribution from "@/core/components/SiteAttribution.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
 import FontLinks from "@/core/fonts/FontLinks.astro";
+import CommandPalette from "@/core/components/CommandPalette.astro";
 import { pageTransition } from "@/core/navigation/animations.mjs";
 import { TRACKS } from "../lib/radio.mjs";
 const { locale, t } = getI18n(Astro.url.pathname);
@@ -90,7 +92,7 @@ const navHints: Record<string, string> = { home: "front page", blog: "notes", pr
       <a class="ema-footer-brand" href={href("/")}>{brand.split(/(\.)/).map((part) => part === "." ? <span>.</span> : part)}</a>
       <p>{t("ema.home.diary")}</p>
       <SocialLinks class="ema-social-links" label={t("social.footerHeading")} />
-      <div class="ema-footer-bottom"><SiteAttribution /><a href={localizePath("/rss.xml", locale)} data-astro-reload>RSS</a><a href={href("/credits/")}>{t("footer.credits")}</a><button class="ema-console-dock" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={14} aria-hidden="true" />{t("ema.console.tab")}</button><a href="#ema-main" data-site-top>{t("footer.top")} ↑</a></div>
+      <div class="ema-footer-bottom"><SiteAttribution /><button class="site-cmdk-trigger" type="button" data-site-cmdk-open hidden>{t("cmdk.trigger")} <kbd data-site-cmdk-kbd aria-hidden="true">⌘K</kbd></button><a href={localizePath("/rss.xml", locale)} data-astro-reload>RSS</a><a href={href("/credits/")}>{t("footer.credits")}</a><button class="ema-console-dock" type="button" data-console-toggle aria-expanded="false" aria-controls="ema-console-panel" hidden><Icon name="tabler:music" size={14} aria-hidden="true" />{t("ema.console.tab")}</button><a href="#ema-main" data-site-top>{t("footer.top")} ↑</a></div>
     </footer>
     <div class="ema-theme-floating"><ThemeSwitcher floating /></div>
     <div class="ema-console" data-ema-console>
@@ -118,9 +120,13 @@ const navHints: Record<string, string> = { home: "front page", blog: "notes", pr
             <p class="radio-note" id="ema-ring-status" data-ring-status data-paused={t("ema.ring.paused")} data-reduced={t("ema.ring.reduced")} hidden></p>
           </div>
         )}
+        <div class="console-card ema-cmdk-card">
+          <button class="ema-console-search" type="button" data-site-cmdk-open hidden><Icon name="tabler:search" size={16} aria-hidden="true" /><span>{t("cmdk.trigger")}</span><kbd data-site-cmdk-kbd aria-hidden="true">⌘K</kbd></button>
+        </div>
       </section>
     </div>
     <div class="ema-sakura" aria-hidden="true"></div>
+    <CommandPalette />
     <script>
       import { registerThemeRuntime } from "@/core/themes/runtime.mjs";
       import { mountEma } from "../lib/runtime.mjs";

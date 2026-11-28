@@ -2,7 +2,7 @@
 import { getSiteContent } from "@/core/i18n/content";
 import { getPublishedPosts } from "@/core/content/blog";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
-import PageLayout from "@/core/themes/PageLayout.astro";
+import PageLayout from "../layouts/EndfieldLayout.astro";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 const { locale, t, unit, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
 const { profileTech, currentSignals, projectEntries, favoriteGames, gameShelf } = getSiteContent(locale);

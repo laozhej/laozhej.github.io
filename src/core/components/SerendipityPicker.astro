@@ -1,0 +1,98 @@
+---
+// Collection Serendipity random picker ("随机抽一部 / Pick one at random").
+// Progressive enhancement: hidden when JS is disabled; revealed before paint when scripts run
+// (`html[data-site-js="true"]`) to avoid layout shift. Draws strictly from real shared entries.
+import { Icon } from "astro-icon/components";
+import { collectionPath } from "@/core/content/select-collection.mjs";
+
+interface Props {
+  entries: any[];
+  shelfKey?: string;
+  shelfNames: Record<string, string>;
+  genreLabel: (shelf: string, key: string) => string;
+  href: (path: string) => string;
+  t: (key: string) => string;
+}
+
+const { entries, shelfKey, shelfNames, genreLabel, href, t } = Astro.props;
+const linkLabel = (entry: { link?: { kind: string } }) => (entry.link?.kind === "steam" ? "Steam" : t("games.official"));
+const pool = entries.map((entry) => {
+  const anchorId = `${entry.shelf === "games" ? "game" : entry.shelf}-${entry.key}`;
+  const shelfHref = `${href(collectionPath(entry.shelf))}#${anchorId}`;
+  const metaParts = entry.shelf === "games"
+    ? [
+        ...entry.tags.map((tag: string) => genreLabel("games", tag)),
+        entry.favorite ? t("games.favorite") : "",
+        entry.status ? t(`games.status.${entry.status}`) : "",
+      ].filter(Boolean)
+    : (entry.details ?? []).slice(0, 2);
+  return {
+    key: `${entry.shelf}:${entry.key}`,
+    shelf: entry.shelf,
+    shelfName: shelfNames[entry.shelf] ?? entry.shelf,
+    name: entry.name,
+    lang: entry.lang ?? "",
+    original: entry.original ?? "",
+    meta: metaParts.join(" · "),
+    cover: entry.cover ? { src: entry.cover.src, focus: entry.cover.focus ?? "50% 50%", shape: entry.cover.shape ?? "tall" } : null,
+    anchorId,
+    shelfHref,
+    link: entry.link ? { href: entry.link.href, label: linkLabel(entry) } : null,
+  };
+});
+
+const config = {
+  isShelf: Boolean(shelfKey),
+  pool,
+  labels: {
+    jump: t("serendipity.jump"),
+    openShelf: t("serendipity.openShelf"),
+    announced: t("serendipity.announced"),
+  },
+};
+---
+{pool.length > 0 && (
+  <section class="site-serendipity" data-site-serendipity hidden aria-label={t("serendipity.label")}>
+    <div class="site-serendipity-bar">
+      <button class="site-serendipity-btn" type="button" data-site-serendipity-pick>
+        <Icon class="site-serendipity-dice" name="tabler:dice-5" size={18} aria-hidden="true" />
+        <span>{t("serendipity.button")}</span>
+        <span class="site-serendipity-pool" aria-hidden="true">{pool.length}</span>
+      </button>
+    </div>
+    <article class="site-serendipity-card" data-site-serendipity-card hidden>
+      <div class="site-serendipity-media" data-site-serendipity-media aria-hidden="true"></div>
+      <div class="site-serendipity-body">
+        <div class="site-serendipity-top">
+          <p class="site-serendipity-kicker"><span data-site-serendipity-shelf-tag></span> · {t("serendipity.kicker")}</p>
+          <button class="site-serendipity-close" type="button" data-site-serendipity-close aria-label={t("serendipity.close")} title={t("serendipity.close")}>
+            <Icon name="tabler:x" size={16} aria-hidden="true" />
+          </button>
+        </div>
+        <h3 class="site-serendipity-title" data-site-serendipity-title></h3>
+        <p class="site-serendipity-sub" data-site-serendipity-original hidden></p>
+        <p class="site-serendipity-meta" data-site-serendipity-meta hidden></p>
+        <div class="site-serendipity-actions">
+          <button class="site-serendipity-action is-primary" type="button" data-site-serendipity-jump hidden>
+            <Icon name="tabler:crosshair" size={16} aria-hidden="true" />
+            <span>{t("serendipity.jump")}</span>
+          </button>
+          <a class="site-serendipity-action is-primary" href="#" data-site-serendipity-open hidden>
+            <span>{t("serendipity.openShelf")}</span>
+            <Icon name="tabler:arrow-right" size={16} aria-hidden="true" />
+          </a>
+          <a class="site-serendipity-action" href="#" target="_blank" rel="noopener noreferrer" data-site-serendipity-ext hidden>
+            <span data-site-serendipity-ext-label></span>
+            <Icon name="tabler:arrow-up-right" size={15} aria-hidden="true" />
+          </a>
+          <button class="site-serendipity-action" type="button" data-site-serendipity-again>
+            <Icon name="tabler:refresh" size={15} aria-hidden="true" />
+            <span>{t("serendipity.again")}</span>
+          </button>
+        </div>
+      </div>
+    </article>
+    <p class="blank-sr-only" role="status" aria-live="polite" data-site-serendipity-status></p>
+    <script type="application/json" data-site-serendipity-data set:html={JSON.stringify(config)}></script>
+  </section>
+)}

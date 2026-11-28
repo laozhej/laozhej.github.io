@@ -2,7 +2,7 @@
 import { site } from "@/lib/site";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import { Icon } from "astro-icon/components";
-import BlankLayout from "@/core/themes/PageLayout.astro";
+const { layout: BlankLayout } = Astro.props;
 const { t, href } = getI18n(Astro.url.pathname);
 ---
 <BlankLayout title={`404 | ${site.name}`} description={t("notFound.description")}>

@@ -3,6 +3,8 @@ import { mountReading } from "./reading.mjs";
 import { mountDisclosure } from "./disclosure.mjs";
 import { mountBackToTop } from "./back-to-top.mjs";
 import { mountProse } from "./prose.mjs";
+import { mountCommandPalette } from "./command-palette.mjs";
+import { mountSerendipity } from "./serendipity.mjs";
 import { mountColorMode } from "../preferences/color-mode.mjs";
 
 const mountedDocuments = new WeakMap();
@@ -22,9 +24,11 @@ export function mountSiteFeatures(doc, win) {
     mountColorMode(doc, win),
     ...[...doc.querySelectorAll("[data-site-collection]")].map((root) => mountCollection(root, win)),
     ...[...doc.querySelectorAll("[data-site-disclosure]")].map((root) => mountDisclosure(root, win)),
+    ...[...doc.querySelectorAll("[data-site-serendipity]")].map((root) => mountSerendipity(root, win)),
     mountReading(doc, win),
     mountBackToTop(doc, win),
     mountProse(doc, win),
+    mountCommandPalette(doc, win),
   ];
   let disposed = false;
   const cleanup = () => {

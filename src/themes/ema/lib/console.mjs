@@ -45,10 +45,10 @@ export function mountEmaConsole(doc, win) {
   let names = [];
   try { names = JSON.parse(radioRoot?.dataset.tracks || '[]'); } catch (_) {}
   const title = $('[data-radio-title]'), count = $('[data-radio-count]');
-  const play = $('[data-radio-play]'), progress = $('[data-radio-progress]');
+  const play = $('[data-radio-play]'), seek = $('[data-radio-seek]');
   const elapsed = $('[data-radio-elapsed]'), length = $('[data-radio-length]');
   const volume = $('[data-radio-volume]'), unsupported = $('[data-radio-unsupported]'), error = $('[data-radio-error]');
-  let frame = 0;
+  let frame = 0, dragging = false;
   function render() {
     if (!radioRoot) return;
     const total = radio.duration;
@@ -57,7 +57,12 @@ export function mountEmaConsole(doc, win) {
     if (count) count.textContent = `${radio.index + 1} / ${TRACKS.length}`;
     if (elapsed) elapsed.textContent = clock(position);
     if (length) length.textContent = clock(total);
-    if (progress) progress.style.transform = `scaleX(${(position / total).toFixed(4)})`;
+    if (seek) {
+      seek.max = String(total);
+      if (!dragging) seek.value = String(position);
+      seek.style.setProperty('--radio-seek', (Number(seek.value) / total).toFixed(4));
+      seek.setAttribute('aria-valuetext', `${clock(Number(seek.value))} / ${clock(total)}`);
+    }
     if (volume && doc.activeElement !== volume) volume.value = String(Math.round(radio.volume * 100));
     if (error) error.hidden = !radio.failed;
     radioRoot.classList.toggle('is-playing', radio.playing);
@@ -86,6 +91,10 @@ export function mountEmaConsole(doc, win) {
     listen($('[data-radio-prev]'), 'click', () => radio.select(radio.index - 1));
     listen($('[data-radio-next]'), 'click', () => radio.select(radio.index + 1));
     listen(volume, 'input', () => radio.setVolume(Number(volume.value) / 100));
+    // Dragging, clicking or the arrow keys move the tune; the playing loop leaves the thumb alone mid-drag.
+    listen(seek, 'pointerdown', () => { dragging = true; });
+    ['pointerup', 'pointercancel', 'change', 'blur'].forEach((type) => listen(seek, type, () => { dragging = false; render(); }));
+    listen(seek, 'input', () => radio.seek(Number(seek.value)));
     toggles.forEach((toggle) => listen(toggle, 'click', wake));
     removers.push(radio.subscribe(() => { render(); wake(); }));
     radio.hold();

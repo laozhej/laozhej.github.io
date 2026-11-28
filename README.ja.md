@@ -137,6 +137,7 @@ tags: [标签一, 标签二]
 - [Asahi Arataki (@laozhej)](https://github.com/laozhej)：サイトの保守とコンテンツ。
 - [Codex (@codex)](https://github.com/codex)：サイトの開発・保守を支援。
 - [Claude (@claude)](https://github.com/claude)：サイトのフロントエンド設計・開発・保守を支援。
+- [Gemini (@gemini-code-assist)](https://github.com/gemini-code-assist)：サイトの開発・保守を支援。
 
 ## 出典とライセンス
 

@@ -1,0 +1,42 @@
+name: Link Pages deployment from READMEs
+
+on:
+  push:
+    branches:
+      - codex/actions-readme-runner
+    paths:
+      - .github/workflows/link-pages-readmes-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update-readmes:
+    if: github.repository == 'laozhej/laozhej.github.io'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/heads/main
+      - name: Link to the deployment workflow
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          workflow = "https://github.com/laozhej/laozhej.github.io/actions/workflows/deploy.yml"
+          label = "**Deploy to GitHub Pages**"
+          link = f"[Deploy to GitHub Pages]({workflow})"
+          for path in map(Path, ("README.md", "README.en.md", "README.ja.md")):
+              original = path.read_text(encoding="utf-8")
+              if original.count(label) != 1 or link in original:
+                  raise SystemExit(f"Expected one unlinked workflow name in {path}")
+              path.write_text(original.replace(label, link), encoding="utf-8")
+          PY
+      - name: Commit the README links
+        run: |
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- README.md README.en.md README.ja.md
+          git commit -m 'docs: link the Pages deployment workflow'
+          git push origin HEAD:refs/heads/codex/actions-deployment-docs

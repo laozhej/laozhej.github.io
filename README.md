@@ -139,6 +139,7 @@ tags: [标签一, 标签二]
 - [Codex (@codex)](https://github.com/codex)：协助网站开发与维护。
 - [Claude (@claude)](https://github.com/claude)：协助网站的前端设计、开发与维护。
 - [Gemini (@gemini-code-assist)](https://github.com/gemini-code-assist)：协助网站开发与维护。
+- [Grok / Cursor Agent (@cursoragent)](https://github.com/cursoragent)：协助网站开发与维护。
 
 ## 来源与许可
 

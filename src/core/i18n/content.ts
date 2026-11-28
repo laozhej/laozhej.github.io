@@ -2,7 +2,7 @@ import * as profile from "@/core/data/profile";
 import * as projects from "@/core/data/projects";
 import { games } from "@/core/data/games";
 import { getFavoriteCharacters } from "@/core/data/characters";
-import { animeListUrl, genreNames, getFavoriteAnimes } from "@/core/data/animes";
+import { animeListUrl, genreNames, getCollectionAnimes, getFavoriteAnimes } from "@/core/data/animes";
 import { manga, movies, tv } from "@/core/data/collection";
 import { checkGames, gameGenres, linkFavoriteGames, localizeGames } from "@/core/content/select-games.mjs";
 import { buildCollection, checkWorks } from "@/core/content/select-collection.mjs";
@@ -182,7 +182,7 @@ const shelved = <T extends Content>(locale: Locale, content: T) => ({
   ...content,
   collection: buildCollection({
     locale, gameShelf: content.gameShelf, favoriteKeys: content.favoriteGames.map((game) => game.key),
-    animes: content.animeFavorites, works: { manga, movies, tv }, gameGenres, genreNames,
+    animes: getCollectionAnimes(locale), works: { manga, movies, tv }, gameGenres, genreNames,
   }),
 });
 const byLocale = { "zh-CN": shelved("zh-CN", zh), "zh-TW": shelved("zh-TW", zhTW), ja: shelved("ja", ja), en: shelved("en", en) };

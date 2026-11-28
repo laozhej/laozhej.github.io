@@ -14,7 +14,7 @@ export const mediaMessages = {
     "media.rights": "角色头像、动画封面、游戏宣传图及其他第三方媒体均归各自权利人所有。下方清单用于记录出处与裁切信息，本站代码的 MIT 许可与署名本身不代表转载授权；上述第三方素材的公开使用授权均尚未确认，如有版权问题请通过站内邮箱联系处理。",
     "media.gamesManifest": "游戏图片的来源与文件校验",
     "media.charactersManifest": "喜欢的角色 · 头像来源、作者与裁切记录",
-    "media.animesManifest": "喜欢的动画 · 封面来源与裁切记录",
+    "media.animesManifest": "动漫收藏 · 封面来源",
     "media.moviePosters": "电影海报 · 来源与设计署名",
   },
   "zh-TW": {
@@ -31,7 +31,7 @@ export const mediaMessages = {
     "media.rights": "角色頭像、動畫封面、遊戲宣傳圖及其他第三方媒體均歸各自權利人所有。下方清單用於記錄出處與裁切資訊，本站程式碼的 MIT 授權與署名本身不代表轉載授權；上述第三方素材的公開使用授權均尚未確認，如有著作權問題請透過站內電子郵件聯絡處理。",
     "media.gamesManifest": "遊戲圖片的來源與檔案檢查碼",
     "media.charactersManifest": "喜歡的角色 · 頭像來源、作者與裁切紀錄",
-    "media.animesManifest": "喜歡的動畫 · 封面來源與裁切紀錄",
+    "media.animesManifest": "動畫收藏 · 封面出處",
     "media.moviePosters": "電影海報 · 出處與設計署名",
   },
   ja: {
@@ -48,7 +48,7 @@ export const mediaMessages = {
     "media.rights": "キャラクターアイコン、アニメカバー、ゲーム宣伝画像などの第三者素材は各権利者に帰属します。以下のマニフェストは出典と切り抜き記録であり、コードの MIT ライセンスやクレジット表記は転載許諾を意味しません。これら第三者素材の公開利用許諾はいずれも未確認のため、権利上の問題がある場合はサイト記載のメールまでご連絡ください。",
     "media.gamesManifest": "ゲーム画像の出典とファイル検証情報",
     "media.charactersManifest": "好きなキャラクター · アイコンの出典・作者・切り抜き記録",
-    "media.animesManifest": "好きなアニメ · カバー画像の出典・切り抜き記録",
+    "media.animesManifest": "アニメコレクションのカバー画像の出典",
     "media.moviePosters": "映画ポスターの出典とデザインクレジット",
   },
   en: {
@@ -65,7 +65,7 @@ export const mediaMessages = {
     "media.rights": "Character portraits, anime covers, game promotional art, and other third-party media belong to their respective rights holders. The manifests below record sources and crops; the site's MIT code license and credits do not grant republication rights. Permission for public use of these third-party assets remains unconfirmed; if you hold rights to any item and want it removed, please contact me by email.",
     "media.gamesManifest": "Sources and checksums for the game pictures",
     "media.charactersManifest": "Favorite characters: portrait sources, creators, and crops",
-    "media.animesManifest": "Favorite anime: cover sources and crops",
+    "media.animesManifest": "Anime collection cover sources",
     "media.moviePosters": "Film poster sources and design credits",
   },
 } as const;

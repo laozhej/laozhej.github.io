@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "verified_on": "2026-10-29",
-  "scope": "Cover art for the owner-selected favorite anime. Third-party art is excluded from the repository software license. Source records do not grant republication rights.",
-  "processing": "Deterministic centred 2:3 crops, LANCZOS resizing, and WebP encoding only. No generative AI, generative fill, redrawing, or synthetic upscaling.",
+  "verified_on": "2026-11-28",
+  "scope": "Cover art for the public anime collection, including the favorites on About. Third-party art is excluded from the software license. Republication rights have not been verified.",
+  "processing": "The six original favorites use centered 2:3 crops. The remaining posters retain their original aspect ratio and fit within 420 × 630, without enlargement. Resizing uses LANCZOS and the files are encoded as WebP.",
   "assets": [
     {
       "key": "sword-art-online",
@@ -159,6 +159,1136 @@
           450
         ]
       }
+    },
+    {
+      "key": "makeine-too-many-losing-heroines",
+      "title": "Makeine: Too Many Losing Heroines!",
+      "year": 2024,
+      "sourcePage": "https://anilist.co/anime/171457",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx171457-nmMIk0gNiWsm.jpg",
+      "officialPage": "https://makeine-anime.com/",
+      "animationStudios": [
+        "A-1 Pictures"
+      ],
+      "path": "/animes/makeine-too-many-losing-heroines.webp",
+      "sourceSize": [
+        460,
+        650
+      ],
+      "outputSize": [
+        420,
+        593
+      ],
+      "sourceSha256": "4bb3b5041084ea19f7d8f4d60b2956ddad5485223d36b94a171a8840372497d2",
+      "sha256": "7f2818199feb09c4f51948cc4b94d595fcd44b2dbefe1134a7ef69834a6f4bce"
+    },
+    {
+      "key": "bang-dream-it-s-mygo",
+      "title": "BanG Dream! It's MyGO!!!!!",
+      "year": 2023,
+      "sourcePage": "https://anilist.co/anime/163571",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx163571-Atkvuzh1A1Ip.png",
+      "officialPage": "https://anime.bang-dream.com/mygo",
+      "animationStudios": [
+        "SANZIGEN"
+      ],
+      "path": "/animes/bang-dream-it-s-mygo.webp",
+      "sourceSize": [
+        460,
+        653
+      ],
+      "outputSize": [
+        420,
+        596
+      ],
+      "sourceSha256": "39149fb021c7a48e86e7bd096c156b9e49228cdca01e0f722d9ea4f88b35a548",
+      "sha256": "c7ced835f2be6bb65b6a0e6f88d58498d38ebf169cc01ab31fef11efb5ff84cc"
+    },
+    {
+      "key": "land-of-the-lustrous",
+      "title": "Land of the Lustrous",
+      "year": 2017,
+      "sourcePage": "https://anilist.co/anime/98707",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx98707-25nUKb4XUFgY.png",
+      "officialPage": "https://www.mbs.jp/land-of-the-lustrous/",
+      "animationStudios": [
+        "Orange"
+      ],
+      "path": "/animes/land-of-the-lustrous.webp",
+      "sourceSize": [
+        460,
+        690
+      ],
+      "outputSize": [
+        420,
+        630
+      ],
+      "sourceSha256": "dd8f930c7129a670bccc1e6707e779301adf9515cf2ca8a62aa75943c4e2071a",
+      "sha256": "da0a34a5e65374600dc5bc443f92c46290504e0d1b4008ae13ecddd2ac0ee51f"
+    },
+    {
+      "key": "cosmic-princess-kaguya",
+      "title": "Cosmic Princess Kaguya!",
+      "year": 2026,
+      "sourcePage": "https://anilist.co/anime/201903",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx201903-v43gxQKw8Tc8.jpg",
+      "officialPage": "https://www.cho-kaguyahime.com",
+      "animationStudios": [
+        "Studio Colorido",
+        "Studio Chromato"
+      ],
+      "path": "/animes/cosmic-princess-kaguya.webp",
+      "sourceSize": [
+        460,
+        690
+      ],
+      "outputSize": [
+        420,
+        630
+      ],
+      "sourceSha256": "3528555a6bb27f94d4219143465f6f873c4406b2d18fd6e1c51ba52a3bb570f4",
+      "sha256": "f59913ac39ae87a9505bce61f499b6ee8be8fd4054e9eb8934d508cc141642e0"
+    },
+    {
+      "key": "charlotte",
+      "title": "Charlotte",
+      "year": 2015,
+      "sourcePage": "https://anilist.co/anime/20997",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20997-axVYrsIfjtYJ.jpg",
+      "officialPage": "https://charlotte-anime.jp/",
+      "animationStudios": [
+        "P.A.WORKS"
+      ],
+      "path": "/animes/charlotte.webp",
+      "sourceSize": [
+        460,
+        655
+      ],
+      "outputSize": [
+        420,
+        598
+      ],
+      "sourceSha256": "927ab467d1f38bdc727784089d320b71f86c93ea978595b8c47ee5b2c17b08b1",
+      "sha256": "25778220351a8871e2294ecedb71be3065a784a3e463b3556e45f7269f904596"
+    },
+    {
+      "key": "clannad",
+      "title": "Clannad",
+      "year": 2007,
+      "sourcePage": "https://anilist.co/anime/2167",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx2167-pSDBcyc0vjej.jpg",
+      "officialPage": "https://www.tbs.co.jp/clannad/clannad1/index-j.html",
+      "animationStudios": [
+        "Kyoto Animation"
+      ],
+      "path": "/animes/clannad.webp",
+      "sourceSize": [
+        460,
+        647
+      ],
+      "outputSize": [
+        420,
+        591
+      ],
+      "sourceSha256": "d1636a51b8545638eab6baa41f3412a76c978b67bcf42d8323b7ff2608d111c7",
+      "sha256": "d0e4d0b8e53b3da2ed61ce236f986a11dc95f3a4bae71ea1dac3e2b1ad80d97c",
+      "representativeCover": true
+    },
+    {
+      "key": "tokyo-revengers",
+      "title": "Tokyo Revengers",
+      "year": 2021,
+      "sourcePage": "https://anilist.co/anime/120120",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx120120-cWDmnmeEntSe.jpg",
+      "officialPage": "https://tokyo-revengers-anime.com/",
+      "animationStudios": [
+        "LIDENFILMS"
+      ],
+      "path": "/animes/tokyo-revengers.webp",
+      "sourceSize": [
+        460,
+        650
+      ],
+      "outputSize": [
+        420,
+        593
+      ],
+      "sourceSha256": "311b57b5133e72acfc05b6f435dff0439c8a907be02d9aed5255a71b65fddd9b",
+      "sha256": "a709b8d94df04c869682a660de8539c8c9fa2293d7a78d5f05e7ef91479c0ca7",
+      "representativeCover": true
+    },
+    {
+      "key": "tokyo-ghoul",
+      "title": "Tokyo Ghoul",
+      "year": 2014,
+      "sourcePage": "https://anilist.co/anime/20605",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b20605-k665mVkSug8D.jpg",
+      "officialPage": "https://www.marv.jp/special/tokyoghoul/first/index.html",
+      "animationStudios": [
+        "Studio Pierrot"
+      ],
+      "path": "/animes/tokyo-ghoul.webp",
+      "sourceSize": [
+        230,
+        325
+      ],
+      "outputSize": [
+        230,
+        325
+      ],
+      "sourceSha256": "fc62f127f7ee57865e1fac11eb8b14827c1dee162cb1cb18c5a3fbe33357d0da",
+      "sha256": "a1c34835bfdb619299edc74e39eaf0b7981597f573a8999b924109cfc386836e",
+      "representativeCover": true
+    },
+    {
+      "key": "fate-grand-order",
+      "title": "Fate/Grand Order: First Order",
+      "year": 2016,
+      "sourcePage": "https://anilist.co/anime/97815",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97815-NnWheNnaKCmS.png",
+      "officialPage": "https://anime.fate-go.jp/FirstOrder/",
+      "animationStudios": [
+        "Lay-duce"
+      ],
+      "path": "/animes/fate-grand-order.webp",
+      "sourceSize": [
+        460,
+        648
+      ],
+      "outputSize": [
+        420,
+        592
+      ],
+      "sourceSha256": "4c117b6ba22059de8dd3aee9679545d5a4db0f514a3b0fa1533fc89f70dfd94e",
+      "sha256": "14f06da383629767452700bb2eddc4ecd83340e0f761fc4c2991ce279945eac6",
+      "representativeCover": true
+    },
+    {
+      "key": "fate-strange-fake",
+      "title": "Fate/strange Fake",
+      "year": 2026,
+      "sourcePage": "https://anilist.co/anime/166617",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx166617-34fpC9y47tTx.png",
+      "officialPage": "https://fate-strange-fake.com",
+      "animationStudios": [
+        "A-1 Pictures"
+      ],
+      "path": "/animes/fate-strange-fake.webp",
+      "sourceSize": [
+        460,
+        673
+      ],
+      "outputSize": [
+        420,
+        614
+      ],
+      "sourceSha256": "f1f40c7af837d65f820c7abf242f437fb551c391f8ba9dbf171c2ed99279a88d",
+      "sha256": "d545795738f85e90976454fa7b5d0cc485632b60535fc568784859f1be885331",
+      "representativeCover": true
+    },
+    {
+      "key": "fate-zero",
+      "title": "Fate/Zero",
+      "year": 2011,
+      "sourcePage": "https://anilist.co/anime/10087",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx10087-M4Hd9qrHGrXk.png",
+      "officialPage": "https://www.fate-zero.jp/",
+      "animationStudios": [
+        "ufotable"
+      ],
+      "path": "/animes/fate-zero.webp",
+      "sourceSize": [
+        460,
+        690
+      ],
+      "outputSize": [
+        420,
+        630
+      ],
+      "sourceSha256": "fdd8eef25838693fb6dc88e885173767d93c87d86e914e9dbd6d26ad52553f91",
+      "sha256": "881948420ffbf51df702ca9180c4672caea34a504dd5e573dc8c9ef042750ff9",
+      "representativeCover": true
+    },
+    {
+      "key": "citrus",
+      "title": "Citrus",
+      "year": 2018,
+      "sourcePage": "https://anilist.co/anime/97832",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx97832-uMSoHPCn5BnJ.png",
+      "officialPage": "https://passione-anime.com/archives/works/citrus",
+      "animationStudios": [
+        "Passione"
+      ],
+      "path": "/animes/citrus.webp",
+      "sourceSize": [
+        460,
+        683
+      ],
+      "outputSize": [
+        420,
+        624
+      ],
+      "sourceSha256": "038a03a96d810eee4dbba03d7f9d5ecb24f180578aeb7fc1c4d5dbd856933311",
+      "sha256": "de2a5726d206f382e424b18e45dd663f0a8521057f17baa2a099dcbea619c592"
+    },
+    {
+      "key": "demon-slayer-kimetsu-no-yaiba",
+      "title": "Demon Slayer -Kimetsu no Yaiba- The Movie: Mugen Train",
+      "year": 2020,
+      "sourcePage": "https://anilist.co/anime/112151",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx112151-1qlQwPB1RrJe.png",
+      "officialPage": "https://kimetsu.com/anime/movie/mugenressyahen/",
+      "animationStudios": [
+        "ufotable"
+      ],
+      "path": "/animes/demon-slayer-kimetsu-no-yaiba.webp",
+      "sourceSize": [
+        460,
+        646
+      ],
+      "outputSize": [
+        420,
+        590
+      ],
+      "sourceSha256": "6da7e2dc6f54fd107fed136de905f09c749cd8d56795c68c05501b5e142f64ab",
+      "sha256": "813dd21a23627fde9e9463e34dc3b86fc9ab42e7efcce5e1b34d2c79a8541ba7",
+      "representativeCover": true
+    },
+    {
+      "key": "classroom-of-the-elite",
+      "title": "Classroom of the Elite",
+      "year": 2017,
+      "sourcePage": "https://anilist.co/anime/98659",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx98659-WNyPLIZDpGGY.jpg",
+      "officialPage": "https://you-zitsu.com/1st/",
+      "animationStudios": [
+        "Lerche"
+      ],
+      "path": "/animes/classroom-of-the-elite.webp",
+      "sourceSize": [
+        460,
+        716
+      ],
+      "outputSize": [
+        405,
+        630
+      ],
+      "sourceSha256": "21a68c01b75b4c178f5ebe945e7a9d2173617c271ebd35c01ddc00caf1a6b8b8",
+      "sha256": "4b5b4579ac0a114d834f8a238e0d8a947eb76cfcc09f63b886691789f22d7ab4",
+      "representativeCover": true
+    },
+    {
+      "key": "samurai-champloo",
+      "title": "Samurai Champloo",
+      "year": 2004,
+      "sourcePage": "https://anilist.co/anime/205",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx205-7tHVFu6dPBm9.png",
+      "officialPage": "https://www.fujitv.co.jp/b_hp/samuraichamploo/",
+      "animationStudios": [
+        "Manglobe"
+      ],
+      "path": "/animes/samurai-champloo.webp",
+      "sourceSize": [
+        460,
+        646
+      ],
+      "outputSize": [
+        420,
+        590
+      ],
+      "sourceSha256": "408da5a53a5ceeac1919f474001c46774b657d7dfdff655b7b9bf4a556cb9259",
+      "sha256": "9c02fad5a70c7d9eb1d53c71156e5708593a5fd4e55c3c1f62d91d97f2de0037"
+    },
+    {
+      "key": "spy-x-family",
+      "title": "SPY x FAMILY",
+      "year": 2022,
+      "sourcePage": "https://anilist.co/anime/140960",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx140960-Kb6R5nYQfjmP.jpg",
+      "officialPage": "https://spy-family.net/tvseries/",
+      "animationStudios": [
+        "CloverWorks",
+        "WIT STUDIO"
+      ],
+      "path": "/animes/spy-x-family.webp",
+      "sourceSize": [
+        460,
+        650
+      ],
+      "outputSize": [
+        420,
+        593
+      ],
+      "sourceSha256": "f5c7eccfdcb8d67ae633edcc9ccfe40cb90257f8f29b2beb1f3e6c516d75a528",
+      "sha256": "af38865355f00bdb3aeafcf037ee67075f65c98238e7a58bc8f48834b682b262",
+      "representativeCover": true
+    },
+    {
+      "key": "mobile-suit-gundam",
+      "title": "Mobile Suit Gundam",
+      "year": 1979,
+      "sourcePage": "https://anilist.co/anime/80",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx80-pdYJ12vSTmad.jpg",
+      "officialPage": "https://gundam-official.com/series/mobile-suit-gundam",
+      "animationStudios": [
+        "Sunrise"
+      ],
+      "path": "/animes/mobile-suit-gundam.webp",
+      "sourceSize": [
+        460,
+        657
+      ],
+      "outputSize": [
+        420,
+        600
+      ],
+      "sourceSha256": "e9dcfc4742b06f980e988a42c27ab5586f5c4d15ead898bc06ae43325cac2839",
+      "sha256": "0d56f5bebab44948f8858e2ca1d9546465a32e64196459977349f6733481564a",
+      "representativeCover": true
+    },
+    {
+      "key": "attack-on-titan",
+      "title": "Attack on Titan",
+      "year": 2013,
+      "sourcePage": "https://anilist.co/anime/16498",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx16498-buvcRTBx4NSm.jpg",
+      "officialPage": "https://shingeki.tv/",
+      "animationStudios": [
+        "WIT STUDIO"
+      ],
+      "path": "/animes/attack-on-titan.webp",
+      "sourceSize": [
+        460,
+        636
+      ],
+      "outputSize": [
+        420,
+        581
+      ],
+      "sourceSha256": "7bcb989ae33cdd25913d2e31eece6a7dc92d62817285487c92841531e3f89124",
+      "sha256": "6bc69955fc9bb802f1a63889b850329653dc074cb3df147e37e9259fd17f9ab1",
+      "representativeCover": true
+    },
+    {
+      "key": "horimiya",
+      "title": "Horimiya",
+      "year": 2021,
+      "sourcePage": "https://anilist.co/anime/124080",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx124080-3i22mRVPBS0T.jpg",
+      "officialPage": "https://horimiya-anime.com/1st/",
+      "animationStudios": [
+        "CloverWorks"
+      ],
+      "path": "/animes/horimiya.webp",
+      "sourceSize": [
+        460,
+        669
+      ],
+      "outputSize": [
+        420,
+        611
+      ],
+      "sourceSha256": "e7041d62ad8e3875f04ab42640788606ee487f53348a92812ca91efa6051100e",
+      "sha256": "3e688934b1e78fef5841e840838670f6d991f76ae7a23f3b0d755bfddd2ad2b1",
+      "representativeCover": true
+    },
+    {
+      "key": "lycoris-recoil",
+      "title": "Lycoris Recoil",
+      "year": 2022,
+      "sourcePage": "https://anilist.co/anime/143270",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx143270-rfkyiYXhek5w.jpg",
+      "officialPage": "https://lycoris-recoil.com/",
+      "animationStudios": [
+        "A-1 Pictures"
+      ],
+      "path": "/animes/lycoris-recoil.webp",
+      "sourceSize": [
+        460,
+        638
+      ],
+      "outputSize": [
+        420,
+        583
+      ],
+      "sourceSha256": "e265a2205befa6cea8938875dde227a9cfed6a36a53cacf34d18d94da32c1764",
+      "sha256": "ad8a3ef07fe8a240047aefeae5ab07bf03c92308b637868246e35af84018a3c7"
+    },
+    {
+      "key": "suzume",
+      "title": "Suzume",
+      "year": 2022,
+      "sourcePage": "https://anilist.co/anime/142770",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx142770-dDaDIRnsv5jN.jpg",
+      "officialPage": "https://suzume-tojimari-movie.jp/",
+      "animationStudios": [
+        "CoMix Wave"
+      ],
+      "path": "/animes/suzume.webp",
+      "sourceSize": [
+        460,
+        690
+      ],
+      "outputSize": [
+        420,
+        630
+      ],
+      "sourceSha256": "d679112b9fa993e789aca7b5a86faf920526eeaa86f83921b5807813624a846d",
+      "sha256": "62f92efe30ded080c00894503ee7fb9b4448b446d6402630adb3d9c8816f72bf"
+    },
+    {
+      "key": "the-angel-next-door-spoils-me-rotten",
+      "title": "The Angel Next Door Spoils Me Rotten",
+      "year": 2023,
+      "sourcePage": "https://anilist.co/anime/143338",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx143338-zhyDVYgEzsm5.png",
+      "officialPage": "https://otonarino-tenshisama.jp/",
+      "animationStudios": [
+        "project No.9"
+      ],
+      "path": "/animes/the-angel-next-door-spoils-me-rotten.webp",
+      "sourceSize": [
+        460,
+        662
+      ],
+      "outputSize": [
+        420,
+        604
+      ],
+      "sourceSha256": "e179c0f7e322d06436139a0ded9466edcd0b5dd07e24656545ba332be6a31112",
+      "sha256": "8659e3fbd954e69bbe0036c4734f940ef65a64dab29afdf3103ee369be778182",
+      "representativeCover": true
+    },
+    {
+      "key": "delicious-in-dungeon",
+      "title": "Delicious in Dungeon",
+      "year": 2024,
+      "sourcePage": "https://anilist.co/anime/153518",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx153518-IVXPDY5ph3kO.jpg",
+      "officialPage": "https://delicious-in-dungeon.com/",
+      "animationStudios": [
+        "TRIGGER"
+      ],
+      "path": "/animes/delicious-in-dungeon.webp",
+      "sourceSize": [
+        460,
+        626
+      ],
+      "outputSize": [
+        420,
+        572
+      ],
+      "sourceSha256": "4550e34d2cfd909dca2b80269c96a2ae98723d75367a1b32cbf963d56240d163",
+      "sha256": "1b4d625f34699432334807574a58be93dd17e85e12b2f1fcca5305e0cf6075e5"
+    },
+    {
+      "key": "puella-magi-madoka-magica",
+      "title": "Puella Magi Madoka Magica",
+      "year": 2011,
+      "sourcePage": "https://anilist.co/anime/9756",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx9756-QnUGwlwwnsuN.jpg",
+      "officialPage": "https://www.aniplex.co.jp/lineup/madokamagica/",
+      "animationStudios": [
+        "Shaft"
+      ],
+      "path": "/animes/puella-magi-madoka-magica.webp",
+      "sourceSize": [
+        460,
+        666
+      ],
+      "outputSize": [
+        420,
+        608
+      ],
+      "sourceSha256": "a9f919f249a0cf4440a04db785084936029a2a0a57e885fa9436b19f53940f28",
+      "sha256": "c3f1fbc0152fae8fa05c5b2074fc3d654f11ea3e2a927003b291c1ce2c71dbab"
+    },
+    {
+      "key": "a-certain-scientific-railgun",
+      "title": "A Certain Scientific Railgun",
+      "year": 2009,
+      "sourcePage": "https://anilist.co/anime/6213",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx6213-QtrlDQnexApL.jpg",
+      "officialPage": "https://toaru-project.com/railgun/",
+      "animationStudios": [
+        "J.C.STAFF"
+      ],
+      "path": "/animes/a-certain-scientific-railgun.webp",
+      "sourceSize": [
+        460,
+        651
+      ],
+      "outputSize": [
+        420,
+        594
+      ],
+      "sourceSha256": "1b7d3f73c45dba14be0e4150b9312993c891ef6dd6f90a1eb82fe16644bba440",
+      "sha256": "c54ca789d3f7c12823def3256f1f73ee389e4754a184646b60441e189485881d",
+      "representativeCover": true
+    },
+    {
+      "key": "your-name",
+      "title": "Your Name.",
+      "year": 2016,
+      "sourcePage": "https://anilist.co/anime/21519",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21519-SUo3ZQuCbYhJ.png",
+      "officialPage": "https://www.kiminona.com/",
+      "animationStudios": [
+        "CoMix Wave"
+      ],
+      "path": "/animes/your-name.webp",
+      "sourceSize": [
+        460,
+        690
+      ],
+      "outputSize": [
+        420,
+        630
+      ],
+      "sourceSha256": "0cdc906241941bc4b35355cca97c5abcffc4c8a0e209166f4072e3dc34a2078a",
+      "sha256": "73451422097dabf22b6f2df986b1afe9451fce499b0595f293be3a1c8fca2312"
+    },
+    {
+      "key": "re-zero-starting-life-in-another-world",
+      "title": "Re:ZERO -Starting Life in Another World-",
+      "year": 2016,
+      "sourcePage": "https://anilist.co/anime/21355",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21355-wRVUrGxpvIQQ.jpg",
+      "officialPage": "https://re-zero-anime.jp/",
+      "animationStudios": [
+        "WHITE FOX"
+      ],
+      "path": "/animes/re-zero-starting-life-in-another-world.webp",
+      "sourceSize": [
+        460,
+        632
+      ],
+      "outputSize": [
+        420,
+        577
+      ],
+      "sourceSha256": "c7f18f9d559e60be2bc97d9f6556c3cf3a862e085c35b2119a3dc98c8359686d",
+      "sha256": "bf3c03c700d7f03557704f9bd4a9b2255698811dfe966a6f2be8a217856025c5",
+      "representativeCover": true
+    },
+    {
+      "key": "angels-of-death",
+      "title": "Angels of Death",
+      "year": 2018,
+      "sourcePage": "https://anilist.co/anime/99629",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx99629-BXyAJ6PDq4sr.jpg",
+      "officialPage": "https://satsuriku.com/",
+      "animationStudios": [
+        "J.C.STAFF"
+      ],
+      "path": "/animes/angels-of-death.webp",
+      "sourceSize": [
+        460,
+        648
+      ],
+      "outputSize": [
+        420,
+        592
+      ],
+      "sourceSha256": "c1a29765c978fcd446e770235bd98de8880fa658f2b2277d24f8f58ce1a08ed3",
+      "sha256": "8b7b59d22233290ca3fa38886cbf6e93815c436fbb97e4e26a99298e14246ed1"
+    },
+    {
+      "key": "botan-kamiina-fully-blossoms-when-drunk",
+      "title": "Botan Kamiina Fully Blossoms When Drunk",
+      "year": 2026,
+      "sourcePage": "https://anilist.co/anime/187869",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx187869-LUn3dyTzuKUq.jpg",
+      "officialPage": "https://kamiina-botan.com/",
+      "animationStudios": [
+        "Soigne"
+      ],
+      "path": "/animes/botan-kamiina-fully-blossoms-when-drunk.webp",
+      "sourceSize": [
+        460,
+        651
+      ],
+      "outputSize": [
+        420,
+        594
+      ],
+      "sourceSha256": "5d94b4803b9b7bd438e362e9679fc312ef470f4e2ce8ccb7abfd7b7e0d4bcba7",
+      "sha256": "803f39fb92b30caa12fdbcb4a1a1258b91710755651cb9c4dbc6776251c5e776"
+    },
+    {
+      "key": "revue-starlight",
+      "title": "Revue Starlight",
+      "year": 2018,
+      "sourcePage": "https://anilist.co/anime/98658",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx98658-Xz8uliDO7dzZ.png",
+      "officialPage": "https://revuestarlight.com/",
+      "animationStudios": [
+        "Kinema Citrus"
+      ],
+      "path": "/animes/revue-starlight.webp",
+      "sourceSize": [
+        460,
+        690
+      ],
+      "outputSize": [
+        420,
+        630
+      ],
+      "sourceSha256": "e6e0757f7f66b0b409c5ec3e33875abb4cab70724ba0d6326bb985d28e1a5848",
+      "sha256": "ea64390047dff0f7170ee79f15c2871fa7657994b867c1c62b17fcc237d2b300",
+      "representativeCover": true
+    },
+    {
+      "key": "digimon",
+      "title": "Digimon: Digital Monsters",
+      "year": 1999,
+      "sourcePage": "https://anilist.co/anime/552",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx552-zad0ts5hylQJ.jpg",
+      "officialPage": "https://lineup.toei-anim.co.jp/ja/tv/dejimon/",
+      "animationStudios": [
+        "Toei Animation"
+      ],
+      "path": "/animes/digimon.webp",
+      "sourceSize": [
+        460,
+        690
+      ],
+      "outputSize": [
+        420,
+        630
+      ],
+      "sourceSha256": "159c6e03b2441be6ca6b959b8b72fac1e58494df46788a6d917a20a1c8d92bb1",
+      "sha256": "436dbe501d749f2aca827e0e232df6c777f6af91a0210f63ddfdce4ecfc78ca9",
+      "representativeCover": true
+    },
+    {
+      "key": "your-lie-in-april",
+      "title": "Your lie in April",
+      "year": 2014,
+      "sourcePage": "https://anilist.co/anime/20665",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx20665-TLgkL8T8IRFd.png",
+      "officialPage": "https://www.kimiuso.jp/",
+      "animationStudios": [
+        "A-1 Pictures"
+      ],
+      "path": "/animes/your-lie-in-april.webp",
+      "sourceSize": [
+        460,
+        658
+      ],
+      "outputSize": [
+        420,
+        601
+      ],
+      "sourceSha256": "df4914413fa40509598462a89c8e78e36ae51e99f53999f2abc4191d61036466",
+      "sha256": "c98426cb5baf7a01a7f1d5c885ab8614600cea756a10d0b8d7620ff164134f02"
+    },
+    {
+      "key": "weathering-with-you",
+      "title": "Weathering With You",
+      "year": 2019,
+      "sourcePage": "https://anilist.co/anime/106286",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx106286-5COcpd0J9VbL.png",
+      "officialPage": "https://www.tenkinoko.com/",
+      "animationStudios": [
+        "CoMix Wave"
+      ],
+      "path": "/animes/weathering-with-you.webp",
+      "sourceSize": [
+        460,
+        649
+      ],
+      "outputSize": [
+        420,
+        593
+      ],
+      "sourceSha256": "5bb0395f036b63c0f7b205d869f81965d3b1af1ce0efc270cbec2d5d52d9b1d8",
+      "sha256": "de4e5a903a4e54159131ae3cbb9d3e45ca2650aebaa657be04bfd209dd0d617e"
+    },
+    {
+      "key": "my-teen-romantic-comedy-snafu",
+      "title": "My Teen Romantic Comedy SNAFU",
+      "year": 2013,
+      "sourcePage": "https://anilist.co/anime/14813",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx14813-3mNvcKNEQcDs.jpg",
+      "officialPage": "https://www.tbs.co.jp/anime/oregairu/1st/",
+      "animationStudios": [
+        "Brain's Base"
+      ],
+      "path": "/animes/my-teen-romantic-comedy-snafu.webp",
+      "sourceSize": [
+        460,
+        658
+      ],
+      "outputSize": [
+        420,
+        601
+      ],
+      "sourceSha256": "74df2850d3b04de1c4ea0a82a2d0ec272eaf373cd669074fb9bcebbce6fbe3f4",
+      "sha256": "a055cd069d4266dc740e9b42d0da9413b4111fd025a709a2ef253cb7a083f3d0",
+      "representativeCover": true
+    },
+    {
+      "key": "solo-leveling",
+      "title": "Solo Leveling",
+      "year": 2024,
+      "sourcePage": "https://anilist.co/anime/151807",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx151807-it355ZgzquUd.png",
+      "officialPage": "https://sololeveling-anime.net/",
+      "animationStudios": [
+        "A-1 Pictures"
+      ],
+      "path": "/animes/solo-leveling.webp",
+      "sourceSize": [
+        460,
+        609
+      ],
+      "outputSize": [
+        420,
+        556
+      ],
+      "sourceSha256": "1f8a6cb23e3f3815ccca01fc52a6fb73b4073b2cdd3090188b1d28840fa9accf",
+      "sha256": "b9ae0715d2faa393a9eb5a79a39c165786056ae5bd3a21e41f32267763c34e38",
+      "representativeCover": true
+    },
+    {
+      "key": "though-i-am-an-inept-villainess",
+      "title": "Though I Am an Inept Villainess",
+      "year": 2026,
+      "sourcePage": "https://anilist.co/anime/188139",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx188139-1qIJfWxym8FX.jpg",
+      "officialPage": "https://futsutsuka.net/",
+      "animationStudios": [
+        "Doga Kobo"
+      ],
+      "path": "/animes/though-i-am-an-inept-villainess.webp",
+      "sourceSize": [
+        460,
+        650
+      ],
+      "outputSize": [
+        420,
+        593
+      ],
+      "sourceSha256": "a9bad41f2498d70c63e6f35023d141b01342b4617e4dcad0ab0193ed9fdbcc11",
+      "sha256": "d1db79a80b0d4e787e288c385bb99b50a9d1086e3feb28d7ec8cae8c366a59c8"
+    },
+    {
+      "key": "oshi-no-ko",
+      "title": "OSHI NO KO",
+      "year": 2023,
+      "sourcePage": "https://anilist.co/anime/150672",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx150672-WqmmwZ4nMzAy.png",
+      "officialPage": "https://ichigoproduction.com/Season1/",
+      "animationStudios": [
+        "Doga Kobo"
+      ],
+      "path": "/animes/oshi-no-ko.webp",
+      "sourceSize": [
+        460,
+        651
+      ],
+      "outputSize": [
+        420,
+        594
+      ],
+      "sourceSha256": "ed54a4c7b1f4c920b76e6d3456339fea2fbe207a55f0c7a5391e7eb08a86d58b",
+      "sha256": "4dd71a519f0ec32c76c87a74808d4c61a40646fc3c5eba34eb91b8cc2ef8abf1",
+      "representativeCover": true
+    },
+    {
+      "key": "mushoku-tensei-jobless-reincarnation",
+      "title": "Mushoku Tensei: Jobless Reincarnation",
+      "year": 2021,
+      "sourcePage": "https://anilist.co/anime/108465",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx108465-1ANspF1EWyFx.jpg",
+      "officialPage": "https://mushokutensei.jp/",
+      "animationStudios": [
+        "Studio Bind"
+      ],
+      "path": "/animes/mushoku-tensei-jobless-reincarnation.webp",
+      "sourceSize": [
+        460,
+        647
+      ],
+      "outputSize": [
+        420,
+        591
+      ],
+      "sourceSha256": "8eebf11379bda3673f0a17541723e4532dadb68f9c5aaeb73fb5cd8e067a3986",
+      "sha256": "2e65352900bbbb00a93cddb26d3ceb0c0e285ab6d0acf72fd471b7c4bf5f5e8e",
+      "representativeCover": true
+    },
+    {
+      "key": "summer-pockets",
+      "title": "Summer Pockets",
+      "year": 2025,
+      "sourcePage": "https://anilist.co/anime/143200",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx143200-42OaDCS6VEy3.png",
+      "officialPage": "https://summerpockets-anime.jp/",
+      "animationStudios": [
+        "feel."
+      ],
+      "path": "/animes/summer-pockets.webp",
+      "sourceSize": [
+        460,
+        651
+      ],
+      "outputSize": [
+        420,
+        594
+      ],
+      "sourceSha256": "86b55ff7ecdf7c5a6f633c237d0af0a105bd077b163a08313fbbe6f01470133a",
+      "sha256": "19b53a0e0dd90113f1ca4665c0abb58bfc36485b10fff2805208bbb18063e920"
+    },
+    {
+      "key": "neon-genesis-evangelion",
+      "title": "Neon Genesis Evangelion",
+      "year": 1995,
+      "sourcePage": "https://anilist.co/anime/30",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx30-AI1zr74Dh4ye.jpg",
+      "officialPage": "https://www.evangelion.co.jp/neon_genesis.html",
+      "animationStudios": [
+        "GAINAX",
+        "Tatsunoko Production"
+      ],
+      "path": "/animes/neon-genesis-evangelion.webp",
+      "sourceSize": [
+        460,
+        652
+      ],
+      "outputSize": [
+        420,
+        595
+      ],
+      "sourceSha256": "2f2afb6c5252bc4723db438be4663be9c3bad6bdf37c6375df977397e98e0172",
+      "sha256": "b833d4ec2680d0a1d5308a75e6efa0dc402b0256393b2e1ddc711e243cc61a3c",
+      "representativeCover": true
+    },
+    {
+      "key": "the-fragrant-flower-blooms-with-dignity",
+      "title": "The Fragrant Flower Blooms With Dignity",
+      "year": 2025,
+      "sourcePage": "https://anilist.co/anime/181444",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx181444-Ut9DDUZdfHwg.jpg",
+      "officialPage": "https://kaoruhana-anime.com/",
+      "animationStudios": [
+        "CloverWorks"
+      ],
+      "path": "/animes/the-fragrant-flower-blooms-with-dignity.webp",
+      "sourceSize": [
+        460,
+        665
+      ],
+      "outputSize": [
+        420,
+        607
+      ],
+      "sourceSha256": "5ca3af104d4898a43eb1a2dabad73912aab402d6d509991f3ad56565acff534b",
+      "sha256": "09b367233d12b528541f79a55d128c89f17aec7c0cd3590fb9e39d3ce1b1d936"
+    },
+    {
+      "key": "the-garden-of-words",
+      "title": "The Garden of Words",
+      "year": 2013,
+      "sourcePage": "https://anilist.co/anime/16782",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx16782-qpFGk18UqaHn.jpg",
+      "officialPage": "https://www.cwfilms.jp/products/article/kotonohanoniwa.html",
+      "animationStudios": [
+        "CoMix Wave"
+      ],
+      "path": "/animes/the-garden-of-words.webp",
+      "sourceSize": [
+        460,
+        649
+      ],
+      "outputSize": [
+        420,
+        593
+      ],
+      "sourceSha256": "316beb633962c8245b43856b9f01891dc78008af560651514fde89e37ebdfad7",
+      "sha256": "5bfcf2fbdd786757117538b6e50a20eda0d1830b15147d6fbcb2ff20d3490e16"
+    },
+    {
+      "key": "the-apothecary-diaries",
+      "title": "The Apothecary Diaries",
+      "year": 2023,
+      "sourcePage": "https://anilist.co/anime/161645",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx161645-QLbzHXiYRgV2.jpg",
+      "officialPage": "https://kusuriyanohitorigoto.jp/season1/",
+      "animationStudios": [
+        "OLM",
+        "TOHO animation STUDIO"
+      ],
+      "path": "/animes/the-apothecary-diaries.webp",
+      "sourceSize": [
+        460,
+        653
+      ],
+      "outputSize": [
+        420,
+        596
+      ],
+      "sourceSha256": "e43368b3bddb2eac49892e89ce5c3668d8cda992b27b7d623d3f9440bb066a1d",
+      "sha256": "ad8016eb478047c4c81c8ac8c5a99f9d1041597ae19f6320bf9ec8f27c662638",
+      "representativeCover": true
+    },
+    {
+      "key": "no-game-no-life",
+      "title": "No Game, No Life",
+      "year": 2014,
+      "sourcePage": "https://anilist.co/anime/19815",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/b19815-sEOQ9yQaPKlk.jpg",
+      "officialPage": "https://ngnl.jp/tv/",
+      "animationStudios": [
+        "MADHOUSE"
+      ],
+      "path": "/animes/no-game-no-life.webp",
+      "sourceSize": [
+        230,
+        325
+      ],
+      "outputSize": [
+        230,
+        325
+      ],
+      "sourceSha256": "cf1f1f8ed75fa5caf69598f1c37548ecf5204346898f315f2dff4aab731286e7",
+      "sha256": "821c6659845e9fb1af84912d8f349aeadb968775b84e2ada1145955da078b663"
+    },
+    {
+      "key": "i-want-to-love-you-till-your-dying-day",
+      "title": "I Want to Love You Till Your Dying Day",
+      "year": 2026,
+      "sourcePage": "https://anilist.co/anime/187260",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx187260-WW5RBa5NINRP.jpg",
+      "officialPage": "https://kimishinu-anime.com/",
+      "animationStudios": [
+        "ROLL2"
+      ],
+      "path": "/animes/i-want-to-love-you-till-your-dying-day.webp",
+      "sourceSize": [
+        460,
+        651
+      ],
+      "outputSize": [
+        420,
+        594
+      ],
+      "sourceSha256": "c722b3414dfc1c9080cc92227bc6289bf9fb51369f577312a56bfc69c2333b6b",
+      "sha256": "67da715aae96747cb30be1fdc7935cd87b94839ae5d494978fb4eb07930609b3"
+    },
+    {
+      "key": "frieren-beyond-journey-s-end",
+      "title": "Frieren: Beyond Journey’s End",
+      "year": 2023,
+      "sourcePage": "https://anilist.co/anime/154587",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx154587-qQTzQnEJJ3oB.jpg",
+      "officialPage": "https://frieren-anime.jp/",
+      "animationStudios": [
+        "MADHOUSE"
+      ],
+      "path": "/animes/frieren-beyond-journey-s-end.webp",
+      "sourceSize": [
+        460,
+        649
+      ],
+      "outputSize": [
+        420,
+        593
+      ],
+      "sourceSha256": "0644f0e7a90cad85c15ae6e5e7206660b226031dca2249b21f4658adb6d19096",
+      "sha256": "6e9eed82dd1db4dc8a5952aa68695bb8c4462f455d24308cee571726b5daf625",
+      "representativeCover": true
+    },
+    {
+      "key": "love-chunibyo-other-delusions",
+      "title": "Love, Chunibyo & Other Delusions",
+      "year": 2012,
+      "sourcePage": "https://anilist.co/anime/14741",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx14741-CGXEIeUe2roA.jpg",
+      "officialPage": "https://www.anime-chu-2.com/tv/",
+      "animationStudios": [
+        "Kyoto Animation"
+      ],
+      "path": "/animes/love-chunibyo-other-delusions.webp",
+      "sourceSize": [
+        460,
+        636
+      ],
+      "outputSize": [
+        420,
+        581
+      ],
+      "sourceSha256": "c91baa3f1181a48c00c05c4ff9e1ec3663293940db8cb8e3ed8e640f2c1b722c",
+      "sha256": "125a41d06c55edf6be36f8799534f51799a44ad1708269904d226afa4ffbd168",
+      "representativeCover": true
+    },
+    {
+      "key": "jujutsu-kaisen",
+      "title": "JUJUTSU KAISEN",
+      "year": 2020,
+      "sourcePage": "https://anilist.co/anime/113415",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx113415-LHBAeoZDIsnF.jpg",
+      "officialPage": "https://jujutsukaisen.jp/",
+      "animationStudios": [
+        "MAPPA"
+      ],
+      "path": "/animes/jujutsu-kaisen.webp",
+      "sourceSize": [
+        460,
+        643
+      ],
+      "outputSize": [
+        420,
+        587
+      ],
+      "sourceSha256": "1cc3c0de60ebb3131c5cc3d81f91f22c0945bdf791b66874eeab521064dd7170",
+      "sha256": "83beac7acaaa4074cf7d374ce42f48a8f077f17506a7b3625fe675ba3edd616e",
+      "representativeCover": true
+    },
+    {
+      "key": "violet-evergarden",
+      "title": "Violet Evergarden",
+      "year": 2018,
+      "sourcePage": "https://anilist.co/anime/21827",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx21827-ubzq619ZA2E9.png",
+      "officialPage": "https://tv.violet-evergarden.jp/",
+      "animationStudios": [
+        "Kyoto Animation"
+      ],
+      "path": "/animes/violet-evergarden.webp",
+      "sourceSize": [
+        460,
+        644
+      ],
+      "outputSize": [
+        420,
+        588
+      ],
+      "sourceSha256": "99bae524edb29545bf81073dd4ff31adb453dd7919bbae0e52eb2a692bcf5b33",
+      "sha256": "11c0819a0b3cee715306c85af35edcfde39daf796b773a54dd35311e02b08831"
+    },
+    {
+      "key": "guilty-crown",
+      "title": "Guilty Crown",
+      "year": 2011,
+      "sourcePage": "https://anilist.co/anime/10793",
+      "sourceImage": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx10793-KCysCbrVNqK9.jpg",
+      "officialPage": "https://guilty-crown.jp/index2.html",
+      "animationStudios": [
+        "Production I.G"
+      ],
+      "path": "/animes/guilty-crown.webp",
+      "sourceSize": [
+        460,
+        650
+      ],
+      "outputSize": [
+        420,
+        593
+      ],
+      "sourceSha256": "d7053afa7e9b779e917132ebf19a02a5157c455fd8dc22a07b17e1c51fb5e84d",
+      "sha256": "539eb8e28b617f7263af41f7088a529dc70964b407625c5b288156657bcad68c"
     }
   ]
 }

@@ -1,8 +1,7 @@
-// Anime shown on the About page, shared by every theme and language.
-// Source of truth: the owner's Notion database 动漫记录 (动漫 · 追番档案). Only rows with
-// 允许网站展示 ticked belong here, in the database's A–Z 排序键 order; synced 2026-10-29.
-// Cover provenance and crop records: public/animes/ASSETS.json.
-// The full list stays in Notion; the About page links to it. Visitors can open it only while the page is published to the web.
+// The public anime shelf and the smaller selection shown on About use the same records.
+import { collectionMessages } from "../i18n/collection-messages.ts";
+import { animeList } from "./anime-list.ts";
+
 export const animeListUrl = "https://www.notion.so/4055956f0cdc81ad869ec4b8472e6a85";
 type Locale = "zh-CN" | "zh-TW" | "ja" | "en";
 export type Genre = "coming-of-age" | "music" | "sci-fi" | "fantasy" | "action" | "mystery" | "romance" | "road" | "life";
@@ -25,6 +24,9 @@ export type AnimeEntry = {
   key: string;
   title: Record<Locale, string>;
   genres: Genre[];
+  year: number;
+  favorite?: boolean;
+  representativeCover?: boolean;
   url: string;
   cover: string;
   // Optional personal fields (filled in by the owner whenever desired; omitted when unset):
@@ -32,17 +34,8 @@ export type AnimeEntry = {
   note?: { "zh-CN": string; "zh-TW"?: string; ja?: string; en?: string };
 };
 
-const animes: AnimeEntry[] = [
-  { key: "sword-art-online", title: { "zh-CN": "刀剑神域", "zh-TW": "刀劍神域", ja: "ソードアート・オンライン", en: "Sword Art Online" }, genres: ["sci-fi", "fantasy"], url: "http://www.swordart-online.net/", cover: "/animes/sword-art-online.webp" },
-  { key: "fate-stay-night", title: { "zh-CN": "Fate/stay night", "zh-TW": "Fate/stay night", ja: "Fate/stay night", en: "Fate/stay night" }, genres: ["fantasy"], url: "http://www.staynight.com/", cover: "/animes/fate-stay-night.webp" },
-  { key: "bocchi-the-rock", title: { "zh-CN": "孤独摇滚！", "zh-TW": "孤獨搖滾！", ja: "ぼっち・ざ・ろっく！", en: "Bocchi the Rock!" }, genres: ["coming-of-age", "music"], url: "http://bocchi.rocks/", cover: "/animes/bocchi-the-rock.webp" },
-  { key: "steins-gate", title: { "zh-CN": "命运石之门", "zh-TW": "命運石之門", ja: "シュタインズ・ゲート", en: "Steins;Gate" }, genres: ["sci-fi", "mystery"], url: "http://www.steinsgate.tv/", cover: "/animes/steins-gate.webp" },
-  { key: "k-on", title: { "zh-CN": "轻音少女", "zh-TW": "K-ON! 輕音部", ja: "けいおん！", en: "K-On!" }, genres: ["coming-of-age", "music"], url: "http://www.tbs.co.jp/anime/k-on/k-on_tv/index-j.html", cover: "/animes/k-on.webp" },
-  { key: "cyberpunk-edgerunners", title: { "zh-CN": "赛博朋克：边缘行者", "zh-TW": "電馭叛客：邊緣行者", ja: "サイバーパンク エッジランナーズ", en: "Cyberpunk: Edgerunners" }, genres: ["sci-fi"], url: "https://www.cyberpunk.net/ja/edgerunners", cover: "/animes/cyberpunk-edgerunners.webp" },
-];
-
-export function getFavoriteAnimes(locale: Locale) {
-  return animes.map((item) => {
+function localizeAnimes(entries: AnimeEntry[], locale: Locale) {
+  return entries.map((item) => {
     const localizedNote = item.note ? (item.note[locale] ?? item.note["zh-CN"]) : undefined;
     return {
       key: item.key,
@@ -50,6 +43,10 @@ export function getFavoriteAnimes(locale: Locale) {
       subtitle: item.genres.map((genre) => genreNames[genre][locale]).join(" · "),
       url: item.url,
       cover: item.cover,
+      year: item.year,
+      yearText: item.representativeCover
+        ? collectionMessages[locale]["collection.coverEditionYear"].replace("{year}", String(item.year))
+        : String(item.year),
       // The Collection page files each anime under its genres and searches every language's title.
       genres: item.genres,
       titles: Object.values(item.title),
@@ -57,4 +54,12 @@ export function getFavoriteAnimes(locale: Locale) {
       note: localizedNote ? { text: localizedNote, lang: item.note?.[locale] ? locale : "zh-CN", translated: Boolean(item.note?.[locale]) } : undefined,
     };
   });
+}
+
+export function getFavoriteAnimes(locale: Locale) {
+  return localizeAnimes(animeList.filter((item) => item.favorite), locale);
+}
+
+export function getCollectionAnimes(locale: Locale) {
+  return localizeAnimes(animeList, locale);
 }

@@ -60,7 +60,7 @@ body[data-arknights] ::selection { background:var(--ak-signal); color:var(--ak-o
 .ak-eyebrow { margin:0 0 6px; font-size:12px; font-weight:500; color:var(--ak-ink-2); text-transform:uppercase; letter-spacing:.14em; }
 /* The giant section words: cropped by the sector's lower edge, below everything, too faint to read as text. They are
    generated content with empty alternative text, so they are decoration and not part of the page's text. */
-.ak-ghost::before,.ak-footer-ghost::before { content:attr(data-ghost); content:attr(data-ghost) / ""; }
+.ak-ghost::before,.ak-footer-ghost::before { content:attr(data-ghost); content:attr(data-ghost) / ""; display:block; }
 .ak-ghost { position:absolute; z-index:-1; left:calc(var(--ak-pad) - .06em); bottom:-.2em; font:700 clamp(6rem,17vw,15rem)/1 var(--ak-display); text-transform:uppercase; letter-spacing:-.01em; white-space:nowrap; color:var(--ak-ghost); pointer-events:none; user-select:none; }
 /* A triangular lattice: the survey grid behind the first and last sectors, fading out towards the content. */
 .ak-lattice { position:absolute; inset:0; z-index:-2; pointer-events:none; background:var(--ak-faint);
@@ -191,7 +191,7 @@ body[data-arknights] ::selection { background:var(--ak-signal); color:var(--ak-o
 
 /* Records: a log. Kind, stamp, title and summary; the serial at the far end. */
 .ak-log { list-style:none; margin:0; padding:0; }
-.ak-log a { position:relative; display:grid; grid-template-columns:8rem 10.5rem minmax(0,1fr) auto; align-items:baseline; gap:6px 24px; padding:22px 4px 22px 0; border-bottom:1px solid var(--ak-rule); transition:transform .2s var(--ak-out); }
+.ak-log a { position:relative; isolation:isolate; display:grid; grid-template-columns:8rem 10.5rem minmax(0,1fr) auto; align-items:baseline; gap:6px 24px; padding:22px 4px 22px 0; border-bottom:1px solid var(--ak-rule); transition:transform .2s var(--ak-out); }
 .ak-log a::before { content:""; position:absolute; left:-14px; top:-1px; bottom:-1px; width:4px; background:var(--ak-signal); transform:scaleY(0); transform-origin:top; transition:transform .18s var(--ak-cut); }
 .ak-log-kind { font-size:13px; font-weight:700; }
 .ak-log-kind::before { content:""; display:inline-block; width:7px; height:7px; margin-right:9px; background:var(--ak-trace); vertical-align:.08em; }
@@ -213,7 +213,7 @@ body[data-arknights] ::selection { background:var(--ak-signal); color:var(--ak-o
 .ak-panels { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
 [data-arknights] .ak-panel { position:relative; isolation:isolate; display:flex; flex-direction:column; justify-content:flex-end; gap:6px; height:100%; min-height:clamp(300px,34vw,440px); padding:22px 20px 24px; overflow:hidden; background:#08090a; color:#eef0ec; }
 .ak-panel-art { position:absolute; inset:0; z-index:-2; }
-.ak-panel-art img { display:block; width:100%; height:100%!important; object-fit:cover; filter:saturate(.3) brightness(.78); transition:filter .4s var(--ak-cut),transform .6s var(--ak-out); }
+.ak-panel-art img { display:block; width:100%; height:100%!important; object-fit:cover; filter:saturate(.3) brightness(.78); transition:filter .4s var(--ak-cut),transform .7s var(--ak-out); }
 .ak-panel::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(to top,#08090af2 0%,#08090ae0 30%,#08090a73 62%,#08090a26 100%); }
 .ak-panel::before { content:""; position:absolute; left:0; right:0; bottom:0; height:4px; background:var(--ak-signal); transform:scaleX(0); transform-origin:left; transition:transform .3s var(--ak-cut); }
 /* The number and the link mark sit where the shade over the picture is lightest; a dark halo keeps them readable over bright
@@ -224,7 +224,7 @@ body[data-arknights] ::selection { background:var(--ak-signal); color:var(--ak-o
 .ak-panel-text strong { font-size:clamp(1.1rem,1.6vw,1.4rem); font-weight:800; line-height:1.4; }
 .ak-panel-text span { padding-top:10px; border-top:1px solid #ffffff38; font:500 12px/1.5 var(--ak-mono); letter-spacing:.04em; color:#c3c8cb; }
 @media(hover:hover) and (pointer:fine) {
-  a.ak-panel:hover img { filter:none; transform:scale(1.04); }
+  a.ak-panel:hover img { filter:none; transform:scale(1.08); }
   a.ak-panel:hover::before { transform:none; }
 }
 a.ak-panel:focus-visible img { filter:none; }
@@ -375,7 +375,9 @@ a.ak-panel:focus-visible { outline-offset:4px; }
 @keyframes ak-wipe { from { clip-path:inset(-.25em 100% -.25em 0); } to { clip-path:inset(-.25em -4% -.25em 0); } }
 @keyframes ak-rise { from { opacity:0; transform:translateY(12px); } }
 @keyframes ak-board { from { clip-path:inset(0 0 100% 0); } to { clip-path:inset(-12px); } }
-@keyframes ak-on { from { opacity:0; } }
+@keyframes ak-gather { from { opacity:0; transform:translate(calc(var(--sx,0) * 1px),calc(var(--sy,0) * 1px)); } 30% { opacity:1; } }
+@keyframes ak-focus { from { opacity:0; scale:1.08; } }
+@keyframes ak-ghost-in { from { opacity:0; translate:8% 0; } }
 @media(prefers-reduced-motion:no-preference) {
   html:not([data-motion-paused="true"]) [data-ak-enter] :is(.ak-annot,.ak-title>span) { animation:ak-wipe .5s var(--ak-cut) backwards; }
   html:not([data-motion-paused="true"]) [data-ak-enter] .ak-title-plate { animation-delay:120ms; }
@@ -384,9 +386,13 @@ a.ak-panel:focus-visible { outline-offset:4px; }
   html:not([data-motion-paused="true"]) [data-ak-enter] .ak-intro { animation-delay:280ms; }
   html:not([data-motion-paused="true"]) [data-ak-enter] .ak-cta { animation-delay:330ms; }
   html:not([data-motion-paused="true"]) [data-ak-enter] .ak-index { animation-delay:420ms; }
-  /* The board is scanned in from the top, then its lit dots switch on row by row. */
+  /* The board is scanned in from the top, then its lit dots gather from a scatter over the board into their cells, row by
+     row (each cell's starting point: lib/matrix.mjs gatherFrom), the way the reference's dot emblem assembles. The survey
+     lattice settles like a lens finding focus and the giant word slides into place. */
   html:not([data-motion-paused="true"]) [data-ak-enter] .ak-record { animation:ak-board .46s var(--ak-cut) 120ms backwards; }
-  html:not([data-motion-paused="true"]) [data-ak-enter] .ak-dot { animation:ak-on 1ms steps(1) backwards; animation-delay:calc(420ms + var(--r) * 45ms); }
+  html:not([data-motion-paused="true"]) [data-ak-enter] .ak-dot { animation:ak-gather .74s var(--ak-out) backwards; animation-delay:calc(360ms + var(--r) * 45ms + var(--sd,0ms)); }
+  html:not([data-motion-paused="true"]) [data-ak-enter]>.ak-lattice { animation:ak-focus 1.6s var(--ak-out) backwards; }
+  html:not([data-motion-paused="true"]) [data-ak-enter]>.ak-ghost--hero::before { animation:ak-ghost-in 1.2s var(--ak-out) .1s backwards; }
   /* Inner pages: the title is wiped in and its bar follows. */
   html:not([data-motion-paused="true"]) .ak-content .blank-page-heading h1 { animation:ak-wipe .5s var(--ak-cut) backwards; }
   html:not([data-motion-paused="true"]) .ak-content .blank-page-heading h1::after { transform-origin:left; animation:ak-bar .42s var(--ak-cut) .3s backwards; }
@@ -612,4 +618,97 @@ html[data-theme="arknights"][data-shelf-swap]::view-transition-group(ak-shelf-sc
 }
 @media(prefers-reduced-motion:reduce) {
   .ak-content :is(.blank-work-card,.blank-work-cover) { transition:none; }
+}
+
+/* Interactive motion (2026-11-28, the owner asked for effects closer to the reference site, ak.hypergryph.com, keeping the
+   theme's own look). Every piece answers something the reader does: opening the homepage, scrolling to a sector, pointing,
+   changing page. The colours, type, layout and the five sectors are unchanged; at rest every page looks as before. */
+
+/* Arrivals. The first time each homepage sector below the first screen comes into view (lib/runtime.mjs marks it
+   data-ak-armed, then data-ak-shown), it runs its own entrance, the way the reference's sections arrive: the head is wiped
+   in along its rule, the number turns in, the giant word slides into place and the entries follow one after another — the
+   log and the tools from the left, the game panels from the right, the status cells switched on from the top. Until the
+   sector is reached its animations wait on their first frame; without the runtime, with motion paused or reduced, or when
+   printing, nothing waits and everything is simply there. */
+@keyframes ak-from-left { from { clip-path:inset(0 100% 0 0); translate:-18px 0; } }
+@keyframes ak-from-right { from { clip-path:inset(0 0 0 100%); translate:44px 0; } }
+@keyframes ak-switch { from { clip-path:inset(0 0 100% 0); } }
+@media screen and (prefers-reduced-motion:no-preference) {
+  html:not([data-motion-paused="true"]) [data-ak-armed] .ak-head { animation:ak-wipe .55s var(--ak-cut) backwards paused; }
+  html:not([data-motion-paused="true"]) [data-ak-armed] .ak-head-no { animation:ak-turn .42s var(--ak-cut) .16s backwards paused; }
+  html:not([data-motion-paused="true"]) [data-ak-armed] .ak-lede { animation:ak-rise .42s var(--ak-out) .22s backwards paused; }
+  html:not([data-motion-paused="true"]) [data-ak-armed] :is(.ak-log,.ak-terms)>li { animation:ak-from-left .5s var(--ak-cut) backwards paused; animation-delay:calc(260ms + var(--i,0) * 70ms); }
+  html:not([data-motion-paused="true"]) [data-ak-armed] .ak-panels>li { animation:ak-from-right .62s var(--ak-out) backwards paused; animation-delay:calc(240ms + var(--i,0) * 90ms); }
+  html:not([data-motion-paused="true"]) [data-ak-armed] .ak-signals>div { animation:ak-switch .44s var(--ak-cut) backwards paused; animation-delay:calc(260ms + var(--i,0) * 90ms); }
+  html:not([data-motion-paused="true"]) [data-ak-armed]>.ak-ghost::before { animation:ak-ghost-in 1.1s var(--ak-out) .1s backwards paused; }
+  html:not([data-motion-paused="true"]) [data-ak-shown] :is(.ak-head,.ak-head-no,.ak-lede,.ak-log>li,.ak-terms>li,.ak-panels>li,.ak-signals>div) { animation-play-state:running; }
+  html:not([data-motion-paused="true"]) [data-ak-shown]>.ak-ghost::before { animation-play-state:running; }
+}
+
+/* Scroll depth. The giant words drift sideways as they pass through the window, slower than the page, and the first
+   screen's lattice and word lag behind as it scrolls away: the reference's slow drift, tied here to the reader's own
+   scrolling. Decoration only; where scroll-driven animations are not supported everything stays put. */
+@keyframes ak-drift { from { translate:5vw 0; } to { translate:-5vw 0; } }
+@keyframes ak-lag { to { translate:-4vw 22vh; } }
+@keyframes ak-lag-grid { to { translate:0 14vh; } }
+@media (prefers-reduced-motion:no-preference) {
+  @supports ((animation-timeline:view()) and (animation-range:entry)) {
+    html:not([data-motion-paused="true"]) :is(.ak-sector>.ak-ghost,.ak-footer-ghost) { animation:ak-drift linear both; animation-timeline:view(); animation-range:cover; }
+    html:not([data-motion-paused="true"]) .ak-hero { view-timeline:--ak-hero; }
+    html:not([data-motion-paused="true"]) .ak-hero>.ak-ghost--hero { animation:ak-lag linear both; animation-timeline:--ak-hero; animation-range:exit; }
+    /* The opening's focus and the scroll lag run together on the lattice. */
+    html:not([data-motion-paused="true"]) .ak-hero>.ak-lattice { animation:ak-focus 1.6s var(--ak-out) backwards,ak-lag-grid linear both; animation-timeline:auto,--ak-hero; animation-range:normal,exit; }
+  }
+}
+
+/* Pointing at an entry in the log brings its serial up behind it, large and in outline, the way the reference's index
+   shows each entry's word when pointed at. Generated content with empty alternative text: decoration, not page text. */
+.ak-log a::after { content:attr(data-ak-no); content:attr(data-ak-no) / ""; position:absolute; z-index:-1; top:50%; right:5.5rem; font:600 clamp(3.4rem,6vw,5.2rem)/.8 var(--ak-display); letter-spacing:-.01em; font-variant-numeric:tabular-nums; white-space:nowrap; color:transparent; -webkit-text-stroke:1px color-mix(in srgb,var(--ak-trace) 55%,transparent); opacity:0; translate:1.5rem -50%; pointer-events:none; transition:opacity .22s ease,translate .36s var(--ak-out); }
+.ak-log a:focus-visible::after { opacity:1; translate:0 -50%; }
+@media(hover:hover) and (pointer:fine) { .ak-log a:hover::after { opacity:1; translate:0 -50%; } }
+
+/* The header: in the dark, the section pointed at lights in the signal like the current one, as on the reference. On
+   paper the signal is only ever a fill, so there the bar alone answers. */
+.ak-nav-word,.ak-nav-label { transition:color .3s ease; }
+@media(hover:hover) and (pointer:fine) {
+  html[data-theme="arknights"][data-color-mode="dark"] .ak-nav a:hover :is(.ak-nav-word,.ak-nav-label) { color:var(--ak-signal); }
+}
+
+/* The board's cells drift back after the pointer has pushed them aside (lib/runtime.mjs). */
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  html:not([data-motion-paused="true"]) .ak-matrix rect { transition:translate .55s var(--ak-out); }
+}
+
+/* The rail on the homepage: a mark on the progress line where each sector starts, the current one lit (the line's fill
+   reaches a mark as its sector becomes current), and under the counter a word and a falling mark saying there is more
+   below, while the reader is on the first screen. */
+@keyframes ak-cue { 0% { opacity:0; translate:0 -4px; } 40% { opacity:1; translate:0 0; } 80% { opacity:1; } 100% { opacity:0; translate:0 7px; } }
+@media(min-width:1200px) {
+  .ak-rail-tick { position:absolute; left:-3px; width:7px; height:7px; margin-top:-3px; border:1px solid var(--ak-ink-2); background:var(--ak-field); transition:background-color .2s ease,border-color .2s ease; }
+  .ak-rail-tick.is-current { border-color:var(--ak-trace); background:var(--ak-trace); }
+  .ak-rail-cue { display:flex; flex-direction:column; align-items:center; gap:8px; margin-top:24px; font:500 10px/1 var(--ak-mono); letter-spacing:.22em; text-transform:uppercase; color:var(--ak-ink-2); transition:opacity .3s ease,visibility .3s; }
+  .ak-rail-cue::after { content:""; width:7px; height:7px; border-right:1px solid currentColor; border-bottom:1px solid currentColor; rotate:45deg; }
+  .ak-rail[data-ak-at]:not([data-ak-at="0"]) .ak-rail-cue { opacity:0; visibility:hidden; }
+}
+/* Short windows keep the progress line long enough to read: the cue goes first, then the marks. */
+@media(min-width:1200px) and (max-height:760px) { .ak-rail-cue { display:none; } }
+@media(min-width:1200px) and (max-height:680px) { .ak-rail-tick { display:none; } }
+@media(min-width:1200px) and (prefers-reduced-motion:no-preference) {
+  html:not([data-motion-paused="true"]) .ak-rail:is(:not([data-ak-at]),[data-ak-at="0"]) .ak-rail-cue::after { animation:ak-cue 1.6s var(--ak-out) infinite; }
+}
+
+/* Changing page inside the theme (lib/runtime.mjs). The header holds and the bar under the current section travels there,
+   while the new page is uncovered across the window behind a vertical line of signal colour, from the right going forward
+   and from the left going back; the page being left dims a little as it is covered. For the change, everything but the
+   header is captured as one picture of the window (the page's main region gives up its own name), so both pictures are
+   whole and opaque. The line passes under the header and exists only during the change. */
+html[data-theme="arknights"].ak-paging { view-transition-name:root!important; }
+html[data-theme="arknights"].ak-paging #arknights-main { view-transition-name:none!important; }
+html[data-theme="arknights"].ak-paging::view-transition-group(root) { animation:none; }
+html[data-theme="arknights"].ak-paging::view-transition-old(root),html[data-theme="arknights"].ak-paging::view-transition-new(root) { animation:none; opacity:1; mix-blend-mode:normal; }
+html[data-theme="arknights"].ak-paging::view-transition-group(ak-page-scan),html[data-theme="arknights"].ak-paging::view-transition-new(ak-page-scan) { animation:none; }
+.ak-pagescan { position:fixed; left:0; top:0; z-index:40; width:2px; height:100vh; background:#19cff2; box-shadow:0 0 16px 3px #19cff259; view-transition-name:ak-page-scan; pointer-events:none; }
+
+@media(prefers-reduced-motion:reduce) {
+  .ak-log a::after { translate:0 -50%; transition:opacity .2s ease; }
 }

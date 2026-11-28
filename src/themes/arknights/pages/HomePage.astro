@@ -8,7 +8,7 @@ import { getPublishedPosts } from "@/core/content/blog";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import PageLayout from "@/core/themes/PageLayout.astro";
 import { keepTails } from "@/core/i18n/wrap.mjs";
-import { dotMatrix } from "../lib/matrix.mjs";
+import { dotMatrix, gatherFrom } from "../lib/matrix.mjs";
 import { homeSectors, pad } from "../lib/sections.mjs";
 const { locale, t, unit, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
 const { profileTech, currentSignals, projectEntries, favoriteGames, gameShelf } = getSiteContent(locale);
@@ -33,6 +33,11 @@ const stamp = (date: Date) => {
 const host = Astro.site?.host ?? "";
 // The latest entry's serial on the board; with nothing published the board reads zero.
 const board = dotMatrix(latest ? serial(0) : "000");
+// Where each lit cell gathers from when the page opens (lib/matrix.mjs): an offset in cells and a short delay.
+const gather = (x: number, y: number) => {
+  const { dx, dy, delay } = gatherFrom(x, y, board.width, board.height);
+  return `--sx:${dx};--sy:${dy};--sd:${delay}ms`;
+};
 // Sectors present on this page, numbered in order; the rail counts through them.
 const present = new Set(["ak-index", "ak-records", "ak-practice", ...(favoriteGames.length ? ["ak-play"] : []), ...(currentSignals.length ? ["ak-status"] : [])]);
 const sectors = homeSectors.filter(({ id }) => present.has(id)).map((sector, index) => ({ ...sector, number: pad(index) }));
@@ -60,7 +65,7 @@ const games = favoriteGames.map((item) => ({ ...item, art: gameShelf.find((game)
           {board.rows.map((row) => (
             <g style={`--r:${row.y}`}>
               {row.off.map((x) => <rect class="ak-dot-off" x={x + 0.1} y={row.y + 0.1} width="0.8" height="0.8" />)}
-              {row.on.map((x) => <rect class="ak-dot" x={x + 0.1} y={row.y + 0.1} width="0.8" height="0.8" />)}
+              {row.on.map((x) => <rect class="ak-dot" x={x + 0.1} y={row.y + 0.1} width="0.8" height="0.8" style={gather(x, row.y)} />)}
             </g>
           ))}
         </svg>
@@ -75,7 +80,7 @@ const games = favoriteGames.map((item) => ({ ...item, art: gameShelf.find((game)
           {board.rows.map((row) => (
             <g style={`--r:${row.y}`}>
               {row.off.map((x) => <rect class="ak-dot-off" x={x + 0.1} y={row.y + 0.1} width="0.8" height="0.8" />)}
-              {row.on.map((x) => <rect class="ak-dot" x={x + 0.1} y={row.y + 0.1} width="0.8" height="0.8" />)}
+              {row.on.map((x) => <rect class="ak-dot" x={x + 0.1} y={row.y + 0.1} width="0.8" height="0.8" style={gather(x, row.y)} />)}
             </g>
           ))}
         </svg>
@@ -98,7 +103,7 @@ const games = favoriteGames.map((item) => ({ ...item, art: gameShelf.find((game)
     {posts.length > 0 ? (
       <ol class="ak-log">
         {posts.slice(0, 5).map((post, index) => (
-          <li><a href={href(`/blog/${post.slug}/`)}>
+          <li style={`--i:${index}`}><a href={href(`/blog/${post.slug}/`)} data-ak-no={serial(index)}>
             <span class="ak-log-kind">{categoryLabel[post.data.category]}</span>
             <time datetime={entryDate(post).toISOString()}><span aria-hidden="true">{stamp(entryDate(post))}</span><span class="ak-sr">{formatDate(entryDate(post))}</span></time>
             <span class="ak-log-title" lang={post.data.locale}>{keepTails(post.data.title)}</span>
@@ -119,7 +124,7 @@ const games = favoriteGames.map((item) => ({ ...item, art: gameShelf.find((game)
     </header>
     <p class="ak-lede">{join(t("home.practice1"), t("home.practice2"))}</p>
     <ol class="ak-terms">
-      {profileTech.map((item, index) => <li><span class="ak-terms-no" aria-hidden="true">{pad(index + 1)}</span><strong>{item.name}</strong><span>{item.note}</span></li>)}
+      {profileTech.map((item, index) => <li style={`--i:${index}`}><span class="ak-terms-no" aria-hidden="true">{pad(index + 1)}</span><strong>{item.name}</strong><span>{item.note}</span></li>)}
     </ol>
     <span class="ak-ghost" data-ghost={sector["ak-practice"].word} aria-hidden="true"></span>
   </section>
@@ -135,7 +140,7 @@ const games = favoriteGames.map((item) => ({ ...item, art: gameShelf.find((game)
         {games.map((game, index) => {
           const Tag = game.url ? "a" : "div";
           return (
-            <li>
+            <li style={`--i:${index}`}>
               <Tag class="ak-panel" {...(game.url ? { href: game.url, target: "_blank", rel: "noopener noreferrer" } : {})}>
                 <span class="ak-panel-art" aria-hidden="true">{game.art && <img src={game.art.src} alt="" loading="lazy" decoding="async" style={`object-position:${game.art.focus}`} />}</span>
                 <span class="ak-panel-no" aria-hidden="true">{pad(index + 1)}</span>
@@ -162,7 +167,7 @@ const games = favoriteGames.map((item) => ({ ...item, art: gameShelf.find((game)
         <a class="ak-link" href={href("/about/")}>{t("common.moreNow")}<Icon name="tabler:chevron-right" size={16} aria-hidden="true" /></a>
       </header>
       <dl class="ak-signals">
-        {currentSignals.map((signal, index) => <div><dt><span class="ak-signals-no" aria-hidden="true">{pad(index + 1)}</span>{signal.label}</dt><dd>{keepTails(signal.text)}</dd></div>)}
+        {currentSignals.map((signal, index) => <div style={`--i:${index}`}><dt><span class="ak-signals-no" aria-hidden="true">{pad(index + 1)}</span>{signal.label}</dt><dd>{keepTails(signal.text)}</dd></div>)}
       </dl>
     </section>
   )}

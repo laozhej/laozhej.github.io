@@ -23,7 +23,6 @@ import SiteAttribution from "@/core/components/SiteAttribution.astro";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
 import FontLinks from "@/core/fonts/FontLinks.astro";
-import { pageTransition } from "@/core/navigation/animations.mjs";
 import { sectionWords } from "../lib/sections.mjs";
 const { locale, t } = getI18n(Astro.url.pathname);
 const href = (path: string) => getThemePath("arknights", path, locale);
@@ -101,10 +100,11 @@ const host = Astro.site?.host ?? "";
           <span class:list={["ak-counter-word", { "is-long": sectionWords[current.key as keyof typeof sectionWords].length > 8 }]} data-ak-counter-word>{sectionWords[current.key as keyof typeof sectionWords]}</span>
         </p>
       )}
-      <span class="ak-rail-track"><span class="ak-rail-fill"></span></span>
+      {home && <span class="ak-rail-cue" data-ak-cue>Scroll</span>}
+      <span class="ak-rail-track" data-ak-track><span class="ak-rail-fill"></span></span>
       {host && <span class="ak-rail-host">{host}</span>}
     </div>
-    <main id="arknights-main" class:list={[{ "ak-content blank-main": !home, "ak-home-main": home, "blank-main--article": isArticlePage }]} tabindex="-1" transition:name="site-content" transition:animate={pageTransition}><slot /></main>
+    <main id="arknights-main" class:list={[{ "ak-content blank-main": !home, "ak-home-main": home, "blank-main--article": isArticlePage }]} tabindex="-1" transition:name="site-content" transition:animate="none"><slot /></main>
     <footer class="ak-footer">
       <div class="ak-footer-top">
         <a class="ak-footer-brand" href={href("/")} aria-label={`${brandName} ${brandTail.join(" ")}`}><strong>{brandName}</strong> <span class="ak-mark-plate" aria-hidden="true">{brandTail.join(" ")}</span></a>

@@ -113,7 +113,7 @@ tags: [标签一, 标签二]
 
 ## GitHub Pages 部署
 
-公开仓库为 `laozhej/laozhej.github.io`，使用 GitHub Actions 构建和部署。每次推送到 `main`，工作流会使用 Node.js 24 安装锁定依赖、运行公共模块测试、构建静态页面并发布 `dist/`。也可以在 Actions 中手动运行 **Deploy to GitHub Pages**。
+公开仓库为 `laozhej/laozhej.github.io`，使用 GitHub Actions 构建和部署。每次推送到 `main`，工作流会使用 Node.js 24 安装锁定依赖、运行公共模块测试、构建静态页面并发布 `dist/`。也可以在 Actions 中手动运行 [Deploy to GitHub Pages](https://github.com/laozhej/laozhej.github.io/actions/workflows/deploy.yml)。
 
 仓库的 **Settings → Pages → Build and deployment → Source** 使用 **GitHub Actions**。部署状态与日志见仓库 Actions 页面。
 

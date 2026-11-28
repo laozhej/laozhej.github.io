@@ -2,7 +2,7 @@
 title: "Blender Modeling Log: Starting with a Convenience Store"
 description: "Reopening Blender to model a convenience store—and finding myself thinking about turning it into a Tokyo walking simulator someday."
 pubDate: 2026-11-22
-category: tech
+category: creative
 tags: [Blender, 3D modeling, Game dev, Dev log]
 locale: en
 translationKey: blender-konbini-log

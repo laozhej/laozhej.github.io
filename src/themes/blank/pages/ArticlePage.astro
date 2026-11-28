@@ -3,6 +3,7 @@ import { site } from "@/lib/site";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import { getSiteContent } from "@/core/i18n/content";
 import { readingStats } from "@/core/content/reading-time.mjs";
+import ProjectJournalLinks from "@/core/components/ProjectJournalLinks.astro";
 import { Icon } from "astro-icon/components";
 const { locale, t, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
 const { profileIdentity } = getSiteContent(locale);
@@ -51,6 +52,7 @@ const readTimeLabel = t("article.readingTime").replace("{n}", String(stats.minut
       <slot name="end-art" />
       <footer class="blank-article-end">
         <span class="blank-end-mark" aria-hidden="true"></span><p class="blank-kicker">{t("article.end")}</p>
+        <ProjectJournalLinks />
         <div class="site-colophon">
           <div class="site-colophon-block">
             <p class="site-colophon-title">{t("article.colophonInfo")}</p>

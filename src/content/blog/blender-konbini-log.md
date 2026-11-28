@@ -2,7 +2,7 @@
 title: "Blender 建模日志：从一家便利店开始"
 description: "最近重新打开 Blender 尝试给便利店建模，也顺着冒出了做一个东京步行模拟器游戏的念头。"
 pubDate: 2026-11-22
-category: tech
+category: creative
 tags: [Blender, 3D 建模, 游戏开发, 开发日志]
 ---
 

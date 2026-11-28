@@ -58,6 +58,8 @@ const zhTW = linked({
       url: projects.personalSiteShowcaseUrl,
       image: { ...projects.personalSitePreview, alt: "Blank 主題首頁截圖：白底黑字的大標題 Blank Space、簡介與文章入口" },
       gallery: [
+        { ...projects.personalSiteGallery[6], label: "Blank 主題 · 首頁", meta: "淺色 · 1440×960 · 2026-11-28 截圖", alt: "Blank 主題首頁截圖：白底黑字的大標題 Blank Space、簡介與文章入口" },
+        { ...projects.personalSiteGallery[7], label: "Blank 主題 · 首頁（深色）", meta: "深色 · 1440×960 · 2026-11-28 截圖", alt: "Blank 主題首頁的深色模式截圖：黑底白字的大標題 Blank Space" },
         { ...projects.personalSiteGallery[0], label: "Blank 主題 · 首頁", meta: "淺色 · 1440×960 · 2026-10-31 截圖", alt: "Blank 主題首頁截圖：白底黑字的大標題 Blank Space、簡介與文章入口" },
         { ...projects.personalSiteGallery[1], label: "Blank 主題 · 首頁（深色）", meta: "深色 · 1440×960 · 2026-10-31 截圖", alt: "Blank 主題首頁的深色模式截圖：黑底白字的大標題 Blank Space" },
         { ...projects.personalSiteGallery[2], label: "Blank 主題 · 作品頁", meta: "淺色 · 1440×960 · 2026-10-31 截圖", alt: "Blank 主題作品頁截圖：標題 Works 與個人網站專案條目" },
@@ -111,6 +113,8 @@ const ja = linked({
       url: projects.personalSiteShowcaseUrl,
       image: { ...projects.personalSitePreview, alt: "Blank テーマのホーム画面：白地に黒の大きな見出し Blank Space、紹介文と記事への入口" },
       gallery: [
+        { ...projects.personalSiteGallery[6], label: "Blank テーマ · ホーム", meta: "ライト · 1440×960 · 2026-11-28 撮影", alt: "Blank テーマのホーム画面：白地に黒の大きな見出し Blank Space、紹介文と記事への入口" },
+        { ...projects.personalSiteGallery[7], label: "Blank テーマ · ホーム（ダーク）", meta: "ダーク · 1440×960 · 2026-11-28 撮影", alt: "Blank テーマのホーム画面（ダークモード）：黒地に白の大きな見出し Blank Space" },
         { ...projects.personalSiteGallery[0], label: "Blank テーマ · ホーム", meta: "ライト · 1440×960 · 2026-10-31 撮影", alt: "Blank テーマのホーム画面：白地に黒の大きな見出し Blank Space、紹介文と記事への入口" },
         { ...projects.personalSiteGallery[1], label: "Blank テーマ · ホーム（ダーク）", meta: "ダーク · 1440×960 · 2026-10-31 撮影", alt: "Blank テーマのホーム画面（ダークモード）：黒地に白の大きな見出し Blank Space" },
         { ...projects.personalSiteGallery[2], label: "Blank テーマ · 制作ページ", meta: "ライト · 1440×960 · 2026-10-31 撮影", alt: "Blank テーマの制作ページ：見出し Works と個人サイトのプロジェクト項目" },
@@ -164,6 +168,8 @@ const en = linked({
       url: projects.personalSiteShowcaseUrl,
       image: { ...projects.personalSitePreview, alt: "Blank theme home page: the large black-on-white title Blank Space, a short intro and the way into the journal" },
       gallery: [
+        { ...projects.personalSiteGallery[6], label: "Blank theme · Home", meta: "Light · 1440×960 · captured 2026-11-28", alt: "Blank theme home page: the large black-on-white title Blank Space, a short intro and the way into the journal" },
+        { ...projects.personalSiteGallery[7], label: "Blank theme · Home (dark)", meta: "Dark · 1440×960 · captured 2026-11-28", alt: "Blank theme home page in dark mode: the large white-on-black title Blank Space" },
         { ...projects.personalSiteGallery[0], label: "Blank theme · Home", meta: "Light · 1440×960 · captured 2026-10-31", alt: "Blank theme home page: the large black-on-white title Blank Space, a short intro and the way into the journal" },
         { ...projects.personalSiteGallery[1], label: "Blank theme · Home (dark)", meta: "Dark · 1440×960 · captured 2026-10-31", alt: "Blank theme home page in dark mode: the large white-on-black title Blank Space" },
         { ...projects.personalSiteGallery[2], label: "Blank theme · Works page", meta: "Light · 1440×960 · captured 2026-10-31", alt: "Blank theme Works page: the title Works and the personal website project entry" },

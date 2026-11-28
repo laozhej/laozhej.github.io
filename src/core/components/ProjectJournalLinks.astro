@@ -1,0 +1,35 @@
+---
+import { Icon } from "astro-icon/components";
+import { getPublishedPosts } from "@/core/content/blog";
+import { projectJournals } from "@/core/data/projects";
+import { getSiteContent } from "@/core/i18n/content";
+import { getThemedI18n } from "@/core/themes/i18n";
+import { stripTheme } from "@/core/themes/registry";
+
+interface Props { projectId?: string; }
+const { projectId } = Astro.props;
+const { href, locale, t } = getThemedI18n(Astro.url.pathname);
+const path = stripTheme(Astro.url.pathname);
+const group = projectId
+  ? projectJournals.find(group => group.projectId === projectId)
+  : projectJournals.find(group => group.articles.some(slug => path === `/blog/${slug}/`));
+const project = group && getSiteContent(locale).projectEntries.find(project => project.id === group.projectId);
+const posts = project ? await getPublishedPosts(locale) : [];
+const series = (group?.articles ?? []).flatMap(slug => posts.filter(post => post.slug === slug));
+const next = !projectId && series[series.findIndex(post => path === `/blog/${post.slug}/`) + 1];
+---
+{project && series.length > 0 && (
+  <nav class="project-journal-links" aria-label={t("projects.journal")}>
+    {projectId ? (
+      <>
+        <h3>{t("projects.journal")}</h3>
+        {series.map(post => <a href={href(`/blog/${post.slug}/`)}>{post.data.title}<Icon name="tabler:arrow-right" size={16} /></a>)}
+      </>
+    ) : (
+      <>
+        <a href={href(`/projects/#${project.id}`)}>{project.title}<Icon name="tabler:arrow-right" size={16} /></a>
+        {next && <a href={href(`/blog/${next.slug}/`)}>{next.data.title}<Icon name="tabler:arrow-right" size={16} /></a>}
+      </>
+    )}
+  </nav>
+)}

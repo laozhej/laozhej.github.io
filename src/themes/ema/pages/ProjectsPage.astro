@@ -5,13 +5,14 @@
 // of `project.gallery` follows uncropped, at one height, as a contact row. Captions are the recorded label
 // and meta (mode, size, capture date) and the numbers follow the gallery's order. Everything comes from the
 // shared project data; the filter hooks are those of Blank's Works page and appear under the same condition.
+import ProjectJournalLinks from "@/core/components/ProjectJournalLinks.astro";
 import { Icon } from "astro-icon/components";
 import { getSiteContent } from "@/core/i18n/content";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 import { site } from "@/lib/site";
 import PageLayout from "../layouts/EmaLayout.astro";
-import PageHead from "@/themes/blank/components/PageHead.astro";
+import PageHead from "../components/ArchiveHeading.astro";
 
 const { locale, t, unit } = getI18n(Astro.url.pathname);
 const { projectEntries, projectTechLines } = getSiteContent(locale);
@@ -35,7 +36,7 @@ const sheets = projectEntries.map((project, index) => {
 });
 ---
 <PageLayout title={`${t("nav.projects")} | ${site.name}`} description={t("projects.description")}>
-  <PageHead index="02" title="Works" label={t("projects.label")} description={t("projects.intro")} count={pad(projectEntries.length)} unit={unit("common.projects", projectEntries.length)} />
+  <PageHead title="Works" label={t("projects.label")} description={t("projects.intro")} count={pad(projectEntries.length)} unit={unit("common.projects", projectEntries.length)} />
   <section class="ema-works" data-site-collection data-site-lightbox
     data-lightbox-open={t("article.lightboxOpen")}
     data-lightbox-label={t("article.lightboxLabel")}
@@ -75,6 +76,7 @@ const sheets = projectEntries.map((project, index) => {
             <ul class="ema-works-details">{project.details.map((detail) => <li>{keepTails(detail)}</li>)}</ul>
             {direction && <dl class="ema-works-direction"><dt>{t("projects.directions")}</dt><dd><b>{direction.label}</b> {keepTails(direction.note)}</dd></dl>}
             <a class="blank-text-link ema-works-link" href={project.url}>{t("projects.caseStudy")} <Icon name="tabler:arrow-up-right" size={17} /></a>
+            <ProjectJournalLinks projectId={project.id} />
           </div>
           {contacts.length > 0 && (
             <div class="ema-works-sheet">

@@ -6,7 +6,7 @@
       "source": "https://laozhej.github.io/",
       "capturedFrom": "showcase/gallery/blank-desktop.png (production build at de9b413, Chromium 156)",
       "capturedDate": "2026-10-31",
-      "description": "Byte-identical copy of the case study screenshot at 1440x960, light mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated. Since 2026-11-13 it is also the project's thumbnail on the Projects pages, in place of an earlier Ema homepage capture that showed uncleared artwork.",
+      "description": "Byte-identical copy of the case study screenshot at 1440x960, light mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated.",
       "sha256": "3cfaaa22bbaa8bb3d8237d83a7aaa3bbc2c93d517e0ee0f78bf51164c274b47b"
     },
     {
@@ -15,7 +15,7 @@
       "source": "https://laozhej.github.io/",
       "capturedFrom": "showcase/gallery/blank-dark.png (production build at de9b413, Chromium 156)",
       "capturedDate": "2026-10-31",
-      "description": "Byte-identical copy of the case study screenshot at 1440x960, dark mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated. Since 2026-11-13 it is also the project's thumbnail on the Projects pages, in place of an earlier Ema homepage capture that showed uncleared artwork.",
+      "description": "Byte-identical copy of the case study screenshot at 1440x960, dark mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated.",
       "sha256": "90cc373406518f44fcab0c15261a706720c1efd6d4070b02d8c73664ddbe011c"
     },
     {
@@ -53,6 +53,24 @@
       "capturedDate": "2026-10-31",
       "description": "Byte-identical copy of the case study screenshot at 390x844, light mode, zh-CN, shown in the project's screenshot viewer. It shows only this site's own interface, with no third-party artwork. Captured using browser automation; not AI-generated.",
       "sha256": "d852f130827322d951c7450b3269f2be1c5964317598f392f83b7070cc949144"
+    },
+    {
+      "path": "/projects/gallery/blank-2026-11-light.png",
+      "kind": "actual website screenshot",
+      "source": "https://neroarataki.com/themes/blank/",
+      "capturedFrom": "Local production build of 6e06aec, Chromium 149.0.7827.55",
+      "capturedDate": "2026-11-28",
+      "description": "Current project preview, Blank home in light mode at 1440×960, zh-CN. Captured from the site interface.",
+      "sha256": "3c1d6211398e91027b9d063dfdf49439f829abf4818a91952125f036dca94407"
+    },
+    {
+      "path": "/projects/gallery/blank-2026-11-dark.png",
+      "kind": "actual website screenshot",
+      "source": "https://neroarataki.com/themes/blank/",
+      "capturedFrom": "Local production build of 6e06aec, Chromium 149.0.7827.55",
+      "capturedDate": "2026-11-28",
+      "description": "Current project preview, Blank home in dark mode at 1440×960, zh-CN. Captured from the site interface.",
+      "sha256": "2db70ad64d287795442533ea7d6ba61e7683f8a6a50c0cfc9dd18ec23bbfebd0"
     }
   ]
 }

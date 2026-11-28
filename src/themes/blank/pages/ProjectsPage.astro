@@ -2,6 +2,7 @@
 import { getSiteContent } from "@/core/i18n/content";
 import { site } from "@/lib/site";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import ProjectJournalLinks from "@/core/components/ProjectJournalLinks.astro";
 import { Icon } from "astro-icon/components";
 import PageHead from "../components/PageHead.astro";
 import { keepTails } from "@/core/i18n/wrap.mjs";
@@ -35,7 +36,7 @@ const filterable = projectEntries.length > 1 && projectTechLines.length > 1;
             <span class="blank-project-status">{project.status}</span>
             <Icon class="blank-disclosure-icon" name="tabler:arrow-down" size={21} />
           </summary>
-          <div class="blank-project-body"><p>{keepTails(project.summary)}<br /><a class="blank-text-link" href={project.url}>{t("projects.caseStudy")} <Icon name="tabler:arrow-up-right" size={17} /></a></p><ul>{project.details.map((detail) => <li>{keepTails(detail)}</li>)}</ul></div>
+          <div class="blank-project-body"><p>{keepTails(project.summary)}<br /><a class="blank-text-link" href={project.url}>{t("projects.caseStudy")} <Icon name="tabler:arrow-up-right" size={17} /></a></p><ul>{project.details.map((detail) => <li>{keepTails(detail)}</li>)}</ul><ProjectJournalLinks projectId={project.id} /></div>
         </details>
       ))}
     </div>

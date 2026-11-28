@@ -1,20 +1,23 @@
 ---
 import { Icon } from "astro-icon/components";
 import type { BlogPost } from "@/core/content/blog";
+import { readingStats } from "@/core/content/reading-time.mjs";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 interface Props { post: BlogPost; index: number; }
 const { post, index } = Astro.props;
-const { href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
+const { locale, t, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
 const date = post.data.updatedDate ?? post.data.pubDate;
 const displayDate = formatDate(date);
+const stats = readingStats(post.body ?? "");
+const readTimeLabel = t("article.readingTime").replace("{n}", String(stats.minutes));
 ---
 <li data-site-entry data-category={post.data.category} data-date={date.valueOf()}
   data-search={[post.data.title, post.data.description, categoryLabel[post.data.category], ...post.data.tags].join(" ")}>
   <a class="blank-post-row" href={href(`/blog/${post.slug}/`)}>
     <span class="blank-row-number" aria-hidden="true">{String(index).padStart(2, "0")}</span>
     <div class="blank-post-content">
-      <div class="blank-post-meta"><span>{categoryLabel[post.data.category]}</span><time datetime={date.toISOString()}>{displayDate}</time></div>
+      <div class="blank-post-meta"><span>{categoryLabel[post.data.category]}</span><time datetime={date.toISOString()}>{displayDate}</time>{stats.count > 0 && <span class="site-read-meta">{readTimeLabel}</span>}</div>
       <h2>{keepTails(post.data.title)}</h2>
       <p>{keepTails(post.data.description)}</p>
       <div class="blank-tag-line">{post.data.tags.slice(0, 4).map((tag) => <span>#{tag}</span>)}</div>

@@ -215,7 +215,25 @@ body[data-endfield] ::selection { background:var(--ef-signal); color:var(--ef-on
 .ef-content :is(.blank-featured,.blank-project,.blank-game-row,.blank-search,.blank-search input,.blank-sort select) { border-radius:0; }
 .ef-content .blank-sort select { background:var(--ef-panel); border:1px solid var(--ef-rule); }
 .ef-content .blank-button { border-radius:0; border:0; background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-ink) 0); color:var(--ef-paper)!important; }
+.ef-content .blank-toc nav { --site-toc-indicator:var(--ef-trace); }
+.ef-content .site-toc-progress { font-family:var(--ef-ui); font-weight:700; color:var(--ef-ink); }
 .ef-content .blank-toc a[aria-current="location"] { box-shadow:inset 3px 0 0 var(--ef-trace); color:var(--ef-ink); font-weight:700; }
+@supports (position-anchor: --site-toc-active) {
+  .ef-content .blank-toc a[aria-current="location"] { box-shadow:none; }
+  .ef-content .blank-toc nav::before { border-inline-start-width:3px; }
+}
+.ef-content .site-copy-button[data-copied] { color:var(--ef-on-signal); background:var(--ef-signal); border-color:var(--ef-ink); }
+@media(hover:hover) and (pointer:fine) {
+  .ef-content .site-copy-button:hover { color:var(--ef-on-signal); background:var(--ef-signal); border-color:var(--ef-ink); }
+}
+.ef-content .site-copy-tip { background:var(--ef-ink); color:var(--ef-paper); font-family:var(--ef-ui); }
+.ef-content .site-colophon { position:relative; background:var(--ef-panel); border-color:var(--ef-rule); }
+.ef-content .site-colophon::before { content:""; position:absolute; left:-1px; top:-1px; width:56px; height:4px; background:var(--ef-ink); }
+.ef-content .site-colophon-title { font-family:var(--ef-ui); font-stretch:125%; letter-spacing:.14em; color:var(--ef-ink-2); }
+.ef-content .site-colophon-title::before { content:"// "; }
+.ef-content .site-evolution { border-left-color:var(--ef-rule); }
+.ef-content .site-evolution>li::before { background:var(--ef-trace); }
+.ef-content .site-evolution-date { font-family:var(--ef-ui); font-stretch:112%; color:var(--ef-ink); }
 .ef-content .blank-prose a { text-decoration-color:var(--ef-trace); text-underline-offset:3px; }
 .ef-content .blank-prose :is(h2,h3) { font-family:var(--ef-text); font-weight:800; }
 .ef-content .blank-prose :is(pre,code) { border-radius:0; }

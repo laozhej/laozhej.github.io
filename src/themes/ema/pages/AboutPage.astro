@@ -116,7 +116,8 @@ const marks = [
               <img class="about-poster" src={item.cover} alt="" width="300" height="450" loading="lazy" decoding="async" />
               <div>
                 <h3><a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}<Icon name="tabler:external-link" size={14} aria-hidden="true" /></a></h3>
-                <p>{item.subtitle}</p>
+                <p>{[item.subtitle, item.status && t(`animes.status.${item.status}`)].filter(Boolean).join(" · ")}</p>
+                {item.note && <p class="about-anime-note" lang={item.note.lang}>{keepTails(item.note.text)}</p>}
               </div>
             </li>
           ))}

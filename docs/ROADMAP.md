@@ -23,7 +23,11 @@
 
 ## 1. 现状
 
-- **已完成**（2026-11-28，站主批准上线，分支 `feat/batch2-reading-ema-terminal`）：完成第二批阅读与站点体验升级及艾玛首页浮动代码框创意化：
+- **已完成**（2026-11-28，站主批准合并，PR #72，分支 `feat/polish-reading-ab`）：在参考 `soki.moe` 及友链调研后，按站主选定的方案 A + B 完成表面层级打磨、微交互增强与文章阅读/个人记录补充（并在 PR #71 基础上对齐，补截自托管字体子集）：
+  - **方案 A（表面一致性与微交互）**：将 Ema 散落的圆角与阴影统一为 3 档圆角（`--ema-r-sm/md/pill`）与 3 档阴影（`--ema-shadow-flat/lift/panel`），并在关于页区分可点击卡片（游戏/动漫悬停轻抬）与静态参考卡片（技术栈/角色/现在安静平贴）；为 Blank 与 Ema 增加 `:active` 触感轻压，并将顶栏语言/主题菜单改为触发源锚定（`transform-origin: top right`）的可打断 `::details-content` + `@starting-style` + 独立 `transition-behavior: allow-discrete` 过渡；在 `src/core/features/collection.mjs` 为分类切换、排序切换与重置加入局部 View Transition（`view-transition-class: site-collection-item`），跳过搜索输入、`popstate`、暂停/减少动态、收藏切架与终末地主题。
+  - **方案 B（文章阅读与个人记录）**：在 PR #71 的 `reading-time.mjs` 与 `prose.mjs` 基础上，为文章列表行（`PostRow.astro`）补充预计阅读时长、为四套主题适配复制按钮与提示气泡主题色；粘性目录显示实时阅读百分比（无 JS 自动隐藏）并以 CSS Anchor Positioning + `border-inline-start` 绘制平滑滑动高亮条（带 `@supports not` 回退）；文末新增双栏信息卡（`.site-colophon`，严格遵循 `CONTENT_LICENSE.md` 无虚构许可）；在 `animes.ts` 与关于页预留可选 `status`/`note` 字段；致谢页新增四语 `07 / EVOLUTION` 建站演化时间轴。
+  - **验证与字体**：新增 `tests/polish-reading-ab.test.mjs`，全量单测与 `showcase:check` 通过，明日方舟与终末地冻结首页逐像素一致，Chrome 158 与 Playwright WebKit 27.2 多视口交互验收及 axe-core 48 轮 0 违规（未测实体手机与独立 Safari），新增用字已补截进 `public/fonts/site/`；前后对照图板见 `outputs/polish-reading-ab/review/`，细节见 THEMES.md。
+- **已完成**（2026-11-28，站主批准上线，PR #71，分支 `feat/batch2-reading-ema-terminal`）：完成第二批阅读与站点体验升级及艾玛首页浮动代码框创意化：
   1. **可见 RSS 入口与 XSLT 样式表**：四套主题文章归档新增 44px `RSS 订阅` 按钮，Blank 与 Ema 页脚补充本地化 RSS 链接，新增 `public/rss.xsl` 并挂接至四语 RSS Feed（WebKit 27.2 直接渲染为排版页；Chrome 158 已移除内置 XSLT 解析器，RSS 阅读器不受影响）。
   2. **文章字数与阅读时长**：新增 `src/core/content/reading-time.mjs`，在四套主题 × 四语文章页显示字数与预计阅读分钟数。
   3. **章节 `#` 锚点、代码块复制与原生 `<dialog>` 图片灯箱**：新增 `src/core/features/prose.mjs`，支持章节标题 `#` 一键复制链接、Invoker Commands（`command="--copy"`）代码块复制按钮（触屏文档流置于 `<pre>` 上方、桌面悬停/聚焦显示，含 VoiceOver 去重与 44px 触控面积）、正文图片与艾玛 Works 截图原生 `<dialog closedby="any">` 灯箱（含 Safari 轻关闭回退、顶层进出场过渡回退与 `overscroll-behavior: contain` 滚动隔离）。

@@ -170,4 +170,18 @@ const { t, href } = getI18n(Astro.url.pathname);
       <a class="blank-text-link" href="/animes/ASSETS.json">{t("media.animesManifest")} ↗</a>
     </div>
   </section>
+  <section class="blank-section blank-about-section blank-credits-section">
+    <div><p class="blank-kicker">07 / EVOLUTION</p><h2>{t("credits.evolutionHeading")}</h2></div>
+    <div class="blank-credits-body">
+      <p>{t("credits.evolutionIntro")}</p>
+      <ol class="site-evolution">
+        {[1, 2, 3, 4, 5, 6].map((step) => (
+          <li>
+            <time class="site-evolution-date">{t(`credits.evo${step}Date`)}</time>
+            <p>{t(`credits.evo${step}Text`)}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
 </BlankLayout>

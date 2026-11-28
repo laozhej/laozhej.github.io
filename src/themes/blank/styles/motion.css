@@ -31,10 +31,9 @@ html[data-theme="blank"].site-mode-reveal::view-transition-new(root) { animation
   html[data-theme="blank"] :is(.blank-post-row:hover h2, .bj-featured:hover h2, .bj-index a:hover strong, .blank-home-sheet a:hover strong, .blank-home-posts a:hover span, .blank-project summary:hover .blank-project-name h2) {
     text-decoration-color: currentColor; text-underline-offset: .2em;
   }
-  html[data-theme="blank"] :is(.blank-button, .bj-down, .blank-icon-button) { transition: background-color 180ms ease, color 180ms ease; }
+  html[data-theme="blank"] :is(.blank-button, .bj-down, .blank-icon-button) { transition: background-color 180ms ease, color 180ms ease, transform 110ms var(--blank-ease); }
   html[data-theme="blank"][data-motion-paused="true"] :is(.blank-post-row h2, .bj-featured h2, .bj-index strong, .blank-home-sheet strong, .blank-home-posts span, .blank-project-name h2) { transition: text-decoration-color 180ms ease; }
 }
-
 /* Collection (2026-11-28): moving between the overview and the shelves, the page head and the sidebar stay still
    (core/navigation/shelf-swap.mjs), the ink bar glides to the new category and the shelf rises in from the side the
    reader moves towards. Quiet, like the rest of Blank. */
@@ -56,3 +55,22 @@ html[data-theme="blank"].site-mode-reveal::view-transition-new(root) { animation
 }
 html[data-theme="blank"][data-motion-paused="true"] :is(.blank-collection-name, .blank-work-title) { transition: none; }
 @media (prefers-reduced-motion: reduce) { html[data-theme="blank"] :is(.blank-collection-name, .blank-work-title) { transition: none; } }
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-theme="blank"]:not([data-motion-paused="true"]) :is(.blank-button, .bj-down, .blank-icon-button, .blank-filters button, .blank-header :is(.site-language-menu, .site-theme-dock) > summary) { transition: background-color 180ms ease, color 180ms ease, transform 110ms var(--blank-ease); }
+  html[data-theme="blank"]:not([data-motion-paused="true"]) :is(.blank-button, .bj-down, .blank-icon-button, .blank-filters button, .blank-header :is(.site-language-menu, .site-theme-dock) > summary):active { transform: scale(.97); }
+  html[data-theme="blank"]:not([data-motion-paused="true"]) .blank-header :is(.site-language-menu, .site-theme-dock)::details-content { transition: content-visibility 160ms; transition-behavior: allow-discrete; }
+  html[data-theme="blank"]:not([data-motion-paused="true"]) .blank-header :is(.site-language-options, .site-theme-dock .site-theme-options) { transform-origin: top right; opacity: 1; transform: translateY(0) scale(1); transition: opacity 160ms ease, transform 180ms var(--blank-ease); }
+  html[data-theme="blank"]:not([data-motion-paused="true"]) .blank-header :is(.site-language-menu, .site-theme-dock):not([open]) :is(.site-language-options, .site-theme-options) { opacity: 0; transform: translateY(-5px) scale(.97); transition-duration: 130ms; }
+  @starting-style {
+    html[data-theme="blank"]:not([data-motion-paused="true"]) .blank-header :is(.site-language-menu, .site-theme-dock)[open] :is(.site-language-options, .site-theme-options) { opacity: 0; transform: translateY(-5px) scale(.97); }
+  }
+}
+@keyframes bj-filter-in { from { opacity: 0; scale: .97; } }
+@keyframes bj-filter-out { to { opacity: 0; scale: .97; } }
+html[data-theme="blank"].site-filtering { view-transition-name: none !important; }
+html[data-theme="blank"].site-filtering [data-astro-transition-scope] { view-transition-name: none !important; }
+html[data-theme="blank"].site-filtering::view-transition { pointer-events: none; }
+html[data-theme="blank"].site-filtering::view-transition-group(.site-collection-item) { animation-duration: 240ms; animation-timing-function: var(--blank-ease); }
+html[data-theme="blank"].site-filtering::view-transition-new(.site-collection-item):only-child { animation: bj-filter-in 200ms var(--blank-ease); }
+html[data-theme="blank"].site-filtering::view-transition-old(.site-collection-item):only-child { animation: bj-filter-out 150ms ease-out; }

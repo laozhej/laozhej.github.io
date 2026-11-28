@@ -1,10 +1,12 @@
 ---
 import { site } from "@/lib/site";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { getSiteContent } from "@/core/i18n/content";
 import { readingStats } from "@/core/content/reading-time.mjs";
 import { Icon } from "astro-icon/components";
 import BlankLayout from "@/core/themes/PageLayout.astro";
 const { locale, t, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
+const { profileIdentity } = getSiteContent(locale);
 const { frontmatter, body = "" } = Astro.props;
 const headings = (Astro.props.headings ?? []).filter((heading) => heading.depth >= 2 && heading.depth <= 3);
 const title = `${frontmatter.seoTitle ?? frontmatter.title} | ${site.name}`;
@@ -13,11 +15,13 @@ const date = frontmatter.updatedDate ?? frontmatter.pubDate;
 const dateLabel = formatDate(date);
 const stats = readingStats(body);
 const formattedCount = new Intl.NumberFormat(locale).format(stats.count);
+const wordsLabel = t("article.words").replace("{n}", formattedCount);
+const readTimeLabel = t("article.readingTime").replace("{n}", String(stats.minutes));
 ---
 <BlankLayout title={title} description={description} isArticlePage article={frontmatter}>
   <div class="blank-article-topline"><a class="blank-text-link" href={href("/blog/")}><Icon name="tabler:arrow-left" size={17} />{t("common.allArticles")}</a><span class="blank-kicker">{t("article.kicker")}</span></div>
   <header class="blank-article-header">
-    <div class="blank-post-meta"><a href={`${href("/blog/")}?category=${frontmatter.category}`}>{categoryLabel[frontmatter.category]}</a><time datetime={date.toISOString()}>{frontmatter.updatedDate ? t("article.updated") : ""}{dateLabel}</time>{stats.count > 0 && <><span>{t("article.words").replace("{n}", formattedCount)}</span><span>{t("article.readingTime").replace("{n}", String(stats.minutes))}</span></>}</div>
+    <div class="blank-post-meta"><a href={`${href("/blog/")}?category=${frontmatter.category}`}>{categoryLabel[frontmatter.category]}</a><time datetime={date.toISOString()}>{frontmatter.updatedDate ? t("article.updated") : ""}{dateLabel}</time>{stats.count > 0 && <><span class="site-read-meta">{wordsLabel}</span><span class="site-read-meta">{readTimeLabel}</span></>}</div>
     <h1>{frontmatter.title}</h1>
     <p>{frontmatter.description}</p>
     <div class="blank-tag-line">{frontmatter.tags.map((tag: string) => <a href={`${href("/blog/")}?q=${encodeURIComponent(tag)}`}>#{tag}</a>)}</div>
@@ -27,7 +31,7 @@ const formattedCount = new Intl.NumberFormat(locale).format(stats.count);
     {headings.length > 0 && (
       <aside class="blank-toc">
         <details open>
-          <summary><span>{t("article.contents")}</span><Icon class="blank-disclosure-icon" name="tabler:chevron-down" size={16} /></summary>
+          <summary><span>{t("article.contents")}</span><span class="site-toc-tail"><span class="site-toc-progress" data-site-reading-pct aria-hidden="true">0%</span><Icon class="blank-disclosure-icon" name="tabler:chevron-down" size={16} /></span></summary>
           <nav aria-label={t("article.toc")} data-site-toc>{headings.map((heading) => <a class={`depth-${heading.depth}`} href={`#${heading.slug}`}>{heading.text}</a>)}</nav>
         </details>
       </aside>
@@ -46,6 +50,21 @@ const formattedCount = new Intl.NumberFormat(locale).format(stats.count);
       <slot name="end-art" />
       <footer class="blank-article-end">
         <span class="blank-end-mark" aria-hidden="true"></span><p class="blank-kicker">{t("article.end")}</p>
+        <div class="site-colophon">
+          <div class="site-colophon-block">
+            <p class="site-colophon-title">{t("article.colophonInfo")}</p>
+            <dl class="site-colophon-meta">
+              <div><dt>{t("article.colophonAuthor")}</dt><dd>{profileIdentity.displayName}</dd></div>
+              <div><dt>{t("article.colophonDate")}</dt><dd><time datetime={date.toISOString()}>{dateLabel}</time></dd></div>
+              {stats.count > 0 && <div><dt>{t("article.colophonLength")}</dt><dd>{wordsLabel} · {readTimeLabel}</dd></div>}
+            </dl>
+          </div>
+          <div class="site-colophon-block site-colophon-rights">
+            <p class="site-colophon-title">{t("article.colophonRights")}</p>
+            <p>{t("article.colophonRightsText")}</p>
+            <a class="blank-text-link" href={href("/credits/")}>{t("article.colophonCreditsLink")} <Icon name="tabler:arrow-right" size={16} /></a>
+          </div>
+        </div>
         <p>{t("article.thanks")}</p>
         <a class="blank-text-link" href={href("/blog/")}>{t("article.back")} <Icon name="tabler:arrow-right" size={17} /></a>
       </footer>

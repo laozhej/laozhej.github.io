@@ -182,9 +182,16 @@ Ema 的点按范围（2026-11-26，站主要求“和终末地、Blank 一样处
 
 URL 参数 `q`、`category`、`sort` 由公共核心读写，保留当前语言、主题路径、无关参数和锚点。一个页面只放一组使用这些 URL 参数的集合，避免相互覆盖。Blank 继续保留原来的 `#blank-search` 输入锚点，其他主题可用自己的输入 id。
 
+2026-11-28 起，离散的分类切换、排序切换与重置操作在支持 View Transitions 的浏览器中以局部 `startViewTransition` 平滑过渡（过渡期间给 `html` 挂 `site-filtering`、给各条目写 `viewTransitionName` 与 `viewTransitionClass: "site-collection-item"`，在 `finished.finally` 与清理函数中移除）。搜索输入、历史恢复、`popstate`、收藏切架（`data-shelf-swap`）、暂停动效、系统减少动态以及保留自有 WAAPI 扫入动效的终末地主题均跳过此过渡。
+
 ### 文章阅读
 
-在正文上设置 `data-site-prose`，在进度条的可缩放子元素上设置 `data-site-progress`，固定页头设置 `data-site-header`。进度元素由主题设置 `transform-origin: left` 及样式。目录容器使用 `data-site-toc`，内部为指向真实标题 id 的锚点链接。公共核心设置进度条 `scaleX()`，并给当前章节链接设置 `aria-current="location"`；主题提供高亮样式。
+在正文上设置 `data-site-prose`，在进度条的可缩放子元素上设置 `data-site-progress`，固定页头设置 `data-site-header`。进度元素由主题设置 `transform-origin: left` 及样式。目录容器使用 `data-site-toc`，内部为指向真实标题 id 的锚点链接；可选的 `[data-site-reading-pct]` 由 `reading.mjs` 同步写入阅读百分比（无 JavaScript 时由 `html:not([data-site-js="true"])` 隐藏）。公共核心设置进度条 `scaleX()`，并给当前章节链接设置 `aria-current="location"`；四套主题在支持 CSS Anchor Positioning 时通过 `anchor-name: --site-toc-active` 与 `nav::before` 的 `border-inline-start` 绘制平滑滑动高亮条，不支持时回退到静态左边框。
+
+2026-11-28 起新增三项共享阅读能力：
+- **构建期字数与阅读时间**（`src/core/content/reading-time.mjs`）：统计中日文字符与拉丁词数，在文章头部、文末信息卡与 `PostRow` 列表中按四种语言展示。
+- **正文复制与图片灯箱**（`src/core/features/prose.mjs`）：由 `mountSiteFeatures` 挂载，为代码块添加 Invoker Commands 复制按钮、为 `h2[id]` / `h3[id]` 添加 `#` 锚点复制链接（按钮外部 `role="status"` 气泡与 44×44px 触控区），并为正文与作品截图提供原生 `<dialog closedby="any">` 图片灯箱；四套主题在各自样式表中提供主题色适配。
+- **文末双栏信息卡**（`.site-colophon`）：位于 `<footer class="blank-article-end">` 内，左栏列出作者、日期与篇幅，右栏给出与 `CONTENT_LICENSE.md` 一致的版权说明与致谢页链接，在四套主题中各自适配风格。
 
 ### 回到顶部
 
@@ -202,8 +209,9 @@ Ema、终末地和明日方舟页脚的「回到顶部」链接带 `data-site-to
 - **Blank 标题下划线的划出**：文章行、首页大块、索引格、项目名等标题在悬停时下划线从下方升上来并显现（`text-underline-offset` 和 `text-decoration-color` 的过渡），代替原来一下子出现；多行标题也逐行带线。按钮和图标按钮的底色、字色变化有 180ms 的过渡。
 - **Ema 首页目录卡**：鼠标悬停时卡片上浮 4px，彩色投影加深、边框带粉色，和收藏页的游戏柜一致。
 - **Ema 的“向下浏览”箭头**：三个箭头原本依次一亮一灭地硬闪，现在是柔和的明暗起伏，依次过去，像一道向下的波。
+- **表面层级、按压反馈与可打断菜单（2026-11-28）**：Ema 将界面圆角与阴影收拢为 `--ema-r-sm`（8px）、`--ema-r-md`（14px）、`--ema-r-pill`（999px）与 `--ema-shadow-flat` / `--ema-shadow-lift` / `--ema-shadow-panel`，关于页区分可点击卡片（游戏/动漫悬停轻抬）与静态参考卡片（技术栈/角色/现在保持平贴）；Blank 与 Ema 按钮增加短暂 `:active` 轻压回弹；两套主题的顶栏语言/主题菜单使用触发源锚定（`transform-origin: top right`）的 `::details-content` + `@starting-style` 与独立的 `transition-behavior: allow-discrete` 过渡。
 
-`tests/blank-ema-motion.test.mjs` 守着这些约定：样式不越出所属主题，进场只在动效开启时播放，进场标记只在首次完整加载时设置，深浅色切换在暂停、减少动态或不支持视图过渡时立即生效且只切换一次。
+`tests/blank-ema-motion.test.mjs` 与 `tests/polish-reading-ab.test.mjs` 守着这些约定：样式不越出所属主题，进场只在动效开启时播放，进场标记只在首次完整加载时设置，深浅色切换在暂停、减少动态或不支持视图过渡时立即生效且只切换一次。
 
 ## 收藏（2026-11-28）
 

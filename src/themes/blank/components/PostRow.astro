@@ -7,7 +7,7 @@ import { keepTails } from "@/core/i18n/wrap.mjs";
 interface Props { post: BlogPost; index: number; }
 const { post, index } = Astro.props;
 const { locale, t, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
-const date = post.data.updatedDate ?? post.data.pubDate;
+const date = post.data.pubDate;
 const displayDate = formatDate(date);
 const stats = readingStats(post.body ?? "");
 const readTimeLabel = t("article.readingTime").replace("{n}", String(stats.minutes));

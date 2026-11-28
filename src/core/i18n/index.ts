@@ -19,7 +19,7 @@ export function getI18n(path: string) {
     t,
     unit: (key: string, count: number) => t(count === 1 ? `${key}One` : key),
     href: (path: string) => localizePath(path, locale),
-    categoryLabel: { tech: t("category.tech"), anime: t("category.anime"), life: t("category.life") },
+    categoryLabel: { tech: t("category.tech"), creative: t("category.creative"), anime: t("category.anime"), life: t("category.life") },
     formatDate: (date: Date) => new Intl.DateTimeFormat(locale, { year: "numeric", month: "2-digit", day: "2-digit", timeZone: "UTC" }).format(date),
   };
 }

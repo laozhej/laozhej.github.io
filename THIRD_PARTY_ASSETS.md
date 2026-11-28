@@ -69,6 +69,10 @@
 
 友链页（`/friends/`）上的头像都由本站保存一份，不直接引用对方网站的图片地址。每张头像放在 `public/friends/`，使用前先在 [友链头像清单](public/friends/ASSETS.json) 记下所属站点、原始地址、作者、对方同意的方式和文件校验值；是否用了生成式 AI 以来源的说明为准，不凭画风判断。没有头像或加载失败时，页面显示站名的第一个字。2026-11-28 建页时还没有朋友站点，清单为空。本站在交换信息里提供的头像是 B. 网站图标（`public/apple-touch-icon.png`，见 `assets/branding/README.md`）。
 
+## 作品实拍截图
+
+个人网站作品的浅色、深色主图于 2026-11-28 截自本站 Blank 首页，使用本站自有界面。图集保留 2026-10-31 的历史截图。各图来源、拍摄环境和文件校验值见[作品素材清单](public/projects/ASSETS.json)。
+
 ## 软件、图标及字体
 
 - Blank 的软件版权声明和 MIT 文本保存在 `LICENSE` 与 `public/licenses/yuimi-chaya-MIT.txt`。

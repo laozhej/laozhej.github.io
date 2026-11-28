@@ -3,13 +3,13 @@ import { site } from "@/lib/site";
 import { localizePath } from "@/core/i18n";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import { Icon } from "astro-icon/components";
-import PageHead from "../components/PageHead.astro";
+import DefaultPageHead from "../components/PageHead.astro";
 import PostRow from "../components/PostRow.astro";
 import { getTheme } from "@/core/themes/registry";
 import { getPublishedPosts } from "@/core/content/blog";
-const { layout: BlankLayout } = Astro.props;
+const { layout: BlankLayout, heading: PageHead = DefaultPageHead } = Astro.props;
 const { locale, t, unit, categoryLabel } = getI18n(Astro.url.pathname);
-const posts = await getPublishedPosts(locale);
+const posts = (await getPublishedPosts(locale)).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 const categories = Object.entries(categoryLabel).filter(([key]) => posts.some((post) => post.data.category === key));
 // With nothing published there is nothing to search, sort or filter, so only the empty state is shown.
 // It keeps the #blank-search anchor, so the header's search link still lands on it.

@@ -1,0 +1,17 @@
+---
+import { getLocale } from "@/core/i18n";
+interface Props { title: string; label: string; description: string; count: string; unit: string; }
+const { title, label, description, count, unit } = Astro.props;
+const english = getLocale(Astro.url.pathname) === "en";
+---
+<header class="ema-archive-heading">
+  <div class="ema-archive-titles">
+    <div class="ema-archive-meta">
+      {!english && <span lang="en">{title}</span>}
+      <span class="ema-archive-total">{Number(count)} {unit}</span>
+    </div>
+    <h1>{english ? title : label}</h1>
+    <p class="ema-archive-intro">{description}</p>
+  </div>
+  <slot name="art" />
+</header>

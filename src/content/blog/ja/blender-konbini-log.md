@@ -2,7 +2,7 @@
 title: "Blender モデリング記録：まずはコンビニを一軒作ってみる"
 description: "久しぶりに Blender を開いてコンビニのモデリングに挑戦し、そこから東京を歩くウォーキングシミュレーターを作れないかと考え始めた記録。"
 pubDate: 2026-11-22
-category: tech
+category: creative
 tags: [Blender, 3D モデリング, ゲーム開発, 開発ログ]
 locale: ja
 translationKey: blender-konbini-log

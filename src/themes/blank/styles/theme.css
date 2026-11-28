@@ -1289,3 +1289,25 @@ html[data-site-js="true"] [data-site-serendipity][hidden] { display: block; }
   .blank-site-card-copy { justify-content: stretch; padding: 0 16px 16px; }
   .blank-site-card-copy > .blank-button { flex: 1; }
 }
+
+.project-journal-links {
+  grid-column: 1 / -1;
+  display: grid;
+  justify-items: start;
+  margin-block-start: 1.5rem;
+  border-block-start: 1px solid var(--blank-line);
+  padding-block-start: .75rem;
+}
+.project-journal-links h3 { font: inherit; font-weight: 600; }
+.project-journal-links a {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 44px;
+  padding-block: .4rem;
+  color: var(--blank-ink);
+  text-decoration: underline;
+  text-underline-offset: .22em;
+  line-height: 1.5;
+}
+.project-journal-links svg { flex: none; }

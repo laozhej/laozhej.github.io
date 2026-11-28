@@ -2,7 +2,8 @@
 // Shared page content and feature hooks, presented by the active theme layout. The header plate is the
 // pilot for the owner's art plan, P2 (2026-11-14); Blank and Endfield pass nothing into that slot.
 import Page from "@/themes/blank/pages/BlogIndexPage.astro";
+import ArchiveHeading from "../components/ArchiveHeading.astro";
 import EmaLayout from "../layouts/EmaLayout.astro";
 import PagePlate from "../components/PagePlate.astro";
 ---
-<Page layout={EmaLayout} {...Astro.props}><PagePlate slot="head-art" motif="notebook" /><slot /></Page>
+<Page heading={ArchiveHeading} layout={EmaLayout} {...Astro.props}><PagePlate slot="head-art" motif="notebook" /><slot /></Page>

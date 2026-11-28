@@ -2,7 +2,7 @@
 title: "Blender 建模日誌：從一家便利商店開始"
 description: "最近重新打開 Blender 嘗試幫便利商店建模，也順著冒出了做一個東京步行模擬器遊戲的念頭。"
 pubDate: 2026-11-22
-category: tech
+category: creative
 tags: [Blender, 3D 建模, 遊戲開發, 開發日誌]
 locale: zh-TW
 translationKey: blender-konbini-log

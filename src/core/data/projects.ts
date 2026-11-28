@@ -6,12 +6,9 @@ export const personalSiteShowcaseUrl = "https://github.com/laozhej/laozhej.githu
 
 // Screenshot provenance: public/projects/ASSETS.json. Each locale adds its own alt text.
 // `darkSrc` is the same page captured in the dark colour mode; pages in dark mode show it instead.
-// Until the redesign's artwork is settled, this reuses the clean Blank captures from the gallery below
-// (the earlier Ema homepage capture showed uncleared art and was removed on 2026-11-13).
-export const personalSitePreview = { src: "/projects/gallery/blank-desktop.png", darkSrc: "/projects/gallery/blank-dark.png", width: 1440, height: 960 } as const;
+export const personalSitePreview = { src: "/projects/gallery/blank-2026-11-light.png", darkSrc: "/projects/gallery/blank-2026-11-dark.png", width: 1440, height: 960 } as const;
 
-// The screenshot viewer: byte-identical copies of showcase/gallery (captured 2026-10-31), provenance in
-// public/projects/ASSETS.json. Each locale adds a label, a mode and size note, and alt text to every shot, in this order.
+// Archive captures followed by the current preview pair; provenance is recorded in public/projects/ASSETS.json.
 export const personalSiteGallery = [
   { src: "/projects/gallery/blank-desktop.png", width: 1440, height: 960 },
   { src: "/projects/gallery/blank-dark.png", width: 1440, height: 960 },
@@ -19,7 +16,13 @@ export const personalSiteGallery = [
   { src: "/projects/gallery/endfield-desktop.png", width: 1440, height: 960 },
   { src: "/projects/gallery/blank-mobile.png", width: 390, height: 844 },
   { src: "/projects/gallery/endfield-mobile.png", width: 390, height: 844 },
+  { src: personalSitePreview.src, width: 1440, height: 960 },
+  { src: personalSitePreview.darkSrc, width: 1440, height: 960 },
 ] as const;
+
+export const projectJournals = [
+  { projectId: "blank-personal-site", articles: ["dev-log-01", "dev-log-02"] }
+];
 
 export const projectEntries = [
   {
@@ -33,6 +36,8 @@ export const projectEntries = [
     url: personalSiteShowcaseUrl,
     image: { ...personalSitePreview, alt: "Blank 主题首页截图：白底黑字的大标题 Blank Space、简介与文章入口" },
     gallery: [
+      { ...personalSiteGallery[6], label: "Blank 主题 · 首页", meta: "浅色 · 1440×960 · 2026-11-28 截图", alt: "Blank 主题首页截图：白底黑字的大标题 Blank Space、简介与文章入口" },
+      { ...personalSiteGallery[7], label: "Blank 主题 · 首页（深色）", meta: "深色 · 1440×960 · 2026-11-28 截图", alt: "Blank 主题首页的深色模式截图：黑底白字的大标题 Blank Space" },
       { ...personalSiteGallery[0], label: "Blank 主题 · 首页", meta: "浅色 · 1440×960 · 2026-10-31 截图", alt: "Blank 主题首页截图：白底黑字的大标题 Blank Space、简介与文章入口" },
       { ...personalSiteGallery[1], label: "Blank 主题 · 首页（深色）", meta: "深色 · 1440×960 · 2026-10-31 截图", alt: "Blank 主题首页的深色模式截图：黑底白字的大标题 Blank Space" },
       { ...personalSiteGallery[2], label: "Blank 主题 · 作品页", meta: "浅色 · 1440×960 · 2026-10-31 截图", alt: "Blank 主题作品页截图：标题 Works 与个人网站项目条目" },

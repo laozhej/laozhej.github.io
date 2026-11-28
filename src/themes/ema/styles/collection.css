@@ -94,6 +94,8 @@ html[data-site-js="true"] .ema-collection [data-site-filter-form][hidden] {displ
 
 /* Posters (anime and the other shelves): the cabinet's label strip over a 2:3 cover. */
 .collection-posters {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px;align-items:stretch;}
+/* Long shelves (e.g. 145 movies): defer rendering strictly below the initial fold (5 cols × 2 rows = 10 posters). */
+.collection-posters:not(.is-preview)>li:nth-child(n+11) {content-visibility:auto;contain-intrinsic-size:auto none auto 390px;}
 .ema-work {display:flex;flex-direction:column;min-width:0;overflow:hidden;border:1px solid var(--blank-line);border-radius:8px;background:var(--card);box-shadow:4px 5px 0 var(--fill);transition:transform 220ms var(--blank-ease),box-shadow 220ms ease;}
 .ema-work .game-label {padding:9px 12px;font-size:var(--blank-fs-xs, 10px);letter-spacing:.1em;}
 .ema-work-cover {position:relative;aspect-ratio:2 / 3;overflow:hidden;border-block:1px solid var(--blank-line);background:radial-gradient(color-mix(in srgb,var(--line) 70%,transparent) 1.1px,transparent 1.5px) 0 0/7px 7px,var(--fill);color:var(--tone-ink);}

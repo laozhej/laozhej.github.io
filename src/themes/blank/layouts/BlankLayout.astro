@@ -2,6 +2,7 @@
 import "@/core/styles/scale.css";
 import "@/core/fonts/subsets.css";
 import "@/core/fonts/latin-quotes.css";
+import "@fontsource-variable/jetbrains-mono/wght.css";
 import "../styles/theme.css";
 import "../styles/journal.css";
 import "../styles/motion.css";
@@ -20,6 +21,7 @@ import SiteMeta from "@/core/components/SiteMeta.astro";
 import SiteAttribution from "@/core/components/SiteAttribution.astro";
 import SiteNavigation from "@/core/navigation/SiteNavigation.astro";
 import FontLinks from "@/core/fonts/FontLinks.astro";
+import CommandPalette from "@/core/components/CommandPalette.astro";
 import { pageTransition } from "@/core/navigation/animations.mjs";
 const { locale, t } = getI18n(Astro.url.pathname);
 const href = (target: string) => getThemePath("blank", target, locale);
@@ -99,11 +101,13 @@ const navItems = site.nav.map((item, index) => ({
       <div class="blank-footer-bottom">
         <SiteAttribution />
         <span>{t("home.statement2")}</span>
+        <button class="site-cmdk-trigger" type="button" data-site-cmdk-open hidden>{t("cmdk.trigger")} <kbd data-site-cmdk-kbd aria-hidden="true">⌘K</kbd></button>
         <a href={localizePath("/rss.xml", locale)} data-astro-reload>RSS</a>
         <a href={href("/credits/")}>{t("footer.credits")}</a>
         <a href="#blank-main" class="blank-back-top">{t("footer.top")} <Icon name="tabler:arrow-up" size={14} /></a>
       </div>
     </footer>
+    <CommandPalette />
     <script>
       import { registerThemeRuntime } from "@/core/themes/runtime.mjs";
       import { mountBlank } from "../lib/runtime.mjs";

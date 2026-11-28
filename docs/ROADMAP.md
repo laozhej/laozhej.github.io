@@ -23,6 +23,14 @@
 
 ## 1. 现状
 
+- **已完成**（2026-11-28，站主批准合并，分支 `feat/cmdk-serendipity-perf`）：完成站主选定的前 5 项交互、展示与底层性能优化，并按最新 `main`（含 145 部电影、56 部已看动漫与明日方舟官网级动效）对齐并补截自托管字体子集：
+  1. **全站 `⌘K` / `Ctrl+K`（及 `/`）快捷搜索与命令面板**：构建期按四语生成静态索引（`/search-index.json`、`/{zh-TW,ja,en}/search-index.json`，排除出 sitemap），覆盖栏目、文章、作品及 224 件收藏条目；原生 `<dialog closedby="any">` 弹窗（含 WebKit 轻关闭回退、输入法安全 `Enter`、不锁死根节点滚动条）内置深浅色、动效、主题与语言快捷切换，四套主题独立皮肤，明日方舟与终末地直接复用顶栏搜索图标零像素改动。
+  2. **收藏页「随机抽一部」推荐（Serendipity）**：`SerendipityPicker.astro` + `serendipity.mjs` 挂载于四套主题收藏总览与有内容分类架，渐进增强（无 JS 隐藏）、跟随当前筛选子集且避免连续重复抽取。
+  3. **构建期真实 `git log` 52 周静态提交热力图**：`git-activity.mjs` + `CommitHeatmap.astro` 置于致谢页 `07 / EVOLUTION`，纯静态内联 SVG 零 JS 可见，四套主题明暗五阶色阶，窄屏默认靠右展示最新活跃周；`.github/workflows/deploy.yml` 补齐 `fetch-depth: 0`。
+  4. **长代码块自动折叠与不可选中行号**：`prose.mjs` 为 `>= 18` 行代码块提供渐隐折叠与 44px 四语展开/收起按钮（无 JS 默认展开），CSS counter 行号不污染剪贴板复制内容。
+  5. **底层性能与控制台修复**：`FontLinks.astro` 改用 `<meta name="site-font-pieces">` 消除客户端换页 `/null` 404（第 4.1 节第 5 项）；长收藏架首屏以下卡片启用 `content-visibility: auto` + `contain-intrinsic-size` 并限制大列表筛选 View Transition 命名上限（24 项）；生产路由改为直传主题布局并补齐 `JetBrains Mono` 显式导入，实现按主题拆分 CSS（单页首屏 CSS：Blank `291 → 125 KB`、Arknights/Endfield `291 → 166 KB`、Ema `383 → 260 KB`）。
+  - **验证**：新增 `tests/batch3-cmdk-serendipity-perf.test.mjs`，全量单测、构建与 `showcase:check` 通过；Chrome 158 与 Playwright WebKit 27.2 双引擎验证 0 报错 0 `/null` 404、明日方舟与终末地冻结首页 0 像素差异、12 组四主题明暗 `axe-core` 0 违规、44px 触控与多视口 0 溢出，审查图板见 `outputs/batch3-cmdk-serendipity-perf/review/`。
+
 - **已完成**（2026-11-28，PR #75，分支 `claude/arknights-motion`；设计待站主验收）：站主要求“给明日方舟主题增加更多的交互效果，让其更加接近明日方舟官网的那种效果，但是又不失去之前的特色”。agent 先录下官网 <https://ak.hypergryph.com/> 的实际交互（工作区 `outputs/arknights-motion/reference/`），再对应到本主题已有的元素上：打开首页时点阵牌的亮点从散开的位置聚拢（官网「设定」的点阵徽标），鼠标在牌上移动时格子被推开（官网徽标让出空洞）；首页四个区段第一次滚到时依次进场，游戏面板从右一块接一块滑入（官网每屏的进场和「更多内容」）；背景大字随滚动平移；指向日志里的一篇时，它的编号以大号描边字浮现（官网列表的悬停）；计数栏的英文词逐字解码，进度线上标出各区段，首屏有“Scroll”提示；深色模式下指向的栏目变成信号色；主题内换页时顶栏不动、栏目下的线滑到新栏目，新页面在竖向扫描线后面横向揭开（官网切换栏目的擦入）。颜色、字体、版式、间距和五个区段都不变：系统减少动态时 102 种页面、尺寸和深浅色组合逐元素比对，计数栏以外完全相同；Blank、樱色档案、终末地的 168 个页面构建产物与改动前相同（只差共用样式表的文件名）。动效暂停或减少动态时都不播放，没有 JavaScript 时内容完整。细节见 THEMES.md「明日方舟」的「交互动效」，录像和对照在工作区 `outputs/arknights-motion/review/`。新增 `tests/arknights-motion.test.mjs`（9 项）。
 - 2026-11-28，动漫收藏页按站主确认的 Notion 已看清单收录 56 部，其中 50 部为本次新增，关于页仍展示原有的 6 部精选。每部都有本地封面、四语片名和年份。系列使用代表封面时，年份注明对应封面作品。数据见 `src/core/data/anime-list.ts`，图片出处见 `public/animes/ASSETS.json`。
 
@@ -233,7 +241,7 @@ PR #22（2026-11-24）留下的问题。第 1、2 项写在 PR #22 的说明里�
    仍然没查清：Playwright 的 WebKit 27.2 里，键盘操作后在首页第一屏（0–900 px）内，滚动位置会在约 0.5 秒内自己变化（例如 300 → 138），没有任何脚本调用 `scrollTo`；修复前的线上版本也一样，Chrome 里没有。没有在真正的 Safari 上确认过。
 3. 不支持 View Transitions 的浏览器上，`fallback="animate"` 会在淡入动画之前就清理掉。
 4. 两个从参考站带过来、但没有任何代码设置的属性（2026-11-24 核实过）：`src/themes/blank/styles/theme.css` 第 611–613 行的 `html[data-yuimi-visibility="hidden"]`，以及 `src/themes/ema/lib/stage.mjs` 第 237 行的 `html.dataset.yuimiPerformance !== 'lite'`。
-5. （2026-11-28 检查收藏页时发现，`main` 上同样存在）站内换页时控制台出现一次 404：`FontLinks.astro` 把延后加载的字体分片写成没有 `href` 的 `<link rel="stylesheet" data-href>`，Astro 路由在换页前预载新页面的样式表，读到的 `href` 是 `null`，于是请求当前目录下的 `null`。页面显示不受影响。**提议**：占位改用不会被当成样式表的写法（例如 `<template>` 或 `rel` 以外的标记），由同一段脚本在空闲时插入真正的 `<link>`。
+5. **已完成**（2026-11-28，分支 `feat/cmdk-serendipity-perf`）：`FontLinks.astro` 改为输出 `<meta name="site-font-pieces" content={href} data-site-font-pieces />` 并由空闲脚本去重追加 `<link rel="stylesheet">`，消除 Astro `ClientRouter` 换页时的 `/null` 404（Chrome 158 与 WebKit 27.2 均已验证 0 条 404）。
 
 另外，站主还没有说过自己遇到了哪些问题，开工前先问。
 
@@ -252,7 +260,7 @@ PR #22（2026-11-24）留下的问题。第 1、2 项写在 PR #22 的说明里�
 
 数据来自 `68bfbf4` 的本地构建：
 
-- CSS：每个页面都加载 `PageLayout` 样式表，147.6 KB，gzip 后 24.4 KB，里面有三套主题的样式（原因见 AGENTS.md：`PageLayout.astro` 引入了三个布局）。Ema 页面另外加载 71.6 KB，gzip 后 12.3 KB。按主题拆开，可以减少 Blank 和 Endfield 页面下载的 CSS。风险有两个：样式表顺序（见 6.2），以及 Endfield 的外观必须完全不变。先出方案和数据，再动代码。
+- CSS：每个页面原本都通过 `PageLayout.astro` 统一加载四套主题样式（291 KB，Ema 另加 92 KB）。**已完成**（2026-11-28，分支 `feat/cmdk-serendipity-perf`）：生产路由改为直接传入对应主题布局（保留 `PageLayout.astro` 供兼容测试），并为四套布局补齐 `JetBrains Mono` 显式导入，实现按主题拆分 CSS；单页首次 CSS 降至 Blank `125 KB`、Arknights/Endfield `166 KB`、Ema `260 KB`，冻结首页逐像素不变。
 - PR #35 之后（2026-11-26，`09cec98` 之上）：`PageLayout` 样式表 162.8 KB，gzip 后 27.0 KB，其中终末地动效占 11.6 KB（gzip 后 1.5 KB），三套主题的每个页面都会下载。终末地页面另外加载主题运行时 7.1 KB，gzip 后 3.2 KB。按主题拆分样式表之后，这部分就只由终末地页面承担。 PR #37（点按范围）之后是 164.7 KB，gzip 后 27.2 KB；PR #38 只多了 50 字节。 PR #40（Blank 点按范围）之后是 167.4 KB，gzip 后 27.6 KB；PR #41（Ema 点按范围）之后是 171.0 KB，gzip 后 28.0 KB。
 - PR #43（明日方舟主题）之后：225.2 KB，gzip 后 38.7 KB（本地 `gzip -9`；合并前的 `main`，即 `d90f5fa`，同样量法是 171.0 KB、gzip 后 27.5 KB）。多出的部分整段排在原有内容之后，原有内容一字不差，所以其他主题的层叠顺序不变；其中 2.8 KB（gzip 后）是两种新字体的 `@font-face` 声明，字体文件本身只有明日方舟的页面会下载。这一次是四套主题里增加最多的，按主题拆分样式表的收益随之变大：拆分之后，这 11 KB 只由明日方舟的页面承担。
 - 首屏大图：`ema-pose-01.webp` 752 KB（905×2400），是 Ema 首页的 LCP 图片；其余四张只在需要时加载（PR #14）。2026-11-24 用 Chrome 158 实测，立绘在屏幕上需要的高度是：1920×1080（1 倍屏）991 设备像素，1440×900（2 倍屏）1652，390×844（3 倍屏）1800，360×780（3 倍屏）1608。约 1800 px 高的副本就能覆盖这些屏幕，像素约为原图的 56%，1 倍屏还能用更小的。但 AGENTS.md 禁止重新编码这五张图，所以要 **待站主决定**。

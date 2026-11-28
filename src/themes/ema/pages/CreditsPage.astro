@@ -1,5 +1,6 @@
 ---
 // Shared page content and feature hooks, presented by the active theme layout.
 import Page from "@/themes/blank/pages/CreditsPage.astro";
+import EmaLayout from "../layouts/EmaLayout.astro";
 ---
-<Page {...Astro.props}><slot /></Page>
+<Page layout={EmaLayout} {...Astro.props}><slot /></Page>

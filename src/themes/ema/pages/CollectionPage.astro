@@ -12,7 +12,8 @@ import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import { collectionPath, previewEntries } from "@/core/content/select-collection.mjs";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 import { site } from "@/lib/site";
-import PageLayout from "@/core/themes/PageLayout.astro";
+import PageLayout from "../layouts/EmaLayout.astro";
+import SerendipityPicker from "@/core/components/SerendipityPicker.astro";
 import "../styles/shelf.css";
 import "../styles/collection.css";
 
@@ -53,6 +54,12 @@ const sideKicker = locale === "en" ? "CATEGORIES" : `CATEGORIES / ${t("collectio
 // The first three covers on the page load at once; the first is fetched first (it is the largest paint).
 const firstKeys = (current ? current.groups.flatMap((group) => group.entries) : previewEntries(filled[0]?.entries ?? [], previewCount(filled[0]?.key ?? ""), filled[0]?.key === "games" ? favoriteKeys : [])).slice(0, 3).map((entry) => `${entry.shelf}:${entry.key}`);
 const lead = (entry: { shelf: string; key: string }) => { const index = firstKeys.indexOf(`${entry.shelf}:${entry.key}`); return index < 0 ? undefined : index; };
+const shelfNames = Object.fromEntries(shelves.map((shelf) => [shelf.key, name(shelf.key)]));
+const genreLabel = (shelfKey: string, key: string) => {
+  const shelf = shelves.find((item) => item.key === shelfKey);
+  return shelf ? genreOf(shelf)(key) : key;
+};
+const randomPool = current ? current.entries : filled.flatMap((shelf) => shelf.entries);
 ---
 <PageLayout title={title} description={description} cursorRing={true}>
   <header class="collection-opening" data-collection-head>
@@ -94,6 +101,9 @@ const lead = (entry: { shelf: string; key: string }) => { const index = firstKey
     </aside>
 
     <div class="collection-main" data-collection-shelf>
+      {randomPool.length > 0 && (
+        <SerendipityPicker entries={randomPool} shelfKey={current?.key} shelfNames={shelfNames} genreLabel={genreLabel} href={href} t={t} />
+      )}
       {current ? (
         <section class="collection-shelf" data-site-collection data-unit={unitOf(current.key, 2)} data-unit-one={unitOf(current.key, 1)} aria-labelledby="collection-shelf-title">
           <header class="collection-shelf-head">

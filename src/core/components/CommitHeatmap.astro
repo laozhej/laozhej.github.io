@@ -1,0 +1,93 @@
+---
+// Build-time static 52-week Git commit heatmap (pure inline SVG, zero JS required).
+import { getGitActivity } from "@/core/content/git-activity.mjs";
+import type { Locale } from "@/core/i18n";
+
+interface Props {
+  locale: Locale;
+  t: (key: string) => string;
+}
+
+const { locale, t } = Astro.props;
+const activity = getGitActivity();
+const fmtNumber = (n: number) => new Intl.NumberFormat(locale).format(n);
+const monthFmt = new Intl.DateTimeFormat(locale, { month: "short", timeZone: "UTC" });
+
+const CELL = 11;
+const GAP = 3;
+const STEP = CELL + GAP;
+const LEFT = 0;
+const TOP = 18;
+const WIDTH = LEFT + activity.weeks.length * STEP - GAP;
+const HEIGHT = TOP + 7 * STEP - GAP;
+
+const monthLabels: Array<{ x: number; label: string }> = [];
+let lastLabelX = -100;
+for (const week of activity.weeks) {
+  if (!week.monthKey) continue;
+  const x = LEFT + week.index * STEP;
+  if (x - lastLabelX < 36) continue;
+  const [y, m] = week.monthKey.split("-").map(Number);
+  monthLabels.push({ x, label: monthFmt.format(new Date(Date.UTC(y, m - 1, 1))) });
+  lastLabelX = x;
+}
+
+const dayTip = (date: string, count: number) => {
+  if (count === 0) return t("heatmap.dayCellZero").replace("{date}", date);
+  if (count === 1) return t("heatmap.dayCellOne").replace("{date}", date);
+  return t("heatmap.dayCell").replace("{date}", date).replace("{count}", String(count));
+};
+---
+<figure class="site-heatmap" aria-labelledby="site-heatmap-heading">
+  <figcaption class="site-heatmap-head">
+    <h3 id="site-heatmap-heading">{t("heatmap.heading")}</h3>
+    {activity.totalCommits > 0 ? (
+      <p class="site-heatmap-summary">
+        {t("heatmap.summary")
+          .replace("{commits}", fmtNumber(activity.totalCommits))
+          .replace("{days}", fmtNumber(activity.activeDays))}
+      </p>
+    ) : (
+      <p class="site-heatmap-summary">{t("heatmap.empty")}</p>
+    )}
+  </figcaption>
+  {activity.totalCommits > 0 && (
+    <>
+      <div class="site-heatmap-scroll" tabindex="0" role="region" aria-label={t("heatmap.ariaLabel")}>
+        <svg class="site-heatmap-svg" viewBox={`0 0 ${WIDTH} ${HEIGHT}`} width={WIDTH} height={HEIGHT} role="img" aria-label={t("heatmap.ariaLabel")}>
+          <g class="site-heatmap-months" aria-hidden="true">
+            {monthLabels.map((item) => (
+              <text x={item.x} y={11}>{item.label}</text>
+            ))}
+          </g>
+          <g class="site-heatmap-cells">
+            {activity.weeks.map((week) =>
+              week.days.map((day, row) => !day.future && (
+                <rect
+                  x={LEFT + week.index * STEP}
+                  y={TOP + row * STEP}
+                  width={CELL}
+                  height={CELL}
+                  rx="2"
+                  class={`is-l${day.level}`}
+                  data-date={day.date}
+                  data-count={day.count}
+                >
+                  <title>{dayTip(day.date, day.count)}</title>
+                </rect>
+              ))
+            )}
+          </g>
+        </svg>
+      </div>
+      <div class="site-heatmap-foot">
+        {activity.latestDate && <span class="site-heatmap-latest">{t("heatmap.latest").replace("{date}", activity.latestDate)}</span>}
+        <span class="site-heatmap-legend" aria-hidden="true">
+          <span>{t("heatmap.less")}</span>
+          {[0, 1, 2, 3, 4].map((lvl) => <i class={`site-heatmap-swatch is-l${lvl}`}></i>)}
+          <span>{t("heatmap.more")}</span>
+        </span>
+      </div>
+    </>
+  )}
+</figure>

@@ -2,8 +2,9 @@
 import { Icon } from "astro-icon/components";
 import { site } from "@/lib/site";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
-import BlankLayout from "@/core/themes/PageLayout.astro";
 import PageHead from "../components/PageHead.astro";
+import CommitHeatmap from "@/core/components/CommitHeatmap.astro";
+const { layout: BlankLayout } = Astro.props;
 import themeLicense from "../../../../public/licenses/yuimi-chaya-MIT.txt?raw";
 import iconLicense from "../../../../public/licenses/tabler-icons-MIT.txt?raw";
 import fontLicense from "../../../../public/licenses/gloock-OFL.txt?raw";
@@ -16,7 +17,7 @@ import wenkaiLicense from "../../../../public/licenses/lxgw-wenkai-OFL.txt?raw";
 import kleeLicense from "../../../../public/licenses/klee-one-OFL.txt?raw";
 import nunitoLicense from "../../../../public/licenses/nunito-OFL.txt?raw";
 import sakuraLicense from "../../../../public/licenses/sakura-js-MIT.txt?raw";
-const { t, href } = getI18n(Astro.url.pathname);
+const { locale, t, href } = getI18n(Astro.url.pathname);
 ---
 <BlankLayout title={`${t("credits.title")} | ${site.name}`} description={t("credits.description")}>
   <PageHead index="05" title="Credits" label={t("credits.title")} description={t("credits.intro")} />
@@ -175,6 +176,7 @@ const { t, href } = getI18n(Astro.url.pathname);
     <div><p class="blank-kicker">07 / EVOLUTION</p><h2>{t("credits.evolutionHeading")}</h2></div>
     <div class="blank-credits-body">
       <p>{t("credits.evolutionIntro")}</p>
+      <CommitHeatmap locale={locale} t={t} />
       <ol class="site-evolution">
         {[1, 2, 3, 4, 5, 6].map((step) => (
           <li>

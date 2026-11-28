@@ -1,0 +1,121 @@
+---
+// Site-wide ⌘K / Ctrl+K command palette & quick search dialog.
+// Native modal <dialog closedby="any"> opened with showModal() by src/core/features/command-palette.mjs.
+// At rest (closed) it takes 0px of layout space and makes 0 network requests; on first open it lazily
+// fetches the current locale's static /search-index.json while showing instant localized quick actions.
+import { Icon } from "astro-icon/components";
+import { getI18n, localizePath, localeNames, locales, type Locale } from "@/core/i18n";
+import { getTheme, getThemePath, themes } from "@/core/themes/registry";
+
+const { locale, t } = getI18n(Astro.url.pathname);
+const currentTheme = getTheme(Astro.url.pathname);
+const themeEntry = themes.find(({ id }) => id === currentTheme)!;
+const pathname = Astro.url.pathname;
+const indexUrl = localizePath("/search-index.json", locale);
+const localePrefix = locale === "zh-CN" ? "" : `/${locale}`;
+
+const meta = {
+  locale,
+  theme: currentTheme,
+  themeRoot: themeEntry.root,
+  localePrefix,
+  indexUrl,
+  labels: {
+    loading: t("cmdk.loading"),
+    loadError: t("cmdk.loadError"),
+    empty: t("cmdk.empty"),
+    count: t("cmdk.count"),
+    current: t("cmdk.current"),
+    groups: {
+      pages: t("cmdk.group.pages"),
+      articles: t("cmdk.group.articles"),
+      projects: t("cmdk.group.projects"),
+      collection: t("cmdk.group.collection"),
+      actions: t("cmdk.group.actions"),
+    },
+  },
+  actions: [
+    {
+      id: "mode",
+      action: "mode",
+      title: t("cmdk.action.mode"),
+      sub: `${t("mode.toDark")} / ${t("mode.toLight")}`,
+      q: `${t("cmdk.action.mode")} ${t("mode.label")} dark light theme 深色 浅色 淺色 ダーク ライト`.toLowerCase(),
+    },
+    {
+      id: "motion",
+      action: "motion",
+      title: t("cmdk.action.motion"),
+      sub: `${t("ema.motion.pause")} / ${t("ema.motion.resume")}`,
+      q: `${t("cmdk.action.motion")} ${t("ema.motion.pause")} ${t("ema.motion.resume")} motion animation 动效 動效 アニメーション`.toLowerCase(),
+    },
+    ...themes.map((theme) => {
+      const name = t(theme.labelKey);
+      return {
+        id: `theme-${theme.id}`,
+        action: "theme",
+        themeId: theme.id,
+        href: getThemePath(theme.id, pathname, locale),
+        current: theme.id === currentTheme,
+        title: t("cmdk.action.theme").replace("{name}", name),
+        sub: theme.id === currentTheme ? t("cmdk.current") : theme.id,
+        q: `${t("cmdk.action.theme").replace("{name}", name)} ${name} ${theme.id} theme 主题 主題 テーマ`.toLowerCase(),
+      };
+    }),
+    ...locales.map((loc: Locale) => {
+      const name = localeNames[loc];
+      return {
+        id: `locale-${loc}`,
+        action: "locale",
+        localeId: loc,
+        href: localizePath(pathname, loc),
+        current: loc === locale,
+        title: t("cmdk.action.locale").replace("{name}", name),
+        sub: loc === locale ? t("cmdk.current") : loc,
+        q: `${t("cmdk.action.locale").replace("{name}", name)} ${name} ${loc} language 语言 語言 言語`.toLowerCase(),
+      };
+    }),
+  ],
+};
+---
+<dialog class="site-cmdk" id="site-cmdk" closedby="any" aria-labelledby="site-cmdk-title" data-site-cmdk>
+  <div class="site-cmdk-shell">
+    <div class="site-cmdk-head">
+      <h2 class="blank-sr-only" id="site-cmdk-title">{t("cmdk.title")}</h2>
+      <span class="site-cmdk-icon" aria-hidden="true"><Icon name="tabler:search" size={18} /></span>
+      <label class="blank-sr-only" for="site-cmdk-input">{t("cmdk.inputLabel")}</label>
+      <input
+        id="site-cmdk-input"
+        class="site-cmdk-input"
+        type="search"
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded="true"
+        aria-controls="site-cmdk-list"
+        autocomplete="off"
+        spellcheck="false"
+        maxlength="200"
+        placeholder={t("cmdk.placeholder")}
+        data-site-cmdk-input
+      />
+      <button class="site-cmdk-clear" type="button" data-site-cmdk-clear aria-label={t("cmdk.clear")} title={t("cmdk.clear")} hidden>
+        <Icon name="tabler:circle-x" size={17} aria-hidden="true" />
+      </button>
+      <button class="site-cmdk-close" type="button" data-site-cmdk-close aria-label={t("cmdk.close")} title={t("cmdk.close")}>
+        <kbd aria-hidden="true">Esc</kbd>
+      </button>
+    </div>
+    <div class="site-cmdk-body" data-site-cmdk-body>
+      <p class="site-cmdk-notice" data-site-cmdk-notice hidden></p>
+      <div class="site-cmdk-list" id="site-cmdk-list" role="listbox" aria-label={t("cmdk.results")} data-site-cmdk-list></div>
+      <p class="site-cmdk-empty" data-site-cmdk-empty hidden>{t("cmdk.empty")}</p>
+    </div>
+    <p class="blank-sr-only" role="status" aria-live="polite" data-site-cmdk-status></p>
+    <div class="site-cmdk-foot" aria-hidden="true">
+      <span><kbd>↑</kbd><kbd>↓</kbd> {t("cmdk.hint.move")}</span>
+      <span><kbd>↵</kbd> {t("cmdk.hint.open")}</span>
+      <span><kbd>Esc</kbd> {t("cmdk.hint.close")}</span>
+    </div>
+  </div>
+  <script type="application/json" data-site-cmdk-meta set:html={JSON.stringify(meta)}></script>
+</dialog>

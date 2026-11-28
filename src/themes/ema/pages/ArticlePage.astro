@@ -2,6 +2,7 @@
 // Shared page content and feature hooks, presented by the active theme layout. The decorations are the
 // article-page pilot (2026-11-15); Blank and Endfield pass nothing into these slots.
 import Page from "@/themes/blank/pages/ArticlePage.astro";
+import EmaLayout from "../layouts/EmaLayout.astro";
 import ArticleArt from "../components/ArticleArt.astro";
 ---
-<Page {...Astro.props}><ArticleArt slot="header-art" part="header" /><ArticleArt slot="end-art" part="end" /><slot /></Page>
+<Page layout={EmaLayout} {...Astro.props}><ArticleArt slot="header-art" part="header" /><ArticleArt slot="end-art" part="end" /><slot /></Page>

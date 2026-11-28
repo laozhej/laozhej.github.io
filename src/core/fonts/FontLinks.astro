@@ -49,10 +49,23 @@ const key = locale === "zh-TW" || locale === "ja" ? locale : "zh-CN";
 const picked = families.map((family) => FONTS[family][key]);
 ---
 {picked.flatMap(({ preload }) => preload).map((name) => <link rel="preload" href={`/fonts/site/${name}.woff2`} as="font" type="font/woff2" crossorigin />)}
-{picked.flatMap(({ pieces }) => pieces).map((href) => <link rel="stylesheet" data-href={href} data-site-font-pieces />)}
+{picked.flatMap(({ pieces }) => pieces).map((href) => <meta name="site-font-pieces" content={href} data-site-font-pieces />)}
 <script is:inline>
   (() => {
-    const apply = () => document.querySelectorAll("link[data-site-font-pieces]:not([href])").forEach((link) => { link.href = link.dataset.href; });
+    if (window.__siteFontPiecesReady) return;
+    window.__siteFontPiecesReady = true;
+    const apply = () => {
+      for (const meta of document.querySelectorAll("meta[data-site-font-pieces]")) {
+        const href = meta.getAttribute("content");
+        if (!href) continue;
+        if ([...document.head.querySelectorAll('link[rel="stylesheet"][data-site-font-loaded]')].some((l) => l.dataset.siteFontLoaded === href)) continue;
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = href;
+        link.dataset.siteFontLoaded = href;
+        document.head.append(link);
+      }
+    };
     const later = () => ("requestIdleCallback" in window ? requestIdleCallback(apply, { timeout: 3000 }) : setTimeout(apply, 1500));
     if (document.readyState === "complete") later(); else addEventListener("load", later, { once: true });
     // In-site navigation swaps the head without a new load event.

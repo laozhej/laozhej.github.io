@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - name: Test, build, and upload
         uses: withastro/action@v6
         with:

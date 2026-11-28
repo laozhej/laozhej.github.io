@@ -45,8 +45,8 @@ test("every layout loads the cut-down faces and links its own languages' fonts",
     assert.match(source, /<FontLinks families=\{\[[^\]]+\]\} locale=\{locale\} \/>/, theme);
   }
   const links = read("src/core/fonts/FontLinks.astro");
-  assert.match(links, /<link rel="stylesheet" data-href=\{href\} data-site-font-pieces \/>/, "the fallback pieces' stylesheets start without an href");
-  assert.match(links, /requestIdleCallback\(apply/, "and get it once the page has loaded and the browser is idle");
+  assert.match(links, /<meta name="site-font-pieces" content=\{href\} data-site-font-pieces \/>/, "the fallback pieces' stylesheets stay out of <link> until idle so client navigation never fetches /null");
+  assert.match(links, /requestIdleCallback\(apply/, "and get appended once the page has loaded and the browser is idle");
   assert.match(links, /astro:page-load/, "in-site navigation fetches the next page's pieces too");
   assert.match(links, /rel="preload"[^>]+as="font"[^>]+crossorigin/);
 });

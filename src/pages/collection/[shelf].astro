@@ -1,8 +1,9 @@
 ---
+import ArknightsLayout from "@/themes/arknights/layouts/ArknightsLayout.astro";
 import CollectionPage from "@/themes/blank/pages/CollectionPage.astro";
 import { collectionShelves } from "@/core/content/select-collection.mjs";
 
 export const getStaticPaths = () => collectionShelves.map((shelf) => ({ params: { shelf } }));
 const { shelf } = Astro.params;
 ---
-<CollectionPage shelf={shelf} />
+<CollectionPage layout={ArknightsLayout} shelf={shelf} />

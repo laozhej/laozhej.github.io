@@ -23,6 +23,12 @@
 
 ## 1. 现状
 
+- **已完成**（2026-11-28，站主批准上线，分支 `feat/batch2-reading-ema-terminal`）：完成第二批阅读与站点体验升级及艾玛首页浮动代码框创意化：
+  1. **可见 RSS 入口与 XSLT 样式表**：四套主题文章归档新增 44px `RSS 订阅` 按钮，Blank 与 Ema 页脚补充本地化 RSS 链接，新增 `public/rss.xsl` 并挂接至四语 RSS Feed（WebKit 27.2 直接渲染为排版页；Chrome 158 已移除内置 XSLT 解析器，RSS 阅读器不受影响）。
+  2. **文章字数与阅读时长**：新增 `src/core/content/reading-time.mjs`，在四套主题 × 四语文章页显示字数与预计阅读分钟数。
+  3. **章节 `#` 锚点、代码块复制与原生 `<dialog>` 图片灯箱**：新增 `src/core/features/prose.mjs`，支持章节标题 `#` 一键复制链接、Invoker Commands（`command="--copy"`）代码块复制按钮（触屏文档流置于 `<pre>` 上方、桌面悬停/聚焦显示，含 VoiceOver 去重与 44px 触控面积）、正文图片与艾玛 Works 截图原生 `<dialog closedby="any">` 灯箱（含 Safari 轻关闭回退、顶层进出场过渡回退与 `overscroll-behavior: contain` 滚动隔离）。
+  4. **JSON-LD 结构化数据与艾玛樱粉选中色**：`SiteMeta.astro` 为首页输出 `WebSite`、文章页输出 `BlogPosting`；Ema 新增浅深色樱粉 `::selection`。
+  5. **艾玛首页浮动代码框创意化**：参考 Yuimi `fuyukawa-kagari`，将 `.k-terminal` 升级为三色马卡龙圆点 + `~/sakura.sh` 磨砂玻璃浮动终端窗，循环键入 4 条基于站主真实共享数据的单行命令，入场后仅走合成层缓慢漂浮并严格服从减弱动效与暂停开关；同步收紧竖屏平板间距。明日方舟（`4013px`）与终末地（`2073px`）首页指纹与基线一致，`npm test` 271 项全绿，`npm run build` 160 页，`showcase:check` 通过，Chrome 158 与 WebKit 27.2 验证通过。
 - **已完成**（2026-11-28，站主批准合并，PR #69，分支 `feat/default-arknights`）：将**明日方舟（Arknights，`AK / 04`）**设为默认根路径主题与规范主题（`canonicalTheme = "arknights"`），Blank 迁至 `/themes/blank/`（修正 `BlankLayout.astro` 链接与首页进场路径判断），旧 `/themes/arknights/...` 保留 `noindex` 瞬时跳转页（保留 query 与 hash，排除在 `sitemap-0.xml` 之外），404 缺失路径提示移入公共层 `src/core/features/runtime.mjs`，并同步更新深色终端风四语 OG 分享图（`neroarataki.com`）。四套主题页面指纹与基线一致（明日方舟 `4013px`、Blank `2257px`、终末地 `2073px`、Ema `4176px`），Chrome 158 与 WebKit 27.2 验证通过。
 - **已完成**（2026-11-28，站主批准合并，PR #68，分支 `fix/batch1-domain-cwv-typo-avatars`）：完成对标 `soki.moe` 及友链后的第一批基础修复：
   1. **规范域名统一为 `https://neroarataki.com`**：同步 `astro.config.mjs`、`public/robots.txt`、sitemap、RSS、Ema 资料卡地址、OG 图与 `showcase/` 校验。

@@ -18,4 +18,4 @@ const Page = pages[kind as keyof typeof pages];
 const rendered = post ? await render(post) : undefined;
 const Content = rendered?.Content;
 ---
-{Content ? <ArticlePage frontmatter={post.data} headings={rendered.headings}><Content /></ArticlePage> : <Page shelf={shelf} to={to} />}
+{Content ? <ArticlePage frontmatter={post.data} headings={rendered.headings} body={post.body}><Content /></ArticlePage> : <Page shelf={shelf} to={to} />}

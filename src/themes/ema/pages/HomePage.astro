@@ -27,7 +27,7 @@ import "../styles/stage.css";
 
 const { locale, t, formatDate, categoryLabel } = getI18n(Astro.url.pathname);
 const href = (path: string) => getThemePath("ema", path, locale);
-const { profileIdentity, profileTech, favoriteGames, collection, xpFavorites, projectEntries, projectTechLines, currentSignals } = getSiteContent(locale);
+const { profileIdentity, profileTech, favoriteGames, collection, gameShelf, animeFavorites, xpFavorites, projectEntries, projectTechLines } = getSiteContent(locale);
 const project = projectEntries[0];
 const posts = (await getPublishedPosts(locale)).slice(0, 3);
 const sakuraNotesEnabled = false;
@@ -45,8 +45,13 @@ const poses = poseKeys.map((key) => {
 });
 const ema = xpFavorites.find((item) => item.key === "emma")?.title ?? "";
 
-// The terminal line types the owner's own current signals (shared data), one after another.
-const signals = currentSignals.map((item) => `${item.label} · ${item.text}`);
+// The floating terminal types four compact single-line commands grounded in the owner's real shared data.
+const signals = [
+  "pin --dev-notes --game-dev --ai",
+  `shelf --games ${gameShelf.length} --anime ${animeFavorites.length}`,
+  "npm run sakura-archive",
+  `echo "${t("home.statement2")}"`,
+];
 
 // The chapter rail: four pages of the archive, each previewed with shared data only. The collection's plate shows how
 // many works its shelves hold and the favorite games, which lead the games shelf.
@@ -102,16 +107,23 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
           <h1 class="k-title k-title--name" id="ema-title">{profileIdentity.displayName}<span class="k-title-alias"> / {profileIdentity.alias}</span></h1>
           <p class="k-diary">{keepTails(t("ema.home.diary"))}</p>
           {signals.length > 0 && (
-            <p class="k-terminal" data-k-terminal data-lines={JSON.stringify(signals)}>
-              <Icon name="tabler:flower" size={18} aria-hidden="true" />
-              {/* Every line sits invisibly in the same grid cell, so the box keeps the height of the
-                  longest line while one is typed; the caret is inline, right after the last character. */}
-              <span class="k-line" aria-hidden="true">
-                {signals.map((line) => <span class="k-ghost">{line}</span>)}
-                <span class="k-live"><span class="k-typing" data-k-typing>{signals[0]}</span><span class="k-caret"></span></span>
-              </span>
-              <span class="blank-sr-only">{signals.join(" / ")}</span>
-            </p>
+            <div class="k-terminal" data-k-terminal data-lines={JSON.stringify(signals)}>
+              <div class="k-terminal-bar" aria-hidden="true">
+                <span class="k-terminal-dots"><i></i><i></i><i></i></span>
+                <span class="k-terminal-tag">~/sakura.sh</span>
+              </div>
+              <div class="k-terminal-row">
+                <Icon name="tabler:flower" size={16} aria-hidden="true" />
+                <span class="k-terminal-prompt" aria-hidden="true">$</span>
+                {/* Every line sits invisibly in the same grid cell, so the box keeps the height of the
+                    longest line while one is typed; the caret is inline, right after the last character. */}
+                <span class="k-line" aria-hidden="true">
+                  {signals.map((line) => <span class="k-ghost">{line}</span>)}
+                  <span class="k-live"><span class="k-typing" data-k-typing>{signals[0]}</span><span class="k-caret"></span></span>
+                </span>
+                <span class="blank-sr-only">{signals.join(" / ")}</span>
+              </div>
+            </div>
           )}
         </div>
 

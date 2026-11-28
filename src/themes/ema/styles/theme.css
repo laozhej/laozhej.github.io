@@ -53,6 +53,8 @@ html[data-theme="ema"][data-color-mode="dark"] {
 body[data-ema] { font-size:var(--blank-fs-sm, 14px); overflow-x:clip; }
 body[data-ema] img { height:auto; }
 body[data-ema] :where(a,button,summary,select):focus-visible { outline-color:var(--ema-pink); }
+body[data-ema] ::selection { background:var(--ema-pink-soft); color:var(--blank-ink); }
+html[data-color-mode="dark"] body[data-ema] ::selection { background:var(--ema-pink-soft); color:#fffdf9; }
 /* Header, after the reference: a band with the brand on the left, a centred glass pill whose items pair an
    icon and a label with a small Latin hint, and this site's controls (language, colour mode, motion, palette) on
    the right. On the homepage the band is transparent over the stage; narrow windows fold the controls into one button. */
@@ -214,6 +216,7 @@ body[data-ema-home] .ema-wordmark {text-shadow:0 1px 8px var(--blank-paper),0 0 
 .ema-content .blank-prose :is(h2,h3) {scroll-margin-top:125px;}
 .ema-content .blank-toc a {transition:color 160ms ease;}
 .ema-content .blank-toc a[aria-current="location"] {border-color:var(--ema-pink);}
+.ema-content .blank-rss-link {border-radius:6px;}
 .ema-footer {position:relative;padding-top:54px;padding-bottom:40px;}
 .ema-footer::before {
   content:"";position:absolute;top:0;left:calc(50% - 36px);width:72px;height:1px;background:var(--ema-pink);
@@ -228,6 +231,8 @@ body[data-ema-home] .ema-wordmark {text-shadow:0 1px 8px var(--blank-paper),0 0 
   .ema-header :is(.ema-icon-button,.ema-motion-toggle,summary):hover {border-color:var(--ema-pink);}
   .ema-content .blank-post-row:hover::before {opacity:.5;}
   .ema-content .blank-post-row:hover .blank-row-arrow {color:var(--ema-pink);transform:translateX(5px);}
+  .ema-content .blank-rss-link:hover {border-color:var(--ema-pink);color:var(--ema-pink);background:var(--ema-blush);}
+  .ema-content .blank-prose .heading-anchor:is(:hover,:focus-visible) {color:var(--ema-pink);}
   .ema-social-links a:hover {text-decoration:underline;}
 }
 @media(min-width:1000px) {

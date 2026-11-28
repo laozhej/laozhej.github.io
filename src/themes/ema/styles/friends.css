@@ -1,7 +1,7 @@
 /* Sakura Archive's Friends page (2026-11-28). Friends are exchanged name cards: cream paper, a strip of washi tape in
    the card's tone, a round avatar with a white rim, the name, the friend's own line and the address. Three across on a
-   wide screen, two on a tablet, one on a phone. Special links are lighter slips without shadows; this site's card sits
-   beside the exchange notes. Radii and shadows use the three steps of theme.css (--ema-r-*, --ema-shadow-*). */
+   wide screen, two on a tablet, one on a phone. Special links are lighter slips without shadows; this site's card and
+   the exchange notes are two matching panels side by side. Radii and shadows use the three steps of theme.css (--ema-r-*, --ema-shadow-*). */
 .ema-friends {display:grid;gap:56px;margin-top:56px;}
 .ema-friends .friends-section {display:grid;gap:20px;min-width:0;}
 .ema-friends .friends-note {max-width:62ch;color:var(--blank-muted);font-size:var(--blank-fs-sm, 14px);line-height:1.9;}
@@ -45,24 +45,26 @@
 .ema-friends .friends-lost > .friends-cards {padding:14px 0 22px;}
 .ema-friends .friends-lost .site-friend-avatar img {filter:grayscale(1);}
 
-/* Exchange: the status pill, this site's own card with its fields and copy button, then the requirements. */
+/* Exchange: the status pill, then two matching panels side by side: this site's card with its fields and copy button,
+   and the requirements with how sites are listed. Each panel's small heading sits inside it on the same line as the
+   other's, and the panels share one height (the owner saw them misaligned, 2026-11-28): the copy button keeps to the
+   bottom of its panel; the shorter panel ends in space. */
 .ema-friends .friends-section > .shelf-heading {flex-wrap:wrap;}
 .ema-friends .friends-status {display:inline-flex;align-items:center;gap:7px;margin-left:auto;padding:5px 14px;border:1px solid #e4d39f;border-radius:var(--ema-r-pill);background:#f9f0d8;color:#725d22;font:600 var(--blank-fs-xs, 12px)/1.6 var(--mono);letter-spacing:.06em;}
 html[data-color-mode="dark"] .ema-friends .friends-status {border-color:#6a5c35;background:#36301f;color:#f5e3a0;}
 .ema-friends .friends-status::before {content:"";width:7px;height:7px;border:1.5px solid currentColor;border-radius:50%;}
-.ema-friends .friends-exchange {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;align-items:start;}
-.ema-friends .friends-own,.ema-friends .friends-terms {display:grid;gap:14px;min-width:0;}
+.ema-friends .friends-exchange {display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:28px;}
+.ema-friends .friends-own,.ema-friends .friends-terms {display:flex;flex-direction:column;gap:14px;min-width:0;padding:22px 24px;border:1px solid var(--blank-line);border-radius:var(--ema-r-md);background:var(--card);box-shadow:var(--ema-shadow-flat);}
 .ema-friends .friend-card--own {height:auto;margin-top:10px;}
-.ema-friends .friends-fields {margin:0;padding:6px 18px;border:1px solid var(--blank-line);border-radius:var(--ema-r-md);background:color-mix(in srgb,var(--card) 70%,transparent);}
+.ema-friends .friends-fields {margin:0;}
 .ema-friends .friends-fields > div {display:grid;grid-template-columns:6em minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px dashed var(--blank-line);}
 .ema-friends .friends-fields > div:last-child {border-bottom:0;}
 .ema-friends .friends-fields dt {color:var(--blank-muted);font:var(--blank-fs-xs, 12px)/1.9 var(--mono);}
 .ema-friends .friends-fields dd {margin:0;font-size:var(--blank-fs-sm, 14px);line-height:1.7;overflow-wrap:anywhere;}
-.ema-friends .friends-copy {display:flex;justify-content:flex-end;}
+.ema-friends .friends-copy {display:flex;justify-content:flex-end;margin-top:auto;}
 .ema-friends .friends-copy > button {display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 20px;border:1px solid var(--ema-pink);border-radius:var(--ema-r-pill);background:var(--ema-pink);color:var(--ema-on-pink);font-size:var(--blank-fs-sm, 14px);font-weight:600;cursor:pointer;transition:transform 120ms var(--blank-ease),box-shadow 180ms ease;}
 .ema-friends .friends-copy > button[hidden] {display:none;}
 .ema-friends .friends-copy > button:is([data-copied],[data-failed]) + .site-copy-tip {opacity:1;transform:none;}
-.ema-friends .friends-terms {padding:22px 24px;border:1px solid var(--blank-line);border-radius:var(--ema-r-md);background:var(--card);box-shadow:var(--ema-shadow-flat);}
 .ema-friends .friends-rules {display:grid;gap:0;margin-bottom:10px;}
 .ema-friends .friends-rules > li {display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px dashed var(--blank-line);}
 .ema-friends .friends-rules > li:last-child {border-bottom:0;}
@@ -101,5 +103,5 @@ html[data-motion-paused="true"] .ema-friends a.friend-card:hover {transform:none
   .ema-friends .friends-status {margin-left:56px;}
   .ema-friends .friends-fields > div {grid-template-columns:minmax(0,1fr);gap:2px;}
   .ema-friends .friends-copy > button {flex:1;justify-content:center;}
-  .ema-friends .friends-terms {padding:18px;}
+  .ema-friends .friends-own,.ema-friends .friends-terms {padding:18px;}
 }

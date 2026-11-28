@@ -2,38 +2,42 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-// The owner's art plan (2026-11-14) for the homepage decor, checked against the source: at most three
-// quiet pieces drawn in code, no lettering, none in the stacked phone layout, colours taken from the
-// theme, and no filter on Ema's images in any state or colour mode (the owner removed the docked
-// dimming and the hover glow on 2026-11-14).
+// Sakura Archive homepage manga storyboard and falling-tags backdrop (updated 2026-11-28 at the
+// owner's request): curated non-AI manga panel crops recorded in public/themes/ema/ASSETS.json,
+// decorative-only backdrop layers, theme-token colours, and no filter on Ema's five stage images.
 const read = (path) => readFileSync(new URL(`../src/themes/ema/${path}`, import.meta.url), "utf8");
 const storyboard = read("components/Storyboard.astro");
 const homePage = read("pages/HomePage.astro");
 const stage = read("styles/stage.css");
 const theme = read("styles/theme.css");
+const manifest = JSON.parse(readFileSync(new URL("../public/themes/ema/ASSETS.json", import.meta.url), "utf8"));
 
-test("the storyboard draws no lettering and no empty speech bubble", () => {
+test("the storyboard draws no inline SVG lettering and stays hidden from assistive technology", () => {
   assert.doesNotMatch(storyboard, /<text|<tspan|<foreignObject/);
-  assert.doesNotMatch(storyboard, /motif: "bubble"/);
+  assert.match(storyboard, /<svg[^>]*aria-hidden="true"/);
 });
 
-test("the decor is at most three pieces: the notebook, the teacup and the window light", () => {
-  const motifs = [...storyboard.matchAll(/motif: "(notebook|teacup)"/g)].map((match) => match[1]);
-  assert.deepEqual(motifs, ["notebook", "teacup"]);
-  assert.equal(homePage.match(/class="k-window-light"/g)?.length, 1);
+test("every manga panel and the signal backdrop are recorded in the Ema manifest as non-AI", () => {
+  const panelRefs = [...storyboard.matchAll(/art:\s*"(\/themes\/ema\/storyboard\/[^"]+\.webp)"/g)].map((m) => m[1]);
+  assert.ok(panelRefs.length >= 8, "storyboard renders curated manga panels");
+  const signalRef = homePage.match(/class="k-signal-bg"[\s\S]*?src="(\/themes\/ema\/storyboard\/[^"]+\.webp)"/)?.[1];
+  assert.ok(signalRef, "falling-tags section mounts a decorative backdrop image");
+  assert.match(homePage, /<div class="k-signal-bg" aria-hidden="true">/);
+
+  const byFile = new Map(manifest.assets.map((entry) => [`/themes/ema/${entry.file}`, entry]));
+  for (const ref of [...panelRefs, signalRef]) {
+    const entry = byFile.get(ref);
+    assert.ok(entry, `${ref} is recorded in public/themes/ema/ASSETS.json`);
+    assert.equal(entry.generative_ai_used, false, `${ref} must not use generative AI`);
+    assert.match(entry.source_page, /^https:\/\/www\.pixiv\.net\/artworks\/\d+$/);
+  }
 });
 
-test("phones and portrait tablets show none of the decor", () => {
-  const start = stage.indexOf("@media (max-width: 760px), (max-width: 1100px) and (orientation: portrait) {");
-  assert.ok(start > 0, "the stacked layout block exists");
-  const block = stage.slice(start, stage.indexOf("\n}\n", start));
-  assert.match(block, /#ema-stage :is\(\.sb-still, \.k-window-light\) \{ display: none; \}/);
-});
-
-test("the still life takes its colours from the theme's existing tokens", () => {
-  const declarations = [...stage.matchAll(/--sb-still-[a-z]+:\s*([^;]+);/g)].map((match) => match[1]);
-  assert.ok(declarations.length >= 6);
-  for (const value of declarations) assert.doesNotMatch(value, /#[0-9a-f]{3}|\b(rgba?|hsla?|oklch|lab)\(/i, value);
+test("the storyboard panels blend cleanly in both colour modes without inverting faces", () => {
+  assert.match(stage, /#ema-stage \.sb \.sb-art\s*\{[^}]*mix-blend-mode:\s*multiply/);
+  assert.match(stage, /html\[data-color-mode="dark"\] #ema-stage \.sb \.sb-art\s*\{[^}]*mix-blend-mode:\s*multiply/);
+  assert.doesNotMatch(stage, /html\[data-color-mode="dark"\] #ema-stage \.sb \.sb-art\s*\{[^}]*invert\(/);
+  assert.match(stage, /#ema-stage \.k-signal-bg\s*\{/);
 });
 
 test("Ema's images carry no filter in any state or colour mode", () => {

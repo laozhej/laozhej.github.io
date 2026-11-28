@@ -209,6 +209,9 @@ const sitePath = localizePath(Astro.url.pathname, locale).replace(/\/$/, "") || 
     </section>
 
     <section class="k-signal" data-k-signal aria-labelledby="k-signal-title">
+      <div class="k-signal-bg" aria-hidden="true">
+        <img src="/themes/ema/storyboard/signal-backdrop-ema.webp" alt="" width="1200" height="660" loading="lazy" decoding="async" />
+      </div>
       <div class="k-signal-head">
         <div class="k-signal-word"><h2 id="k-signal-title">{brandParts.map((part) => part === "." ? <i>.</i> : part)}</h2><small aria-hidden="true">notes / works / collection / profile</small></div>
         <div class="k-signal-side">

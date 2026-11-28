@@ -57,12 +57,12 @@ html[data-color-mode="dark"] #ema-stage {
   --k-accent: #f2aec8;
   --k-shadow: 0 14px 34px rgba(0, 0, 0, .35);
   --k-cue-bg: rgba(42, 40, 51, .82);
-  --sb-paper: #2a2833;
-  --sb-ink: rgba(220, 214, 236, .34);
+  --sb-paper: #433e54;
+  --sb-ink: rgba(232, 224, 244, .34);
   --sb-ink-soft: rgba(220, 214, 236, .22);
-  --sb-dot: rgba(242, 174, 200, .26);
-  --sb-dot-lav: rgba(195, 185, 236, .24);
-  --sb-hatch: rgba(220, 214, 236, .12);
+  --sb-dot: rgba(242, 174, 200, .2);
+  --sb-dot-lav: rgba(195, 185, 236, .18);
+  --sb-hatch: rgba(220, 214, 236, .11);
   --sb-speed: rgba(220, 214, 236, .1);
   --sb-bloom: rgba(122, 76, 99, .5);
   --sb-bloom-core: rgba(242, 174, 200, .5);
@@ -111,6 +111,19 @@ html[data-color-mode="dark"] #ema-stage .k-scene::after {
   mask-image: radial-gradient(ellipse var(--sb-reach) at var(--sb-focus), rgb(0 0 0 / .3) 0%, rgb(0 0 0 / .38) 50%, rgb(0 0 0 / .8) 82%, #000 100%);
 }
 #ema-stage .sb .sb-paper { fill: var(--sb-paper); }
+#ema-stage .sb .sb-cell { isolation: isolate; }
+#ema-stage .sb .sb-art {
+  opacity: .5;
+  mix-blend-mode: multiply;
+  filter: contrast(.94) saturate(.92);
+}
+/* Dark mode keeps positive tonal polarity (never inverted) by multiplying manga ink onto a muted
+   moonlit plum-grey panel stock, so faces and hair stay natural instead of looking like photo negatives. */
+html[data-color-mode="dark"] #ema-stage .sb .sb-art {
+  opacity: .8;
+  mix-blend-mode: multiply;
+  filter: contrast(.92) brightness(.96) saturate(.95);
+}
 #ema-stage .sb .sb-frame { fill: none; stroke: var(--sb-ink); stroke-width: 2.2; stroke-linejoin: round; }
 #ema-stage .sb .sb-dot { fill: var(--sb-dot); }
 #ema-stage .sb .sb-dot-lav { fill: var(--sb-dot-lav); }
@@ -148,8 +161,8 @@ html[data-color-mode="dark"] #ema-stage .k-scene::after {
 #ema-stage .k-veil {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background:
-    radial-gradient(ellipse 34% 46% at 21% 44%, color-mix(in srgb, var(--blank-paper) 90%, transparent), color-mix(in srgb, var(--blank-paper) 46%, transparent) 62%, transparent 100%),
-    linear-gradient(180deg, transparent 64%, var(--blank-paper) 100%);
+    radial-gradient(ellipse 35% 47% at 21% 44%, color-mix(in srgb, var(--blank-paper) 92%, transparent), color-mix(in srgb, var(--blank-paper) 54%, transparent) 62%, transparent 100%),
+    linear-gradient(180deg, transparent 78%, color-mix(in srgb, var(--blank-paper) 78%, transparent) 94%, var(--blank-paper) 100%);
 }
 
 /* Ema: the full-height front layer, bottom-anchored at the centre of the stage. */
@@ -481,12 +494,38 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 
 /* ---------- Signal scene ---------- */
 #ema-stage .k-signal {
-  position: relative; min-height: clamp(560px, 100svh, 640px); overflow: hidden;
+  position: relative; isolation: isolate; min-height: clamp(560px, 100svh, 640px); overflow: hidden;
   background:
     radial-gradient(ellipse 60% 70% at 18% 30%, var(--ema-wash-a), transparent 70%),
     radial-gradient(ellipse 60% 70% at 86% 72%, var(--ema-wash-b), transparent 70%),
     var(--blank-paper);
   border-top: 1px solid var(--blank-line);
+}
+#ema-stage .k-signal-bg {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+}
+#ema-stage .k-signal-bg img {
+  position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 92%;
+  object-fit: cover; object-position: 50% 34%;
+  opacity: .52; filter: saturate(.96) contrast(.97);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 84%, rgb(0 0 0 / .45) 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 84%, rgb(0 0 0 / .45) 100%);
+}
+#ema-stage .k-signal-bg::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 40% 34% at 21% 20%, color-mix(in srgb, var(--blank-paper) 88%, transparent), color-mix(in srgb, var(--blank-paper) 34%, transparent) 66%, transparent 100%),
+    radial-gradient(ellipse 30% 34% at 85% 20%, color-mix(in srgb, var(--blank-paper) 58%, transparent), transparent 76%),
+    linear-gradient(180deg, color-mix(in srgb, var(--blank-paper) 74%, transparent) 0%, transparent 28%, transparent 74%, color-mix(in srgb, var(--blank-paper) 72%, transparent) 100%);
+}
+html[data-color-mode="dark"] #ema-stage .k-signal-bg img {
+  opacity: .38; filter: brightness(.82) saturate(.88) contrast(1.02);
+}
+html[data-color-mode="dark"] #ema-stage .k-signal-bg::after {
+  background:
+    radial-gradient(ellipse 40% 34% at 21% 20%, color-mix(in srgb, var(--blank-paper) 88%, transparent), color-mix(in srgb, var(--blank-paper) 42%, transparent) 66%, transparent 100%),
+    radial-gradient(ellipse 30% 34% at 85% 20%, color-mix(in srgb, var(--blank-paper) 64%, transparent), transparent 76%),
+    linear-gradient(180deg, color-mix(in srgb, var(--blank-paper) 78%, transparent) 0%, color-mix(in srgb, var(--blank-paper) 16%, transparent) 28%, color-mix(in srgb, var(--blank-paper) 14%, transparent) 74%, color-mix(in srgb, var(--blank-paper) 82%, transparent) 100%);
 }
 #ema-stage .k-signal-head { position: relative; z-index: 2; }
 #ema-stage .k-signal-word { position: relative; min-width: 0; text-align: start; }
@@ -691,6 +730,11 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-theatre-buttons { grid-area: buttons; }
   #ema-stage .k-hint { grid-area: hint; margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--blank-line); }
   #ema-stage .k-back { --sb-focus: 50% 66%; --sb-reach: 48% 42%; }
+  #ema-stage .k-veil {
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--blank-paper) 74%, transparent) 0%, color-mix(in srgb, var(--blank-paper) 56%, transparent) 26%, transparent 46%),
+      linear-gradient(180deg, transparent 78%, color-mix(in srgb, var(--blank-paper) 78%, transparent) 94%, var(--blank-paper) 100%);
+  }
   #ema-stage .k-scene::after {
     top: 70px; width: clamp(102px, 27vw, 150px); transform: translateX(-32%);
   }
@@ -709,6 +753,8 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-track { gap: 20px; }
   #ema-stage .k-leaf { min-height: 420px; }
   #ema-stage .k-signal { display: grid; gap: 18px; min-height: 0; padding: 40px 24px; }
+  #ema-stage .k-signal-bg img { height: 100%; object-position: 34% 38%; opacity: .3; -webkit-mask-image: none; mask-image: none; }
+  html[data-color-mode="dark"] #ema-stage .k-signal-bg img { opacity: .24; }
   #ema-stage .k-signal-head, #ema-stage .k-signal-side { display: grid; gap: 18px; align-items: stretch; }
   #ema-stage :is(.k-signal-word, .k-clock, .k-bubble) { position: relative; inset: auto; translate: none; width: auto; max-width: none; }
   #ema-stage .k-signal-word { text-align: start; }

@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "verified_on": "2026-11-27",
-  "verification_scope": "Homepage poses checked against commit 76c9da5690e89a7816bb4b44eefacbcc87521446. The avatar illustration matches the artist's Pixiv publication. Permission status is recorded per asset.",
-  "scope": "Only Ema’s five homepage poses were restored at the site owner’s explicit request on 2026-11-14. The two portraits later restored for the About pages are recorded in /characters/ASSETS.json. The owner avatar is a separate crop following the circle marked by the owner on 2026-11-27. Third-party media are excluded from the repository software license.",
-  "non_ai_processing": "The five restored poses retain their original bytes, dimensions and alpha. The avatar uses the crop, resize and encoding recorded below. No generative AI was used to process these files.",
+  "verified_on": "2026-11-28",
+  "verification_scope": "Homepage poses checked against commit 76c9da5690e89a7816bb4b44eefacbcc87521446. The avatar, homepage storyboard panels and falling-tags backdrop are verified against their original Pixiv publications (all non-AI). Permission status is recorded per asset.",
+  "scope": "Only Ema’s five homepage poses were restored at the site owner’s explicit request on 2026-11-14. The two portraits later restored for the About pages are recorded in /characters/ASSETS.json. The owner avatar (2026-11-27) and homepage storyboard / signal backdrop artworks (2026-11-28) were supplied by the site owner. Third-party media are excluded from the repository software license.",
+  "non_ai_processing": "The five restored poses retain their original bytes, dimensions and alpha. The avatar, storyboard panel crops and signal backdrop use only deterministic rectangular/circular cropping, Lanczos3 downscaling and WebP encoding. No generative AI was used to produce or process these files.",
   "assets": [
     {
       "id": "ema-pose-01",
@@ -198,11 +198,23 @@
       "rights_notice": "Artwork rights belong to 游亜. Character rights belong to Acacia.",
       "rights_reference": "https://manosaba.com/guidelines",
       "permission_status": "Permission for use as a public website avatar is unconfirmed.",
-      "original_dimensions": [865, 1200],
+      "original_dimensions": [
+        865,
+        1200
+      ],
       "original_sha256": "9fddb9e6f95f7b232c51762b0aba4b5f4431f5e483d36065d6601755be8e1dcb",
       "attachment_sha256": "90cd779ce822ba528be22ae86a78e76709fa38ac001f51f73365faf5bec21613",
-      "crop": { "left": 41, "top": 69, "width": 780, "height": 780, "shape": "circle" },
-      "dimensions": [480, 480],
+      "crop": {
+        "left": 41,
+        "top": 69,
+        "width": 780,
+        "height": 780,
+        "shape": "circle"
+      },
+      "dimensions": [
+        480,
+        480
+      ],
       "has_alpha": true,
       "format": "image/webp",
       "processing": "Reuse the approved crop from the unmarked Pixiv rendition. Mask the repeating checkerboard, fill the background with white, and preserve the white outline and handwritten text. Downscale with Lanczos3 and reuse the original circular alpha mask. WebP quality 91, alpha quality 100.",
@@ -210,6 +222,374 @@
       "sha256": "3d288f833b5c928e66f1d7bf0a656f3db9b06829773ff4b0664e858de9a5d042",
       "bytes": 38926,
       "verified_on": "2026-11-27"
+    },
+    {
+      "id": "storyboard-panel-01",
+      "title": "まのさば漫画1 (top panel crop: kimono Ema and Hiro with amazake)",
+      "file": "storyboard/panel-01-amazake.webp",
+      "placement": "home-storyboard-panel",
+      "source_page": "https://www.pixiv.net/artworks/139533184",
+      "source_image": "https://i.pximg.net/img-master/img/2026/01/04/23/47/16/139533184_p0_master1200.jpg",
+      "source_status": "Verified against Pixiv artwork 139533184 (まのさば漫画1) by 天然パーマ (Pixiv user 17391832), posted 2026-01-04; Pixiv aiType=1 (non-AI).",
+      "attribution": "Illustration/manga by 天然パーマ (Pixiv user 17391832).",
+      "rights_notice": "Artwork rights belong to 天然パーマ. Fan work; character rights belong to their respective rights holders.",
+      "permission_status": "Permission for public website use is unconfirmed. Supplied by the site owner on 2026-11-28.",
+      "original_dimensions": [
+        847,
+        1200
+      ],
+      "original_sha256": "eef43be704431658989d1d56dafaa93a8f330176e627286b9c618933cb9e9d47",
+      "crop": {
+        "left": 10,
+        "top": 6,
+        "width": 830,
+        "height": 454
+      },
+      "dimensions": [
+        830,
+        454
+      ],
+      "has_alpha": false,
+      "format": "image/webp",
+      "processing": "Rectangular crop (10, 6, 830x454), flattened on white, WebP quality 86. No generative AI.",
+      "generative_ai_used": false,
+      "sha256": "46f43ff226850f426635ce79ec455593d5ccf521dbe4d05084575a082b5df116",
+      "bytes": 72104,
+      "verified_on": "2026-11-28"
+    },
+    {
+      "id": "storyboard-panel-02",
+      "title": "【まのさば】特技を披露するエマヒロ漫画 (center close-up crop: puffed-cheek Ema)",
+      "file": "storyboard/panel-02-puffed-ema.webp",
+      "placement": "home-storyboard-panel",
+      "source_page": "https://www.pixiv.net/artworks/147394681",
+      "source_image": "https://i.pximg.net/img-master/img/2026/07/19/22/00/06/147394681_p0_master1200.jpg",
+      "source_status": "Verified against Pixiv artwork 147394681 (【まのさば】特技を披露するエマヒロ漫画) by poto (Pixiv user 8127183), posted 2026-07-19; Pixiv aiType=1 (non-AI).",
+      "attribution": "Illustration/manga by poto (Pixiv user 8127183).",
+      "rights_notice": "Artwork rights belong to poto. Fan work; character rights belong to their respective rights holders.",
+      "permission_status": "Permission for public website use is unconfirmed. Supplied by the site owner on 2026-11-28.",
+      "original_dimensions": [
+        1075,
+        1518
+      ],
+      "original_sha256": "f29dcca89f04941b6b7ae890298c0b2a84882eab1f45f2a399cb93b9c200543c",
+      "crop": {
+        "left": 204,
+        "top": 482,
+        "width": 516,
+        "height": 650
+      },
+      "dimensions": [
+        516,
+        650
+      ],
+      "has_alpha": false,
+      "format": "image/webp",
+      "processing": "Rectangular crop (204, 482, 516x650), flattened on white, WebP quality 86. No generative AI.",
+      "generative_ai_used": false,
+      "sha256": "576b9a3fd492620b0ee7b1569a905efc4282183b2bcc3b1e85c1d994a3b84bda",
+      "bytes": 82002,
+      "verified_on": "2026-11-28"
+    },
+    {
+      "id": "storyboard-panel-03",
+      "title": "或る少女の残光録 (left panel crop: Ema half-face with sakura eye)",
+      "file": "storyboard/panel-03-zankoroku-ema.webp",
+      "placement": "home-storyboard-panel",
+      "source_page": "https://www.pixiv.net/artworks/151609168",
+      "source_image": "https://i.pximg.net/img-master/img/2026/11/02/22/33/27/151609168_p0_master1200.jpg",
+      "source_status": "Verified against Pixiv artwork 151609168 (或る少女の残光録) by をめ (Pixiv user 23563076), posted 2026-11-02; Pixiv aiType=1 (non-AI).",
+      "attribution": "Illustration/manga by をめ (Pixiv user 23563076).",
+      "rights_notice": "Artwork rights belong to をめ. Fan work; character rights belong to their respective rights holders.",
+      "permission_status": "Permission for public website use is unconfirmed. Supplied by the site owner on 2026-11-28.",
+      "original_dimensions": [
+        852,
+        1200
+      ],
+      "original_sha256": "241b1a97a8a52203ea40cdda109d9327db415863a807ccf79431e7c811c48d16",
+      "crop": {
+        "left": 152,
+        "top": 92,
+        "width": 258,
+        "height": 686
+      },
+      "dimensions": [
+        258,
+        686
+      ],
+      "has_alpha": false,
+      "format": "image/webp",
+      "processing": "Rectangular crop (152, 92, 258x686), flattened on white, WebP quality 86. No generative AI.",
+      "generative_ai_used": false,
+      "sha256": "488601dde6cca5a10d2265bc2a750771d5fcfd16ce25902e0e40b7ca2acb3f93",
+      "bytes": 24148,
+      "verified_on": "2026-11-28"
+    },
+    {
+      "id": "storyboard-panel-04",
+      "title": "或る少女の残光録 (right panel crop: Hiro half-face with sakura eye)",
+      "file": "storyboard/panel-04-zankoroku-hiro.webp",
+      "placement": "home-storyboard-panel",
+      "source_page": "https://www.pixiv.net/artworks/151609168",
+      "source_image": "https://i.pximg.net/img-master/img/2026/11/02/22/33/27/151609168_p0_master1200.jpg",
+      "source_status": "Verified against Pixiv artwork 151609168 (或る少女の残光録) by をめ (Pixiv user 23563076), posted 2026-11-02; Pixiv aiType=1 (non-AI).",
+      "attribution": "Illustration/manga by をめ (Pixiv user 23563076).",
+      "rights_notice": "Artwork rights belong to をめ. Fan work; character rights belong to their respective rights holders.",
+      "permission_status": "Permission for public website use is unconfirmed. Supplied by the site owner on 2026-11-28.",
+      "original_dimensions": [
+        852,
+        1200
+      ],
+      "original_sha256": "241b1a97a8a52203ea40cdda109d9327db415863a807ccf79431e7c811c48d16",
+      "crop": {
+        "left": 451,
+        "top": 92,
+        "width": 398,
+        "height": 686
+      },
+      "dimensions": [
+        398,
+        686
+      ],
+      "has_alpha": false,
+      "format": "image/webp",
+      "processing": "Rectangular crop (451, 92, 398x686), flattened on white, WebP quality 86. No generative AI.",
+      "generative_ai_used": false,
+      "sha256": "aa8e992b5ae5990d3713612446715b2f6769eb5b7e377203fe98a5db4d49fc40",
+      "bytes": 15504,
+      "verified_on": "2026-11-28"
+    },
+    {
+      "id": "storyboard-panel-05",
+      "title": "エマヒロ (center panel crop: Hiro hugging Ema plushie)",
+      "file": "storyboard/panel-05-plushie-hug.webp",
+      "placement": "home-storyboard-panel",
+      "source_page": "https://www.pixiv.net/artworks/149583595",
+      "source_image": "https://i.pximg.net/img-master/img/2026/09/12/20/11/42/149583595_p0_master1200.jpg",
+      "source_status": "Verified against Pixiv artwork 149583595 (エマヒロ) by とるちゃ (Pixiv user 85888932), posted 2026-09-12; Pixiv aiType=1 (non-AI).",
+      "attribution": "Illustration/manga by とるちゃ (Pixiv user 85888932).",
+      "rights_notice": "Artwork rights belong to とるちゃ. Fan work; character rights belong to their respective rights holders.",
+      "permission_status": "Permission for public website use is unconfirmed. Supplied by the site owner on 2026-11-28.",
+      "original_dimensions": [
+        836,
+        1197
+      ],
+      "original_sha256": "206b89d9ed00af0c76c10c124011a1ff6384e639dffb356072a737aa8e55ac1f",
+      "crop": {
+        "left": 248,
+        "top": 432,
+        "width": 374,
+        "height": 444
+      },
+      "dimensions": [
+        374,
+        444
+      ],
+      "has_alpha": false,
+      "format": "image/webp",
+      "processing": "Rectangular crop (248, 432, 374x444), flattened on white, WebP quality 86. No generative AI.",
+      "generative_ai_used": false,
+      "sha256": "fae5dbef289487880f535ed315a7085ea97d6baf5ae242ba6cef0ed3e185742e",
+      "bytes": 20438,
+      "verified_on": "2026-11-28"
+    },
+    {
+      "id": "storyboard-panel-06",
+      "title": "エマヒロ (top-right panel crop: Ema plushie)",
+      "file": "storyboard/panel-06-plushie-doll.webp",
+      "placement": "home-storyboard-panel",
+      "source_page": "https://www.pixiv.net/artworks/149583595",
+      "source_image": "https://i.pximg.net/img-master/img/2026/09/12/20/11/42/149583595_p0_master1200.jpg",
+      "source_status": "Verified against Pixiv artwork 149583595 (エマヒロ) by とるちゃ (Pixiv user 85888932), posted 2026-09-12; Pixiv aiType=1 (non-AI).",
+      "attribution": "Illustration/manga by とるちゃ (Pixiv user 85888932).",
+      "rights_notice": "Artwork rights belong to とるちゃ. Fan work; character rights belong to their respective rights holders.",
+      "permission_status": "Permission for public website use is unconfirmed. Supplied by the site owner on 2026-11-28.",
+      "original_dimensions": [
+        836,
+        1197
+      ],
+      "original_sha256": "206b89d9ed00af0c76c10c124011a1ff6384e639dffb356072a737aa8e55ac1f",
+      "crop": {
+        "left": 522,
+        "top": 24,
+        "width": 282,
+        "height": 268
+      },
+      "dimensions": [
+        282,
+        268
+      ],
+      "has_alpha": false,
+      "format": "image/webp",
+      "processing": "Rectangular crop (522, 24, 282x268), flattened on white, WebP quality 86. No generative AI.",
+      "generative_ai_used": false,
+      "sha256": "e0d050f3447b49458096fd14cbcd7ad1c4263cd1b8a319ccdc51d45186ac3aed",
+      "bytes": 13030,
+      "verified_on": "2026-11-28"
+    },
+    {
+      "id": "storyboard-panel-07",
+      "title": "チマメとお花見 (top panel crop: Chino, Megumi and drifting sakura petals)",
+      "file": "storyboard/panel-07-hanami.webp",
+      "placement": "home-storyboard-panel",
+      "source_page": "https://www.pixiv.net/artworks/128734763",
+      "source_image": "https://i.pximg.net/img-master/img/2025/03/29/19/50/02/128734763_p0_master1200.jpg",
+      "source_status": "Verified against Pixiv artwork 128734763 (チマメとお花見) by yuru master (Pixiv user 13457336), posted 2025-03-29; Pixiv aiType=1 (non-AI).",
+      "attribution": "Illustration/manga by yuru master (Pixiv user 13457336).",
+      "rights_notice": "Artwork rights belong to yuru master. Fan work; character rights belong to their respective rights holders.",
+      "permission_status": "Permission for public website use is unconfirmed. Supplied by the site owner on 2026-11-28.",
+      "original_dimensions": [
+        850,
+        1200
+      ],
+      "original_sha256": "099a224cf65c3d0080537d6b1ff66bd1b4437bdec2c462499027a3b6f713a781",
+      "crop": {
+        "left": 82,
+        "top": 96,
+        "width": 684,
+        "height": 490
+      },
+      "dimensions": [
+        684,
+        490
+      ],
+      "has_alpha": false,
+      "format": "image/webp",
+      "processing": "Rectangular crop (82, 96, 684x490), flattened on white, WebP quality 86. No generative AI.",
+      "generative_ai_used": false,
+      "sha256": "04a03bf7533eeda379b705e380e2706444bbc1ec484ac849492f94338b1f30a1",
+      "bytes": 60960,
+      "verified_on": "2026-11-28"
+    },
+    {
+      "id": "storyboard-panel-08",
+      "title": "付き合っているココリゼ (middle-left panel crop: Cocoa waving with hearts)",
+      "file": "storyboard/panel-08-cocoa-wave.webp",
+      "placement": "home-storyboard-panel",
+      "source_page": "https://www.pixiv.net/artworks/87288615",
+      "source_image": "https://i.pximg.net/img-master/img/2021/01/25/06/03/18/87288615_p0_master1200.jpg",
+      "source_status": "Verified against Pixiv artwork 87288615 (付き合っているココリゼ) by ごま油茶 (Pixiv user 42983005), posted 2021-01-24; Pixiv aiType=0 (non-AI).",
+      "attribution": "Illustration/manga by ごま油茶 (Pixiv user 42983005).",
+      "rights_notice": "Artwork rights belong to ごま油茶. Fan work; character rights belong to their respective rights holders.",
+      "permission_status": "Permission for public website use is unconfirmed. Supplied by the site owner on 2026-11-28.",
+      "original_dimensions": [
+        846,
+        1200
+      ],
+      "original_sha256": "6d2953b8c2285a020538ef9dad7667cd2476e2be06eef32763b07d91363fd02d",
+      "crop": {
+        "left": 146,
+        "top": 410,
+        "width": 400,
+        "height": 438
+      },
+      "dimensions": [
+        400,
+        438
+      ],
+      "has_alpha": false,
+      "format": "image/webp",
+      "processing": "Rectangular crop (146, 410, 400x438), flattened on white, WebP quality 86. No generative AI.",
+      "generative_ai_used": false,
+      "sha256": "aed9108792a2e15db651dcec1e95e5268b258228668b68d8fc403608bfcb253b",
+      "bytes": 24012,
+      "verified_on": "2026-11-28"
+    },
+    {
+      "id": "storyboard-panel-09",
+      "title": "【まのさば】特技を披露するエマヒロ漫画 (top panel crop: Hiro and smiling Ema)",
+      "file": "storyboard/panel-09-fast-eat-duo.webp",
+      "placement": "home-storyboard-panel",
+      "source_page": "https://www.pixiv.net/artworks/147394681",
+      "source_image": "https://i.pximg.net/img-master/img/2026/07/19/22/00/06/147394681_p0_master1200.jpg",
+      "source_status": "Verified against Pixiv artwork 147394681 (【まのさば】特技を披露するエマヒロ漫画) by poto (Pixiv user 8127183), posted 2026-07-19; Pixiv aiType=1 (non-AI).",
+      "attribution": "Illustration/manga by poto (Pixiv user 8127183).",
+      "rights_notice": "Artwork rights belong to poto. Fan work; character rights belong to their respective rights holders.",
+      "permission_status": "Permission for public website use is unconfirmed. Supplied by the site owner on 2026-11-28.",
+      "original_dimensions": [
+        1075,
+        1518
+      ],
+      "original_sha256": "f29dcca89f04941b6b7ae890298c0b2a84882eab1f45f2a399cb93b9c200543c",
+      "crop": {
+        "left": 266,
+        "top": 108,
+        "width": 526,
+        "height": 312
+      },
+      "dimensions": [
+        526,
+        312
+      ],
+      "has_alpha": false,
+      "format": "image/webp",
+      "processing": "Rectangular crop (266, 108, 526x312), flattened on white, WebP quality 86. No generative AI.",
+      "generative_ai_used": false,
+      "sha256": "2b18ca0a03bc757e5634fcb9b131f4f86df7bdb811bb5c80361600effde59ee7",
+      "bytes": 63706,
+      "verified_on": "2026-11-28"
+    },
+    {
+      "id": "storyboard-panel-10",
+      "title": "思いっきり (top panel crop: Sherry hugging Hanna with bokeh)",
+      "file": "storyboard/panel-10-sherry-hanna.webp",
+      "placement": "home-storyboard-panel",
+      "source_page": "https://www.pixiv.net/artworks/152481723",
+      "source_image": "https://i.pximg.net/img-master/img/2026/11/25/20/48/04/152481723_p0_master1200.jpg",
+      "source_status": "Verified against Pixiv artwork 152481723 (思いっきり) by カイリ。 (Pixiv user 131355569), posted 2026-11-25; Pixiv aiType=1 (non-AI).",
+      "attribution": "Illustration/manga by カイリ。 (Pixiv user 131355569).",
+      "rights_notice": "Artwork rights belong to カイリ。. Fan work; character rights belong to their respective rights holders.",
+      "permission_status": "Permission for public website use is unconfirmed. Supplied by the site owner on 2026-11-28.",
+      "original_dimensions": [
+        900,
+        1200
+      ],
+      "original_sha256": "c98fb6e107c8f78419123523fec7375c43b6661b3447ee309b028ae70e82742b",
+      "crop": {
+        "left": 56,
+        "top": 24,
+        "width": 586,
+        "height": 606
+      },
+      "dimensions": [
+        586,
+        606
+      ],
+      "has_alpha": false,
+      "format": "image/webp",
+      "processing": "Rectangular crop (56, 24, 586x606), flattened on white, WebP quality 86. No generative AI.",
+      "generative_ai_used": false,
+      "sha256": "29145bdec99f36577b76a3658a9935b4c6a6e8900f1aa3e8ac9d408d807c969e",
+      "bytes": 99276,
+      "verified_on": "2026-11-28"
+    },
+    {
+      "id": "signal-backdrop-ema",
+      "title": "また会えるよね？ (Sakura Archive homepage falling-tags section backdrop)",
+      "file": "storyboard/signal-backdrop-ema.webp",
+      "placement": "home-signal-backdrop",
+      "source_page": "https://www.pixiv.net/artworks/143145233",
+      "source_image": "https://i.pximg.net/img-master/img/2026/04/04/21/50/29/143145233_p0_master1200.jpg",
+      "source_status": "Verified against Pixiv artwork 143145233 (また会えるよね？) by ごや (Pixiv user 14492886), posted 2026-04-04; Pixiv aiType=1 (non-AI).",
+      "attribution": "Illustration/manga by ごや (Pixiv user 14492886).",
+      "rights_notice": "Artwork rights belong to ごや. Fan work; character rights belong to their respective rights holders.",
+      "permission_status": "Permission for public website use is unconfirmed. Supplied by the site owner on 2026-11-28.",
+      "original_dimensions": [
+        1200,
+        660
+      ],
+      "original_sha256": "e4a05846a78174d2f7e0f8fc048695b58c042b586dc81da7f66b871a9a465e54",
+      "dimensions": [
+        1200,
+        660
+      ],
+      "has_alpha": false,
+      "format": "image/webp",
+      "processing": "Proportional WebP encoding at original dimensions (1200x660), WebP quality 86. No generative AI.",
+      "generative_ai_used": false,
+      "sha256": "d87dce04c3a14ecff30f0ea30bf8507abc150bfebe0b0139db625e2634319d9a",
+      "bytes": 105690,
+      "verified_on": "2026-11-28"
     }
   ]
 }

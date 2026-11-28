@@ -1,12 +1,11 @@
 ---
 // Arknights About page: the owner's file in the field archive. The first sector is a dossier sheet (the name set large
-// and cropped, a pictogram module holding the name's own character, the profile and an index of real counts); then
+// and cropped, an illustrated portrait, the profile and an index of real counts); then
 // numbered sectors for the tools, the games, a roster of favourite characters, the anime and the current status.
-// Everything shown comes from the shared sources; the theme draws only type, rules, modules and the signal colour.
+// Profile content comes from the shared sources; the portrait is specific to this theme.
 import { Icon } from "astro-icon/components";
 import { getSiteContent } from "@/core/i18n/content";
 import { animeList } from "@/core/data/anime-list";
-import { profileIdentity as ownName } from "@/core/data/profile";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 import { keepTails } from "@/core/i18n/wrap.mjs";
@@ -21,9 +20,6 @@ const host = Astro.site?.host ?? "";
 // the same name, so it is not repeated).
 const [given, ...family] = site.owner.split(" ");
 const localName = locale === "en" ? "" : profileIdentity.displayName;
-// The pictogram module holds the last character of the owner's Chinese name (旭) in every language: the mark the
-// profile used as an avatar before the illustrated one.
-const glyph = [...ownName.displayName].at(-1) ?? "";
 const techIcons: Record<string, string> = {
   unity: "tabler:brand-unity", blender: "tabler:brand-blender", unreal: "unreal-engine",
   godot: "godot-engine", rpgmaker: "tabler:sword", vscode: "tabler:brand-vscode",
@@ -61,8 +57,8 @@ const ROSTER = 16;
           </div>
         </div>
         <div class="ak-dossier-mark" aria-hidden="true">
+          <img class="ak-dossier-portrait" src="/themes/arknights/profile-portrait.webp" alt="" width="676" height="676" fetchpriority="high" />
           <span class="ak-dossier-mark-head"><span>ID</span><span>{profileIdentity.alias}</span></span>
-          <span class="ak-dossier-glyph">{glyph}</span>
           <span class="ak-dossier-mark-foot"><span>{site.owner}</span></span>
         </div>
       </div>

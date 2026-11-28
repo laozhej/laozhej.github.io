@@ -54,9 +54,9 @@ test("Endfield keeps its fixed rules on the About page: the accent only fills, r
   assert.doesNotMatch(css, /border-radius:(?!0)/);
 });
 
-test("Arknights' About page uses no game assets: its mark is the owner's own character set in type", () => {
+test("Arknights' About page uses the supplied portrait as its decorative dossier mark", () => {
   const page = read("src/themes/arknights/pages/AboutPage.astro");
-  assert.match(page, /const glyph = \[\.\.\.ownName\.displayName\]\.at\(-1\)/);
+  assert.match(page, /<img class="ak-dossier-portrait" src="\/themes\/arknights\/profile-portrait\.webp" alt="" /);
   assert.doesNotMatch(page, /<img[^>]+(logo|rhodes|prts)/i);
 });
 

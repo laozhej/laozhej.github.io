@@ -100,15 +100,20 @@ test("pre-paint JS marker prevents filter-bar CLS and collapses extra portraits 
   const blankCss = read("themes/blank/styles/theme.css");
   assert.match(blankCss, /html\[data-site-js="true"\] \[data-site-filter-form\]\[hidden\] \{ display: block; \}/);
   assert.match(blankCss, /html\[data-site-js="true"\] \[data-site-disclosure\]:not\(\[data-disclosure-ready\]\) \[data-site-disclosure-item\]:nth-child\(n\+7\) \{ display: none; \}/);
-  const emaGamesCss = read("themes/ema/styles/games.css");
-  assert.match(emaGamesCss, /html\[data-site-js="true"\] \.ema-games \[data-site-filter-form\]\[hidden\] \{display:block;\}/);
+  // The Games page became the Collection (2026-11-28); Ema's collection stylesheet keeps the same rule.
+  const emaCollectionCss = read("themes/ema/styles/collection.css");
+  assert.match(emaCollectionCss, /html\[data-site-js="true"\] \.ema-collection \[data-site-filter-form\]\[hidden\] \{display:block;\}/);
   assert.match(read("core/features/disclosure.mjs"), /root\.dataset\.disclosureReady = "true";/);
 });
 
-test("above-the-fold game covers are not lazy-loaded and the first promotes LCP priority", () => {
-  for (const path of ["themes/ema/pages/GamesPage.astro", "themes/blank/pages/GamesPage.astro"]) {
+test("above-the-fold covers are not lazy-loaded and the first promotes LCP priority", () => {
+  // The Games page became the Collection (2026-11-28): its first three covers load at once, the first with high priority.
+  for (const path of ["themes/ema/pages/CollectionPage.astro", "themes/blank/pages/CollectionPage.astro"]) {
     const source = read(path);
-    assert.match(source, /loading=\{index < 3 \? undefined : "lazy"\}/, path);
-    assert.match(source, /fetchpriority=\{index === 0 \? "high" : undefined\}/, path);
+    assert.match(source, /const firstKeys = .*\.slice\(0, 3\)/, path);
   }
+  const ema = read("themes/ema/pages/CollectionPage.astro");
+  assert.match(ema, /loading=\{lead\(entry\) === undefined \? "lazy" : undefined\} fetchpriority=\{lead\(entry\) === 0 \? "high" : undefined\}/);
+  const card = read("themes/blank/components/WorkCard.astro");
+  assert.match(card, /loading=\{lead === undefined \? "lazy" : undefined\} fetchpriority=\{lead === 0 \? "high" : undefined\}/);
 });

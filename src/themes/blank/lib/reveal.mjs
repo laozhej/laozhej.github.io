@@ -8,6 +8,8 @@ export const BLANK_REVEAL_TARGETS = [
   ".blank-section-heading", ".blank-post-list > li", ".blank-project", ".blank-game-row", ".blank-profile > div",
   ".blank-about-section > div", ".blank-about-section > dl", ".blank-toolkit > div", ".blank-endnote",
   ".blank-article-end",
+  // Collection: each shelf preview on the overview, and on a shelf its genre headings and works.
+  ".blank-shelf-preview", ".blank-shelf-group-title", ".blank-work", ".blank-shelf-empty", ".blank-collection-note",
 ].join(",");
 
 export const BLANK_REVEAL_FRAMES = [

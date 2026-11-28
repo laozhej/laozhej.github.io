@@ -70,6 +70,28 @@ export function mountArknights(doc, win) {
     on(number, "animationend", () => number.classList.remove("is-turning"));
   }
 
+  // Collection: moving between the overview and its shelves (core/navigation/shelf-swap.mjs marks the new page), the new
+  // shelf is scanned in from the top behind a line of signal colour while the old one fades; the head and sidebar stay.
+  const shelf = doc.querySelector("[data-collection-shelf]");
+  if (shelf && html.dataset.shelfSwap && moving() && typeof doc.startViewTransition === "function") {
+    const line = doc.createElement("span");
+    line.className = "ak-shelf-scan";
+    line.setAttribute("aria-hidden", "true");
+    shelf.append(line);
+    const height = shelf.getBoundingClientRect().height;
+    let done = false;
+    const remove = () => { if (!done) { done = true; line.remove(); } };
+    on(doc, "site:shelf-swap", () => {
+      const duration = Math.round(Math.max(360, Math.min(560, Math.min(height, win.innerHeight) / 2.2)));
+      play(html, { clipPath: ["inset(0 0 100% 0)", "inset(0 0 0 0)"] }, { duration, easing: CUT, pseudoElement: "::view-transition-new(collection-shelf)" });
+      if (!("shelfJump" in html.dataset)) play(html, { opacity: [1, 0] }, { duration, easing: "linear", pseudoElement: "::view-transition-old(collection-shelf)" });
+      const run = play(html, { transform: ["translateY(0)", `translateY(${Math.max(0, height - 2)}px)`] }, { duration, easing: CUT, pseudoElement: "::view-transition-new(ak-shelf-scan)" });
+      run.finished.then(remove, remove);
+    });
+    win.setTimeout(remove, 1600);
+    cleanups.push(remove);
+  }
+
   // 2. Switching light and dark: the new mode is scanned in from the top of the window behind a line of signal colour.
   // The shared toggle does the switching; this only wraps the same click in a view transition.
   let replaying = false;

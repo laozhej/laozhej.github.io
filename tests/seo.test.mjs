@@ -19,7 +19,7 @@ test("every theme layout takes its search and preview metadata from SiteMeta", (
 test("only the canonical theme's pages are indexed, and every theme's copy maps back to them", () => {
   assert.equal(canonicalTheme, "arknights", "the owner may move this later; update the OG cards with it");
   for (const locale of locales) {
-    for (const path of ["/", "/blog/", "/blog/dev-log-01/", "/projects/", "/games/", "/about/", "/credits/"]) {
+    for (const path of ["/", "/blog/", "/blog/dev-log-01/", "/projects/", "/collection/", "/collection/games/", "/collection/manga/", "/about/", "/credits/"]) {
       const target = getThemePath(canonicalTheme, localizePath(path, locale));
       assert.equal(isIndexedPath(target), true, target);
       for (const theme of ["blank", "ema", "endfield", "arknights"]) {
@@ -31,6 +31,8 @@ test("only the canonical theme's pages are indexed, and every theme's copy maps 
       assert.equal(isIndexedPath(legacy), false, `legacy redirect ${legacy} stays out of sitemap`);
     }
     for (const theme of ["blank", "ema", "endfield", "arknights"]) assert.equal(isIndexedPath(getThemePath(theme, localizePath("/404/", locale))), false);
+    // The old Games address only sends visitors on to the Collection's games shelf (MovedPage.astro): never indexed.
+    for (const theme of ["blank", "ema", "endfield", "arknights"]) assert.equal(isIndexedPath(getThemePath(theme, localizePath("/games/", locale))), false);
   }
 });
 

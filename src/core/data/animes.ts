@@ -5,10 +5,10 @@
 // The full list stays in Notion; the About page links to it. Visitors can open it only while the page is published to the web.
 export const animeListUrl = "https://www.notion.so/4055956f0cdc81ad869ec4b8472e6a85";
 type Locale = "zh-CN" | "zh-TW" | "ja" | "en";
-type Genre = "coming-of-age" | "music" | "sci-fi" | "fantasy" | "action" | "mystery" | "romance" | "road" | "life";
+export type Genre = "coming-of-age" | "music" | "sci-fi" | "fantasy" | "action" | "mystery" | "romance" | "road" | "life";
 
-// Notion 题材 options, in every language.
-const genreNames: Record<Genre, Record<Locale, string>> = {
+// Notion 题材 options, in every language. The Collection page's manga, movies and TV series use the same genres (collection.ts).
+export const genreNames: Record<Genre, Record<Locale, string>> = {
   "coming-of-age": { "zh-CN": "青春与成长", "zh-TW": "青春與成長", ja: "青春・成長", en: "Coming of age" },
   music: { "zh-CN": "音乐与舞台", "zh-TW": "音樂與舞台", ja: "音楽・ステージ", en: "Music & stage" },
   "sci-fi": { "zh-CN": "科幻与时间", "zh-TW": "科幻與時間", ja: "SF・時間", en: "Sci-fi & time" },
@@ -32,5 +32,7 @@ const animes: { key: string; title: Record<Locale, string>; genres: Genre[]; url
 export function getFavoriteAnimes(locale: Locale) {
   return animes.map((item) => ({
     key: item.key, title: item.title[locale], subtitle: item.genres.map((genre) => genreNames[genre][locale]).join(" · "), url: item.url, cover: item.cover,
+    // The Collection page files each anime under its genres and searches every language's title.
+    genres: item.genres, titles: Object.values(item.title),
   }));
 }

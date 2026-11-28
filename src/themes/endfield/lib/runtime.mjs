@@ -7,7 +7,7 @@ const MECH = "cubic-bezier(.7,0,.2,1)";
 const SNAP = "cubic-bezier(.16,1,.3,1)";
 
 // Figures that settle once when a page opens.
-const OPENING = ".ef-hero-top .ef-fields>li,.ef-frame .ef-hollow-no,.ef-index b,.ef-content .blank-page-count strong";
+const OPENING = ".ef-hero-top .ef-fields>li,.ef-frame .ef-hollow-no,.ef-index b,.ef-content .blank-page-count strong,.ef-content .blank-shelf-stats strong";
 // Figures that settle when the thing holding them is pointed at or focused: [holder, figures inside it].
 const HOLDERS = [
   [".ef-nav a", ".ef-nav-number"],
@@ -18,6 +18,7 @@ const HOLDERS = [
   [".ef-content .blank-post-row", ".blank-row-number,time"],
   [".ef-content .blank-project summary", ".blank-row-number"],
   [".ef-content .blank-filters button", "span"],
+  [".ef-content .blank-collection-index a", ".blank-collection-count"],
   [".site-theme-dock a", ".site-theme-no"],
 ];
 const ROWS = ".ef-content [data-site-entries]";
@@ -247,7 +248,9 @@ export function mountEndfield(doc, win) {
   const lightRows = (list) => {
     if (!moving() || !list) return;
     list.dataset.efOpened = "";
-    const rows = [...list.children].filter((row) => {
+    // A list grouped under headings (the Collection's genres) lights up its works, not the groups.
+    const items = list.querySelector("[data-site-group]") ? [...list.querySelectorAll("[data-site-entry]")] : [...list.children];
+    const rows = items.filter((row) => {
       if (row.hidden) return false;
       const box = row.getBoundingClientRect();
       return box.bottom > 0 && box.top < win.innerHeight;

@@ -2,11 +2,16 @@ import * as profile from "@/core/data/profile";
 import * as projects from "@/core/data/projects";
 import { games } from "@/core/data/games";
 import { getFavoriteCharacters } from "@/core/data/characters";
-import { animeListUrl, getFavoriteAnimes } from "@/core/data/animes";
-import { checkGames, linkFavoriteGames, localizeGames } from "@/core/content/select-games.mjs";
+import { animeListUrl, genreNames, getFavoriteAnimes } from "@/core/data/animes";
+import { manga, movies, tv } from "@/core/data/collection";
+import { checkGames, gameGenres, linkFavoriteGames, localizeGames } from "@/core/content/select-games.mjs";
+import { buildCollection, checkWorks } from "@/core/content/select-collection.mjs";
 
 // Theme-independent content. Stable keys and URLs are shared by every locale.
 checkGames(games);
+checkWorks(manga, "manga");
+checkWorks(movies, "movies");
+checkWorks(tv, "tv");
 // Favorite games get their link from the shelf entry with the same key, in every language.
 const linked = <T extends { favoriteGames: readonly { key: string }[] }>(content: T) => ({ ...content, favoriteGames: linkFavoriteGames(content.favoriteGames, games) });
 const zh = linked({ ...profile, ...projects, gameShelf: localizeGames(games, "zh-CN"), animeFavorites: getFavoriteAnimes("zh-CN"), animeListUrl });
@@ -170,6 +175,18 @@ const en = linked({
   ],
 } as const);
 
-export function getSiteContent(locale: "zh-CN" | "zh-TW" | "ja" | "en") {
-  return locale === "zh-TW" ? zhTW : locale === "ja" ? ja : locale === "en" ? en : zh;
+type Locale = "zh-CN" | "zh-TW" | "ja" | "en";
+type Content = typeof zh | typeof zhTW | typeof ja | typeof en;
+// The Collection page's five shelves (select-collection.mjs), built once per language from the content above.
+const shelved = <T extends Content>(locale: Locale, content: T) => ({
+  ...content,
+  collection: buildCollection({
+    locale, gameShelf: content.gameShelf, favoriteKeys: content.favoriteGames.map((game) => game.key),
+    animes: content.animeFavorites, works: { manga, movies, tv }, gameGenres, genreNames,
+  }),
+});
+const byLocale = { "zh-CN": shelved("zh-CN", zh), "zh-TW": shelved("zh-TW", zhTW), ja: shelved("ja", ja), en: shelved("en", en) };
+
+export function getSiteContent(locale: Locale) {
+  return byLocale[locale] ?? byLocale["zh-CN"];
 }

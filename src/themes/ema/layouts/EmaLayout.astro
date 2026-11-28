@@ -42,8 +42,8 @@ const [brandHead, ...brandTail] = brand.split(" ");
 // The edition stamp beside the name. The header link's name repeats what it shows (name, stamp), then says where it goes.
 const edition = "EMA / 02";
 // The reference's navigation pairs an icon and a label with a small Latin hint (decorative, hidden from screen readers).
-const navIcons: Record<string, string> = { home: "tabler:home", blog: "tabler:notebook", projects: "tabler:code", games: "tabler:device-gamepad-2", about: "tabler:user-heart" };
-const navHints: Record<string, string> = { home: "front page", blog: "notes", projects: "works", games: "playroom", about: "profile" };
+const navIcons: Record<string, string> = { home: "tabler:home", blog: "tabler:notebook", projects: "tabler:code", collection: "tabler:bookmarks", about: "tabler:user-heart" };
+const navHints: Record<string, string> = { home: "front page", blog: "notes", projects: "works", collection: "collection", about: "profile" };
 ---
 <!doctype html>
 <html lang={locale} data-theme="ema" transition:animate="none">

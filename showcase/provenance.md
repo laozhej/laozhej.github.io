@@ -17,7 +17,7 @@
 | 樱色档案图片（含早期恢复的 5 张艾玛立绘、站主头像与 CC0 樱枝） | [`public/themes/ema/ASSETS.json`](../public/themes/ema/ASSETS.json) |
 | 樱色电台音频（OtoLogic CC BY 4.0 及站主提供的第 3 首 MP3） | [`public/themes/ema/audio/ASSETS.json`](../public/themes/ema/audio/ASSETS.json) |
 | 项目展示截图 | [`public/projects/ASSETS.json`](../public/projects/ASSETS.json) |
-| 游戏页配图与图标 | [`public/games/ASSETS.json`](../public/games/ASSETS.json) |
+| 收藏页游戏配图与关于页游戏图标 | [`public/games/ASSETS.json`](../public/games/ASSETS.json) |
 | 动画封面 | [`public/animes/ASSETS.json`](../public/animes/ASSETS.json) |
 | 角色头像 | [`public/characters/ASSETS.json`](../public/characters/ASSETS.json) |
 | 自托管字体、图标与整体许可边界 | [`THIRD_PARTY_ASSETS.md`](../THIRD_PARTY_ASSETS.md) |

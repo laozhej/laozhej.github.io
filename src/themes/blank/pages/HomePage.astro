@@ -43,7 +43,7 @@ const firstSection = posts.length > 0 ? "#blank-latest" : "#blank-writing";
         <span>{t("home.practiceIndex")}</span>
         <strong>{keepTails(project?.title ?? t("nav.projects"))}</strong>
       </a>
-      <a href={href(game ? `/games/#game-${game.key}` : "/games/")}>
+      <a href={href(game ? `/collection/games/#game-${game.key}` : "/collection/games/")}>
         <span>{t("home.playIndex")}</span>
         <strong>{keepTails(game?.name ?? t("home.playHint"))}</strong>
       </a>

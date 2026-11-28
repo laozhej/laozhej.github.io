@@ -9,7 +9,8 @@ const showcase = path.join(root, "showcase");
 const locales = ["zh-CN", "zh-TW", "ja", "en"];
 const themes = themeDefs.map(({ id }) => id);
 const rootOf = Object.fromEntries(themeDefs.map(({ id, root: prefix }) => [id, prefix.replace(/^\//, "")]));
-const sections = ["", "blog", "projects", "games", "about", "credits", "404"];
+const shelves = ["manga", "anime", "movies", "tv", "games"];
+const sections = ["", "blog", "projects", "collection", ...shelves.map((shelf) => `collection/${shelf}`), "about", "credits", "404"];
 const showcaseUrl = "https://github.com/laozhej/laozhej.github.io/tree/main/showcase";
 const caseLabels = {
   "zh-CN": "查看项目案例",
@@ -25,6 +26,7 @@ const route = (locale, theme, section) => {
   return "/" + parts.join("/") + (parts.length ? "/" : "");
 };
 let pages = 0;
+let redirects = 0;
 let projects = 0;
 for (const locale of locales) {
   for (const theme of themes) {
@@ -66,6 +68,14 @@ for (const locale of locales) {
       }
       pages++;
     }
+    // The old Games address (2026-11-28) only sends visitors on to the games shelf of the same theme and language.
+    const moved = route(locale, theme, "games");
+    const html = await readFile(path.join(root, "dist", moved.slice(1), "index.html"), "utf8");
+    const target = route(locale, theme, "collection/games");
+    assert(html.includes('<meta name="robots" content="noindex">'), `${moved}: must be noindex`);
+    assert(html.includes(`http-equiv="refresh" content="0; url=${target}"`), `${moved}: must refresh to ${target}`);
+    assert(html.includes(`rel="canonical" href="https://neroarataki.com${route(locale, canonicalTheme, "collection/games")}"`), `${moved}: canonical is the new page`);
+    redirects++;
   }
 }
 
@@ -87,4 +97,4 @@ async function checkMarkdown(directory) {
   }
 }
 await checkMarkdown(showcase);
-console.log(`Showcase checks passed: ${pages} locale/theme pages, ${projects} localized project links, ${links} local documentation links.`);
+console.log(`Showcase checks passed: ${pages} locale/theme pages, ${redirects} moved addresses, ${projects} localized project links, ${links} local documentation links.`);

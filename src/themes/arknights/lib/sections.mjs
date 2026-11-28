@@ -1,6 +1,6 @@
 // Fixed English classification words for the five site sections, paired in the header with each section's name in the
 // page's language. They are labels, not translations, so they stay the same in every locale.
-export const sectionWords = { home: "Index", blog: "Journal", projects: "Works", games: "Games", about: "About" };
+export const sectionWords = { home: "Index", blog: "Journal", projects: "Works", collection: "Collection", about: "About" };
 
 // The homepage's own sectors, in page order. The rail counts through them as the reader scrolls (lib/runtime.mjs).
 export const homeSectors = [

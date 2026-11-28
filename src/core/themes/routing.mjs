@@ -56,9 +56,14 @@ export function getThemePath(theme, path = "/", locale = getLocale(path)) {
   return localizePath(`${entry.root}${content}`, locale);
 }
 
-// Routes listed in the sitemap: the canonical theme's pages, without 404 pages or legacy redirects.
+// Old addresses that send visitors on to their new page, in every theme and language (src/core/components/MovedPage.astro).
+// The Games page became the Collection's games shelf on 2026-11-28.
+export const movedPaths = { "/games/": "/collection/games/" };
+
+// Routes listed in the sitemap: the canonical theme's pages, without 404 pages, legacy redirects or moved addresses.
 export function isIndexedPath(path) {
   const canonical = stripLocale(localPath(path));
   if (legacyThemeRoots.some((root) => canonical === root || canonical.startsWith(`${root}/`))) return false;
-  return getTheme(path) === canonicalTheme && !/^\/404(?:\.html|\/)?$/.test(stripTheme(path));
+  const content = stripTheme(path).replace(/[?#].*$/, "");
+  return getTheme(path) === canonicalTheme && !/^\/404(?:\.html|\/)?$/.test(content) && !(content in movedPaths);
 }

@@ -1,4 +1,4 @@
-// Optional cursor ring for Sakura Archive's Home and Games pages (reviewed prototype r3).
+// Optional cursor ring for Sakura Archive's Home and Collection pages (reviewed prototype r3).
 // The system pointer always stays. A thin ring keeps close to it (about 25ms behind), hugs small controls from
 // the outside, fades over text and after a pause, and gives one short ripple on click. It runs only where a mouse
 // or trackpad is the primary pointer, never for touch or pen input, and stays off while motion is paused (the

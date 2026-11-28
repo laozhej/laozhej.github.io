@@ -19,7 +19,10 @@ const build = process.env.GITHUB_SHA || "local-preview";
   import { mountMotionPreference } from "../preferences/motion.mjs";
   import { mountSiteFeatures } from "../features/runtime.mjs";
   import { mountThemeRuntime } from "../themes/runtime.mjs";
+  import { installShelfSwap } from "./shelf-swap.mjs";
 
+  // Document-level, installed once: moves between Collection pages keep the head and sidebar still.
+  installShelfSwap(document, window);
   installNavigationLifecycle(document, window, () => {
     const cleanups = [
       mountMotionPreference(document, window),
@@ -47,6 +50,23 @@ const build = process.env.GITHUB_SHA || "local-preview";
   html[data-motion-paused="true"]::view-transition-old(*),
   html[data-motion-paused="true"]::view-transition-new(*) { animation: none !important; }
   html[data-motion-paused="true"][data-astro-transition-fallback] main { animation: none !important; }
+  /* Between two Collection pages (shelf-swap.mjs) the page head and the category sidebar keep their place and only the
+     shelf changes; each theme animates the shelf in its own stylesheet. The names exist only during that transition, so
+     every other navigation and the colour-mode transitions are unchanged. */
+  html[data-shelf-swap] [data-collection-head] { view-transition-name: collection-head; }
+  html[data-shelf-swap] [data-collection-side] { view-transition-name: collection-side; }
+  html[data-shelf-swap] [data-collection-shelf] { view-transition-name: collection-shelf; }
+  html[data-shelf-swap]::view-transition-group(collection-head),
+  html[data-shelf-swap]::view-transition-group(collection-side),
+  html[data-shelf-swap]::view-transition-old(collection-head),
+  html[data-shelf-swap]::view-transition-new(collection-head),
+  html[data-shelf-swap]::view-transition-old(collection-side),
+  html[data-shelf-swap]::view-transition-new(collection-side) { animation: none; }
+  html[data-shelf-swap]::view-transition-group(collection-shelf) { z-index: 1; animation: none; }
+  html[data-shelf-swap][data-shelf-jump]::view-transition-old(collection-shelf) { opacity: 0 !important; }
+  html[data-shelf-swap]::view-transition-old(collection-shelf) { animation: site-page-out 200ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+  html[data-shelf-swap]::view-transition-new(collection-shelf) { animation: site-page-in 280ms cubic-bezier(0.23, 1, 0.32, 1) both; }
+  [data-collection-marker] { transform-origin: 0 0; }
   @media (prefers-reduced-motion: reduce) {
     ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
     [data-astro-transition-fallback] main { animation: none !important; }

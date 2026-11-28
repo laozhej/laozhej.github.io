@@ -4,6 +4,7 @@ import { emaMessages } from "./ema-messages.ts";
 import { endfieldMessages } from "./endfield-messages.ts";
 import { arknightsMessages } from "./arknights-messages.ts";
 import { mediaMessages } from "./media-messages.ts";
+import { collectionMessages } from "./collection-messages.ts";
 export const messages = {
   "zh-CN": {
     ...themeMessages["zh-CN"],
@@ -11,6 +12,7 @@ export const messages = {
     ...endfieldMessages["zh-CN"],
     ...arknightsMessages["zh-CN"],
     ...mediaMessages["zh-CN"],
+    ...collectionMessages["zh-CN"],
     "site.description": "荒泷旭的个人网站，收着开发笔记、折腾过的项目，还有喜欢的游戏与动画。",
     "nav.home": "首页",
     "nav.blog": "文字",
@@ -194,6 +196,7 @@ export const messages = {
     ...endfieldMessages["zh-TW"],
     ...arknightsMessages["zh-TW"],
     ...mediaMessages["zh-TW"],
+    ...collectionMessages["zh-TW"],
     "site.description": "荒瀧旭的個人網站，收錄開發筆記、動手做過的專案，以及喜歡的遊戲與動畫。",
     "nav.home": "首頁",
     "nav.blog": "文字",
@@ -377,6 +380,7 @@ export const messages = {
     ...endfieldMessages.ja,
     ...arknightsMessages.ja,
     ...mediaMessages.ja,
+    ...collectionMessages.ja,
     "site.description": "荒滝旭の個人サイト。開発ノートや制作中のプロジェクト、好きなゲームとアニメをまとめています。",
     "nav.home": "ホーム",
     "nav.blog": "日記",
@@ -560,6 +564,7 @@ export const messages = {
     ...endfieldMessages.en,
     ...arknightsMessages.en,
     ...mediaMessages.en,
+    ...collectionMessages.en,
     "site.description": "Asahi Arataki's personal site for dev notes, ongoing projects, and favorite games and anime.",
     "nav.home": "Home",
     "nav.blog": "Journal",

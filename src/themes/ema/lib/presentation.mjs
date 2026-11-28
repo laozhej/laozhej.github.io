@@ -37,8 +37,8 @@ export function mountEmaPresentation(doc, win) {
   track.append(doc.createElement('span'));
   track.firstChild.className = 'ema-scroll-thumb';
   if (!header.querySelector('[data-site-progress]')) { header.append(progress); doc.body.append(track); }
-  // Games: the filter bar takes its own paper only while it is stuck under the header.
-  const tools = doc.querySelector('.ema-games .games-tools');
+  // Collection: the filter bar takes its own paper only while it is stuck under the header.
+  const tools = doc.querySelector('.ema-collection .collection-tools');
   function update() {
     frame = 0;
     if (disposed) return;
@@ -66,8 +66,15 @@ export function mountEmaPresentation(doc, win) {
     '.ema-content .blank-project',
     '.ema-content .about-side > *',
     '.ema-content .about-letter',
-    '.ema-content .games-opening',
+    '.ema-content .collection-opening',
+    '.ema-content .collection-side',
+    '.ema-content .collection-shelf-head',
+    '.ema-content .collection-preview-head',
+    '.ema-content .collection-group-title',
     '.ema-content .game-cabinet',
+    '.ema-content .ema-work',
+    '.ema-content .collection-empty',
+    '.ema-content .collection-note',
     '.ema-content .shelf-heading',
     '.ema-content .shelf-card',
     '.ema-content .blank-profile > div',

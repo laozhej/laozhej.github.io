@@ -91,7 +91,7 @@ test("the layout mounts the shared pieces every theme must", () => {
 });
 
 test("the header pairs a fixed English word with each section's own name, shown once in English", () => {
-  assert.deepEqual(Object.keys(sectionWords), ["home", "blog", "projects", "games", "about"]);
+  assert.deepEqual(Object.keys(sectionWords), ["home", "blog", "projects", "collection", "about"]);
   assert.match(layout, /word: locale === "en" \? label : sectionWords\[/);
   assert.match(layout, /label: locale === "en" \? "" : label/);
   // The English word keeps its language for screen readers on the Chinese and Japanese pages.

@@ -1,0 +1,31 @@
+---
+// An old address kept so links and bookmarks still arrive (static-paths.ts `movedPages`): the Games page became the
+// Collection's games shelf on 2026-11-28. The page sends the visitor on at once in the same theme and language, keeping
+// the query (a genre filter such as ?category=story) and the anchor (a game such as #game-tsushima); without JavaScript
+// the refresh still lands on the new page. It is never indexed and names the new page as canonical.
+import { getI18n } from "@/core/i18n";
+import { canonicalTheme, getTheme, getThemePath } from "@/core/themes/registry";
+
+interface Props { to: string }
+const { to } = Astro.props;
+const path = Astro.url.pathname;
+const { locale, t } = getI18n(path);
+const theme = getTheme(path);
+const target = getThemePath(theme, to, locale);
+const canonical = new URL(getThemePath(canonicalTheme, to, locale), Astro.site).href;
+---
+<!doctype html>
+<html lang={locale} data-theme={theme}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{t("moved.title")}</title>
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={canonical} />
+    <script is:inline define:vars={{ target }}>location.replace(target + location.search + location.hash);</script>
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+  </head>
+  <body>
+    <p><a href={target}>{t("moved.link")}</a></p>
+  </body>
+</html>

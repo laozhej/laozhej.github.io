@@ -13,8 +13,8 @@
 
 | 检查 | 结果及含义 |
 | --- | --- |
-| `npm test` | 38 份测试文件共 **255 项**测试全部通过；覆盖公共层、四语、无障碍名称、触控目标、自托管字体与四套主题运行时 |
-| `npm run build` | 成功生成 **128 个静态页面**，覆盖四套主题、四种语言、全部栏目及四语文章 `dev-log-01` |
+| `npm test` | 38 份测试文件共 **263 项**测试全部通过；覆盖公共层、四语、无障碍名称、触控目标、自托管字体与四套主题运行时 |
+| `npm run build` | 成功生成 **224 个静态页面**，覆盖四套主题、四种语言、全部栏目及四语文章 `dev-log-01` |
 | `npm run showcase:check` | 112 个主题／语言页面、16 个本地化作品页案例链接与案例文档内全部本地链接均通过校验 |
 | 浏览器窄视口与交互检查 | Chrome `158.0.8127.38` 检查全部 16 个作品页（390 × 844 均无横向溢出）与 6 项跨主题／跨语言交互，无页面脚本异常 |
 
@@ -27,7 +27,7 @@
 | 深浅色、动效暂停、搜索筛选、平滑回顶与宽屏缩放 | [`preferences`](../../tests/preferences.test.mjs)、[`features`](../../tests/features.test.mjs)、[`back-to-top`](../../tests/back-to-top.test.mjs)、[`fluid-px`](../../tests/fluid-px.test.mjs)、[`frontend-robustness`](../../tests/frontend-robustness.test.mjs) |
 | 无障碍名称、网页平台规范与四主题 44 px 点按范围 | [`a11y-names`](../../tests/a11y-names.test.mjs)、[`web-platform`](../../tests/web-platform.test.mjs)、[`blank-targets`](../../tests/blank-targets.test.mjs)、[`ema-targets`](../../tests/ema-targets.test.mjs)、[`ema-tap-targets`](../../tests/ema-tap-targets.test.mjs)、[`endfield-targets`](../../tests/endfield-targets.test.mjs) |
 | 字体自托管、图片资产清单与收藏数据 | [`self-hosted-fonts`](../../tests/self-hosted-fonts.test.mjs)、[`assets`](../../tests/assets.test.mjs)、[`games`](../../tests/games.test.mjs)、[`notes`](../../tests/notes.test.mjs)、[`image-import`](../../tests/image-import.test.mjs) |
-| 樱色档案、Blank、终末地与明日方舟主题专项 | [`blank-ema-motion`](../../tests/blank-ema-motion.test.mjs)、[`ema-stage`](../../tests/ema-stage.test.mjs)、[`ema-frames`](../../tests/ema-frames.test.mjs)、[`ema-avatar`](../../tests/ema-avatar.test.mjs)、[`ema-games`](../../tests/ema-games.test.mjs)、[`ema-works`](../../tests/ema-works.test.mjs)、[`ema-article-art`](../../tests/ema-article-art.test.mjs)、[`ema-plate`](../../tests/ema-plate.test.mjs)、[`ema-storyboard`](../../tests/ema-storyboard.test.mjs)、[`ema-ring`](../../tests/ema-ring.test.mjs)、[`ema-terminal`](../../tests/ema-terminal.test.mjs)、[`ema-motion`](../../tests/ema-motion.test.mjs)、[`endfield-motion`](../../tests/endfield-motion.test.mjs)、[`arknights`](../../tests/arknights.test.mjs) |
+| 樱色档案、Blank、终末地与明日方舟主题专项 | [`blank-ema-motion`](../../tests/blank-ema-motion.test.mjs)、[`ema-stage`](../../tests/ema-stage.test.mjs)、[`ema-frames`](../../tests/ema-frames.test.mjs)、[`ema-avatar`](../../tests/ema-avatar.test.mjs)、[`collection`](../../tests/collection.test.mjs)、[`ema-works`](../../tests/ema-works.test.mjs)、[`ema-article-art`](../../tests/ema-article-art.test.mjs)、[`ema-plate`](../../tests/ema-plate.test.mjs)、[`ema-storyboard`](../../tests/ema-storyboard.test.mjs)、[`ema-ring`](../../tests/ema-ring.test.mjs)、[`ema-terminal`](../../tests/ema-terminal.test.mjs)、[`ema-motion`](../../tests/ema-motion.test.mjs)、[`endfield-motion`](../../tests/endfield-motion.test.mjs)、[`arknights`](../../tests/arknights.test.mjs) |
 
 注：单元测试验证逻辑、结构与约束，不能替代真实浏览器渲染、真机触控或视觉审阅。
 

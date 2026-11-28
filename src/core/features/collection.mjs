@@ -2,8 +2,9 @@ export function normalizeSearch(value) {
   return String(value ?? "").normalize("NFKC").toLowerCase().trim().replace(/\s+/g, " ");
 }
 
+// An entry's data-category may hold several keys separated by spaces (an anime filed under two genres).
 export function matchesEntry(entry, query, category) {
-  if (category !== "all" && entry.category !== category) return false;
+  if (category !== "all" && !String(entry.category ?? "").split(" ").includes(category)) return false;
   const haystack = normalizeSearch(entry.search);
   return normalizeSearch(query).split(" ").filter(Boolean).every((term) => haystack.includes(term));
 }
@@ -43,6 +44,8 @@ export function mountCollection(root, win) {
   const empty = root.querySelector("[data-site-empty]");
   const count = root.querySelector("[data-site-count]");
   const entries = [...list.querySelectorAll("[data-site-entry]")];
+  // Optional groups inside the list (the Collection's genres): hidden when none of their entries match, with a live count.
+  const groups = [...list.querySelectorAll("[data-site-group]")];
   const categories = buttons.map((button) => button.dataset.siteCategory);
   const listeners = [];
   const on = (node, event, handler) => {
@@ -79,6 +82,12 @@ export function mountCollection(root, win) {
       const ordered = entries.toSorted((a, b) => direction * (Number(a.dataset.date) - Number(b.dataset.date)));
       for (const entry of ordered) list.append(entry);
       sort.value = state.sort;
+    }
+    for (const group of groups) {
+      const shown = group.querySelectorAll("[data-site-entry]:not([hidden])").length;
+      group.hidden = shown === 0;
+      const count = group.querySelector("[data-site-group-count]");
+      if (count) count.textContent = String(shown).padStart(Number(count.dataset.siteGroupCount) || 0, "0");
     }
     for (const button of buttons) button.setAttribute("aria-pressed", String(button.dataset.siteCategory === state.category));
     if (input && input.value !== state.query) input.value = state.query;

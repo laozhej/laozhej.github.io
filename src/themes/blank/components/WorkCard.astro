@@ -1,0 +1,52 @@
+---
+// One work on a Collection shelf (Blank, Endfield and Arknights; select-collection.mjs gives every shelf the same entry shape).
+// The card is an <article> whose title links to the work's own page in a new tab; the link's ::after stretches over the
+// whole card. Its name is the visible title, then (for screen readers only) the site it opens and that it opens in a new tab.
+// Cover, number and genres stay outside the link text.
+import { Icon } from "astro-icon/components";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+
+interface Props {
+  entry: any;
+  t: (key: string) => string;
+  genre: (key: string) => string;
+  level?: 3 | 4;
+  // Under a genre heading the card does not repeat its genre.
+  showGenre?: boolean;
+  filterable?: boolean;
+  anchor?: boolean;
+  // Place among the first covers of the page (0–2): these are not lazy-loaded, and the first is fetched first.
+  lead?: number;
+}
+const { entry, t, genre, level = 3, showGenre = true, filterable = false, anchor = false, lead } = Astro.props;
+const Heading = `h${level}`;
+const pad = (value: number) => String(value).padStart(2, "0");
+const site = entry.link ? (entry.link.kind === "steam" ? "Steam" : t("games.official")) : "";
+const shape = entry.cover?.shape ?? (entry.shelf === "games" ? "wide" : "tall");
+const meta = [
+  ...(entry.shelf === "games" && showGenre ? entry.tags.map(genre) : []),
+  entry.favorite && t("games.favorite"),
+  entry.status && t(`games.status.${entry.status}`),
+  entry.pick && t("games.pick").replace("{n}", String(entry.pick)),
+].filter(Boolean);
+const id = anchor ? `${entry.shelf === "games" ? "game" : entry.shelf}-${entry.key}` : undefined;
+---
+<li class:list={["blank-work", `is-${shape}`, { "is-favorite": entry.favorite }]} id={id}
+  data-site-entry={filterable ? "" : undefined} data-category={filterable ? entry.tags.join(" ") : undefined} data-search={filterable ? entry.search : undefined}>
+  <article class="blank-work-card">
+    {entry.cover
+      ? <img class="blank-work-cover" src={entry.cover.src} alt="" width={shape === "wide" ? 352 : 300} height={shape === "wide" ? 198 : 450} loading={lead === undefined ? "lazy" : undefined} fetchpriority={lead === 0 ? "high" : undefined} decoding="async" style={`object-position:${entry.cover.focus}`} />
+      : <span class="blank-work-cover blank-work-plain" aria-hidden="true"><span>{entry.name}</span></span>}
+    <p class="blank-work-meta"><span class="blank-row-number">{pad(entry.number)}</span>{meta.map((item) => <span>{item}</span>)}</p>
+    <Heading class="blank-work-title">
+      {entry.link
+        ? <a class="blank-work-link" href={entry.link.href} target="_blank" rel="noopener noreferrer"><span lang={entry.lang}>{keepTails(entry.name)}</span><span class="blank-sr-only">{t("collection.linkSuffix").replace("{site}", site)}</span></a>
+        : <span lang={entry.lang}>{keepTails(entry.name)}</span>}
+    </Heading>
+    {entry.original && <p class="blank-work-original">{entry.original}</p>}
+    {entry.details.map((line: string) => <p class="blank-work-detail">{line}</p>)}
+    {entry.note && !entry.note.translated && <p class="blank-work-detail">{t("games.untranslated")}</p>}
+    {entry.note && <p class="blank-work-note" lang={entry.note.lang}>{keepTails(entry.note.text)}</p>}
+    {entry.link && <p class="blank-work-site" aria-hidden="true">{site}<Icon name="tabler:arrow-up-right" size={14} /></p>}
+  </article>
+</li>

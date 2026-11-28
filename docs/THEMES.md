@@ -90,12 +90,13 @@ Ema 是例外：窗口宽度不足 1260px 时，页面两侧放不下浮动按�
 | 主题 | 正文与界面 | 标题与衬线 | 标签与编号 | 拉丁字母展示字 |
 | --- | --- | --- | --- | --- |
 | Blank | Noto Sans SC / TC / JP（思源黑体） | Noto Serif SC / TC / JP（思源宋体） | JetBrains Mono | 同正文 |
-| Ema | 霞鹜文楷（简中）、霞鹜文楷 TC（繁中）、Klee One（日文）、Nunito（英文，2026-11-28 起） | Noto Serif SC / TC / JP | JetBrains Mono，中日文接正文字体 | Gloock |
+| Ema | 霞鹜文楷（简中）、霞鹜文楷 TC（繁中）、Klee One（日文）、Nunito（英文，2026-11-28 起） | 朱雀仿宋（Zhuque Fangsong，2026-11-29 起），Noto Serif SC / TC / JP 兜底 | JetBrains Mono，中日文接正文字体 | Gloock |
 | 终末地 | Noto Sans SC / TC / JP | 同正文 | JetBrains Mono | Saira |
 | 明日方舟 | Noto Sans SC / TC / JP | 同正文 | JetBrains Mono | Oswald |
 
 - 每种语言用自己的字形：简中和英文用 SC，繁中用 TC（Ema 用台湾字形的霞鹜文楷 TC），日文用 JP（Ema 用日本 Fontworks 的 Klee One，霞鹜文楷就是由它衍生的）。
 - Ema 的英文页面（2026-11-28，站主从四款对照里选了 Nunito）：`html[data-theme="ema"]:lang(en)` 把正文字体栈换成 `"Nunito Variable","Site Kai SC","LXGW WenKai"`。Nunito 只有拉丁字母等西文字符，页面里的中文名字和术语照旧落到霞鹜文楷。Nunito 来自 Fontsource（`@fontsource-variable/nunito/wght.css`，和 Gloock 一样打进主题 CSS，五条 `@font-face` 约 1.5KB，没用到就不下载），不另做截字文件；`EmaLayout.astro` 只在英文页面预加载拉丁字母文件（约 39KB），有 ō、š 这类带变音符号字母的页面（英文首页、关于页）再取约 36KB 的扩展分片。没有加载斜体：Ema 英文正文里没有斜体文字。
+- Ema 的艺术衬线标题与导航（2026-11-29，站主从对照板选定 B 方案并要求推广到全站 Ema 标题）：`src/themes/ema/styles/theme.css` 声明 `"Site Zhuque"`（`public/fonts/site/zhuque-fangsong.woff2`，取自 `TrionesType/zhuque` v0.212 朱雀仿宋，SIL OFL 1.1），在 `html[data-theme="ema"]` 及 `:lang(zh-TW)`、`:lang(ja)` 的 `--blank-serif` 栈首插入 `"Site Zhuque"`，保留对应语言的 `"Site Serif SC/TC/JP","Noto Serif SC/TC/JP Variable",serif` 作为缺字兜底（不回退到系统字体）。`EmaLayout.astro` 改为预加载 `zhuque-fangsong.woff2`（不再预加载无用的 `noto-serif-*.woff2`），同时保留页尾的 Noto Serif 分片样式表。Blank、终末地、明日方舟不受影响。
 - 加载分两层。第一层是 `src/core/fonts/subsets.css` 声明的“Site …”字体：`public/fonts/site/` 里的 12 个文件，每个只含全站用这款字体显示的字（约 300–950 个，另加 ASCII、常用标点和日期用字），每个 180–430KB，同一种语言的所有页面共用，访客只下载一次。各布局在 `<head>` 里预加载本页主题和语言用到的字体，文件清单在 `src/core/fonts/sources.ts`。第二层使用同款字体的 Fontsource 分片。樱色档案把当前语言的分片样式表直接链接在页面内容之后，让首屏先用预加载的字体绘制。遇到缺字或主字体请求失败时，浏览器可以立即匹配备用字形，即使禁用 JavaScript 也能生效。其余主题在页面加载完、浏览器空闲时请求这些样式表。
 - 樱色档案栏目大标题和计数使用的常规西文字形随主题 CSS 一起到达。`src/themes/ema/fonts/noto-serif-ascii-400.woff2` 取自已有的 `public/fonts/site/noto-serif-sc.woff2`，用 FontTools 保留 U+0020–007E 并将 `wght` 固定为 400。这些字符在本站 SC、TC、JP 三份宋体中的轮廓和字宽相同。
 - 实测（Chrome 158，本地服务器，冷缓存）：Blank 简中页面的字体共约 455KB，Ema 简中约 700KB，繁中约 950KB，日文约 1.1MB（Klee One 字形较复杂）；终末地、明日方舟约 400KB。不截字、只用分片版时，同样的页面要 0.9–3.3MB。

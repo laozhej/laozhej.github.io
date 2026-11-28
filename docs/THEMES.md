@@ -7,7 +7,7 @@
 | 内容 | 接口或来源 |
 | --- | --- |
 | 个人资料、近况、兴趣、作品、收藏 | `getSiteContent(locale)`，来自 `src/core/i18n/content.ts` |
-| 中文资料源 | `src/core/data/profile.ts`、`projects.ts`、`games.ts`；收藏的漫画、电影、电视剧在 `collection.ts`，动漫在 `animes.ts` |
+| 中文资料源 | `src/core/data/profile.ts`、`projects.ts`、`games.ts`；收藏的漫画和电视剧在 `collection.ts`，电影在 `movies.ts`，动漫在 `animes.ts` |
 | GitHub / Steam 等外链 | `socialLinks`，来自 `src/core/data/social.ts` |
 | 已发布文章、稳定 slug、译文缺失处理 | `getPublishedPosts(locale)`，来自 `src/core/content/blog.ts` |
 | 站名和全站导航定义 | `site`，来自 `src/lib/site.ts` |
@@ -218,7 +218,7 @@ Ema、终末地和明日方舟页脚的「回到顶部」链接带 `data-site-to
 站主的要求是“参照 soki 的网站的结构，把游戏栏目改为收藏，加入左侧的分类栏：漫画、动漫、电影/电视剧、游戏”，“四个主题都要”，并让关于页的“更多游戏”链到收藏的游戏分类。“电影/电视剧”按站主说的“五个区分”理解为两类，所以一共五类，顺序照站主写的：漫画、动漫、电影、电视剧、游戏。
 
 - 地址：总览 `/collection/`，五个分类 `/collection/manga/`、`anime/`、`movies/`、`tv/`、`games/`，四套主题、四种语言都有（`static-paths.ts`）。每个分类是单独的页面，所以侧栏是普通链接，没有 JavaScript 也能用，也能直接链到某一类（关于页的“更多游戏”、各首页的游戏入口都链到 `/collection/games/`）。原来的 `/games/` 保留为跳转页（`core/components/MovedPage.astro`，`routing.mjs` 的 `movedPaths`）：带着查询和锚点跳到同一主题、同一语言的 `/collection/games/`（`?category=story` 仍是同一个类型筛选，`#game-tsushima` 仍落在那款游戏上），没有 JavaScript 时由 `meta refresh` 跳转；`noindex`，规范地址指向新页，不进站点地图。
-- 数据：`getSiteContent(locale).collection`（`core/content/select-collection.mjs`）。游戏来自 `games.ts`，按类型分组，顺序和类型筛选相同；动漫来自 `animes.ts`（站主 Notion 片单里允许展示的那几部），一部可以属于几个题材，所以不分组，只按题材筛选；漫画、电影、电视剧写在 `core/data/collection.ts`，目前是空的，文件开头写了怎样添加（名称、题材、链接、封面），题材沿用动漫的九个，四种语言已有名称；`checkWorks` 在 `npm test` 和构建时检查。封面放 `public/collection/`，来源记录写进同目录的 `ASSETS.json`，不用生成式 AI 图片。每个条目的形状相同：编号、本语言名称（缺译名时显示简体中文并标 `lang`）、原名、题材键、封面（宽或竖）、链接（Steam 或官网）、是否最爱。
+- 数据：`getSiteContent(locale).collection`（`core/content/select-collection.mjs`）。游戏来自 `games.ts`，按类型分组，顺序和类型筛选相同；动漫来自 `animes.ts`（站主 Notion 片单里允许展示的那几部），一部可以属于几个题材，所以不分组，只按题材筛选；电影来自 `core/data/movies.ts`，收录站主同意公开并已核对片名、海报和上映年份的单片；漫画、电视剧写在 `core/data/collection.ts`，文件开头写了怎样添加（名称、题材、链接、封面），题材沿用动漫的九个，四种语言已有名称；`checkWorks` 在 `npm test` 和构建时检查。封面放 `public/collection/`，来源记录写进同目录的 `ASSETS.json`，不用生成式 AI 图片。每个条目的形状相同：编号、本语言名称（缺译名时显示简体中文并标 `lang`）、原名、题材键、封面（宽或竖）、链接（Steam 或官网）、是否最爱。
 - 结构：页头照各主题原样（Blank、终末地、明日方舟是 `PageHead` 的 “Collection.”，Ema 是中文标题加拉丁副标题），下面是侧栏加分类内容。侧栏列出“全部”和五个分类及数量，当前项 `aria-current="page"`；桌面上随页面滚动保持在顶栏下方，900px 及以下变成分类内容上方的格子（Ema 窄于 560px 时两列）。分类页：编号和名称、数量和类型数，类型筛选和搜索（共用的 `data-site-*`），按类型分组，组标题带当前条数；空的分类显示“这一格还空着。之后再补上。”。总览：有内容的分类各显示一行预览（游戏以关于页的最爱打头）和“查看全部 N 款游戏”，空的分类合成一句话列在最后。
 - 组件：Blank、终末地、明日方舟共用 `themes/blank/pages/CollectionPage.astro` 和 `components/WorkCard.astro`（卡片是 `<article>`，标题链接的 `::after` 盖住整张卡，链接名称以看得见的标题开头，再说明打开哪个网站、在新窗口打开）；各主题在自己的样式表里改外观。Ema 用自己的 `themes/ema/pages/CollectionPage.astro` 和 `styles/collection.css`（由 `games.css` 改名而来）：游戏仍是站主 2026-11-27 选定的游戏柜（手机上是紧凑的横排），其余分类是同一家族的竖版海报卡。
 - 各主题的样子：Blank 是带编号、细线分隔的目录，当前项左侧一条墨线，卡片只有图、编号和衬线标题，悬停时标题下划线划出；Ema 是樱色档案的分类卡片，每类一个色块图标和计数胶囊，当前项是一块粉色底和一朵别在角上的樱花；终末地是“//”标注的编号目录，每类配宽体英文词，当前项是切角的黄色色块，卡片是切角面板，悬停时露出斜线纹影子、链接标签被黄色擦满；明日方舟是档案索引，每类英文词在上、本语言名称在下（英文页只显示一次），当前项是信号色竖线加浅底，图片平时降低饱和度、指向时恢复，分类标题后面有一个大号的英文水印。

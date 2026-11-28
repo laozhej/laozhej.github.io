@@ -15,6 +15,7 @@ export const mediaMessages = {
     "media.gamesManifest": "游戏图片的来源与文件校验",
     "media.charactersManifest": "喜欢的角色 · 头像来源、作者与裁切记录",
     "media.animesManifest": "喜欢的动画 · 封面来源与裁切记录",
+    "media.moviePosters": "电影海报 · 来源与设计署名",
   },
   "zh-TW": {
     "media.heading": "櫻色檔案與媒體素材來源",
@@ -31,6 +32,7 @@ export const mediaMessages = {
     "media.gamesManifest": "遊戲圖片的來源與檔案檢查碼",
     "media.charactersManifest": "喜歡的角色 · 頭像來源、作者與裁切紀錄",
     "media.animesManifest": "喜歡的動畫 · 封面來源與裁切紀錄",
+    "media.moviePosters": "電影海報 · 出處與設計署名",
   },
   ja: {
     "media.heading": "桜色の記録とメディア素材の出典",
@@ -47,6 +49,7 @@ export const mediaMessages = {
     "media.gamesManifest": "ゲーム画像の出典とファイル検証情報",
     "media.charactersManifest": "好きなキャラクター · アイコンの出典・作者・切り抜き記録",
     "media.animesManifest": "好きなアニメ · カバー画像の出典・切り抜き記録",
+    "media.moviePosters": "映画ポスターの出典とデザインクレジット",
   },
   en: {
     "media.heading": "Sakura Archive and media sources",
@@ -63,5 +66,6 @@ export const mediaMessages = {
     "media.gamesManifest": "Sources and checksums for the game pictures",
     "media.charactersManifest": "Favorite characters: portrait sources, creators, and crops",
     "media.animesManifest": "Favorite anime: cover sources and crops",
+    "media.moviePosters": "Film poster sources and design credits",
   },
 } as const;

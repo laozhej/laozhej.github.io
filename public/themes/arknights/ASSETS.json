@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "id": "profile-portrait",
+      "file": "profile-portrait.webp",
+      "placement": "Arknights About page avatar",
+      "source": "Marked JPEG supplied by the site owner on 2026-11-28.",
+      "source_page": null,
+      "attribution": null,
+      "permission_status": "Original publication, artist, creation method and permission for public use are unconfirmed.",
+      "original_dimensions": [1038, 905],
+      "original_sha256": "1836921af035c33244d2e12318de088b1a41450dc738579ab539725ad025137c",
+      "crop": { "left": 175, "top": 14, "width": 676, "height": 676 },
+      "dimensions": [676, 676],
+      "sha256": "7748eedfd16fc5abb1dfea5cbcea0f8079782abfc74f58ee9b3c30fb8bf75f0e",
+      "processing": "Pixel crop inside the dashed guide and WebP encoding with Sharp (quality 88). No generative AI was used in processing. Dossier watermarks are rendered in CSS."
+    }
+  ]
+}

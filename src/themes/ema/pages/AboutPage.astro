@@ -47,6 +47,7 @@ const marks = [
         <p class="about-handle">{t("ema.brand")}</p>
         <p class="about-bio">{keepTails(profileIdentity.bio)}</p>
         <SocialLinks class="about-links" iconsOnly />
+        <a class="about-more about-friends" href={href("/friends/")}>{t("footer.friends")}<Icon name="tabler:arrow-right" size={16} aria-hidden="true" /></a>
       </div>
       <div class="about-status">
         <p class="shelf-kicker">{t("ema.about.status")}</p>

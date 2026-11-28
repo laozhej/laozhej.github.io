@@ -13,6 +13,7 @@
 | 站名和全站导航定义 | `site`，来自 `src/lib/site.ts` |
 | UI、无障碍与 SEO 文案 | `getI18n(pathname)`，来自 `src/core/i18n` |
 | 避免尴尬换行 | `keepTails(text)`，来自 `src/core/i18n/wrap.mjs` |
+| 友链、特别链接、失联检查记录 | `getFriendsPage(locale, t, siteUrl)`，来自 `src/core/content/friends.ts`；数据在 `src/core/data/friends.ts`（文件开头写了怎样添加朋友），检查记录在 `friends-status.json` |
 | 项目截图及其深色版本 | `project.image.src` 与 `project.image.darkSrc`，来源记录在 `public/projects/ASSETS.json`；截图组 `project.gallery`，每张带 `label`、`meta`（模式、尺寸、截图日期）与 `alt` |
 
 所有主题都从这些接口读取，不在主题目录复制个人资料或文章。文章详细页继续通过 Astro 内容渲染接口显示同一篇 Markdown。更新内容并重新构建、部署后，所有接入的主题同步更新。不同语言的译文仍要分别维护，不能把内容共用理解为自动翻译。
@@ -226,6 +227,21 @@ Ema、终末地和明日方舟页脚的「回到顶部」链接带 `data-site-to
 - 首页和关于页：顶栏第四项改为“收藏”（`nav.collection`：收藏、收藏、コレクション、Collection），Ema 的提示词是 collection，明日方舟的英文词是 Collection（右侧计数栏里这个较长的词用较小的字距，保持一行）。Ema 首页目录的第三张卡改为“收藏 / Collection”，大数字是收藏总数。关于页“喜欢的游戏”下面是“更多游戏”（`about.gamesMore`），四套主题都链到 `/collection/games/`；Ema 原来的“全部 23 款游戏”换成这个链接。
 - 译名：繁体中文的“动漫”用“動畫”（“動漫”也包括单独成类的漫画），电视剧用“影集”；日文用マンガ、アニメ、映画、ドラマ、ゲーム；英文的计数单位分单复数。
 - `tests/collection.test.mjs` 守着这些约定；`npm run showcase:check` 检查每种语言、每套主题的 12 个栏目页（含总览和五个分类）和 16 个跳转页。
+
+## 友链（2026-11-28）
+
+站主的要求是讨论友链怎么设计和排版，看过方案后回复“Go with your recommendations.”。方案的要点：单独一页，数据只存一份，四套主题各自换皮；站主还没有给朋友站点，所以不编造，朋友一组先是空的；现在只有一篇文章，申请暂不开放，条件先写清楚；入口放页脚和关于页，不进主导航（明日方舟的顶栏已定稿），⌘K 面板也能搜到。站主在另一次讨论里还勾选了“四套主题页脚导航同步补齐收藏和友链”，所以终末地和明日方舟页脚的栏目列表也加上了收藏。
+
+- 地址：`/friends/`，四套主题、四种语言都有（`static-paths.ts` 的 `sectionPages`），根主题的简体中文页是 `src/pages/friends.astro`。页头编号 06，拉丁大标题 “Friends.”，计数是列出的朋友站点数。
+- 从上到下：朋友（每条是头像、站名、对方原话的一句介绍、小字网址，整条是一个链接，新窗口打开，`rel="noopener"`，让对方能看到来访来源）→ 特别链接（本站借用过、致谢页里已经列出的项目：Yuimi-chaya、Astro、Tabler Icons、sakura.js；没有头像和编号，说明是本站自己的话，四种语言都有）→ 暂时失联（只在有站点时出现，折叠在 `<details>` 里）→ 交换友链（是否开放、本站信息和复制按钮、申请条件、收录说明）。没有朋友时，朋友一组显示一行空状态，链到交换友链。
+- 对方的话不翻译：站名和介绍原样显示，带 `lang`；和页面语言不同时，网址后面注明“原文 · 日本語”这样的语种（`localeNames`，其他语言用 `Intl.DisplayNames`）。
+- 头像（`src/core/components/FriendAvatar.astro`）：本站保存的副本放在 `public/friends/`，记入 `public/friends/ASSETS.json` 和 `THIRD_PARTY_ASSETS.md`，不引用对方的图片地址。图片下面垫着站名第一个字（`initialOf`，按字素取，拉丁字母大写）；没有头像时只显示这个字，图片加载失败时 `alt=""` 的图片本身不画东西，`src/core/features/friends.mjs` 再把它隐藏。
+- 本站信息：名称 `site.name`，地址是站点根地址，头像是 B. 网站图标 `/apple-touch-icon.png`（站主头像的使用许可还没确认，所以不拿它给别的网站用），简介是 `site.description`。复制按钮（`data-site-friends-copy`）把这四项按 `name:`、`link:`、`avatar:`、`descr:` 四行放进剪贴板（`siteCardText`），按钮旁的 `role="status"` 气泡说“已复制”；没有 JavaScript 时按钮不出现，四项照样可以选中复制。
+- 失联检查：`.github/workflows/friends-check.yml` 每天 02:23（UTC）跑一次 `scripts/check-friends.mjs`，打开每个没有手动设定 `status` 的朋友站点。服务器有回应就算能打开，包括拒绝自动访问的 401、403、405、429 和 Cloudflare 的人机验证；404、410、5xx、超时和连不上算失败，失败会隔几秒再试一次。结果写进 `src/core/data/friends-status.json`：只记失败的站点、连续失败次数和第一次失败的日期，次数到 `lostAfterFailures`（7）为止，成功一次就清掉。连续 7 次失败的站点移到“暂时失联”，恢复后移回，从不删除。记录有变化时工作流把这个文件提交到 `main`；有站点移进或移出“暂时失联”时，再用 `gh workflow run deploy.yml` 重新部署（用 `GITHUB_TOKEN` 推送不会自己触发部署）。检查从海外的 GitHub 服务器发出，国内站点可能误报，所以 `friends.ts` 里的 `status` 可以手动覆盖：`"active"` 不管检查结果都列在朋友里，`"lost"` 直接放进暂时失联。
+- 各主题的样子：Blank 是编号列表加细线，小圆头像跟在编号旁，不做卡片墙；交换友链里本站信息是一个细墨线框。终末地和明日方舟用 Blank 的同一个页面（`themes/blank/pages/FriendsPage.astro`），颜色和字体经 Blank 的变量换成自己的，各自样式表最后一段加上自己的细节：编号用它们日志行的标签（终末地是切角标签，明日方舟是描边编号框），头像是方的，下面垫斜线纹，指向一行时整行右移、左边出现竖条，和它们的文字列表一样。Ema 用自己的 `themes/ema/pages/FriendsPage.astro` 和 `styles/friends.css`：朋友是一张张交换来的名片（米色纸、按色调贴一条和纸胶带、白边圆头像），桌面三列、1100px 以下两列、760px 以下一列，圆角和阴影用 `--ema-r-*`、`--ema-shadow-*` 三档，指向时轻轻抬起；特别链接是没有阴影、左边一条色带的纸条；本站名片和申请条件左右并排，900px 以下上下排。
+- 入口：四套主题页脚都有“友情链接”（`footer.friends`：友情链接、友站連結、相互リンク、Friend links）。Blank 和 Ema 放在页脚底行“致谢与许可”前面；终末地和明日方舟放在页脚的栏目列表里，同时加上“收藏书架”（`footer.collection`），列表变成文字归档、作品记录、收藏书架、关于这里、友情链接。关于页：Blank（终末地、明日方舟共用）在社交链接下面，Ema 在个人卡片的社交链接下面。⌘K 的索引里有友链页，排在致谢后面，所以不输入时面板显示的六个栏目不变；以后有朋友站点时，每个站点按站名、介绍和网址也能搜到。
+- 字体：新文案用到的字已补进 `public/fonts/site/` 的 12 个截字文件（原有的字一个不少）。以后朋友的站名和介绍里出现新字时，由同款字体的分片补上。
+- `tests/friends.test.mjs` 守着这些约定；`npm run showcase:check` 也检查每种语言、每套主题的友链页。
 
 ## 终末地工业风
 

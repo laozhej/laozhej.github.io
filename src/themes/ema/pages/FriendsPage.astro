@@ -1,0 +1,128 @@
+---
+// Sakura Archive's Friends page (友链, owner's request 2026-11-28): friends as exchanged name cards on paper, three
+// across on a wide screen and one on a phone, in the About page's card grammar (the tones, the washi tape, the three
+// radius and shadow steps). Special links are lighter slips; this site's own card waits beside the exchange notes.
+// Everything shown comes from src/core/data/friends.ts through getFriendsPage; friends' own words keep their language.
+import { Icon } from "astro-icon/components";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { getFriendsPage } from "@/core/content/friends";
+import { displayAddress } from "@/core/content/select-friends.mjs";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import { site } from "@/lib/site";
+import PageLayout from "../layouts/EmaLayout.astro";
+import PageHead from "@/themes/blank/components/PageHead.astro";
+import FriendAvatar from "@/core/components/FriendAvatar.astro";
+import "../styles/shelf.css";
+import "../styles/friends.css";
+
+const { locale, t, href, unit } = getI18n(Astro.url.pathname);
+const page = getFriendsPage(locale, t, Astro.site ?? "https://neroarataki.com");
+const tones = ["pink", "blue", "green", "lavender", "yellow"];
+const tone = (index: number) => `tone-${tones[index % tones.length]}`;
+const pad = (value: number) => String(value).padStart(2, "0");
+---
+<PageLayout title={`${t("friends.title")} | ${site.name}`} description={t("friends.description")}>
+  <PageHead index="06" title="Friends" label={t("friends.title")} description={t("friends.intro")} count={pad(page.listed.length)} unit={unit("friends.unit", page.listed.length)} />
+  <div class="ema-friends ema-shelf" data-site-friends data-copied={t("article.copied")} data-copy-failed={t("article.copyFailed")}>
+    <section class="friends-section" aria-labelledby="ema-friends-heading">
+      <div class="shelf-heading"><span class="shelf-chip tone-pink"><Icon name="tabler:heart-handshake" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">FRIEND CARDS</p><h2 id="ema-friends-heading">{t("friends.heading")}</h2></div></div>
+      {page.listed.length ? (
+        <ul class="friends-cards">
+          {page.listed.map((friend, index) => (
+            <li id={`friend-${friend.id}`}>
+              <a class:list={["friend-card", tone(index)]} href={friend.url} target="_blank" rel="noopener">
+                <span class="friend-tape" aria-hidden="true"></span>
+                <FriendAvatar name={friend.name} src={friend.avatar} size={56} />
+                <strong lang={friend.lang}>{friend.name}</strong>
+                <p lang={friend.lang}>{keepTails(friend.description)}</p>
+                <span class="friend-meta"><span>{friend.address}</span>{friend.languageName && <span>{t("friends.original")} · {friend.languageName}</span>}<Icon name="tabler:arrow-up-right" size={15} aria-hidden="true" /></span>
+                <span class="blank-sr-only">{t("friends.newTab")}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="friends-empty">
+          <span class="friends-empty-mark" aria-hidden="true"><Icon name="tabler:mail-heart" size={22} /></span>
+          <p>{t("friends.empty")}</p>
+          <a class="friends-more" href="#friends-exchange">{t("friends.emptyLink")}<Icon name="tabler:arrow-down" size={16} aria-hidden="true" /></a>
+        </div>
+      )}
+    </section>
+
+    <section class="friends-section" aria-labelledby="ema-friends-special">
+      <div class="shelf-heading"><span class="shelf-chip tone-blue"><Icon name="tabler:sparkles" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">SPECIAL LINKS</p><h2 id="ema-friends-special">{t("friends.specialHeading")}</h2></div></div>
+      <p class="friends-note">{t("friends.specialIntro")}</p>
+      <ul class="friends-slips">
+        {page.special.map((link, index) => (
+          <li>
+            <a class:list={["friend-slip", tone(index + 1)]} href={link.url} target="_blank" rel="noopener noreferrer">
+              <strong>{link.name}</strong>
+              <span>{link.note}</span>
+              <span class="friend-meta"><span>{link.address}</span><Icon name="tabler:arrow-up-right" size={15} aria-hidden="true" /></span>
+              <span class="blank-sr-only">{t("friends.newTab")}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a class="friends-more" href={href("/credits/")}>{t("footer.credits")}<Icon name="tabler:arrow-right" size={16} aria-hidden="true" /></a>
+    </section>
+
+    {page.lost.length > 0 && (
+      <section class="friends-section" aria-labelledby="ema-friends-lost">
+        <div class="shelf-heading"><span class="shelf-chip tone-lavender"><Icon name="tabler:plug-connected-x" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">OUT OF REACH</p><h2 id="ema-friends-lost">{t("friends.lostHeading")}</h2></div></div>
+        <details class="friends-lost">
+          <summary>{t("friends.lostHeading")} · {pad(page.lost.length)}<Icon name="tabler:chevron-down" size={16} aria-hidden="true" /></summary>
+          <p class="friends-note">{page.lostNote}</p>
+          <ul class="friends-cards">
+            {page.lost.map((friend, index) => (
+              <li id={`friend-${friend.id}`}>
+                <a class:list={["friend-card", tone(index)]} href={friend.url} target="_blank" rel="noopener">
+                  <span class="friend-tape" aria-hidden="true"></span>
+                  <FriendAvatar name={friend.name} src={friend.avatar} size={56} />
+                  <strong lang={friend.lang}>{friend.name}</strong>
+                  <p lang={friend.lang}>{keepTails(friend.description)}</p>
+                  <span class="friend-meta"><span>{friend.address}</span>{friend.languageName && <span>{t("friends.original")} · {friend.languageName}</span>}<Icon name="tabler:arrow-up-right" size={15} aria-hidden="true" /></span>
+                  <span class="blank-sr-only">{t("friends.newTab")}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </details>
+      </section>
+    )}
+
+    <section class="friends-section" id="friends-exchange" aria-labelledby="ema-friends-exchange">
+      <div class="shelf-heading"><span class="shelf-chip tone-green"><Icon name="tabler:id" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">LINK EXCHANGE</p><h2 id="ema-friends-exchange">{t("friends.exchangeHeading")}</h2></div><p class="friends-status">{t("friends.closed")}</p></div>
+      <p class="friends-note">{t("friends.closedNote")}{locale === "en" ? " " : ""}{t("friends.howTo")}</p>
+      <div class="friends-exchange">
+        <div class="friends-own">
+          <p class="shelf-kicker">{t("friends.cardHeading")}</p>
+          <div class="friend-card friend-card--own tone-pink">
+            <span class="friend-tape" aria-hidden="true"></span>
+            <FriendAvatar name={page.card.name} src="/apple-touch-icon.png" size={56} />
+            <strong>{page.card.name}</strong>
+            <p>{keepTails(page.card.description)}</p>
+            <span class="friend-meta"><span>{displayAddress(page.card.link)}</span></span>
+          </div>
+          <dl class="friends-fields">
+            <div><dt>{t("friends.cardName")}</dt><dd>{page.card.name}</dd></div>
+            <div><dt>{t("friends.cardLink")}</dt><dd>{page.card.link}</dd></div>
+            <div><dt>{t("friends.cardAvatar")}</dt><dd>{page.card.avatar}</dd></div>
+            <div><dt>{t("friends.cardDescription")}</dt><dd>{page.card.description}</dd></div>
+          </dl>
+          <div class="site-copy friends-copy">
+            <button type="button" data-site-friends-copy data-copy-text={page.cardText} hidden><Icon name="tabler:copy" size={16} aria-hidden="true" />{t("friends.copy")}</button>
+            <span class="site-copy-tip" role="status"></span>
+          </div>
+        </div>
+        <div class="friends-terms">
+          <p class="shelf-kicker">{t("friends.rulesHeading")}</p>
+          <ol class="friends-rules">{page.rules.map((rule, index) => <li><span aria-hidden="true">{pad(index + 1)}</span><p>{rule}</p></li>)}</ol>
+          <p class="shelf-kicker">{t("friends.notesHeading")}</p>
+          <ul class="friends-notes">{page.notes.map((note) => <li><Icon name="tabler:pin" size={16} aria-hidden="true" /><span>{note}</span></li>)}</ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</PageLayout>

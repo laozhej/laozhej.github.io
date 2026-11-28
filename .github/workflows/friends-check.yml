@@ -1,0 +1,47 @@
+name: Check friend links
+
+# Once a day, open every friend's site (scripts/check-friends.mjs). When the record of failing sites changes, commit
+# src/core/data/friends-status.json to main; when a site moves in or out of 暂时失联, start a deploy so the Friends
+# page shows it (a push made with GITHUB_TOKEN does not start other workflows by itself). Sites are never removed, and
+# a friend's `status` in src/core/data/friends.ts overrides the check.
+on:
+  schedule:
+    - cron: "23 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: friends-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: github.repository == 'laozhej/laozhej.github.io'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Check the sites
+        id: check
+        run: node scripts/check-friends.mjs
+      - name: Save the record
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/core/data/friends-status.json
+          git commit -m "Record the daily friend-link check"
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Rebuild the site
+        if: steps.check.outputs.lost-changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main

@@ -49,7 +49,7 @@ function legacyCopy(doc, text) {
   }
 }
 
-async function writeClipboard(doc, win, text) {
+export async function writeClipboard(doc, win, text) {
   try {
     if (win.navigator?.clipboard?.writeText) {
       await win.navigator.clipboard.writeText(text);

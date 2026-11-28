@@ -6,6 +6,7 @@ import { arknightsMessages } from "./arknights-messages.ts";
 import { mediaMessages } from "./media-messages.ts";
 import { collectionMessages } from "./collection-messages.ts";
 import { batch3Messages } from "./batch3-messages.ts";
+import { friendsMessages } from "./friends-messages.ts";
 export const messages = {
   "zh-CN": {
     ...themeMessages["zh-CN"],
@@ -15,6 +16,7 @@ export const messages = {
     ...mediaMessages["zh-CN"],
     ...collectionMessages["zh-CN"],
     ...batch3Messages["zh-CN"],
+    ...friendsMessages["zh-CN"],
     "site.description": "荒泷旭的个人网站，收着开发笔记、折腾过的项目，还有喜欢的游戏与动画。",
     "nav.home": "首页",
     "nav.blog": "文字",
@@ -235,6 +237,7 @@ export const messages = {
     ...mediaMessages["zh-TW"],
     ...collectionMessages["zh-TW"],
     ...batch3Messages["zh-TW"],
+    ...friendsMessages["zh-TW"],
     "site.description": "荒瀧旭的個人網站，收錄開發筆記、動手做過的專案，以及喜歡的遊戲與動畫。",
     "nav.home": "首頁",
     "nav.blog": "文字",
@@ -455,6 +458,7 @@ export const messages = {
     ...mediaMessages.ja,
     ...collectionMessages.ja,
     ...batch3Messages.ja,
+    ...friendsMessages.ja,
     "site.description": "荒滝旭の個人サイト。開発ノートや制作中のプロジェクト、好きなゲームとアニメをまとめています。",
     "nav.home": "ホーム",
     "nav.blog": "日記",
@@ -675,6 +679,7 @@ export const messages = {
     ...mediaMessages.en,
     ...collectionMessages.en,
     ...batch3Messages.en,
+    ...friendsMessages.en,
     "site.description": "Asahi Arataki's personal site for dev notes, ongoing projects, and favorite games and anime.",
     "nav.home": "Home",
     "nav.blog": "Journal",

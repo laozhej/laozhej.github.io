@@ -18,6 +18,7 @@ const { animeFavorites, animeListUrl, currentSignals, favoriteGames, profileIden
       <p class="blank-profile-lead">{keepTails(profileIdentity.bio)}</p>
       <ul class="blank-status-list">{profileStatus.map((item) => <li>{keepTails(item)}</li>)}</ul>
       <SocialLinks iconsOnly />
+      <a class="blank-text-link blank-about-friends" href={href("/friends/")}>{t("footer.friends")} <Icon name="tabler:arrow-right" size={15} /></a>
     </div>
   </section>
   <section class="blank-section blank-about-section">

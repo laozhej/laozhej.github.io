@@ -3,8 +3,8 @@ import { collectionShelves } from "../content/select-collection.mjs";
 import { movedPaths } from "./routing.mjs";
 import type { Locale } from "../i18n";
 
-// The sections every theme builds in every language, in navigation order (plus credits and 404).
-export const sectionPages = ["", "blog", "projects", "collection", "about", "credits", "404"];
+// The sections every theme builds in every language, in navigation order (plus credits, friends and 404).
+export const sectionPages = ["", "blog", "projects", "collection", "about", "credits", "friends", "404"];
 // Old addresses that now send visitors on (routing.mjs `movedPaths`), by route parameter: { games: "/collection/games/" }.
 export const movedPages = Object.fromEntries(Object.entries(movedPaths).map(([from, to]) => [from.replace(/^\/|\/$/g, ""), to])) as Record<string, string>;
 

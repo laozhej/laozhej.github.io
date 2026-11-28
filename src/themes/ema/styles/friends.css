@@ -1,0 +1,105 @@
+/* Sakura Archive's Friends page (2026-11-28). Friends are exchanged name cards: cream paper, a strip of washi tape in
+   the card's tone, a round avatar with a white rim, the name, the friend's own line and the address. Three across on a
+   wide screen, two on a tablet, one on a phone. Special links are lighter slips without shadows; this site's card sits
+   beside the exchange notes. Radii and shadows use the three steps of theme.css (--ema-r-*, --ema-shadow-*). */
+.ema-friends {display:grid;gap:56px;margin-top:56px;}
+.ema-friends .friends-section {display:grid;gap:20px;min-width:0;}
+.ema-friends .friends-note {max-width:62ch;color:var(--blank-muted);font-size:var(--blank-fs-sm, 14px);line-height:1.9;}
+.ema-friends .friends-section > .shelf-heading + .friends-note {margin-top:-6px;}
+.ema-friends .friends-more {display:inline-flex;align-items:center;gap:6px;justify-self:start;min-height:44px;color:var(--ema-pink);font-size:var(--blank-fs-sm, 14px);font-weight:600;}
+.ema-friends .friends-more svg {transition:translate 180ms var(--blank-ease);}
+
+/* The avatar: the hosted copy over a block with the name's first letter, in the card's tone. */
+.ema-friends .site-friend-avatar {position:relative;display:grid;place-items:center;width:56px;height:56px;overflow:hidden;border:3px solid var(--card);border-radius:50%;background:var(--fill,var(--ema-blush));color:var(--tone-ink,var(--ema-pink));box-shadow:0 0 0 1px var(--line,var(--frame)),var(--ema-shadow-flat);font:400 1.5rem/1 var(--ema-title-font);}
+.ema-friends .site-friend-avatar img {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.ema-friends .site-friend-avatar img[hidden] {display:none;}
+
+/* A name card. */
+.ema-friends .friends-cards {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;}
+.ema-friends .friend-card {position:relative;display:grid;grid-template-columns:56px minmax(0,1fr);grid-template-rows:auto 1fr auto;align-items:center;gap:12px 16px;height:100%;padding:24px 20px 16px;border:1px solid var(--blank-line);border-radius:var(--ema-r-md);background:var(--card);box-shadow:var(--ema-shadow-flat);color:var(--blank-ink);transition:transform 200ms var(--blank-ease),border-color 180ms ease,box-shadow 200ms ease;}
+.ema-friends .friend-card > strong {font:500 var(--blank-fs-lg, 1.2rem)/1.4 var(--blank-serif);overflow-wrap:anywhere;}
+.ema-friends .friend-card > p {grid-column:1 / -1;align-self:start;color:var(--blank-muted);font-size:var(--blank-fs-sm, 14px);line-height:1.85;}
+.ema-friends .friend-meta {grid-column:1 / -1;display:flex;flex-wrap:wrap;align-items:center;gap:2px 12px;padding-top:12px;border-top:1px dashed var(--line,var(--blank-line));color:var(--blank-muted);font:var(--blank-fs-xs, 12px)/1.7 var(--mono);overflow-wrap:anywhere;}
+.ema-friends .friend-meta svg {margin-left:auto;color:var(--tone-ink,var(--ema-pink));transition:translate 180ms var(--blank-ease);}
+/* Washi tape across the card's top edge, in the card's tone. */
+.ema-friends .friend-tape {position:absolute;top:-9px;left:22px;width:66px;height:18px;background:repeating-linear-gradient(90deg,color-mix(in srgb,var(--line,#efc5d3) 86%,transparent) 0 6px,color-mix(in srgb,var(--fill,#fbe9ee) 86%,transparent) 6px 12px);box-shadow:0 1px 2px rgba(96,74,60,.16);rotate:-4deg;}
+.ema-friends .friends-cards > li:nth-child(even) .friend-tape {left:auto;right:26px;rotate:5deg;}
+
+/* No friends yet: one empty card slot across the row, pointing to the exchange notes. */
+.ema-friends .friends-empty {display:grid;grid-template-columns:56px minmax(0,1fr) auto;align-items:center;gap:12px 20px;padding:26px 24px;border:1.5px dashed color-mix(in srgb,var(--ema-pink) 38%,var(--blank-line));border-radius:var(--ema-r-md);background:color-mix(in srgb,var(--card) 62%,transparent);}
+.ema-friends .friends-empty-mark {display:grid;place-items:center;width:56px;height:56px;border:1.5px dashed color-mix(in srgb,var(--ema-pink) 45%,var(--blank-line));border-radius:50%;color:var(--ema-pink);}
+.ema-friends .friends-empty > p {max-width:44ch;color:var(--blank-muted);font:400 var(--blank-fs-md, 1rem)/1.85 var(--blank-serif);}
+
+/* Special links: lighter slips, two across. */
+.ema-friends .friends-slips {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+.ema-friends .friend-slip {display:grid;gap:4px;height:100%;padding:14px 16px 12px;border:1px solid var(--blank-line);border-left:4px solid var(--line);border-radius:var(--ema-r-sm);background:color-mix(in srgb,var(--card) 70%,transparent);color:var(--blank-ink);transition:border-color 180ms ease,background-color 180ms ease;}
+.ema-friends .friend-slip > strong {font:500 var(--blank-fs-md, 1rem)/1.5 var(--blank-serif);}
+.ema-friends .friend-slip > span:not(.friend-meta) {color:var(--blank-muted);font-size:var(--blank-fs-sm, 13px);line-height:1.7;}
+.ema-friends .friend-slip .friend-meta {padding-top:4px;border-top:0;}
+
+/* 暂时失联: folded; the cards keep their colours, avatars lose theirs. */
+.ema-friends .friends-lost {padding:4px 20px;border:1px solid var(--blank-line);border-radius:var(--ema-r-md);background:var(--card);box-shadow:var(--ema-shadow-flat);}
+.ema-friends .friends-lost > summary {display:flex;align-items:center;justify-content:space-between;min-height:48px;cursor:pointer;font-weight:600;list-style:none;}
+.ema-friends .friends-lost > summary::-webkit-details-marker {display:none;}
+.ema-friends .friends-lost[open] > summary svg {rotate:180deg;}
+.ema-friends .friends-lost > .friends-cards {padding:14px 0 22px;}
+.ema-friends .friends-lost .site-friend-avatar img {filter:grayscale(1);}
+
+/* Exchange: the status pill, this site's own card with its fields and copy button, then the requirements. */
+.ema-friends .friends-section > .shelf-heading {flex-wrap:wrap;}
+.ema-friends .friends-status {display:inline-flex;align-items:center;gap:7px;margin-left:auto;padding:5px 14px;border:1px solid #e4d39f;border-radius:var(--ema-r-pill);background:#f9f0d8;color:#725d22;font:600 var(--blank-fs-xs, 12px)/1.6 var(--mono);letter-spacing:.06em;}
+html[data-color-mode="dark"] .ema-friends .friends-status {border-color:#6a5c35;background:#36301f;color:#f5e3a0;}
+.ema-friends .friends-status::before {content:"";width:7px;height:7px;border:1.5px solid currentColor;border-radius:50%;}
+.ema-friends .friends-exchange {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;align-items:start;}
+.ema-friends .friends-own,.ema-friends .friends-terms {display:grid;gap:14px;min-width:0;}
+.ema-friends .friend-card--own {height:auto;margin-top:10px;}
+.ema-friends .friends-fields {margin:0;padding:6px 18px;border:1px solid var(--blank-line);border-radius:var(--ema-r-md);background:color-mix(in srgb,var(--card) 70%,transparent);}
+.ema-friends .friends-fields > div {display:grid;grid-template-columns:6em minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px dashed var(--blank-line);}
+.ema-friends .friends-fields > div:last-child {border-bottom:0;}
+.ema-friends .friends-fields dt {color:var(--blank-muted);font:var(--blank-fs-xs, 12px)/1.9 var(--mono);}
+.ema-friends .friends-fields dd {margin:0;font-size:var(--blank-fs-sm, 14px);line-height:1.7;overflow-wrap:anywhere;}
+.ema-friends .friends-copy {display:flex;justify-content:flex-end;}
+.ema-friends .friends-copy > button {display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 20px;border:1px solid var(--ema-pink);border-radius:var(--ema-r-pill);background:var(--ema-pink);color:var(--ema-on-pink);font-size:var(--blank-fs-sm, 14px);font-weight:600;cursor:pointer;transition:transform 120ms var(--blank-ease),box-shadow 180ms ease;}
+.ema-friends .friends-copy > button[hidden] {display:none;}
+.ema-friends .friends-copy > button:is([data-copied],[data-failed]) + .site-copy-tip {opacity:1;transform:none;}
+.ema-friends .friends-terms {padding:22px 24px;border:1px solid var(--blank-line);border-radius:var(--ema-r-md);background:var(--card);box-shadow:var(--ema-shadow-flat);}
+.ema-friends .friends-rules {display:grid;gap:0;margin-bottom:10px;}
+.ema-friends .friends-rules > li {display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px dashed var(--blank-line);}
+.ema-friends .friends-rules > li:last-child {border-bottom:0;}
+.ema-friends .friends-rules > li > span {color:var(--ema-pink);font:600 var(--blank-fs-xs, 12px)/1.9 var(--mono);}
+.ema-friends .friends-rules p {font-size:var(--blank-fs-sm, 14px);line-height:1.8;}
+.ema-friends .friends-notes {display:grid;gap:10px;}
+.ema-friends .friends-notes > li {display:grid;grid-template-columns:16px minmax(0,1fr);gap:8px;color:var(--blank-muted);font-size:var(--blank-fs-sm, 13px);line-height:1.75;}
+.ema-friends .friends-notes svg {margin-top:4px;color:var(--ema-pink);}
+
+@media (hover:hover) and (pointer:fine) {
+  .ema-friends a.friend-card:hover {transform:translateY(-3px);border-color:var(--ema-pink);box-shadow:var(--ema-shadow-lift);}
+  .ema-friends a.friend-card:hover .friend-meta svg,.ema-friends .friend-slip:hover .friend-meta svg {translate:2px -2px;}
+  .ema-friends .friend-slip:hover {border-color:var(--ema-pink);border-left-color:var(--line);background:var(--card);}
+  .ema-friends .friends-more:hover svg {translate:0 2px;}
+  .ema-friends .friends-copy > button:hover {box-shadow:var(--ema-shadow-lift);}
+}
+@media (prefers-reduced-motion:no-preference) {
+  html:not([data-motion-paused="true"]) .ema-friends :is(a.friend-card,.friends-copy > button):active {transform:scale(.98);}
+}
+html[data-motion-paused="true"] .ema-friends a.friend-card:hover {transform:none;}
+@media (prefers-reduced-motion:reduce) {
+  .ema-friends a.friend-card:hover {transform:none;}
+}
+@media (max-width:1100px) {
+  .ema-friends .friends-cards {grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (max-width:900px) {
+  .ema-friends .friends-exchange {grid-template-columns:minmax(0,1fr);}
+}
+@media (max-width:760px) {
+  .ema-friends {gap:44px;margin-top:40px;}
+  .ema-friends .friends-cards,.ema-friends .friends-slips {grid-template-columns:minmax(0,1fr);}
+  .ema-friends .friends-empty {grid-template-columns:48px minmax(0,1fr);padding:20px 18px;}
+  .ema-friends .friends-empty-mark {width:48px;height:48px;}
+  .ema-friends .friends-empty > .friends-more {grid-column:1 / -1;}
+  .ema-friends .friends-status {margin-left:56px;}
+  .ema-friends .friends-fields > div {grid-template-columns:minmax(0,1fr);gap:2px;}
+  .ema-friends .friends-copy > button {flex:1;justify-content:center;}
+  .ema-friends .friends-terms {padding:18px;}
+}

@@ -735,3 +735,28 @@ html[data-theme="arknights"] .site-serendipity-action:hover { border-color:var(-
 html[data-theme="arknights"] .site-heatmap { border-color:var(--ak-rule); background:var(--ak-panel); }
 html[data-theme="arknights"] .site-code-fold { border-color:var(--ak-rule); background:var(--ak-panel); color:var(--ak-ink); }
 html[data-theme="arknights"] .site-code-fold:hover { background:var(--ak-signal); border-color:var(--ak-signal); color:var(--ak-on-signal); }
+
+/* Arknights' touches on Blank's Friends page (2026-11-28): the row numbers in the outlined serial boxes and the row
+   hover of its journal rows (a signal bar, the number filled with the signal), square avatars over a hatched letter
+   block. Colours and fonts come through the Blank tokens set in theme.css. */
+.ak-content .site-friend-avatar { border-color:var(--ak-rule); border-radius:0; background:repeating-linear-gradient(-45deg,transparent 0 6px,var(--ak-faint) 6px 7px),var(--ak-panel); font:600 17px/1 var(--ak-display); }
+.ak-content .blank-friend-text>strong,.ak-content .blank-site-card-preview strong { font-family:var(--ak-text); font-weight:700; }
+.ak-content .blank-friend>.blank-row-number { justify-self:start; align-self:start; margin-top:8px; padding:1px 7px; border:1px solid var(--ak-ink); font-weight:600; }
+.ak-content .blank-friend { grid-template-columns:44px 40px minmax(0,1fr) 18px; position:relative; transition:transform .2s var(--ak-out); }
+.ak-content .blank-friend::before { content:""; position:absolute; left:-14px; top:-1px; bottom:-1px; width:4px; background:var(--ak-signal); transform:scaleY(0); transform-origin:top; transition:transform .18s var(--ak-cut); }
+.ak-content .blank-friend:focus-visible::before { transform:none; }
+.ak-content :is(.blank-friend-list,.blank-friends-empty,.blank-site-card) { border-color:var(--ak-ink); }
+.ak-content .blank-friends-empty>p { font-family:var(--ak-text); font-weight:500; }
+.ak-content .blank-friends-empty { border-bottom-color:var(--ak-rule); }
+.ak-content .blank-friends-status { letter-spacing:.08em; text-transform:uppercase; }
+.ak-content .blank-friends-status::before { border-radius:0; }
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  html:not([data-motion-paused="true"]) .ak-content .blank-friend:hover { transform:translateX(8px); }
+}
+@media (hover:hover) and (pointer:fine) {
+  .ak-content .blank-friend:hover::before { transform:none; }
+  .ak-content .blank-friend:hover>.blank-row-number { border-color:var(--ak-signal); background:var(--ak-signal); color:var(--ak-on-signal); }
+}
+@media (max-width:760px) {
+  .ak-content .blank-friend { grid-template-columns:40px 40px minmax(0,1fr) 16px; }
+}

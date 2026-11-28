@@ -9,12 +9,13 @@ import ProjectsPage from "@/themes/blank/pages/ProjectsPage.astro";
 import CollectionPage from "@/themes/blank/pages/CollectionPage.astro";
 import AboutPage from "@/themes/blank/pages/AboutPage.astro";
 import CreditsPage from "@/themes/blank/pages/CreditsPage.astro";
+import FriendsPage from "@/themes/blank/pages/FriendsPage.astro";
 import NotFoundPage from "@/themes/blank/pages/NotFoundPage.astro";
 import MovedPage from "@/core/components/MovedPage.astro";
 
 export const getStaticPaths = () => getThemeStaticPaths(["zh-CN"]);
 const { kind, post, shelf, to } = Astro.props;
-const pages = { home: HomePage, blog: BlogIndexPage, projects: ProjectsPage, collection: CollectionPage, about: AboutPage, credits: CreditsPage, "404": NotFoundPage, moved: MovedPage };
+const pages = { home: HomePage, blog: BlogIndexPage, projects: ProjectsPage, collection: CollectionPage, about: AboutPage, credits: CreditsPage, friends: FriendsPage, "404": NotFoundPage, moved: MovedPage };
 const Page = pages[kind as keyof typeof pages];
 const rendered = post ? await render(post) : undefined;
 const Content = rendered?.Content;

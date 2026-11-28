@@ -55,6 +55,8 @@ html[data-color-mode="dark"] .about-tech .tone-slate {--fill:#34435c;--line:#6b7
 .about-games a svg {margin-left:5px;vertical-align:-1px;color:var(--ema-pink);}
 .about-more {display:inline-flex;align-items:center;gap:6px;justify-self:end;color:var(--ema-pink);font-size:var(--blank-fs-sm, 13px);font-weight:600;text-decoration:none;}
 .about-more svg {transition:translate 180ms var(--blank-ease);}
+/* The way to the Friends page (2026-11-28), under the social links in the profile card. */
+.ema-about .about-friends {display:flex;justify-self:start;width:fit-content;min-height:44px;margin-top:6px;}
 .about-characters {display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
 .about-characters>li {display:flex;align-items:center;gap:16px;padding:14px 16px;transition:border-color 180ms ease;}
 .about-characters>li[hidden],.about-character-toggle[hidden] {display:none;}

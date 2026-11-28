@@ -5,6 +5,7 @@ import { getPublishedPosts } from "./blog";
 import { collectionPath } from "./select-collection.mjs";
 import { getSiteContent } from "@/core/i18n/content";
 import { getI18n, type Locale } from "@/core/i18n";
+import { getFriendsPage } from "./friends";
 
 export interface SearchRecord {
   group: "pages" | "articles" | "projects" | "collection";
@@ -23,6 +24,7 @@ export async function buildSearchIndex(locale: Locale): Promise<SearchRecord[]> 
   const content = getSiteContent(locale);
   const posts = await getPublishedPosts(locale);
   const records: SearchRecord[] = [];
+  const friendsPage = getFriendsPage(locale, t, "https://neroarataki.com");
 
   // 1. Primary sections & shelves
   const sections: Array<[string, string, string, string]> = [
@@ -32,6 +34,7 @@ export async function buildSearchIndex(locale: Locale): Promise<SearchRecord[]> 
     ["/collection/", t("nav.collection"), t("collection.overview"), "collection shelves 收藏 コレクション 品鉴"],
     ["/about/", t("nav.about"), t("common.about"), "about profile 关于 關於 紹介"],
     ["/credits/", t("credits.title"), "Credits & licenses", "credits licenses 致谢 致謝 クレジット 许可 演化 evolution git"],
+    ["/friends/", t("friends.title"), "Friend links", "friends links blogroll 友链 友情链接 友站連結 友情連結 相互リンク リンク"],
   ];
   for (const [path, title, sub, extra] of sections) {
     records.push({ group: "pages", kind: "page", title, sub, path, q: clean(`${title} ${sub} ${extra}`) });
@@ -49,6 +52,11 @@ export async function buildSearchIndex(locale: Locale): Promise<SearchRecord[]> 
       path: collectionPath(shelf.key),
       q: clean(`${shelfTitle} ${shelf.key} ${t("nav.collection")} ${sub}`),
     });
+  }
+
+  // Friends' sites, by their own names and introductions, pointing to their row on the Friends page.
+  for (const friend of [...friendsPage.listed, ...friendsPage.lost]) {
+    records.push({ group: "pages", kind: "friend", title: friend.name, sub: `${t("friends.title")} · ${friend.address}`, path: `/friends/#friend-${friend.id}`, q: clean(`${friend.name} ${friend.description} ${friend.address} ${t("friends.title")}`) });
   }
 
   // 2. Published articles

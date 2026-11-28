@@ -1,0 +1,133 @@
+---
+// The Friends page (友链, owner's request 2026-11-28) in Blank's journal form: numbered rows on fine rules, a small
+// avatar beside each number, no card wall. Endfield and Arknights render this page in their own layouts and colours
+// (their touches: the end of their theme.css).
+// Everything shown comes from src/core/data/friends.ts through getFriendsPage; friends' own words keep their language.
+import { Icon } from "astro-icon/components";
+import { site } from "@/lib/site";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { getFriendsPage } from "@/core/content/friends";
+import { displayAddress } from "@/core/content/select-friends.mjs";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import PageHead from "../components/PageHead.astro";
+import FriendAvatar from "@/core/components/FriendAvatar.astro";
+const { layout: BlankLayout } = Astro.props;
+const { locale, t, href, unit } = getI18n(Astro.url.pathname);
+const page = getFriendsPage(locale, t, Astro.site ?? "https://neroarataki.com");
+const pad = (value: number) => String(value).padStart(2, "0");
+// Section numbers follow what the page shows: 暂时失联 appears only when a site is filed there.
+const sections = ["FRIENDS", "SPECIAL", ...(page.lost.length ? ["LOST"] : []), "EXCHANGE"];
+const kicker = (name: string) => `${pad(sections.indexOf(name) + 1)} / ${name}`;
+---
+<BlankLayout title={`${t("friends.title")} | ${site.name}`} description={t("friends.description")}>
+  <PageHead index="06" title="Friends" label={t("friends.title")} description={t("friends.intro")} count={pad(page.listed.length)} unit={unit("friends.unit", page.listed.length)} />
+  <div class="blank-friends" data-site-friends data-copied={t("article.copied")} data-copy-failed={t("article.copyFailed")}>
+    <section class="blank-section blank-about-section blank-friends-section" aria-labelledby="friends-heading">
+      <div><p class="blank-kicker">{kicker("FRIENDS")}</p><h2 id="friends-heading">{t("friends.heading")}</h2></div>
+      {page.listed.length ? (
+        <ol class="blank-friend-list">
+          {page.listed.map((friend, index) => (
+            <li id={`friend-${friend.id}`}>
+              <a class="blank-friend" href={friend.url} target="_blank" rel="noopener">
+                <span class="blank-row-number" aria-hidden="true">{pad(index + 1)}</span>
+                <FriendAvatar name={friend.name} src={friend.avatar} size={40} />
+                <span class="blank-friend-text">
+                  <strong lang={friend.lang}>{friend.name}</strong>
+                  <span class="blank-friend-description" lang={friend.lang}>{keepTails(friend.description)}</span>
+                  <span class="blank-friend-meta"><span>{friend.address}</span>{friend.languageName && <span>{t("friends.original")} · {friend.languageName}</span>}</span>
+                </span>
+                <Icon class="blank-friend-arrow" name="tabler:arrow-up-right" size={18} aria-hidden="true" />
+                <span class="blank-sr-only">{t("friends.newTab")}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <div class="blank-friends-empty">
+          <span class="blank-row-number" aria-hidden="true">00</span>
+          <p>{t("friends.empty")}</p>
+          <a class="blank-text-link" href="#friends-exchange">{t("friends.emptyLink")} <Icon name="tabler:arrow-down" size={16} /></a>
+        </div>
+      )}
+    </section>
+    <section class="blank-section blank-about-section blank-friends-section" aria-labelledby="friends-special">
+      <div><p class="blank-kicker">{kicker("SPECIAL")}</p><h2 id="friends-special">{t("friends.specialHeading")}</h2></div>
+      <div class="blank-friends-body">
+        <p class="blank-friends-note">{t("friends.specialIntro")}</p>
+        <ul class="blank-special-list">
+          {page.special.map((link) => (
+            <li>
+              <a class="blank-special" href={link.url} target="_blank" rel="noopener noreferrer">
+                <strong>{link.name}</strong>
+                <span class="blank-special-note">{link.note}</span>
+                <span class="blank-special-address">{link.address}</span>
+                <Icon class="blank-friend-arrow" name="tabler:arrow-up-right" size={16} aria-hidden="true" />
+                <span class="blank-sr-only">{t("friends.newTab")}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a class="blank-text-link" href={href("/credits/")}>{t("footer.credits")} <Icon name="tabler:arrow-right" size={16} /></a>
+      </div>
+    </section>
+    {page.lost.length > 0 && (
+      <section class="blank-section blank-about-section blank-friends-section" aria-labelledby="friends-lost">
+        <div><p class="blank-kicker">{kicker("LOST")}</p><h2 id="friends-lost">{t("friends.lostHeading")}</h2></div>
+        <div class="blank-friends-body">
+          <details class="blank-license blank-friends-lost">
+            <summary>{t("friends.lostHeading")} · {pad(page.lost.length)}</summary>
+            <p class="blank-friends-note">{page.lostNote}</p>
+            <ol class="blank-friend-list">
+              {page.lost.map((friend, index) => (
+                <li id={`friend-${friend.id}`}>
+                  <a class="blank-friend" href={friend.url} target="_blank" rel="noopener">
+                    <span class="blank-row-number" aria-hidden="true">{pad(index + 1)}</span>
+                    <FriendAvatar name={friend.name} src={friend.avatar} size={40} />
+                    <span class="blank-friend-text">
+                      <strong lang={friend.lang}>{friend.name}</strong>
+                      <span class="blank-friend-description" lang={friend.lang}>{keepTails(friend.description)}</span>
+                      <span class="blank-friend-meta"><span>{friend.address}</span>{friend.languageName && <span>{t("friends.original")} · {friend.languageName}</span>}</span>
+                    </span>
+                    <Icon class="blank-friend-arrow" name="tabler:arrow-up-right" size={18} aria-hidden="true" />
+                    <span class="blank-sr-only">{t("friends.newTab")}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </details>
+        </div>
+      </section>
+    )}
+    <section class="blank-section blank-about-section blank-friends-section" id="friends-exchange" aria-labelledby="friends-exchange-heading">
+      <div>
+        <p class="blank-kicker">{kicker("EXCHANGE")}</p>
+        <h2 id="friends-exchange-heading">{t("friends.exchangeHeading")}</h2>
+        <p class="blank-friends-status">{t("friends.closed")}</p>
+      </div>
+      <div class="blank-friends-body">
+        <p class="blank-friends-note">{t("friends.closedNote")}{locale === "en" ? " " : ""}{t("friends.howTo")}</p>
+        <h3 class="blank-kicker">{t("friends.cardHeading")}</h3>
+        <div class="blank-site-card">
+          <div class="blank-site-card-preview">
+            <FriendAvatar name={page.card.name} src="/apple-touch-icon.png" size={48} />
+            <div><strong>{page.card.name}</strong><span>{keepTails(page.card.description)}</span><span class="blank-friend-meta"><span>{displayAddress(page.card.link)}</span></span></div>
+          </div>
+          <dl class="blank-site-card-fields">
+            <div><dt>{t("friends.cardName")}</dt><dd>{page.card.name}</dd></div>
+            <div><dt>{t("friends.cardLink")}</dt><dd>{page.card.link}</dd></div>
+            <div><dt>{t("friends.cardAvatar")}</dt><dd>{page.card.avatar}</dd></div>
+            <div><dt>{t("friends.cardDescription")}</dt><dd>{page.card.description}</dd></div>
+          </dl>
+          <div class="site-copy blank-site-card-copy">
+            <button class="blank-button blank-button--outline" type="button" data-site-friends-copy data-copy-text={page.cardText} hidden><Icon name="tabler:copy" size={16} aria-hidden="true" />{t("friends.copy")}</button>
+            <span class="site-copy-tip" role="status"></span>
+          </div>
+        </div>
+        <h3 class="blank-kicker">{t("friends.rulesHeading")}</h3>
+        <ol class="blank-credits-changes blank-friends-rules">{page.rules.map((rule, index) => <li><span class="blank-row-number">{pad(index + 1)}</span><p>{rule}</p></li>)}</ol>
+        <h3 class="blank-kicker">{t("friends.notesHeading")}</h3>
+        <ul class="blank-status-list blank-friends-notes">{page.notes.map((note) => <li>{note}</li>)}</ul>
+      </div>
+    </section>
+  </div>
+</BlankLayout>

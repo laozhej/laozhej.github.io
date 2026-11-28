@@ -166,6 +166,9 @@ test("no page links to the old address any more", () => {
 test("the profile's “more games” opens the games shelf, in every theme", () => {
   assert.match(read("src/themes/blank/pages/AboutPage.astro"), /<a class="blank-text-link blank-games-more" href=\{href\("\/collection\/games\/"\)\}>\{t\("about\.gamesMore"\)\}/);
   assert.match(read("src/themes/ema/pages/AboutPage.astro"), /<a class="about-more" href=\{href\("\/collection\/games\/"\)\}>\{t\("about\.gamesMore"\)\}/);
+  // Endfield's and Arknights' own About pages (2026-11-28) keep the same link and words in their games sections.
+  assert.match(read("src/themes/endfield/pages/AboutPage.astro"), /<a class="ef-link" href=\{href\("\/collection\/games\/"\)\}>\{t\("about\.gamesMore"\)\}/);
+  assert.match(read("src/themes/arknights/pages/AboutPage.astro"), /<a class="ak-link" href=\{href\("\/collection\/games\/"\)\}>\{t\("about\.gamesMore"\)\}/);
   assert.deepEqual(["zh-CN", "zh-TW", "ja", "en"].map((locale) => messages[locale]["about.gamesMore"]), ["更多游戏", "更多遊戲", "ゲームをもっと見る", "More games"]);
 });
 

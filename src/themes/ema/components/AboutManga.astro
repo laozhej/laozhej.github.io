@@ -1,0 +1,91 @@
+---
+// The About page's manga page, drawn in code (2026-11-28: the owner asked for a picture beside the profile card, the
+// way a manga page sits beside the reference's About profile). It uses none of the reference's artwork and no
+// generated images: four panels in the homepage storyboard's language (frames, screentone, hatching, speed lines,
+// petals) holding the owner's interests as quiet line drawings: a window with petals, a monitor with lines of code, a
+// game controller, and the notebook and teacup of the theme's still life (lib/still-life.mjs). No figures and no
+// lettering, as on the homepage. Everything is computed here, so every page renders identical markup.
+import { notebook, petal, place, screentone, teacup } from "../lib/still-life.mjs";
+const W = 600, H = 820, M = 16, G = 12;
+const rand = (seed: number) => { const x = Math.sin(seed * 9301 + 49297) * 233280; return x - Math.floor(x); };
+const loose = (cx: number, cy: number, r: number, turn: number) => `<path class="am-petal" d="${petal}" transform="translate(${cx.toFixed(1)} ${cy.toFixed(1)}) rotate(${turn}) scale(${r.toFixed(1)})"/>`;
+const blossom = (cx: number, cy: number, r: number, turn = 0) =>
+  `<g class="am-bloom">${Array.from({ length: 5 }, (_, i) => `<path d="${petal}" transform="translate(${cx} ${cy}) rotate(${turn + i * 72}) scale(${r})"/>`).join("")}<circle cx="${cx}" cy="${cy}" r="${(r * 0.15).toFixed(1)}" class="am-core"/></g>`;
+const petals = (x: number, y: number, w: number, h: number, n: number, seed: number) =>
+  Array.from({ length: n }, (_, k) => loose(x + w * (0.06 + 0.88 * rand(seed * 13 + k)), y + h * (0.08 + 0.84 * rand(seed * 7 + k * 3)), 8 + 8 * rand(seed + k * 5), Math.round(360 * rand(seed * 3 + k)))).join("");
+
+// Panels: a wide one across the top, two side by side, and a wide one at the foot whose top edge falls to the right.
+const p1 = { x: M, y: M, w: W - 2 * M, h: 236 };
+const p2 = { x: M, y: p1.y + p1.h + G, w: 318, h: 262 };
+const p3 = { x: p2.x + p2.w + G, y: p2.y, w: W - 2 * M - p2.w - G, h: 262 };
+const p4y = p2.y + p2.h + G, p4 = { x: M, y: p4y, w: W - 2 * M, h: H - M - p4y };
+const rect = (p: { x: number; y: number; w: number; h: number }) => `M${p.x} ${p.y} h${p.w} v${p.h} h${-p.w} Z`;
+const p4shape = `M${p4.x} ${p4.y} L${p4.x + p4.w} ${p4.y + 22} V${p4.y + p4.h} H${p4.x} Z`;
+
+// 1. A window, light falling through it in hatching, petals drifting in.
+const wx = p1.x + 56, wy = p1.y + 30, ww = 250, wh = 176;
+const panel1 = `
+  <rect x="${p1.x}" y="${p1.y}" width="${p1.w}" height="${p1.h}" fill="url(#am-dots)" mask="url(#am-fade)"/>
+  <path class="am-light" d="M${wx + ww} ${wy} L${p1.x + p1.w} ${wy + 60} L${p1.x + p1.w} ${p1.y + p1.h} L${wx + ww - 40} ${p1.y + p1.h} Z" fill="url(#am-hatch)"/>
+  <rect class="am-wall" x="${wx}" y="${wy}" width="${ww}" height="${wh}"/>
+  <rect class="am-line am-glass" x="${wx + 10}" y="${wy + 10}" width="${ww - 20}" height="${wh - 20}"/>
+  <path class="am-line am-soft" d="M${wx + 40} ${wy + 66} a14 14 0 0 1 18 -14 a20 20 0 0 1 36 4 a12 12 0 0 1 14 14 Z M${wx + 150} ${wy + 132} a12 12 0 0 1 15 -12 a17 17 0 0 1 31 3 a10 10 0 0 1 12 12 Z"/>
+  <path class="am-line" d="M${wx + ww / 2} ${wy + 10} v${wh - 20} M${wx + 10} ${wy + wh / 2} h${ww - 20}"/>
+  <path class="am-line am-soft" d="M${wx + 26} ${wy + 30} l34 -12 M${wx + 26} ${wy + 44} l52 -18 M${wx + ww / 2 + 18} ${wy + wh / 2 + 18} l40 -14"/>
+  <path class="am-line" d="M${wx - 14} ${wy - 6} C${wx + 12} ${wy + wh * 0.4} ${wx - 6} ${wy + wh * 0.8} ${wx + 14} ${wy + wh + 14}"/>
+  ${blossom(wx + ww - 20, wy + 24, 30, 12)}${blossom(wx + ww + 34, wy + 64, 18, 40)}
+  ${petals(p1.x + 300, p1.y + 20, 250, 200, 9, 3)}`;
+
+// 2. A monitor with lines of code, one of them in pink, and its stand.
+const mx = p2.x + 46, my = p2.y + 44, mw = 226, mh = 140;
+const codeLines = [[0, 62], [16, 96], [16, 70], [32, 120], [16, 44], [0, 30]].map(([indent, len], k) =>
+  `<rect class="${k === 3 ? "am-pink" : "am-code"}" x="${mx + 26 + indent}" y="${my + 26 + k * 16}" width="${len}" height="6" rx="3"/>`).join("");
+const panel2 = `
+  <rect x="${p2.x}" y="${p2.y}" width="${p2.w}" height="${p2.h}" fill="url(#am-dots)"/>
+  <path class="am-paper am-line" d="M${mx + mw / 2 - 26} ${my + mh} l-10 40 h72 l-10 -40 Z"/>
+  <ellipse class="am-paper am-line" cx="${mx + mw / 2}" cy="${my + mh + 42}" rx="62" ry="9"/>
+  <rect class="am-deep am-line" x="${mx}" y="${my}" width="${mw}" height="${mh}" rx="10"/>
+  <rect class="am-paper am-line" x="${mx + 12}" y="${my + 12}" width="${mw - 24}" height="${mh - 24}" rx="4"/>
+  ${codeLines}
+  <rect class="am-cursor" x="${mx + 78}" y="${my + 105}" width="10" height="7"/>
+  <path class="am-line am-bold" d="M${mx + mw - 70} ${my + 52} l-14 12 l14 12 M${mx + mw - 34} ${my + 52} l14 12 l-14 12 M${mx + mw - 46} ${my + 48} l-10 32"/>`;
+
+// 3. A game controller, with speed lines out of the panel's middle.
+const cx = p3.x + p3.w / 2, cy = p3.y + p3.h / 2 + 6;
+const speed = Array.from({ length: 40 }, (_, k) => {
+  const a = (k / 40) * Math.PI * 2 + rand(k * 3) * 0.07, r1 = 96 + 24 * rand(k * 7), r2 = 300;
+  return `<path d="M${(cx + Math.cos(a) * r1).toFixed(1)} ${(cy + Math.sin(a) * r1).toFixed(1)} L${(cx + Math.cos(a) * r2).toFixed(1)} ${(cy + Math.sin(a) * r2).toFixed(1)}"/>`;
+}).join("");
+const panel3 = `
+  <g class="am-speed">${speed}</g>
+  <g transform="translate(${cx} ${cy}) rotate(-8)">
+    <path class="am-paper am-line am-bold" d="M-72 -18 C-72 -40 -52 -46 -32 -42 L32 -42 C52 -46 72 -40 72 -18 L80 30 C84 54 60 62 48 46 L34 28 L-34 28 L-48 46 C-60 62 -84 54 -80 30 Z"/>
+    <path class="am-deep am-line" d="M-49 -20 h9 v-9 h8 v9 h9 v8 h-9 v9 h-8 v-9 h-9 Z"/>
+    <circle class="am-paper am-line" cx="44" cy="-26" r="6"/><circle class="am-pink am-line" cx="56" cy="-14" r="6"/>
+    <circle class="am-paper am-line" cx="32" cy="-14" r="6"/><circle class="am-paper am-line" cx="44" cy="-2" r="6"/>
+    <circle class="am-deep am-line" cx="-20" cy="10" r="11"/><circle class="am-deep am-line" cx="20" cy="10" r="11"/>
+  </g>`;
+
+// 4. The desk: the notebook and the teacup of the still life, a table edge, petals.
+const panel4 = `
+  <rect x="${p4.x}" y="${p4.y}" width="${p4.w}" height="${p4.h}" fill="url(#am-hatch)" mask="url(#am-fade)"/>
+  <path class="am-line am-soft" d="M${p4.x} ${p4.y + 150} L${p4.x + p4.w} ${p4.y + 132}"/>
+  ${place(notebook, p4.x + 40, p4.y + 66, 1.55)}
+  ${place(teacup, p4.x + 330, p4.y + 30, 1.45)}
+  ${petals(p4.x + 20, p4.y + 30, p4.w - 40, p4.h - 50, 7, 11)}`;
+
+const panels = [[rect(p1), panel1], [rect(p2), panel2], [rect(p3), panel3], [p4shape, panel4]];
+const body = panels.map(([shape, art], i) => `<g clip-path="url(#am-clip-${i})"><path class="am-paper" d="${shape}"/>${art}</g><path class="am-frame" d="${shape}"/>`).join("");
+const clips = panels.map(([shape], i) => `<clipPath id="am-clip-${i}"><path d="${shape}"/></clipPath>`).join("");
+---
+<svg class="about-manga-art" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" focusable="false">
+  <defs>
+    <Fragment set:html={screentone("am-dots", "am-dot")} />
+    <pattern id="am-hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-38)"><path d="M0 4.5 H9" class="am-hatch" /></pattern>
+    <linearGradient id="am-fade-g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" /><stop offset="1" stop-color="#fff" stop-opacity="0" /></linearGradient>
+    <mask id="am-fade" maskContentUnits="objectBoundingBox"><rect width="1" height="1" fill="url(#am-fade-g)" /></mask>
+    <Fragment set:html={clips} />
+  </defs>
+  <rect class="am-sheet" width={W} height={H} />
+  <Fragment set:html={body} />
+</svg>

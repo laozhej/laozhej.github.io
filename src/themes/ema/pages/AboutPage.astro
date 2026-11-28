@@ -1,136 +1,164 @@
 ---
-// Sakura Archive's About page: a profile card beside a letter and a shelf of cards,
-// laid out after Yuimi-chaya's Fuyukawa Kagari About page (MIT License).
-// Everything shown comes from the shared profile data; only icons, tones and art live here.
+// Sakura Archive's About page: the owner's own file in the archive. It opens with the owner's card taped onto the page
+// on the left and a manga page drawn in code on the right (the owner's layout, 2026-11-28), then binder tabs into five
+// chapters, each laid out for what it holds: a wall of polaroids for the characters, a strip of taped posters for the
+// anime, admission tickets for the games, a tray of tools beside a pinned memo for what is happening now.
+// Everything shown comes from the shared profile data; only the art, the paper and the tones live here.
 import { Icon } from "astro-icon/components";
 import { getSiteContent } from "@/core/i18n/content";
+import { animeList } from "@/core/data/anime-list";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import SocialLinks from "@/core/components/SocialLinks.astro";
 import { keepTails } from "@/core/i18n/wrap.mjs";
 import { site } from "@/lib/site";
 import PageLayout from "../layouts/EmaLayout.astro";
-import PageHead from "@/themes/blank/components/PageHead.astro";
 import EmaAvatar from "../components/EmaAvatar.astro";
+import AboutManga from "../components/AboutManga.astro";
 import "../styles/shelf.css";
 import "../styles/about.css";
 
-const { locale, t, href } = getI18n(Astro.url.pathname);
-const { animeFavorites, animeListUrl, currentSignals, favoriteGames, profileIdentity, profileStatus, profileTech, xpFavorites } = getSiteContent(locale);
-const tones = ["pink", "blue", "green", "lavender", "yellow"];
-const tone = (index: number, offset = 0) => `tone-${tones[(index + offset) % tones.length]}`;
+const { locale, t, unit, href } = getI18n(Astro.url.pathname);
+const { animeFavorites, animeListUrl, currentSignals, favoriteGames, gameShelf, profileIdentity, profileStatus, profileTech, xpFavorites } = getSiteContent(locale);
+// One family of sakura tones on this page (the owner asked on 2026-11-28 that its colours stay with the pink): blush,
+// rose, the palest petal and the cream of the paper.
+const tones = ["blush", "rose", "petal", "cream"];
+const tone = (index: number, offset = 0) => `sk-${tones[(index + offset) % tones.length]}`;
 const number = (index: number) => String(index + 1).padStart(2, "0");
 const techIcons: Record<string, string> = {
   unity: "tabler:brand-unity", blender: "tabler:brand-blender", unreal: "unreal-engine",
   godot: "godot-engine", rpgmaker: "tabler:sword", vscode: "tabler:brand-vscode",
 };
-const techTones: Record<string, string> = { unity: "blue", blender: "orange", unreal: "slate", godot: "blue", rpgmaker: "pink", vscode: "green" };
-const marks = [
-  { id: "tech", icon: "tabler:code" },
-  { id: "games", icon: "tabler:device-gamepad" },
-  { id: "characters", icon: "tabler:heart" },
-  { id: "animes", icon: "tabler:movie" },
-  { id: "now", icon: "tabler:flower" },
+const games = favoriteGames.map((item) => ({ ...item, art: gameShelf.find((game) => game.key === item.key)?.art }));
+const animeAll = t("collection.seeAll").replace("{n}", String(animeList.length)).replace("{unit}", unit("collection.unit.anime", animeList.length));
+// The chapters in page order: the binder tabs open them, each with its real count.
+const chapters = [
+  { id: "characters", icon: "tabler:heart", count: xpFavorites.length, tone: "rose" },
+  { id: "animes", icon: "tabler:movie", count: animeFavorites.length, tone: "blush" },
+  { id: "games", icon: "tabler:device-gamepad", count: favoriteGames.length, tone: "petal" },
+  { id: "tech", icon: "tabler:code", count: profileTech.length, tone: "blush" },
+  { id: "now", icon: "tabler:flower", count: currentSignals.length, tone: "rose" },
 ];
+const WALL = 12;
 ---
 <PageLayout title={`${t("nav.about")} | ${site.name}`} description={t("about.description")}>
-  <PageHead index="04" title="About" label={t("common.about")} description={t("about.intro")} />
   <div class="ema-about ema-shelf">
-    <aside class="about-side" aria-label={t("ema.about.profile")}>
-      <div class="about-avatar">
-        <span class="about-tape" aria-hidden="true"></span>
-        <EmaAvatar class="about-avatar-mark" alt={profileIdentity.displayName} loading="eager" fetchpriority="high" />
-        <span class="about-blossom" aria-hidden="true"></span>
-      </div>
-      <div class="about-id">
-        <p class="shelf-kicker">{t("ema.about.kicker")}</p>
-        <h2>{profileIdentity.displayName}<span aria-hidden="true">.</span></h2>
-        <p class="about-handle">{t("ema.brand")}</p>
-        <p class="about-bio">{keepTails(profileIdentity.bio)}</p>
-        <SocialLinks class="about-links" iconsOnly />
-        <a class="about-more about-friends" href={href("/friends/")}>{t("footer.friends")}<Icon name="tabler:arrow-right" size={16} aria-hidden="true" /></a>
-      </div>
-      <div class="about-status">
-        <p class="shelf-kicker">{t("ema.about.status")}</p>
-        <ul>{profileStatus.map((item) => <li><Icon name="tabler:pin" size={16} aria-hidden="true" /><span>{item}</span></li>)}</ul>
-      </div>
-    </aside>
-
-    <div class="about-main">
-      <section class="about-letter" aria-labelledby="ema-about-letter">
-        <div class="about-letter-copy">
-          <p class="shelf-kicker">{t("ema.about.letterKicker")}</p>
-          <h2 id="ema-about-letter">{t("ema.about.letterTitle")}</h2>
-          <p>{t("ema.about.letterBody")}</p>
-          <p class="about-signature">— {profileIdentity.displayName}</p>
+    <section class="about-hero" aria-labelledby="ema-about-name">
+      <div class="about-card">
+        <span class="about-tape about-tape--a" aria-hidden="true"></span>
+        <span class="about-tape about-tape--b" aria-hidden="true"></span>
+        <p class="shelf-kicker about-kicker">{profileIdentity.handle}</p>
+        <div class="about-card-id">
+          <div class="about-avatar">
+            <EmaAvatar class="about-avatar-mark" alt={profileIdentity.displayName} loading="eager" fetchpriority="high" />
+            <span class="about-blossom" aria-hidden="true"></span>
+          </div>
+          <div>
+            <h1 id="ema-about-name" class="about-name">{profileIdentity.displayName}<span class="about-alias"> / {profileIdentity.alias}</span></h1>
+            <p class="about-brand">{t("ema.brand")}</p>
+          </div>
         </div>
-      </section>
+        <p class="about-bio">{keepTails(profileIdentity.bio)}</p>
+        <section class="about-letter" aria-labelledby="ema-about-letter">
+          <h2 id="ema-about-letter">{t("ema.about.letterTitle")}</h2>
+          <p class="about-letter-body">{keepTails(t("ema.about.letterBody"))}</p>
+        </section>
+        <div class="about-card-links">
+          <SocialLinks class="about-links" iconsOnly />
+          <a class="about-more about-friends" href={href("/friends/")}>{t("footer.friends")}<Icon name="tabler:arrow-right" size={16} aria-hidden="true" /></a>
+        </div>
+        <div class="about-status">
+          <p class="shelf-kicker">{t("ema.about.status")}</p>
+          <ul>{profileStatus.map((item) => <li><Icon name="tabler:pin" size={16} aria-hidden="true" /><span>{keepTails(item)}</span></li>)}</ul>
+        </div>
+      </div>
+      <figure class="about-manga" aria-hidden="true">
+        <span class="about-manga-tape"></span>
+        <AboutManga />
+      </figure>
+    </section>
 
-      <nav class="about-marks" aria-label={t("ema.about.bookmarks")}>
-        {marks.map((mark) => <a href={`#ema-about-${mark.id}`}><Icon name={mark.icon} size={16} aria-hidden="true" />{t(`ema.about.${mark.id}Mark`)}</a>)}
-      </nav>
+    <nav class="about-tabs" aria-label={t("ema.about.bookmarks")}>
+      <p class="shelf-kicker" aria-hidden="true">{t("ema.about.bookmarks")}</p>
+      <ol>
+        {chapters.map((chapter, index) => (
+          <li><a class={`sk-${chapter.tone}`} href={`#ema-about-${chapter.id}`}>
+            <span class="about-tab-no" aria-hidden="true">{number(index)}</span>
+            <span class="about-tab-label"><Icon name={chapter.icon} size={16} aria-hidden="true" />{t(`ema.about.${chapter.id}Mark`)}</span>
+            <span class="about-tab-count" aria-hidden="true">{String(chapter.count).padStart(2, "0")}</span>
+          </a></li>
+        ))}
+      </ol>
+    </nav>
 
-      <section class="about-section" aria-labelledby="ema-about-tech">
-        <div class="shelf-heading"><span class={`shelf-chip ${tone(0)}`}><Icon name="tabler:code" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">{t("ema.about.techKicker")}</p><h2 id="ema-about-tech">{t("ema.about.techTitle")}</h2></div></div>
-        <ul class="about-tech">
-          {profileTech.map((item) => <li class={`shelf-card tone-${techTones[item.key]}`}><span class="shelf-chip about-chip"><Icon name={techIcons[item.key]} size={25} aria-hidden="true" /></span><div><h3>{item.name}</h3><p>{item.note}</p></div></li>)}
-        </ul>
-      </section>
+    <section class="about-chapter about-chapter--characters" id="ema-about-characters" aria-labelledby="ema-about-characters-title" data-site-disclosure data-limit={WALL}>
+      <div class="about-chapter-head"><span class="about-chapter-no" aria-hidden="true">01</span><div><p class="shelf-kicker">{t("ema.about.charactersKicker")}</p><h2 id="ema-about-characters-title">{t("ema.about.charactersTitle")}</h2></div></div>
+      <ul class="about-polaroids" id="ema-character-list">
+        {xpFavorites.map((item, index) => (
+          <li class={tone(index % 2)} data-site-disclosure-item>
+            {index % 3 === 0 && <span class="about-polaroid-tape" aria-hidden="true"></span>}
+            {item.portrait
+              ? <img src={item.portrait} alt="" width="160" height="160" loading="lazy" decoding="async" />
+              : <span class="about-polaroid-empty" aria-hidden="true"></span>}
+            <h3>{item.title}</h3>
+            <p>{item.subtitle}</p>
+          </li>
+        ))}
+      </ul>
+      {xpFavorites.length > WALL && <button class="about-more about-character-toggle" type="button" data-site-disclosure-toggle data-label-more={t("about.charactersMore")} data-label-less={t("about.charactersLess")} aria-expanded="false" aria-controls="ema-character-list" hidden><span data-site-disclosure-label>{t("about.charactersMore")}</span><Icon name="tabler:chevron-down" size={16} aria-hidden="true" /></button>}
+    </section>
 
-      <section class="about-section" aria-labelledby="ema-about-games">
-        <div class="shelf-heading"><span class={`shelf-chip ${tone(4)}`}><Icon name="tabler:device-gamepad" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">{t("ema.about.gamesKicker")}</p><h2 id="ema-about-games">{t("ema.about.gamesTitle")}</h2></div></div>
-        <ol class="about-games">
-          {favoriteGames.map((item, index) => (
-            <li class={`shelf-card ${tone(index, 4)}`}>
-              {item.icon
-                ? <span class="shelf-cover about-cover about-icon" aria-hidden="true"><img src={item.icon} alt="" width="86" height="86" loading="lazy" decoding="async" /></span>
-                : <span class="shelf-cover about-cover" aria-hidden="true"><b>{number(index)}</b></span>}
-              <div>
-                <h3>{item.url ? <a href={item.url} target="_blank" rel="noopener noreferrer">{keepTails(item.title)}<Icon name="tabler:external-link" size={14} aria-hidden="true" /></a> : keepTails(item.title)}</h3>
-                <p>{item.subtitle}</p>
-              </div>
+    <section class="about-chapter about-chapter--animes" id="ema-about-animes" aria-labelledby="ema-about-animes-title">
+      <div class="about-chapter-head"><span class="about-chapter-no" aria-hidden="true">02</span><div><p class="shelf-kicker">{t("ema.about.animesKicker")}</p><h2 id="ema-about-animes-title">{t("ema.about.animesTitle")}</h2></div><a class="about-more" href={href("/collection/anime/")}>{animeAll}<Icon name="tabler:arrow-right" size={16} aria-hidden="true" /></a></div>
+      <ul class="about-posters">
+        {animeFavorites.map((item, index) => (
+          <li class={tone(index % 2)}>
+            <a href={item.url} target="_blank" rel="noopener noreferrer">
+              <span class="about-poster-frame" aria-hidden="true"><span class="about-poster-tape"></span><img src={item.cover} alt="" width="300" height="450" loading="lazy" decoding="async" /></span>
+              <h3>{item.title}<Icon name="tabler:external-link" size={14} aria-hidden="true" /></h3>
+            </a>
+            <p>{[item.subtitle, item.status && t(`animes.status.${item.status}`)].filter(Boolean).join(" · ")}</p>
+            {item.note && <p class="about-anime-note" lang={item.note.lang}>{keepTails(item.note.text)}</p>}
+          </li>
+        ))}
+      </ul>
+      <a class="about-more about-notion" href={animeListUrl} target="_blank" rel="noopener noreferrer">{t("about.animesNotion")}<Icon name="tabler:arrow-up-right" size={16} aria-hidden="true" /></a>
+    </section>
+
+    <section class="about-chapter about-chapter--games" id="ema-about-games" aria-labelledby="ema-about-games-title">
+      <div class="about-chapter-head"><span class="about-chapter-no" aria-hidden="true">03</span><div><p class="shelf-kicker">{t("ema.about.gamesKicker")}</p><h2 id="ema-about-games-title">{t("ema.about.gamesTitle")}</h2></div><a class="about-more" href={href("/collection/games/")}>{t("about.gamesMore")}<Icon name="tabler:arrow-right" size={16} aria-hidden="true" /></a></div>
+      <ol class="about-tickets">
+        {games.map((item, index) => {
+          const Tag = item.url ? "a" : "div";
+          return (
+            <li class={index === 0 || index === 3 ? "sk-blush" : "sk-cream"}>
+              <Tag class="about-ticket" {...(item.url ? { href: item.url, target: "_blank", rel: "noopener noreferrer" } : {})}>
+                <span class="about-ticket-art" aria-hidden="true">{item.art ? <img src={item.art.src} alt="" width="480" height="270" loading="lazy" decoding="async" style={`object-position:${item.art.focus}`} /> : <b>{number(index)}</b>}</span>
+                <span class="about-ticket-stub">
+                  <span class="about-ticket-no" aria-hidden="true">No.{number(index)}</span>
+                  <strong>{keepTails(item.title)}{item.url && <Icon name="tabler:external-link" size={14} aria-hidden="true" />}</strong>
+                  <span>{item.subtitle}</span>
+                </span>
+              </Tag>
             </li>
-          ))}
-        </ol>
-        <a class="about-more" href={href("/collection/games/")}>{t("about.gamesMore")}<Icon name="tabler:arrow-right" size={16} aria-hidden="true" /></a>
+          );
+        })}
+      </ol>
+    </section>
+
+    <div class="about-desk">
+      <section class="about-chapter about-chapter--tech" id="ema-about-tech" aria-labelledby="ema-about-tech-title">
+        <div class="about-chapter-head"><span class="about-chapter-no" aria-hidden="true">04</span><div><p class="shelf-kicker">{t("ema.about.techKicker")}</p><h2 id="ema-about-tech-title">{t("ema.about.techTitle")}</h2></div></div>
+        <ul class="about-tools">
+          {profileTech.map((item) => <li class="sk-blush"><span class="shelf-chip about-tool-chip" aria-hidden="true"><Icon name={techIcons[item.key]} size={22} /></span><div><h3>{item.name}</h3><p>{item.note}</p></div></li>)}
+        </ul>
       </section>
 
-      <section class="about-section" aria-labelledby="ema-about-characters" data-site-disclosure data-limit="6">
-        <div class="shelf-heading"><span class={`shelf-chip ${tone(0)}`}><Icon name="tabler:heart" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">{t("ema.about.charactersKicker")}</p><h2 id="ema-about-characters">{t("ema.about.charactersTitle")}</h2></div></div>
-        <ul class="about-characters" id="ema-character-list">
-          {xpFavorites.map((item, index) => (
-            <li class={`shelf-card ${tone(index * 3)}`} data-site-disclosure-item>
-              {item.portrait
-                ? <img class="about-portrait" src={item.portrait} alt="" width="66" height="66" loading="lazy" decoding="async" />
-                : <span class="about-portrait about-portrait-empty" aria-hidden="true"></span>}
-              <div><h3>{item.title}</h3><p>{item.subtitle}</p></div>
-            </li>
-          ))}
-        </ul>
-        {xpFavorites.length > 6 && <button class="about-more about-character-toggle" type="button" data-site-disclosure-toggle data-label-more={t("about.charactersMore")} data-label-less={t("about.charactersLess")} aria-expanded="false" aria-controls="ema-character-list" hidden><span data-site-disclosure-label>{t("about.charactersMore")}</span><Icon name="tabler:chevron-down" size={16} aria-hidden="true" /></button>}
-      </section>
-
-      <section class="about-section" aria-labelledby="ema-about-animes">
-        <div class="shelf-heading"><span class={`shelf-chip ${tone(3)}`}><Icon name="tabler:movie" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">{t("ema.about.animesKicker")}</p><h2 id="ema-about-animes">{t("ema.about.animesTitle")}</h2></div></div>
-        <ul class="about-animes">
-          {animeFavorites.map((item, index) => (
-            <li class={`shelf-card ${tone(index, 3)}`}>
-              <img class="about-poster" src={item.cover} alt="" width="300" height="450" loading="lazy" decoding="async" />
-              <div>
-                <h3><a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}<Icon name="tabler:external-link" size={14} aria-hidden="true" /></a></h3>
-                <p>{[item.subtitle, item.status && t(`animes.status.${item.status}`)].filter(Boolean).join(" · ")}</p>
-                {item.note && <p class="about-anime-note" lang={item.note.lang}>{keepTails(item.note.text)}</p>}
-              </div>
-            </li>
-          ))}
-        </ul>
-        <a class="about-more" href={animeListUrl} target="_blank" rel="noopener noreferrer">{t("about.animesNotion")}<Icon name="tabler:arrow-up-right" size={16} aria-hidden="true" /></a>
-      </section>
-
-      <section class="about-section" aria-labelledby="ema-about-now">
-        <div class="shelf-heading"><span class={`shelf-chip ${tone(2)}`}><Icon name="tabler:flower" size={20} aria-hidden="true" /></span><div><p class="shelf-kicker">{t("ema.about.nowKicker")}</p><h2 id="ema-about-now">{t("about.now")}</h2></div></div>
-        <ul class="about-now">
-          {currentSignals.map((item, index) => <li class={`shelf-card ${tone(index)}`}><span>{item.label}</span><p>{keepTails(item.text)}</p></li>)}
-        </ul>
+      <section class="about-chapter about-chapter--now" id="ema-about-now" aria-labelledby="ema-about-now-title">
+        <div class="about-memo">
+          <span class="about-tape about-tape--memo" aria-hidden="true"></span>
+          <div class="about-chapter-head"><span class="about-chapter-no" aria-hidden="true">05</span><div><p class="shelf-kicker">{t("ema.about.nowKicker")}</p><h2 id="ema-about-now-title">{t("about.now")}</h2></div></div>
+          <dl>{currentSignals.map((item) => <div><dt>{item.label}</dt><dd>{keepTails(item.text)}</dd></div>)}</dl>
+        </div>
       </section>
     </div>
   </div>

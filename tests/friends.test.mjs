@@ -99,7 +99,7 @@ test("every theme builds the page in every language and links to it from its foo
   for (const layout of ["endfield/layouts/EndfieldLayout", "arknights/layouts/ArknightsLayout"]) {
     assert.match(read(`src/themes/${layout}.astro`), /href=\{href\("\/collection\/"\)\}>\{t\("footer\.collection"\)\}/, layout);
   }
-  for (const about of ["blank/pages/AboutPage", "ema/pages/AboutPage"]) assert.match(read(`src/themes/${about}.astro`), /href=\{href\("\/friends\/"\)\}/, about);
+  for (const about of ["blank/pages/AboutPage", "ema/pages/AboutPage", "endfield/pages/AboutPage", "arknights/pages/AboutPage"]) assert.match(read(`src/themes/${about}.astro`), /href=\{href\("\/friends\/"\)\}/, about);
   assert.match(read("src/core/content/search-index.ts"), /\["\/friends\/", t\("friends\.title"\)/);
   for (const locale of locales) {
     for (const key of ["friends.title", "friends.description", "friends.empty", "friends.closed", "friends.copy", "footer.friends", "footer.collection"]) {

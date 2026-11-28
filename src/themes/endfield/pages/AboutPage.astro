@@ -1,0 +1,145 @@
+---
+// Endfield About page: the owner's nameplate and spec sheet. The first screen pairs a heavy wordmark (solid and hollow)
+// with an index board of real counts that opens each section; below, numbered sections in the manual's own parts: a spec
+// list of tools, framed game windows, a roster of favourite characters, anime as record rows and the current status.
+// Everything shown comes from the shared sources; the theme draws only type, rules, cuts, hatching and the accent.
+import { Icon } from "astro-icon/components";
+import { getSiteContent } from "@/core/i18n/content";
+import { animeList } from "@/core/data/anime-list";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import SocialLinks from "@/core/components/SocialLinks.astro";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import { site } from "@/lib/site";
+import PageLayout from "../layouts/EndfieldLayout.astro";
+
+const { locale, t, unit, href } = getI18n(Astro.url.pathname);
+const { animeFavorites, animeListUrl, currentSignals, favoriteGames, gameShelf, profileIdentity, profileStatus, profileTech, xpFavorites } = getSiteContent(locale);
+const host = Astro.site?.host ?? "";
+const count = (value: number) => String(value).padStart(2, "0");
+// The Latin name is the wordmark: the given name solid, the family name hollow under it. The name in the page's own script
+// is marked beneath (in English it is the same name, so it is not repeated).
+const [given, ...family] = site.owner.split(" ");
+const localName = locale === "en" ? "" : profileIdentity.displayName;
+const techIcons: Record<string, string> = {
+  unity: "tabler:brand-unity", blender: "tabler:brand-blender", unreal: "unreal-engine",
+  godot: "godot-engine", rpgmaker: "tabler:sword", vscode: "tabler:brand-vscode",
+};
+const games = favoriteGames.map((item) => ({ ...item, art: gameShelf.find((game) => game.key === item.key)?.art }));
+const sections = [
+  { id: "ef-about-practice", word: "Practice", title: t("about.practice"), count: profileTech.length },
+  { id: "ef-about-games", word: "Games", title: t("ema.about.gamesTitle"), count: favoriteGames.length, of: gameShelf.length },
+  { id: "ef-about-characters", word: "Characters", title: t("ema.about.charactersTitle"), count: xpFavorites.length },
+  { id: "ef-about-anime", word: "Anime", title: t("ema.about.animesTitle"), count: animeFavorites.length, of: animeList.length },
+  { id: "ef-about-status", word: "Currently", title: t("about.now"), count: currentSignals.length },
+].map((section, index) => ({ ...section, number: count(index + 1) }));
+const section = Object.fromEntries(sections.map((entry) => [entry.id, entry]));
+const ROSTER = 16;
+const animeAll = t("collection.seeAll").replace("{n}", String(animeList.length)).replace("{unit}", unit("collection.unit.anime", animeList.length));
+---
+<PageLayout title={`${t("nav.about")} | ${site.name}`} description={t("about.description")} bleed>
+  <div class="ef-about">
+    <section class="ef-hero ef-plateau" aria-labelledby="ef-about-title" data-ef-enter>
+      <div class="ef-hero-top">
+        <ul class="ef-fields"><li>{profileIdentity.handle}</li><li lang="en">{profileIdentity.alias}</li>{host && <li>{host}</li>}</ul>
+        <h1 id="ef-about-title" class="ef-wordmark-hero ef-namemark">
+          <span class="ef-solid" lang="en">{given}</span> <span class="ef-hollow" lang="en">{family.join(" ")}</span>
+          <span class="ef-plate"><span lang="en">{profileIdentity.alias}</span></span>
+        </h1>
+      </div>
+      <div class="ef-hero-copy">
+        {localName && <p class="ef-statement"><span class="ef-marker">{localName}</span></p>}
+        <p class="ef-intro">{keepTails(profileIdentity.bio)}</p>
+        <ol class="ef-spec-lines">{profileStatus.map((item, index) => <li><span class="ef-num" aria-hidden="true">{count(index + 1)}</span><span>{keepTails(item)}</span></li>)}</ol>
+        <div class="ef-hero-actions">
+          <SocialLinks class="ef-about-social" iconsOnly />
+          <a class="ef-button ef-button--quiet" href={href("/friends/")}>{t("footer.friends")}</a>
+        </div>
+      </div>
+      <nav class="ef-about-board" aria-label={t("ema.about.bookmarks")}>
+        <p class="ef-eyebrow" lang="en" aria-hidden="true">// Index</p>
+        <ol>
+          {sections.slice(0, 4).map((entry) => (
+            <li><a href={`#${entry.id}`}>
+              <span class="ef-hollow-no" aria-hidden="true">{count(entry.count)}</span>
+              <span class="ef-board-label"><small lang="en">{entry.number} / {entry.word}</small><strong>{entry.title}</strong>{entry.of && <span class="ef-board-of">{count(entry.count)} / {entry.of}</span>}</span>
+            </a></li>
+          ))}
+        </ol>
+      </nav>
+    </section>
+
+    <section class="ef-section" id="ef-about-practice" aria-labelledby="ef-about-practice-title">
+      <header class="ef-head"><div><p class="ef-eyebrow" lang="en">// {section["ef-about-practice"].number} {section["ef-about-practice"].word}</p><h2 id="ef-about-practice-title">{section["ef-about-practice"].title}</h2></div><a class="ef-link" href={href("/projects/")}>{t("common.projectNotes")}</a></header>
+      <ol class="ef-spec">
+        {profileTech.map((item, index) => (
+          <li>
+            <span class="ef-num" aria-hidden="true">{count(index + 1)}</span>
+            <span class="ef-spec-icon" aria-hidden="true"><Icon name={techIcons[item.key] ?? "tabler:tool"} size={24} /></span>
+            <strong lang="en">{item.name}</strong>
+            <span class="ef-spec-note">{item.note}</span>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="ef-section" id="ef-about-games" aria-labelledby="ef-about-games-title">
+      <header class="ef-head"><div><p class="ef-eyebrow" lang="en">// {section["ef-about-games"].number} {section["ef-about-games"].word}</p><h2 id="ef-about-games-title">{section["ef-about-games"].title}</h2></div><a class="ef-link" href={href("/collection/games/")}>{t("about.gamesMore")}</a></header>
+      <ol class="ef-windows">
+        {games.map((game, index) => {
+          const Tag = game.url ? "a" : "div";
+          return (
+            <li>
+              <Tag class="ef-window" {...(game.url ? { href: game.url, target: "_blank", rel: "noopener noreferrer" } : {})}>
+                <span class="ef-window-art" aria-hidden="true">{game.art && <img src={game.art.src} alt="" width="480" height="270" loading="lazy" decoding="async" style={`object-position:${game.art.focus}`} />}</span>
+                <span class="ef-window-text">
+                  <span class="ef-fields"><span>No.{count(index + 1)}</span><span lang="en">{game.subtitle}</span></span>
+                  <strong>{keepTails(game.title)}</strong>
+                </span>
+                {game.url && <span class="ef-window-plate" aria-hidden="true"><Icon name="tabler:external-link" size={16} /></span>}
+              </Tag>
+            </li>
+          );
+        })}
+      </ol>
+    </section>
+
+    <section class="ef-section" id="ef-about-characters" aria-labelledby="ef-about-characters-title" data-site-disclosure data-limit={ROSTER}>
+      <header class="ef-head"><div><p class="ef-eyebrow" lang="en">// {section["ef-about-characters"].number} {section["ef-about-characters"].word}</p><h2 id="ef-about-characters-title">{section["ef-about-characters"].title}</h2></div></header>
+      <ol class="ef-roster" id="ef-character-list">
+        {xpFavorites.map((item, index) => (
+          <li data-site-disclosure-item>
+            <span class="ef-roster-face" aria-hidden="true">{item.portrait ? <img src={item.portrait} alt="" width="160" height="160" loading="lazy" decoding="async" /> : <span class="ef-roster-empty"></span>}</span>
+            <span class="ef-fields"><span>No.{count(index + 1)}</span></span>
+            <strong>{item.title}</strong>
+            <span class="ef-roster-work">{item.subtitle}</span>
+          </li>
+        ))}
+      </ol>
+      {xpFavorites.length > ROSTER && <button class="ef-button ef-button--quiet ef-roster-toggle" type="button" data-site-disclosure-toggle data-label-more={t("about.charactersMore")} data-label-less={t("about.charactersLess")} aria-expanded="false" aria-controls="ef-character-list" hidden><span data-site-disclosure-label>{t("about.charactersMore")}</span><Icon name="tabler:chevron-down" size={16} aria-hidden="true" /></button>}
+    </section>
+
+    <section class="ef-section" id="ef-about-anime" aria-labelledby="ef-about-anime-title">
+      <header class="ef-head"><div><p class="ef-eyebrow" lang="en">// {section["ef-about-anime"].number} {section["ef-about-anime"].word}</p><h2 id="ef-about-anime-title">{section["ef-about-anime"].title}</h2></div><a class="ef-link" href={href("/collection/anime/")}>{animeAll}</a></header>
+      <ol class="ef-records ef-reels">
+        {animeFavorites.map((item, index) => (
+          <li><a href={item.url} target="_blank" rel="noopener noreferrer">
+            <span class="ef-tag">No.{count(index + 1)}</span>
+            <img class="ef-reel-poster" src={item.cover} alt="" width="300" height="450" loading="lazy" decoding="async" />
+            <span class="ef-reel-text"><span class="ef-record-title">{item.title}</span><span class="ef-fields">{item.subtitle.split(" · ").map((genre) => <span>{genre}</span>)}{item.status && <span>{t(`animes.status.${item.status}`)}</span>}</span>{item.note && <span class="ef-reel-note" lang={item.note.lang}>{keepTails(item.note.text)}</span>}</span>
+            <Icon class="ef-reel-go" name="tabler:external-link" size={18} aria-hidden="true" />
+          </a></li>
+        ))}
+      </ol>
+      <p class="ef-reels-foot"><a class="ef-link" href={animeListUrl} target="_blank" rel="noopener noreferrer">{t("about.animesNotion")}</a></p>
+    </section>
+
+    {currentSignals.length > 0 && (
+      <section class="ef-section" id="ef-about-status" aria-labelledby="ef-about-status-title">
+        <header class="ef-head"><div><p class="ef-eyebrow" lang="en">// {section["ef-about-status"].number} {section["ef-about-status"].word}</p><h2 id="ef-about-status-title">{section["ef-about-status"].title}</h2></div></header>
+        <dl class="ef-states">
+          {currentSignals.map((signal, index) => <div class:list={[{ "is-now": index === 0 }]}><dt><span class="ef-state">{signal.label}</span></dt><dd>{keepTails(signal.text)}</dd></div>)}
+        </dl>
+      </section>
+    )}
+  </div>
+</PageLayout>

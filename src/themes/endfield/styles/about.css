@@ -1,0 +1,147 @@
+/* Endfield About page: the owner's nameplate and spec sheet, built from the theme's own parts (fields, hollow numbers,
+   cut blocks for what can be pressed, hatching, record rows, state frames). Scoped to .ef-about: through PageLayout this
+   stylesheet reaches every theme's pages. */
+.ef-about { padding-bottom:clamp(56px,8vw,96px); }
+
+/* First screen: the wordmark beside the index board */
+.ef-about .ef-plateau { grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); grid-template-rows:auto 1fr; align-items:start; row-gap:clamp(24px,3vw,36px); padding-bottom:clamp(32px,5vw,56px); }
+.ef-about .ef-hero-top { grid-column:1; }
+.ef-about .ef-hero-copy { grid-column:1; align-self:start; padding-bottom:0; }
+.ef-about .ef-about-board { grid-column:2; grid-row:1/3; margin-top:clamp(28px,3vw,40px); }
+.ef-namemark { font-size:clamp(3rem,8.2vw,7rem); }
+.ef-namemark>.ef-hollow { color:transparent; -webkit-text-stroke:2px var(--ef-ink); }
+.ef-about .ef-statement { margin:0 0 14px; font-size:clamp(1.5rem,2.6vw,2rem); }
+.ef-about .ef-intro { margin:0; font-size:16.5px; line-height:1.85; color:var(--ef-ink); }
+.ef-about .ef-spec-lines { list-style:none; margin:20px 0 0; padding:0; border-top:1px solid var(--ef-ink); max-width:36rem; }
+.ef-spec-lines li { display:flex; align-items:baseline; gap:12px; padding:9px 0; border-bottom:1px solid var(--ef-rule); font-size:14.5px; color:var(--ef-ink-2); }
+.ef-about .ef-hero-actions { align-items:center; gap:10px 16px; }
+[data-endfield] .ef-about-social { display:flex; flex-wrap:wrap; gap:6px; }
+[data-endfield] .ef-about-social .social-circle { position:relative; isolation:isolate; width:44px; height:44px; border:0; border-radius:0; background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-chip) 0); color:var(--ef-ink); box-shadow:none; }
+[data-endfield] .ef-about-social .social-circle::before { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-signal) 0); clip-path:inset(0 100% 0 0); transition:clip-path .24s var(--ef-mech); }
+[data-endfield] .ef-about-social .social-circle:is(:focus-visible,:active) { color:var(--ef-on-signal); }
+[data-endfield] .ef-about-social .social-circle:is(:focus-visible,:active)::before { clip-path:inset(0); }
+@media(hover:hover) and (pointer:fine) {
+  [data-endfield] .ef-about-social .social-circle:hover { color:var(--ef-on-signal); transform:none; }
+  [data-endfield] .ef-about-social .social-circle:hover::before { clip-path:inset(0); }
+}
+
+/* The index board: a white panel with an ink tab and a hatched shadow, four cut blocks that open each section. Each
+   holds its section's real count as a hollow number that fills with ink when the block is pointed at or focused. */
+.ef-about-board { position:relative; align-self:stretch; display:flex; flex-direction:column; margin:0 16px 16px 0; padding:22px 22px 22px; background:var(--ef-panel); border:1px solid var(--ef-rule); }
+.ef-about-board::before { content:""; position:absolute; inset:22px -16px -16px 22px; z-index:-1; background:var(--ef-hatch); }
+.ef-about-board::after { content:""; position:absolute; left:-1px; top:-1px; width:72px; height:6px; background:var(--ef-ink); }
+.ef-about .ef-about-board .ef-eyebrow { margin:0 0 14px; }
+.ef-about-board ol { list-style:none; flex:1; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:0; padding:0; }
+.ef-about-board a { position:relative; isolation:isolate; display:flex; flex-direction:column; justify-content:space-between; gap:14px; height:100%; min-height:150px; padding:16px calc(16px + var(--ef-cut)) 16px 16px; background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-chip) 0); }
+.ef-about-board a::before { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-signal) 0); clip-path:inset(0 100% 0 0); transition:clip-path .28s var(--ef-mech); }
+.ef-about-board .ef-hollow-no { align-self:flex-start; margin:0; font-size:clamp(3.4rem,7.4vw,7rem); }
+.ef-about-board a:is(:focus-visible) .ef-hollow-no { background-size:100% 100%; }
+.ef-about-board a:is(:focus-visible,:active)::before { clip-path:inset(0); }
+.ef-board-label { display:flex; flex-direction:column; gap:2px; }
+.ef-board-label small { font:600 11px/1.4 var(--ef-ui); font-stretch:125%; letter-spacing:.14em; text-transform:uppercase; color:var(--ef-ink-2); }
+.ef-board-label strong { font-size:15px; font-weight:800; line-height:1.4; }
+.ef-board-of { font:600 12px/1.4 var(--ef-ui); font-stretch:112%; font-variant-numeric:tabular-nums; color:var(--ef-ink-2); }
+@media(hover:hover) and (pointer:fine) {
+  .ef-about-board a:hover::before { clip-path:inset(0); }
+  .ef-about-board a:hover .ef-hollow-no { background-size:100% 100%; }
+  .ef-about-board a:hover :is(small,.ef-board-of) { color:var(--ef-on-signal); }
+  .ef-about-board a:hover { color:var(--ef-on-signal); }
+  .ef-about-board a:hover .ef-hollow-no { -webkit-text-stroke-color:var(--ef-on-signal); background-image:linear-gradient(var(--ef-on-signal),var(--ef-on-signal)); }
+}
+
+/* 01 Practice: a two-column spec list. Nothing here can be pressed, so nothing is cut. */
+.ef-about .ef-spec { list-style:none; margin:18px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:40px; border-top:1px solid var(--ef-ink); }
+.ef-spec li { display:grid; grid-template-columns:auto 44px minmax(0,1fr); grid-template-rows:auto auto; align-items:center; gap:2px 14px; padding:16px 0; border-bottom:1px solid var(--ef-rule); }
+.ef-spec .ef-num { grid-row:1/3; align-self:center; }
+.ef-spec-icon { grid-row:1/3; display:grid; place-items:center; width:44px; height:44px; background:var(--ef-ink); color:var(--ef-paper); }
+.ef-spec strong { font:700 18px/1.3 var(--ef-ui); font-stretch:112%; letter-spacing:.01em; }
+.ef-spec-note { color:var(--ef-ink-2); font-size:14px; }
+
+/* 02 Games: framed windows. Each opens the game's own page, so each is cut (top left, bottom right) and has a plate. */
+.ef-about .ef-windows { list-style:none; margin:20px 0 0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:28px 32px; }
+[data-endfield] .ef-window { --frame-cut:1.6rem; position:relative; isolation:isolate; display:flex; flex-direction:column; height:100%; margin:0 14px 14px 0; }
+.ef-window::before { content:""; position:absolute; inset:18px -14px -14px 18px; z-index:-1; background:var(--ef-hatch); }
+.ef-window-art,.ef-window-text { background:var(--ef-panel); }
+.ef-window-art { display:block; aspect-ratio:16/8; overflow:hidden; clip-path:polygon(var(--frame-cut) 0,100% 0,100% 100%,0 100%,0 var(--frame-cut)); }
+.ef-window-art img { display:block; width:100%; height:100%!important; object-fit:cover; filter:grayscale(.55) contrast(1.05); transition:filter .4s var(--ef-mech),transform .6s var(--ef-snap); }
+.ef-window-text { flex:1; display:flex; flex-direction:column; gap:6px; padding:16px 68px 20px 20px; clip-path:polygon(0 0,100% 0,100% calc(100% - var(--frame-cut)),calc(100% - var(--frame-cut)) 100%,0 100%); }
+.ef-window-text strong { font-size:clamp(1.1rem,1.6vw,1.3rem); font-weight:800; line-height:1.4; }
+.ef-window-plate { position:absolute; right:calc(var(--frame-cut) + 8px); bottom:14px; display:grid; place-items:center; width:40px; height:34px; padding-right:var(--ef-cut); background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-ink) 0); color:var(--ef-panel); isolation:isolate; }
+.ef-window-plate::before { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-signal) 0); clip-path:inset(0 100% 0 0); transition:clip-path .28s var(--ef-mech); }
+a.ef-window:is(:focus-visible) .ef-window-plate { color:var(--ef-on-signal); }
+a.ef-window:is(:focus-visible) .ef-window-plate::before { clip-path:inset(0); }
+a.ef-window:focus-visible img { filter:none; }
+@media(hover:hover) and (pointer:fine) {
+  a.ef-window:hover img { filter:none; transform:scale(1.04); }
+  a.ef-window:hover .ef-window-plate { color:var(--ef-on-signal); }
+  a.ef-window:hover .ef-window-plate::before { clip-path:inset(0); }
+}
+
+/* 03 Characters: a roster of square portraits with their numbers as fields */
+.ef-about .ef-roster { list-style:none; margin:20px 0 0; padding:0; display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:26px 14px; }
+.ef-roster li { display:flex; flex-direction:column; gap:2px; min-width:0; }
+.ef-roster li[hidden] { display:none; }
+.ef-roster-face { display:block; aspect-ratio:1; margin-bottom:8px; border:1px solid var(--ef-rule); background:var(--ef-panel); }
+.ef-roster-face img { display:block; width:100%; height:100%!important; object-fit:cover; }
+.ef-roster-empty { display:block; width:100%; height:100%; background:var(--ef-hatch); }
+.ef-roster .ef-fields { font-size:11.5px; }
+.ef-roster strong { font-size:14.5px; font-weight:800; line-height:1.4; overflow-wrap:anywhere; }
+.ef-roster-work { font-size:12.5px; line-height:1.45; color:var(--ef-ink-2); overflow-wrap:anywhere; }
+[data-endfield] .ef-roster-toggle { margin-top:30px; }
+.ef-roster-toggle[hidden] { display:none; }
+.ef-roster-toggle[aria-expanded="true"] svg { rotate:180deg; }
+
+/* 04 Anime: record rows with the poster beside the title */
+.ef-about .ef-reels { margin-top:20px; }
+.ef-about .ef-reels a { grid-template-columns:6rem 54px minmax(0,1fr) auto; gap:20px; padding:14px 8px 14px 0; }
+.ef-reel-poster { display:block; width:54px; height:81px!important; object-fit:cover; border:1px solid var(--ef-rule); }
+.ef-reel-text { display:flex; flex-direction:column; gap:4px; min-width:0; }
+.ef-reel-note { color:var(--ef-ink-2); font-size:13.5px; }
+.ef-reel-go { color:var(--ef-ink-2); }
+.ef-about .ef-reels-foot { margin:20px 0 0; }
+
+/* 05 Currently: three states. A solid frame for what is being done now; dashed frames for what waits. */
+.ef-about .ef-states { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); margin:18px 0 0; border-top:1px solid var(--ef-ink); }
+.ef-states>div { padding:20px 24px 24px 0; }
+.ef-states>div+div { padding-left:24px; border-left:1px solid var(--ef-rule); }
+.ef-states .ef-state { display:inline-block; padding:2px 10px; border:1px dashed var(--blank-control-line); font-size:13px; font-weight:700; }
+.ef-states .is-now .ef-state { border:1px solid var(--ef-ink); }
+.ef-about .ef-states dd { margin:14px 0 0; font-size:17px; line-height:1.7; }
+
+@media(prefers-reduced-motion:reduce) {
+  .ef-about-board a::before,.ef-about-social .social-circle::before,.ef-window-plate::before,.ef-window-art img { transition:none; }
+}
+html[data-motion-paused="true"] :is(.ef-about-board a::before,.ef-about-social .social-circle::before,.ef-window-plate::before,.ef-window-art img) { transition:none; }
+html[data-motion-paused="true"] a.ef-window:hover img { transform:none; }
+
+@media(max-width:1099px) {
+  .ef-about .ef-roster { grid-template-columns:repeat(6,minmax(0,1fr)); }
+}
+@media(max-width:899px) {
+  .ef-about .ef-plateau { grid-template-columns:1fr; grid-template-rows:auto; }
+  .ef-about .ef-about-board { grid-column:1; grid-row:auto; margin-top:12px; }
+  .ef-about-board a { min-height:120px; }
+  .ef-about .ef-spec { grid-template-columns:1fr; }
+  .ef-about .ef-windows { grid-template-columns:1fr; }
+  .ef-about .ef-states { grid-template-columns:1fr; }
+  .ef-states>div+div { padding-left:0; border-left:0; border-top:1px solid var(--ef-rule); }
+  .ef-about .ef-reels a { grid-template-columns:auto 48px minmax(0,1fr); align-items:start; gap:8px 14px; }
+  .ef-reel-poster { width:48px; height:72px!important; }
+  .ef-reel-go { display:none; }
+}
+@media(max-width:559px) {
+  .ef-about .ef-roster { grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px 10px; }
+  .ef-roster strong { font-size:13px; }
+  .ef-roster-work { font-size:11.5px; }
+  .ef-about-board { padding:18px 16px 16px; }
+  .ef-about-board .ef-hollow-no { font-size:3rem; }
+  /* On a phone each window lies on its side: the picture on the left, the title beside it. */
+  [data-endfield] .ef-window { --frame-cut:1.1rem; flex-direction:row; margin:0 10px 10px 0; }
+  .ef-window::before { inset:12px -10px -10px 12px; }
+  .ef-about .ef-windows { gap:18px; }
+  .ef-window-art { flex:0 0 42%; aspect-ratio:auto; min-height:112px; }
+  .ef-window-text { justify-content:center; padding:12px 14px 40px; }
+  .ef-window-text .ef-fields>span:last-child { display:none; }
+  .ef-window-text strong { font-size:15.5px; }
+  .ef-window-plate { right:calc(var(--frame-cut) + 4px); bottom:8px; width:34px; height:28px; }
+}

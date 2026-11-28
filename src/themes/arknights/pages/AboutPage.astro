@@ -1,0 +1,174 @@
+---
+// Arknights About page: the owner's file in the field archive. The first sector is a dossier sheet (the name set large
+// and cropped, a pictogram module holding the name's own character, the profile and an index of real counts); then
+// numbered sectors for the tools, the games, a roster of favourite characters, the anime and the current status.
+// Everything shown comes from the shared sources; the theme draws only type, rules, modules and the signal colour.
+import { Icon } from "astro-icon/components";
+import { getSiteContent } from "@/core/i18n/content";
+import { animeList } from "@/core/data/anime-list";
+import { profileIdentity as ownName } from "@/core/data/profile";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import SocialLinks from "@/core/components/SocialLinks.astro";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import { site } from "@/lib/site";
+import PageLayout from "../layouts/ArknightsLayout.astro";
+import { pad } from "../lib/sections.mjs";
+
+const { locale, t, unit, href } = getI18n(Astro.url.pathname);
+const { animeFavorites, animeListUrl, currentSignals, favoriteGames, gameShelf, profileIdentity, profileStatus, profileTech, xpFavorites } = getSiteContent(locale);
+const host = Astro.site?.host ?? "";
+// The owner's name in Latin letters is the display line; the name in the page's own script sits under it (in English it is
+// the same name, so it is not repeated).
+const [given, ...family] = site.owner.split(" ");
+const localName = locale === "en" ? "" : profileIdentity.displayName;
+// The pictogram module holds the last character of the owner's Chinese name (旭) in every language: the mark the
+// profile used as an avatar before the illustrated one.
+const glyph = [...ownName.displayName].at(-1) ?? "";
+const techIcons: Record<string, string> = {
+  unity: "tabler:brand-unity", blender: "tabler:brand-blender", unreal: "unreal-engine",
+  godot: "godot-engine", rpgmaker: "tabler:sword", vscode: "tabler:brand-vscode",
+};
+const games = favoriteGames.map((item) => ({ ...item, art: gameShelf.find((game) => game.key === item.key)?.art }));
+// Fixed English classification words, as on the homepage; the heading beside each is the page's own language.
+const sectors = [
+  { id: "ak-about-practice", word: "Practice", title: t("about.practice"), count: profileTech.length },
+  { id: "ak-about-games", word: "Games", title: t("ema.about.gamesTitle"), count: favoriteGames.length },
+  { id: "ak-about-characters", word: "Characters", title: t("ema.about.charactersTitle"), count: xpFavorites.length },
+  { id: "ak-about-anime", word: "Anime", title: t("ema.about.animesTitle"), count: animeFavorites.length, more: t("collection.seeAll").replace("{n}", String(animeList.length)).replace("{unit}", unit("collection.unit.anime", animeList.length)) },
+  { id: "ak-about-status", word: "Status", title: t("about.now"), count: currentSignals.length },
+].map((sector, index) => ({ ...sector, number: pad(index + 1) }));
+const sector = Object.fromEntries(sectors.map((entry) => [entry.id, entry]));
+const ROSTER = 16;
+---
+<PageLayout title={`${t("nav.about")} | ${site.name}`} description={t("about.description")} bleed>
+  <div class="ak-about">
+    <section class="ak-sector ak-dossier" aria-labelledby="ak-about-title" data-ak-enter>
+      <span class="ak-lattice" aria-hidden="true"></span>
+      <span class="ak-ghost ak-ghost--dossier" data-ghost="Profile" aria-hidden="true"></span>
+      <p class="ak-annot" aria-hidden="true"><span>// 04 About</span><span>{profileIdentity.handle}</span>{host && <span>{host}</span>}</p>
+      <div class="ak-dossier-sheet">
+        <div class="ak-dossier-id">
+          <h1 id="ak-about-title" class="ak-title ak-dossier-name">
+            <span lang="en">{given}</span> <span lang="en">{family.join(" ")}</span>
+            <span class="ak-title-plate"><span lang="en">{profileIdentity.alias}</span></span>
+            {localName && <span class="ak-dossier-local">{localName}</span>}
+          </h1>
+          <p class="ak-dossier-bio">{keepTails(profileIdentity.bio)}</p>
+          <ul class="ak-dossier-status">{profileStatus.map((item, index) => <li><span class="ak-dossier-no" aria-hidden="true">{pad(index + 1)}</span><span>{keepTails(item)}</span></li>)}</ul>
+          <div class="ak-dossier-links">
+            <SocialLinks class="ak-dossier-social" iconsOnly />
+            <a class="ak-link" href={href("/friends/")}>{t("footer.friends")}<Icon name="tabler:chevron-right" size={16} aria-hidden="true" /></a>
+          </div>
+        </div>
+        <div class="ak-dossier-mark" aria-hidden="true">
+          <span class="ak-dossier-mark-head"><span>ID</span><span>{profileIdentity.alias}</span></span>
+          <span class="ak-dossier-glyph">{glyph}</span>
+          <span class="ak-dossier-mark-foot"><span>{site.owner}</span></span>
+        </div>
+      </div>
+      <nav class="ak-index ak-dossier-index" aria-label={t("ema.about.bookmarks")}>
+        {sectors.slice(0, 4).map((entry) => (
+          <a href={`#${entry.id}`}><small lang="en">{entry.number} / {entry.word}</small><span><b>{pad(entry.count)}</b> {entry.title}</span></a>
+        ))}
+      </nav>
+    </section>
+
+    <section class="ak-sector" id="ak-about-practice" aria-labelledby="ak-about-practice-title">
+      <header class="ak-head">
+        <span class="ak-head-no" aria-hidden="true">{sector["ak-about-practice"].number}</span>
+        <div><p class="ak-eyebrow" lang="en">// {sector["ak-about-practice"].word}</p><h2 id="ak-about-practice-title">{sector["ak-about-practice"].title}</h2></div>
+        <a class="ak-link" href={href("/projects/")}>{t("common.projectNotes")}<Icon name="tabler:chevron-right" size={16} aria-hidden="true" /></a>
+      </header>
+      <ol class="ak-modules">
+        {profileTech.map((item, index) => (
+          <li>
+            <span class="ak-module-icon" aria-hidden="true"><Icon name={techIcons[item.key] ?? "tabler:tool"} size={30} /></span>
+            <span class="ak-module-no" aria-hidden="true">{pad(index + 1)}</span>
+            <strong lang="en">{item.name}</strong>
+            <span>{item.note}</span>
+          </li>
+        ))}
+      </ol>
+      <span class="ak-ghost" data-ghost={sector["ak-about-practice"].word} aria-hidden="true"></span>
+    </section>
+
+    <section class="ak-sector" id="ak-about-games" aria-labelledby="ak-about-games-title">
+      <header class="ak-head">
+        <span class="ak-head-no" aria-hidden="true">{sector["ak-about-games"].number}</span>
+        <div><p class="ak-eyebrow" lang="en">// {sector["ak-about-games"].word}</p><h2 id="ak-about-games-title">{sector["ak-about-games"].title}</h2></div>
+        <a class="ak-link" href={href("/collection/games/")}>{t("about.gamesMore")}<Icon name="tabler:chevron-right" size={16} aria-hidden="true" /></a>
+      </header>
+      <ol class="ak-files">
+        {games.map((game, index) => {
+          const Tag = game.url ? "a" : "div";
+          return (
+            <li>
+              <Tag class="ak-file" {...(game.url ? { href: game.url, target: "_blank", rel: "noopener noreferrer" } : {})}>
+                <span class="ak-file-art" aria-hidden="true">{game.art && <img src={game.art.src} alt="" width="480" height="270" loading="lazy" decoding="async" style={`object-position:${game.art.focus}`} />}<span class="ak-file-no">{pad(index + 1)}</span></span>
+                <span class="ak-file-text">
+                  <strong>{keepTails(game.title)}</strong>
+                  <span>{game.subtitle}</span>
+                </span>
+                {game.url && <Icon class="ak-file-go" name="tabler:external-link" size={18} aria-hidden="true" />}
+              </Tag>
+            </li>
+          );
+        })}
+      </ol>
+      <span class="ak-ghost" data-ghost={sector["ak-about-games"].word} aria-hidden="true"></span>
+    </section>
+
+    <section class="ak-sector" id="ak-about-characters" aria-labelledby="ak-about-characters-title" data-site-disclosure data-limit={ROSTER}>
+      <header class="ak-head">
+        <span class="ak-head-no" aria-hidden="true">{sector["ak-about-characters"].number}</span>
+        <div><p class="ak-eyebrow" lang="en">// {sector["ak-about-characters"].word}</p><h2 id="ak-about-characters-title">{sector["ak-about-characters"].title}</h2></div>
+      </header>
+      <ol class="ak-roster" id="ak-character-list">
+        {xpFavorites.map((item, index) => (
+          <li data-site-disclosure-item>
+            <span class="ak-roster-face" aria-hidden="true">{item.portrait ? <img src={item.portrait} alt="" width="160" height="160" loading="lazy" decoding="async" /> : <span class="ak-roster-empty"></span>}<span class="ak-roster-no">{pad(index + 1)}</span></span>
+            <strong>{item.title}</strong>
+            <span>{item.subtitle}</span>
+          </li>
+        ))}
+      </ol>
+      {xpFavorites.length > ROSTER && <button class="ak-button ak-roster-toggle" type="button" data-site-disclosure-toggle data-label-more={t("about.charactersMore")} data-label-less={t("about.charactersLess")} aria-expanded="false" aria-controls="ak-character-list" hidden><span data-site-disclosure-label>{t("about.charactersMore")}</span><Icon name="tabler:chevron-down" size={18} aria-hidden="true" /></button>}
+      <span class="ak-ghost" data-ghost={sector["ak-about-characters"].word} aria-hidden="true"></span>
+    </section>
+
+    <section class="ak-sector" id="ak-about-anime" aria-labelledby="ak-about-anime-title">
+      <header class="ak-head">
+        <span class="ak-head-no" aria-hidden="true">{sector["ak-about-anime"].number}</span>
+        <div><p class="ak-eyebrow" lang="en">// {sector["ak-about-anime"].word}</p><h2 id="ak-about-anime-title">{sector["ak-about-anime"].title}</h2></div>
+        <a class="ak-link" href={href("/collection/anime/")}>{sector["ak-about-anime"].more}<Icon name="tabler:chevron-right" size={16} aria-hidden="true" /></a>
+      </header>
+      <ol class="ak-reels">
+        {animeFavorites.map((item, index) => (
+          <li>
+            <a href={item.url} target="_blank" rel="noopener noreferrer">
+              <span class="ak-reel-art" aria-hidden="true"><img src={item.cover} alt="" width="300" height="450" loading="lazy" decoding="async" /><span class="ak-reel-no">{pad(index + 1)}</span></span>
+              <strong>{item.title}<Icon name="tabler:external-link" size={15} aria-hidden="true" /></strong>
+              <span>{[item.subtitle, item.status && t(`animes.status.${item.status}`)].filter(Boolean).join(" / ")}</span>
+            </a>
+            {item.note && <p class="ak-reel-note" lang={item.note.lang}>{keepTails(item.note.text)}</p>}
+          </li>
+        ))}
+      </ol>
+      <p class="ak-reels-foot"><a class="ak-link" href={animeListUrl} target="_blank" rel="noopener noreferrer">{t("about.animesNotion")}<Icon name="tabler:external-link" size={15} aria-hidden="true" /></a></p>
+      <span class="ak-ghost" data-ghost={sector["ak-about-anime"].word} aria-hidden="true"></span>
+    </section>
+
+    {currentSignals.length > 0 && (
+      <section class="ak-sector ak-status" id="ak-about-status" aria-labelledby="ak-about-status-title">
+        <span class="ak-lattice" aria-hidden="true"></span>
+        <header class="ak-head">
+          <span class="ak-head-no" aria-hidden="true">{sector["ak-about-status"].number}</span>
+          <div><p class="ak-eyebrow" lang="en">// {sector["ak-about-status"].word}</p><h2 id="ak-about-status-title">{sector["ak-about-status"].title}</h2></div>
+        </header>
+        <dl class="ak-signals">
+          {currentSignals.map((signal, index) => <div><dt><span class="ak-signals-no" aria-hidden="true">{pad(index + 1)}</span>{signal.label}</dt><dd>{keepTails(signal.text)}</dd></div>)}
+        </dl>
+      </section>
+    )}
+  </div>
+</PageLayout>

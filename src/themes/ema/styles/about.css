@@ -1,134 +1,244 @@
-/* Sakura Archive About page. The profile-card-and-shelves layout follows
-   Yuimi-chaya's Fuyukawa Kagari About page (MIT License); the art and tones are this site's own. */
-.ema-about {display:grid;grid-template-columns:272px minmax(0,1fr);gap:56px;align-items:start;margin-top:56px;}
+/* Sakura Archive About page: the owner's own file in the archive. The owner's card taped onto the page beside a manga
+   page drawn in code (the owner's layout, 2026-11-28), binder tabs, then chapters laid out for what each holds: polaroids,
+   taped posters, admission tickets, a tool tray and a pinned memo. Cream paper and one family of sakura tones. */
+.ema-about {--about-gap:clamp(56px,7vw,88px);margin-top:8px;}
+/* One family of sakura tones (the owner asked on 2026-11-28 that the colours stay with the pink): blush, rose, the
+   palest petal and the paper's cream. Tone ink on its fill is at least 6:1 in both modes. */
+.ema-about .sk-blush {--fill:#fbe9ee;--line:#efc5d3;--tone-ink:#824759;}
+.ema-about .sk-rose {--fill:#f7dde6;--line:#e6afc2;--tone-ink:#863857;}
+.ema-about .sk-petal {--fill:#fdf4f7;--line:#f0d2dd;--tone-ink:#87445f;}
+.ema-about .sk-cream {--fill:#fbf3e9;--line:#ecd8c6;--tone-ink:#74503f;}
+html[data-color-mode="dark"] .ema-about .sk-blush {--fill:#3b2c38;--line:#7a4c63;--tone-ink:#f6c2d6;}
+html[data-color-mode="dark"] .ema-about .sk-rose {--fill:#45293a;--line:#8d4b6b;--tone-ink:#f8bfd3;}
+html[data-color-mode="dark"] .ema-about .sk-petal {--fill:#30283a;--line:#694b5f;--tone-ink:#f3cbdb;}
+html[data-color-mode="dark"] .ema-about .sk-cream {--fill:#322b2b;--line:#615049;--tone-ink:#efd8cb;}
+.ema-about :is(h1,h2,h3,p,dl,dd) {margin:0;}
 
-/* The profile card stays beside the shelves while there is room for all of it. */
-.about-side {display:grid;gap:20px;}
-.about-avatar {position:relative;justify-self:start;width:152px;height:152px;margin:6px 0 0 6px;}
-.ema-about .about-avatar-mark {display:block;width:100%;height:100%;object-fit:cover;border:5px solid var(--card);border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff,var(--ema-blush) 70%);box-shadow:0 14px 30px rgba(96,74,60,.2),0 0 0 1px var(--frame);}
+/* The first screen: the owner's card on the left, the manga page on the right. */
+.about-hero {display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(40px,5vw,80px);align-items:center;}
+.about-kicker {display:flex;align-items:center;gap:8px;}
+.about-kicker::before {content:"";width:14px;height:14px;background:var(--ema-blossom) center/contain no-repeat;}
+.about-name {font:600 clamp(40px,4.2vw,56px)/1.12 var(--blank-serif);letter-spacing:.04em;color:var(--blank-ink);}
+.about-alias {font:400 .6em/1 var(--ema-title-font);letter-spacing:0;color:var(--ema-pink);white-space:nowrap;}
+html:lang(en) .about-name {font-family:var(--ema-title-font);font-weight:400;letter-spacing:0;}
+.ema-about .about-brand {margin-top:8px;font:var(--blank-fs-xs, 12px)/1.6 var(--mono);letter-spacing:.06em;color:var(--blank-muted);}
+
+/* The owner's card, taped onto the page at a slight angle. */
+.about-card {position:relative;display:grid;gap:18px;padding:30px 32px 26px;border:1px solid var(--blank-line);border-radius:var(--ema-r-md);background:radial-gradient(color-mix(in srgb,var(--ema-pink-soft) 55%,transparent) .8px,transparent 1.2px) 0 0/12px 12px,var(--card);box-shadow:var(--ema-shadow-lift);rotate:-.6deg;}
+.about-tape {position:absolute;z-index:1;width:84px;height:24px;background:repeating-linear-gradient(90deg,#f8dbe6d9 0 6px,#fbe7eed9 6px 12px);box-shadow:0 1px 2px rgba(96,74,60,.18);}
+html[data-color-mode="dark"] .about-tape {background:repeating-linear-gradient(90deg,#7a4c63d9 0 6px,#5e3d50d9 6px 12px);}
+.about-tape--a {top:-11px;left:-18px;rotate:-28deg;}
+.about-tape--b {top:-9px;right:-16px;rotate:24deg;}
+.about-card-id {display:grid;grid-template-columns:128px minmax(0,1fr);gap:24px;align-items:center;}
+.about-avatar {position:relative;width:128px;height:128px;}
+.ema-about .about-avatar-mark {display:block;width:100%;height:100%;object-fit:cover;border:5px solid var(--card);border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff,var(--ema-blush) 70%);box-shadow:0 12px 26px rgba(96,74,60,.2),0 0 0 1px var(--frame);}
 html[data-color-mode="dark"] .ema-about .about-avatar-mark {background:radial-gradient(circle at 34% 30%,#4a3445,#2a2833 74%);}
-.about-blossom {position:absolute;top:-12px;right:-6px;width:40px;height:40px;background:var(--ema-blossom) center/contain no-repeat;rotate:14deg;}
-.about-tape {position:absolute;z-index:1;width:74px;height:22px;background:repeating-linear-gradient(90deg,#f8dbe6d9 0 6px,#fbe7eed9 6px 12px);box-shadow:0 1px 2px rgba(96,74,60,.18);}
-.about-avatar .about-tape {top:8px;left:-24px;rotate:-34deg;}
-.about-id h2 {margin-top:6px;font:400 2.25rem/1.2 var(--ema-title-font);letter-spacing:-.01em;color:var(--blank-ink);}
-.about-id h2 span {color:var(--ema-pink);}
-.ema-about .about-handle {margin-top:4px;font:var(--blank-fs-xs, 12px)/1.6 var(--mono);color:var(--blank-muted);}
-.ema-about .about-bio {margin-top:14px;font-size:var(--blank-fs-sm, 13.5px);line-height:1.9;color:var(--blank-muted);}
-.ema-about .about-links {display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
-.about-links a,.about-marks a {background:var(--card);color:var(--blank-ink);text-decoration:none;box-shadow:var(--ema-shadow-flat);transition:transform 160ms var(--blank-ease),border-color 180ms ease,color 180ms ease,box-shadow 180ms ease;}
-.about-marks a {display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:7px 15px;border:1px solid var(--blank-line);border-radius:var(--ema-r-pill);font-size:var(--blank-fs-sm, 13px);font-weight:600;}
-.about-marks svg {color:var(--ema-pink);}
-.about-status {padding:16px 18px;border:1px solid var(--blank-line);border-radius:var(--ema-r-md);background:var(--card);box-shadow:var(--ema-shadow-flat);transition:border-color 180ms ease;}
-.about-status ul {display:grid;gap:10px;margin-top:10px;}
-.about-status li {display:grid;grid-template-columns:16px minmax(0,1fr);gap:8px;font-size:var(--blank-fs-sm, 13px);line-height:1.6;}
-.about-status svg {margin-top:3px;color:var(--ema-pink);}
+.about-blossom {position:absolute;top:-10px;right:-4px;width:34px;height:34px;background:var(--ema-blossom) center/contain no-repeat;rotate:14deg;}
+.ema-about .about-bio {font-size:var(--blank-fs-md, 15.5px);line-height:1.95;color:var(--blank-ink);}
+/* The greeting: a heading and the letter, a pink margin rule beside them. */
+.about-letter {position:relative;padding:2px 0 2px 20px;}
+.about-letter::before {content:"";position:absolute;left:0;top:4px;bottom:4px;width:2px;border-radius:2px;background:var(--ema-pink-soft);}
+.about-letter h2 {font:600 var(--blank-fs-lg, 1.25rem)/1.5 var(--blank-serif);color:var(--blank-ink);}
+.ema-about .about-letter-body {margin-top:6px;font-size:var(--blank-fs-sm, 14px);line-height:1.95;color:var(--blank-muted);}
+.about-status {padding-top:16px;border-top:1px dashed var(--ema-pink-soft);}
+.about-status ul {display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:10px;}
+.about-status li {display:flex;align-items:baseline;gap:6px;font-size:var(--blank-fs-sm, 14px);line-height:1.6;}
+.about-status svg {flex-shrink:0;align-self:center;color:var(--ema-pink);}
 
-/* A letter, then bookmarks into the shelves. */
-.about-main {display:grid;gap:44px;min-width:0;}
-.about-letter {display:grid;grid-template-columns:minmax(0,1fr);gap:40px;align-items:center;padding:34px 36px 34px 46px;border:1px solid var(--blank-line);border-radius:var(--ema-r-md);box-shadow:var(--ema-shadow-flat);background:linear-gradient(90deg,transparent 24px,#f2c4d4 24px 25px,transparent 25px),radial-gradient(var(--blank-line) .7px,transparent 1px) 0 0/14px 14px,var(--card);}
-html[data-color-mode="dark"] .about-letter {background:linear-gradient(90deg,transparent 24px,#6d4c61 24px 25px,transparent 25px),radial-gradient(var(--blank-line) .7px,transparent 1px) 0 0/14px 14px,var(--card);}
-.about-letter h2 {margin-top:10px;font:500 clamp(1.45rem,2.4vw,1.95rem)/1.45 var(--blank-serif);color:var(--blank-ink);}
-.about-letter-copy>p:not(.shelf-kicker) {margin-top:14px;font-size:var(--blank-fs-sm, 14.5px);line-height:2;color:var(--blank-muted);}
-.about-letter-copy>p.about-signature {text-align:right;font:italic var(--blank-fs-sm, 13px)/1.6 var(--blank-serif);color:var(--ema-pink);}
-.about-marks {display:flex;flex-wrap:wrap;gap:10px;margin-top:-18px;}
-
-/* Shelves: a tinted heading chip, then cards in the homepage tag colours (shelf.css). */
-.about-section {display:grid;gap:18px;}
-.ema-about li h3 {font-size:var(--blank-fs-md, 15px);font-weight:700;line-height:1.45;color:var(--blank-ink);}
-.ema-about li p {margin-top:4px;font-size:var(--blank-fs-sm, 13px);line-height:1.75;color:var(--blank-muted);}
-.about-tech {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
-.about-tech>li {display:grid;grid-template-rows:auto 1fr;gap:18px;align-content:start;padding:20px;transition:border-color 180ms ease;}
-.about-tech>li>div {min-width:0;overflow-wrap:anywhere;}
-.about-chip {width:42px;height:42px;border-radius:var(--ema-r-sm);}
-.about-tech .tone-orange {--fill:#fff0df;--line:#f1cb9c;--tone-ink:#a3561a;}
-.about-tech .tone-slate {--fill:#334662;--line:#334662;--tone-ink:#fff;}
-html[data-color-mode="dark"] .about-tech .tone-orange {--fill:#493723;--line:#956c3b;--tone-ink:#ffd3a3;}
-html[data-color-mode="dark"] .about-tech .tone-slate {--fill:#34435c;--line:#6b7d9b;--tone-ink:#e3eaf8;}
-.about-games {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
-.about-games>li {display:grid;grid-template-columns:86px minmax(0,1fr);gap:16px;align-items:center;padding:12px;transition:transform 200ms var(--blank-ease),border-color 180ms ease,box-shadow 200ms ease;}
-.about-cover {height:86px;padding:8px 10px;}
-/* An official game icon replaces the stand-in number; the card's tone shows through transparent icons. */
-.about-icon {padding:0;}
-.about-icon::after {display:none;}
-.about-icon img {display:block;width:100%;height:100%;object-fit:cover;}
-.about-games a {color:inherit;text-decoration:none;background:linear-gradient(var(--ema-pink),var(--ema-pink)) 0 100%/0 1px no-repeat;transition:background-size 200ms var(--blank-ease);}
-.about-games a svg {margin-left:5px;vertical-align:-1px;color:var(--ema-pink);}
-.about-more {display:inline-flex;align-items:center;gap:6px;justify-self:end;color:var(--ema-pink);font-size:var(--blank-fs-sm, 13px);font-weight:600;text-decoration:none;}
+/* The manga page, taped at its top and tilted the other way. */
+.about-manga {position:relative;margin:0;padding:10px;border:1px solid var(--blank-line);border-radius:4px;background:var(--card);box-shadow:0 18px 36px rgba(96,74,60,.16),0 2px 6px rgba(96,74,60,.08);rotate:2.2deg;}
+.about-manga-tape {position:absolute;z-index:1;top:-12px;left:50%;width:96px;height:24px;translate:-50% 0;rotate:-4deg;background:repeating-linear-gradient(90deg,#f8dbe6d9 0 6px,#fbe7eed9 6px 12px);box-shadow:0 1px 2px rgba(96,74,60,.18);}
+html[data-color-mode="dark"] .about-manga-tape {background:repeating-linear-gradient(90deg,#7a4c63d9 0 6px,#5e3d50d9 6px 12px);}
+.about-manga-art {display:block;width:100%;height:auto;
+  --am-paper:var(--ema-card); --am-ink:color-mix(in srgb,var(--blank-ink) 72%,transparent); --am-soft:color-mix(in srgb,var(--blank-ink) 30%,transparent);
+  --am-dot:color-mix(in srgb,var(--ema-pink-soft) 70%,transparent); --am-hatch:color-mix(in srgb,var(--blank-ink) 16%,transparent); --am-speed:color-mix(in srgb,var(--blank-ink) 22%,transparent);
+  --am-deep:color-mix(in srgb,var(--blank-ink) 14%,var(--ema-card)); --am-pink:color-mix(in srgb,var(--ema-pink-soft) 92%,var(--ema-card)); --am-bloom:color-mix(in srgb,var(--ema-pink-soft) 45%,var(--ema-card));
+  --sb-still-line:var(--am-ink); --sb-still-rule:var(--am-soft); --sb-still-paper:var(--am-paper); --sb-still-cover:color-mix(in srgb,var(--blank-ink) 10%,var(--ema-card));
+  --sb-still-deep:color-mix(in srgb,var(--blank-ink) 22%,var(--ema-card)); --sb-still-tea:color-mix(in srgb,var(--blank-muted) 16%,var(--ema-card)); --sb-still-pink:var(--am-pink);}
+.about-manga-art .am-sheet {fill:var(--am-paper);}
+.about-manga-art .am-paper {fill:var(--am-paper);}
+.about-manga-art .am-frame {fill:none;stroke:var(--am-ink);stroke-width:3;stroke-linejoin:round;}
+.about-manga-art .am-dot {fill:var(--am-dot);}
+.about-manga-art .am-hatch {stroke:var(--am-hatch);stroke-width:1.4;}
+.about-manga-art .am-line {fill:none;stroke:var(--am-ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.about-manga-art .am-line.am-paper {fill:var(--am-paper);}
+.about-manga-art .am-line.am-deep,.about-manga-art .am-deep {fill:var(--am-deep);}
+.about-manga-art .am-line.am-pink {fill:var(--am-pink);}
+.about-manga-art .am-soft {stroke:var(--am-soft);}
+.about-manga-art .am-bold {stroke-width:2.6;}
+.about-manga-art .am-wall {fill:color-mix(in srgb,var(--am-paper) 70%,transparent);}
+.about-manga-art .am-glass {fill:none;}
+.about-manga-art .am-code {fill:var(--am-soft);}
+.about-manga-art .am-pink {fill:var(--am-pink);}
+.about-manga-art .am-cursor {fill:var(--am-ink);}
+.about-manga-art .am-speed path {stroke:var(--am-speed);stroke-width:1.5;}
+.about-manga-art .am-petal {fill:var(--am-pink);}
+.about-manga-art .am-bloom path {fill:var(--am-bloom);stroke:var(--am-ink);stroke-width:1.4;vector-effect:non-scaling-stroke;}
+.about-manga-art .am-core {fill:color-mix(in srgb,var(--ema-pink) 55%,var(--ema-card));}
+.about-manga-art .sb-still :is(path,rect,ellipse) {stroke:var(--sb-still-line);stroke-width:1.3;stroke-linejoin:round;stroke-linecap:round;}
+.about-manga-art .sb-still .sb-still-paper {fill:var(--sb-still-paper);}
+.about-manga-art .sb-still .sb-still-cover {fill:var(--sb-still-cover);}
+.about-manga-art .sb-still .sb-still-deep {fill:var(--sb-still-deep);}
+.about-manga-art .sb-still .sb-still-tea {fill:var(--sb-still-tea);stroke:none;}
+.about-manga-art .sb-still .sb-still-pink {fill:var(--sb-still-pink);stroke:none;}
+.about-manga-art .sb-still :is(.sb-still-rule,.sb-still-rule *) {fill:none;stroke:var(--sb-still-rule);stroke-width:1;}
+.about-manga-art .sb-still .sb-still-line {fill:none;}
+.about-manga-art .sb-still .sb-still-band {fill:none;stroke:var(--sb-still-deep);stroke-width:2.4;}
+.about-card-links {display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;}
+.ema-about .about-links {display:flex;flex-wrap:wrap;gap:8px;}
+.about-links a {background:var(--card);color:var(--blank-ink);text-decoration:none;box-shadow:var(--ema-shadow-flat);transition:transform 160ms var(--blank-ease),border-color 180ms ease,color 180ms ease,box-shadow 180ms ease;}
+.about-more {display:inline-flex;align-items:center;gap:6px;min-height:44px;color:var(--ema-pink);font-size:var(--blank-fs-sm, 14px);font-weight:600;text-decoration:none;}
 .about-more svg {transition:translate 180ms var(--blank-ease);}
-/* The way to the Friends page (2026-11-28), under the social links in the profile card. */
-.ema-about .about-friends {display:flex;justify-self:start;width:fit-content;min-height:44px;margin-top:6px;}
-.about-characters {display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
-.about-characters>li {display:flex;align-items:center;gap:16px;padding:14px 16px;transition:border-color 180ms ease;}
-.about-characters>li[hidden],.about-character-toggle[hidden] {display:none;}
-.about-characters>li>div {min-width:0;overflow-wrap:anywhere;}
-img.about-portrait {display:block;object-fit:cover;}
-.ema-about .about-character-toggle {display:flex;width:fit-content;min-height:44px;margin:10px 0 0 auto;padding:6px 0 6px 12px;border:0;background:transparent;color:var(--ema-pink);font-family:inherit;cursor:pointer;transition:transform 120ms var(--blank-ease);}
-.about-character-toggle[aria-expanded="true"] svg {rotate:180deg;}
-.about-portrait {flex-shrink:0;width:66px;height:66px;border:3px solid var(--line);border-radius:50%;background-color:var(--fill);background-repeat:no-repeat;}
-/* A character without a cleared portrait keeps the frame, with the theme's blossom drawn in code. */
-.about-portrait-empty {background-image:var(--ema-blossom);background-size:30px;background-position:center;}
-.about-characters h3 {display:inline-block;padding:2px 12px;border:2px solid var(--line);border-radius:var(--ema-r-pill);background:var(--fill);color:var(--tone-ink);font-family:var(--round);font-size:var(--blank-fs-sm, 14px);rotate:-2deg;}
-.about-characters li:nth-child(even) h3 {rotate:2deg;}
-.ema-about .about-characters p {margin-top:8px;}
-/* Anime: a taped-in poster beside the title, in the card's tone. */
-.about-animes {display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;}
-.about-animes>li {display:flex;align-items:center;gap:16px;padding:12px 16px 12px 12px;transition:transform 200ms var(--blank-ease),border-color 180ms ease,box-shadow 200ms ease;}
-.about-animes>li>div {min-width:0;overflow-wrap:anywhere;}
-.about-poster {flex-shrink:0;display:block;width:64px;height:96px;object-fit:cover;border:3px solid var(--line);border-radius:var(--ema-r-sm);background:var(--fill);rotate:-2deg;}
-.about-animes li:nth-child(even) .about-poster {rotate:2deg;}
-.about-animes a {color:inherit;text-decoration:none;background:linear-gradient(var(--ema-pink),var(--ema-pink)) 0 100%/0 1px no-repeat;transition:background-size 200ms var(--blank-ease);}
-.about-animes a svg {margin-left:5px;vertical-align:-1px;color:var(--ema-pink);}
-.about-now {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
-.about-now>li {padding:18px;transition:border-color 180ms ease;}
-.about-now span {display:inline-block;padding:3px 12px;border:1px solid var(--line);border-radius:var(--ema-r-pill);background:var(--fill);color:var(--tone-ink);font-size:var(--blank-fs-xs, 12px);font-weight:700;}
-.ema-about .about-now p {margin-top:12px;}
 
-/* Clickable cards lift gently on fine pointers; static reference cards only trace their accent border. */
+/* Binder tabs into the chapters, standing on one ruled line. */
+.about-tabs {margin-top:var(--about-gap);}
+.about-tabs ol {display:flex;gap:8px;margin-top:10px;padding:0 6px;border-bottom:2px solid var(--ema-line-strong);}
+.about-tabs li {flex:1 1 0;min-width:0;}
+.about-tabs a {display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:baseline;gap:10px;min-height:58px;padding:12px 16px 12px;border:1px solid var(--line);border-bottom:0;border-radius:14px 14px 0 0;background:var(--fill);color:var(--tone-ink);text-decoration:none;transition:transform 180ms var(--blank-ease),box-shadow 180ms ease;}
+.about-tab-no {font:400 1.5rem/1 var(--ema-title-font);}
+.about-tab-label {display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:var(--blank-fs-md, 15px);white-space:nowrap;}
+.about-tab-count {font:600 var(--blank-fs-xs, 12px)/1 var(--mono);letter-spacing:.06em;}
+
+/* Chapters */
+.about-chapter {margin-top:var(--about-gap);scroll-margin-top:110px;}
+.about-chapter-head {display:flex;align-items:flex-end;gap:16px;margin-bottom:26px;}
+.about-chapter-head>div {flex:1;min-width:0;}
+.about-chapter-head h2 {margin-top:2px;font:500 var(--blank-fs-2xl, 1.85rem)/1.3 var(--blank-serif);color:var(--blank-ink);}
+/* The chapter numbers are large and decorative, in a pink that still reaches 3:1 on the paper and on the memo. */
+.about-chapter-no {font:400 clamp(2.6rem,4vw,3.4rem)/.9 var(--ema-title-font);color:#bd6f8f;}
+html[data-color-mode="dark"] .about-chapter-no {color:#b0708f;}
+.about-chapter-head>.about-more {flex-shrink:0;}
+
+/* 01 Characters: a wall of polaroids, a few held by tape. */
+.about-polaroids {display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:30px 22px;padding:8px 4px 0;}
+.about-polaroids>li {position:relative;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 9px 14px;border:1px solid var(--blank-line);border-radius:4px;background:var(--card);box-shadow:0 6px 16px rgba(96,74,60,.12);rotate:-2deg;}
+.about-polaroids>li:nth-child(even) {rotate:1.6deg;}
+.about-polaroids>li:nth-child(3n) {rotate:-.8deg;}
+.about-polaroids>li[hidden],.about-character-toggle[hidden] {display:none;}
+.about-polaroids img,.about-polaroid-empty {display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:2px;background:var(--fill);}
+.about-polaroid-empty {background:var(--ema-blossom) center/40% no-repeat,var(--fill);}
+.about-polaroids h3 {margin-top:9px;font:600 var(--blank-fs-md, 15px)/1.35 var(--round);color:var(--blank-ink);text-align:center;overflow-wrap:anywhere;}
+.ema-about .about-polaroids p {font-size:var(--blank-fs-xs, 12px);line-height:1.5;color:var(--blank-muted);text-align:center;overflow-wrap:anywhere;}
+.about-polaroid-tape {position:absolute;z-index:1;top:-10px;left:50%;width:58px;height:18px;translate:-50% 0;rotate:-6deg;background:repeating-linear-gradient(90deg,color-mix(in srgb,var(--line) 88%,transparent) 0 6px,color-mix(in srgb,var(--fill) 88%,transparent) 6px 12px);box-shadow:0 1px 2px rgba(96,74,60,.16);}
+.ema-about .about-character-toggle {display:flex;width:fit-content;margin:22px auto 0;padding:6px 14px;border:1px solid var(--ema-pink-soft);border-radius:var(--ema-r-pill);background:var(--card);font-family:inherit;cursor:pointer;}
+.about-character-toggle[aria-expanded="true"] svg {rotate:180deg;}
+
+/* 02 Anime: a strip of posters taped onto the page. */
+.about-posters {display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:30px 22px;padding-top:10px;}
+.about-posters a {display:flex;flex-direction:column;gap:12px;color:inherit;text-decoration:none;}
+.about-poster-frame {position:relative;display:block;padding:6px;border:1px solid var(--line);border-radius:6px;background:var(--card);box-shadow:0 8px 18px rgba(96,74,60,.14);rotate:-1.6deg;transition:rotate 240ms var(--blank-ease),translate 240ms var(--blank-ease),box-shadow 240ms ease;}
+.about-posters li:nth-child(even) .about-poster-frame {rotate:1.4deg;}
+.about-poster-frame img {display:block;width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:3px;}
+.about-poster-tape {position:absolute;z-index:1;top:-9px;left:50%;width:54px;height:17px;translate:-50% 0;rotate:4deg;background:repeating-linear-gradient(90deg,color-mix(in srgb,var(--line) 88%,transparent) 0 6px,color-mix(in srgb,var(--fill) 88%,transparent) 6px 12px);box-shadow:0 1px 2px rgba(96,74,60,.16);}
+.about-posters h3 {font-size:var(--blank-fs-md, 15px);font-weight:700;line-height:1.45;color:var(--blank-ink);}
+.about-posters h3 svg {margin-left:5px;vertical-align:-1px;color:var(--ema-pink);}
+.ema-about .about-posters p {margin-top:3px;font-size:var(--blank-fs-xs, 12px);line-height:1.6;color:var(--blank-muted);}
+.ema-about .about-notion {margin-top:18px;}
+
+/* 03 Games: admission tickets, a picture and a perforated stub. */
+.about-tickets {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 24px;}
+.about-ticket {position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);height:100%;border:1px solid var(--line);border-radius:var(--ema-r-md);background:var(--fill);color:inherit;text-decoration:none;box-shadow:var(--ema-shadow-flat);transition:translate 200ms var(--blank-ease),box-shadow 200ms ease;}
+.about-ticket-art {position:relative;display:block;min-height:150px;overflow:hidden;border-radius:calc(var(--ema-r-md) - 1px) 0 0 calc(var(--ema-r-md) - 1px);background:radial-gradient(color-mix(in srgb,var(--line) 70%,transparent) 1.1px,transparent 1.5px) 0 0/7px 7px,var(--fill);}
+.about-ticket-art img {position:absolute;inset:0;width:100%;height:100%!important;object-fit:cover;}
+.about-ticket-art b {position:absolute;left:14px;bottom:10px;font:400 2.3rem/1 var(--ema-title-font);color:var(--tone-ink);}
+/* The perforation: a dashed rule with a notch at each end, cut in the page colour. */
+.about-ticket-stub {position:relative;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:18px 22px 18px 24px;border-left:2px dashed var(--line);}
+.about-ticket-stub::before,.about-ticket-stub::after {content:"";position:absolute;left:-10px;width:18px;height:18px;border:1px solid var(--line);border-radius:50%;background:var(--blank-paper);}
+.about-ticket-stub::before {top:-10px;clip-path:inset(50% 0 0 0);}
+.about-ticket-stub::after {bottom:-10px;clip-path:inset(0 0 50% 0);}
+.about-ticket-no {font:600 var(--blank-fs-xs, 12px)/1 var(--mono);letter-spacing:.08em;color:var(--tone-ink);}
+.about-ticket-stub strong {font:600 var(--blank-fs-lg, 1.15rem)/1.4 var(--blank-serif);color:var(--blank-ink);}
+.about-ticket-stub strong svg {margin-left:6px;vertical-align:-1px;color:var(--ema-pink);}
+.about-ticket-stub>span:last-child {font-size:var(--blank-fs-sm, 13px);line-height:1.6;color:var(--blank-muted);}
+
+/* 04 and 05 side by side: the tool tray, and a memo pinned beside it. */
+.about-desk {display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(32px,4vw,56px);align-items:start;margin-top:var(--about-gap);}
+.about-desk>.about-chapter {margin-top:0;}
+.about-tools {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+.about-tools>li {display:flex;align-items:center;gap:12px;min-width:0;padding:10px 14px 10px 10px;border:1px solid var(--blank-line);border-radius:var(--ema-r-sm);background:var(--card);}
+.about-tools>li>div {min-width:0;}
+.about-tool-chip {width:40px;height:40px;}
+.about-tools h3 {font-size:var(--blank-fs-md, 15px);font-weight:700;line-height:1.35;color:var(--blank-ink);overflow-wrap:anywhere;}
+.ema-about .about-tools p {margin-top:2px;font-size:var(--blank-fs-xs, 12.5px);line-height:1.5;color:var(--blank-muted);}
+.about-memo {--memo:#fdf1f4;--memo-line:#f0d2dd;position:relative;padding:30px 28px 26px;border:1px solid var(--memo-line);border-radius:4px;background:var(--memo);box-shadow:0 10px 22px rgba(96,74,60,.12);rotate:-1deg;}
+html[data-color-mode="dark"] .about-memo {--memo:#30283a;--memo-line:#694b5f;}
+.about-tape--memo {top:-12px;left:50%;translate:-50% 0;rotate:-3deg;}
+.about-memo .about-chapter-head {margin-bottom:12px;}
+.about-memo dl {display:grid;}
+.about-memo dl>div {padding:10px 0 12px;border-bottom:1px solid var(--memo-line);}
+.about-memo dl>div:last-child {border-bottom:0;padding-bottom:0;}
+.about-memo dt {display:inline-block;padding:1px 10px;border:1px solid var(--ema-pink-soft);border-radius:var(--ema-r-pill);background:var(--ema-blush);color:var(--ema-pink);font-size:var(--blank-fs-xs, 12px);font-weight:700;}
+.about-memo dd {margin-top:6px;font-size:var(--blank-fs-md, 15px);line-height:1.8;color:var(--blank-ink);}
+
+/* Pointing at what can be pressed lifts it a little; nothing static moves. */
 @media(hover:hover) and (pointer:fine) {
-  .about-links a:hover,.about-marks a:hover {transform:translateY(-2px);border-color:var(--ema-pink);color:var(--ema-pink);box-shadow:var(--ema-shadow-lift);}
-  .about-games>li:hover,.about-animes>li:hover {transform:translateY(-2px);border-color:var(--line);box-shadow:var(--ema-shadow-lift);}
-  .about-tech>li:hover,.about-characters>li:hover,.about-now>li:hover {border-color:var(--line);}
-  .about-status:hover {border-color:var(--ema-pink-soft);}
-  .about-games a:hover,.about-animes a:hover {background-size:100% 1px;}
+  .about-links a:hover {transform:translateY(-2px);border-color:var(--ema-pink);color:var(--ema-pink);box-shadow:var(--ema-shadow-lift);}
+  .about-tabs a:hover {transform:translateY(-4px);}
+  .about-posters a:hover .about-poster-frame {rotate:0deg;translate:0 -4px;box-shadow:0 14px 26px rgba(156,72,114,.2);}
+  .about-ticket:is(a):hover {translate:0 -3px;box-shadow:var(--ema-shadow-lift);}
   .about-more:hover svg {translate:3px 0;}
 }
+.about-tabs a:focus-visible {transform:translateY(-4px);}
 @media(prefers-reduced-motion:no-preference) {
-  html:not([data-motion-paused="true"]) .ema-about :is(.about-marks a,.about-links a,.about-character-toggle):active {transform:scale(.97);}
+  html:not([data-motion-paused="true"]) .ema-about :is(.about-links a,.about-character-toggle):active {transform:scale(.97);}
 }
-@media(min-width:1000px) and (min-height:760px) {
-  .about-side {position:sticky;top:112px;}
+html[data-motion-paused="true"] .ema-about :is(a,a svg,.about-tabs a,.about-poster-frame,.about-ticket) {transition:none;}
+html[data-motion-paused="true"] .ema-about .about-posters a:hover .about-poster-frame {translate:none;}
+@media(prefers-reduced-motion:reduce) {
+  .ema-about :is(a,a svg,.about-tabs a,.about-poster-frame,.about-ticket) {transition:none;}
 }
-@media(min-width:1000px) and (max-width:1199px) {
-  .about-tech {grid-template-columns:repeat(2,minmax(0,1fr));}
+
+@media(max-width:1099px) {
+  .about-hero {grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:40px;}
+  .about-polaroids {grid-template-columns:repeat(4,minmax(0,1fr));}
+  .about-posters {grid-template-columns:repeat(3,minmax(0,1fr));}
 }
-@media(max-width:999px) {
-  .ema-about {grid-template-columns:minmax(0,1fr);gap:40px;margin-top:40px;}
-  .about-side {grid-template-columns:auto minmax(0,1fr);gap:20px 32px;}
-  .about-status {grid-column:1/-1;}
-}
-@media(max-width:760px) {
-  .about-tech {grid-template-columns:repeat(2,minmax(0,1fr));}
-  .about-now {grid-template-columns:minmax(0,1fr);}
+@media(max-width:899px) {
+  .about-hero {grid-template-columns:minmax(0,1fr);gap:48px;}
+  .about-card {rotate:-.4deg;}
+  /* Under the card, the manga page keeps to a readable size and its tilt. */
+  .about-manga {justify-self:center;width:min(440px,86%);rotate:1.6deg;}
+  .about-desk {grid-template-columns:minmax(0,1fr);}
+  .about-tickets {grid-template-columns:minmax(0,1fr);}
 }
 @media(max-width:640px) {
-  .about-side {grid-template-columns:minmax(0,1fr);}
-  .about-letter {gap:28px;padding:26px 22px 28px 38px;}
-  .about-games {grid-template-columns:minmax(0,1fr);}
+  .ema-about {--about-gap:56px;}
+  .about-name {font-size:clamp(34px,9.6vw,42px);}
+  .about-letter {padding-left:16px;}
+  .about-card {padding:26px 20px 20px;}
+  .about-card-id {grid-template-columns:88px minmax(0,1fr);gap:16px;}
+  .about-avatar {width:88px;height:88px;}
+  .ema-about .about-bio {font-size:var(--blank-fs-sm, 14.5px);}
+  .about-manga {width:84%;padding:7px;}
+  .about-blossom {width:28px;height:28px;}
+  /* On a phone the tabs would not all fit, so they become the contents page of a book: number, chapter, a dotted
+     leader and the count, one line each. */
+  .about-tabs ol {display:grid;gap:0;padding:0;border-top:1px solid var(--blank-line);border-bottom:0;}
+  .about-tabs a {display:flex;align-items:baseline;gap:12px;min-height:48px;padding:12px 2px 10px;border:0;border-bottom:1px solid var(--blank-line);border-radius:0;background:none;color:var(--blank-ink);}
+  .about-tabs a:hover,.about-tabs a:focus-visible {transform:none;}
+  .about-tab-no {width:2ch;font-size:1.25rem;color:var(--ema-pink);}
+  .about-tab-label {flex:1;min-width:0;}
+  .about-tab-label svg {color:var(--ema-pink);}
+  .about-tab-label::after {content:"";flex:1;min-width:24px;margin:0 2px 0 12px;align-self:flex-end;transform:translateY(-5px);border-bottom:2px dotted var(--ema-pink-soft);}
+  .about-tab-count {opacity:1;color:var(--blank-muted);}
+  .about-chapter-head {flex-wrap:wrap;gap:4px 14px;margin-bottom:20px;}
+  .about-chapter-head>.about-more {flex-basis:100%;order:3;}
+  .about-polaroids {grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 12px;}
+  .about-polaroids>li {padding:6px 6px 10px;}
+  .about-polaroids h3 {margin-top:6px;font-size:var(--blank-fs-sm, 13.5px);}
+  .ema-about .about-polaroids p {font-size:11px;}
+  .about-posters {gap:24px 14px;}
+  .about-posters h3 {font-size:var(--blank-fs-sm, 13.5px);}
+  .about-poster-frame {padding:4px;}
+  .about-ticket {grid-template-columns:124px minmax(0,1fr);}
+  .about-ticket-art {min-height:118px;}
+  .about-ticket-stub {padding:14px 16px 14px 18px;}
+  .about-ticket-stub strong {font-size:var(--blank-fs-md, 1rem);}
+  .about-tools {gap:8px;}
+  .about-tools>li {padding:8px 10px 8px 8px;gap:10px;}
+  .about-tool-chip {width:34px;height:34px;}
+  .about-tools h3 {font-size:var(--blank-fs-sm, 13.5px);}
+  .about-memo {rotate:0deg;padding:26px 20px 20px;}
 }
-@media(max-width:520px) {
-  .about-tech {grid-template-columns:minmax(0,1fr);}
-}
-html[data-motion-paused="true"] .ema-about :is(a,a svg,.shelf-card,.about-character-toggle) {transition:none;}
-html[data-motion-paused="true"] .ema-about :is(.about-games>li,.about-animes>li):hover {transform:none;}
-@media(prefers-reduced-motion:reduce) {
-  .ema-about :is(a,a svg,.shelf-card,.about-character-toggle) {transition:none;}
-  .ema-about :is(.about-games>li,.about-animes>li):hover {transform:none;}
-}
-/* Touch targets, as on the Games page: transparent pseudo-elements extend the hit areas to at least 44px.
-   The pills are 38.8px tall with a 1px border, which takes 1px of the inset; the "more" links are 22.8px tall;
-   a game's or an anime's title link (18px a line) takes a band across its heading. The cards themselves are left
-   alone: positioning them made Chrome resample the tilted posters. */
-.about-marks a,a.about-more,.about-games h3,.about-animes h3 {position:relative;}
-.about-marks a::after {content:"";position:absolute;inset:-4px 0;}
-a.about-more::after {content:"";position:absolute;inset:-11px 0;}
-.about-games h3 a::after,.about-animes h3 a::after {content:"";position:absolute;inset:-13px 0;}
+/* Touch targets: links that are shorter than 44px answer over a transparent band. */
+.about-posters h3,.about-tabs a {position:relative;}

@@ -501,6 +501,8 @@ html[data-theme="endfield"].ef-moding::view-transition-old(root),html[data-theme
 .ef-content .blank-shelf-filter-label { margin-right:4px; }
 .ef-content .blank-shelf-tools .blank-search { align-self:center; flex:0 1 280px; margin-bottom:16px; padding:0 calc(10px + var(--ef-cut)) 0 12px; background:linear-gradient(315deg,transparent var(--ef-cut-at),var(--ef-chip) 0); }
 .ef-content .blank-shelf-tools .blank-search input { height:44px; }
+/* The browser's placeholder grey is 3.6:1 on the chip colour; the secondary ink reaches AA in both modes. */
+.ef-content .blank-shelf-tools .blank-search input::placeholder { color:var(--ef-ink-2); opacity:1; }
 .ef-content .blank-shelf-tools .blank-search:focus-within::after { bottom:0; right:var(--ef-cut); background:var(--ef-trace); }
 .ef-content .blank-shelf-group-title { gap:10px; font:800 16px/1.4 var(--ef-text); }
 .ef-content .blank-shelf-group-title::before { content:"//"; font:600 12px/1 var(--ef-ui); color:var(--ef-ink-2); }

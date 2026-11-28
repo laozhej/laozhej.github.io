@@ -80,6 +80,7 @@ Articles with `draft: true` are not published.
 
 - Homepage, article archive, article pages, projects, games, about, and 404 pages.
 - Search by title, description, and tags; filter by category; sort by date; restore filter state from the URL.
+- Site-wide quick search opens with `⌘K` on macOS or `Ctrl+K` on Windows and Linux. Press `/` when focus is outside editable fields and no other dialog is open.
 - Article table of contents, active heading highlighting, reading progress, and back-to-top links.
 - A moon / sun button in the top right switches between light and dark modes. Until a manual choice is made, the site follows system changes. A manual choice is saved in the current browser and shared across pages, languages, and themes using the common modules.
 - Simplified Chinese / Traditional Chinese (Taiwan) / Japanese / English switching. Article translations live in the `zh-TW/`, `ja/`, and `en/` subdirectories. Language and color mode are independent preferences.

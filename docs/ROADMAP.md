@@ -23,6 +23,10 @@
 
 ## 1. 现状
 
+- **已完成**（2026-11-28，站主批准合并，分支 `feat/polish-reading-ab`）：在参考 `soki.moe` 及友链调研后，按站主选定的方案 A + B 完成表面层级打磨、微交互增强与文章阅读体验升级（并补截自托管字体子集）：
+  - **方案 A（表面一致性与微交互）**：将 Ema 散落的圆角与阴影统一为 3 档圆角（`--ema-r-sm/md/pill`）与 3 档阴影（`--ema-shadow-flat/lift/panel`），并在关于页区分可点击卡片（游戏/动漫悬停轻抬）与静态参考卡片（技术栈/角色/现在安静平贴）；为 Blank 与 Ema 增加 `:active` 触感轻压，并将顶栏语言/主题菜单改为触发源锚定（`transform-origin: top right`）的可打断 `::details-content` + `@starting-style` + 独立 `transition-behavior: allow-discrete` 过渡；在 `src/core/features/collection.mjs` 为分类切换、排序切换与重置加入局部 View Transition（`view-transition-class: site-collection-item`），跳过搜索输入、`popstate`、暂停/减少动态、收藏切架与终末地主题。
+  - **方案 B（文章阅读与个人记录）**：新增构建期字数/阅读时间统计（`src/core/content/reading-time.mjs`），在四套主题、四种语言的文章顶部、文末与列表行展示；新增可访问章节 `#` 链接复制按钮（`src/core/features/prose-anchors.mjs`，Invoker Commands + 点击回退、外部 `role="status"` 气泡、`44×44px` 触控区、触屏常驻、重复复制 VoiceOver `\u00A0` 提示）；粘性目录显示实时阅读百分比（无 JS 自动隐藏）并以 CSS Anchor Positioning + `border-inline-start` 绘制平滑滑动高亮条（带 `@supports not` 回退）；文末新增双栏信息卡（`.site-colophon`，严格遵循 `CONTENT_LICENSE.md` 无虚构许可）；在 `animes.ts` 与关于页预留可选 `status`/`note` 字段；致谢页新增四语 `07 / EVOLUTION` 建站演化时间轴。
+  - **验证与字体**：新增 `tests/polish-reading-ab.test.mjs`，全量单测与 `showcase:check` 通过，明日方舟与终末地冻结首页逐像素一致，Chrome 158 与 Playwright WebKit 27.2 多视口交互验收及 axe-core 48 轮 0 违规（未测实体手机与独立 Safari），新增用字已补截进 `public/fonts/site/`；前后对照图板见 `outputs/polish-reading-ab/review/`，细节见 THEMES.md。
 - **已完成**（2026-11-28，站主批准合并，PR #69，分支 `feat/default-arknights`）：将**明日方舟（Arknights，`AK / 04`）**设为默认根路径主题与规范主题（`canonicalTheme = "arknights"`），Blank 迁至 `/themes/blank/`（修正 `BlankLayout.astro` 链接与首页进场路径判断），旧 `/themes/arknights/...` 保留 `noindex` 瞬时跳转页（保留 query 与 hash，排除在 `sitemap-0.xml` 之外），404 缺失路径提示移入公共层 `src/core/features/runtime.mjs`，并同步更新深色终端风四语 OG 分享图（`neroarataki.com`）。四套主题页面指纹与基线一致（明日方舟 `4013px`、Blank `2257px`、终末地 `2073px`、Ema `4176px`），Chrome 158 与 WebKit 27.2 验证通过。
 - **已完成**（2026-11-28，站主批准合并，PR #68，分支 `fix/batch1-domain-cwv-typo-avatars`）：完成对标 `soki.moe` 及友链后的第一批基础修复：
   1. **规范域名统一为 `https://neroarataki.com`**：同步 `astro.config.mjs`、`public/robots.txt`、sitemap、RSS、Ema 资料卡地址、OG 图与 `showcase/` 校验。

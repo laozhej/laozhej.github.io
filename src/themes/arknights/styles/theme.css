@@ -273,7 +273,25 @@ a.ak-panel:focus-visible { outline-offset:4px; }
 .ak-content :is(.blank-featured,.blank-project,.blank-game-row,.blank-search,.blank-search input,.blank-sort select) { border-radius:0; }
 .ak-content .blank-sort select { background:var(--ak-panel); border:1px solid var(--ak-rule); }
 .ak-content .blank-button { border-radius:0; border:0; background:var(--ak-ink); color:var(--ak-field)!important; }
+.ak-content .blank-toc nav { --site-toc-indicator:var(--ak-trace); }
+.ak-content .site-toc-progress { color:var(--ak-number); }
 .ak-content .blank-toc a[aria-current="location"] { box-shadow:inset 3px 0 0 var(--ak-trace); color:var(--ak-ink); font-weight:700; }
+@supports (position-anchor: --site-toc-active) {
+  .ak-content .blank-toc a[aria-current="location"] { box-shadow:none; }
+  .ak-content .blank-toc nav::before { border-inline-start-width:3px; }
+}
+.ak-content .site-copy-button[data-copied] { color:var(--ak-on-signal); background:var(--ak-signal); border-color:var(--ak-signal); }
+@media(hover:hover) and (pointer:fine) {
+  .ak-content .site-copy-button:hover { color:var(--ak-on-signal); background:var(--ak-signal); border-color:var(--ak-signal); }
+}
+.ak-content .site-copy-tip { background:var(--ak-ink); color:var(--ak-field); border-left:3px solid var(--ak-signal); font-family:var(--ak-mono); }
+.ak-content .site-colophon { background:var(--ak-panel); border-color:var(--ak-rule); border-left:3px solid var(--ak-trace); }
+.ak-content .site-colophon-title { font-family:var(--ak-mono); letter-spacing:.12em; color:var(--ak-ink-2); }
+.ak-content .site-colophon-title::before { content:"// "; }
+.ak-content .site-colophon-rights { border-color:var(--ak-rule); }
+.ak-content .site-evolution { border-left-color:var(--ak-rule); }
+.ak-content .site-evolution>li::before { background:var(--ak-signal); }
+.ak-content .site-evolution-date { font-family:var(--ak-mono); color:var(--ak-number); }
 .ak-content .blank-prose a { text-decoration-color:var(--ak-trace); text-underline-offset:3px; }
 .ak-content .blank-prose :is(h2,h3) { font-family:var(--ak-text); font-weight:800; }
 .ak-content .blank-prose h2::before { content:""; display:inline-block; width:.42em; height:.42em; margin-right:.45em; background:var(--ak-signal); vertical-align:.12em; }
@@ -488,6 +506,16 @@ html[data-theme="arknights"].ak-moding::view-transition-group(root) { animation:
 html[data-theme="arknights"].ak-moding::view-transition-old(root),html[data-theme="arknights"].ak-moding::view-transition-new(root) { animation:none; mix-blend-mode:normal; }
 html[data-theme="arknights"].ak-moding::view-transition-group(ak-scan),html[data-theme="arknights"].ak-moding::view-transition-new(ak-scan) { animation:none; }
 .ak-scanline { position:fixed; left:0; bottom:0; z-index:200; width:100%; height:2px; background:#19cff2; box-shadow:0 0 16px 3px #19cff259; view-transition-name:ak-scan; pointer-events:none; }
+@keyframes ak-filter-in { from { opacity:0; transform:translateY(6px); } }
+@keyframes ak-filter-out { to { opacity:0; transform:translateY(-4px); } }
+html[data-theme="arknights"].site-filtering { view-transition-name:none!important; }
+html[data-theme="arknights"].site-filtering [data-astro-transition-scope] { view-transition-name:none!important; }
+html[data-theme="arknights"].site-filtering::view-transition { pointer-events:none; }
+@media(prefers-reduced-motion:no-preference) {
+  html[data-theme="arknights"].site-filtering::view-transition-group(.site-collection-item) { animation-duration:240ms; animation-timing-function:var(--ak-out); }
+  html[data-theme="arknights"].site-filtering::view-transition-new(.site-collection-item):only-child { animation-name:ak-filter-in; animation-duration:200ms; animation-timing-function:var(--ak-out); }
+  html[data-theme="arknights"].site-filtering::view-transition-old(.site-collection-item):only-child { animation-name:ak-filter-out; animation-duration:150ms; animation-timing-function:ease-out; }
+}
 
 /* Pointing at the latest entry runs one scan down its board. */
 .ak-record::after { content:""; position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0;

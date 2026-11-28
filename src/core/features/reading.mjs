@@ -9,6 +9,7 @@ export function mountReading(doc, win) {
   const progress = doc.querySelector("[data-site-progress]");
   if (!prose || !progress) return () => {};
   const header = doc.querySelector("[data-site-header]");
+  const pct = doc.querySelector("[data-site-reading-pct]");
   const links = [...doc.querySelectorAll("[data-site-toc] a")];
   const sections = links.map((link) => {
     try { return doc.getElementById(decodeURIComponent(link.hash.slice(1))); }
@@ -22,7 +23,9 @@ export function mountReading(doc, win) {
     if (doc.hidden || disposed) return;
     const headerHeight = header?.getBoundingClientRect().height ?? 80;
     const rect = prose.getBoundingClientRect();
-    progress.style.transform = `scaleX(${readingProgress(rect.top, rect.height, win.innerHeight, headerHeight)})`;
+    const ratio = readingProgress(rect.top, rect.height, win.innerHeight, headerHeight);
+    progress.style.transform = `scaleX(${ratio})`;
+    if (pct) pct.textContent = `${Math.round(ratio * 100)}%`;
     let next = -1;
     for (let index = 0; index < sections.length; index++) {
       if (sections[index] && sections[index].getBoundingClientRect().top <= headerHeight + 48) next = index;

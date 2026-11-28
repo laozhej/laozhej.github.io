@@ -103,6 +103,46 @@ export function mountCollection(root, win) {
       }
     }
   };
+  const doc = root.ownerDocument;
+  const html = doc?.documentElement;
+  const clearTransition = () => {
+    html?.classList?.remove("site-filtering");
+    for (const entry of entries) {
+      if (!entry.style) continue;
+      entry.style.viewTransitionName = "";
+      entry.style.viewTransitionClass = "";
+    }
+  };
+  const canTransition = () => Boolean(
+    doc && html &&
+    typeof doc.startViewTransition === "function" &&
+    html.dataset?.motionPaused !== "true" &&
+    html.dataset?.theme !== "endfield" &&
+    !win.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches &&
+    !html.classList?.contains("site-filtering") &&
+    !html.hasAttribute?.("data-shelf-swap")
+  );
+  const applyAnimated = (writeUrl = true, immediate = true) => {
+    if (!canTransition()) {
+      apply(writeUrl, immediate);
+      return;
+    }
+    html.classList.add("site-filtering");
+    entries.forEach((entry, index) => {
+      if (!entry.style) return;
+      entry.style.viewTransitionName = `site-col-${index}`;
+      entry.style.viewTransitionClass = "site-collection-item";
+    });
+    let transition;
+    try {
+      transition = doc.startViewTransition(() => apply(writeUrl, immediate));
+    } catch {
+      clearTransition();
+      apply(writeUrl, immediate);
+      return;
+    }
+    transition?.finished?.finally(clearTransition).catch(() => {});
+  };
   const restore = () => {
     win.clearTimeout(urlTimer);
     urlTimer = 0;
@@ -119,16 +159,20 @@ export function mountCollection(root, win) {
   };
   on(input, "input", search);
   on(input, "compositionend", search);
-  on(sort, "change", () => { state.sort = sort.value === "oldest" ? "oldest" : "newest"; apply(); });
+  on(sort, "change", () => { state.sort = sort.value === "oldest" ? "oldest" : "newest"; applyAnimated(); });
   for (const button of buttons) {
-    on(button, "click", () => { state.category = button.dataset.siteCategory; apply(); });
+    on(button, "click", () => {
+      if (state.category === button.dataset.siteCategory) return;
+      state.category = button.dataset.siteCategory;
+      applyAnimated();
+    });
   }
   on(clear, "click", () => { input?.focus(); state.query = ""; apply(); });
   on(reset, "click", () => {
     state = { query: "", category: "all", sort: "newest" };
     // Clearing the last active query can collapse a compact archive search.
     (input ?? buttons[0])?.focus();
-    apply();
+    applyAnimated();
   });
   on(win, "popstate", () => { if (pathOf() === pathname) restore(); });
   on(win, "pagehide", syncUrl);
@@ -137,6 +181,7 @@ export function mountCollection(root, win) {
   return () => {
     disposed = true;
     win.clearTimeout(urlTimer);
+    clearTransition();
     listeners.forEach((remove) => remove());
   };
 }

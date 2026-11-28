@@ -7,7 +7,7 @@ const MECH = "cubic-bezier(.7,0,.2,1)";
 const SNAP = "cubic-bezier(.16,1,.3,1)";
 
 // Figures that settle once when a page opens.
-const OPENING = ".ef-hero-top .ef-fields>li,.ef-frame .ef-hollow-no,.ef-index b,.ef-content .blank-page-count strong,.ef-content .blank-shelf-stats strong";
+const OPENING = ".ef-hero-top .ef-fields>li,.ef-frame .ef-hollow-no,.ef-index b,.ef-content .blank-page-count strong,:is(.ef-content,.ef-coll) .blank-shelf-stats strong,.ef-pagehead .ef-hollow-no";
 // Figures that settle when the thing holding them is pointed at or focused: [holder, figures inside it].
 const HOLDERS = [
   [".ef-nav a", ".ef-nav-number"],
@@ -16,12 +16,15 @@ const HOLDERS = [
   [".ef-index a", "b"],
   [".ef-records a", ".ef-tag,time"],
   [".ef-content .blank-post-row", ".blank-row-number,time"],
+  [".ef-job", ".ef-tag,time"],
+  [".ef-entry", ".ef-tag"],
+  [".ef-chips button", "span"],
   [".ef-content .blank-project summary", ".blank-row-number"],
-  [".ef-content .blank-filters button", "span"],
-  [".ef-content .blank-collection-index a", ".blank-collection-count"],
+  [":is(.ef-content,.ef-coll) .blank-filters button", "span"],
+  [":is(.ef-content,.ef-coll) .blank-collection-index a", ".blank-collection-count"],
   [".site-theme-dock a", ".site-theme-no"],
 ];
-const ROWS = ".ef-content [data-site-entries]";
+const ROWS = ":is(.ef-content,.ef-page) [data-site-entries]";
 const SHUTTER_VARS = ["--ef-old-x", "--ef-old-y", "--ef-old-w", "--ef-new-x", "--ef-new-y"];
 const ROW_FRAMES = [
   { opacity: 0, transform: "translateX(-14px)", clipPath: "inset(0 100% 0 0)" },
@@ -260,10 +263,10 @@ export function mountEndfield(doc, win) {
   };
   const listOf = (target) => target?.closest?.("[data-site-collection]")?.querySelector("[data-site-entries]");
   on(doc, "click", (event) => {
-    const control = event.target?.closest?.(".ef-content :is([data-site-category],[data-site-reset],[data-site-clear])");
+    const control = event.target?.closest?.(":is(.ef-content,.ef-page) :is([data-site-category],[data-site-reset],[data-site-clear])");
     if (control) lightRows(listOf(control));
   });
-  on(doc, "change", (event) => { if (event.target?.matches?.(".ef-content [data-site-sort]")) lightRows(listOf(event.target)); });
+  on(doc, "change", (event) => { if (event.target?.matches?.(":is(.ef-content,.ef-page) [data-site-sort]")) lightRows(listOf(event.target)); });
 
   // 7. Motion switched back on: the page runs its opening once more. Paused: everything shows its final state at once.
   let wasMoving = moving();

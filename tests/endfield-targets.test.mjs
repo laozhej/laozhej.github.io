@@ -58,18 +58,20 @@ test("Endfield tap targets: the spacing that lets the closest links reach 44px",
   assert.ok(has(".ef-footer-bottom { row-gap:26px; }"), "the last row when it wraps: 19px tall lines, 45px from one to the next (27px before)");
   const wide = block.slice(block.indexOf("@media(min-width:761px) {"));
   assert.ok(wide.includes(".ef-content .blank-credits-body>a.blank-text-link+a.blank-text-link { margin-top:8px; }"), "a link wrapped under another on the credits page: 36px + 8px");
-  assert.ok(wide.includes(".ef-content .blank-toc summary { min-height:44px; }"), "the contents list's heading (40px before)");
-  assert.ok(wide.includes(".ef-content .blank-toc a { min-height:44px; padding-block:12.5px; }"), "a one-line entry: 19.25px of text + 2 × 12.5px (33px before); the floor covers smaller sub-entries");
+  // Since 2026-11-28 the article is Endfield's own page (.ef-article); the credits page keeps the shared one (.ef-content).
+  assert.ok(wide.includes(":is(.ef-content,.ef-article) .blank-toc summary { min-height:44px; }"), "the contents list's heading (40px before)");
+  assert.ok(wide.includes(":is(.ef-content,.ef-article) .blank-toc a { min-height:44px; padding-block:12.5px; }"), "a one-line entry: 19.25px of text + 2 × 12.5px (33px before); the floor covers smaller sub-entries");
   // Below 761px the shared stylesheet already gives the contents list 48px and 44px, and text links 44px.
   assert.doesNotMatch(block.slice(0, block.indexOf("@media(min-width:761px) {")), /blank-toc|blank-credits-body/, "the phone layout needs none of this");
 });
 
 test("Endfield tap targets: the shared pages as Endfield shows them", () => {
-  assert.ok(has('.ef-content .blank-filters button::before { content:""; position:absolute; inset:-2px 0; }'), "40px, plus 2 × 2px, inside the 6px between rows");
+  // The Collection is Endfield's own page since 2026-11-28 (.ef-coll) and keeps the shared filter buttons.
+  assert.ok(has(':is(.ef-content,.ef-coll) .blank-filters button::before { content:""; position:absolute; inset:-2px 0; }'), "40px, plus 2 × 2px, inside the 6px between rows");
   assert.ok(has('.ef-content .blank-post-meta a::after { content:""; position:absolute; inset:-13px 0; }'));
   assert.ok(has('.ef-content .blank-tag-line a::after { content:""; position:absolute; inset:-12px -6px; z-index:-1; }'), "tags are about 35 × 21px and at least 12px apart");
   const wide = block.slice(block.indexOf("@media(min-width:761px) {"));
-  assert.ok(wide.includes(':is(.ef-content,.ef-footer) .blank-text-link::after { content:""; position:absolute; inset:-4px 0; }'), "text links are 36px above 760px and 44px below it, so only the wide layout extends them");
+  assert.ok(wide.includes(':is(.ef-content,.ef-coll,.ef-footer) .blank-text-link::after { content:""; position:absolute; inset:-4px 0; }'), "text links are 36px above 760px and 44px below it, so only the wide layout extends them");
   assert.ok(wide.includes(".ef-content .blank-credits-body>a.blank-text-link::after { inset:-8px 0 0; }"), "credits: upward only, because a heading can follow a link directly; a link stacked above is 8px away");
   assert.doesNotMatch(block, /\.blank-credits-body[^{]*\{[^}]*z-index/, "an extension laid under the links does not answer inside a line of text, which is where the pair's 8px now are");
   assert.doesNotMatch(block.slice(0, block.indexOf("@media(min-width:761px) {")), /\.blank-text-link::after/, "extending the 44px phone links would overlap the ones stacked below them");

@@ -1,0 +1,110 @@
+---
+// Arknights Journal (2026-11-28, the owner's request to give the inner pages the theme's own structure): an archive terminal.
+// A search rail on the left holds the search box, the three categories with their counts, the order and the feed; the
+// archive on the right opens with the latest entry on the signal board from the homepage, and every other entry is one
+// row of a log: serial, date stamp, category, title and summary, reading time. Search, filters and order are the shared
+// data-site-* hooks, so the latest board is an entry like the rest: it hides when filtered out and moves with the order.
+import { Icon } from "astro-icon/components";
+import { site } from "@/lib/site";
+import { localizePath } from "@/core/i18n";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { getPublishedPosts } from "@/core/content/blog";
+import { readingStats } from "@/core/content/reading-time.mjs";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import PageLayout from "../layouts/ArknightsLayout.astro";
+import PageHead from "../components/PageHead.astro";
+import { dotMatrix } from "../lib/matrix.mjs";
+import { serialOf, stamp } from "../lib/records.mjs";
+
+const { locale, t, unit, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
+const posts = await getPublishedPosts(locale);
+const categories = Object.entries(categoryLabel).filter(([key]) => posts.some((post) => post.data.category === key));
+const empty = posts.length === 0;
+const rows = posts.map((post) => {
+  const stats = readingStats(post.body ?? "");
+  return {
+    post,
+    serial: serialOf(posts, post.slug),
+    date: post.data.pubDate,
+    time: stats.count > 0 ? t("article.readingTime").replace("{n}", String(stats.minutes)) : "",
+    search: [post.data.title, post.data.description, categoryLabel[post.data.category], ...post.data.tags].join(" "),
+  };
+});
+const [latest] = rows;
+const board = latest ? dotMatrix(latest.serial) : undefined;
+---
+<PageLayout title={`${t("nav.blog")} | ${site.name}`} description={t("blog.description")} bleed>
+  <div class="ak-page ak-journal">
+    <PageHead index="01" word="Journal" ghost="Records" label={t("blog.label")} description={t("blog.intro")} count={posts.length} unit={unit("common.entries", posts.length)} notes={latest ? [`Update ${stamp(latest.date)}`] : []} />
+    <section class="ak-sector ak-pagebody" data-site-collection data-unit={t("common.articles")} data-unit-one={t("common.articlesOne")} aria-label={t("blog.archive")}>
+      {empty ? (
+        <p class="ak-empty" id="blank-search">{t("blog.empty")}</p>
+      ) : (
+        <div class="ak-journal-grid">
+          <search class="ak-finder" data-site-filter-form hidden><form class="ak-finder-form">
+            <p class="ak-finder-label" aria-hidden="true">// Search</p>
+            <div class="ak-field">
+              <Icon name="tabler:search" size={18} aria-hidden="true" />
+              <label class="ak-sr" for="blank-search">{t("blog.searchLabel")}</label>
+              <input id="blank-search" type="search" name="q" maxlength="300" autocomplete="off" placeholder={t("blog.searchPlaceholder")} data-site-query />
+              <button class="ak-field-clear" type="button" data-site-clear aria-label={t("blog.clearSearch")} title={t("blog.clearSearch")} hidden><Icon name="tabler:x" size={16} /></button>
+            </div>
+            <fieldset class="ak-classes">
+              <legend class="ak-finder-label"><span aria-hidden="true">// </span>{t("blog.categories")}</legend>
+              <button type="button" data-site-category="all" aria-pressed="true"><span class="ak-lamp" aria-hidden="true"></span><span class="ak-classes-name">{t("blog.all")}</span><span class="ak-classes-count">{String(posts.length).padStart(2, "0")}</span></button>
+              {categories.map(([key, label]) => {
+                const count = posts.filter((post) => post.data.category === key).length;
+                return <button type="button" data-site-category={key} aria-pressed="false"><span class="ak-lamp" aria-hidden="true"></span><span class="ak-classes-name">{label}</span><span class="ak-classes-count">{String(count).padStart(2, "0")}</span></button>;
+              })}
+            </fieldset>
+            <div class="ak-finder-sort">
+              <label for="blank-sort">{t("blog.sort")}</label>
+              <select id="blank-sort" name="sort" data-site-sort><option value="newest">{t("blog.newest")}</option><option value="oldest">{t("blog.oldest")}</option></select>
+            </div>
+            <a class="ak-link ak-finder-rss" href={localizePath("/rss.xml", locale)} data-astro-reload><Icon name="tabler:rss" size={15} aria-hidden="true" /><span>{t("blog.rss")}</span></a>
+          </form></search>
+          <div class="ak-journal-main">
+            <p class="ak-journal-meta"><span aria-hidden="true">{t("blog.index")}</span><output data-site-count aria-live="polite" aria-atomic="true">{posts.length} {unit("common.articles", posts.length)}</output></p>
+            <ol class="ak-archive" data-site-entries>
+              {rows.map((row, index) => (
+                <li class:list={{ "ak-archive-latest": index === 0 }} data-site-entry data-category={row.post.data.category} data-date={row.date.valueOf()} data-search={row.search} style={`--i:${index}`}>
+                  {index === 0 && board ? (
+                    <a class="ak-record ak-record--journal" href={href(`/blog/${row.post.slug}/`)}>
+                      <span class="ak-record-head" aria-hidden="true"><span>Latest record</span><span>No.{row.serial}</span></span>
+                      <svg class="ak-matrix" viewBox={`-0.5 -0.5 ${board.width + 1} ${board.height + 1}`} aria-hidden="true" focusable="false">
+                        {board.rows.map((line) => (
+                          <g style={`--r:${line.y}`}>
+                            {line.off.map((x) => <rect class="ak-dot-off" x={x + 0.1} y={line.y + 0.1} width="0.8" height="0.8" />)}
+                            {line.on.map((x) => <rect class="ak-dot" x={x + 0.1} y={line.y + 0.1} width="0.8" height="0.8" />)}
+                          </g>
+                        ))}
+                      </svg>
+                      <span class="ak-record-body">
+                        <span class="ak-record-meta"><span>{categoryLabel[row.post.data.category]}</span><time datetime={row.date.toISOString()}><span aria-hidden="true">{stamp(row.date)}</span><span class="ak-sr">{formatDate(row.date)}</span></time>{row.time && <span>{row.time}</span>}</span>
+                        <strong class="ak-record-title" lang={row.post.data.locale}>{keepTails(row.post.data.title)}</strong>
+                        <span class="ak-record-text" lang={row.post.data.locale}>{keepTails(row.post.data.description)}</span>
+                        <span class="ak-record-plate"><span>{t("arknights.latest")}</span><Icon name="tabler:chevron-right" size={18} aria-hidden="true" /></span>
+                      </span>
+                    </a>
+                  ) : (
+                    <a class="ak-row" href={href(`/blog/${row.post.slug}/`)} data-ak-no={row.serial}>
+                      <span class="ak-row-no" aria-hidden="true">No.{row.serial}</span>
+                      <time class="ak-row-date" datetime={row.date.toISOString()}><span aria-hidden="true">{stamp(row.date)}</span><span class="ak-sr">{formatDate(row.date)}</span></time>
+                      <span class="ak-row-kind">{categoryLabel[row.post.data.category]}</span>
+                      <span class="ak-row-title" lang={row.post.data.locale}>{keepTails(row.post.data.title)}</span>
+                      <span class="ak-row-text" lang={row.post.data.locale}>{keepTails(row.post.data.description)}</span>
+                      <span class="ak-row-tags">{row.post.data.tags.slice(0, 3).map((tag) => <span>#{tag}</span>)}</span>
+                      {row.time && <span class="ak-row-time">{row.time}</span>}
+                      <Icon class="ak-row-go" name="tabler:chevron-right" size={20} aria-hidden="true" />
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ol>
+            <div class="ak-noresult" data-site-empty hidden><p>{t("blog.noResults")}</p><button class="ak-button" type="button" data-site-reset><span>{t("blog.reset")}</span><Icon name="tabler:arrow-back-up" size={18} aria-hidden="true" /></button></div>
+          </div>
+        </div>
+      )}
+    </section>
+  </div>
+</PageLayout>

@@ -1,0 +1,101 @@
+---
+// Endfield Journal (2026-11-28, the owner's request to give the inner pages the theme's own structure): an industrial
+// manual's record sheet. The tools sit on one board under an ink tab (search, order, feed, then the categories as cut
+// blocks with their counts); the latest entry is the homepage's framed window, cut at two corners over a hatched shadow,
+// with its serial as a hollow number; every other entry is a work record with a cut corner, numbered "// 03". Search,
+// filters and order are the shared data-site-* hooks, so the window is an entry like the rest.
+import { Icon } from "astro-icon/components";
+import { site } from "@/lib/site";
+import { localizePath } from "@/core/i18n";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { getPublishedPosts } from "@/core/content/blog";
+import { readingStats } from "@/core/content/reading-time.mjs";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import PageLayout from "../layouts/EndfieldLayout.astro";
+import PageHead from "../components/PageHead.astro";
+
+const { locale, t, unit, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
+const posts = await getPublishedPosts(locale);
+const categories = Object.entries(categoryLabel).filter(([key]) => posts.some((post) => post.data.category === key));
+const empty = posts.length === 0;
+const pad = (value: number, length = 2) => String(value).padStart(length, "0");
+// Entries are numbered oldest first, so a number never changes once given (the shared list is newest first).
+const rows = posts.map((post, index) => {
+  const stats = readingStats(post.body ?? "");
+  return {
+    post,
+    serial: pad(posts.length - index, 3),
+    number: pad(posts.length - index),
+    date: post.data.pubDate,
+    time: stats.count > 0 ? t("article.readingTime").replace("{n}", String(stats.minutes)) : "",
+    search: [post.data.title, post.data.description, categoryLabel[post.data.category], ...post.data.tags].join(" "),
+  };
+});
+---
+<PageLayout title={`${t("nav.blog")} | ${site.name}`} description={t("blog.description")} bleed>
+  <div class="ef-page ef-journal">
+    <PageHead index="01" word="Journal" label={t("blog.label")} description={t("blog.intro")} count={posts.length} unit={unit("common.entries", posts.length)} notes={rows[0] ? [formatDate(rows[0].date)] : []} />
+    <section class="ef-page-body" data-site-collection data-unit={t("common.articles")} data-unit-one={t("common.articlesOne")} aria-label={t("blog.archive")}>
+      {empty ? (
+        <p class="ef-empty" id="blank-search">{t("blog.empty")}</p>
+      ) : (
+        <>
+          <search class="ef-tools" data-site-filter-form hidden><form class="ef-tools-form">
+            <div class="ef-tools-row">
+              <p class="ef-eyebrow" aria-hidden="true">// Search</p>
+              <div class="ef-field">
+                <Icon name="tabler:search" size={18} aria-hidden="true" />
+                <label class="ef-sr" for="blank-search">{t("blog.searchLabel")}</label>
+                <input id="blank-search" type="search" name="q" maxlength="300" autocomplete="off" placeholder={t("blog.searchPlaceholder")} data-site-query />
+                <button class="ef-field-clear" type="button" data-site-clear aria-label={t("blog.clearSearch")} title={t("blog.clearSearch")} hidden><Icon name="tabler:x" size={16} /></button>
+              </div>
+              <div class="ef-sort">
+                <label for="blank-sort">{t("blog.sort")}</label>
+                <select id="blank-sort" name="sort" data-site-sort><option value="newest">{t("blog.newest")}</option><option value="oldest">{t("blog.oldest")}</option></select>
+              </div>
+              <a class="ef-link ef-tools-rss" href={localizePath("/rss.xml", locale)} data-astro-reload><Icon name="tabler:rss" size={15} aria-hidden="true" />&nbsp;{t("blog.rss")}</a>
+            </div>
+            <fieldset class="ef-chips">
+              <legend class="ef-eyebrow"><span aria-hidden="true">// </span>{t("blog.categories")}</legend>
+              <button type="button" data-site-category="all" aria-pressed="true">{t("blog.all")} <span>{pad(posts.length)}</span></button>
+              {categories.map(([key, label]) => <button type="button" data-site-category={key} aria-pressed="false">{label} <span>{pad(posts.filter((post) => post.data.category === key).length)}</span></button>)}
+            </fieldset>
+          </form></search>
+          <p class="ef-list-meta"><span aria-hidden="true">{t("blog.index")}</span><output data-site-count aria-live="polite" aria-atomic="true">{posts.length} {unit("common.articles", posts.length)}</output></p>
+          <ol class="ef-log" data-site-entries>
+            {rows.map((row, index) => (
+              <li class:list={{ "ef-log-latest": index === 0 }} data-site-entry data-category={row.post.data.category} data-date={row.date.valueOf()} data-search={row.search} style={`--ef-i:${index}`}>
+                {index === 0 ? (
+                  <a class="ef-frame ef-frame--log" href={href(`/blog/${row.post.slug}/`)}>
+                    <span class="ef-frame-window">
+                      <span class="ef-hollow-no" aria-hidden="true">{row.serial}</span>
+                      <span class="ef-frame-body">
+                        <span class="ef-fields"><span aria-hidden="true">No.{row.serial}</span><span>{categoryLabel[row.post.data.category]}</span><time datetime={row.date.toISOString()}>{formatDate(row.date)}</time>{row.time && <span>{row.time}</span>}</span>
+                        <strong class="ef-frame-title" lang={row.post.data.locale}>{keepTails(row.post.data.title)}</strong>
+                        <span class="ef-frame-text" lang={row.post.data.locale}>{keepTails(row.post.data.description)}</span>
+                        <span class="ef-log-tags">{row.post.data.tags.slice(0, 4).map((tag) => <span>#{tag}</span>)}</span>
+                      </span>
+                    </span>
+                    <span class="ef-frame-plate">{t("endfield.latest")}</span>
+                  </a>
+                ) : (
+                  <a class="ef-job" href={href(`/blog/${row.post.slug}/`)}>
+                    <span class="ef-tag" aria-hidden="true">// {row.number}</span>
+                    <time class="ef-job-date" datetime={row.date.toISOString()}>{formatDate(row.date)}</time>
+                    <span class="ef-record-kind">{categoryLabel[row.post.data.category]}</span>
+                    <span class="ef-job-title" lang={row.post.data.locale}>{keepTails(row.post.data.title)}</span>
+                    <span class="ef-job-text" lang={row.post.data.locale}>{keepTails(row.post.data.description)}</span>
+                    <span class="ef-log-tags">{row.post.data.tags.slice(0, 3).map((tag) => <span>#{tag}</span>)}</span>
+                    {row.time && <span class="ef-job-time">{row.time}</span>}
+                    <Icon class="ef-job-go" name="tabler:arrow-right" size={20} aria-hidden="true" />
+                  </a>
+                )}
+              </li>
+            ))}
+          </ol>
+          <div class="ef-noresult" data-site-empty hidden><p>{t("blog.noResults")}</p><button class="ef-button ef-button--quiet" type="button" data-site-reset>{t("blog.reset")}<Icon name="tabler:arrow-back-up" size={17} aria-hidden="true" /></button></div>
+        </>
+      )}
+    </section>
+  </div>
+</PageLayout>

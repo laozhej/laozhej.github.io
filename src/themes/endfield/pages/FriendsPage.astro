@@ -1,0 +1,128 @@
+---
+// Endfield Friends (2026-11-28, the owner's request to give the inner pages the theme's own structure): a register on fine
+// rules. Each part opens with the manual's section head ("// 01 FRIENDS" over the name, a hatched band running off it);
+// the friends' sites and the special links are numbered register rows with cut number tags; with no friends yet the
+// register shows a hatched plate holding a real zero and the sentence that says what will be here. The exchange is a
+// board with an ink tab: this site's card, its fields, the copy button, the rules and the notes. Everything shown comes
+// from src/core/data/friends.ts through getFriendsPage; friends' own words keep their language. The copy button and the
+// avatar fallback are the shared data-site-friends hooks.
+import { Icon } from "astro-icon/components";
+import { site } from "@/lib/site";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { getFriendsPage } from "@/core/content/friends";
+import { displayAddress } from "@/core/content/select-friends.mjs";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import FriendAvatar from "@/core/components/FriendAvatar.astro";
+import PageLayout from "../layouts/EndfieldLayout.astro";
+import PageHead from "../components/PageHead.astro";
+
+const { locale, t, href, unit } = getI18n(Astro.url.pathname);
+const page = getFriendsPage(locale, t, Astro.site ?? "https://neroarataki.com");
+const pad = (value: number) => String(value).padStart(2, "0");
+const parts = ["Friends", "Special", ...(page.lost.length ? ["Lost"] : []), "Exchange"];
+const no = (word: string) => pad(parts.indexOf(word) + 1);
+---
+<PageLayout title={`${t("friends.title")} | ${site.name}`} description={t("friends.description")} bleed>
+  <div class="ef-page ef-friends" data-site-friends data-copied={t("article.copied")} data-copy-failed={t("article.copyFailed")}>
+    <PageHead index="06" word="Friends" label={t("friends.title")} description={t("friends.intro")} count={page.listed.length} unit={unit("friends.unit", page.listed.length)} />
+
+    <section class="ef-section ef-register-part" aria-labelledby="friends-heading">
+      <header class="ef-head"><div><p class="ef-eyebrow" lang="en">// {no("Friends")} Friends</p><h2 id="friends-heading">{t("friends.heading")}</h2></div></header>
+      {page.listed.length ? (
+        <ol class="ef-register">
+          {page.listed.map((friend, index) => (
+            <li id={`friend-${friend.id}`}>
+              <a class="ef-entry" href={friend.url} target="_blank" rel="noopener">
+                <span class="ef-tag" aria-hidden="true">// {pad(index + 1)}</span>
+                <FriendAvatar name={friend.name} src={friend.avatar} size={48} />
+                <span class="ef-entry-text"><strong lang={friend.lang}>{friend.name}</strong><span lang={friend.lang}>{keepTails(friend.description)}</span></span>
+                <span class="ef-entry-address">{friend.address}{friend.languageName && <small>{t("friends.original")} · {friend.languageName}</small>}</span>
+                <Icon class="ef-job-go" name="tabler:arrow-up-right" size={18} aria-hidden="true" />
+                <span class="ef-sr">{t("friends.newTab")}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <div class="ef-void">
+          <span class="ef-hollow-no" aria-hidden="true">00</span>
+          <div><p>{t("friends.empty")}</p><a class="ef-link" href="#friends-exchange">{t("friends.emptyLink")}</a></div>
+        </div>
+      )}
+    </section>
+
+    <section class="ef-section ef-register-part" aria-labelledby="friends-special">
+      <header class="ef-head"><div><p class="ef-eyebrow" lang="en">// {no("Special")} Special</p><h2 id="friends-special">{t("friends.specialHeading")}</h2></div><a class="ef-link" href={href("/credits/")}>{t("footer.credits")}</a></header>
+      <p class="ef-lede">{t("friends.specialIntro")}</p>
+      <ol class="ef-register ef-register--plain">
+        {page.special.map((link, index) => (
+          <li>
+            <a class="ef-entry" href={link.url} target="_blank" rel="noopener noreferrer">
+              <span class="ef-tag" aria-hidden="true">// {pad(index + 1)}</span>
+              <span class="ef-entry-text"><strong>{link.name}</strong><span>{link.note}</span></span>
+              <span class="ef-entry-address">{link.address}</span>
+              <Icon class="ef-job-go" name="tabler:arrow-up-right" size={18} aria-hidden="true" />
+              <span class="ef-sr">{t("friends.newTab")}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    {page.lost.length > 0 && (
+      <section class="ef-section ef-register-part" aria-labelledby="friends-lost">
+        <header class="ef-head"><div><p class="ef-eyebrow" lang="en">// {no("Lost")} Lost</p><h2 id="friends-lost">{t("friends.lostHeading")}</h2></div></header>
+        <details class="ef-lost">
+          <summary>{t("friends.lostHeading")} · {pad(page.lost.length)}<Icon name="tabler:chevron-down" size={16} aria-hidden="true" /></summary>
+          <p class="ef-lede">{page.lostNote}</p>
+          <ol class="ef-register">
+            {page.lost.map((friend, index) => (
+              <li id={`friend-${friend.id}`}>
+                <a class="ef-entry" href={friend.url} target="_blank" rel="noopener">
+                  <span class="ef-tag" aria-hidden="true">// {pad(index + 1)}</span>
+                  <FriendAvatar name={friend.name} src={friend.avatar} size={48} />
+                  <span class="ef-entry-text"><strong lang={friend.lang}>{friend.name}</strong><span lang={friend.lang}>{keepTails(friend.description)}</span></span>
+                  <span class="ef-entry-address">{friend.address}</span>
+                  <Icon class="ef-job-go" name="tabler:arrow-up-right" size={18} aria-hidden="true" />
+                  <span class="ef-sr">{t("friends.newTab")}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </details>
+      </section>
+    )}
+
+    <section class="ef-section ef-register-part" id="friends-exchange" aria-labelledby="friends-exchange-heading">
+      <header class="ef-head"><div><p class="ef-eyebrow" lang="en">// {no("Exchange")} Exchange</p><h2 id="friends-exchange-heading">{t("friends.exchangeHeading")}</h2></div><p class="ef-state-chip ef-state-chip--off"><span class="ef-state-lamp" aria-hidden="true"></span>{t("friends.closed")}</p></header>
+      <p class="ef-lede">{t("friends.closedNote")}{locale === "en" ? " " : ""}{t("friends.howTo")}</p>
+      <div class="ef-exchange">
+        <div class="ef-exchange-card">
+          <h3 class="ef-sub"><span class="ef-eyebrow" lang="en" aria-hidden="true">// Card</span>{t("friends.cardHeading")}</h3>
+          <div class="ef-exchange-id">
+            <FriendAvatar name={page.card.name} src="/apple-touch-icon.png" size={56} />
+            <div><strong>{page.card.name}</strong><span>{keepTails(page.card.description)}</span><small>{displayAddress(page.card.link)}</small></div>
+          </div>
+          <table class="ef-params">
+            <tbody>
+              <tr><th scope="row">{t("friends.cardName")}</th><td>{page.card.name}</td></tr>
+              <tr><th scope="row">{t("friends.cardLink")}</th><td>{page.card.link}</td></tr>
+              <tr><th scope="row">{t("friends.cardAvatar")}</th><td>{page.card.avatar}</td></tr>
+              <tr><th scope="row">{t("friends.cardDescription")}</th><td>{page.card.description}</td></tr>
+            </tbody>
+          </table>
+          <div class="site-copy ef-exchange-copy">
+            <button class="ef-button ef-button--main" type="button" data-site-friends-copy data-copy-text={page.cardText} hidden><Icon name="tabler:copy" size={16} aria-hidden="true" />{t("friends.copy")}</button>
+            <span class="site-copy-tip" role="status"></span>
+          </div>
+        </div>
+        <div class="ef-exchange-notes">
+          <h3 class="ef-sub"><span class="ef-eyebrow" lang="en" aria-hidden="true">// Rules</span>{t("friends.rulesHeading")}</h3>
+          <ol class="ef-spec-lines">{page.rules.map((rule, index) => <li><span class="ef-num" aria-hidden="true">{pad(index + 1)}</span><span>{rule}</span></li>)}</ol>
+          <h3 class="ef-sub"><span class="ef-eyebrow" lang="en" aria-hidden="true">// Notes</span>{t("friends.notesHeading")}</h3>
+          <ul class="ef-spec-lines ef-spec-lines--notes">{page.notes.map((note) => <li><span class="ef-note-mark" aria-hidden="true"></span><span>{note}</span></li>)}</ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</PageLayout>

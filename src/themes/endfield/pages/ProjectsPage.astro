@@ -1,0 +1,145 @@
+---
+// Endfield Works (2026-11-28, the owner's request to give the inner pages the theme's own structure): each work as an
+// equipment spec card. A white board with an ink tab, two corners cut toward its centre and a hatched shadow holds the
+// hollow serial, the type, the name and status, a parameter table (type, direction, status, captures, journal entries),
+// the summary, the case-study button and the development journal as numbered records. Below the card, the captures are
+// grouped by the date they were taken, newest first, so the changes between versions read side by side. Everything comes
+// from the shared project data (dates are read from each capture's recorded caption); the filter hooks are those of the
+// other Works pages and appear under the same condition.
+import { Icon } from "astro-icon/components";
+import { getSiteContent } from "@/core/i18n/content";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { getPublishedPosts } from "@/core/content/blog";
+import { projectJournals } from "@/core/data/projects";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import { site } from "@/lib/site";
+import PageLayout from "../layouts/EndfieldLayout.astro";
+import PageHead from "../components/PageHead.astro";
+
+const { locale, t, unit, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
+const { projectEntries, projectTechLines } = getSiteContent(locale);
+const posts = await getPublishedPosts(locale);
+const filterable = projectEntries.length > 1 && projectTechLines.length > 1;
+const pad = (value: number, length = 2) => String(value).padStart(length, "0");
+const caption = (text?: string) => keepTails(text ?? "").replace(/(\d)([-×])(?=\d)/g, "$1⁠$2⁠").replace(/ ·/g, " ·");
+type Shot = { src: string; width: number; height: number; alt: string; label?: string; meta?: string; number?: string };
+const cards = projectEntries.map((project, index) => {
+  const gallery: Shot[] = (project.gallery ?? []).map((shot, at) => ({ ...shot, number: pad(at + 1) }));
+  const image = project.image;
+  const pick = (src?: string): Shot | undefined => (src ? gallery.find((shot) => shot.src === src) ?? { ...image, src } : undefined);
+  const leads = [pick(image?.src), pick(image?.darkSrc)].filter((shot): shot is Shot => Boolean(shot));
+  // Captures grouped by the date in their recorded caption ("… · 2026-10-31 …"), newest first; none without a date.
+  const groups = new Map<string, Shot[]>();
+  for (const shot of gallery) {
+    const date = shot.meta?.match(/\d{4}-\d{2}-\d{2}/)?.[0];
+    if (!date) continue;
+    groups.set(date, [...(groups.get(date) ?? []), shot]);
+  }
+  const revisions = [...groups].sort(([a], [b]) => b.localeCompare(a)).map(([date, shots]) => ({ date, shots }));
+  const direction = projectTechLines.find((line) => line.key === project.line);
+  const journal = (projectJournals.find((group) => group.projectId === project.id)?.articles ?? [])
+    .flatMap((slug) => posts.filter((post) => post.slug === slug));
+  const serial = (slug: string) => pad(posts.length - posts.findIndex((post) => post.slug === slug));
+  const params = [
+    { word: "Type", value: project.type },
+    direction && { word: "Line", value: `${direction.label} / ${direction.note}` },
+    { word: "Status", value: project.status },
+    gallery.length > 0 && { word: "Frames", value: pad(gallery.length) },
+    journal.length > 0 && { word: "Logs", value: pad(journal.length) },
+  ].filter(Boolean) as { word: string; value: string }[];
+  return { project, number: pad(index + 1), leads, revisions, journal, params, serial };
+});
+---
+<PageLayout title={`${t("nav.projects")} | ${site.name}`} description={t("projects.description")} bleed>
+  <div class="ef-page ef-works">
+    <PageHead index="02" word="Works" label={t("projects.label")} description={t("projects.intro")} count={projectEntries.length} unit={unit("common.projects", projectEntries.length)} />
+    <section class="ef-page-body" data-site-collection data-site-lightbox
+      data-lightbox-open={t("article.lightboxOpen")}
+      data-lightbox-label={t("article.lightboxLabel")}
+      data-lightbox-close={t("article.lightboxClose")}
+      data-unit={t("common.projects")} data-unit-one={t("common.projectsOne")} aria-label={t("projects.index")}>
+      {filterable && (
+        <form class="ef-tools-form" data-site-filter-form hidden>
+          <fieldset class="ef-chips">
+            <legend class="ef-eyebrow">{t("projects.categories")}</legend>
+            <button type="button" data-site-category="all" aria-pressed="true">{t("projects.all")}</button>
+            {projectTechLines.map((line) => <button type="button" data-site-category={line.key} aria-pressed="false">{line.label}</button>)}
+          </fieldset>
+          <output class="ef-list-meta" data-site-count aria-live="polite" aria-atomic="true">{projectEntries.length} {unit("common.projects", projectEntries.length)}</output>
+        </form>
+      )}
+      <div class="ef-devices" data-site-entries>
+        {cards.map(({ project, number, leads, revisions, journal, params, serial }) => (
+          <article id={project.id} class="ef-device" data-site-entry data-category={project.line} aria-labelledby={`${project.id}-title`}>
+            <div class="ef-device-frame"><div class="ef-device-card">
+              <div class="ef-device-head">
+                <span class="ef-hollow-no" aria-hidden="true">{number}</span>
+                <div>
+                  <p class="ef-eyebrow"><span aria-hidden="true">// {number} │ </span>{project.type}</p>
+                  <h2 id={`${project.id}-title`} class="ef-device-title">{keepTails(project.title)}</h2>
+                  <p class="ef-state-chip"><span class="ef-state-lamp" aria-hidden="true"></span>{project.status}</p>
+                </div>
+              </div>
+              {leads.length > 0 && (
+                <div class="ef-device-shot">
+                  {leads.map((shot, at) => (
+                    <figure class:list={["ef-device-figure", leads.length > 1 && (at === 0 ? "is-light" : "is-dark")]}>
+                      <img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading={at === 0 ? "eager" : "lazy"} fetchpriority={at === 0 ? "high" : undefined} decoding="async" />
+                      {shot.meta && <figcaption><span class="ef-tag">{shot.number}</span><span>{caption(shot.label)}</span><small>{caption(shot.meta)}</small></figcaption>}
+                    </figure>
+                  ))}
+                </div>
+              )}
+              <div class="ef-device-spec">
+                <table class="ef-params">
+                  <caption class="ef-eyebrow" lang="en">// Parameters</caption>
+                  <tbody>{params.map((param) => <tr><th scope="row" lang="en">{param.word}</th><td>{param.value}</td></tr>)}</tbody>
+                </table>
+                <p class="ef-device-summary">{keepTails(project.summary)}</p>
+                <ol class="ef-spec-lines ef-device-points">{project.details.map((detail, at) => <li><span class="ef-num" aria-hidden="true">{pad(at + 1)}</span><span>{keepTails(detail)}</span></li>)}</ol>
+                <p class="ef-hero-actions"><a class="ef-button ef-button--main" href={project.url}>{t("projects.caseStudy")}<Icon name="tabler:arrow-up-right" size={17} aria-hidden="true" /></a></p>
+              </div>
+              {journal.length > 0 && (
+                <nav class="ef-device-journal" aria-label={t("projects.journal")}>
+                  <h3 class="ef-sub"><span class="ef-eyebrow" lang="en" aria-hidden="true">// Logs</span>{t("projects.journal")}</h3>
+                  <ol class="ef-log">
+                    {journal.map((post) => (
+                      <li><a class="ef-job ef-job--compact" href={href(`/blog/${post.slug}/`)}>
+                        <span class="ef-tag" aria-hidden="true">// {serial(post.slug)}</span>
+                        <time class="ef-job-date" datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+                        <span class="ef-record-kind">{categoryLabel[post.data.category]}</span>
+                        <span class="ef-job-title" lang={post.data.locale}>{keepTails(post.data.title)}</span>
+                        <Icon class="ef-job-go" name="tabler:arrow-right" size={20} aria-hidden="true" />
+                      </a></li>
+                    ))}
+                  </ol>
+                </nav>
+              )}
+            </div></div>
+            {revisions.length > 0 && (
+              <div class="ef-revisions">
+                <h3 class="ef-sub"><span class="ef-eyebrow" lang="en" aria-hidden="true">// Frames</span>{t("ema.gallery.title")}</h3>
+                {revisions.map((revision) => (
+                  <div class="ef-revision">
+                    <p class="ef-fields ef-revision-head" aria-hidden="true"><span lang="en">Rev</span><span>{revision.date}</span><span>{pad(revision.shots.length)}</span></p>
+                    <ol>
+                      {revision.shots.map((shot) => (
+                        <li class:list={{ "is-tall": shot.height > shot.width }}>
+                          <figure>
+                            <span class="ef-revision-frame"><img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" decoding="async" /></span>
+                            {shot.meta && <figcaption><span class="ef-tag">{shot.number}</span><span>{caption(shot.label)}</span><small>{caption(shot.meta)}</small></figcaption>}
+                          </figure>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                ))}
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+      {filterable && <div class="ef-noresult" data-site-empty hidden><p>{t("projects.empty")}</p><button class="ef-button ef-button--quiet" type="button" data-site-reset>{t("projects.reset")}<Icon name="tabler:arrow-right" size={17} aria-hidden="true" /></button></div>}
+    </section>
+  </div>
+</PageLayout>

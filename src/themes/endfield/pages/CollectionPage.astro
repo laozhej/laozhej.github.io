@@ -1,0 +1,164 @@
+---
+// Endfield Collection (2026-11-28, the owner's request to give the inner pages the theme's own structure). The structure
+// of the shared Collection page (blank/pages/CollectionPage.astro, after soki.moe's 品鉴 page): a sidebar of categories
+// with their counts beside the shelf; on a shelf, its genres as filters, a search box and the works grouped under genre
+// headings. Here the head is the theme's own (components/PageHead.astro) and the parts below are drawn in theme.css
+// ("Collection"): numbered rows with their Latin word, the current category on a yellow cut block, cut panels with a
+// hatched shadow. Everything shown comes from the shared collection (select-collection.mjs); filters and search use the
+// data-site-* hooks. data-collection-head / -side / -shelf / -marker let shelf-swap.mjs keep the head and sidebar still
+// between shelves.
+import { Icon } from "astro-icon/components";
+import { getSiteContent } from "@/core/i18n/content";
+import { site } from "@/lib/site";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { collectionPath, previewEntries } from "@/core/content/select-collection.mjs";
+import WorkCard from "@/themes/blank/components/WorkCard.astro";
+import PageLayout from "../layouts/EndfieldLayout.astro";
+import PageHead from "../components/PageHead.astro";
+import SerendipityPicker from "@/core/components/SerendipityPicker.astro";
+
+interface Props { shelf?: string }
+const { locale, t, href } = getI18n(Astro.url.pathname);
+const { collection } = getSiteContent(locale);
+const { shelves, total, favoriteKeys } = collection;
+const current = shelves.find((shelf) => shelf.key === Astro.props.shelf);
+const pad = (value: number) => String(value).padStart(2, "0");
+const name = (key: string) => t(`collection.shelf.${key}`);
+const unitOf = (key: string, count: number) => t(`collection.unit.${key}${count === 1 ? "One" : ""}`);
+// Fixed Latin words beside each category (decorative): Endfield and Arknights show them, Blank does not.
+const latin: Record<string, string> = { manga: "Manga", anime: "Anime", movies: "Movies", tv: "TV Series", games: "Games" };
+const genreOf = (shelf: (typeof shelves)[number]) => (key: string) => shelf.key === "games" ? t(`games.genre.${key}`) : shelf.labels?.[key] ?? key;
+const shapeOf = (key: string) => key === "games" ? "wide" : "tall";
+// The overview previews one row of each shelf on a desktop: four wide game cards or six posters.
+const previewCount = (key: string) => shapeOf(key) === "wide" ? 4 : 6;
+const filled = shelves.filter((shelf) => shelf.entries.length > 0);
+const empty = shelves.filter((shelf) => shelf.entries.length === 0);
+const list = new Intl.ListFormat(locale, { type: "conjunction" }).format(empty.map((shelf) => name(shelf.key)));
+const currentIndex = current ? shelves.indexOf(current) + 1 : 0;
+const title = current ? `${name(current.key)} · ${t("nav.collection")} | ${site.name}` : `${t("nav.collection")} | ${site.name}`;
+const description = current?.key === "games" ? t("games.description") : t("collection.description");
+const genre = current ? genreOf(current) : (key: string) => key;
+// The first three covers on the page load at once; the first is fetched first (it is the largest paint).
+const firstKeys = (current ? current.groups.flatMap((group) => group.entries) : previewEntries(filled[0]?.entries ?? [], previewCount(filled[0]?.key ?? ""), filled[0]?.key === "games" ? favoriteKeys : [])).slice(0, 3).map((entry) => `${entry.shelf}:${entry.key}`);
+const lead = (entry: { shelf: string; key: string }) => { const index = firstKeys.indexOf(`${entry.shelf}:${entry.key}`); return index < 0 ? undefined : index; };
+const shelfNames = Object.fromEntries(shelves.map((shelf) => [shelf.key, name(shelf.key)]));
+const genreLabel = (shelfKey: string, key: string) => {
+  const shelf = shelves.find((item) => item.key === shelfKey);
+  return shelf ? genreOf(shelf)(key) : key;
+};
+const randomPool = current ? current.entries : filled.flatMap((shelf) => shelf.entries);
+---
+<PageLayout title={title} description={description} bleed>
+  <div class="ef-page ef-coll">
+  <div class="ef-coll-head" data-collection-head>
+    <PageHead index="03" word="Collection" label={t("footer.collection")} description={t("collection.intro")} count={total} unit={unitOf("total", total)} />
+  </div>
+  <div class="ef-page-body">
+  <div class:list={["blank-collection", { "is-overview": !current }]} data-shelf={current?.key ?? "all"}>
+    <aside class="blank-collection-side" data-collection-side>
+      <p class="blank-kicker blank-collection-label" aria-hidden="true">{t("collection.sideLabel")}</p>
+      <nav aria-label={t("collection.categories")}>
+        <ol class="blank-collection-index">
+          <li>
+            <a href={href(collectionPath())} aria-current={!current ? "page" : undefined}>
+              {!current && <span class="blank-collection-marker" data-collection-marker aria-hidden="true"></span>}
+              <span class="blank-row-number" aria-hidden="true">00</span>
+              <span class="blank-collection-name">{t("games.all")}</span>
+              <span class="blank-collection-latin" aria-hidden="true">All</span>
+              <span class="blank-collection-count" aria-hidden="true">{pad(total)}</span>
+              <span class="blank-sr-only">{`${total} ${unitOf("total", total)}`}</span>
+            </a>
+          </li>
+          {shelves.map((shelf, index) => (
+            <li>
+              <a href={href(collectionPath(shelf.key))} aria-current={current === shelf ? "page" : undefined} data-empty={shelf.entries.length === 0 ? "" : undefined}>
+                {current === shelf && <span class="blank-collection-marker" data-collection-marker aria-hidden="true"></span>}
+                <span class="blank-row-number" aria-hidden="true">{pad(index + 1)}</span>
+                <span class="blank-collection-name">{name(shelf.key)}</span>
+                <span class="blank-collection-latin" aria-hidden="true">{latin[shelf.key]}</span>
+                <span class="blank-collection-count" aria-hidden="true">{pad(shelf.entries.length)}</span>
+                <span class="blank-sr-only">{`${shelf.entries.length} ${unitOf(shelf.key, shelf.entries.length)}`}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </aside>
+
+    <div class="blank-collection-main" data-collection-shelf>
+      {randomPool.length > 0 && (
+        <SerendipityPicker entries={randomPool} shelfKey={current?.key} shelfNames={shelfNames} genreLabel={genreLabel} href={href} t={t} />
+      )}
+      {current ? (
+        <section class="blank-shelf" data-site-collection data-unit={unitOf(current.key, 2)} data-unit-one={unitOf(current.key, 1)} aria-labelledby="collection-shelf-title">
+          <header class="blank-shelf-head" data-latin={latin[current.key]}>
+            <p class="blank-kicker"><span>{pad(currentIndex)}</span> / {latin[current.key]}</p>
+            <h2 id="collection-shelf-title">{name(current.key)}</h2>
+            <p class="blank-shelf-stats">
+              <span><strong>{current.entries.length}</strong> {unitOf(current.key, current.entries.length)}</span>
+              {current.genres.length > 0 && <span><strong>{current.genres.length}</strong> {t(current.genres.length === 1 ? "collection.unit.genresOne" : "collection.unit.genres")}</span>}
+              <output class="blank-sr-only" data-site-count aria-live="polite" aria-atomic="true">{`${current.entries.length} ${unitOf(current.key, current.entries.length)}`}</output>
+            </p>
+          </header>
+          {current.entries.length > 0 ? (
+            <>
+              <search data-site-filter-form hidden><form class="blank-filter-form blank-shelf-tools">
+                {current.genres.length > 1 && (
+                  <fieldset class="blank-filters">
+                    <legend class="blank-sr-only">{t("collection.filterLegend")}</legend>
+                    <span class="blank-shelf-filter-label" aria-hidden="true">{t("collection.filter")}</span>
+                    <button type="button" data-site-category="all" aria-pressed="true">{t("games.all")} <span>{current.entries.length}</span></button>
+                    {current.genres.map((key) => <button type="button" data-site-category={key} aria-pressed="false">{genre(key)} <span>{current.entries.filter((entry) => entry.tags.includes(key)).length}</span></button>)}
+                  </fieldset>
+                )}
+                <div class="blank-search">
+                  <Icon name="tabler:search" size={19} />
+                  <label class="blank-sr-only" for="collection-search">{t(`collection.search.${current.key}`).replace(/…$/, "")}</label>
+                  <input id="collection-search" type="search" name="q" maxlength="300" autocomplete="off" placeholder={t(`collection.search.${current.key}`)} data-site-query />
+                  <button class="blank-icon-button" type="button" data-site-clear aria-label={t("blog.clearSearch")} title={t("blog.clearSearch")} hidden><Icon name="tabler:x" size={16} /></button>
+                </div>
+              </form></search>
+              <div class="blank-shelf-groups" data-site-entries>
+                {current.groups.map((group) => group.key ? (
+                  <section class="blank-shelf-group" data-site-group aria-labelledby={`collection-group-${group.key}`}>
+                    <h3 class="blank-shelf-group-title" id={`collection-group-${group.key}`}><span>{genre(group.key)}</span><span class="blank-row-number" data-site-group-count="2">{pad(group.entries.length)}</span></h3>
+                    <ol class:list={["blank-work-grid", `is-${shapeOf(current.key)}`]}>
+                      {group.entries.map((entry) => <WorkCard entry={entry} t={t} genre={genre} level={4} showGenre={false} filterable anchor lead={lead(entry)} />)}
+                    </ol>
+                  </section>
+                ) : (
+                  <div class="blank-shelf-group" data-site-group>
+                    <ol class:list={["blank-work-grid", `is-${shapeOf(current.key)}`]}>
+                      {group.entries.map((entry) => <WorkCard entry={entry} t={t} genre={genre} level={3} filterable anchor lead={lead(entry)} />)}
+                    </ol>
+                  </div>
+                ))}
+              </div>
+              <div class="blank-empty-results" data-site-empty hidden><p>{t("collection.noResults")}</p><button class="blank-text-link" type="button" data-site-reset>{t("blog.reset")} <Icon name="tabler:arrow-back-up" size={17} /></button></div>
+            </>
+          ) : (
+            <div class="blank-shelf-empty"><p>{t("collection.emptyTitle")}</p><p>{t("collection.emptyBody")}</p></div>
+          )}
+        </section>
+      ) : (
+        <div class="blank-collection-overview">
+          {filled.map((shelf) => (
+            <section class="blank-shelf-preview" aria-labelledby={`collection-preview-${shelf.key}`}>
+              <header class="blank-shelf-preview-head">
+                <h2 id={`collection-preview-${shelf.key}`}><span class="blank-row-number" aria-hidden="true">{pad(shelves.indexOf(shelf) + 1)}</span><span>{name(shelf.key)}</span></h2>
+                <p class="blank-shelf-preview-count"><strong>{pad(shelf.entries.length)}</strong> {unitOf(shelf.key, shelf.entries.length)}</p>
+                <a class="blank-text-link" href={href(collectionPath(shelf.key))}>{t("collection.seeAll").replace("{n}", String(shelf.entries.length)).replace("{unit}", unitOf(shelf.key, shelf.entries.length))} <Icon name="tabler:arrow-right" size={17} /></a>
+              </header>
+              <ol class:list={["blank-work-grid", `is-${shapeOf(shelf.key)}`, "is-preview"]}>
+                {previewEntries(shelf.entries, previewCount(shelf.key), shelf.key === "games" ? favoriteKeys : []).map((entry) => <WorkCard entry={entry} t={t} genre={genreOf(shelf)} lead={shelf === filled[0] ? lead(entry) : undefined} />)}
+              </ol>
+            </section>
+          ))}
+          {empty.length > 0 && <p class="blank-collection-note">{t("collection.emptyShelves").replace("{list}", list)}</p>}
+        </div>
+      )}
+    </div>
+  </div>
+  </div>
+  </div>
+</PageLayout>

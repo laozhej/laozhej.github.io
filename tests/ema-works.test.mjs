@@ -73,8 +73,8 @@ test("every Works style stays inside Ema's pages and leaves Blank's classes alon
   assert.ok(selectors.length >= 30);
   for (const selector of selectors) assert.match(selector, /^(html\[data-color-mode="dark"\] )?\.ema-content \.ema-works/, selector);
   assert.doesNotMatch(selectors.join("\n"), /\.blank-/, "Blank's own classes keep the styles they have on every page");
-  // Blank's Works page, which Blank and Endfield render, still owns its markup.
-  assert.match(read("pages/projects.astro"), /import ProjectsPage from "@\/themes\/blank\/pages\/ProjectsPage\.astro";/);
+  // Blank's Works page, which Blank renders, still owns its markup (Endfield and Arknights have their own since 2026-11-28).
+  assert.match(read("pages/themes/blank/[...page].astro"), /import ProjectsPage from "@\/themes\/blank\/pages\/ProjectsPage\.astro";/);
 });
 
 test("the Works styles load with the layout's own stylesheets, keeping their order on every page", () => {

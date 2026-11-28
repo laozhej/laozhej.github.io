@@ -1,0 +1,151 @@
+---
+// Arknights Friends (2026-11-28, the owner's request to give the inner pages the theme's own structure): a contact
+// directory. Each part is a numbered sector like the homepage's: the friends' sites as directory rows (serial, square
+// avatar, name, description, address), the special links as a table, the sites that cannot be reached for now, and the
+// exchange: this site's card as a file with its fields, the rules and the notes. Everything shown comes from
+// src/core/data/friends.ts through getFriendsPage; friends' own words keep their language. The copy button and the avatar
+// fallback are the shared data-site-friends hooks.
+import { Icon } from "astro-icon/components";
+import { site } from "@/lib/site";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { getFriendsPage } from "@/core/content/friends";
+import { displayAddress } from "@/core/content/select-friends.mjs";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import FriendAvatar from "@/core/components/FriendAvatar.astro";
+import PageLayout from "../layouts/ArknightsLayout.astro";
+import PageHead from "../components/PageHead.astro";
+import { pad } from "../lib/sections.mjs";
+
+const { locale, t, href, unit } = getI18n(Astro.url.pathname);
+const page = getFriendsPage(locale, t, Astro.site ?? "https://neroarataki.com");
+const parts = [
+  { id: "friends-heading", word: "Friends" },
+  { id: "friends-special", word: "Special" },
+  ...(page.lost.length ? [{ id: "friends-lost", word: "Lost" }] : []),
+  { id: "friends-exchange-heading", word: "Exchange" },
+].map((part, index) => ({ ...part, number: pad(index + 1) }));
+const part = Object.fromEntries(parts.map((entry) => [entry.word, entry]));
+---
+<PageLayout title={`${t("friends.title")} | ${site.name}`} description={t("friends.description")} bleed>
+  <div class="ak-page ak-friends" data-site-friends data-copied={t("article.copied")} data-copy-failed={t("article.copyFailed")}>
+    <PageHead index="06" word="Friends" ghost="Links" label={t("friends.title")} description={t("friends.intro")} count={page.listed.length} unit={unit("friends.unit", page.listed.length)} />
+
+    <section class="ak-sector ak-pagebody" aria-labelledby="friends-heading">
+      <header class="ak-head">
+        <span class="ak-head-no" aria-hidden="true">{part.Friends.number}</span>
+        <div><p class="ak-eyebrow" lang="en">// Friends</p><h2 id="friends-heading">{t("friends.heading")}</h2></div>
+      </header>
+      {page.listed.length ? (
+        <ol class="ak-directory">
+          {page.listed.map((friend, index) => (
+            <li id={`friend-${friend.id}`}>
+              <a class="ak-contact" href={friend.url} target="_blank" rel="noopener">
+                <span class="ak-contact-no" aria-hidden="true">{pad(index + 1)}</span>
+                <FriendAvatar name={friend.name} src={friend.avatar} size={48} />
+                <span class="ak-contact-text">
+                  <strong lang={friend.lang}>{friend.name}</strong>
+                  <span lang={friend.lang}>{keepTails(friend.description)}</span>
+                </span>
+                <span class="ak-contact-address">{friend.address}{friend.languageName && <small>{t("friends.original")} · {friend.languageName}</small>}</span>
+                <Icon class="ak-contact-go" name="tabler:arrow-up-right" size={18} aria-hidden="true" />
+                <span class="ak-sr">{t("friends.newTab")}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <div class="ak-vacant">
+          <span class="ak-vacant-no" aria-hidden="true">00</span>
+          <p>{t("friends.empty")}</p>
+          <a class="ak-link" href="#friends-exchange">{t("friends.emptyLink")}<Icon name="tabler:chevron-down" size={16} aria-hidden="true" /></a>
+        </div>
+      )}
+    </section>
+
+    <section class="ak-sector ak-friends-part" aria-labelledby="friends-special">
+      <header class="ak-head">
+        <span class="ak-head-no" aria-hidden="true">{part.Special.number}</span>
+        <div><p class="ak-eyebrow" lang="en">// Special</p><h2 id="friends-special">{t("friends.specialHeading")}</h2></div>
+        <a class="ak-link" href={href("/credits/")}>{t("footer.credits")}<Icon name="tabler:chevron-right" size={16} aria-hidden="true" /></a>
+      </header>
+      <p class="ak-lede">{t("friends.specialIntro")}</p>
+      <ol class="ak-directory ak-directory--table">
+        {page.special.map((link, index) => (
+          <li>
+            <a class="ak-contact" href={link.url} target="_blank" rel="noopener noreferrer">
+              <span class="ak-contact-no" aria-hidden="true">{pad(index + 1)}</span>
+              <span class="ak-contact-text"><strong>{link.name}</strong><span>{link.note}</span></span>
+              <span class="ak-contact-address">{link.address}</span>
+              <Icon class="ak-contact-go" name="tabler:arrow-up-right" size={18} aria-hidden="true" />
+              <span class="ak-sr">{t("friends.newTab")}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    {page.lost.length > 0 && (
+      <section class="ak-sector ak-friends-part" aria-labelledby="friends-lost">
+        <header class="ak-head">
+          <span class="ak-head-no" aria-hidden="true">{part.Lost.number}</span>
+          <div><p class="ak-eyebrow" lang="en">// Lost</p><h2 id="friends-lost">{t("friends.lostHeading")}</h2></div>
+        </header>
+        <details class="ak-lost">
+          <summary>{t("friends.lostHeading")} · {pad(page.lost.length)}<Icon name="tabler:chevron-down" size={16} aria-hidden="true" /></summary>
+          <p class="ak-lede">{page.lostNote}</p>
+          <ol class="ak-directory">
+            {page.lost.map((friend, index) => (
+              <li id={`friend-${friend.id}`}>
+                <a class="ak-contact" href={friend.url} target="_blank" rel="noopener">
+                  <span class="ak-contact-no" aria-hidden="true">{pad(index + 1)}</span>
+                  <FriendAvatar name={friend.name} src={friend.avatar} size={48} />
+                  <span class="ak-contact-text"><strong lang={friend.lang}>{friend.name}</strong><span lang={friend.lang}>{keepTails(friend.description)}</span></span>
+                  <span class="ak-contact-address">{friend.address}</span>
+                  <Icon class="ak-contact-go" name="tabler:arrow-up-right" size={18} aria-hidden="true" />
+                  <span class="ak-sr">{t("friends.newTab")}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </details>
+      </section>
+    )}
+
+    <section class="ak-sector ak-friends-part ak-exchange" id="friends-exchange" aria-labelledby="friends-exchange-heading">
+      <span class="ak-lattice" aria-hidden="true"></span>
+      <header class="ak-head">
+        <span class="ak-head-no" aria-hidden="true">{part.Exchange.number}</span>
+        <div><p class="ak-eyebrow" lang="en">// Exchange</p><h2 id="friends-exchange-heading">{t("friends.exchangeHeading")}</h2></div>
+        <p class="ak-status-chip"><span class="ak-lamp" aria-hidden="true"></span>{t("friends.closed")}</p>
+      </header>
+      <p class="ak-lede">{t("friends.closedNote")}{locale === "en" ? " " : ""}{t("friends.howTo")}</p>
+      <div class="ak-exchange-grid">
+        <div class="ak-sitecard">
+          <h3 class="ak-work-subhead"><span class="ak-eyebrow" lang="en" aria-hidden="true">// Card</span>{t("friends.cardHeading")}</h3>
+          <div class="ak-sitecard-sheet">
+            <div class="ak-sitecard-id">
+              <FriendAvatar name={page.card.name} src="/apple-touch-icon.png" size={56} />
+              <div><strong>{page.card.name}</strong><span>{keepTails(page.card.description)}</span><small>{displayAddress(page.card.link)}</small></div>
+            </div>
+            <dl class="ak-spec">
+              <div><dt>{t("friends.cardName")}</dt><dd>{page.card.name}</dd></div>
+              <div><dt>{t("friends.cardLink")}</dt><dd>{page.card.link}</dd></div>
+              <div><dt>{t("friends.cardAvatar")}</dt><dd>{page.card.avatar}</dd></div>
+              <div><dt>{t("friends.cardDescription")}</dt><dd>{page.card.description}</dd></div>
+            </dl>
+            <div class="site-copy ak-sitecard-copy">
+              <button class="ak-button ak-button--signal" type="button" data-site-friends-copy data-copy-text={page.cardText} hidden><span>{t("friends.copy")}</span><Icon name="tabler:copy" size={18} aria-hidden="true" /></button>
+              <span class="site-copy-tip" role="status"></span>
+            </div>
+          </div>
+        </div>
+        <div class="ak-exchange-notes">
+          <h3 class="ak-work-subhead"><span class="ak-eyebrow" lang="en" aria-hidden="true">// Rules</span>{t("friends.rulesHeading")}</h3>
+          <ol class="ak-terms-list">{page.rules.map((rule, index) => <li><span aria-hidden="true">{pad(index + 1)}</span><p>{rule}</p></li>)}</ol>
+          <h3 class="ak-work-subhead"><span class="ak-eyebrow" lang="en" aria-hidden="true">// Notes</span>{t("friends.notesHeading")}</h3>
+          <ul class="ak-terms-list ak-terms-list--notes">{page.notes.map((note) => <li><span aria-hidden="true"></span><p>{note}</p></li>)}</ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</PageLayout>

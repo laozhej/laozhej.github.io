@@ -7,6 +7,7 @@ import "@fontsource-variable/saira/wdth.css";
 import "@fontsource-variable/jetbrains-mono/wght.css";
 import "../styles/theme.css";
 import "../styles/about.css";
+import "../styles/pages.css";
 import { Icon } from "astro-icon/components";
 import { site } from "@/lib/site";
 import { getI18n } from "@/core/i18n";
@@ -28,8 +29,8 @@ const { locale, t } = getI18n(Astro.url.pathname);
 const href = (path: string) => getThemePath("endfield", path, locale);
 const path = stripTheme(Astro.url.pathname);
 const { title: pageTitle = site.name, description = t("site.description"), isArticlePage = false, article, home = false, bleed = false } = Astro.props;
-// `bleed`: a page that lays out its own full-width sections (the About page) gets the homepage's main area without
-// being the homepage.
+// `bleed`: a page that lays out its own full-width sections (the About page and, since 2026-11-28, the Journal, Works,
+// article, Collection and Friends pages) gets the homepage's main area without being the homepage.
 const brand = t("ema.brand");
 const title = pageTitle.replaceAll(site.name, brand);
 // The header mark matches the home nameplate: the name without its possessive, then the role on a cut tag.
@@ -72,7 +73,7 @@ const navItems = site.nav.map((item, index) => ({
       </div>
       {isArticlePage && <div class="blank-reading-track" aria-hidden="true"><span data-site-progress></span></div>}
     </header>
-    <main id="endfield-main" class:list={[{ "ef-content blank-main": !home && !bleed, "ef-home-main": home || bleed, "blank-main--article": isArticlePage }]} tabindex="-1" transition:name="site-content" transition:animate={pageTransition}><slot /></main>
+    <main id="endfield-main" class:list={[{ "ef-content blank-main": !home && !bleed, "ef-home-main": home || bleed, "blank-main--article": isArticlePage && !bleed }]} tabindex="-1" transition:name="site-content" transition:animate={pageTransition}><slot /></main>
     <footer class="ef-footer">
       <div class="ef-footer-top">
         <a class="ef-footer-brand" href={href("/")} aria-label={`${brandName} ${brandTail.join(" ")}`}><strong>{brandName}</strong> <span class="ef-wordmark-tag" aria-hidden="true">{brandTail.join(" ")}</span></a>

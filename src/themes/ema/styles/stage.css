@@ -213,11 +213,29 @@ html:lang(en) #ema-stage { --k-name-scale: .8; }
 html:lang(en) #ema-stage .k-title--name { font-family: var(--ema-title-font); font-weight: 400; line-height: 1.06; letter-spacing: 0; }
 #ema-stage .k-diary { margin: 16px 0 0; font: 500 var(--blank-fs-md, 16px)/1.9 var(--blank-serif); letter-spacing: .04em; color: var(--blank-ink); }
 #ema-stage .k-terminal {
-  display: flex; align-items: flex-start; gap: 10px; width: 380px; max-width: 100%; min-height: 44px;
-  margin: 18px 0 0; padding: 10px 12px;
-  background: var(--k-terminal-bg); border-bottom: 2px solid var(--ema-pink-soft);
+  display: grid; gap: 8px; width: 396px; max-width: 100%; min-height: 76px;
+  margin: 20px 0 0; padding: 10px 14px 12px;
+  border: 1px solid color-mix(in srgb, var(--ema-pink-soft) 78%, var(--blank-line)); border-radius: 12px;
+  background: color-mix(in srgb, var(--k-terminal-bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(12px) saturate(1.18); backdrop-filter: blur(12px) saturate(1.18);
+  box-shadow: 5px 6px 0 color-mix(in srgb, var(--k-tint-pink) 85%, transparent), 0 12px 28px rgba(120, 72, 96, .12);
   font: var(--blank-fs-sm, 13px)/1.6 var(--blank-mono); color: var(--k-terminal-ink); text-shadow: none;
 }
+html[data-color-mode="dark"] #ema-stage .k-terminal {
+  border-color: color-mix(in srgb, var(--ema-pink-soft) 72%, var(--blank-line));
+  box-shadow: 5px 6px 0 color-mix(in srgb, var(--k-tint-pink) 92%, transparent), 0 14px 30px rgba(0, 0, 0, .38);
+}
+#ema-stage .k-terminal-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding-bottom: 7px; border-bottom: 1px dashed color-mix(in srgb, var(--ema-pink-soft) 68%, var(--blank-line));
+}
+#ema-stage .k-terminal-dots { display: inline-flex; gap: 6px; }
+#ema-stage .k-terminal-dots i { width: 8px; height: 8px; border-radius: 50%; background: #f2a7c3; }
+#ema-stage .k-terminal-dots i:nth-child(2) { background: #9fd2f5; }
+#ema-stage .k-terminal-dots i:nth-child(3) { background: #a7d8bf; }
+#ema-stage .k-terminal-tag { font: 600 10.5px/1 var(--blank-mono); letter-spacing: .06em; color: var(--blank-muted); }
+#ema-stage .k-terminal-row { display: flex; align-items: flex-start; gap: 7px; min-height: 22px; }
+#ema-stage .k-terminal-prompt { flex: none; font-weight: 700; color: var(--ema-lav); }
 #ema-stage .k-terminal svg { flex: none; margin-top: 2px; color: var(--k-accent); }
 /* All lines share one grid cell: the invisible ones hold the height of the longest, so the copy above
    never jumps while a line wraps or is erased. */
@@ -577,6 +595,7 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
 @keyframes k-blink { 50% { opacity: 0; } }
 /* The three arrows (already staggered) now swell and fade in a slow wave instead of switching on and off. */
 @keyframes k-arrow { 0%, 100% { opacity: .3; } 35% { opacity: 1; } }
+@keyframes k-terminal-float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -4px, 0); } }
 
 @media (hover: hover) and (pointer: fine) {
   #ema-stage :is(.k-theatre-buttons button, .x):hover { border-color: var(--ema-pink); background: var(--ema-blush); }
@@ -671,12 +690,12 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-journal-head h2 { font-size: var(--blank-fs-xl, 24px); }
 }
 @media (min-width: 761px) and (max-width: 1100px) and (orientation: portrait) {
-  #ema-stage .k-hero { padding-top: 140px; }
-  #ema-stage .k-copy { top: 140px; }
-  #ema-stage .k-title { font-size: 60px; }
-  #ema-stage { --k-name-size: 64px; }
-  #ema-stage .k-terminal { display: flex; }
-  #ema-stage .k-ema { height: min(calc(100% - 330px), calc(100vw * 1.1)); }
+  #ema-stage .k-hero { padding-top: 120px; }
+  #ema-stage .k-copy { top: 118px; }
+  #ema-stage .k-title { font-size: 58px; }
+  #ema-stage { --k-name-size: 62px; }
+  #ema-stage .k-terminal { display: grid; margin-top: 14px; text-align: start; }
+  #ema-stage .k-ema { height: min(calc(100% - 376px), calc(100vw * 1.1)); }
   #ema-stage .k-hero { --k-theatre-bottom: 76px; }
 }
 /* When the theatre crosses the figure, end the whole figure layer behind the card so her legs
@@ -734,12 +753,17 @@ html[data-motion-paused="true"] #ema-stage :is(.k-caret, .k-cue-arrows i) { anim
   html[data-intro]:not([data-motion-paused="true"]) #ema-stage .k-copy > :nth-child(n+4) { animation-delay: 480ms; }
   html[data-intro]:not([data-motion-paused="true"]) #ema-stage .k-theatre { animation-delay: 560ms; }
   html[data-intro]:not([data-motion-paused="true"]) #ema-stage .k-cue { animation-delay: 720ms; }
+  html:not([data-intro]):not([data-motion-paused="true"]) #ema-stage .k-terminal { animation: k-terminal-float 5.2s ease-in-out infinite; }
 }
 
 /* Contents leaves lift towards the pointer and their coloured shadow deepens, as the game cabinets do. */
 @media (hover: hover) and (pointer: fine) {
+  #ema-stage .k-terminal { transition: border-color 180ms ease, box-shadow 220ms var(--blank-ease); }
+  #ema-stage .k-terminal:hover { border-color: color-mix(in srgb, var(--ema-pink) 56%, var(--ema-line-strong)); box-shadow: 7px 8px 0 color-mix(in srgb, var(--k-tint-pink) 95%, transparent), 0 16px 32px rgba(120, 72, 96, .16); }
+  html[data-color-mode="dark"] #ema-stage .k-terminal:hover { box-shadow: 7px 8px 0 color-mix(in srgb, var(--k-tint-pink) 95%, transparent), 0 16px 34px rgba(0, 0, 0, .44); }
   #ema-stage .k-leaf { transition: translate 260ms cubic-bezier(.22, 1, .36, 1), box-shadow 260ms cubic-bezier(.22, 1, .36, 1), border-color 200ms ease; }
   #ema-stage .k-leaf:hover { translate: 0 -4px; box-shadow: 9px 11px 0 var(--leaf-tint); border-color: color-mix(in srgb, var(--ema-pink) 46%, var(--ema-line-strong)); }
   html[data-motion-paused="true"] #ema-stage .k-leaf:hover { translate: none; }
 }
-@media (prefers-reduced-motion: reduce) { #ema-stage .k-leaf:hover { translate: none; } }
+html[data-motion-paused="true"] #ema-stage .k-terminal { animation: none; transition: none; }
+@media (prefers-reduced-motion: reduce) { #ema-stage .k-leaf:hover { translate: none; } #ema-stage .k-terminal { animation: none; transition: none; } }

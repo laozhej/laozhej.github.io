@@ -9,8 +9,8 @@ const { post, index } = Astro.props;
 const { locale, t, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
 const date = post.data.updatedDate ?? post.data.pubDate;
 const displayDate = formatDate(date);
-const stats = readingStats(post.body ?? "", post.data.locale ?? locale);
-const readTimeLabel = t("article.readTime").replace("{n}", String(stats.minutes));
+const stats = readingStats(post.body ?? "");
+const readTimeLabel = t("article.readingTime").replace("{n}", String(stats.minutes));
 ---
 <li data-site-entry data-category={post.data.category} data-date={date.valueOf()}
   data-search={[post.data.title, post.data.description, categoryLabel[post.data.category], ...post.data.tags].join(" ")}>

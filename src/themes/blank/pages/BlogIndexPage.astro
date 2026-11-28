@@ -1,5 +1,6 @@
 ---
 import { site } from "@/lib/site";
+import { localizePath } from "@/core/i18n";
 import { getThemedI18n as getI18n } from "@/core/themes/i18n";
 import { Icon } from "astro-icon/components";
 import BlankLayout from "@/core/themes/PageLayout.astro";
@@ -42,7 +43,7 @@ const compact = blank && posts.length <= 1;
             {categories.map(([key, label]) => <button type="button" data-site-category={key} aria-pressed="false">{label} <span>{posts.filter((post) => post.data.category === key).length}</span></button>)}
           </fieldset>
         </form></search>
-        <div class="blank-list-heading"><span class="blank-kicker">{t("blog.index")}</span><output data-site-count aria-live="polite" aria-atomic="true">{posts.length} {unit("common.articles", posts.length)}</output></div>
+        <div class="blank-list-heading"><span class="blank-kicker">{t("blog.index")}</span><div class="blank-list-meta"><output data-site-count aria-live="polite" aria-atomic="true">{posts.length} {unit("common.articles", posts.length)}</output><a class="blank-rss-link" href={localizePath("/rss.xml", locale)} data-astro-reload><Icon name="tabler:rss" size={15} aria-hidden="true" /><span>{t("blog.rss")}</span></a></div></div>
         <ol class="blank-post-list" data-site-entries>{posts.map((post, index) => <PostRow post={post} index={index + 1} />)}</ol>
         <div class="blank-empty-results" data-site-empty hidden><p>{t("blog.noResults")}</p><button class="blank-text-link" type="button" data-site-reset>{t("blog.reset")} <Icon name="tabler:arrow-back-up" size={17} /></button></div>
       </>

@@ -13,14 +13,15 @@ const title = `${frontmatter.seoTitle ?? frontmatter.title} | ${site.name}`;
 const description = frontmatter.seoDescription ?? frontmatter.description;
 const date = frontmatter.updatedDate ?? frontmatter.pubDate;
 const dateLabel = formatDate(date);
-const stats = readingStats(body, frontmatter.locale ?? locale);
-const wordsLabel = t("article.words").replace("{n}", stats.count.toLocaleString(locale));
-const readTimeLabel = t("article.readTime").replace("{n}", String(stats.minutes));
+const stats = readingStats(body);
+const formattedCount = new Intl.NumberFormat(locale).format(stats.count);
+const wordsLabel = t("article.words").replace("{n}", formattedCount);
+const readTimeLabel = t("article.readingTime").replace("{n}", String(stats.minutes));
 ---
 <BlankLayout title={title} description={description} isArticlePage article={frontmatter}>
   <div class="blank-article-topline"><a class="blank-text-link" href={href("/blog/")}><Icon name="tabler:arrow-left" size={17} />{t("common.allArticles")}</a><span class="blank-kicker">{t("article.kicker")}</span></div>
   <header class="blank-article-header">
-    <div class="blank-post-meta"><a href={`${href("/blog/")}?category=${frontmatter.category}`}>{categoryLabel[frontmatter.category]}</a><time datetime={date.toISOString()}>{frontmatter.updatedDate ? t("article.updated") : ""}{dateLabel}</time>{stats.count > 0 && <span class="site-read-meta">{wordsLabel} · {readTimeLabel}</span>}</div>
+    <div class="blank-post-meta"><a href={`${href("/blog/")}?category=${frontmatter.category}`}>{categoryLabel[frontmatter.category]}</a><time datetime={date.toISOString()}>{frontmatter.updatedDate ? t("article.updated") : ""}{dateLabel}</time>{stats.count > 0 && <><span class="site-read-meta">{wordsLabel}</span><span class="site-read-meta">{readTimeLabel}</span></>}</div>
     <h1>{frontmatter.title}</h1>
     <p>{frontmatter.description}</p>
     <div class="blank-tag-line">{frontmatter.tags.map((tag: string) => <a href={`${href("/blog/")}?q=${encodeURIComponent(tag)}`}>#{tag}</a>)}</div>
@@ -35,7 +36,15 @@ const readTimeLabel = t("article.readTime").replace("{n}", String(stats.minutes)
         </details>
       </aside>
     )}
-    <article class="blank-article-body" data-copy-heading-label={t("article.copyHeading")} data-copied-text={t("article.copied")} data-copy-failed-text={t("article.copyFailed")}>
+    <article class="blank-article-body"
+      data-copy-code={t("article.copyCode")}
+      data-copy-code-lang={t("article.copyCodeLang")}
+      data-copied={t("article.copied")}
+      data-copy-failed={t("article.copyFailed")}
+      data-copy-heading={t("article.copyHeading")}
+      data-lightbox-open={t("article.lightboxOpen")}
+      data-lightbox-label={t("article.lightboxLabel")}
+      data-lightbox-close={t("article.lightboxClose")}>
       {frontmatter.locale !== locale && <p class="blank-translation-notice" role="note">{t("article.originalLanguage")}</p>}
       <div class="blank-prose" data-site-prose lang={frontmatter.locale}><slot /></div>
       <slot name="end-art" />

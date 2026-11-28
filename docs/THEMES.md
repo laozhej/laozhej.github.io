@@ -189,8 +189,8 @@ URL 参数 `q`、`category`、`sort` 由公共核心读写，保留当前语言�
 在正文上设置 `data-site-prose`，在进度条的可缩放子元素上设置 `data-site-progress`，固定页头设置 `data-site-header`。进度元素由主题设置 `transform-origin: left` 及样式。目录容器使用 `data-site-toc`，内部为指向真实标题 id 的锚点链接；可选的 `[data-site-reading-pct]` 由 `reading.mjs` 同步写入阅读百分比（无 JavaScript 时由 `html:not([data-site-js="true"])` 隐藏）。公共核心设置进度条 `scaleX()`，并给当前章节链接设置 `aria-current="location"`；四套主题在支持 CSS Anchor Positioning 时通过 `anchor-name: --site-toc-active` 与 `nav::before` 的 `border-inline-start` 绘制平滑滑动高亮条，不支持时回退到静态左边框。
 
 2026-11-28 起新增三项共享阅读能力：
-- **构建期字数与阅读时间**（`src/core/content/reading-time.mjs`）：剥离 Markdown 语法后统计中日文字符与拉丁词数，在文章头部、文末信息卡与 `PostRow` 列表中按四种语言展示。
-- **章节锚点复制按钮**（`src/core/features/prose-anchors.mjs`）：由 `mountSiteFeatures` 自动为 `[data-site-prose]` 内的 `h2[id]`、`h3[id]` 注入复制按钮，使用 Invoker Commands（`command="--copy-heading"` + `commandfor`）配单路径点击回退、Async Clipboard API 与失败提示、按钮外部的 `role="status"` 提示气泡（含 VoiceOver 重复复制 `\u00A0` 切换）以及 `::after` 扩展的 `44×44px` 触控区；精细指针悬停/聚焦显露，触屏常驻。文案由正文容器的 `data-copy-heading-label`、`data-copied-text`、`data-copy-failed-text` 提供。
+- **构建期字数与阅读时间**（`src/core/content/reading-time.mjs`）：统计中日文字符与拉丁词数，在文章头部、文末信息卡与 `PostRow` 列表中按四种语言展示。
+- **正文复制与图片灯箱**（`src/core/features/prose.mjs`）：由 `mountSiteFeatures` 挂载，为代码块添加 Invoker Commands 复制按钮、为 `h2[id]` / `h3[id]` 添加 `#` 锚点复制链接（按钮外部 `role="status"` 气泡与 44×44px 触控区），并为正文与作品截图提供原生 `<dialog closedby="any">` 图片灯箱；四套主题在各自样式表中提供主题色适配。
 - **文末双栏信息卡**（`.site-colophon`）：位于 `<footer class="blank-article-end">` 内，左栏列出作者、日期与篇幅，右栏给出与 `CONTENT_LICENSE.md` 一致的版权说明与致谢页链接，在四套主题中各自适配风格。
 
 ### 回到顶部

@@ -1,5 +1,14 @@
 /* Sakura Archive palette (reviewed prototype r3): warm cream paper, plum-grey ink, sakura and lavender accents.
    The Blank tokens carry it to every Ema page; the --ema-* tokens add r3's card, strong line, soft pink and lavender. */
+/* The SC, TC and JP faces have identical regular ASCII outlines and advances. Keep those glyphs
+   with the theme CSS so section titles and counts can paint while the larger CJK faces load. */
+@font-face {
+  font-family: "Ema Heading Latin";
+  src: url("../fonts/noto-serif-ascii-400.woff2?inline") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0020-007E;
+}
 html[data-theme="ema"] {
   --site-px: 1px;
   color-scheme: light;
@@ -204,6 +213,7 @@ body[data-ema-home] .ema-wordmark {text-shadow:0 1px 8px var(--blank-paper),0 0 
 }
 .ema-content .blank-page-head>.blank-kicker {color:var(--ema-pink);letter-spacing:.13em;}
 .ema-content .blank-page-heading {margin:24px 0 26px;}
+.ema-content :is(.blank-page-heading h1,.blank-page-heading h1>span,.blank-page-count strong) {font-family:"Ema Heading Latin",var(--blank-serif);}
 .ema-content .blank-page-heading h1 {font-size:clamp(3.75rem,8.5vw,7rem);font-style:italic;letter-spacing:-.045em;}
 .ema-content .blank-page-heading h1>span {color:var(--ema-pink);}
 .ema-content .blank-page-count {color:var(--ema-pink);}

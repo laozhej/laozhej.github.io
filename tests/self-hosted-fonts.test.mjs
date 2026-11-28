@@ -42,13 +42,22 @@ test("every layout loads the cut-down faces and links its own languages' fonts",
   for (const [theme, name] of Object.entries(layouts)) {
     const source = read(`src/themes/${theme}/layouts/${name}.astro`);
     assert.match(source, /import "@\/core\/fonts\/subsets\.css";/, theme);
-    assert.match(source, /<FontLinks families=\{\[[^\]]+\]\} locale=\{locale\} \/>/, theme);
+    if (theme !== "ema") assert.match(source, /<FontLinks families=\{\[[^\]]+\]\} locale=\{locale\} \/>/, theme);
   }
   const links = read("src/core/fonts/FontLinks.astro");
   assert.match(links, /<meta name="site-font-pieces" content=\{href\} data-site-font-pieces \/>/, "the fallback pieces' stylesheets stay out of <link> until idle so client navigation never fetches /null");
   assert.match(links, /requestIdleCallback\(apply/, "and get appended once the page has loaded and the browser is idle");
   assert.match(links, /astro:page-load/, "in-site navigation fetches the next page's pieces too");
   assert.match(links, /rel="preload"[^>]+as="font"[^>]+crossorigin/);
+});
+
+test("Ema declares its locale's fallback stylesheets without waiting for load or JavaScript", () => {
+  const layout = read("src/themes/ema/layouts/EmaLayout.astro");
+  assert.ok(layout.includes('getFontSources(["ema-text", "noto-serif"], locale)'));
+  const head = layout.slice(layout.indexOf("<head>"), layout.indexOf("</head>"));
+  const afterMain = layout.slice(layout.indexOf("</main>"), layout.indexOf("</body>"));
+  assert.match(head, /fonts\.preload\.map\(\(name\) => <link rel="preload"/);
+  assert.match(afterMain, /fonts\.pieces\.map\(\(href\) => <link rel="stylesheet" href=\{href\}/);
 });
 
 test("every font the site serves has its licence file", () => {

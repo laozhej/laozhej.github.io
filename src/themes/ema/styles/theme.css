@@ -9,6 +9,15 @@
   font-display: swap;
   unicode-range: U+0020-007E;
 }
+/* Sakura Archive's artistic CJK serif for titles, display names and navigation (owner's choice, 2026-11-29):
+   Zhuque Fangsong (TrionesType, SIL OFL 1.1), trimmed to the characters rendered in Ema's serif slots.
+   Any future characters fall through to the self-hosted Noto Serif CJK stacks, never to system fonts. */
+@font-face {
+  font-family: "Site Zhuque";
+  src: url("/fonts/site/zhuque-fangsong.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
 html[data-theme="ema"] {
   --site-px: 1px;
   color-scheme: light;
@@ -23,7 +32,7 @@ html[data-theme="ema"] {
      headings and the menu, Gloock for Latin titles, JetBrains Mono for labels. zh-TW and ja below take
      their own glyph standards; English text is in Nunito (below). The six text sizes are Blank's (see blank/styles/theme.css). */
   --blank-sans:"Site Kai SC","LXGW WenKai",sans-serif;
-  --blank-serif:"Site Serif SC","Noto Serif SC Variable",serif; --blank-mono:"JetBrains Mono Variable","Site Kai SC","LXGW WenKai",monospace;
+  --blank-serif:"Site Zhuque","Site Serif SC","Noto Serif SC Variable",serif; --blank-mono:"JetBrains Mono Variable","Site Kai SC","LXGW WenKai",monospace;
   --blank-fs-xs:.75rem; --blank-fs-sm:.875rem; --blank-fs-md:1rem; --blank-fs-lg:1.25rem; --blank-fs-xl:1.5rem; --blank-fs-2xl:1.875rem;
   --blank-ease:cubic-bezier(.23,1,.32,1); --ema-pink:#9c4872; --ema-blush:#fbe9ee;
   --ema-card:#fffdf9; --ema-line-strong:#d3c7b2; --ema-pink-soft:#efc5d3; --ema-on-pink:#fffdf9;
@@ -39,7 +48,7 @@ html[data-theme="ema"] {
 }
 html[data-theme="ema"]:lang(zh-TW) {
   --blank-sans:"Site Kai TC","LXGW WenKai TC",sans-serif;
-  --blank-serif:"Site Serif TC","Noto Serif TC Variable",serif; --blank-mono:"JetBrains Mono Variable","Site Kai TC","LXGW WenKai TC",monospace;
+  --blank-serif:"Site Zhuque","Site Serif TC","Noto Serif TC Variable",serif; --blank-mono:"JetBrains Mono Variable","Site Kai TC","LXGW WenKai TC",monospace;
 }
 /* English pages set their letters in Nunito (2026-11-28, owner's pick from a four-way board): WenKai's Latin,
    from Klee One's textbook hand, read as dated. Nunito's faces only cover Latin, so Chinese names and terms
@@ -49,7 +58,7 @@ html[data-theme="ema"]:lang(en) {
 }
 html[data-theme="ema"]:lang(ja) {
   --blank-sans:"Site Klee","Klee One",sans-serif;
-  --blank-serif:"Site Serif JP","Noto Serif JP Variable",serif; --blank-mono:"JetBrains Mono Variable","Site Klee","Klee One",monospace;
+  --blank-serif:"Site Zhuque","Site Serif JP","Noto Serif JP Variable",serif; --blank-mono:"JetBrains Mono Variable","Site Klee","Klee One",monospace;
 }
 html[data-theme="ema"][data-color-mode="dark"] {
   color-scheme:dark;

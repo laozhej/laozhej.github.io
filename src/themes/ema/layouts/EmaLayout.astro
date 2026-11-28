@@ -33,6 +33,7 @@ import { pageTransition } from "@/core/navigation/animations.mjs";
 import { TRACKS } from "../lib/radio.mjs";
 const { locale, t } = getI18n(Astro.url.pathname);
 const fonts = getFontSources(["ema-text", "noto-serif"], locale);
+const preloadFonts = [...fonts.preload.filter((name) => !name.startsWith("noto-serif-")), "zhuque-fangsong"];
 const trackNames = TRACKS.map(({ id }) => t(`ema.radio.${id}`));
 const href = (path: string) => getThemePath("ema", path, locale);
 const path = stripTheme(Astro.url.pathname);
@@ -67,7 +68,7 @@ const navHints: Record<string, string> = { home: "front page", blog: "notes", pr
       })();
     </script>}
     <title>{title}</title><SiteMeta title={title} description={description} siteName={brand} isArticlePage={isArticlePage} article={article} />
-    {fonts.preload.map((name) => <link rel="preload" href={`/fonts/site/${name}.woff2`} as="font" type="font/woff2" crossorigin />)}
+    {preloadFonts.map((name) => <link rel="preload" href={`/fonts/site/${name}.woff2`} as="font" type="font/woff2" crossorigin />)}
     {locale === "en" && <link rel="preload" href={nunitoLatin} as="font" type="font/woff2" crossorigin />}
     <script is:inline defer src={sakuraScript}></script>
     <SiteNavigation />

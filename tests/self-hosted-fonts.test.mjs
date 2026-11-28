@@ -56,16 +56,29 @@ test("Ema declares its locale's fallback stylesheets without waiting for load or
   assert.ok(layout.includes('getFontSources(["ema-text", "noto-serif"], locale)'));
   const head = layout.slice(layout.indexOf("<head>"), layout.indexOf("</head>"));
   const afterMain = layout.slice(layout.indexOf("</main>"), layout.indexOf("</body>"));
-  assert.match(head, /fonts\.preload\.map\(\(name\) => <link rel="preload"/);
+  assert.match(head, /preloadFonts\.map\(\(name\) => <link rel="preload"/);
   assert.match(afterMain, /fonts\.pieces\.map\(\(href\) => <link rel="stylesheet" href=\{href\}/);
 });
 
+test("Ema sets its headings and navigation in self-hosted Zhuque Fangsong with Noto Serif fallback", () => {
+  const path = new URL("../public/fonts/site/zhuque-fangsong.woff2", import.meta.url);
+  assert.ok(existsSync(path), "zhuque-fangsong.woff2 exists");
+  assert.ok(statSync(path).size > 50_000, "zhuque-fangsong.woff2 looks empty");
+  const css = read("src/themes/ema/styles/theme.css");
+  assert.match(css, /font-family:\s*"Site Zhuque"[\s\S]*?url\("\/fonts\/site\/zhuque-fangsong\.woff2"\)/);
+  assert.ok(css.includes('"Site Zhuque","Site Serif SC","Noto Serif SC Variable",serif'));
+  assert.ok(css.includes('"Site Zhuque","Site Serif TC","Noto Serif TC Variable",serif'));
+  assert.ok(css.includes('"Site Zhuque","Site Serif JP","Noto Serif JP Variable",serif'));
+  const layout = read("src/themes/ema/layouts/EmaLayout.astro");
+  assert.match(layout, /preloadFonts\s*=\s*\[\.\.\.fonts\.preload\.filter\(\(name\) => !name\.startsWith\("noto-serif-"\)\), "zhuque-fangsong"\]/);
+});
+
 test("every font the site serves has its licence file", () => {
-  for (const file of ["noto-sans-cjk-OFL.txt", "noto-serif-cjk-OFL.txt", "lxgw-wenkai-OFL.txt", "lxgw-wenkai-tc-OFL.txt", "klee-one-OFL.txt", "jetbrains-mono-OFL.txt", "gloock-OFL.txt", "nunito-OFL.txt"]) {
+  for (const file of ["noto-sans-cjk-OFL.txt", "noto-serif-cjk-OFL.txt", "zhuque-fangsong-OFL.txt", "lxgw-wenkai-OFL.txt", "lxgw-wenkai-tc-OFL.txt", "klee-one-OFL.txt", "jetbrains-mono-OFL.txt", "gloock-OFL.txt", "nunito-OFL.txt"]) {
     assert.match(read(`public/licenses/${file}`), /SIL Open Font License/, file);
   }
   const credits = read("src/themes/blank/pages/CreditsPage.astro");
-  for (const name of ["Noto Sans SC / TC / JP", "Noto Serif SC / TC / JP", "LXGW WenKai / LXGW WenKai TC / Klee One", "Nunito", "JetBrains Mono"]) assert.ok(credits.includes(name), name);
+  for (const name of ["Noto Sans SC / TC / JP", "Noto Serif SC / TC / JP", "Zhuque Fangsong", "LXGW WenKai / LXGW WenKai TC / Klee One", "Nunito", "JetBrains Mono"]) assert.ok(credits.includes(name), name);
 });
 
 // 2026-11-28 (owner's pick from a four-way board): Ema's English pages set their letters in Nunito, whose

@@ -495,10 +495,11 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 /* ---------- Signal scene ---------- */
 #ema-stage .k-signal {
   position: relative; isolation: isolate; min-height: clamp(560px, 100svh, 640px); overflow: hidden;
+  /* Keep the page's continuous 22px dot-grid paper visible underneath so the section dissolves
+     seamlessly into Journal below instead of ending on a hard background cut. */
   background:
-    radial-gradient(ellipse 60% 70% at 18% 30%, var(--ema-wash-a), transparent 70%),
-    radial-gradient(ellipse 60% 70% at 86% 72%, var(--ema-wash-b), transparent 70%),
-    var(--blank-paper);
+    radial-gradient(ellipse 56% 62% at 18% 30%, color-mix(in srgb, var(--ema-wash-a) 72%, transparent), transparent 72%),
+    radial-gradient(ellipse 56% 58% at 86% 60%, color-mix(in srgb, var(--ema-wash-b) 68%, transparent), transparent 72%);
   border-top: 1px solid var(--blank-line);
 }
 #ema-stage .k-signal-bg {
@@ -506,26 +507,26 @@ html.is-ema-stage-locked, html.is-ema-cover-locked { overflow-y: hidden; scroll-
 }
 #ema-stage .k-signal-bg img {
   position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 92%;
-  object-fit: cover; object-position: 50% 34%;
-  opacity: .52; filter: saturate(.96) contrast(.97);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 84%, rgb(0 0 0 / .45) 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 84%, rgb(0 0 0 / .45) 100%);
+  object-fit: cover; object-position: 50% 32%;
+  opacity: .5; filter: saturate(.96) contrast(.97);
+  /* Dissolve smoothly to full transparency before the bottom edge so no clipped band appears above Journal. */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgb(0 0 0 / .72) 16%, #000 28%, #000 66%, rgb(0 0 0 / .48) 84%, rgb(0 0 0 / .12) 94%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, rgb(0 0 0 / .72) 16%, #000 28%, #000 66%, rgb(0 0 0 / .48) 84%, rgb(0 0 0 / .12) 94%, transparent 100%);
 }
 #ema-stage .k-signal-bg::after {
   content: ""; position: absolute; inset: 0;
+  /* Soft localized paper veils behind the title and clock only; the lower edge stays transparent so the dot grid continues uninterrupted. */
   background:
-    radial-gradient(ellipse 40% 34% at 21% 20%, color-mix(in srgb, var(--blank-paper) 88%, transparent), color-mix(in srgb, var(--blank-paper) 34%, transparent) 66%, transparent 100%),
-    radial-gradient(ellipse 30% 34% at 85% 20%, color-mix(in srgb, var(--blank-paper) 58%, transparent), transparent 76%),
-    linear-gradient(180deg, color-mix(in srgb, var(--blank-paper) 74%, transparent) 0%, transparent 28%, transparent 74%, color-mix(in srgb, var(--blank-paper) 72%, transparent) 100%);
+    radial-gradient(ellipse 42% 36% at 21% 20%, color-mix(in srgb, var(--blank-paper) 86%, transparent), color-mix(in srgb, var(--blank-paper) 30%, transparent) 66%, transparent 100%),
+    radial-gradient(ellipse 30% 34% at 85% 20%, color-mix(in srgb, var(--blank-paper) 54%, transparent), transparent 76%);
 }
 html[data-color-mode="dark"] #ema-stage .k-signal-bg img {
-  opacity: .38; filter: brightness(.82) saturate(.88) contrast(1.02);
+  opacity: .38; filter: brightness(.84) saturate(.88) contrast(1.02);
 }
 html[data-color-mode="dark"] #ema-stage .k-signal-bg::after {
   background:
-    radial-gradient(ellipse 40% 34% at 21% 20%, color-mix(in srgb, var(--blank-paper) 88%, transparent), color-mix(in srgb, var(--blank-paper) 42%, transparent) 66%, transparent 100%),
-    radial-gradient(ellipse 30% 34% at 85% 20%, color-mix(in srgb, var(--blank-paper) 64%, transparent), transparent 76%),
-    linear-gradient(180deg, color-mix(in srgb, var(--blank-paper) 78%, transparent) 0%, color-mix(in srgb, var(--blank-paper) 16%, transparent) 28%, color-mix(in srgb, var(--blank-paper) 14%, transparent) 74%, color-mix(in srgb, var(--blank-paper) 82%, transparent) 100%);
+    radial-gradient(ellipse 42% 36% at 21% 20%, color-mix(in srgb, var(--blank-paper) 86%, transparent), color-mix(in srgb, var(--blank-paper) 38%, transparent) 66%, transparent 100%),
+    radial-gradient(ellipse 30% 34% at 85% 20%, color-mix(in srgb, var(--blank-paper) 60%, transparent), transparent 76%);
 }
 #ema-stage .k-signal-head { position: relative; z-index: 2; }
 #ema-stage .k-signal-word { position: relative; min-width: 0; text-align: start; }
@@ -752,8 +753,12 @@ html:has(#ema-stage .ema-notice[open]) { overflow: hidden; }
   #ema-stage .k-rail-head h2 { font-size: var(--blank-fs-lg, 22px); }
   #ema-stage .k-track { gap: 20px; }
   #ema-stage .k-leaf { min-height: 420px; }
-  #ema-stage .k-signal { display: grid; gap: 18px; min-height: 0; padding: 40px 24px; }
-  #ema-stage .k-signal-bg img { height: 100%; object-position: 34% 38%; opacity: .3; -webkit-mask-image: none; mask-image: none; }
+  #ema-stage .k-signal { display: grid; gap: 18px; min-height: 0; padding: 40px 24px 52px; }
+  #ema-stage .k-signal-bg img {
+    height: 100%; object-position: 34% 36%; opacity: .3;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 72%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 72%, transparent 100%);
+  }
   html[data-color-mode="dark"] #ema-stage .k-signal-bg img { opacity: .24; }
   #ema-stage .k-signal-head, #ema-stage .k-signal-side { display: grid; gap: 18px; align-items: stretch; }
   #ema-stage :is(.k-signal-word, .k-clock, .k-bubble) { position: relative; inset: auto; translate: none; width: auto; max-width: none; }

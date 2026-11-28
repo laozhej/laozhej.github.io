@@ -12,6 +12,7 @@ import sairaLicense from "../../../../public/licenses/saira-OFL.txt?raw";
 import oswaldLicense from "../../../../public/licenses/oswald-OFL.txt?raw";
 import jetbrainsLicense from "../../../../public/licenses/jetbrains-mono-OFL.txt?raw";
 import notoSerifLicense from "../../../../public/licenses/noto-serif-cjk-OFL.txt?raw";
+import zhuqueLicense from "../../../../public/licenses/zhuque-fangsong-OFL.txt?raw";
 import notoSansLicense from "../../../../public/licenses/noto-sans-cjk-OFL.txt?raw";
 import wenkaiLicense from "../../../../public/licenses/lxgw-wenkai-OFL.txt?raw";
 import kleeLicense from "../../../../public/licenses/klee-one-OFL.txt?raw";
@@ -79,6 +80,14 @@ const { locale, t, href } = getI18n(Astro.url.pathname);
         <pre lang="en">{notoSerifLicense}</pre>
       </details>
       <a class="blank-text-link" href="/licenses/noto-serif-cjk-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
+      <h3>Zhuque Fangsong</h3>
+      <p>{t("credits.zhuqueText")}</p>
+      <a class="blank-text-link" href="https://github.com/TrionesType/zhuque" target="_blank" rel="noopener noreferrer">{t("credits.zhuqueProject")} <Icon name="tabler:external-link" size={15} /></a>
+      <details class="blank-license">
+        <summary>{t("credits.licenseText")} · OFL-1.1</summary>
+        <pre lang="en">{zhuqueLicense}</pre>
+      </details>
+      <a class="blank-text-link" href="/licenses/zhuque-fangsong-OFL.txt">{t("credits.licenseFile")} <Icon name="tabler:arrow-right" size={16} /></a>
       <h3>Noto Sans SC / TC / JP</h3>
       <p>{t("credits.notoSansText")}</p>
       <a class="blank-text-link" href="https://github.com/notofonts/noto-cjk" target="_blank" rel="noopener noreferrer">{t("credits.notoSansProject")} <Icon name="tabler:external-link" size={15} /></a>

@@ -97,6 +97,7 @@
 - 共享网站图标是 `B.` 的确定性字母排版，详见 `assets/branding/README.md`。渲染时使用本机 Arial Bold 字体，未随仓库提供字体文件。
 - `public/og/` 下的四张链接预览图（1200×630，每种语言一张）是 Blank 首页标题区的文字排版，由 `scripts/og-image.mjs` 用本机 Chrome 与系统字体渲染，文字取自 `site.ts` 与 `messages.ts`；不含插图、照片或第三方美术，未使用图像生成模型。清单与校验见 `public/og/ASSETS.json`。
 - 樱色档案主题的标题（“Arataki.br’s Base”）使用 Duarte Pinto 设计的 Gloock（Copyright 2022 The Gloock Project Authors），通过 npm 包 `@fontsource/gloock` 随站点自托管，只引入拉丁字母子集；许可为 SIL Open Font License 1.1，全文保存在 `public/licenses/gloock-OFL.txt`。
+- 樱色档案主题的标题、导航与引文衬线字使用 TrionesType 设计的朱雀仿宋（Zhuque Fangsong，v0.212，来源 `TrionesType/zhuque`），按页面实测字符截成静态子集 `public/fonts/site/zhuque-fangsong.woff2` 随站点自托管，未收录字符回落到自托管的 Noto Serif CJK；许可为 SIL Open Font License 1.1，全文保存在 `public/licenses/zhuque-fangsong-OFL.txt`。
 - 终末地工业风主题的英文标签、编号和标题使用 Saira（Copyright 2020 The Saira Project Authors），通过 npm 包 `@fontsource-variable/saira` 随站点自托管，浏览器只按需下载用到的拉丁字母子集；许可为 SIL Open Font License 1.1，全文保存在 `public/licenses/saira-OFL.txt`。
 - 终末地工业风主题背景的等高线 `public/themes/endfield/contour-a.svg`、`contour-b.svg` 由 endfield-ui 设计套件的生成脚本绘制，不含任何游戏官方素材；该主题只借鉴界面结构习惯，不使用《明日方舟：终末地》的字体、标志、图标、立绘或截图。
 - 明日方舟主题的英文栏目名、标题和大号编号使用 Oswald（Copyright 2016 The Oswald Project Authors），日期、编号和技术标注使用 JetBrains Mono（Copyright 2020 The JetBrains Mono Project Authors），分别通过 npm 包 `@fontsource-variable/oswald`、`@fontsource-variable/jetbrains-mono` 随站点自托管，浏览器只按需下载用到的拉丁字母子集；许可均为 SIL Open Font License 1.1，全文保存在 `public/licenses/oswald-OFL.txt`、`public/licenses/jetbrains-mono-OFL.txt`。

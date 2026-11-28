@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 import { games } from "../src/core/data/games.ts";
 import { favoriteGames } from "../src/core/data/profile.ts";
-import { genreNames, getFavoriteAnimes } from "../src/core/data/animes.ts";
+import { genreNames, getCollectionAnimes, getFavoriteAnimes } from "../src/core/data/animes.ts";
 import { manga, movies, tv } from "../src/core/data/collection.ts";
 import { gameGenres, localizeGames } from "../src/core/content/select-games.mjs";
 import {
@@ -22,7 +22,7 @@ const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf
 const work = (extra = {}) => ({ key: "sample", title: { "zh-CN": "样例" }, genres: ["life"], ...extra });
 const build = (locale) => buildCollection({
   locale, gameShelf: localizeGames(games, locale), favoriteKeys: favoriteGames.map((game) => game.key),
-  animes: getFavoriteAnimes(locale), works: { manga, movies, tv }, gameGenres, genreNames,
+  animes: getCollectionAnimes(locale), works: { manga, movies, tv }, gameGenres, genreNames,
 });
 
 test("five shelves in the owner's order, the old Games link replaced by the Collection in the navigation", () => {
@@ -86,6 +86,27 @@ test("each imported film has a release year, localized titles and a local poster
   }
 });
 
+test("the anime shelf keeps one sourced poster and release year per work, independently of the About selection", () => {
+  const sources = new Map(JSON.parse(read("public/animes/ASSETS.json")).assets.map((asset) => [asset.path, asset]));
+  for (const locale of ["zh-CN", "zh-TW", "ja", "en"]) {
+    const shelf = getCollectionAnimes(locale);
+    const favorites = getFavoriteAnimes(locale).map((item) => item.key);
+    const keys = new Set(shelf.map((item) => item.key));
+    assert.equal(keys.size, shelf.length);
+    assert.deepEqual(favorites, ["sword-art-online", "fate-stay-night", "bocchi-the-rock", "steins-gate", "k-on", "cyberpunk-edgerunners"]);
+    assert.ok(favorites.every((key) => keys.has(key)) && shelf.length > favorites.length);
+    for (const item of shelf) {
+      assert.ok(item.title.trim() && Number.isInteger(item.year), item.key);
+      assert.ok(item.yearText.includes(String(item.year)), item.title);
+      assert.ok(item.genres.every((genre) => workGenres.includes(genre)), item.title);
+      assert.ok(existsSync(new URL(`../public${item.cover}`, import.meta.url)), item.cover);
+      assert.match(sources.get(item.cover)?.sourcePage ?? "", /^https:\/\//, item.cover);
+    }
+    const demonSlayer = shelf.find((item) => item.key === "demon-slayer-kimetsu-no-yaiba");
+    assert.equal(demonSlayer.yearText, messages[locale]["collection.coverEditionYear"].replace("{year}", "2020"));
+  }
+});
+
 test("games are grouped under their genres in the filter order; anime with several genres stay one group", () => {
   const collection = build("zh-CN");
   const gamesShelf = collection.shelves.find((shelf) => shelf.key === "games");
@@ -96,7 +117,7 @@ test("games are grouped under their genres in the filter order; anime with sever
   assert.deepEqual(anime.groups.map((group) => group.key), [""]);
   assert.equal(anime.labels["sci-fi"], "科幻与时间");
   assert.equal(collection.total, collection.shelves.reduce((sum, shelf) => sum + shelf.entries.length, 0));
-  assert.equal(collection.total, games.length + getFavoriteAnimes("zh-CN").length + manga.length + movies.length + tv.length);
+  assert.equal(collection.total, games.length + getCollectionAnimes("zh-CN").length + manga.length + movies.length + tv.length);
   // The overview leads with the About page's favorite games, in the owner's order.
   assert.deepEqual(previewEntries(gamesShelf.entries, 4, collection.favoriteKeys).map((entry) => entry.key), favoriteGames.map((game) => game.key).slice(0, 4));
   assert.deepEqual(groupEntries([{ tags: ["a"] }], ["a"]).map((group) => group.key), [""], "one genre needs no heading");

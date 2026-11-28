@@ -66,11 +66,11 @@ export function animeEntries(animes) {
     number: index + 1,
     name: anime.title,
     tags: [...anime.genres],
-    details: [anime.subtitle],
+    details: [anime.subtitle, anime.yearText].filter(Boolean),
     cover: { src: anime.cover, focus: "50% 50%", shape: "tall" },
     link: { href: anime.url, kind: "official" },
     favorite: false,
-    search: [anime.title, ...(anime.titles ?? [])].join(" "),
+    search: [anime.title, ...(anime.titles ?? []), anime.year].filter(Boolean).join(" "),
   }));
 }
 

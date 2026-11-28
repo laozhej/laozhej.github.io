@@ -113,7 +113,7 @@ Check the shared language, preference, and feature interfaces with `npm test` (u
 
 ## Deploy to GitHub Pages
 
-The public repository is `laozhej/laozhej.github.io`. GitHub Actions builds and deploys the site. Every push to `main` uses Node.js 24 to install locked dependencies, run the shared module tests, build the static pages, and publish `dist/`. You can also run **Deploy to GitHub Pages** manually from Actions.
+The public repository is `laozhej/laozhej.github.io`. GitHub Actions builds and deploys the site. Every push to `main` uses Node.js 24 to install locked dependencies, run the shared module tests, build the static pages, and publish `dist/`. You can also run [Deploy to GitHub Pages](https://github.com/laozhej/laozhej.github.io/actions/workflows/deploy.yml) manually from Actions.
 
 Set the repository’s **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. Deployment status and logs are available on the repository’s Actions page.
 

@@ -113,7 +113,7 @@ tags: [标签一, 标签二]
 
 ## GitHub Pages へのデプロイ
 
-公開リポジトリは `laozhej/laozhej.github.io` です。GitHub Actions でビルドとデプロイを行います。`main` にプッシュするたびに、Node.js 24 でロック済みの依存関係をインストールし、共通モジュールのテストと静的ページのビルドを実行して `dist/` を公開します。Actions から **Deploy to GitHub Pages** を手動実行することもできます。
+公開リポジトリは `laozhej/laozhej.github.io` です。GitHub Actions でビルドとデプロイを行います。`main` にプッシュするたびに、Node.js 24 でロック済みの依存関係をインストールし、共通モジュールのテストと静的ページのビルドを実行して `dist/` を公開します。Actions から [Deploy to GitHub Pages](https://github.com/laozhej/laozhej.github.io/actions/workflows/deploy.yml) を手動実行することもできます。
 
 リポジトリの **Settings → Pages → Build and deployment → Source** は **GitHub Actions** を使用します。デプロイ状況とログはリポジトリの Actions ページで確認できます。
 

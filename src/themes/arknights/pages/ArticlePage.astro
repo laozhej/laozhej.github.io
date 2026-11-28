@@ -1,0 +1,122 @@
+---
+// Arknights article (2026-11-28, the owner's request to give the inner pages the theme's own structure): the title opens as
+// an archive card under corner brackets: on its left the entry's serial on an ink dot board over its fields (category,
+// date, length, reading time), on its right the title, the summary and the tags. The text keeps the shared reading column and its hooks (contents, progress,
+// copy buttons, image zoom); its end closes with the related records (the work this entry belongs to and the next entry
+// of that journal) and the colophon.
+import { Icon } from "astro-icon/components";
+import { site } from "@/lib/site";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { getSiteContent } from "@/core/i18n/content";
+import { getPublishedPosts } from "@/core/content/blog";
+import { readingStats } from "@/core/content/reading-time.mjs";
+import ProjectJournalLinks from "@/core/components/ProjectJournalLinks.astro";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import PageLayout from "../layouts/ArknightsLayout.astro";
+import { dotMatrix } from "../lib/matrix.mjs";
+import { serialOf, stamp } from "../lib/records.mjs";
+
+const { locale, t, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
+const { profileIdentity } = getSiteContent(locale);
+const { frontmatter, body = "" } = Astro.props;
+const headings = (Astro.props.headings ?? []).filter((heading: { depth: number }) => heading.depth >= 2 && heading.depth <= 3);
+const title = `${frontmatter.seoTitle ?? frontmatter.title} | ${site.name}`;
+const description = frontmatter.seoDescription ?? frontmatter.description;
+const date = frontmatter.updatedDate ?? frontmatter.pubDate;
+const dateLabel = formatDate(date);
+const stats = readingStats(body);
+const formattedCount = new Intl.NumberFormat(locale).format(stats.count);
+const wordsLabel = t("article.words").replace("{n}", formattedCount);
+const readTimeLabel = t("article.readingTime").replace("{n}", String(stats.minutes));
+const posts = await getPublishedPosts(locale);
+const slug = Astro.url.pathname.replace(/\/$/, "").split("/").pop() ?? "";
+const serial = serialOf(posts, slug);
+const board = serial ? dotMatrix(serial) : undefined;
+---
+<PageLayout title={title} description={description} isArticlePage article={frontmatter} bleed>
+  <div class="ak-page ak-article">
+    <header class="ak-sector ak-recordhead" aria-labelledby="ak-article-title" data-ak-enter>
+      <span class="ak-lattice" aria-hidden="true"></span>
+      <span class="ak-ghost ak-ghost--page" data-ghost="Record" aria-hidden="true"></span>
+      <p class="ak-article-topline">
+        <a class="ak-link" href={href("/blog/")}><Icon name="tabler:chevron-left" size={16} aria-hidden="true" />{t("common.allArticles")}</a>
+        <span class="ak-annot" aria-hidden="true"><span>// 01 Journal</span>{serial && <span>No.{serial}</span>}<span>{categoryLabel[frontmatter.category]}</span></span>
+      </p>
+      <div class="ak-card">
+        <div class="ak-card-side">
+          {board && (
+            <p class="ak-card-serial" aria-hidden="true">
+              <span class="ak-tally-head"><span>Record</span><span>No.{serial}</span></span>
+              <svg class="ak-tally-board" viewBox={`-0.5 -0.5 ${board.width + 1} ${board.height + 1}`} focusable="false">
+                {board.rows.map((row) => (
+                  <g style={`--r:${row.y}`}>
+                    {row.off.map((x) => <rect class="ak-tally-off" x={x + 0.12} y={row.y + 0.12} width="0.76" height="0.76" />)}
+                    {row.on.map((x) => <rect class="ak-tally-on" x={x + 0.12} y={row.y + 0.12} width="0.76" height="0.76" />)}
+                  </g>
+                ))}
+              </svg>
+            </p>
+          )}
+          <dl class="ak-card-fields">
+            <div><dt lang="en">Class</dt><dd><a href={`${href("/blog/")}?category=${frontmatter.category}`}>{categoryLabel[frontmatter.category]}</a></dd></div>
+            <div><dt lang="en">{frontmatter.updatedDate ? "Updated" : "Date"}</dt><dd><time datetime={date.toISOString()}><span aria-hidden="true">{stamp(date)}</span><span class="ak-sr">{frontmatter.updatedDate ? t("article.updated") : ""}{dateLabel}</span></time></dd></div>
+            {stats.count > 0 && <div><dt lang="en">Length</dt><dd class="site-read-meta">{wordsLabel}</dd></div>}
+            {stats.count > 0 && <div><dt lang="en">Time</dt><dd class="site-read-meta">{readTimeLabel}</dd></div>}
+          </dl>
+        </div>
+        <div class="ak-card-text">
+          <h1 id="ak-article-title" class="ak-card-title">{frontmatter.title}</h1>
+          <p class="ak-card-lede">{frontmatter.description}</p>
+          {frontmatter.tags.length > 0 && <p class="ak-card-tags">{frontmatter.tags.map((tag: string) => <a href={`${href("/blog/")}?q=${encodeURIComponent(tag)}`}>#{tag}</a>)}</p>}
+        </div>
+      </div>
+    </header>
+    <div class="ak-sector ak-article-sector">
+      <div class="blank-article-shell ak-article-shell">
+        {headings.length > 0 && (
+          <aside class="blank-toc ak-toc">
+            <details open>
+              <summary><span>{t("article.contents")}</span><span class="site-toc-tail"><span class="site-toc-progress" data-site-reading-pct aria-hidden="true">0%</span><Icon class="blank-disclosure-icon" name="tabler:chevron-down" size={16} /></span></summary>
+              <nav aria-label={t("article.toc")} data-site-toc>{headings.map((heading: { depth: number; slug: string; text: string }) => <a class={`depth-${heading.depth}`} href={`#${heading.slug}`}>{heading.text}</a>)}</nav>
+            </details>
+          </aside>
+        )}
+        <article class="blank-article-body ak-article-body"
+          data-copy-code={t("article.copyCode")}
+          data-copy-code-lang={t("article.copyCodeLang")}
+          data-copied={t("article.copied")}
+          data-copy-failed={t("article.copyFailed")}
+          data-copy-heading={t("article.copyHeading")}
+          data-lightbox-open={t("article.lightboxOpen")}
+          data-lightbox-label={t("article.lightboxLabel")}
+          data-lightbox-close={t("article.lightboxClose")}
+          data-code-expand={t("article.codeExpand")}
+          data-code-collapse={t("article.codeCollapse")}>
+          {frontmatter.locale !== locale && <p class="blank-translation-notice" role="note">{t("article.originalLanguage")}</p>}
+          <div class="blank-prose" data-site-prose lang={frontmatter.locale}><slot /></div>
+          <footer class="ak-article-end">
+            <p class="ak-article-endmark" aria-hidden="true"><span>{t("article.end")}</span>{serial && <span>No.{serial}</span>}</p>
+            <div class="ak-related"><ProjectJournalLinks /></div>
+            <div class="site-colophon">
+              <div class="site-colophon-block">
+                <p class="site-colophon-title">{t("article.colophonInfo")}</p>
+                <dl class="site-colophon-meta">
+                  <div><dt>{t("article.colophonAuthor")}</dt><dd>{profileIdentity.displayName}</dd></div>
+                  <div><dt>{t("article.colophonDate")}</dt><dd><time datetime={date.toISOString()}>{dateLabel}</time></dd></div>
+                  {stats.count > 0 && <div><dt>{t("article.colophonLength")}</dt><dd>{wordsLabel} · {readTimeLabel}</dd></div>}
+                </dl>
+              </div>
+              <div class="site-colophon-block site-colophon-rights">
+                <p class="site-colophon-title">{t("article.colophonRights")}</p>
+                <p>{t("article.colophonRightsText")}</p>
+                <a class="ak-link" href={href("/credits/")}>{t("article.colophonCreditsLink")}<Icon name="tabler:chevron-right" size={16} aria-hidden="true" /></a>
+              </div>
+            </div>
+            <p class="ak-article-thanks">{keepTails(t("article.thanks"))}</p>
+            <p class="ak-cta"><a class="ak-button" href={href("/blog/")}><span>{t("article.back")}</span><Icon name="tabler:chevron-right" size={18} aria-hidden="true" /></a></p>
+          </footer>
+        </article>
+      </div>
+    </div>
+  </div>
+</PageLayout>

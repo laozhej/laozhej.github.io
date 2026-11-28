@@ -1,0 +1,136 @@
+---
+// Arknights Works (2026-11-28, the owner's request to give the inner pages the theme's own structure): one project file per
+// work. The lead capture sits in the corner brackets of a viewfinder beside a spec sheet (type, direction, status, number of
+// captures and of journal entries), the summary and the case-study link; under them, the development journal as log rows
+// and the rest of the captures as a numbered contact sheet. Everything comes from the shared project data; the filter hooks
+// are those of the other Works pages and appear under the same condition. The journal rows keep the two-way links between a
+// work and its entries (core/data/projects.ts projectJournals).
+import { Icon } from "astro-icon/components";
+import { getSiteContent } from "@/core/i18n/content";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { getPublishedPosts } from "@/core/content/blog";
+import { projectJournals } from "@/core/data/projects";
+import { readingStats } from "@/core/content/reading-time.mjs";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import { site } from "@/lib/site";
+import PageLayout from "../layouts/ArknightsLayout.astro";
+import PageHead from "../components/PageHead.astro";
+import { pad } from "../lib/sections.mjs";
+import { serialOf, stamp } from "../lib/records.mjs";
+
+const { locale, t, unit, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
+const { projectEntries, projectTechLines } = getSiteContent(locale);
+const posts = await getPublishedPosts(locale);
+const filterable = projectEntries.length > 1 && projectTechLines.length > 1;
+// Captions never break inside a date or a size ("2026-10-31", "390×844") and never start a line with the middle dot.
+const caption = (text?: string) => keepTails(text ?? "").replace(/(\d)([-×])(?=\d)/g, "$1⁠$2⁠").replace(/ ·/g, " ·");
+type Shot = { src: string; width: number; height: number; alt: string; label?: string; meta?: string; number?: string };
+const files = projectEntries.map((project, index) => {
+  const gallery: Shot[] = (project.gallery ?? []).map((shot, at) => ({ ...shot, number: pad(at + 1) }));
+  const image = project.image;
+  const pick = (src?: string): Shot | undefined => (src ? gallery.find((shot) => shot.src === src) ?? { ...image, src } : undefined);
+  const light = pick(image?.src);
+  const dark = pick(image?.darkSrc);
+  const contacts = gallery.filter((shot) => shot.src !== light?.src && shot.src !== dark?.src);
+  const direction = projectTechLines.find((line) => line.key === project.line);
+  const journal = (projectJournals.find((group) => group.projectId === project.id)?.articles ?? [])
+    .flatMap((slug) => posts.filter((post) => post.slug === slug));
+  const specs = [
+    { word: "Type", value: project.type },
+    direction && { word: "Line", value: `${direction.label} / ${direction.note}` },
+    { word: "Status", value: project.status },
+    gallery.length > 0 && { word: "Frames", value: pad(gallery.length) },
+    journal.length > 0 && { word: "Logs", value: pad(journal.length) },
+  ].filter(Boolean) as { word: string; value: string }[];
+  return { project, number: pad(index + 1), leads: [light, dark].filter((shot): shot is Shot => Boolean(shot)), contacts, journal, specs };
+});
+---
+<PageLayout title={`${t("nav.projects")} | ${site.name}`} description={t("projects.description")} bleed>
+  <div class="ak-page ak-works">
+    <PageHead index="02" word="Works" ghost="Practice" label={t("projects.label")} description={t("projects.intro")} count={projectEntries.length} unit={unit("common.projects", projectEntries.length)} />
+    <section class="ak-sector ak-pagebody" data-site-collection data-site-lightbox
+      data-lightbox-open={t("article.lightboxOpen")}
+      data-lightbox-label={t("article.lightboxLabel")}
+      data-lightbox-close={t("article.lightboxClose")}
+      data-unit={t("common.projects")} data-unit-one={t("common.projectsOne")} aria-label={t("projects.index")}>
+      {filterable && (
+        <form class="ak-works-filter" data-site-filter-form hidden>
+          <fieldset class="ak-classes">
+            <legend class="ak-finder-label">{t("projects.categories")}</legend>
+            <button type="button" data-site-category="all" aria-pressed="true"><span class="ak-lamp" aria-hidden="true"></span><span class="ak-classes-name">{t("projects.all")}</span></button>
+            {projectTechLines.map((line) => <button type="button" data-site-category={line.key} aria-pressed="false"><span class="ak-lamp" aria-hidden="true"></span><span class="ak-classes-name">{line.label}</span></button>)}
+          </fieldset>
+          <output class="ak-journal-meta" data-site-count aria-live="polite" aria-atomic="true">{projectEntries.length} {unit("common.projects", projectEntries.length)}</output>
+        </form>
+      )}
+      <div class="ak-work-list" data-site-entries>
+        {files.map(({ project, number, leads, contacts, journal, specs }) => (
+          <article id={project.id} class="ak-work" data-site-entry data-category={project.line} aria-labelledby={`${project.id}-title`}>
+            <p class="ak-work-bar" aria-hidden="true"><span>File // {number}</span><span>{project.id}</span></p>
+            <div class="ak-work-sheet">
+              {leads.length > 0 && (
+                <div class="ak-viewfinder">
+                  {leads.map((shot, at) => (
+                    <figure class:list={["ak-viewfinder-shot", leads.length > 1 && (at === 0 ? "is-light" : "is-dark")]}>
+                      <span class="ak-viewfinder-frame"><img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading={at === 0 ? "eager" : "lazy"} fetchpriority={at === 0 ? "high" : undefined} decoding="async" /></span>
+                      {shot.meta && <figcaption><b>{shot.number}</b><span>{caption(shot.label)}</span><small>{caption(shot.meta)}</small></figcaption>}
+                    </figure>
+                  ))}
+                </div>
+              )}
+              <div class="ak-work-text">
+                <p class="ak-eyebrow" lang="en">// Project file</p>
+                <h2 id={`${project.id}-title`} class="ak-work-title">{keepTails(project.title)}</h2>
+                <dl class="ak-spec">
+                  {specs.map((spec) => <div><dt lang="en">{spec.word}</dt><dd>{spec.value}</dd></div>)}
+                </dl>
+                <p class="ak-work-summary">{keepTails(project.summary)}</p>
+                <ol class="ak-work-points">{project.details.map((detail, at) => <li><span aria-hidden="true">{pad(at + 1)}</span>{keepTails(detail)}</li>)}</ol>
+                <p class="ak-cta"><a class="ak-button ak-button--signal" href={project.url}><span>{t("projects.caseStudy")}</span><Icon name="tabler:arrow-up-right" size={18} aria-hidden="true" /></a></p>
+              </div>
+            </div>
+            {journal.length > 0 && (
+              <nav class="ak-work-journal" aria-label={t("projects.journal")}>
+                <h3 class="ak-work-subhead"><span class="ak-eyebrow" lang="en" aria-hidden="true">// Logs</span>{t("projects.journal")}</h3>
+                <ol class="ak-archive">
+                  {journal.map((post) => {
+                    const date = post.data.pubDate;
+                    const serial = serialOf(posts, post.slug);
+                    const stats = readingStats(post.body ?? "");
+                    return (
+                      <li><a class="ak-row" href={href(`/blog/${post.slug}/`)} data-ak-no={serial}>
+                        <span class="ak-row-no" aria-hidden="true">No.{serial}</span>
+                        <time class="ak-row-date" datetime={date.toISOString()}><span aria-hidden="true">{stamp(date)}</span><span class="ak-sr">{formatDate(date)}</span></time>
+                        <span class="ak-row-kind">{categoryLabel[post.data.category]}</span>
+                        <span class="ak-row-title" lang={post.data.locale}>{keepTails(post.data.title)}</span>
+                        <span class="ak-row-text" lang={post.data.locale}>{keepTails(post.data.description)}</span>
+                        {stats.count > 0 && <span class="ak-row-time">{t("article.readingTime").replace("{n}", String(stats.minutes))}</span>}
+                        <Icon class="ak-row-go" name="tabler:chevron-right" size={20} aria-hidden="true" />
+                      </a></li>
+                    );
+                  })}
+                </ol>
+              </nav>
+            )}
+            {contacts.length > 0 && (
+              <div class="ak-contacts">
+                <h3 class="ak-work-subhead"><span class="ak-eyebrow" lang="en" aria-hidden="true">// Frames</span>{t("ema.gallery.title")}</h3>
+                <ol>
+                  {contacts.map((shot) => (
+                    <li>
+                      <figure>
+                        <span class="ak-contact-frame"><img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" decoding="async" /></span>
+                        {shot.meta && <figcaption><b>{shot.number}</b><span>{caption(shot.label)}</span><small>{caption(shot.meta)}</small></figcaption>}
+                      </figure>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+          </article>
+        ))}
+      </div>
+      {filterable && <div class="ak-noresult" data-site-empty hidden><p>{t("projects.empty")}</p><button class="ak-button" type="button" data-site-reset><span>{t("projects.reset")}</span><Icon name="tabler:arrow-right" size={18} aria-hidden="true" /></button></div>}
+    </section>
+  </div>
+</PageLayout>

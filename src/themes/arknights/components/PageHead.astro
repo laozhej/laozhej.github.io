@@ -1,0 +1,46 @@
+---
+// Arknights inner-page head (2026-11-28, the owner's request to give the inner pages the theme's own structure): the first
+// sector of every list page. The homepage's survey lattice and a giant cropped section word sit behind it; the title is the
+// section's fixed English word set large, with the page's own name on the signal plate; the count is shown on a dot-matrix
+// board like the homepage's latest record, but in ink, so the signal stays the one large field of colour on each page.
+// Everything shown is a real field: the section number and word, the page's name and description, and the count.
+import { dotMatrix } from "../lib/matrix.mjs";
+
+interface Props {
+  index: string;
+  word: string;
+  label: string;
+  description: string;
+  count: number;
+  unit: string;
+  // The giant word cropped behind the head: another word for the section than its title, so the two never repeat.
+  ghost: string;
+  // Extra annotation fields after the section word (real values only).
+  notes?: string[];
+}
+const { index, word, label, description, count, unit, ghost, notes = [] } = Astro.props;
+const host = Astro.site?.host ?? "";
+const digits = String(count).padStart(2, "0");
+const board = dotMatrix(digits);
+---
+<section class="ak-sector ak-pagehead" aria-labelledby="ak-page-title" data-ak-enter>
+  <span class="ak-lattice" aria-hidden="true"></span>
+  <span class="ak-ghost ak-ghost--page" data-ghost={ghost} aria-hidden="true"></span>
+  <div class="ak-pagehead-copy">
+    <p class="ak-annot" aria-hidden="true"><span>// {index}</span>{notes.map((note) => <span>{note}</span>)}{host && <span>{host}</span>}</p>
+    <h1 id="ak-page-title" class="ak-title ak-pagehead-title"><span lang="en">{word}</span> <span class="ak-title-plate"><span>{label}</span></span></h1>
+    <p class="ak-pagehead-intro">{description}</p>
+  </div>
+  <p class="ak-tally">
+    <span class="ak-tally-head" aria-hidden="true"><span>Index</span><span>// {index}</span></span>
+    <svg class="ak-tally-board" viewBox={`-0.5 -0.5 ${board.width + 1} ${board.height + 1}`} aria-hidden="true" focusable="false">
+      {board.rows.map((row) => (
+        <g style={`--r:${row.y}`}>
+          {row.off.map((x) => <rect class="ak-tally-off" x={x + 0.12} y={row.y + 0.12} width="0.76" height="0.76" />)}
+          {row.on.map((x) => <rect class="ak-tally-on" x={x + 0.12} y={row.y + 0.12} width="0.76" height="0.76" />)}
+        </g>
+      ))}
+    </svg>
+    <span class="ak-tally-foot"><b>{digits}</b> {unit}</span>
+  </p>
+</section>

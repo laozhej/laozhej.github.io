@@ -1,0 +1,100 @@
+---
+// Endfield article (2026-11-28, the owner's request to give the inner pages the theme's own structure): the title sits on a
+// sheet with an ink tab and one corner cut toward its centre, over a hatched shadow, with its fields in a row (category
+// as a cut tag, date, length, reading time), the three-colour strip under the title and the tags as cut blocks. The text
+// stays the quiet reading column with its shared hooks; headings are marked "//", code blocks are square with a hatched
+// corner. The end closes with the related records, the colophon board and the way back.
+import { Icon } from "astro-icon/components";
+import { site } from "@/lib/site";
+import { getThemedI18n as getI18n } from "@/core/themes/i18n";
+import { getSiteContent } from "@/core/i18n/content";
+import { getPublishedPosts } from "@/core/content/blog";
+import { readingStats } from "@/core/content/reading-time.mjs";
+import ProjectJournalLinks from "@/core/components/ProjectJournalLinks.astro";
+import { keepTails } from "@/core/i18n/wrap.mjs";
+import PageLayout from "../layouts/EndfieldLayout.astro";
+
+const { locale, t, href, categoryLabel, formatDate } = getI18n(Astro.url.pathname);
+const { profileIdentity } = getSiteContent(locale);
+const { frontmatter, body = "" } = Astro.props;
+const headings = (Astro.props.headings ?? []).filter((heading: { depth: number }) => heading.depth >= 2 && heading.depth <= 3);
+const title = `${frontmatter.seoTitle ?? frontmatter.title} | ${site.name}`;
+const description = frontmatter.seoDescription ?? frontmatter.description;
+const date = frontmatter.updatedDate ?? frontmatter.pubDate;
+const dateLabel = formatDate(date);
+const stats = readingStats(body);
+const formattedCount = new Intl.NumberFormat(locale).format(stats.count);
+const wordsLabel = t("article.words").replace("{n}", formattedCount);
+const readTimeLabel = t("article.readingTime").replace("{n}", String(stats.minutes));
+const posts = await getPublishedPosts(locale);
+const slug = Astro.url.pathname.replace(/\/$/, "").split("/").pop() ?? "";
+const at = posts.findIndex((post) => post.slug === slug);
+const serial = at < 0 ? "" : String(posts.length - at).padStart(3, "0");
+---
+<PageLayout title={title} description={description} isArticlePage article={frontmatter} bleed>
+  <div class="ef-page ef-article">
+    <header class="ef-sheet-head" aria-labelledby="ef-article-title" data-ef-enter>
+      <p class="ef-article-topline">
+        <a class="ef-link" href={href("/blog/")}><Icon name="tabler:arrow-left" size={16} aria-hidden="true" />&nbsp;{t("common.allArticles")}</a>
+        <span class="ef-fields" aria-hidden="true"><span>// 01</span><span lang="en">Journal</span>{serial && <span>No.{serial}</span>}</span>
+      </p>
+      <div class="ef-sheet-frame"><div class="ef-sheet">
+        {serial && <span class="ef-hollow-no ef-sheet-no" aria-hidden="true">{serial}</span>}
+        <p class="ef-sheet-fields">
+          <a class="ef-tag ef-sheet-kind" href={`${href("/blog/")}?category=${frontmatter.category}`}>{categoryLabel[frontmatter.category]}</a>
+          <span class="ef-fields"><time datetime={date.toISOString()}>{frontmatter.updatedDate ? t("article.updated") : ""}{dateLabel}</time>{stats.count > 0 && <><span class="site-read-meta">{wordsLabel}</span><span class="site-read-meta">{readTimeLabel}</span></>}</span>
+        </p>
+        <h1 id="ef-article-title" class="ef-sheet-title">{frontmatter.title}</h1>
+        <p class="ef-sheet-lede">{frontmatter.description}</p>
+        {frontmatter.tags.length > 0 && <p class="ef-sheet-tags">{frontmatter.tags.map((tag: string) => <a href={`${href("/blog/")}?q=${encodeURIComponent(tag)}`}>#{tag}</a>)}</p>}
+      </div></div>
+    </header>
+    <div class="ef-article-wrap">
+      <div class="blank-article-shell ef-article-shell">
+        {headings.length > 0 && (
+          <aside class="blank-toc ef-toc">
+            <details open>
+              <summary><span>{t("article.contents")}</span><span class="site-toc-tail"><span class="site-toc-progress" data-site-reading-pct aria-hidden="true">0%</span><Icon class="blank-disclosure-icon" name="tabler:chevron-down" size={16} /></span></summary>
+              <nav aria-label={t("article.toc")} data-site-toc>{headings.map((heading: { depth: number; slug: string; text: string }) => <a class={`depth-${heading.depth}`} href={`#${heading.slug}`}>{heading.text}</a>)}</nav>
+            </details>
+          </aside>
+        )}
+        <article class="blank-article-body ef-article-body"
+          data-copy-code={t("article.copyCode")}
+          data-copy-code-lang={t("article.copyCodeLang")}
+          data-copied={t("article.copied")}
+          data-copy-failed={t("article.copyFailed")}
+          data-copy-heading={t("article.copyHeading")}
+          data-lightbox-open={t("article.lightboxOpen")}
+          data-lightbox-label={t("article.lightboxLabel")}
+          data-lightbox-close={t("article.lightboxClose")}
+          data-code-expand={t("article.codeExpand")}
+          data-code-collapse={t("article.codeCollapse")}>
+          {frontmatter.locale !== locale && <p class="blank-translation-notice" role="note">{t("article.originalLanguage")}</p>}
+          <div class="blank-prose" data-site-prose lang={frontmatter.locale}><slot /></div>
+          <footer class="ef-article-end">
+            <p class="ef-article-endmark" aria-hidden="true"><span>{t("article.end")}</span></p>
+            <div class="ef-related"><ProjectJournalLinks /></div>
+            <div class="site-colophon">
+              <div class="site-colophon-block">
+                <p class="site-colophon-title">{t("article.colophonInfo")}</p>
+                <dl class="site-colophon-meta">
+                  <div><dt>{t("article.colophonAuthor")}</dt><dd>{profileIdentity.displayName}</dd></div>
+                  <div><dt>{t("article.colophonDate")}</dt><dd><time datetime={date.toISOString()}>{dateLabel}</time></dd></div>
+                  {stats.count > 0 && <div><dt>{t("article.colophonLength")}</dt><dd>{wordsLabel} · {readTimeLabel}</dd></div>}
+                </dl>
+              </div>
+              <div class="site-colophon-block site-colophon-rights">
+                <p class="site-colophon-title">{t("article.colophonRights")}</p>
+                <p>{t("article.colophonRightsText")}</p>
+                <a class="ef-link" href={href("/credits/")}>{t("article.colophonCreditsLink")}</a>
+              </div>
+            </div>
+            <p class="ef-article-thanks">{keepTails(t("article.thanks"))}</p>
+            <p class="ef-hero-actions"><a class="ef-button ef-button--quiet" href={href("/blog/")}>{t("article.back")}<Icon name="tabler:arrow-right" size={17} aria-hidden="true" /></a></p>
+          </footer>
+        </article>
+      </div>
+    </div>
+  </div>
+</PageLayout>

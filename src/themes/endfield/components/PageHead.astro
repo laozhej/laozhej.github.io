@@ -1,0 +1,32 @@
+---
+// Endfield inner-page head (2026-11-28, the owner's request to give the inner pages the theme's own structure): the
+// nameplate of the homepage at page scale. Fields on top, the section's fixed English word in the heavy narrow cut, the
+// page's own name on the accent (a fill under ink, never a line or a letter on paper), and the count as the homepage's
+// hollow number beside it; a hatched band closes the head along its lower edge. Every figure is a real field.
+interface Props {
+  index: string;
+  word: string;
+  label: string;
+  description: string;
+  count: number;
+  unit: string;
+  // Extra fields after the section word (real values only).
+  notes?: string[];
+}
+const { index, word, label, description, count, unit, notes = [] } = Astro.props;
+const host = Astro.site?.host ?? "";
+---
+<section class="ef-pagehead" aria-labelledby="ef-page-title" data-ef-enter>
+  <div class="ef-pagehead-inner">
+    <div class="ef-pagehead-copy">
+      <ul class="ef-fields" aria-hidden="true"><li>// {index}</li>{notes.map((note) => <li>{note}</li>)}{host && <li>{host}</li>}</ul>
+      <h1 id="ef-page-title" class="ef-pagehead-title"><span class="ef-pagehead-word" lang="en">{word}</span> <span class="ef-pagehead-label"><span class="ef-marker">{label}</span></span></h1>
+      <p class="ef-pagehead-intro">{description}</p>
+    </div>
+    <p class="ef-pagehead-count">
+      <span class="ef-hollow-no" aria-hidden="true">{String(count).padStart(2, "0")}</span>
+      <span class="ef-pagehead-unit"><small lang="en" aria-hidden="true">Count</small><span><b>{String(count).padStart(2, "0")}</b> {unit}</span></span>
+    </p>
+  </div>
+  <span class="ef-pagehead-band" aria-hidden="true"></span>
+</section>
